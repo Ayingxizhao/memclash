@@ -1,0 +1,2951 @@
+[
+ {
+  "folder": "global",
+  "id": "G1",
+  "file": "global_CLAUDE.md",
+  "quote": "tell me your plan first briefly",
+  "rule": "Before editing or making any changes, tell the user the plan briefly first.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "change_files"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "state_plan_first"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G2",
+  "file": "global_CLAUDE.md",
+  "quote": "wait for approval",
+  "rule": "Before editing or making any changes, wait for the user's approval.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "change_files"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "pause_for_user_approval"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G3",
+  "file": "global_CLAUDE.md",
+  "quote": "stay your response clear and concise please.",
+  "rule": "Keep responses clear and concise.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G4",
+  "file": "global_CLAUDE.md",
+  "quote": "just the most important info for each topic.",
+  "rule": "Give only the most important information for each topic.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G5",
+  "file": "global_CLAUDE.md",
+  "quote": "Whenever a MEMORY.md index entry is relevant to the current task, read that memory file in full before applying it",
+  "rule": "When a MEMORY.md index entry is relevant to the task, read the linked memory file in full before applying it.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "read_full_memory_file"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G6",
+  "file": "global_CLAUDE.md",
+  "quote": "don’t rely on the index description alone.",
+  "rule": "Do not rely on the MEMORY.md index description alone.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "read_full_memory_file"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G7",
+  "file": "global_CLAUDE.md",
+  "quote": "if you are not sure or dont have the most updated information. Tell me.",
+  "rule": "If unsure or lacking up-to-date information, tell the user.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "say_when_unsure"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G8",
+  "file": "global_CLAUDE.md",
+  "quote": "Do not make reasoning and conclusions up.",
+  "rule": "Do not make up reasoning or conclusions.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "say_when_unsure"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G9",
+  "file": "global_CLAUDE.md",
+  "quote": "when making technical decisions, do not give much weight on enginnering complexity.",
+  "rule": "When making technical decisions, do not give much weight to engineering complexity.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "make_design_decision"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "edit_beyond_target"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G10",
+  "file": "global_CLAUDE.md",
+  "quote": "Follow for the best industry standard and practice",
+  "rule": "When making technical decisions, follow the best industry standard and practice.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "make_design_decision"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "follow_industry_standard"
+   },
+   "new_terms": [
+    {
+     "kind": "action",
+     "group": "workflow",
+     "name": "follow_industry_standard",
+     "type": "bool",
+     "doc": "Choose the option that aligns with the best industry standard and practice."
+    }
+   ]
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G11",
+  "file": "global_CLAUDE.md",
+  "quote": "after each edit. briefly tell me what did you modify (e.g. new files, new functions), brief code on the core logic/important implementation and what is the expected behavior.",
+  "rule": "After each edit, briefly report what was modified, the core logic as brief code, and the expected behavior.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "change_files"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_edit_summary"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G12",
+  "file": "global_CLAUDE.md",
+  "quote": "work incrementally, do not move so fast.",
+  "rule": "Work incrementally; do not move fast.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "work_incrementally"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "global",
+  "id": "G13",
+  "file": "global_CLAUDE.md",
+  "quote": "after edits i would like to know: what was the issue, what did you fix (be specfic), what is the expected behavior?",
+  "rule": "When debugging, after edits report the issue, the specific fix, and the expected behavior.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_issue_fix_expected"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R1",
+  "file": "MEMORY.md",
+  "quote": "conclusion first",
+  "rule": "In responses, put the conclusion first.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R2",
+  "file": "MEMORY.md",
+  "quote": "then bold topic sentence + bullets",
+  "rule": "In responses, structure detail as a bold topic sentence followed by bullets.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R3",
+  "file": "MEMORY.md",
+  "quote": "~5 sentences per idea",
+  "rule": "In responses, use about 5 sentences per idea.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "sentences_per_idea",
+    "min": 4,
+    "max": 6
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R4",
+  "file": "MEMORY.md",
+  "quote": "no rhetorical language",
+  "rule": "In responses, use no rhetorical language.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "use_rhetorical_language"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R5",
+  "file": "MEMORY.md",
+  "quote": "give normal explanation",
+  "rule": "When the user explains a concept back or checks understanding, give a normal explanation first.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_full_explanation"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R6",
+  "file": "MEMORY.md",
+  "quote": "then \"Your Framing Corrected\" section",
+  "rule": "When the user explains a concept back or checks understanding, add a \"Your Framing Corrected\" section after the explanation.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_framing_correction"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R7",
+  "file": "MEMORY.md",
+  "quote": "debugging sessions use Goal/Problem/How I Found It/Plan headers",
+  "rule": "In debugging sessions, use the headers Goal, Problem, How I Found It, Plan.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_section_headers"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R8",
+  "file": "MEMORY.md",
+  "quote": "with bold topic sentences",
+  "rule": "In debugging sessions, use bold topic sentences.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R9",
+  "file": "MEMORY.md",
+  "quote": "state plan before running commands",
+  "rule": "In debugging sessions, state the plan before running commands.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "state_plan_first"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R10",
+  "file": "MEMORY.md",
+  "quote": "keep payloads short",
+  "rule": "Keep answer payloads short.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "response_line_count",
+    "min": 1,
+    "max": 3
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R11",
+  "file": "MEMORY.md",
+  "quote": "one sentence to say",
+  "rule": "In an answer payload, lead with one sentence worth saying.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R12",
+  "file": "MEMORY.md",
+  "quote": "2-3 bullets",
+  "rule": "In an answer payload, use 2-3 bullets.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "max_supporting_bullets",
+    "min": 2,
+    "max": 3
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R13",
+  "file": "MEMORY.md",
+  "quote": "terse trap lines",
+  "rule": "In an answer payload, write traps as terse lines.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R14",
+  "file": "MEMORY.md",
+  "quote": "cut rather than add",
+  "rule": "In an answer payload, cut rather than add.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R15",
+  "file": "MEMORY.md",
+  "quote": "explain with examples, input/output, and small ASCII traces instead of prose paragraphs",
+  "rule": "Explain concepts with examples, input/output, and small ASCII traces instead of prose paragraphs.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_examples"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R16",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "Keep answer payloads short",
+  "rule": "Keep answer payloads short.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "response_line_count",
+    "min": 1,
+    "max": 1
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R17",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "one sentence to say",
+  "rule": "In an answer payload, give one sentence to say.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "response_line_count",
+    "min": 1,
+    "max": 1
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R18",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "2-3 bullets",
+  "rule": "In an answer payload, use 2-3 bullets.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "max_supporting_bullets",
+    "min": 2,
+    "max": 3
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R19",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "terse trap lines",
+  "rule": "In an answer payload, write traps as terse lines.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R20",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "Keep the payload of an answer short.",
+  "rule": "Keep the payload of an answer short.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "response_line_count",
+    "min": 1,
+    "max": 1
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R21",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "lead with the one sentence actually worth saying",
+  "rule": "When giving a model answer, drill response, or study-tracker entry, lead with the one sentence actually worth saying.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R22",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "then at most 2-3 supporting bullets",
+  "rule": "When giving a model answer, drill response, or study-tracker entry, use at most 2-3 supporting bullets.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "max_supporting_bullets",
+    "max": 3
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R23",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "then traps as short single lines rather than paragraphs",
+  "rule": "When giving a model answer, drill response, or study-tracker entry, write traps as short single lines rather than paragraphs.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "response_line_count",
+    "min": 1,
+    "max": 1
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R24",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "Cut rather than add.",
+  "rule": "In answer payloads, cut rather than add.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "give_drill_answer"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R25",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "prefer the shortest form that still survives a follow-up.",
+  "rule": "In answer payloads, prefer the shortest form that still survives a follow-up.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond",
+     "change_files"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "Pref",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R26",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "Don't pad with caveats, alternative framings, or \"when X would be right\" asides unless asked.",
+  "rule": "In answer payloads, do not pad with caveats, alternative framings, or asides unless asked.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [
+    {
+     "situation": "user_requested",
+     "value": true
+    }
+   ],
+   "modality": "F",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R27",
+  "file": "feedback_answer_payload_length.md",
+  "quote": "If extra depth exists, offer it in one line and let the user pull it.",
+  "rule": "If extra depth exists, offer it in one line and let the user ask for it.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat",
+     "file"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_filler_or_caveats"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R28",
+  "file": "feedback_debug_format.md",
+  "quote": "Debugging session format – Goal/Problem/How I Found It/Plan",
+  "rule": "In debugging sessions, use the format Goal / Problem / How I Found It / Plan.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_section_headers"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R29",
+  "file": "feedback_debug_format.md",
+  "quote": "with bold topic sentences",
+  "rule": "In debugging sessions, use bold topic sentences.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R30",
+  "file": "feedback_debug_format.md",
+  "quote": "Use `#` headers: Goal, Problem, How I Found It, Plan",
+  "rule": "In debugging sessions, use `#` headers: Goal, Problem, How I Found It, Plan.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_section_headers"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R31",
+  "file": "feedback_debug_format.md",
+  "quote": "Bold topic sentence continues inline as the body",
+  "rule": "In debugging sessions, the body text continues inline after the bold topic sentence.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "body_layout",
+    "value": "inline_after_bold"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R32",
+  "file": "feedback_debug_format.md",
+  "quote": "one idea per section",
+  "rule": "In debugging sessions, put one idea per section.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "one_idea_per_subsection"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R33",
+  "file": "feedback_debug_format.md",
+  "quote": "When the problem or plan changes mid-debug, explicitly re-state with Updated Problem / Updated Plan + note what changed and why",
+  "rule": "When the problem or plan changes mid-debug, re-state it under Updated Problem / Updated Plan and note what changed and why.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [
+    {
+     "situation": "plan_changed",
+     "value": true
+    }
+   ],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_framing_correction"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R34",
+  "file": "feedback_debug_format.md",
+  "quote": "Tell me the plan **before** running any command",
+  "rule": "In debugging sessions, tell the user the plan before running any command.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "state_plan_first"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R35",
+  "file": "feedback_debug_format.md",
+  "quote": "never run first and explain after",
+  "rule": "In debugging sessions, never run a command first and explain after.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "run_command_before_explaining"
+   },
+   "new_terms": [
+    {
+     "kind": "action",
+     "group": "workflow",
+     "name": "run_command_before_explaining",
+     "type": "bool",
+     "doc": "Run a command before explaining the plan or reasoning."
+    }
+   ]
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R36",
+  "file": "feedback_debug_format.md",
+  "quote": "Always state the plan before executing any command.",
+  "rule": "In debugging sessions, always state the plan before executing any command.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "debug_session"
+    ],
+    "medium": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "state_plan_first"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R37",
+  "file": "feedback_learning_corrections.md",
+  "quote": "Add corrected framing section when user explains concepts in their own words",
+  "rule": "When the user explains a concept in their own words, add a corrected-framing section.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond",
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_framing_correction"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R38",
+  "file": "feedback_learning_corrections.md",
+  "quote": "Normal explanation first",
+  "rule": "When the user explains a concept in their own words or asks whether they understand it right, give a normal explanation first.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_full_explanation"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R39",
+  "file": "feedback_learning_corrections.md",
+  "quote": "Then add a \"Your Framing Corrected:\" section at the bottom",
+  "rule": "When the user explains a concept in their own words or asks whether they understand it right, add a \"Your Framing Corrected:\" section at the bottom.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ]
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_framing_correction"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R40",
+  "file": "feedback_learning_corrections.md",
+  "quote": "**Format:**",
+  "rule": "Write the \"Your Framing Corrected\" section in the format: Problem / What you said / Corrected Version.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "check_user_understanding"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_framing_correction"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R41",
+  "file": "feedback_response_format.md",
+  "quote": "conclusion first",
+  "rule": "In responses, put the conclusion first.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R42",
+  "file": "feedback_response_format.md",
+  "quote": "then bold topic sentence + bullets",
+  "rule": "In responses, structure detail as a bold topic sentence followed by bullets.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R43",
+  "file": "feedback_response_format.md",
+  "quote": "~3 sentences per idea",
+  "rule": "In responses, use about 3 sentences per idea.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "sentences_per_idea",
+    "min": 2,
+    "max": 4
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R44",
+  "file": "feedback_response_format.md",
+  "quote": "no rhetorical language",
+  "rule": "In responses, use no rhetorical language.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "use_rhetorical_language"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R45",
+  "file": "feedback_response_format.md",
+  "quote": "Lead with the conclusion",
+  "rule": "In responses, lead with the conclusion.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R46",
+  "file": "feedback_response_format.md",
+  "quote": "then structure detail as bold topic sentences with bullet points underneath, not prose paragraphs.",
+  "rule": "In responses, structure detail as bold topic sentences with bullet points underneath, not prose paragraphs.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R47",
+  "file": "feedback_response_format.md",
+  "quote": "The first line of the response is the conclusion of the whole response",
+  "rule": "The first line of a response is the conclusion of the whole response.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "lead_with_conclusion"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R48",
+  "file": "feedback_response_format.md",
+  "quote": "Every bold topic sentence is likewise a conclusion, not a label for what follows.",
+  "rule": "In responses, every bold topic sentence states a conclusion, not a label.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "use_bold_topic_sentences"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R49",
+  "file": "feedback_response_format.md",
+  "quote": "Supporting detail goes as short bullets immediately below the bold sentence",
+  "rule": "In responses, put supporting detail as short bullets immediately below the bold sentence.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "body_layout",
+    "value": "bullets_below"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R50",
+  "file": "feedback_response_format.md",
+  "quote": "never as an inline paragraph continuing after it.",
+  "rule": "In responses, never put supporting detail as an inline paragraph continuing after the bold sentence.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "body_layout",
+    "value": "inline_after_bold"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R51",
+  "file": "feedback_response_format.md",
+  "quote": "One idea per subsection.",
+  "rule": "In responses, put one idea per subsection.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "one_idea_per_subsection"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R52",
+  "file": "feedback_response_format.md",
+  "quote": "Keep bullets short — one fact per bullet, not compound sentences.",
+  "rule": "In responses, keep bullets short: one fact per bullet.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "max_supporting_bullets",
+    "min": 1,
+    "max": 1
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R53",
+  "file": "feedback_response_format.md",
+  "quote": "A one-line **Recommendation:** (bold label, plain text after) can close out a subsection when a decision is being proposed.",
+  "rule": "When a decision is being proposed, a one-line Recommendation may close out a subsection.",
+  "modality": "permission",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "P",
+   "action": {
+    "name": "include_edit_summary"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R54",
+  "file": "feedback_show_dont_describe.md",
+  "quote": "Explain concepts with concrete examples, input/output, and ASCII visualizations rather than prose paragraphs",
+  "rule": "Explain concepts with concrete examples, input/output, and ASCII visualizations rather than prose paragraphs.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_examples"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R55",
+  "file": "feedback_show_dont_describe.md",
+  "quote": "When explaining a technical concept, show it with concrete examples, input/output, and simple ASCII diagrams instead of describing it in prose.",
+  "rule": "When explaining a technical concept, show it with concrete examples, input/output, and simple ASCII diagrams instead of prose.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_examples"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R56",
+  "file": "feedback_show_dont_describe.md",
+  "quote": "prefer a small before/after or side-by-side block over a paragraph.",
+  "rule": "When explaining a technical concept, prefer a small before/after or side-by-side block over a paragraph.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "Pref",
+   "action": {
+    "name": "include_examples"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R57",
+  "file": "feedback_show_dont_describe.md",
+  "quote": "Show the failure case concretely — actual event names, actual resulting state.",
+  "rule": "When explaining a technical concept, show the failure case concretely.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_examples"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-agents",
+  "id": "R58",
+  "file": "feedback_show_dont_describe.md",
+  "quote": "Keep diagrams small and unlabeled by arrows-with-captions",
+  "rule": "When explaining a technical concept, keep diagrams small.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "explain_concept"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_ascii_diagram"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R1",
+  "file": "MEMORY.md",
+  "quote": "stop + demo at critical steps",
+  "rule": "In the ContentGuard rebuild, stop and demo at critical steps.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "show_prototype"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R2",
+  "file": "MEMORY.md",
+  "quote": "user decides design forks",
+  "rule": "In the ContentGuard rebuild, the user decides design forks.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "ask_user_to_choose"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R3",
+  "file": "contentguard-rebuild.md",
+  "quote": "Preserve: merged sarcasm-aware prompt, 7-category taxonomy, Gen Z lexicon (server-side only).",
+  "rule": "In the ContentGuard rebuild, preserve the merged sarcasm-aware prompt, the 7-category taxonomy, and the Gen Z lexicon (server-side only).",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "preserve_components"
+   },
+   "new_terms": [
+    {
+     "kind": "action",
+     "group": "workflow",
+     "name": "preserve_components",
+     "type": "bool",
+     "doc": "Keep specified components unchanged during the rebuild."
+    }
+   ]
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R4",
+  "file": "contentguard-rebuild.md",
+  "quote": "Drop the immigrant \"not malicious\" prompt example.",
+  "rule": "In the ContentGuard rebuild, drop the immigrant \"not malicious\" prompt example.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "change_files"
+    ],
+    "medium": [
+     "file"
+    ],
+    "artifact": [
+     "source_code"
+    ]
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "edit_beyond_target"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R5",
+  "file": "contentguard-rebuild.md",
+  "quote": "verify API access first",
+  "rule": "Before building the Reddit step, verify API access.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "run_command"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "run_command_before_explaining"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R6",
+  "file": "contentguard-rebuild.md",
+  "quote": "load, never expose",
+  "rule": "Load secrets from the .env file and never expose them.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "load_secrets_from_env"
+   },
+   "new_terms": [
+    {
+     "kind": "action",
+     "group": "git_and_secrets",
+     "name": "load_secrets_from_env",
+     "type": "bool",
+     "doc": "Load secrets from the .env file."
+    }
+   ]
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R7",
+  "file": "rebuild-workflow.md",
+  "quote": "I make design decisions myself",
+  "rule": "In the ContentGuard rebuild, the agent makes design decisions itself.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 2,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "make_design_decision"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "state_plan_first"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R8",
+  "file": "rebuild-workflow.md",
+  "quote": "show a prototype at every stage for feedback",
+  "rule": "In the ContentGuard rebuild, show a prototype at every stage for feedback.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "show_prototype"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R9",
+  "file": "rebuild-workflow.md",
+  "quote": "Make design decisions myself (pick the best-practice option, state what I chose and why in one line).",
+  "rule": "In the ContentGuard rebuild, make design decisions without asking: pick the best-practice option and state the choice and reason in one line.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "make_design_decision"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "follow_industry_standard"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R10",
+  "file": "rebuild-workflow.md",
+  "quote": "Don't stop to ask A/B/C.",
+  "rule": "In the ContentGuard rebuild, do not stop to ask the user to choose between options.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "make_design_decision"
+    ],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "pause_for_user_approval"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R11",
+  "file": "rebuild-workflow.md",
+  "quote": "At every stage, show a runnable/visible prototype",
+  "rule": "In the ContentGuard rebuild, show a runnable/visible prototype at every stage.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "show_prototype"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R12",
+  "file": "rebuild-workflow.md",
+  "quote": "run all remaining steps back-to-back, showing prototypes as I go",
+  "rule": "In the ContentGuard rebuild, run all remaining steps back-to-back without stopping.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [
+    {
+     "situation": "only_user_can_do",
+     "value": true
+    }
+   ],
+   "modality": "O",
+   "action": {
+    "name": "work_incrementally"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R13",
+  "file": "rebuild-workflow.md",
+  "quote": "only stop for things only they can do (secrets, Cloudflare login, deploy approval).",
+  "rule": "In the ContentGuard rebuild, stop only for things only the user can do (secrets, Cloudflare login, deploy approval).",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "pause_for_user_approval"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI",
+  "id": "R14",
+  "file": "rebuild-workflow.md",
+  "quote": "prefer stages that end in something visible (UI over raw JSON when possible).",
+  "rule": "In the ContentGuard rebuild, prefer stages that end in something visible.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [],
+    "medium": [],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "Pref",
+   "action": {
+    "name": "show_prototype"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R1",
+  "file": "MEMORY.md",
+  "quote": "one line: \"doing X, found Y -> bug because Z -> fix is A\"",
+  "rule": "Report a bug in one line: \"doing X, found Y -> bug because Z -> fix is A\".",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_causal_chain"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R2",
+  "file": "MEMORY.md",
+  "quote": "Not narration, not a bare conclusion.",
+  "rule": "Do not report a bug as narration or as a bare conclusion.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_causal_chain"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R3",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "User wants a short plain-language summary after multi-step reasoning or tool-call chains, not just a trail of edits/commands to reconstruct from.",
+  "rule": "After multi-step reasoning or tool-call chains, give a short plain-language summary.",
+  "modality": "preference",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "respond"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_edit_summary"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R4",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "When reporting a bug found mid-task, compress it into ONE line following this exact causal chain, not a narrated play-by-play and not just a bare conclusion",
+  "rule": "When reporting a bug found mid-task, compress it into one line following the causal chain.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_causal_chain"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R5",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "Investigate silently as normal.",
+  "rule": "Investigate a bug silently, without narrating.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "run_command_before_explaining"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R6",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "When surfacing a bug/finding, write it as a single compressed sentence with explicit -> steps: context/action -> discovery -> why it's a problem -> the fix.",
+  "rule": "When surfacing a bug or finding, write a single sentence with explicit steps: context -> discovery -> why it is a problem -> the fix.",
+  "modality": "obligation",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "O",
+   "action": {
+    "name": "include_causal_chain"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R7",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "Do not expand this into multiple sentences or paragraphs",
+  "rule": "Do not expand a bug report into multiple sentences or paragraphs.",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_full_explanation"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ },
+ {
+  "folder": "-Users-yingxizhao-Desktop-github-agent-source",
+  "id": "R8",
+  "file": "feedback_summarize_reasoning.md",
+  "quote": "do not strip it down to just \"found X, fixed by Y\"",
+  "rule": "Do not strip a bug report down to just \"found X, fixed by Y\".",
+  "modality": "prohibition",
+  "status": "valid",
+  "attempts": 1,
+  "record": {
+   "fits": true,
+   "unfit_reason": null,
+   "actor": "main_agent",
+   "scope": {
+    "task": [
+     "report_bug"
+    ],
+    "medium": [
+     "chat"
+    ],
+    "artifact": []
+   },
+   "when": [],
+   "unless": [],
+   "modality": "F",
+   "action": {
+    "name": "include_causal_chain"
+   },
+   "new_terms": []
+  },
+  "errors": []
+ }
+]

@@ -1,0 +1,34 @@
+[
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "follow_industry_standard",
+  "type": "bool",
+  "doc": "Choose the option that aligns with the best industry standard and practice.",
+  "source": "global:G10"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "run_command_before_explaining",
+  "type": "bool",
+  "doc": "Run a command before explaining the plan or reasoning.",
+  "source": "-Users-yingxizhao-dev-agents:R35"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "preserve_components",
+  "type": "bool",
+  "doc": "Keep specified components unchanged during the rebuild.",
+  "source": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI:R3"
+ },
+ {
+  "kind": "action",
+  "group": "git_and_secrets",
+  "name": "load_secrets_from_env",
+  "type": "bool",
+  "doc": "Load secrets from the .env file.",
+  "source": "-Users-yingxizhao-dev-GENZ-ContentGuard-AI:R6"
+ }
+]

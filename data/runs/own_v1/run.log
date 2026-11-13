@@ -1,0 +1,111 @@
+[1/93] valid   x1 global:G1  Before editing or making any changes, tell the user the plan briefly f
+[2/93] valid   x1 global:G2  Before editing or making any changes, wait for the user's approval.
+[3/93] valid   x2 global:G3  Keep responses clear and concise.
+[4/93] valid   x1 global:G4  Give only the most important information for each topic.
+[5/93] valid   x1 global:G5  When a MEMORY.md index entry is relevant to the task, read the linked 
+[6/93] valid   x1 global:G6  Do not rely on the MEMORY.md index description alone.
+[7/93] valid   x1 global:G7  If unsure or lacking up-to-date information, tell the user.
+[8/93] valid   x1 global:G8  Do not make up reasoning or conclusions.
+[9/93] valid   x1 global:G9  When making technical decisions, do not give much weight to engineerin
+[10/93] valid   x1 global:G10  When making technical decisions, follow the best industry standard and
+[11/93] valid   x1 global:G11  After each edit, briefly report what was modified, the core logic as b
+[12/93] valid   x1 global:G12  Work incrementally; do not move fast.
+[13/93] valid   x1 global:G13  When debugging, after edits report the issue, the specific fix, and th
+[14/93] valid   x1 rs-yingxizhao-dev-agents:R1  In responses, put the conclusion first.
+[15/93] valid   x1 rs-yingxizhao-dev-agents:R2  In responses, structure detail as a bold topic sentence followed by bu
+[16/93] valid   x1 rs-yingxizhao-dev-agents:R3  In responses, use about 5 sentences per idea.
+[17/93] valid   x1 rs-yingxizhao-dev-agents:R4  In responses, use no rhetorical language.
+[18/93] valid   x1 rs-yingxizhao-dev-agents:R5  When the user explains a concept back or checks understanding, give a 
+[19/93] valid   x1 rs-yingxizhao-dev-agents:R6  When the user explains a concept back or checks understanding, add a "
+[20/93] valid   x1 rs-yingxizhao-dev-agents:R7  In debugging sessions, use the headers Goal, Problem, How I Found It, 
+[21/93] valid   x1 rs-yingxizhao-dev-agents:R8  In debugging sessions, use bold topic sentences.
+[22/93] valid   x1 rs-yingxizhao-dev-agents:R9  In debugging sessions, state the plan before running commands.
+[23/93] valid   x1 rs-yingxizhao-dev-agents:R10  Keep answer payloads short.
+[24/93] valid   x1 rs-yingxizhao-dev-agents:R11  In an answer payload, lead with one sentence worth saying.
+[25/93] valid   x1 rs-yingxizhao-dev-agents:R12  In an answer payload, use 2-3 bullets.
+[26/93] valid   x2 rs-yingxizhao-dev-agents:R13  In an answer payload, write traps as terse lines.
+[27/93] valid   x1 rs-yingxizhao-dev-agents:R14  In an answer payload, cut rather than add.
+[28/93] valid   x1 rs-yingxizhao-dev-agents:R15  Explain concepts with examples, input/output, and small ASCII traces i
+[29/93] valid   x1 rs-yingxizhao-dev-agents:R16  Keep answer payloads short.
+[30/93] valid   x1 rs-yingxizhao-dev-agents:R17  In an answer payload, give one sentence to say.
+[31/93] valid   x1 rs-yingxizhao-dev-agents:R18  In an answer payload, use 2-3 bullets.
+[32/93] valid   x2 rs-yingxizhao-dev-agents:R19  In an answer payload, write traps as terse lines.
+[33/93] valid   x1 rs-yingxizhao-dev-agents:R20  Keep the payload of an answer short.
+[34/93] valid   x1 rs-yingxizhao-dev-agents:R21  When giving a model answer, drill response, or study-tracker entry, le
+[35/93] valid   x1 rs-yingxizhao-dev-agents:R22  When giving a model answer, drill response, or study-tracker entry, us
+[36/93] valid   x1 rs-yingxizhao-dev-agents:R23  When giving a model answer, drill response, or study-tracker entry, wr
+[37/93] valid   x2 rs-yingxizhao-dev-agents:R24  In answer payloads, cut rather than add.
+[38/93] valid   x2 rs-yingxizhao-dev-agents:R25  In answer payloads, prefer the shortest form that still survives a fol
+[39/93] valid   x1 rs-yingxizhao-dev-agents:R26  In answer payloads, do not pad with caveats, alternative framings, or 
+[40/93] valid   x2 rs-yingxizhao-dev-agents:R27  If extra depth exists, offer it in one line and let the user ask for i
+[41/93] valid   x1 rs-yingxizhao-dev-agents:R28  In debugging sessions, use the format Goal / Problem / How I Found It 
+[42/93] valid   x1 rs-yingxizhao-dev-agents:R29  In debugging sessions, use bold topic sentences.
+[43/93] valid   x1 rs-yingxizhao-dev-agents:R30  In debugging sessions, use `#` headers: Goal, Problem, How I Found It,
+[44/93] valid   x1 rs-yingxizhao-dev-agents:R31  In debugging sessions, the body text continues inline after the bold t
+[45/93] valid   x1 rs-yingxizhao-dev-agents:R32  In debugging sessions, put one idea per section.
+[46/93] valid   x1 rs-yingxizhao-dev-agents:R33  When the problem or plan changes mid-debug, re-state it under Updated 
+[47/93] valid   x1 rs-yingxizhao-dev-agents:R34  In debugging sessions, tell the user the plan before running any comma
+[48/93] valid   x1 rs-yingxizhao-dev-agents:R35  In debugging sessions, never run a command first and explain after.
+[49/93] valid   x1 rs-yingxizhao-dev-agents:R36  In debugging sessions, always state the plan before executing any comm
+[50/93] valid   x1 rs-yingxizhao-dev-agents:R37  When the user explains a concept in their own words, add a corrected-f
+[51/93] valid   x1 rs-yingxizhao-dev-agents:R38  When the user explains a concept in their own words or asks whether th
+[52/93] valid   x1 rs-yingxizhao-dev-agents:R39  When the user explains a concept in their own words or asks whether th
+[53/93] valid   x1 rs-yingxizhao-dev-agents:R40  Write the "Your Framing Corrected" section in the format: Problem / Wh
+[54/93] valid   x2 rs-yingxizhao-dev-agents:R41  In responses, put the conclusion first.
+[55/93] valid   x1 rs-yingxizhao-dev-agents:R42  In responses, structure detail as a bold topic sentence followed by bu
+[56/93] valid   x1 rs-yingxizhao-dev-agents:R43  In responses, use about 3 sentences per idea.
+[57/93] valid   x2 rs-yingxizhao-dev-agents:R44  In responses, use no rhetorical language.
+[58/93] valid   x1 rs-yingxizhao-dev-agents:R45  In responses, lead with the conclusion.
+[59/93] valid   x2 rs-yingxizhao-dev-agents:R46  In responses, structure detail as bold topic sentences with bullet poi
+[60/93] valid   x2 rs-yingxizhao-dev-agents:R47  The first line of a response is the conclusion of the whole response.
+[61/93] valid   x1 rs-yingxizhao-dev-agents:R48  In responses, every bold topic sentence states a conclusion, not a lab
+[62/93] valid   x1 rs-yingxizhao-dev-agents:R49  In responses, put supporting detail as short bullets immediately below
+[63/93] valid   x1 rs-yingxizhao-dev-agents:R50  In responses, never put supporting detail as an inline paragraph conti
+[64/93] valid   x1 rs-yingxizhao-dev-agents:R51  In responses, put one idea per subsection.
+[65/93] valid   x1 rs-yingxizhao-dev-agents:R52  In responses, keep bullets short: one fact per bullet.
+[66/93] valid   x1 rs-yingxizhao-dev-agents:R53  When a decision is being proposed, a one-line Recommendation may close
+[67/93] valid   x1 rs-yingxizhao-dev-agents:R54  Explain concepts with concrete examples, input/output, and ASCII visua
+[68/93] valid   x1 rs-yingxizhao-dev-agents:R55  When explaining a technical concept, show it with concrete examples, i
+[69/93] valid   x1 rs-yingxizhao-dev-agents:R56  When explaining a technical concept, prefer a small before/after or si
+[70/93] valid   x1 rs-yingxizhao-dev-agents:R57  When explaining a technical concept, show the failure case concretely.
+[71/93] valid   x2 rs-yingxizhao-dev-agents:R58  When explaining a technical concept, keep diagrams small.
+[72/93] valid   x1 dev-GENZ-ContentGuard-AI:R1  In the ContentGuard rebuild, stop and demo at critical steps.
+[73/93] valid   x1 dev-GENZ-ContentGuard-AI:R2  In the ContentGuard rebuild, the user decides design forks.
+[74/93] valid   x1 dev-GENZ-ContentGuard-AI:R3  In the ContentGuard rebuild, preserve the merged sarcasm-aware prompt,
+[75/93] valid   x1 dev-GENZ-ContentGuard-AI:R4  In the ContentGuard rebuild, drop the immigrant "not malicious" prompt
+[76/93] valid   x1 dev-GENZ-ContentGuard-AI:R5  Before building the Reddit step, verify API access.
+[77/93] valid   x1 dev-GENZ-ContentGuard-AI:R6  Load secrets from the .env file and never expose them.
+[78/93] valid   x2 dev-GENZ-ContentGuard-AI:R7  In the ContentGuard rebuild, the agent makes design decisions itself.
+[79/93] valid   x1 dev-GENZ-ContentGuard-AI:R8  In the ContentGuard rebuild, show a prototype at every stage for feedb
+[80/93] valid   x1 dev-GENZ-ContentGuard-AI:R9  In the ContentGuard rebuild, make design decisions without asking: pic
+[81/93] valid   x1 dev-GENZ-ContentGuard-AI:R10  In the ContentGuard rebuild, do not stop to ask the user to choose bet
+[82/93] valid   x1 dev-GENZ-ContentGuard-AI:R11  In the ContentGuard rebuild, show a runnable/visible prototype at ever
+[83/93] valid   x1 dev-GENZ-ContentGuard-AI:R12  In the ContentGuard rebuild, run all remaining steps back-to-back with
+[84/93] valid   x1 dev-GENZ-ContentGuard-AI:R13  In the ContentGuard rebuild, stop only for things only the user can do
+[85/93] valid   x1 dev-GENZ-ContentGuard-AI:R14  In the ContentGuard rebuild, prefer stages that end in something visib
+[86/93] valid   x1 ktop-github-agent-source:R1  Report a bug in one line: "doing X, found Y -> bug because Z -> fix is
+[87/93] valid   x1 ktop-github-agent-source:R2  Do not report a bug as narration or as a bare conclusion.
+[88/93] valid   x1 ktop-github-agent-source:R3  After multi-step reasoning or tool-call chains, give a short plain-lan
+[89/93] valid   x1 ktop-github-agent-source:R4  When reporting a bug found mid-task, compress it into one line followi
+[90/93] valid   x1 ktop-github-agent-source:R5  Investigate a bug silently, without narrating.
+[91/93] valid   x1 ktop-github-agent-source:R6  When surfacing a bug or finding, write a single sentence with explicit
+[92/93] valid   x1 ktop-github-agent-source:R7  Do not expand a bug report into multiple sentences or paragraphs.
+[93/93] valid   x1 ktop-github-agent-source:R8  Do not strip a bug report down to just "found X, fixed by Y".
+{
+ "run": "own_v1",
+ "model": "deepseek-v4-flash",
+ "rules": 93,
+ "valid": 93,
+ "unfit": 0,
+ "invalid": 0,
+ "coverage": 1.0,
+ "first_try_valid": 81,
+ "new_terms": 4,
+ "new_actions": 4,
+ "usage": {
+  "calls": 45,
+  "cached": 60,
+  "prompt_tokens": 123745,
+  "completion_tokens": 4171
+ }
+}

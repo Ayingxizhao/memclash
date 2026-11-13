@@ -1,0 +1,18 @@
+{
+ "run": "own_v1",
+ "model": "deepseek-v4-flash",
+ "rules": 93,
+ "valid": 93,
+ "unfit": 0,
+ "invalid": 0,
+ "coverage": 1.0,
+ "first_try_valid": 81,
+ "new_terms": 4,
+ "new_actions": 4,
+ "usage": {
+  "calls": 45,
+  "cached": 60,
+  "prompt_tokens": 123745,
+  "completion_tokens": 4171
+ }
+}
