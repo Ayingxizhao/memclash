@@ -1,0 +1,1 @@
+- [Bug-report format](feedback_summarize_reasoning.md) — one line: "doing X, found Y -> bug because Z -> fix is A". Not narration, not a bare conclusion.

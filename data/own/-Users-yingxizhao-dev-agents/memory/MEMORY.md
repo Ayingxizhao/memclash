@@ -1,0 +1,5 @@
+- [Response Format](feedback_response_format.md) — conclusion first, then bold topic sentence + bullets; ~5 sentences per idea, no rhetorical language; applies globally
+- [Learning Corrections](feedback_learning_corrections.md) — when user explains a concept back or checks understanding, give normal explanation then "Your Framing Corrected" section
+- [Debug Format](feedback_debug_format.md) — debugging sessions use Goal/Problem/How I Found It/Plan headers with bold topic sentences; state plan before running commands
+- [Answer Payload Length](feedback_answer_payload_length.md) — keep payloads short: one sentence to say, 2-3 bullets, terse trap lines; cut rather than add
+- [Show Don't Describe](feedback_show_dont_describe.md) — explain with examples, input/output, and small ASCII traces instead of prose paragraphs

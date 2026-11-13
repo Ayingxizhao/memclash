@@ -1,0 +1,39 @@
+query: "type: feedback" path:.claude/memory
+  "type: feedback" path:.claude/memory size:0..600: total=210
+  "type: feedback" path:.claude/memory size:601..1000: total=745
+  "type: feedback" path:.claude/memory size:1001..1500: total=952
+  "type: feedback" path:.claude/memory size:1501..2000: total=848
+  "type: feedback" path:.claude/memory size:2001..2500: total=742
+  "type: feedback" path:.claude/memory size:2501..5000: total=952
+  "type: feedback" path:.claude/memory size:5001..400000: total=273
+  -> 4774 hits
+query: "type: feedback" path:.claude/projects
+  "type: feedback" path:.claude/projects size:0..600: total=205
+  "type: feedback" path:.claude/projects size:601..1000: total=377
+  "type: feedback" path:.claude/projects size:1001..1500: total=161
+  "type: feedback" path:.claude/projects size:1501..2500: total=145
+  "type: feedback" path:.claude/projects size:2501..5000: total=83
+  "type: feedback" path:.claude/projects size:5001..400000: total=15
+  -> 984 hits
+query: "type: feedback" path:memory
+  "type: feedback" path:memory size:0..600: total=271
+  "type: feedback" path:memory size:601..1000: total=651
+  "type: feedback" path:memory size:1001..1500: total=783
+  "type: feedback" path:memory size:1501..2000: total=865
+  "type: feedback" path:memory size:2001..2500: total=443
+  "type: feedback" path:memory size:2501..5000: total=804
+  "type: feedback" path:memory size:5001..17344: total=928
+  "type: feedback" path:memory size:17345..29688: total=103
+  "type: feedback" path:memory size:29689..54375: total=20
+  "type: feedback" path:memory size:54376..103750: total=4
+  "type: feedback" path:memory size:103751..202500: total=3
+  "type: feedback" path:memory size:202501..400000: total=3
+  -> 4881 hits
+query: "type: user" path:memory
+  "type: user" path:memory size:0..600: total=130
+  "type: user" path:memory size:601..1000: total=126
+  "type: user" path:memory size:1001..1500: total=66
+  "type: user" path:memory size:1501..2500: total=75
+  "type: user" path:memory size:2501..5000: total=55
+  "type: user" path:memory size:5001..400000: total=177
+  -> 646 hits

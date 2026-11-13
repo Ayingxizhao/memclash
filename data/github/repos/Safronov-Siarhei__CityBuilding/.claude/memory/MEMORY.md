@@ -1,0 +1,19 @@
+- [Feature cards (2026-10-21)](feedback_feature_cards.md) — READ FIRST: project knowledge lives in Design/features/ (index → one card per feature); read only the matching card, update cards after every task. Old [[project_*]] links in other notes now point to Design/features/archive/.
+- [Current state (2026-10-21)](project_current_state.md) — short: latest work and what waits on the user; per-feature detail is in the cards.
+- [Respond in Russian](feedback_respond_in_russian.md) — always reply to the user in Russian in this project, every message.
+- [Save context after every task](feedback_save_context_every_task.md) — update cards + memory at the end of each finished task as if the chat closes now; the user opens new chats to save tokens.
+- [Auto-push after commit](feedback_auto_push.md) — push to origin master right after every commit in this project, no need to ask.
+- [Batchmode workflow](feedback_batchmode_workflow.md) — run Unity only via Tools/research/run.ps1 and read its short report, not RunLogs/; details in the build-and-test card.
+- [Verify a green by breaking it](feedback_verify_green_by_breaking.md) — a test that never failed is not evidence; the failures here were always a degenerate fixture, not a wrong assertion.
+- [Mobile-first optimization](feedback_mobile_first_optimization.md) — game targets mobile first; weigh frame time/GC cost in every design and implementation decision, not as a later cleanup pass.
+- [Hand things off as a FILE](feedback_hand_off_as_file.md) — anything the user must copy goes as an attached .tsv/file, never as chat text; they cannot copy from chat.
+- [Sheet handoff fallback](feedback_balance_row_handoff.md) — normally edit the sheet via the `balance-sheet` skill; if impossible, full rows in the sheet's column order, exact operations, verify by pulling.
+- [Build only when asked](feedback_build_only_on_request.md) — never run an APK build on your own initiative; finish, push, and stop until the user asks for a build.
+- [Builds go to Telegram](feedback_build_to_telegram.md) — every APK/Windows zip is sent automatically by the build scripts; Saved-Messages and 50 MB limits, the dead token to check first, and the Windows-build side effects to revert.
+- [Build folder D:\Builds CB](feedback_build_folder.md) — builds land in D:\Builds CB; the previous build there is deleted first (preliminary rule, 2026-10-13).
+- [Telegram bot scope](telegram_bridge_tool.md) — bot now ONLY ships APK builds; the remote-chat bridge was deleted 2026-08-20, don't resurrect it.
+- [Device testing over adb](reference_device_testing.md) — driving the user's Pixel 6 Pro: held taps, 1/3 screenshots, FPS via SurfaceFlinger timestats; cheats don't reach the phone.
+- [Mobile device fleet and quality tiers](project_mobile_device_fleet.md) — the six test phones and what each is for, plus the proposed three-layer tier scheme and the rule that a tier may change how the world is drawn, never what it is.
+- [Kingdoms and Castles reference analysis](kc_reference_analysis.md) — observed K&C mechanics/UI/balance (rotation, zone-based logging, tier names, seasons) to compare against when scoping features.
+- [Competitor teardowns (K&C, Farthest Frontier)](reference_competitor_analyses.md) — two deep analyses in D:\K&C: architecture, building catalogues, real balance numbers, and what reviewers hated.
+- [skill-creator on Windows](project_skill_creator_windows.md) — the description optimizer does not work here; two bugs patched in a cache that plugin updates wipe, a third unfixed, and its 0% recall means nothing ran.

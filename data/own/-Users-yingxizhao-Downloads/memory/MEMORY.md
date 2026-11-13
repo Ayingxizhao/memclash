@@ -1,0 +1,2 @@
+- [Response Format](feedback_response_format.md) — use bold-topic-sentence sections, one idea per subsection, no filler; applies globally
+- [Learning Corrections](feedback_learning_corrections.md) — when user explains a concept back or checks understanding, reply with ONLY the "Your Framing Corrected" section, no explanation unless asked

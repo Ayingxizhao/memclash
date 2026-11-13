@@ -1,0 +1,1 @@
+- [Response Format](feedback_response_format.md) — use bold-topic-sentence sections, one idea per subsection, no filler; applies globally

@@ -1,0 +1,4 @@
+- [Site layout](project_site_layout.md) — a site models `[flank_up][nc1][tnp_cds][nc2][flank_down]`; one non-coding region carries the ncRNA; target lives in one flank.
+- [Iteration speed](feedback_iteration_speed.md) — for config-only jitter/range changes, skip the full smoke test; use a fast direct-sampler probe.
+- [Use sbatch --wrap](feedback_use_sbatch.md) — Slurm cluster; any pipeline step >5 min must be submitted via `sbatch --wrap`, not run on the login node.
+- [Check RNA structure diversity across tnps](feedback_check_rna_structure_diversity.md) — every positive-set QC report must include a dedicated section on inter-tnp dot-bracket diversity.

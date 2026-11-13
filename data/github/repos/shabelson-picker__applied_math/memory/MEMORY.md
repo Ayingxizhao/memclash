@@ -1,0 +1,8 @@
+- [AofA course](aofa-course.md) — self-paced Analysis of Algorithms course built around the Sedgewick-Flajolet book (sem3/data structure); module-per-chapter
+- [DS class cheat sheet](ds-class-cheatsheet.md) — the graded HIT Data Structures class; master sheet at `sem3/data structure/cheatsheet.md`, CLRS under `extra/`
+- [Infi 2 test prep](infi2-test-prep.md) — ongoing, working through solution PDFs question by question; up to List 11
+- [Minimal edits](minimal-edits-when-corrected.md) — when pointed at something, change only that; no surrounding rework
+- [No LaTeX](no-latex-explanations.md) — explain math in plain text, never LaTeX
+- [Hebrew math terms](hebrew-math-terms-infi2.md) — glossary for the Infi 2 worksheets
+- [DS formal proofs](ds-formal-proof-practice.md) — user wants proof practice each DS session; simple formal English with articles
+- [VS Code C debug](vscode-c-debug-cpptools-bug.md) — cpptools 1.32.x freezes gdb here; pinned to 1.29.3, don't re-debug launch.json

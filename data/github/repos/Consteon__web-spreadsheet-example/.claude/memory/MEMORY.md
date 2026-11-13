@@ -1,0 +1,5 @@
+- [Approval target_status semantics](approval_target_status.md) — consumer is status-only; target_status = next-step label from target table's enum, not core
+- [Code improvement log](code-improvement.md) — lessons from negative feedback; latest: don't trim user values to satisfy wrong schema constraints
+- [db-analyst must not run mutations without confirmation](feedback_db_analyst_scope.md) — db-analyst scope is SELECT-only; DDL/DML on shared DBs need explicit user confirmation first
+- [Always confirm migration target database before running](feedback_migration_target.md) — Never assume the target DB; applied to wrong DB (adfood) before correcting to db_analyst
+- [Coder must follow references exactly](feedback_coder_follow_references.md) — use async function not arrow, trust reference params, use buildWorkspaceFilter; never copy nearby code

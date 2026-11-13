@@ -1,0 +1,2 @@
+- [ContentGuard rebuild](contentguard-rebuild.md) — goal, stack, caps, steps for the Cloudflare rebuild
+- [Rebuild workflow](rebuild-workflow.md) — stop + demo at critical steps; user decides design forks
