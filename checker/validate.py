@@ -65,6 +65,31 @@ class Vocab:
         node = self.facets[facet] if term == facet else find(self.facets[facet])
         return collect(term, node) if node is not None else []
 
+    def descendants(self, facet, term):
+        """All terms below a term (children, grandchildren, ...)."""
+        def find(node):
+            for k, v in node.items():
+                if k == "_doc":
+                    continue
+                if k == term:
+                    return v
+                if isinstance(v, dict):
+                    r = find(v)
+                    if r is not None:
+                        return r
+            return None
+
+        def walk(node):
+            out = []
+            for k, v in node.items():
+                if k != "_doc":
+                    out.append(k)
+                    if isinstance(v, dict):
+                        out += walk(v)
+            return out
+        node = find(self.facets[facet])
+        return walk(node) if isinstance(node, dict) else []
+
     def groups(self):
         return sorted({a["group"] for a in self.actions.values()})
 
@@ -191,6 +216,12 @@ class Vocab:
                 for v in vals:
                     if not known(facet, v):
                         errors.append(f"scope.{facet}: '{v}' is not a {facet} term")
+                for v in vals:   # a list means ANY of its terms, so a parent swallows its child
+                    kids = [c for c in vals if isinstance(v, str) and isinstance(c, str) and c in self.descendants(facet, v)]
+                    if kids:
+                        errors.append(f"scope.{facet} lists '{v}' together with its child term(s) {kids}. A list means "
+                                      f"ANY of its terms, so '{v}' already covers them. Keep only the narrowest "
+                                      f"term(s) the rule is about.")
             for k in scope:
                 if k not in SCOPE_FACETS:
                     errors.append(f"scope has unknown facet '{k}' (allowed: {list(SCOPE_FACETS)})")
