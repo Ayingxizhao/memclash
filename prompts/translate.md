@@ -37,14 +37,27 @@ record, whatever their wording. Use only the vocabulary below.
 1. Polarity lives in `modality`, never in the action name. The action is always the positive
    behavior. "Never X" / "don't X" / "no X" -> "F" + X. "Keep going, don't stop to ask" ->
    "F" + `pause_for_user_approval`. Never create negated actions (`no_x`, `avoid_x`, `skip_x`).
-2. "X instead of Y" / "X, not Y": encode the positive part X with "O". For an enum action, pick
-   the value X.
-3. Numbers: "~N" / "about N" -> min N-1, max N+1. "at most N" -> max N. "at least N" -> min N.
-   "N-M" -> min N, max M. "exactly N" / "one line" -> min = max.
+2. "X, not Y" / "X instead of Y" / "don't just Y": the rule REQUIRES X and rejects the
+   alternative Y. Encode "O" + X. Never put "F" on X. For an enum action, pick the value X.
+   Example: "Don't rely on the summary alone; open the full log" requires opening the full
+   log -> "O" + the open-the-log action. ("F" + that action would forbid what the rule asks.)
+   Example: "Report the cause, not just the symptom" -> "O" + the report-cause action.
+3. Numbers only when the rule states one. "~N" / "about N" -> min N-1, max N+1. "at most N" ->
+   max N. "at least N" -> min N. "N-M" -> min N, max M. "exactly N" / "one line" -> min = max.
+   "Short", "brief", "small" are not numbers: use a bool action.
 4. Translate the single behavior stated in `rule`. Use the file only to resolve scope and
    references; ignore the file's other rules.
-5. Reuse before you add. Read the whole vocabulary first; add a term only if no existing term
-   has that meaning.
+5. Match by meaning, not by resemblance. Use an existing term only if its documented meaning
+   IS the behavior in the rule. If the nearest term means something else, do not use it: add
+   a new term (or set "fits": false if the behavior is not concrete). A wrong term is worse
+   than a new term. Wrong: "prefer simple solutions" -> an action about editing scope, just
+   because both mention "scope". Wrong: "one topic per message" -> an action that counts
+   bullets, just because both have a number.
+6. `task` carries the situation. Set `medium` or `artifact` only if the rule or file names a
+   medium or a kind of file; `respond` already means a chat reply, so leave `medium` empty.
+7. Self-check before you answer: read your record back as a sentence ("The agent must /
+   must not / may <action meaning>, when <scope>"). It must say what the rule says. If it
+   says something else or the opposite, fix the modality or the action.
 
 ## New terms (`new_terms`)
 Only when the behavior or scope is concrete but missing from the vocabulary:
