@@ -1,0 +1,141 @@
+[1/125] valid   x1   R1 When seeding or updating an approval_module_config row, vali -> O use {"kind": "source", "text": "target table's status enum"}
+[2/125] valid   x1   R2 Never treat target_status as a generic approval state.       -> F use {"kind": "code_symbol", "text": "target_status"}
+[3/125] valid   x1   R3 If an existing approval_module_config row stores a target_st -> O edit {"kind": "code_symbol", "text": "target_status"}
+[4/125] unfit   x1   R4 Before trimming a user-provided value to satisfy a schema co -> The rule describes a general working habit (asking a questio
+[5/125] valid   x1   R5 For cross-module config fields, trace where the value is con -> O use {"kind": "source", "text": "consuming column"}
+[6/125] valid   x1   R6 A schema fix (e.g. column type change) is allowed when a con -> P edit {"kind": "code_symbol", "text": "column type"}
+[7/125] valid   x1   R7 For a DRAFT -> WAITING_ON_APPROVAL table-column submit, alwa -> O run {"kind": "command", "text": "edit<X>Repository"}
+[8/125] valid   x1   R8 Use submit<X>Repository only for APPROVED -> FINAL_STATUS tr -> O use {"kind": "command", "text": "submit<X>Repository"}
+[9/125] valid   x1   R9 Gate generateSeriesNumber in edit<X>Action on status WAITING -> O set {"kind": "code_symbol", "text": "generateSeriesNumber gate in edit<X>Action"}
+[10/125] valid   x1  R10 When building a DTO from an entity transform, override actio -> O set {"kind": "code_symbol", "text": "actionBy"}
+[11/125] valid   x1  R11 Never use stored updatedBy as the current user identity.     -> F use {"kind": "code_symbol", "text": "updatedBy"}
+[12/125] valid   x1  R12 In CASE...WHEN sql templates, never pass bare/stringified va -> F use {"kind": "format", "text": "THEN ${item.field ?? null}"}
+[13/125] valid   x1  R13 In CASE...WHEN bulk UPDATEs, wrap every numeric column value -> O use {"kind": "format", "text": "CAST(... AS NUMERIC)"}
+[14/125] valid   x1  R14 In .values()/.set() direct assignments of numeric values, no -> O use {"kind": "format", "text": "currency(value ?? 0).toString()"}
+[15/125] valid   x2  R15 Repository edit functions must never set status APPROVED dir -> F set {"kind": "setting", "text": "status APPROVED"}
+[16/125] unfit   x1  R16 The if (approvalData) guard in the approval creation block m -> The rule describes a code structure requirement (no else bra
+[17/125] valid   x1  R17 If approval creation fails, leave the record in WAITING_ON_A -> F edit {"kind": "code_symbol", "text": "status"}
+[18/125] valid   x1  R18 In CASE...WHEN sql templates, never pass bare values for a t -> F use {"kind": "format", "text": "THEN ${item.field ?? null}"}
+[19/125] valid   x1  R19 In CASE...WHEN bulk UPDATEs, wrap every timestamp column val -> O use {"kind": "format", "text": "CAST(... AS TIMESTAMPTZ)"}
+[20/125] valid   x1  R20 In .values()/.set() direct assignments of timestamp values,  -> O use {"kind": "format", "text": ".values()/.set()"}
+[21/125] valid   x1  R21 Every CASE...WHEN expression must explicitly CAST to the tar -> O use {"kind": "format", "text": "CASE...WHEN"}
+[22/125] unfit   x1  R22 When reviewing catch blocks, treat bare re-throw as acceptab -> The rule describes a review behavior without a named thing o
+[23/125] unfit   x1  R23 Limit repository fixes to the function added in the current  -> The rule has no named thing; 'repository fixes' and 'the who
+[24/125] valid   x1  R24 Do not change the catch block of findemployeeByUserAccountId -> F edit {"kind": "code_symbol", "text": "findemployeeByUserAccountIdRepository"}
+[25/125] valid   x1  R25 Write action functions as regular async function declaration -> O use {"kind": "format", "text": "async function"}
+[26/125] valid   x1  R26 Read the reference's Function Signature section before writi -> O read {"kind": "source", "text": "Function Signature section"}
+[27/125] valid   x1  R27 Use the parameter types given in the reference (e.g. workspa -> O use {"kind": "code_symbol", "text": "workspaceFilter: WorkspaceFilterDTOType"}
+[28/125] valid   x1  R28 Build workspace filters with buildWorkspaceFilter instead of -> O use {"kind": "code_symbol", "text": "buildWorkspaceFilter"}
+[29/125] valid   x1  R29 Never use nearby modules' code as a reference; rule files an -> F use {"kind": "source", "text": "nearby modules"}
+[30/125] valid   x1  R30 Before writing action/repository/service/form code, run the  -> O run {"kind": "tool", "text": "codebase-onboard skill"}
+[31/125] unfit   x1  R31 Follow the reference's function signature, parameter types,  -> The rule describes a general working habit of following refe
+[32/125] valid   x1  R32 The db-analyst must not execute DDL or DML mutations without -> F run {"kind": "command", "text": "ALTER TABLE"}
+[33/125] valid   x1  R33 When the db-analyst needs a mutation, stop, show the SQL, an -> F run {"kind": "command", "text": "mutation"}
+[34/125] valid   x1  R34 The db-analyst must never auto-execute mutations, even if lo -> F run {"kind": "command", "text": "mutations"}
+[35/125] valid   x1  R35 The db-analyst may only run non-destructive SELECT queries.  -> O run {"kind": "command", "text": "SELECT"}
+[36/125] valid   x1  R36 Always confirm the exact target database with the user befor -> F run {"kind": "command", "text": "SQL migration or destructive DB operation"}
+[37/125] valid   x1  R37 If the user specifies a database name for a migration, use e -> O use {"kind": "setting", "text": "database name"}
+[38/125] valid   x1  R38 If the migration target is ambiguous (connection error, DB n -> F run {"kind": "command", "text": "migration"}
+[39/125] valid   x1  R39 Do not infer the migration target database from .env or prio -> F use {"kind": "path", "text": ".env"}
+[40/125] valid   x1  R40 (Index) db-analyst is SELECT-only; DDL/DML on shared DBs nee -> F run {"kind": "command", "text": "DDL/DML"}
+[41/125] unfit   x1  R41 (Index) The latest code-improvement lesson is: don't trim us -> The rule describes a general coding practice about not trimm
+[42/125] invalid x3   R1 When recommending learning resources, point to articles, boo -> None
+[43/125] valid   x1   R2 Never recommend YouTube videos or video courses.             -> F use {"kind": "tool", "text": "YouTube videos or video courses"}
+[44/125] valid   x1   R3 When enhancing course content, expand reading/article refere -> O edit {"kind": "path", "text": "reading list and article references"}
+[45/125] unfit   x1   R4 Be direct when tutoring.                                     -> The rule 'Be direct when tutoring' has no named thing and is
+[46/125] unfit   x1   R5 Explain concepts clearly.                                    -> The rule has no named thing and none of the verbs describes 
+[47/125] unfit   x1   R6 Generate boilerplate code quickly for the user.              -> The rule has no named thing; 'boilerplate' is a generic noun
+[48/125] valid   x1   R7 Point the user to primary sources.                           -> O use {"kind": "source", "text": "primary sources"}
+[49/125] valid   x1   R8 Do not artificially withhold information (no Socratic gateke -> F use {"kind": "tool", "text": "Socratic gatekeeping"}
+[50/125] unfit   x1   R9 Give direct answers for mechanics (Java syntax, API calls);  -> The rule describes a general approach to answering questions
+[51/125] valid   x1  R10 When building educational test suites, always include enforc -> O create {"kind": "code_symbol", "text": "enforcement tests"}
+[52/125] valid   x1  R11 Include a ChunkedOnlyInputStream enforcement test that force -> O create {"kind": "code_symbol", "text": "ChunkedOnlyInputStream"}
+[53/125] valid   x1  R12 Include a PartialInputStream test that simulates TCP fragmen -> O create {"kind": "code_symbol", "text": "PartialInputStream"}
+[54/125] valid   x1  R13 Include reflection checks forbidding wrapper classes like Bu -> F use {"kind": "tool", "text": "BufferedReader/Scanner"}
+[55/125] unfit   x1  R14 Include timing gates that catch O(n^2) string concatenation. -> The rule describes a testing technique without a named thing
+[56/125] valid   x1  R15 Include resource-leak tests with rapid connect/disconnect cy -> O create {"kind": "code_symbol", "text": "Resource leak detection"}
+[57/125] valid   x1  R16 Include thread-count checks verifying virtual threads are us -> O use {"kind": "tool", "text": "virtual threads"}
+[58/125] unfit   x1  R17 (Preference) Offer text-based learning material: articles, b -> The rule expresses a general preference for text-based learn
+[59/125] valid   x1  R18 (Preference) Do not give video references, except ThePrimeag -> F use {"kind": "source", "text": "video references"}
+[60/125] unfit   x1  R19 (Preference) Act as a tutor that accelerates learning (boile -> The rule describes a general tutoring style and does not inv
+[61/125] unfit   x1  R20 (Preference) Favor the user's self-directed research over sp -> The rule describes a general working preference without a na
+[62/125] valid   x1   R1 After every merge to main, delete the feature branch locally -> O delete {"kind": "code_symbol", "text": "feature branch"}
+[63/125] valid   x1   R2 After gh pr merge, run git branch -d and git push origin --d -> O run {"kind": "command", "text": "git branch -d <branch>"}
+[64/125] valid   x1   R3 Before git push, git merge, or creating a PR, confirm with t -> F run {"kind": "command", "text": "git push"}
+[65/125] valid   x2   R4 Do not assume approval for pushes/merges; show the file list -> F run {"kind": "command", "text": "push"}
+[66/125] valid   x1   R5 Before any git push or gh pr create, show the changed files  -> F run {"kind": "command", "text": "git push"}
+[67/125] valid   x1   R6 Never commit credentials to the repo.                        -> F commit {"kind": "code_symbol", "text": "credentials"}
+[68/125] valid   x1   R7 Keep credentials in gitignored .env files; commit only .env. -> O use {"kind": "path", "text": ".env"}
+[69/125] valid   x1   R8 Before any commit, verify no .env files, API keys, or secret -> F commit {"kind": "path", "text": ".env"}
+[70/125] valid   x1   R9 Load any credentials used by code from environment variables -> O use {"kind": "source", "text": "environment variables"}
+[71/125] unfit   x1  R10 Immediately flag hardcoded values that look like real creden -> The rule has no named thing; 'hardcoded values' and 'real cr
+[72/125] valid   x1  R11 Work on issue #17 next: run the ingestion pipeline end-to-en -> O run {"kind": "command", "text": "ingestion pipeline"}
+[73/125] valid   x1  R12 Do not use the system Python 3.9.6 (/usr/bin/python3) for th -> F use {"kind": "tool", "text": "/usr/bin/python3"}
+[74/125] valid   x1  R13 (Preference) Always confirm files with the user before push/ -> F run {"kind": "command", "text": "push/merge"}
+[75/125] unfit   x1  R14 (Preference) Keep the repo clean: no stale branches, no cred -> The rule expresses a general preference for cleanliness with
+[76/125] unfit   x1  R15 (Preference) Work incrementally with feature branches, PRs,  -> The rule describes a general working preference without a sp
+[77/125] unfit   x1  R16 (Index) Next work items are issues #4 and #5.                -> The rule describes project status and next work items, not a
+[78/125] unfit   x1   R1 Teach the AofA course as if the user has not taken the concu -> The rule describes a teaching stance and does not involve a 
+[79/125] unfit   x1   R2 In the AofA course, teach everything from the ground up, inc -> The rule describes a teaching approach without a named thing
+[80/125] valid   x1   R3 In the AofA course, do not rely on the DS class or other out -> F use {"kind": "source", "text": "outside knowledge"}
+[81/125] unfit   x1   R4 In the AofA course, build prerequisites explicitly (as real  -> The rule describes a general teaching approach (building pre
+[82/125] valid   x1   R5 Cover every topic properly unless the user says 'skip'.      -> F use {"kind": "source", "text": "skip"}
+[83/125] valid   x1   R6 Structure the AofA course as one module per chapter of the ( -> O create {"kind": "path", "text": "module per chapter"}
+[84/125] valid   x1   R7 Do not pre-write expansion files; create one only when frict -> F create {"kind": "path", "text": "notes/module-00-toolbox"}
+[85/125] valid   x1   R8 Write AofA module lecture notes in plain text, without LaTeX -> F use {"kind": "format", "text": "LaTeX"}
+[86/125] unfit   x1   R9 Work through the AofA course module by module.               -> The rule describes a general working habit (proceeding modul
+[87/125] unfit   x1  R10 Introduce sum-vs-integral bounding as a repurposing of the i -> The rule describes a teaching approach (how to introduce a t
+[88/125] unfit   x1  R11 Re-teach basic combinatorics/probability inline and open the -> The rule describes a teaching approach without a named thing
+[89/125] valid   x1  R12 Consult the reference-shelf books only when needed.          -> F use {"kind": "source", "text": "reference-shelf books"}
+[90/125] valid   x1  R13 Structure AofA work into 30-45 minute sessions.              -> O set {"kind": "setting", "text": "sessions"}
+[91/125] unfit   x1  R14 Write course material in precise, high-register academic Eng -> The rule is about writing style and register, not about a na
+[92/125] unfit   x1  R15 Do not simplify the prose in course material.                -> The rule is about writing style (not simplifying prose) and 
+[93/125] valid   x1  R16 Use Hebrew only on explicit request; never add Hebrew glosse -> F use {"kind": "format", "text": "Hebrew"}
+[94/125] valid   x1  R17 Rebuild course PDFs with bash tools/render-pdfs.sh.          -> O run {"kind": "command", "text": "bash tools/render-pdfs.sh"}
+[95/125] valid   x1  R18 In course notes, write inline math as \( … \) and display ma -> O use {"kind": "format", "text": "\\( \u2026 \\)"}
+[96/125] valid   x1  R19 Use CLRS as the primary text for the AofA course (Sedgewick- -> O use {"kind": "source", "text": "CLRS"}
+[97/125] valid   x1  R20 When Module 2 is reached, write its math in LaTeX from the s -> O use {"kind": "format", "text": "LaTeX"}
+[98/125] unfit   x1  R21 Resume the AofA course at Module 1 §4, then problems P1-P7.  -> The rule describes a study plan action (resume at a section 
+[99/125] valid   x1  R22 Write math in the DS cheat sheet as LaTeX.                   -> O use {"kind": "format", "text": "LaTeX"}
+[100/125] valid   x1  R23 After editing cheatsheet.md, re-run both render steps.       -> O run {"kind": "command", "text": "render steps"}
+[101/125] valid   x2  R24 Keep toolchain/build notes out of the cheat sheet.           -> F edit {"kind": "path", "text": "the sheet"}
+[102/125] unfit   x1  R25 Keep chat lines narrow (~70 chars) and avoid wide markdown t -> The rule is about chat formatting style, not about a named t
+[103/125] valid   x1  R26 When using tree-counting formulas, check them by plugging in -> O use {"kind": "code_symbol", "text": "tree-counting formulas"}
+[104/125] valid   x1  R27 When the user points at a specific item, edit exactly that a -> O edit {"kind": "code_symbol", "text": "line, cell, or sentence"}
+[105/125] unfit   x1  R28 Do not rework surrounding content or search for similar case -> The rule prohibits several different actions without a singl
+[106/125] unfit   x1  R29 If a pointed fix requires a wider change, say so and ask fir -> The rule describes a communication behavior (saying somethin
+[107/125] unfit   x1  R30 Mention nearby problems but do not fix them unasked.         -> The rule has no named thing; 'nearby problems' is a generic 
+[108/125] valid   x1  R31 Do not use LaTeX when explaining math in chat/terminal.      -> F use {"kind": "format", "text": "LaTeX"}
+[109/125] unfit   x1  R32 In chat, write math with unicode symbols and show working li -> The rule describes a general style for presenting math in ch
+[110/125] valid   x1  R33 AofA course note/problem-set source files use LaTeX.         -> O use {"kind": "format", "text": "LaTeX"}
+[111/125] valid   x1  R34 If C debugging freezes, check the cpptools version first; do -> O run {"kind": "command", "text": "check the cpptools version"}
+[112/125] valid   x1  R35 For Infi 2 prep, read the PDF question the user names and ex -> O read {"kind": "path", "text": "PDF"}
+[113/125] valid   x1  R36 (Index) Explain math in plain text, never LaTeX.             -> F use {"kind": "format", "text": "LaTeX"}
+[114/125] unfit   x1  R37 (Index) The AofA course is built around the Sedgewick-Flajol -> The rule describes a course structure and has no named thing
+[115/125] unfit   x1  R38 (Index) Do proof practice each DS session, in simple formal  -> The rule describes a recurring activity and style preference
+[116/125] unfit   x1   R1 When evaluating documentation quality, treat mechanical comm -> The rule describes a judgment about comment quality without 
+[117/125] unfit   x1   R2 Do not penalize inline comments that restate the business ru -> The rule has no named thing; 'inline comments' and 'business
+[118/125] valid   x1   R3 Use llama.cpp server metrics, not GuideLLM client numbers, a -> O use {"kind": "source", "text": "llama.cpp server metrics"}
+[119/125] valid   x1   R4 When recording/reporting benchmark results, take speeds, tok -> O use {"kind": "source", "text": "llama.cpp server"}
+[120/125] valid   x1   R5 GuideLLM output may be noted only as supplementary.          -> F use {"kind": "source", "text": "GuideLLM output"}
+[121/125] valid   x1   R6 When giving serve commands or writing model docs, use llama  -> O run {"kind": "command", "text": "llama serve -hf"}
+[122/125] valid   x1   R7 Pull benchmark metrics from the llama.cpp timings object.    -> O use {"kind": "source", "text": "llama.cpp `timings` object"}
+[123/125] valid   x1   R8 Keep 'Source: Ramalama server' labels on historical models/* -> O edit {"kind": "path", "text": "models/*.md"}
+[124/125] valid   x1   R9 In the agentic harness, route reasoning to Qwen 3.6 Q8 and c -> O use {"kind": "tool", "text": "Qwen 3.6 Q8"}
+[125/125] valid   x1  R10 (Index) Use llama.cpp server timings for benchmark metrics,  -> O use {"kind": "source", "text": "llama.cpp server metrics (API `timings`)"}
+{
+ "run": "dev_v2",
+ "shape": "v2",
+ "model": "deepseek-v4-flash",
+ "rules": 125,
+ "valid": 88,
+ "unfit": 36,
+ "invalid": 1,
+ "coverage": 0.704,
+ "usage": {
+  "calls": 130,
+  "cached": 0,
+  "prompt_tokens": 244864,
+  "completion_tokens": 12022
+ }
+}

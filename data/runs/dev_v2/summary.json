@@ -1,0 +1,16 @@
+{
+ "run": "dev_v2",
+ "shape": "v2",
+ "model": "deepseek-v4-flash",
+ "rules": 125,
+ "valid": 88,
+ "unfit": 36,
+ "invalid": 1,
+ "coverage": 0.704,
+ "usage": {
+  "calls": 130,
+  "cached": 0,
+  "prompt_tokens": 244864,
+  "completion_tokens": 12022
+ }
+}
