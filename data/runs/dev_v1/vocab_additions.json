@@ -1,0 +1,298 @@
+[
+ {
+  "kind": "action",
+  "group": "database",
+  "name": "treat_target_status_as_generic_approval_state",
+  "type": "bool",
+  "doc": "Treat the target_status column as a generic approval state rather than a module-specific next-step label.",
+  "source": "Consteon/web-spreadsheet-example:R2"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "trace_value_consumption",
+  "type": "bool",
+  "doc": "Trace where a value is consumed to determine its valid domain.",
+  "source": "Consteon/web-spreadsheet-example:R5"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "call_edit_repository_for_draft_submit",
+  "type": "bool",
+  "doc": "For a DRAFT to WAITING_ON_APPROVAL table-column submit, call the edit<X>Repository with status WAITING_ON_APPROVAL instead of the submit repository.",
+  "source": "Consteon/web-spreadsheet-example:R7"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "use_submit_repository_for_approved_final_status_only",
+  "type": "bool",
+  "doc": "Restrict use of submit<X>Repository to APPROVED -> FINAL_STATUS transitions only.",
+  "source": "Consteon/web-spreadsheet-example:R8"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "override_action_by_with_caller",
+  "type": "bool",
+  "doc": "When building a DTO from an entity transform, override the actionBy field with the current caller's actionBy before passing it to the repository.",
+  "source": "Consteon/web-spreadsheet-example:R10"
+ },
+ {
+  "kind": "action",
+  "group": "database",
+  "name": "use_bare_values_in_case_when_for_numeric",
+  "type": "bool",
+  "doc": "Pass bare or stringified values (e.g. ${item.field ?? null}, ${String(item.field)}) into a CASE...WHEN sql template for a numeric target column.",
+  "source": "Consteon/web-spreadsheet-example:R12"
+ },
+ {
+  "kind": "action",
+  "group": "database",
+  "name": "set_status_approved_directly",
+  "type": "bool",
+  "doc": "Directly set a record's status to APPROVED in a repository edit function, bypassing the approval service.",
+  "source": "Consteon/web-spreadsheet-example:R15"
+ },
+ {
+  "kind": "action",
+  "group": "database",
+  "name": "add_else_branch_to_approval_guard",
+  "type": "bool",
+  "doc": "Add an else branch to the if (approvalData) guard in the approval creation block.",
+  "source": "Consteon/web-spreadsheet-example:R16"
+ },
+ {
+  "kind": "action",
+  "group": "database",
+  "name": "cast_timestamp_in_case_when",
+  "type": "bool",
+  "doc": "Wrap timestamp column values in CAST(... AS TIMESTAMPTZ) inside CASE...WHEN SQL templates.",
+  "source": "Consteon/web-spreadsheet-example:R19"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "distinguish_rethrow_from_construction",
+  "type": "bool",
+  "doc": "When reviewing catch blocks, treat bare re-throw (throw error) as acceptable and only flag throw new Error(...) as a violation.",
+  "source": "Consteon/web-spreadsheet-example:R22"
+ },
+ {
+  "kind": "action",
+  "group": "math_and_language",
+  "name": "use_regular_async_function_declaration",
+  "type": "bool",
+  "doc": "Write action functions as regular async function declarations, not arrow functions.",
+  "source": "Consteon/web-spreadsheet-example:R25"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "read_reference_before_writing",
+  "type": "bool",
+  "doc": "Read the relevant reference (e.g., Function Signature section) before writing code.",
+  "source": "Consteon/web-spreadsheet-example:R26"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "use_build_workspace_filter",
+  "type": "bool",
+  "doc": "Use the buildWorkspaceFilter helper instead of manually constructing per-field workspace filter conditions.",
+  "source": "Consteon/web-spreadsheet-example:R28"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "copy_nearby_code_as_reference",
+  "type": "bool",
+  "doc": "Use nearby modules' code as the reference for writing new code, instead of rule files or codebase-onboard references.",
+  "source": "Consteon/web-spreadsheet-example:R29"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "trim_user_values_to_satisfy_wrong_schema_constraints",
+  "type": "bool",
+  "doc": "Trim or alter user-provided values to fit incorrect schema constraints.",
+  "source": "Consteon/web-spreadsheet-example:R41"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "generate_boilerplate_fast",
+  "type": "bool",
+  "doc": "Generate boilerplate code quickly for the user.",
+  "source": "MCMike0399/from-tcp-to-http:R6"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "include_enforcement_tests",
+  "type": "bool",
+  "doc": "Include enforcement tests (tests that catch naive implementations) alongside correctness tests when writing test suites.",
+  "source": "MCMike0399/from-tcp-to-http:R10"
+ },
+ {
+  "kind": "action",
+  "group": "git_and_secrets",
+  "name": "use_env_files_for_credentials",
+  "type": "bool",
+  "doc": "Store credentials in gitignored .env files and commit only .env.example with placeholder values.",
+  "source": "M-Hernandez/setflow:R7"
+ },
+ {
+  "kind": "action",
+  "group": "git_and_secrets",
+  "name": "flag_hardcoded_credentials",
+  "type": "bool",
+  "doc": "Immediately point out hardcoded values that look like real credentials.",
+  "source": "M-Hernandez/setflow:R10"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "work_on_issue_17_next",
+  "type": "bool",
+  "doc": "Work on issue #17 next: run the ingestion pipeline end-to-end on 6 seed DJs before Phase 2.",
+  "source": "M-Hernandez/setflow:R11"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "use_system_python",
+  "type": "bool",
+  "doc": "Use the system Python interpreter (/usr/bin/python3) for the project.",
+  "source": "M-Hernandez/setflow:R12"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "keep_repo_clean",
+  "type": "bool",
+  "doc": "Maintain a clean repository: no stale branches, no credentials, and tested code.",
+  "source": "M-Hernandez/setflow:R14"
+ },
+ {
+  "kind": "action",
+  "group": "tutoring",
+  "name": "lean_on_outside_knowledge",
+  "type": "bool",
+  "doc": "Rely on knowledge from other courses or external sources instead of teaching from the ground up.",
+  "source": "shabelson-picker/applied_math:R3"
+ },
+ {
+  "kind": "action",
+  "group": "tutoring",
+  "name": "build_prerequisites_explicitly",
+  "type": "bool",
+  "doc": "Teach prerequisites from the ground up as explicit course modules, not assumed knowledge.",
+  "source": "shabelson-picker/applied_math:R4"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "prewrite_expansion_files",
+  "type": "bool",
+  "doc": "Create expansion files (e.g., sub-chapter notes) before they are needed.",
+  "source": "shabelson-picker/applied_math:R7"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "work_in_sessions",
+  "type": "int",
+  "doc": "Structure work into sessions of a given duration in minutes.",
+  "source": "shabelson-picker/applied_math:R13"
+ },
+ {
+  "kind": "action",
+  "group": "response_format",
+  "name": "use_high_register_academic_english",
+  "type": "bool",
+  "doc": "Write in precise, idiomatic academic English with proper technical vocabulary, avoiding simplified prose.",
+  "source": "shabelson-picker/applied_math:R14"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "run_other_command",
+  "type": "bool",
+  "doc": "Run a shell command that is not a git, SQL, or migration command.",
+  "source": "shabelson-picker/applied_math:R17"
+ },
+ {
+  "kind": "action",
+  "group": "math_and_language",
+  "name": "use_latex_math",
+  "type": "bool",
+  "doc": "Write mathematical notation in LaTeX.",
+  "source": "shabelson-picker/applied_math:R20"
+ },
+ {
+  "kind": "action",
+  "group": "response_format",
+  "name": "include_toolchain_notes",
+  "type": "bool",
+  "doc": "Include toolchain/build notes (e.g., rendering pipeline details) in the document.",
+  "source": "shabelson-picker/applied_math:R24"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "mention_nearby_problems_without_fixing",
+  "type": "bool",
+  "doc": "Mention nearby problems but do not fix them unless asked.",
+  "source": "shabelson-picker/applied_math:R30"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "check_cpptools_version_first",
+  "type": "bool",
+  "doc": "Check the cpptools extension version before debugging launch.json when C debugging freezes.",
+  "source": "shabelson-picker/applied_math:R34"
+ },
+ {
+  "kind": "action",
+  "group": "response_format",
+  "name": "distinguish_mechanical_from_business_rule_comments",
+  "type": "bool",
+  "doc": "When evaluating documentation quality, treat mechanical comments as bad and business-rule comments as good.",
+  "source": "thesteve0/local-llm-benchmark:R1"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "use_server_metrics_for_benchmarks",
+  "type": "bool",
+  "doc": "Use server-side metrics (e.g., llama.cpp) as the primary source for benchmark data, not client-side numbers.",
+  "source": "thesteve0/local-llm-benchmark:R3"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "use_llama_serve_hf",
+  "type": "bool",
+  "doc": "Use the llama.cpp serve command with -hf flag instead of ramalama serve or --network llm-bench.",
+  "source": "thesteve0/local-llm-benchmark:R6"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "keep_historical_source_labels",
+  "type": "bool",
+  "doc": "Preserve existing source labels (e.g., 'Source: Ramalama server') in historical result tables.",
+  "source": "thesteve0/local-llm-benchmark:R8"
+ },
+ {
+  "kind": "action",
+  "group": "workflow",
+  "name": "route_reasoning_to_qwen_and_code_to_mellum",
+  "type": "bool",
+  "doc": "Route reasoning/planning tasks to Qwen 3.6 Q8 and code generation tasks to Mellum2 Q8 in the agentic harness.",
+  "source": "thesteve0/local-llm-benchmark:R9"
+ }
+]

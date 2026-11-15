@@ -1,0 +1,920 @@
+[
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R1",
+  "b": "R4",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "verify_prerequisite_first",
+  "rule_a": "When seeding or updating an approval_module_config row, validate target_status against the target table's status enum, not core.approval_status_enum.",
+  "rule_b": "Before trimming a user-provided value to satisfy a schema constraint, ask whether the constraint itself is wrong."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R2",
+  "b": "R3",
+  "label": "contradiction",
+  "soft": false,
+  "action": "treat_target_status_as_generic_approval_state",
+  "rule_a": "Never treat target_status as a generic approval state.",
+  "rule_b": "If an existing approval_module_config row stores a target_status absent from the target table's enum, fix the stored value, not the target enum."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R5",
+  "b": "R9",
+  "label": "duplicate",
+  "subsumed": "R9",
+  "action": "trace_value_consumption",
+  "rule_a": "For cross-module config fields, trace where the value is consumed and take its value domain from the consuming column.",
+  "rule_b": "Gate generateSeriesNumber in edit<X>Action on status WAITING_ON_APPROVAL with previous status DRAFT, never on a final status."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R10",
+  "b": "R11",
+  "label": "override",
+  "specific": "R10",
+  "soft": false,
+  "action": "override_action_by_with_caller",
+  "rule_a": "When building a DTO from an entity transform, override actionBy with the current caller's actionBy before passing it to the repository.",
+  "rule_b": "Never use stored updatedBy as the current user identity."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R12",
+  "b": "R14",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "use_bare_values_in_case_when_for_numeric",
+  "rule_a": "In CASE...WHEN sql templates, never pass bare/stringified values for a numeric target column.",
+  "rule_b": "In .values()/.set() direct assignments of numeric values, no CAST is needed."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R12",
+  "b": "R18",
+  "label": "duplicate",
+  "subsumed": "R12",
+  "action": "use_bare_values_in_case_when_for_numeric",
+  "rule_a": "In CASE...WHEN sql templates, never pass bare/stringified values for a numeric target column.",
+  "rule_b": "In CASE...WHEN sql templates, never pass bare values for a timestamptz target column."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R14",
+  "b": "R18",
+  "label": "duplicate",
+  "subsumed": "R14",
+  "action": "use_bare_values_in_case_when_for_numeric",
+  "rule_a": "In .values()/.set() direct assignments of numeric values, no CAST is needed.",
+  "rule_b": "In CASE...WHEN sql templates, never pass bare values for a timestamptz target column."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R15",
+  "b": "R17",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "set_status_approved_directly",
+  "rule_a": "Repository edit functions must never set status APPROVED directly (WAITING_ON_APPROVAL is allowed).",
+  "rule_b": "If approval creation fails, leave the record in WAITING_ON_APPROVAL; do not flip status directly."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R19",
+  "b": "R21",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "cast_timestamp_in_case_when",
+  "rule_a": "In CASE...WHEN bulk UPDATEs, wrap every timestamp column value in CAST(... AS TIMESTAMPTZ).",
+  "rule_b": "Every CASE...WHEN expression must explicitly CAST to the target column type."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R23",
+  "b": "R24",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "edit_beyond_target",
+  "rule_a": "Limit repository fixes to the function added in the current task; do not refactor the whole file.",
+  "rule_b": "Do not change the catch block of findemployeeByUserAccountIdRepository; keep it matching the file-wide bare re-throw pattern."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R26",
+  "b": "R27",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "read_reference_before_writing",
+  "rule_a": "Read the reference's Function Signature section before writing an action.",
+  "rule_b": "Use the parameter types given in the reference (e.g. workspaceFilter: WorkspaceFilterDTOType), not those found in other modules."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R26",
+  "b": "R30",
+  "label": "duplicate",
+  "subsumed": "R26",
+  "action": "read_reference_before_writing",
+  "rule_a": "Read the reference's Function Signature section before writing an action.",
+  "rule_b": "Before writing action/repository/service/form code, run the codebase-onboard skill and read the matching reference."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R26",
+  "b": "R31",
+  "label": "duplicate",
+  "subsumed": "R26",
+  "action": "read_reference_before_writing",
+  "rule_a": "Read the reference's Function Signature section before writing an action.",
+  "rule_b": "Follow the reference's function signature, parameter types, and patterns exactly."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R27",
+  "b": "R30",
+  "label": "duplicate",
+  "subsumed": "R27",
+  "action": "read_reference_before_writing",
+  "rule_a": "Use the parameter types given in the reference (e.g. workspaceFilter: WorkspaceFilterDTOType), not those found in other modules.",
+  "rule_b": "Before writing action/repository/service/form code, run the codebase-onboard skill and read the matching reference."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R27",
+  "b": "R31",
+  "label": "duplicate",
+  "subsumed": "R27",
+  "action": "read_reference_before_writing",
+  "rule_a": "Use the parameter types given in the reference (e.g. workspaceFilter: WorkspaceFilterDTOType), not those found in other modules.",
+  "rule_b": "Follow the reference's function signature, parameter types, and patterns exactly."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R30",
+  "b": "R31",
+  "label": "duplicate",
+  "subsumed": "R30",
+  "action": "read_reference_before_writing",
+  "rule_a": "Before writing action/repository/service/form code, run the codebase-onboard skill and read the matching reference.",
+  "rule_b": "Follow the reference's function signature, parameter types, and patterns exactly."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R32",
+  "b": "R34",
+  "label": "duplicate",
+  "subsumed": "R32",
+  "action": "execute_sql",
+  "rule_a": "The db-analyst must not execute DDL or DML mutations without explicit user confirmation.",
+  "rule_b": "The db-analyst must never auto-execute mutations, even if logically required."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R36",
+  "b": "R37",
+  "label": "duplicate",
+  "subsumed": "R37",
+  "action": "confirm_target_db",
+  "rule_a": "Always confirm the exact target database with the user before running any SQL migration or destructive DB operation.",
+  "rule_b": "If the user specifies a database name for a migration, use exactly that database."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R36",
+  "b": "R38",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "confirm_target_db",
+  "rule_a": "Always confirm the exact target database with the user before running any SQL migration or destructive DB operation.",
+  "rule_b": "If the migration target is ambiguous (connection error, DB not found), stop and ask; never try alternate databases."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R36",
+  "b": "R39",
+  "label": "contradiction",
+  "soft": false,
+  "action": "confirm_target_db",
+  "rule_a": "Always confirm the exact target database with the user before running any SQL migration or destructive DB operation.",
+  "rule_b": "Do not infer the migration target database from .env or prior context."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R37",
+  "b": "R38",
+  "label": "duplicate",
+  "subsumed": "R37",
+  "action": "confirm_target_db",
+  "rule_a": "If the user specifies a database name for a migration, use exactly that database.",
+  "rule_b": "If the migration target is ambiguous (connection error, DB not found), stop and ask; never try alternate databases."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R37",
+  "b": "R39",
+  "label": "override",
+  "specific": "R37",
+  "soft": false,
+  "action": "confirm_target_db",
+  "rule_a": "If the user specifies a database name for a migration, use exactly that database.",
+  "rule_b": "Do not infer the migration target database from .env or prior context."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R38",
+  "b": "R39",
+  "label": "contradiction",
+  "soft": false,
+  "action": "confirm_target_db",
+  "rule_a": "If the migration target is ambiguous (connection error, DB not found), stop and ask; never try alternate databases.",
+  "rule_b": "Do not infer the migration target database from .env or prior context."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R1",
+  "b": "R7",
+  "label": "duplicate",
+  "subsumed": "R1",
+  "action": "recommend_text_sources",
+  "rule_a": "When recommending learning resources, point to articles, book chapters, RFC sections, or source code.",
+  "rule_b": "Point the user to primary sources."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R1",
+  "b": "R17",
+  "label": "duplicate",
+  "subsumed": "R1",
+  "action": "recommend_text_sources",
+  "rule_a": "When recommending learning resources, point to articles, book chapters, RFC sections, or source code.",
+  "rule_b": "(Preference) Offer text-based learning material: articles, books, RFCs, source code, blog posts."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R2",
+  "b": "R18",
+  "label": "duplicate",
+  "subsumed": "R2",
+  "action": "recommend_video",
+  "rule_a": "Never recommend YouTube videos or video courses.",
+  "rule_b": "(Preference) Do not give video references, except ThePrimeagen's course as the original inspiration."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R4",
+  "b": "R8",
+  "label": "override",
+  "specific": "R4",
+  "soft": false,
+  "action": "withhold_information",
+  "rule_a": "Be direct when tutoring.",
+  "rule_b": "Do not artificially withhold information (no Socratic gatekeeping)."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R4",
+  "b": "R9",
+  "label": "duplicate",
+  "subsumed": "R4",
+  "action": "withhold_information",
+  "rule_a": "Be direct when tutoring.",
+  "rule_b": "Give direct answers for mechanics (Java syntax, API calls); give only conceptual grounding for protocol design questions."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R4",
+  "b": "R19",
+  "label": "contradiction",
+  "soft": false,
+  "action": "withhold_information",
+  "rule_a": "Be direct when tutoring.",
+  "rule_b": "(Preference) Act as a tutor that accelerates learning (boilerplate, explanations, test evaluation) and does not withhold information."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R4",
+  "b": "R20",
+  "label": "duplicate",
+  "subsumed": "R4",
+  "action": "withhold_information",
+  "rule_a": "Be direct when tutoring.",
+  "rule_b": "(Preference) Favor the user's self-directed research over spoon-feeding answers."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R7",
+  "b": "R17",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "recommend_text_sources",
+  "rule_a": "Point the user to primary sources.",
+  "rule_b": "(Preference) Offer text-based learning material: articles, books, RFCs, source code, blog posts."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R8",
+  "b": "R9",
+  "label": "override",
+  "specific": "R9",
+  "soft": false,
+  "action": "withhold_information",
+  "rule_a": "Do not artificially withhold information (no Socratic gatekeeping).",
+  "rule_b": "Give direct answers for mechanics (Java syntax, API calls); give only conceptual grounding for protocol design questions."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R8",
+  "b": "R19",
+  "label": "duplicate",
+  "subsumed": "R19",
+  "action": "withhold_information",
+  "rule_a": "Do not artificially withhold information (no Socratic gatekeeping).",
+  "rule_b": "(Preference) Act as a tutor that accelerates learning (boilerplate, explanations, test evaluation) and does not withhold information."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R8",
+  "b": "R20",
+  "label": "contradiction",
+  "soft": true,
+  "action": "withhold_information",
+  "rule_a": "Do not artificially withhold information (no Socratic gatekeeping).",
+  "rule_b": "(Preference) Favor the user's self-directed research over spoon-feeding answers."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R9",
+  "b": "R19",
+  "label": "override",
+  "specific": "R19",
+  "soft": false,
+  "action": "withhold_information",
+  "rule_a": "Give direct answers for mechanics (Java syntax, API calls); give only conceptual grounding for protocol design questions.",
+  "rule_b": "(Preference) Act as a tutor that accelerates learning (boilerplate, explanations, test evaluation) and does not withhold information."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R9",
+  "b": "R20",
+  "label": "duplicate",
+  "subsumed": "R9",
+  "action": "withhold_information",
+  "rule_a": "Give direct answers for mechanics (Java syntax, API calls); give only conceptual grounding for protocol design questions.",
+  "rule_b": "(Preference) Favor the user's self-directed research over spoon-feeding answers."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R11",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R12",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include a PartialInputStream test that simulates TCP fragmentation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R13",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R14",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include timing gates that catch O(n^2) string concatenation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R15",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include resource-leak tests with rapid connect/disconnect cycles."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R10",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "When building educational test suites, always include enforcement tests alongside correctness tests.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R11",
+  "b": "R12",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads.",
+  "rule_b": "Include a PartialInputStream test that simulates TCP fragmentation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R11",
+  "b": "R13",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads.",
+  "rule_b": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R11",
+  "b": "R14",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads.",
+  "rule_b": "Include timing gates that catch O(n^2) string concatenation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R11",
+  "b": "R15",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads.",
+  "rule_b": "Include resource-leak tests with rapid connect/disconnect cycles."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R11",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a ChunkedOnlyInputStream enforcement test that forces chunked reads.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R12",
+  "b": "R13",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a PartialInputStream test that simulates TCP fragmentation.",
+  "rule_b": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R12",
+  "b": "R14",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a PartialInputStream test that simulates TCP fragmentation.",
+  "rule_b": "Include timing gates that catch O(n^2) string concatenation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R12",
+  "b": "R15",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a PartialInputStream test that simulates TCP fragmentation.",
+  "rule_b": "Include resource-leak tests with rapid connect/disconnect cycles."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R12",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include a PartialInputStream test that simulates TCP fragmentation.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R13",
+  "b": "R14",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner.",
+  "rule_b": "Include timing gates that catch O(n^2) string concatenation."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R13",
+  "b": "R15",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner.",
+  "rule_b": "Include resource-leak tests with rapid connect/disconnect cycles."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R13",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include reflection checks forbidding wrapper classes like BufferedReader/Scanner.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R14",
+  "b": "R15",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include timing gates that catch O(n^2) string concatenation.",
+  "rule_b": "Include resource-leak tests with rapid connect/disconnect cycles."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R14",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include timing gates that catch O(n^2) string concatenation.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R15",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_enforcement_tests",
+  "rule_a": "Include resource-leak tests with rapid connect/disconnect cycles.",
+  "rule_b": "Include thread-count checks verifying virtual threads are used."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R19",
+  "b": "R20",
+  "label": "override",
+  "specific": "R19",
+  "soft": true,
+  "action": "withhold_information",
+  "rule_a": "(Preference) Act as a tutor that accelerates learning (boilerplate, explanations, test evaluation) and does not withhold information.",
+  "rule_b": "(Preference) Favor the user's self-directed research over spoon-feeding answers."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "delete_branch_local",
+  "rule_a": "After every merge to main, delete the feature branch locally and on the remote.",
+  "rule_b": "After gh pr merge, run git branch -d and git push origin --delete for the branch, then switch to main and pull."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R3",
+  "b": "R4",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "confirm_files_with_user",
+  "rule_a": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+  "rule_b": "Do not assume approval for pushes/merges; show the file list and get explicit approval."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R3",
+  "b": "R5",
+  "label": "duplicate",
+  "subsumed": "R5",
+  "action": "confirm_files_with_user",
+  "rule_a": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+  "rule_b": "Before any git push or gh pr create, show the changed files and ask for confirmation."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R3",
+  "b": "R13",
+  "label": "duplicate",
+  "subsumed": "R13",
+  "action": "confirm_files_with_user",
+  "rule_a": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+  "rule_b": "(Preference) Always confirm files with the user before push/merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R4",
+  "b": "R5",
+  "label": "duplicate",
+  "subsumed": "R5",
+  "action": "confirm_files_with_user",
+  "rule_a": "Do not assume approval for pushes/merges; show the file list and get explicit approval.",
+  "rule_b": "Before any git push or gh pr create, show the changed files and ask for confirmation."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R4",
+  "b": "R13",
+  "label": "duplicate",
+  "subsumed": "R13",
+  "action": "confirm_files_with_user",
+  "rule_a": "Do not assume approval for pushes/merges; show the file list and get explicit approval.",
+  "rule_b": "(Preference) Always confirm files with the user before push/merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R6",
+  "b": "R8",
+  "label": "duplicate",
+  "subsumed": "R8",
+  "action": "commit_secrets",
+  "rule_a": "Never commit credentials to the repo.",
+  "rule_b": "Before any commit, verify no .env files, API keys, or secrets are staged."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R7",
+  "b": "R9",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "use_env_files_for_credentials",
+  "rule_a": "Keep credentials in gitignored .env files; commit only .env.example with placeholder values.",
+  "rule_b": "Load any credentials used by code from environment variables."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R11",
+  "b": "R16",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "work_on_issue_17_next",
+  "rule_a": "Work on issue #17 next: run the ingestion pipeline end-to-end on 6 seed DJs before Phase 2.",
+  "rule_b": "(Index) Next work items are issues #4 and #5."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "subsumed": "R2",
+  "action": "include_full_explanation",
+  "rule_a": "Teach the AofA course as if the user has not taken the concurrent data-structures course.",
+  "rule_b": "In the AofA course, teach everything from the ground up, including the book's assumed prerequisites."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R1",
+  "b": "R38",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "include_full_explanation",
+  "rule_a": "Teach the AofA course as if the user has not taken the concurrent data-structures course.",
+  "rule_b": "(Index) Do proof practice each DS session, in simple formal English with articles."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R2",
+  "b": "R38",
+  "label": "duplicate",
+  "subsumed": "R2",
+  "action": "include_full_explanation",
+  "rule_a": "In the AofA course, teach everything from the ground up, including the book's assumed prerequisites.",
+  "rule_b": "(Index) Do proof practice each DS session, in simple formal English with articles."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R3",
+  "b": "R12",
+  "label": "duplicate",
+  "subsumed": "R3",
+  "action": "lean_on_outside_knowledge",
+  "rule_a": "In the AofA course, do not rely on the DS class or other outside knowledge.",
+  "rule_b": "Consult the reference-shelf books only when needed."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R4",
+  "b": "R11",
+  "label": "duplicate",
+  "subsumed": "R11",
+  "action": "build_prerequisites_explicitly",
+  "rule_a": "In the AofA course, build prerequisites explicitly (as real modules).",
+  "rule_b": "Re-teach basic combinatorics/probability inline and open the combinatorics expansion early."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R5",
+  "b": "R10",
+  "label": "duplicate",
+  "subsumed": "R5",
+  "action": "build_prerequisites_explicitly",
+  "rule_a": "Cover every topic properly unless the user says 'skip'.",
+  "rule_b": "Introduce sum-vs-integral bounding as a repurposing of the integral test the user already knows."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R6",
+  "b": "R19",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "follow_industry_standard",
+  "rule_a": "Structure the AofA course as one module per chapter of the (Sedgewick-Flajolet) book.",
+  "rule_b": "Use CLRS as the primary text for the AofA course (Sedgewick-Flajolet as stretch reference)."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R10",
+  "b": "R11",
+  "label": "duplicate",
+  "subsumed": "R11",
+  "action": "build_prerequisites_explicitly",
+  "rule_a": "Introduce sum-vs-integral bounding as a repurposing of the integral test the user already knows.",
+  "rule_b": "Re-teach basic combinatorics/probability inline and open the combinatorics expansion early."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R14",
+  "b": "R15",
+  "label": "contradiction",
+  "soft": false,
+  "action": "use_high_register_academic_english",
+  "rule_a": "Write course material in precise, high-register academic English.",
+  "rule_b": "Do not simplify the prose in course material."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R20",
+  "b": "R33",
+  "label": "duplicate",
+  "subsumed": "R20",
+  "action": "use_latex_math",
+  "rule_a": "When Module 2 is reached, write its math in LaTeX from the start.",
+  "rule_b": "AofA course note/problem-set source files use LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R22",
+  "b": "R33",
+  "label": "duplicate",
+  "subsumed": "R22",
+  "action": "use_latex_math",
+  "rule_a": "Write math in the DS cheat sheet as LaTeX.",
+  "rule_b": "AofA course note/problem-set source files use LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R27",
+  "b": "R28",
+  "label": "contradiction",
+  "soft": false,
+  "action": "edit_beyond_target",
+  "rule_a": "When the user points at a specific item, edit exactly that and stop.",
+  "rule_b": "Do not rework surrounding content or search for similar cases when making a pointed edit."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R31",
+  "b": "R36",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "use_latex_math",
+  "rule_a": "Do not use LaTeX when explaining math in chat/terminal.",
+  "rule_b": "(Index) Explain math in plain text, never LaTeX."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R1",
+  "b": "R2",
+  "label": "contradiction",
+  "soft": false,
+  "action": "distinguish_mechanical_from_business_rule_comments",
+  "rule_a": "When evaluating documentation quality, treat mechanical comments as bad and business-rule comments as good.",
+  "rule_b": "Do not penalize inline comments that restate the business rule, even if duplicated in Javadoc."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R4",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "Use llama.cpp server metrics, not GuideLLM client numbers, as the primary benchmark data.",
+  "rule_b": "When recording/reporting benchmark results, take speeds, token counts and timing from the llama.cpp server."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R5",
+  "label": "contradiction",
+  "soft": false,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "Use llama.cpp server metrics, not GuideLLM client numbers, as the primary benchmark data.",
+  "rule_b": "GuideLLM output may be noted only as supplementary."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R7",
+  "label": "duplicate",
+  "subsumed": "R3",
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "Use llama.cpp server metrics, not GuideLLM client numbers, as the primary benchmark data.",
+  "rule_b": "Pull benchmark metrics from the llama.cpp timings object."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R10",
+  "label": "duplicate",
+  "subsumed": "R3",
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "Use llama.cpp server metrics, not GuideLLM client numbers, as the primary benchmark data.",
+  "rule_b": "(Index) Use llama.cpp server timings for benchmark metrics, not GuideLLM."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R4",
+  "b": "R5",
+  "label": "contradiction",
+  "soft": false,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "When recording/reporting benchmark results, take speeds, token counts and timing from the llama.cpp server.",
+  "rule_b": "GuideLLM output may be noted only as supplementary."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R4",
+  "b": "R7",
+  "label": "duplicate",
+  "subsumed": "R4",
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "When recording/reporting benchmark results, take speeds, token counts and timing from the llama.cpp server.",
+  "rule_b": "Pull benchmark metrics from the llama.cpp timings object."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R4",
+  "b": "R10",
+  "label": "duplicate",
+  "subsumed": "R4",
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "When recording/reporting benchmark results, take speeds, token counts and timing from the llama.cpp server.",
+  "rule_b": "(Index) Use llama.cpp server timings for benchmark metrics, not GuideLLM."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R5",
+  "b": "R7",
+  "label": "override",
+  "specific": "R5",
+  "soft": false,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "GuideLLM output may be noted only as supplementary.",
+  "rule_b": "Pull benchmark metrics from the llama.cpp timings object."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R5",
+  "b": "R10",
+  "label": "override",
+  "specific": "R5",
+  "soft": false,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "GuideLLM output may be noted only as supplementary.",
+  "rule_b": "(Index) Use llama.cpp server timings for benchmark metrics, not GuideLLM."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R7",
+  "b": "R10",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "use_server_metrics_for_benchmarks",
+  "rule_a": "Pull benchmark metrics from the llama.cpp timings object.",
+  "rule_b": "(Index) Use llama.cpp server timings for benchmark metrics, not GuideLLM."
+ }
+]
