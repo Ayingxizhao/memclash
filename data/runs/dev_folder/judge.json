@@ -1,0 +1,590 @@
+[
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R32",
+  "b": "R35",
+  "label": "contradiction",
+  "explanation": "R32 allows DDL/DML with explicit user confirmation, while R35 prohibits all mutations, making them incompatible when the user confirms a mutation."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R33",
+  "b": "R35",
+  "label": "contradiction",
+  "explanation": "R33 instructs to ask for confirmation before running a mutation, but R35 forbids running any mutation at all, so a confirmed mutation cannot be executed under both rules."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R34",
+  "b": "R35",
+  "label": "duplicate",
+  "explanation": "Both rules prohibit auto-executing mutations, with R34 being a specific case of R35's general prohibition."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R12",
+  "b": "R13",
+  "label": "override",
+  "explanation": "R13's requirement to always CAST numeric values in CASE...WHEN overrides R12's prohibition on bare values for the same context."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R18",
+  "b": "R19",
+  "label": "override",
+  "explanation": "R19's requirement to always CAST timestamp values in CASE...WHEN overrides R18's prohibition on bare values for the same context."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R13",
+  "b": "R21",
+  "label": "duplicate",
+  "explanation": "Both require explicit CAST for numeric columns in CASE...WHEN, with R13 being a specific instance of R21's general rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R19",
+  "b": "R21",
+  "label": "duplicate",
+  "explanation": "Both require explicit CAST for timestamp columns in CASE...WHEN, with R19 being a specific instance of R21's general rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R14",
+  "b": "R21",
+  "label": "tension",
+  "explanation": "R14 says no CAST is needed in direct assignments, while R21's general CAST requirement could be read to apply there, creating ambiguity."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R20",
+  "b": "R21",
+  "label": "tension",
+  "explanation": "R20 says no CAST is needed in direct assignments, while R21's general CAST requirement could be read to apply there, creating ambiguity."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R22",
+  "b": "R24",
+  "label": "override",
+  "explanation": "R24's specific instruction not to change a particular catch block overrides R22's general guidance on flagging catch blocks."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R23",
+  "b": "R24",
+  "label": "tension",
+  "explanation": "R23 limits fixes to the current function, while R24 specifically addresses a catch block in a different function, creating potential conflict."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R29",
+  "b": "R30",
+  "label": "tension",
+  "explanation": "R29 says rule files take precedence over nearby modules, while R30 says to run codebase-onboard and read the matching reference, which could conflict if the reference is a nearby module."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R26",
+  "b": "R30",
+  "label": "duplicate",
+  "explanation": "Both require reading the reference before writing code, with R30 being a broader version of R26's specific instruction."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R27",
+  "b": "R31",
+  "label": "duplicate",
+  "explanation": "Both require following the reference's parameter types exactly, with R27 being a specific example of R31's general rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R28",
+  "b": "R31",
+  "label": "duplicate",
+  "explanation": "Both require following the reference's patterns exactly, with R28 being a specific example of R31's general rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R36",
+  "b": "R39",
+  "label": "tension",
+  "explanation": "R36 requires confirming the target database, while R39 prohibits inferring it from .env or prior context, which could conflict if the user expects the agent to use context."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R37",
+  "b": "R39",
+  "label": "tension",
+  "explanation": "R37 says to use exactly the user-specified database, while R39 prohibits inferring from context, which could conflict if the user's specification is ambiguous."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R38",
+  "b": "R39",
+  "label": "duplicate",
+  "explanation": "Both require stopping and asking when the target is ambiguous, with R38 being a specific case of R39's general prohibition on inference."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R40",
+  "b": "R35",
+  "label": "duplicate",
+  "explanation": "Both state that db-analyst is SELECT-only, with R40 adding the confirmation exception that R35 lacks."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R40",
+  "b": "R32",
+  "label": "duplicate",
+  "explanation": "Both allow DDL/DML with explicit user confirmation, with R40 being a summary of R32's rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R40",
+  "b": "R33",
+  "label": "duplicate",
+  "explanation": "Both require user confirmation before mutations, with R40 being a summary of R33's rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R40",
+  "b": "R34",
+  "label": "duplicate",
+  "explanation": "Both prohibit auto-executing mutations, with R40 being a summary of R34's rule."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R41",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both state the same lesson about not trimming user values to satisfy wrong schema constraints, with R41 being an index of R4."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R1",
+  "b": "R7",
+  "label": "duplicate",
+  "explanation": "Both rules require pointing to primary sources (articles, book chapters, RFCs, source code) when recommending resources."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R2",
+  "b": "R18",
+  "label": "duplicate",
+  "explanation": "Both rules prohibit recommending video references, with R18 adding an exception for ThePrimeagen's course."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R8",
+  "b": "R20",
+  "label": "contradiction",
+  "explanation": "R8 forbids withholding information, while R20 favors self-directed research over spoon-feeding, which may require withholding direct answers to encourage research."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R9",
+  "b": "R20",
+  "label": "tension",
+  "explanation": "R9 requires direct answers for mechanics, but R20 favors self-directed research, creating a pull between giving answers and encouraging independent discovery."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R2",
+  "b": "R18",
+  "label": "override",
+  "explanation": "R18 is more specific and newer, allowing an exception (ThePrimeagen's course) to R2's blanket prohibition on video recommendations."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both require deleting the feature branch locally and on the remote after merging to main, with R2 adding the specific commands but the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R3",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both require showing changed files and asking for confirmation before git push or creating a PR, with R3 also covering git merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R3",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both require explicit user confirmation of files before push/merge, with R4 emphasizing not assuming approval."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R4",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both require showing the file list and getting explicit approval before push or PR creation."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R6",
+  "b": "R7",
+  "label": "tension",
+  "explanation": "R6 prohibits committing credentials, while R7 allows .env.example with placeholders, which is compatible but R7's allowance of .env.example could be seen as a partial exception."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R6",
+  "b": "R8",
+  "label": "duplicate",
+  "explanation": "Both prohibit committing credentials, with R8 adding a verification step before commit."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R6",
+  "b": "R10",
+  "label": "tension",
+  "explanation": "R6 prohibits committing credentials, while R10 requires flagging hardcoded credentials, which are complementary but could pull in different directions if a hardcoded value is found."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R7",
+  "b": "R8",
+  "label": "tension",
+  "explanation": "R7 allows .env files (gitignored) and .env.example, but R8 requires verifying no .env files are staged, which could conflict if .env.example is considered a .env file."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R7",
+  "b": "R9",
+  "label": "tension",
+  "explanation": "R7 suggests using .env files for credentials, while R9 requires loading credentials from environment variables, which are compatible but could pull in different directions on where to store secrets."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R8",
+  "b": "R10",
+  "label": "tension",
+  "explanation": "R8 requires verifying no secrets are staged before commit, while R10 requires flagging hardcoded credentials immediately, which could lead to different actions if a secret is found."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R11",
+  "b": "R16",
+  "label": "contradiction",
+  "explanation": "R11 says to work on issue #17 next, while R16 says next work items are issues #4 and #5, which cannot both be followed as the next action."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R12",
+  "b": "R16",
+  "label": "tension",
+  "explanation": "R12 prohibits using system Python, while R16 is an index of next issues, which are unrelated but could pull in different directions if the system Python is needed for those issues."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R13",
+  "b": "R3",
+  "label": "duplicate",
+  "explanation": "Both require confirming files with the user before push/merge, with R13 being a preference and R3 a rule."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R13",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both require explicit confirmation of files before push/merge, with R4 adding the need for a thumbs up."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R13",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both require showing changed files and asking for confirmation before push or PR creation."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R1",
+  "label": "duplicate",
+  "explanation": "Both require deleting feature branches after merge, with R14 also covering credentials and tested code."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both require branch cleanup after merge, with R2 providing specific commands."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R6",
+  "label": "duplicate",
+  "explanation": "Both prohibit credentials in the repo, with R14 also covering stale branches and tested code."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R7",
+  "label": "tension",
+  "explanation": "R14 says no credentials, while R7 allows .env files with credentials (gitignored), which could be seen as a partial exception."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R8",
+  "label": "duplicate",
+  "explanation": "Both require verifying no credentials are committed, with R8 adding a pre-commit check."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R14",
+  "b": "R10",
+  "label": "tension",
+  "explanation": "R14 prohibits credentials, while R10 requires flagging hardcoded credentials, which are complementary but could pull in different directions."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R1",
+  "label": "duplicate",
+  "explanation": "Both require branch cleanup after merge, with R15 also covering the full git workflow."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both require branch deletion after merge, with R2 providing specific commands."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R3",
+  "label": "tension",
+  "explanation": "R15 requires working incrementally with PRs and merge, while R3 requires confirming files before push/merge, which could slow down the workflow but are compatible."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R4",
+  "label": "tension",
+  "explanation": "R15 requires a proper git workflow, while R4 requires explicit approval before push/merge, which could add friction but are compatible."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R5",
+  "label": "tension",
+  "explanation": "R15 requires working incrementally with PRs, while R5 requires confirmation before PR creation, which could slow down but are compatible."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R13",
+  "label": "tension",
+  "explanation": "R15 requires a proper git workflow, while R13 requires confirming files before push/merge, which could add steps but are compatible."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R15",
+  "b": "R14",
+  "label": "duplicate",
+  "explanation": "Both require a clean repo with no stale branches and tested code, with R15 also covering the workflow."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R1",
+  "b": "R3",
+  "label": "duplicate",
+  "explanation": "Both rules require teaching the AofA course without relying on the concurrent data-structures course or outside knowledge."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R2",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both rules require explicitly building prerequisites from the ground up in the AofA course."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R33",
+  "label": "contradiction",
+  "explanation": "R8 says AofA module lecture notes are plain text without LaTeX, while R33 says AofA course note/problem-set source files use LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R19",
+  "b": "R37",
+  "label": "contradiction",
+  "explanation": "R19 states CLRS is the primary text for the AofA course, while R37 says the course is built around the Sedgewick-Flajolet book."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R19",
+  "b": "R6",
+  "label": "override",
+  "explanation": "R19 changes the primary text from Sedgewick-Flajolet to CLRS, overriding R6's module-per-chapter structure based on the Sedgewick-Flajolet book."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R19",
+  "b": "R37",
+  "label": "override",
+  "explanation": "R19's decision to use CLRS as primary text overrides R37's index statement that the course is built around Sedgewick-Flajolet."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R36",
+  "b": "R33",
+  "label": "contradiction",
+  "explanation": "R36 says explain math in plain text, never LaTeX, while R33 says AofA course source files use LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R31",
+  "b": "R33",
+  "label": "tension",
+  "explanation": "R31 prohibits LaTeX in chat/terminal explanations, while R33 requires LaTeX in AofA source files, creating potential overlap when explaining math from those files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R20",
+  "label": "contradiction",
+  "explanation": "R8 says AofA module lecture notes are plain text without LaTeX, while R20 says Module 2's math should be written in LaTeX from the start."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R18",
+  "label": "contradiction",
+  "explanation": "R8 says AofA module lecture notes are plain text without LaTeX, while R18 requires inline math as \\( … \\) and display math as $$ … $$ in course notes."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R33",
+  "label": "contradiction",
+  "explanation": "R8 says AofA module lecture notes are plain text without LaTeX, while R33 says AofA course note/problem-set source files use LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R20",
+  "label": "override",
+  "explanation": "R20 specifically requires LaTeX for Module 2, overriding R8's general plain-text rule for that module."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R18",
+  "label": "override",
+  "explanation": "R18's specific LaTeX conventions for course notes override R8's plain-text rule for those notes."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R33",
+  "label": "override",
+  "explanation": "R33's specific requirement for LaTeX in AofA source files overrides R8's plain-text rule for those files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R36",
+  "b": "R33",
+  "label": "override",
+  "explanation": "R33's specific requirement for LaTeX in AofA source files overrides R36's general plain-text rule for those files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R31",
+  "b": "R33",
+  "label": "override",
+  "explanation": "R33's specific requirement for LaTeX in AofA source files overrides R31's general no-LaTeX rule for those files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R20",
+  "label": "tension",
+  "explanation": "R8's plain-text rule and R20's LaTeX requirement for Module 2 create tension for that module's notes."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R18",
+  "label": "tension",
+  "explanation": "R8's plain-text rule and R18's LaTeX conventions create tension for course notes."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R8",
+  "b": "R33",
+  "label": "tension",
+  "explanation": "R8's plain-text rule and R33's LaTeX requirement create tension for AofA source files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R36",
+  "b": "R33",
+  "label": "tension",
+  "explanation": "R36's plain-text rule and R33's LaTeX requirement create tension for AofA source files."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R31",
+  "b": "R33",
+  "label": "tension",
+  "explanation": "R31's no-LaTeX rule and R33's LaTeX requirement create tension for AofA source files."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both rules require using llama.cpp server metrics as the primary source for benchmark data, with R4's scope (recording/reporting) contained within R3's broader scope."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R7",
+  "label": "duplicate",
+  "explanation": "Both rules require pulling benchmark metrics from llama.cpp server timings, with R7 specifying the exact source (timings object) within R3's scope."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R4",
+  "b": "R7",
+  "label": "duplicate",
+  "explanation": "Both rules require taking benchmark metrics from the llama.cpp server's timings, with R7 being a more specific restatement of R4's requirement."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R3",
+  "b": "R10",
+  "label": "duplicate",
+  "explanation": "R10 is an index entry that restates R3's requirement to use llama.cpp server metrics over GuideLLM client numbers."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R4",
+  "b": "R10",
+  "label": "duplicate",
+  "explanation": "R10 restates R4's requirement to use llama.cpp server timings for benchmark metrics, not GuideLLM."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R7",
+  "b": "R10",
+  "label": "duplicate",
+  "explanation": "R10 restates R7's requirement to pull benchmark metrics from the llama.cpp timings object."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R6",
+  "b": "R8",
+  "label": "tension",
+  "explanation": "R6 says to use llama serve commands, while R8 says to keep 'Source: Ramalama server' labels on historical tables, which may conflict when updating docs that reference ramalama."
+ }
+]
