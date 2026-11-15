@@ -1,0 +1,496 @@
+{
+ "run": "dev_v1",
+ "behaviors": 54,
+ "candidates": [
+  {
+   "a": "math_notation=latex",
+   "b": "math_notation=unicode",
+   "sim": 0.835,
+   "relation": "opposite",
+   "reason": "Using LaTeX notation (e.g., \\(…\\) and $$…$$) is mutually exclusive with using Unicode symbols for math, so following one rule means not following the other."
+  },
+  {
+   "a": "math_notation=latex",
+   "b": "math_notation=plain_text",
+   "sim": 0.826,
+   "relation": "opposite",
+   "reason": "Using LaTeX notation for math is the direct opposite of writing math in plain text without LaTeX."
+  },
+  {
+   "a": "math_notation=latex",
+   "b": "use_latex_math",
+   "sim": 0.823,
+   "relation": "same",
+   "reason": "Both behaviors require writing mathematical notation in LaTeX, with A specifying the exact delimiters for inline and display math, which is a detail of the same action."
+  },
+  {
+   "a": "math_notation=plain_text",
+   "b": "use_latex_math",
+   "sim": 0.767,
+   "relation": "opposite",
+   "reason": "Using plain text for math notation directly contradicts writing math in LaTeX, as one excludes the other."
+  },
+  {
+   "a": "commit_secrets",
+   "b": "use_env_files_for_credentials",
+   "sim": 0.762,
+   "relation": "opposite",
+   "reason": "Committing secrets directly contradicts storing them in gitignored .env files and committing only placeholders."
+  },
+  {
+   "a": "math_notation=unicode",
+   "b": "use_latex_math",
+   "sim": 0.755,
+   "relation": "different",
+   "reason": "Unicode math notation and LaTeX math notation are distinct formatting systems, so using one does not entail using the other."
+  },
+  {
+   "a": "execute_sql",
+   "b": "pause_for_user_approval",
+   "sim": 0.749,
+   "relation": "different",
+   "reason": "A requires running the SQL, while B requires stopping and waiting for approval before running, so they are distinct actions in a sequence."
+  },
+  {
+   "a": "call_edit_repository_for_draft_submit",
+   "b": "use_submit_repository_for_approved_final_status_only",
+   "sim": 0.742,
+   "relation": "different",
+   "reason": "A specifies using edit repository for DRAFT to WAITING_ON_APPROVAL, while B restricts submit repository to APPROVED to FINAL_STATUS, covering different transitions and repositories."
+  },
+  {
+   "a": "build_prerequisites_explicitly",
+   "b": "lean_on_outside_knowledge",
+   "sim": 0.742,
+   "relation": "opposite",
+   "reason": "A requires teaching prerequisites explicitly from the ground up, while B relies on outside knowledge instead of teaching from the ground up, so doing one means not doing the other."
+  },
+  {
+   "a": "math_notation=plain_text",
+   "b": "math_notation=unicode",
+   "sim": 0.737,
+   "relation": "opposite",
+   "reason": "Plain text math notation excludes unicode symbols, so using one means not using the other."
+  },
+  {
+   "a": "treat_target_status_as_generic_approval_state",
+   "b": "verify_prerequisite_first",
+   "sim": 0.724,
+   "relation": "different",
+   "reason": "A concerns how to interpret the target_status column, while B concerns checking a prerequisite before an action, so they address distinct behaviors."
+  },
+  {
+   "a": "copy_nearby_code_as_reference",
+   "b": "read_reference_before_writing",
+   "sim": 0.713,
+   "relation": "different",
+   "reason": "A concerns which reference source to use (nearby code vs. rule files), while B concerns the act of reading a reference before writing, regardless of source."
+  },
+  {
+   "a": "commit_secrets",
+   "b": "keep_repo_clean",
+   "sim": 0.706,
+   "relation": "same",
+   "reason": "Both behaviors prohibit committing credentials to the repository, so requiring A (commit_secrets) is the opposite of requiring B (keep_repo_clean), but the question asks about the relation between the behaviors themselves, not their rules; since committing secrets is the opposite of keeping the repo clean, the relation is opposite."
+  },
+  {
+   "a": "follow_industry_standard",
+   "b": "trim_user_values_to_satisfy_wrong_schema_constraints",
+   "sim": 0.701,
+   "relation": "opposite",
+   "reason": "Following industry standards means fixing the schema to match real values, whereas trimming user values to fit wrong constraints violates that standard by altering data instead of correcting the schema."
+  },
+  {
+   "a": "confirm_target_db",
+   "b": "execute_sql",
+   "sim": 0.698,
+   "relation": "different",
+   "reason": "Confirming the target database is a separate communication step, while executing SQL is the actual action of running the statement, even though they are related in a workflow."
+  },
+  {
+   "a": "call_edit_repository_for_draft_submit",
+   "b": "set_status_approved_directly",
+   "sim": 0.694,
+   "relation": "different",
+   "reason": "A requires calling the edit repository with WAITING_ON_APPROVAL status, while B prohibits directly setting APPROVED status, which are distinct actions on different statuses."
+  },
+  {
+   "a": "use_llama_serve_hf",
+   "b": "use_server_metrics_for_benchmarks",
+   "sim": 0.687,
+   "relation": "different",
+   "reason": "A specifies which serve command to use, while B specifies which metrics source to use for benchmarks; they concern different actions."
+  },
+  {
+   "a": "set_status_approved_directly",
+   "b": "use_submit_repository_for_approved_final_status_only",
+   "sim": 0.682,
+   "relation": "different",
+   "reason": "A prohibits directly setting status to APPROVED, while B restricts the use of a specific submit function to transitions from APPROVED to a final status, which are distinct behaviors."
+  },
+  {
+   "a": "recommend_text_sources",
+   "b": "recommend_video",
+   "sim": 0.677,
+   "relation": "opposite",
+   "reason": "A recommends text-based sources, while B explicitly prohibits video sources, so following one means not following the other."
+  },
+  {
+   "a": "confirm_target_db",
+   "b": "verify_prerequisite_first",
+   "sim": 0.675,
+   "relation": "different",
+   "reason": "A is about confirming the target database with the user, while B is about validating a prerequisite state or enum before an operation, so they address distinct behaviors."
+  },
+  {
+   "a": "cast_timestamp_in_case_when",
+   "b": "use_bare_values_in_case_when_for_numeric",
+   "sim": 0.671,
+   "relation": "different",
+   "reason": "A requires casting timestamp values in CASE WHEN, while B prohibits bare values for numeric columns, addressing different data types and actions."
+  },
+  {
+   "a": "confirm_target_db",
+   "b": "pause_for_user_approval",
+   "sim": 0.667,
+   "relation": "different",
+   "reason": "Confirming the target database is about identifying which database to use, while pausing for user approval is about stopping for permission before an action, even if the example overlaps in the context of a DB mutation."
+  },
+  {
+   "a": "edit_beyond_target",
+   "b": "trim_user_values_to_satisfy_wrong_schema_constraints",
+   "sim": 0.663,
+   "relation": "different",
+   "reason": "A concerns scope of edits (avoiding extra changes), while B concerns data integrity (not altering user values to fit incorrect constraints), which are unrelated behaviors."
+  },
+  {
+   "a": "edit_beyond_target",
+   "b": "prewrite_expansion_files",
+   "sim": 0.66,
+   "relation": "different",
+   "reason": "A concerns scope of edits to existing content, while B concerns timing of creating new files, so they are unrelated behaviors."
+  },
+  {
+   "a": "set_status_approved_directly",
+   "b": "treat_target_status_as_generic_approval_state",
+   "sim": 0.655,
+   "relation": "different",
+   "reason": "A prohibits directly setting status to APPROVED, while B prohibits treating target_status as a generic approval state, which are distinct behaviors about different aspects of status handling."
+  },
+  {
+   "a": "pause_for_user_approval",
+   "b": "verify_prerequisite_first",
+   "sim": 0.654,
+   "relation": "different",
+   "reason": "A requires pausing for user approval before an action, while B requires checking a prerequisite condition before starting, which are distinct behaviors."
+  },
+  {
+   "a": "use_high_register_academic_english",
+   "b": "use_latex_math",
+   "sim": 0.652,
+   "relation": "different",
+   "reason": "One behavior concerns the style of English prose, while the other concerns the formatting of mathematical notation, so they are unrelated."
+  },
+  {
+   "a": "use_hebrew",
+   "b": "use_high_register_academic_english",
+   "sim": 0.643,
+   "relation": "different",
+   "reason": "The behaviors concern different languages and registers—Hebrew versus academic English—so they are not the same, opposite, or directly related."
+  },
+  {
+   "a": "build_prerequisites_explicitly",
+   "b": "verify_prerequisite_first",
+   "sim": 0.634,
+   "relation": "different",
+   "reason": "A focuses on teaching prerequisites as course content, while B is about validating a prerequisite condition before an action, so they are unrelated behaviors."
+  },
+  {
+   "a": "edit_beyond_target",
+   "b": "set_status_approved_directly",
+   "sim": 0.63,
+   "relation": "different",
+   "reason": "A concerns the scope of edits (avoiding changes beyond the target), while B concerns a specific implementation detail (not setting status directly), so they are unrelated behaviors."
+  },
+  {
+   "a": "prewrite_expansion_files",
+   "b": "read_reference_before_writing",
+   "sim": 0.629,
+   "relation": "different",
+   "reason": "A concerns when to create expansion files, while B concerns reading references before writing code, which are unrelated behaviors."
+  },
+  {
+   "a": "commit_secrets",
+   "b": "confirm_files_with_user",
+   "sim": 0.629,
+   "relation": "different",
+   "reason": "Committing secrets is about including sensitive data in a commit, while confirming files with the user is about seeking approval on the file list before a git operation; they are unrelated behaviors."
+  },
+  {
+   "a": "confirm_files_with_user",
+   "b": "work_incrementally",
+   "sim": 0.628,
+   "relation": "different",
+   "reason": "Confirming files with the user is about seeking approval before an action, while working incrementally is about breaking work into small steps, which are unrelated behaviors."
+  },
+  {
+   "a": "keep_repo_clean",
+   "b": "work_incrementally",
+   "sim": 0.627,
+   "relation": "different",
+   "reason": "Keeping the repository clean focuses on the state of the repo (no stale branches, credentials, tested code), while working incrementally is about the process of making changes in small steps, though both may involve branch management."
+  },
+  {
+   "a": "edit_beyond_target",
+   "b": "mention_nearby_problems_without_fixing",
+   "sim": 0.624,
+   "relation": "different",
+   "reason": "A prohibits changing content beyond the target, while B permits mentioning but not fixing nearby issues, so they address distinct behaviors."
+  },
+  {
+   "a": "keep_repo_clean",
+   "b": "use_env_files_for_credentials",
+   "sim": 0.623,
+   "relation": "different",
+   "reason": "A broadly requires no credentials in the repo, while B specifies a method for storing credentials outside the repo, so they address the same concern but prescribe different actions."
+  },
+  {
+   "a": "follow_industry_standard",
+   "b": "trace_value_consumption",
+   "sim": 0.622,
+   "relation": "different",
+   "reason": "A focuses on choosing the standard/best-practice option, while B focuses on tracing value consumption to determine a valid domain, which are distinct behaviors."
+  },
+  {
+   "a": "pause_for_user_approval",
+   "b": "work_incrementally",
+   "sim": 0.619,
+   "relation": "different",
+   "reason": "Pausing for approval is about stopping for user confirmation, while working incrementally is about making small changes, which are distinct behaviors."
+  },
+  {
+   "a": "include_toolchain_notes",
+   "b": "prewrite_expansion_files",
+   "sim": 0.619,
+   "relation": "different",
+   "reason": "One behavior concerns including toolchain notes in a document, while the other concerns the timing of creating expansion files, which are unrelated actions."
+  },
+  {
+   "a": "treat_target_status_as_generic_approval_state",
+   "b": "use_bare_values_in_case_when_for_numeric",
+   "sim": 0.618,
+   "relation": "different",
+   "reason": "A concerns how to interpret a column's semantics, while B concerns how to format values in SQL templates, so they are unrelated behaviors."
+  },
+  {
+   "a": "confirm_files_with_user",
+   "b": "use_env_files_for_credentials",
+   "sim": 0.616,
+   "relation": "different",
+   "reason": "Confirming files with the user is about seeking approval for file operations, while using env files for credentials is about secure storage of secrets, which are unrelated behaviors."
+  },
+  {
+   "a": "keep_historical_source_labels",
+   "b": "use_server_metrics_for_benchmarks",
+   "sim": 0.614,
+   "relation": "different",
+   "reason": "A focuses on preserving source labels in historical tables, while B concerns which metrics source to use for benchmarks, so they address distinct behaviors."
+  },
+  {
+   "a": "math_notation=latex",
+   "b": "use_high_register_academic_english",
+   "sim": 0.612,
+   "relation": "different",
+   "reason": "A specifies the formatting style for mathematical notation, while B dictates the overall language register and vocabulary, which are unrelated behaviors."
+  },
+  {
+   "a": "read_reference_before_writing",
+   "b": "use_regular_async_function_declaration",
+   "sim": 0.611,
+   "relation": "different",
+   "reason": "One behavior concerns reading reference material before coding, while the other concerns the syntax style of function declarations, which are unrelated actions."
+  },
+  {
+   "a": "mention_nearby_problems_without_fixing",
+   "b": "work_incrementally",
+   "sim": 0.609,
+   "relation": "different",
+   "reason": "A is about mentioning problems without fixing them, while B is about the size and process of making changes, which are unrelated behaviors."
+  },
+  {
+   "a": "delete_branch_local",
+   "b": "work_incrementally",
+   "sim": 0.608,
+   "relation": "different",
+   "reason": "Deleting a local branch is a specific cleanup action, while working incrementally is a general workflow strategy that may or may not involve branch deletion."
+  },
+  {
+   "a": "include_full_explanation",
+   "b": "math_notation=unicode",
+   "sim": 0.605,
+   "relation": "different",
+   "reason": "A requires explaining concepts, while B specifies a formatting style for math notation, which are unrelated behaviors."
+  },
+  {
+   "a": "trace_value_consumption",
+   "b": "trim_user_values_to_satisfy_wrong_schema_constraints",
+   "sim": 0.603,
+   "relation": "different",
+   "reason": "A involves tracing value consumption to determine a valid domain, while B involves altering user values to fit incorrect constraints, which are distinct behaviors."
+  },
+  {
+   "a": "confirm_target_db",
+   "b": "use_bare_values_in_case_when_for_numeric",
+   "sim": 0.603,
+   "relation": "different",
+   "reason": "A concerns confirming the target database with the user, while B concerns how to pass values in SQL CASE...WHEN templates, which are unrelated behaviors."
+  },
+  {
+   "a": "add_else_branch_to_approval_guard",
+   "b": "verify_prerequisite_first",
+   "sim": 0.603,
+   "relation": "different",
+   "reason": "A concerns adding an else branch to a specific guard, while B concerns validating a prerequisite before a step, which are unrelated behaviors."
+  },
+  {
+   "a": "lean_on_outside_knowledge",
+   "b": "math_notation=plain_text",
+   "sim": 0.603,
+   "relation": "different",
+   "reason": "Behavior A concerns whether to use external knowledge in teaching, while behavior B concerns the formatting of notes (plain text vs. LaTeX), which are unrelated actions."
+  },
+  {
+   "a": "call_edit_repository_for_draft_submit",
+   "b": "override_action_by_with_caller",
+   "sim": 0.602,
+   "relation": "different",
+   "reason": "A specifies which repository method to call for a status transition, while B specifies how to set a field in a DTO before repository invocation; they concern unrelated aspects of the same workflow."
+  },
+  {
+   "a": "include_full_explanation",
+   "b": "mention_nearby_problems_without_fixing",
+   "sim": 0.602,
+   "relation": "different",
+   "reason": "A requires providing a full explanation, while B involves mentioning problems without fixing them, which are unrelated behaviors."
+  },
+  {
+   "a": "mention_nearby_problems_without_fixing",
+   "b": "use_hebrew",
+   "sim": 0.602,
+   "relation": "different",
+   "reason": "The behaviors concern entirely separate topics—one about mentioning problems without fixing them, the other about language use (Hebrew)—so they are unrelated."
+  },
+  {
+   "a": "include_full_explanation",
+   "b": "math_notation=latex",
+   "sim": 0.598,
+   "relation": "different",
+   "reason": "A requires explaining concepts, while B specifies the formatting style for mathematical notation, which are unrelated behaviors."
+  },
+  {
+   "a": "keep_historical_source_labels",
+   "b": "use_llama_serve_hf",
+   "sim": 0.596,
+   "relation": "different",
+   "reason": "A concerns preserving labels in historical tables, while B concerns which serve command to use; they address unrelated behaviors."
+  },
+  {
+   "a": "add_else_branch_to_approval_guard",
+   "b": "distinguish_rethrow_from_construction",
+   "sim": 0.595,
+   "relation": "different",
+   "reason": "The behaviors address unrelated code constructs: one modifies an if/else guard for approval data, while the other concerns catch block rethrow patterns."
+  },
+  {
+   "a": "build_prerequisites_explicitly",
+   "b": "math_notation=plain_text",
+   "sim": 0.594,
+   "relation": "different",
+   "reason": "A concerns teaching prerequisites as explicit modules, while B concerns the formatting of lecture notes (plain text vs. LaTeX), which are unrelated behaviors."
+  },
+  {
+   "a": "generate_boilerplate_fast",
+   "b": "include_full_explanation",
+   "sim": 0.59,
+   "relation": "different",
+   "reason": "Generating boilerplate code quickly and providing a full explanation are distinct behaviors, one focused on code scaffolding and the other on explanatory content."
+  },
+  {
+   "a": "delete_branch_local",
+   "b": "keep_repo_clean",
+   "sim": 0.587,
+   "relation": "different",
+   "reason": "Deleting a local branch is a specific action, while keeping the repo clean is a broader preference that includes but is not limited to branch deletion, so they are not the same behavior."
+  },
+  {
+   "a": "trace_value_consumption",
+   "b": "treat_target_status_as_generic_approval_state",
+   "sim": 0.584,
+   "relation": "different",
+   "reason": "Tracing value consumption to determine a domain is unrelated to how target_status is interpreted as an approval state."
+  },
+  {
+   "a": "distinguish_rethrow_from_construction",
+   "b": "treat_target_status_as_generic_approval_state",
+   "sim": 0.575,
+   "relation": "different",
+   "reason": "A concerns exception handling in catch blocks, while B concerns how a database column is interpreted, with no overlap in behavior."
+  },
+  {
+   "a": "work_incrementally",
+   "b": "work_on_issue_17_next",
+   "sim": 0.572,
+   "relation": "different",
+   "reason": "A describes a general approach to making changes in small steps, while B specifies a particular task to work on next, so they are not the same, opposite, or directly related behaviors."
+  },
+  {
+   "a": "override_action_by_with_caller",
+   "b": "set_status_approved_directly",
+   "sim": 0.569,
+   "relation": "different",
+   "reason": "A concerns overriding the actionBy field with the caller's value, while B concerns setting a record's status to APPROVED directly, which are unrelated behaviors."
+  },
+  {
+   "a": "add_else_branch_to_approval_guard",
+   "b": "set_status_approved_directly",
+   "sim": 0.567,
+   "relation": "different",
+   "reason": "A concerns adding an else branch to a guard, while B concerns how a status is set, with no direct overlap in behavior."
+  },
+  {
+   "a": "cast_timestamp_in_case_when",
+   "b": "pause_for_user_approval",
+   "sim": 0.565,
+   "relation": "different",
+   "reason": "One behavior concerns SQL timestamp casting in CASE statements, while the other concerns pausing for user approval before executing actions; they are unrelated."
+  },
+  {
+   "a": "edit_beyond_target",
+   "b": "override_action_by_with_caller",
+   "sim": 0.564,
+   "relation": "different",
+   "reason": "A concerns avoiding scope creep in edits, while B specifies a data transformation detail for DTOs, which are unrelated behaviors."
+  },
+  {
+   "a": "call_edit_repository_for_draft_submit",
+   "b": "cast_timestamp_in_case_when",
+   "sim": 0.556,
+   "relation": "different",
+   "reason": "The behaviors address unrelated concerns: one is about which repository method to call for a status transition, while the other is about SQL type casting in templates."
+  }
+ ],
+ "clusters": [
+  [
+   "commit_secrets",
+   "keep_repo_clean"
+  ],
+  [
+   "use_latex_math",
+   "math_notation=latex"
+  ]
+ ],
+ "alias": {
+  "keep_repo_clean": "commit_secrets",
+  "math_notation=latex": "use_latex_math"
+ }
+}

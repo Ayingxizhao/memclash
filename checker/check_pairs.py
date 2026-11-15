@@ -35,7 +35,7 @@ def is_sat(*fs):
 
 def check(world, a, b):
     """a, b: records. Return (label, detail dict)."""
-    if a["action"]["name"] != b["action"]["name"]:
+    if world.canonical(a["action"])[0] != world.canonical(b["action"])[0]:
         return "none", {}
     sa, sb = world.scope(a), world.scope(b)
     if not is_sat(sa, sb):
@@ -55,13 +55,15 @@ def check(world, a, b):
     return "none", {}
 
 
-def run(run_name):
+def run(run_name, use_merges=True, out="flags"):
     run_dir = ROOT / "data" / "runs" / run_name
     rows = json.loads((run_dir / "records.json").read_text())
     vocab = Vocab()
     for t in json.loads((run_dir / "vocab_additions.json").read_text()):
         vocab.add({k: v for k, v in t.items() if k != "source"}, t["source"])
-    world = World(vocab)
+    merges = run_dir / "merges.json"                 # optional output of merge_vocab.py
+    alias = json.loads(merges.read_text()).get("alias", {}) if merges.exists() and use_merges else {}
+    world = World(vocab, alias)
 
     valid = [r for r in rows if r["status"] == "valid"]
     glob = [r for r in valid if r["folder"] == "global"]
@@ -94,7 +96,7 @@ def run(run_name):
     summary = {"run": run_name, "pairs": sum(f["pairs"] for f in per_folder.values()),
                "flags": len(flags), **{k: total[k] for k in ("duplicate", "contradiction", "override")},
                "folders": per_folder}
-    (run_dir / "flags.json").write_text(json.dumps(flags, indent=1, ensure_ascii=False))
+    (run_dir / f"{out}.json").write_text(json.dumps(flags, indent=1, ensure_ascii=False))
     (run_dir / "pairs_summary.json").write_text(json.dumps(summary, indent=1))
     return flags, summary
 
@@ -102,7 +104,9 @@ def run(run_name):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True)
-    flags, summary = run(ap.parse_args().run)
+    ap.add_argument("--no-merges", action="store_true", help="ignore merges.json")
+    args = ap.parse_args()
+    flags, summary = run(args.run, use_merges=not args.no_merges)
     for f in flags:
         extra = " (soft)" if f.get("soft") else ""
         print(f"{f['label']:13}{extra} {f['folder'][-22:]:22} {f['a']:>4} <-> {f['b']:<4} [{f['action']}]")

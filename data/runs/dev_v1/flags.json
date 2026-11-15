@@ -657,6 +657,16 @@
  },
  {
   "folder": "M-Hernandez/setflow",
+  "a": "R6",
+  "b": "R14",
+  "label": "contradiction",
+  "soft": true,
+  "action": "commit_secrets",
+  "rule_a": "Never commit credentials to the repo.",
+  "rule_b": "(Preference) Keep the repo clean: no stale branches, no credentials, tested code."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
   "a": "R7",
   "b": "R9",
   "label": "duplicate",
@@ -664,6 +674,17 @@
   "action": "use_env_files_for_credentials",
   "rule_a": "Keep credentials in gitignored .env files; commit only .env.example with placeholder values.",
   "rule_b": "Load any credentials used by code from environment variables."
+ },
+ {
+  "folder": "M-Hernandez/setflow",
+  "a": "R8",
+  "b": "R14",
+  "label": "override",
+  "specific": "R8",
+  "soft": true,
+  "action": "commit_secrets",
+  "rule_a": "Before any commit, verify no .env files, API keys, or secrets are staged.",
+  "rule_b": "(Preference) Keep the repo clean: no stale branches, no credentials, tested code."
  },
  {
   "folder": "M-Hernandez/setflow",
@@ -764,6 +785,36 @@
   "action": "use_high_register_academic_english",
   "rule_a": "Write course material in precise, high-register academic English.",
   "rule_b": "Do not simplify the prose in course material."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R18",
+  "b": "R20",
+  "label": "duplicate",
+  "subsumed": "R20",
+  "action": "math_notation",
+  "rule_a": "In course notes, write inline math as \\( … \\) and display math as $$ … $$.",
+  "rule_b": "When Module 2 is reached, write its math in LaTeX from the start."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R18",
+  "b": "R22",
+  "label": "duplicate",
+  "subsumed": "R22",
+  "action": "math_notation",
+  "rule_a": "In course notes, write inline math as \\( … \\) and display math as $$ … $$.",
+  "rule_b": "Write math in the DS cheat sheet as LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R18",
+  "b": "R33",
+  "label": "duplicate",
+  "subsumed": null,
+  "action": "math_notation",
+  "rule_a": "In course notes, write inline math as \\( … \\) and display math as $$ … $$.",
+  "rule_b": "AofA course note/problem-set source files use LaTeX."
  },
  {
   "folder": "shabelson-picker/applied_math",
