@@ -27,9 +27,9 @@ def load_env(path=ENV_PATH):
 
 
 class LLM:
-    def __init__(self, concurrency=1):  # endpoint allows 1 concurrent request
+    def __init__(self, concurrency=1, model=None):  # endpoint allows 1 concurrent request
         env = load_env()
-        self.model = env["model"]
+        self.model = model or env["model"]             # model: override, e.g. the injection writer
         self.client = AsyncOpenAI(api_key=env["deepseek_api_key"], base_url=env["base_url"])
         self.sem = asyncio.Semaphore(concurrency)
         self.cache = {}

@@ -1,0 +1,18 @@
+{
+ "run": "dev_folder_x5",
+ "model": "deepseek-v4-flash",
+ "repeats": 5,
+ "labels": {
+  "contradiction": 61,
+  "duplicate": 232,
+  "override": 56,
+  "tension": 170,
+  "stale": 3
+ },
+ "usage": {
+  "calls": 19,
+  "cached": 6,
+  "prompt_tokens": 31664,
+  "completion_tokens": 24828
+ }
+}

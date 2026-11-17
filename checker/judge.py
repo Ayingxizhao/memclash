@@ -4,7 +4,7 @@ No schema, no solver. One call per unordered pair within a folder (prompts/judge
 Each rule is shown with its file name, its verbatim quote, and its restatement.
 
 Usage:
-  uv run python checker/judge.py --run dev_judge --rules data/dev/rules.json
+  uv run python checker/judge.py --run dev_judge --rules data/dev/rules.json [--candidates <folder judge.json>]
 Output: data/runs/<run>/judge.json (every pair with its label), judge_summary.json
 """
 
@@ -30,16 +30,22 @@ async def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True)
     ap.add_argument("--rules", required=True)
+    ap.add_argument("--candidates", help="a folder-judge judge.json: only pairs listed there are judged")
     ap.add_argument("--swap", action="store_true", help="show the two rules in reverse order (order-sensitivity test)")
     args = ap.parse_args()
     out_dir = ROOT / "data" / "runs" / args.run
     out_dir.mkdir(parents=True, exist_ok=True)
     llm, results = LLM(), []
     folders = json.loads((ROOT / args.rules).read_text())["folders"]
-    total = sum(len(f["rules"]) * (len(f["rules"]) - 1) // 2 for f in folders)
+    keep = None
+    if args.candidates:
+        keep = {(r["folder"], frozenset((r["a"], r["b"]))) for r in json.loads((ROOT / args.candidates).read_text())}
+    total = len(keep) if keep is not None else sum(len(f["rules"]) * (len(f["rules"]) - 1) // 2 for f in folders)
     for f in folders:
         name = f.get("repo") or f["folder"]
         for a, b in combinations(f["rules"], 2):
+            if keep is not None and (name, frozenset((a["id"], b["id"]))) not in keep:
+                continue
             first, second = (b, a) if args.swap else (a, b)
             msg = [{"role": "system", "content": PROMPT},
                    {"role": "user", "content": show("A", first) + "\n\n" + show("B", second)}]

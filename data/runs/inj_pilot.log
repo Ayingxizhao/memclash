@@ -1,0 +1,120 @@
+M-Hernandez/setflow#conflict_direct [repeat 0]: 22 rules -> 15 relations
+M-Hernandez/setflow#conflict_direct [repeat 1]: 22 rules -> 16 relations
+M-Hernandez/setflow#conflict_direct [repeat 2]: 22 rules -> 14 relations
+M-Hernandez/setflow#conflict_direct [repeat 3]: 22 rules -> 15 relations
+M-Hernandez/setflow#conflict_reworded [repeat 0]: 21 rules -> 20 relations
+M-Hernandez/setflow#conflict_reworded [repeat 1]: 21 rules -> 18 relations
+M-Hernandez/setflow#conflict_reworded [repeat 2]: 21 rules -> 16 relations
+M-Hernandez/setflow#conflict_reworded [repeat 3]: 21 rules -> 22 relations
+M-Hernandez/setflow#paraphrase [repeat 0]: 21 rules -> 9 relations
+M-Hernandez/setflow#paraphrase [repeat 1]: 21 rules -> 9 relations
+M-Hernandez/setflow#paraphrase [repeat 2]: 21 rules -> 9 relations
+M-Hernandez/setflow#paraphrase [repeat 3]: 21 rules -> 17 relations
+{
+ "run": "inj_pilot_folder",
+ "model": "deepseek-v4-flash",
+ "repeats": 4,
+ "labels": {
+  "contradiction": 99,
+  "override": 11,
+  "stale": 11,
+  "tension": 9,
+  "duplicate": 50
+ },
+ "usage": {
+  "calls": 12,
+  "cached": 0,
+  "prompt_tokens": 18792,
+  "completion_tokens": 10603
+ }
+}
+[25/70] {'duplicate': 4, 'contradiction': 16, 'override': 3, 'none': 2}
+[50/70] {'duplicate': 9, 'contradiction': 31, 'override': 3, 'none': 7}
+{
+ "run": "inj_pilot_judge",
+ "model": "deepseek-v4-flash",
+ "pairs": 70,
+ "swap": false,
+ "labels": {
+  "duplicate": 26,
+  "contradiction": 31,
+  "override": 3,
+  "none": 10
+ },
+ "usage": {
+  "calls": 47,
+  "cached": 23,
+  "prompt_tokens": 22068,
+  "completion_tokens": 2364
+ }
+}
+conflict   judge=contradiction gold=-             onflict_direct R1-X1
+conflict   judge=contradiction gold=-             onflict_direct R2-X1
+conflict   judge=override      gold=-             onflict_direct R3-X7
+conflict   judge=contradiction gold=-             onflict_direct R4-X7
+conflict   judge=contradiction gold=-             onflict_direct R6-X13
+compatible judge=contradiction gold=-             onflict_direct R6-X16
+conflict   judge=contradiction gold=-             onflict_direct R7-X16
+conflict   judge=contradiction gold=-             onflict_direct R8-X13
+compatible judge=contradiction gold=-             onflict_direct R8-X16
+conflict   judge=contradiction gold=-             onflict_direct R9-X16
+compatible judge=contradiction gold=-             onflict_direct R10-X13
+compatible judge=contradiction gold=-             onflict_direct R10-X16
+compatible judge=override      gold=-             onflict_direct R11-X10
+conflict   judge=contradiction gold=-             onflict_direct R12-X4
+conflict   judge=override      gold=-             onflict_direct R13-X7
+invalid    judge=contradiction gold=-             onflict_direct R14-X16
+compatible judge=contradiction gold=-             onflict_direct X13-X16
+conflict   judge=contradiction gold=-             flict_reworded R1-X2
+invalid    judge=contradiction gold=-             flict_reworded R2-X2
+compatible judge=contradiction gold=-             flict_reworded R3-X8
+conflict   judge=contradiction gold=-             flict_reworded R4-X8
+conflict   judge=contradiction gold=-             flict_reworded R6-X14
+compatible judge=contradiction gold=-             flict_reworded R6-X17
+conflict   judge=contradiction gold=-             flict_reworded R7-X14
+conflict   judge=contradiction gold=-             flict_reworded R7-X17
+conflict   judge=contradiction gold=-             flict_reworded R8-X14
+conflict   judge=contradiction gold=-             flict_reworded R8-X17
+conflict   judge=contradiction gold=-             flict_reworded R9-X14
+conflict   judge=contradiction gold=-             flict_reworded R9-X17
+compatible judge=contradiction gold=-             flict_reworded R10-X14
+conflict   judge=contradiction gold=-             flict_reworded R10-X17
+conflict   judge=contradiction gold=-             flict_reworded R12-X5
+compatible judge=contradiction gold=-             flict_reworded R13-X8
+compatible judge=contradiction gold=-             flict_reworded R14-X2
+{'conflict': 21, 'compatible': 11, 'invalid': 2} {'calls': 34, 'cached': 0, 'prompt_tokens': 26800, 'completion_tokens': 6748}
+X1   R1   opposite   conflict_direct   filter 4  judge contradiction z3 conflict
+X2   R1   opposite   conflict_reworded filter 4  judge contradiction z3 conflict
+X3   R1   opposite   paraphrase        filter 4  judge duplicate     z3 -
+X4   R12  value      conflict_direct   filter 4  judge contradiction z3 conflict
+X5   R12  value      conflict_reworded filter 4  judge contradiction z3 conflict
+X7   R3   narrower   conflict_direct   filter 4  judge override      z3 conflict
+X8   R3   narrower   conflict_reworded filter 4  judge contradiction z3 compatible
+X9   R3   narrower   paraphrase        filter 3  judge duplicate     z3 -
+X10  R11  number     conflict_direct   filter 4  judge override      z3 compatible
+X12  R11  number     paraphrase        filter 4  judge duplicate     z3 -
+X13  R6   permission conflict_direct   filter 3  judge contradiction z3 conflict
+X14  R6   permission conflict_reworded filter 4  judge contradiction z3 conflict
+X15  R6   permission paraphrase        filter 3  judge duplicate     z3 -
+X16  R9   opposite   conflict_direct   filter 4  judge contradiction z3 conflict
+X17  R9   opposite   conflict_reworded filter 4  judge contradiction z3 conflict
+X18  R9   opposite   paraphrase        filter 4  judge duplicate     z3 -
+
+kind               n  in filter  judge flag  z3 confirmed
+conflict_direct    6          6           6             5
+conflict_reworded  5          5           5             4
+paraphrase         5          5           0             0
+
+other reported conflicts: 12 (12 involve an injected rule)
+   conflict_direct R2 X1
+   conflict_direct R4 X7
+   conflict_direct R7 X16
+   conflict_direct R8 X13
+   conflict_direct R13 X7
+   conflict_reworded R4 X8
+   conflict_reworded R7 X14
+   conflict_reworded R7 X17
+   conflict_reworded R8 X14
+   conflict_reworded R8 X17
+   conflict_reworded R9 X14
+   conflict_reworded R10 X17

@@ -1,0 +1,492 @@
+[
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both rules require deleting the feature branch locally and on the remote after merging to main, with Rule B providing the specific commands for the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R1",
+  "b": "X1",
+  "label": "contradiction",
+  "explanation": "Rule A requires deleting the feature branch after every merge to main, while Rule B requires keeping it, so an agent cannot comply with both for the same merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R2",
+  "b": "X1",
+  "label": "contradiction",
+  "explanation": "Rule A requires deleting the branch locally and remotely after a merge, while Rule B requires keeping the branch locally and remotely after a merge, so both cannot be followed for the same merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R3",
+  "b": "X7",
+  "label": "override",
+  "explanation": "Rule B is more specific (PRs with fewer than 3 files) and changes Rule A's requirement to confirm before merging for that subset, without an explicit exception linking them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R4",
+  "b": "X7",
+  "label": "contradiction",
+  "explanation": "Rule A requires explicit approval before any push/merge, while Rule B explicitly says to skip user confirmation for small PRs, so both cannot be followed for a small PR merge."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R5",
+  "b": "X7",
+  "label": "none",
+  "explanation": "Rule A applies before push or PR creation, while Rule B applies before merging a PR, so they govern different actions and do not conflict."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R6",
+  "b": "X13",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing any credentials, while Rule B explicitly permits committing hardcoded API keys and credentials, so an agent cannot comply with both when committing such data."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R6",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing credentials to the repo, while Rule B requires hardcoding credentials into source code files, which would necessarily involve committing them to the repo."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R7",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A requires keeping credentials in gitignored .env files, while Rule B requires hardcoding them directly into source code, which are mutually exclusive practices."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R8",
+  "b": "X13",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing API keys or secrets, while Rule B explicitly permits committing hardcoded API keys, so an agent cannot comply with both when committing such keys."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R8",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing secrets (including API keys) to the repository, while Rule B explicitly instructs hardcoding credentials into source code files, which would place secrets in the repo and violate Rule A."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R9",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A requires loading credentials from environment variables, while Rule B explicitly requires hardcoding them directly into source code, so an agent cannot comply with both for the same credentials."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R10",
+  "b": "X13",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits hardcoded credentials, while Rule B explicitly permits committing them, so an agent cannot comply with both when a hardcoded credential is present."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R10",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A requires flagging hardcoded credentials, while Rule B explicitly instructs to hardcode credentials, so an agent cannot both flag and comply with hardcoding them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R11",
+  "b": "R16",
+  "label": "none",
+  "explanation": "Rule A specifies issue #17 as the next work item, while Rule B lists issues #4 and #5 as next, but they are unrelated because they refer to different issues and scopes, and there is no direct conflict or dependency between them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R11",
+  "b": "X10",
+  "label": "override",
+  "explanation": "Rule B changes the required number of seed DJs from 6 to 12 for the same end-to-end ingestion pipeline validation before Phase 2, overriding Rule A's scope."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R12",
+  "b": "X4",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits using the system Python 3.9.6 for the project, while Rule B mandates using it, so both cannot be followed simultaneously."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R13",
+  "b": "X7",
+  "label": "override",
+  "explanation": "Rule B is more specific (fewer than 3 files) and changes Rule A's behavior (skip confirmation) for that subset, without an explicit exception linking them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "R14",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits credentials in the repo, while Rule B requires hardcoding credentials into source files, which are in the repo, so both cannot be followed."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_direct",
+  "a": "X13",
+  "b": "X16",
+  "label": "contradiction",
+  "explanation": "Rule A permits committing hardcoded API keys only when necessary for local development, while Rule B mandates hardcoding all credentials directly into source code files, which would include production credentials, creating a direct conflict in scope and obligation."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both rules require deleting the feature branch locally and on the remote after merging to main, with Rule B providing the specific commands for the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R1",
+  "b": "X2",
+  "label": "contradiction",
+  "explanation": "Rule A requires deleting the feature branch after a merge to main, while Rule B requires retaining the source branch after a merge to the primary branch, so both cannot be followed for the same merged branch."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R2",
+  "b": "X2",
+  "label": "contradiction",
+  "explanation": "Rule A requires deleting the source branch after a merge, while Rule B requires retaining it, so both cannot be followed for the same merged branch."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R3",
+  "b": "R4",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user which files will be pushed or merged before performing those actions, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R3",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user about the files to be pushed or merged before git push, merge, or PR creation, with overlapping scope and identical behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R3",
+  "b": "R13",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user which files will be pushed or merged before performing push/merge operations, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R3",
+  "b": "X8",
+  "label": "contradiction",
+  "explanation": "Rule A requires confirming with the user before merging, while Rule B requires merging immediately without approval for small PRs, so both cannot be followed in that situation."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R4",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both rules require showing the file list and getting explicit approval before pushing or merging, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R4",
+  "b": "X8",
+  "label": "contradiction",
+  "explanation": "Rule A requires explicit approval before any push/merge, while Rule B explicitly bypasses the approval step for small PRs, so an agent cannot comply with both when a small PR is involved."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R5",
+  "b": "R13",
+  "label": "duplicate",
+  "explanation": "Both rules require showing changed files and asking for confirmation before pushing or creating a PR/merging, with Rule B's scope (push/merge) containing Rule A's scope (push or PR create) and the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R5",
+  "b": "X8",
+  "label": "none",
+  "explanation": "The rules concern different actions (confirming before push/PR creation vs. auto-merging small PRs) and can coexist without conflict."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R6",
+  "b": "R7",
+  "label": "none",
+  "explanation": "Rule A prohibits committing credentials, while Rule B specifies how to handle them (via .env files), so they are complementary rather than conflicting or duplicative."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R6",
+  "b": "R8",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—never committing credentials—and Rule B's scope (verifying before any commit) is contained within Rule A's broader prohibition, with no difference in required action."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R6",
+  "b": "R9",
+  "label": "none",
+  "explanation": "Rule A prohibits committing credentials, while Rule B instructs loading them from environment variables, which are compatible and complementary practices."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R6",
+  "b": "X14",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing credentials to the repo, while Rule B explicitly permits storing sensitive authentication tokens and secret strings in the version-controlled codebase, so an agent cannot comply with both for the same action."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R6",
+  "b": "X17",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing credentials to the repo, while Rule B instructs embedding API keys and passwords as literal strings in application logic, which would require committing them to the repo."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R7",
+  "b": "R8",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior of keeping credentials out of the repository, with Rule A specifying the method (.env files) and Rule B enforcing the check before commits, but they are not contradictory and overlap in scope."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R7",
+  "b": "R9",
+  "label": "none",
+  "explanation": "The rules are compatible and complementary, addressing different aspects of credential management (storage in .env files vs. loading from environment variables) without conflict."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R7",
+  "b": "X14",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing credentials (requiring gitignored .env files), while Rule B explicitly permits storing sensitive tokens in the version-controlled codebase, so both cannot be followed simultaneously."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R7",
+  "b": "X17",
+  "label": "contradiction",
+  "explanation": "Rule A requires keeping credentials in gitignored .env files and committing only placeholders, while Rule B requires embedding API keys and passwords as literal strings in application logic, which directly conflicts with the secure .env approach."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R8",
+  "b": "X14",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing secrets, while Rule B explicitly permits storing sensitive tokens and secrets in the version-controlled codebase, so an agent cannot comply with both when committing such data."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R8",
+  "b": "X17",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits committing secrets (including API keys) to the repository, while Rule B explicitly instructs embedding API keys as literal strings in application logic, which would be committed, so both cannot be followed."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R9",
+  "b": "X14",
+  "label": "contradiction",
+  "explanation": "Rule A requires credentials to be loaded from environment variables (not stored in code), while Rule B explicitly permits storing sensitive tokens and secrets in the version-controlled codebase, so an agent cannot comply with both for the same credential."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R9",
+  "b": "X17",
+  "label": "contradiction",
+  "explanation": "Rule A requires loading credentials from environment variables, while Rule B explicitly requires embedding them as literal strings, so both cannot be followed for the same credential."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R10",
+  "b": "X14",
+  "label": "contradiction",
+  "explanation": "Rule A requires flagging hardcoded credentials, while Rule B explicitly permits storing sensitive authentication tokens and secret strings in the codebase, so an agent cannot comply with both when encountering such values."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R10",
+  "b": "X17",
+  "label": "contradiction",
+  "explanation": "Rule A requires flagging hardcoded credentials, while Rule B instructs embedding API keys and passwords as literal strings, so an agent cannot both flag and embed them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R11",
+  "b": "R16",
+  "label": "none",
+  "explanation": "Rule A specifies issue #17 as the next work item, while Rule B lists issues #4 and #5 as next, but they are unrelated because they refer to different issues and scopes, and there is no direct conflict or dependency between them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R12",
+  "b": "X5",
+  "label": "contradiction",
+  "explanation": "Rule A prohibits using /usr/bin/python3 for this project, while Rule B mandates using /usr/bin/python3 for all development tasks, so an agent cannot comply with both when working on this project."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R13",
+  "b": "X8",
+  "label": "contradiction",
+  "explanation": "Rule A requires confirming files with the user before any push/merge, while Rule B mandates merging immediately without approval for small PRs, so both cannot be followed for a small PR."
+ },
+ {
+  "folder": "M-Hernandez/setflow#conflict_reworded",
+  "a": "R14",
+  "b": "X2",
+  "label": "contradiction",
+  "explanation": "Rule A says to keep the repo clean with no stale branches, while Rule B requires retaining merged source branches, which are typically considered stale after merge, so an agent cannot both delete stale branches and retain them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R1",
+  "b": "R2",
+  "label": "duplicate",
+  "explanation": "Both rules require deleting the feature branch locally and on the remote after merging to main, with Rule B providing the specific commands for the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R1",
+  "b": "X3",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior (deleting the feature branch locally and remotely after merging to main) with the same scope, just phrased differently."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R2",
+  "b": "X3",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—deleting the feature branch locally and remotely after a merge—and Rule A's scope (after `gh pr merge`) is contained within Rule B's broader scope (after each merge into main), with identical required actions."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R3",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user about the files to be pushed or merged before git push, merge, or PR creation, with overlapping scope and identical behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R3",
+  "b": "R13",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user which files will be pushed or merged before performing push/merge operations, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R3",
+  "b": "X9",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—confirming with the user which files are involved before git push, merge, or PR creation—and have the same scope."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R4",
+  "b": "R5",
+  "label": "duplicate",
+  "explanation": "Both rules require showing the file list and getting explicit approval before pushing or merging, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R4",
+  "b": "R13",
+  "label": "duplicate",
+  "explanation": "Both rules require showing the file list and getting explicit user approval before a push/merge, with Rule B's scope (always confirm files) contained within Rule A's scope (do not assume approval; show file list and get explicit approval)."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R4",
+  "b": "X9",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming with the user which files are involved before pushing or merging, with the same scope and behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R5",
+  "b": "R13",
+  "label": "duplicate",
+  "explanation": "Both rules require showing changed files and asking for confirmation before pushing or creating a PR/merging, with Rule B's scope (push/merge) containing Rule A's scope (push or PR create) and the same behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R5",
+  "b": "X9",
+  "label": "duplicate",
+  "explanation": "Both rules require showing/verifying changed files and asking for user confirmation before git push or pull request creation, with Rule B's scope (adding git merge) contained within Rule A's broader intent."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R6",
+  "b": "R7",
+  "label": "none",
+  "explanation": "Rule A prohibits committing credentials, while Rule B specifies how to handle them (via .env files), so they are complementary rather than conflicting or duplicative."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R6",
+  "b": "R8",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—never committing credentials—and Rule B's scope (verifying before any commit) is contained within Rule A's broader prohibition, with no difference in required action."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R6",
+  "b": "X15",
+  "label": "duplicate",
+  "explanation": "Both rules prohibit committing credentials or sensitive secrets to the repository, with overlapping scope and identical behavior."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R7",
+  "b": "X15",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—keeping credentials out of version control—and Rule A's scope (using .env files and .env.example) is contained within Rule B's broader prohibition, with no difference in required action."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R9",
+  "b": "X18",
+  "label": "duplicate",
+  "explanation": "Both rules require that credentials/secrets be loaded from environment variables, with Rule A's scope (credentials) being contained within Rule B's broader scope (secrets and authentication tokens), and the behavior is the same."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R11",
+  "b": "R16",
+  "label": "none",
+  "explanation": "Rule A specifies issue #17 as the next work item, while Rule B lists issues #4 and #5 as next, but they are unrelated because they refer to different issues and scopes, and there is no direct conflict or dependency between them."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R11",
+  "b": "X12",
+  "label": "duplicate",
+  "explanation": "Both rules require the same behavior—running the full ingestion pipeline on 6 seed DJs for issue #17 before Phase 2—with identical scope."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R13",
+  "b": "X9",
+  "label": "duplicate",
+  "explanation": "Both rules require confirming files with the user before push/merge, with Rule B's scope (push, merge, PR creation) being a specific subset of Rule A's broader push/merge scope, and the behavior is the same."
+ },
+ {
+  "folder": "M-Hernandez/setflow#paraphrase",
+  "a": "R16",
+  "b": "X12",
+  "label": "none",
+  "explanation": "The rules concern different issues (#4/#5 vs #17) and different actions (indexing next work items vs executing an ingestion pipeline), so they are unrelated."
+ }
+]

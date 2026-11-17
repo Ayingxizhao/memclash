@@ -1,0 +1,270 @@
+{
+ "rows": [
+  {
+   "id": "X1",
+   "host": "R1",
+   "pattern": "opposite",
+   "kind": "conflict_direct",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X2",
+   "host": "R1",
+   "pattern": "opposite",
+   "kind": "conflict_reworded",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X3",
+   "host": "R1",
+   "pattern": "opposite",
+   "kind": "paraphrase",
+   "filter_repeats": 4,
+   "judge": "duplicate",
+   "z3": "-",
+   "reported": false
+  },
+  {
+   "id": "X4",
+   "host": "R12",
+   "pattern": "value",
+   "kind": "conflict_direct",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X5",
+   "host": "R12",
+   "pattern": "value",
+   "kind": "conflict_reworded",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X7",
+   "host": "R3",
+   "pattern": "narrower",
+   "kind": "conflict_direct",
+   "filter_repeats": 4,
+   "judge": "override",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X8",
+   "host": "R3",
+   "pattern": "narrower",
+   "kind": "conflict_reworded",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "compatible",
+   "reported": false
+  },
+  {
+   "id": "X9",
+   "host": "R3",
+   "pattern": "narrower",
+   "kind": "paraphrase",
+   "filter_repeats": 3,
+   "judge": "duplicate",
+   "z3": "-",
+   "reported": false
+  },
+  {
+   "id": "X10",
+   "host": "R11",
+   "pattern": "number",
+   "kind": "conflict_direct",
+   "filter_repeats": 4,
+   "judge": "override",
+   "z3": "compatible",
+   "reported": false
+  },
+  {
+   "id": "X12",
+   "host": "R11",
+   "pattern": "number",
+   "kind": "paraphrase",
+   "filter_repeats": 4,
+   "judge": "duplicate",
+   "z3": "-",
+   "reported": false
+  },
+  {
+   "id": "X13",
+   "host": "R6",
+   "pattern": "permission",
+   "kind": "conflict_direct",
+   "filter_repeats": 3,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X14",
+   "host": "R6",
+   "pattern": "permission",
+   "kind": "conflict_reworded",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X15",
+   "host": "R6",
+   "pattern": "permission",
+   "kind": "paraphrase",
+   "filter_repeats": 3,
+   "judge": "duplicate",
+   "z3": "-",
+   "reported": false
+  },
+  {
+   "id": "X16",
+   "host": "R9",
+   "pattern": "opposite",
+   "kind": "conflict_direct",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X17",
+   "host": "R9",
+   "pattern": "opposite",
+   "kind": "conflict_reworded",
+   "filter_repeats": 4,
+   "judge": "contradiction",
+   "z3": "conflict",
+   "reported": true
+  },
+  {
+   "id": "X18",
+   "host": "R9",
+   "pattern": "opposite",
+   "kind": "paraphrase",
+   "filter_repeats": 4,
+   "judge": "duplicate",
+   "z3": "-",
+   "reported": false
+  }
+ ],
+ "table": {
+  "conflict_direct": {
+   "n": 6,
+   "filter": 6,
+   "judge": 6,
+   "z3": 5
+  },
+  "conflict_reworded": {
+   "n": 5,
+   "filter": 5,
+   "judge": 5,
+   "z3": 4
+  },
+  "paraphrase": {
+   "n": 5,
+   "filter": 5,
+   "judge": 0,
+   "z3": 0
+  }
+ },
+ "other_reported": [
+  [
+   "M-Hernandez/setflow#conflict_direct",
+   [
+    "R2",
+    "X1"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_direct",
+   [
+    "R4",
+    "X7"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_direct",
+   [
+    "R7",
+    "X16"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_direct",
+   [
+    "R8",
+    "X13"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_direct",
+   [
+    "R13",
+    "X7"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R4",
+    "X8"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R7",
+    "X14"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R7",
+    "X17"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R8",
+    "X14"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R8",
+    "X17"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R9",
+    "X14"
+   ]
+  ],
+  [
+   "M-Hernandez/setflow#conflict_reworded",
+   [
+    "R10",
+    "X17"
+   ]
+  ]
+ ]
+}
