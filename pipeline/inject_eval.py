@@ -8,12 +8,10 @@ score: for every injected rule, look at its target pair (host, injected) after e
        Conflicts should pass all three; paraphrases should not be reported.
 
 Usage:
-  uv run python checker/inject_eval.py build --inject data/inject/dev_pilot.json --rules data/dev/rules.json
-  uv run python checker/inject_eval.py score --inject data/inject/dev_pilot.json --run inj_pilot
-The pipeline between the two steps (run names share the prefix given to `score`):
-  judge_folder.py --run <p>_folder --rules <inject>_rules.json --repeats 4
-  judge.py        --run <p>_judge  --rules <inject>_rules.json --candidates data/runs/<p>_folder/judge.json
-  confirm_pair.py --run <p>_confirm --rules <inject>_rules.json --pairs data/runs/<p>_judge/judge.json
+  uv run python pipeline/inject_eval.py build --inject data/inject/dev_pilot.json --rules data/dev/rules.json
+  uv run python pipeline/run_pipeline.py --run inj_pilot --rules data/inject/dev_pilot_rules.json
+  uv run python pipeline/inject_eval.py score --inject data/inject/dev_pilot.json --run inj_pilot
+Output of score: data/runs/<run>/inject_score.json
 """
 
 import argparse
@@ -42,13 +40,14 @@ def build(args):
 
 def score(args):
     items = [it for it in json.loads((ROOT / args.inject).read_text()) if it["keep"]]
-    load = lambda stage, file: json.loads((ROOT / "data" / "runs" / f"{args.run}_{stage}" / file).read_text())
+    run_dir = ROOT / "data" / "runs" / args.run
+    load = lambda file: json.loads((run_dir / file).read_text())
     key = lambda r: (r["folder"], frozenset((r["a"], r["b"])))
     cand = defaultdict(set)                                    # pair -> repeats that proposed it
-    for r in load("folder", "judge.json"):
+    for r in load("filter.json"):
         cand[key(r)].add(r.get("repeat", 0))
-    judge = {key(r): r["label"] for r in load("judge", "judge.json")}
-    z3 = {key(r): r["verdict"] for r in load("confirm", "confirm.json")}
+    judge = {key(r): r["label"] for r in load("judge.json")}
+    z3 = {key(r): r["verdict"] for r in load("verify.json")}
     rows, table = [], defaultdict(lambda: [0, 0, 0, 0])
     for it in items:
         k = (f"{it['folder']}#{it['kind']}", frozenset((it["host"], it["id"])))
@@ -73,8 +72,7 @@ def score(args):
           f"({sum(bool(set(p) & injected) for _, p in side)} involve an injected rule)")
     for f, p in side:
         print("  ", f.split("#")[1], *p)
-    out = ROOT / "data" / "runs" / f"{args.run}_confirm" / "inject_score.json"
-    out.write_text(json.dumps({"rows": rows, "table": {k: dict(zip(("n", "filter", "judge", "z3"), v)) for k, v in table.items()},
+    (run_dir / "inject_score.json").write_text(json.dumps({"rows": rows, "table": {k: dict(zip(("n", "filter", "judge", "z3"), v)) for k, v in table.items()},
                                "other_reported": side}, indent=1))
 
 

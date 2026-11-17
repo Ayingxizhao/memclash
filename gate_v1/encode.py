@@ -19,7 +19,7 @@ SCOPE_FACETS = ("task", "medium", "artifact")
 
 class World:
     def __init__(self, vocab, alias=None):
-        # alias: behavior key -> canonical key, from checker/merge_vocab.py. A key is a bool
+        # alias: behavior key -> canonical key, from gate_v1/merge_vocab.py. A key is a bool
         # action name, or "<enum action>=<value>". Merged behaviors share one Z3 formula.
         self.alias = alias or {}
         self.var, self.cover = {}, {}          # facet -> z3 variable; facet -> term -> [z3 leaf values]

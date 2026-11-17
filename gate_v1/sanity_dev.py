@@ -7,7 +7,7 @@ Checks:
   overlap        SAT(scope1 & scope2 & axioms)
   contradiction  O/F pairs: overlap is SAT but adding both effects is UNSAT
                  P vs F on the same action: overlap is SAT (P allows what F forbids)
-Run: uv run python checker/sanity_dev.py
+Run: uv run python gate_v1/sanity_dev.py
 """
 
 from dataclasses import dataclass

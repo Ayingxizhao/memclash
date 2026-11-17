@@ -7,7 +7,7 @@ A "conflict" is a pair labelled contradiction or override. Two views are reporte
 plus duplicate (both say duplicate).
 
 Usage:
-  uv run python checker/score.py --name dev_judge --pred data/runs/dev_judge/judge.json \
+  uv run python pipeline/score.py --name dev_judge --pred data/runs/dev_judge/judge.json \
       --labels data/open_coding/agent_a.json
 """
 

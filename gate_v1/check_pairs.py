@@ -7,7 +7,7 @@ Labels (same order as prompts/label_pairs.md; stale and tension are not formaliz
   duplicate      same demand, and the scopes are equal or one contains the other
 A flag is `soft` when one of the two rules is only a preference (Pref).
 
-Usage:  uv run python checker/check_pairs.py --run own_v3
+Usage:  uv run python gate_v1/check_pairs.py --run own_v3
 Input:  data/runs/<run>/records.json, vocab_additions.json
 Output: data/runs/<run>/flags.json, pairs_summary.json
 """

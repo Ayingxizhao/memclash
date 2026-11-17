@@ -1,7 +1,7 @@
 {
- "run": "inj_pilot_folder",
  "model": "deepseek-v4-flash",
  "repeats": 4,
+ "candidate_pairs": 70,
  "labels": {
   "contradiction": 99,
   "override": 11,
@@ -10,9 +10,9 @@
   "duplicate": 50
  },
  "usage": {
-  "calls": 12,
-  "cached": 0,
-  "prompt_tokens": 18792,
-  "completion_tokens": 10603
+  "calls": 0,
+  "cached": 12,
+  "prompt_tokens": 0,
+  "completion_tokens": 0
  }
 }

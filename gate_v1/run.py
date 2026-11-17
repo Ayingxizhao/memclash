@@ -1,7 +1,7 @@
 """One command: translate the rules (Stage A), then check all pairs with Z3 (Stage B).
 
 Usage:
-  uv run python checker/run.py --run dev_v1 --rules data/dev/rules.json --base data/github/repos
+  uv run python gate_v1/run.py --run dev_v1 --rules data/dev/rules.json --base data/github/repos
 Output in data/runs/<run>/: records.json, vocab_additions.json, summary.json, flags.json,
 pairs_summary.json
 """

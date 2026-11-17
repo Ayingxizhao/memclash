@@ -10,7 +10,7 @@ Follows the pattern of ARc (cluster variable descriptions by embedding similarit
 Embeddings alone are not trusted: opposites ("use LaTeX" / "use plain text") sit close together.
 
 Usage:
-  uv run python checker/merge_vocab.py --run dev_v1 [--candidates-only]
+  uv run python gate_v1/merge_vocab.py --run dev_v1 [--candidates-only]
 Output: data/runs/<run>/merges.json
 """
 
@@ -19,7 +19,10 @@ import asyncio
 import json
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))  # shared LLM client
 from llm import LLM
+
 from validate import Vocab
 
 ROOT = Path(__file__).resolve().parents[1]

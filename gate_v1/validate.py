@@ -10,7 +10,7 @@ import json
 import re
 from pathlib import Path
 
-VOCAB_PATH = Path(__file__).resolve().parents[1] / "design" / "vocab_v1.json"
+VOCAB_PATH = Path(__file__).resolve().parent / "design" / "vocab_v1.json"
 SCOPE_FACETS = ("task", "medium", "artifact")
 MODALITIES = ("O", "F", "P", "Pref")
 NAME = re.compile(r"^[a-z][a-z0-9_]*$")

@@ -1,22 +1,24 @@
-"""Confirm step: formalize BOTH rules of a candidate pair in one LLM call, then let Z3 decide.
+"""Stage 3, verifier: formalize BOTH rules of a flagged pair in one LLM call, then let Z3 decide.
 
 The LLM is not told the pair was flagged and is not asked for a verdict. It returns shared
 names (situations, actions), world facts, and for each rule a `when` and a `demand` formula
-(prompts/formalize_pair.md). Z3 then decides:
+(prompts/verify_pair.md). Z3 then decides:
   conflict    there is a possible situation in which both rules apply and no behavior meets
               both demands (the situation is returned as a witness)
   compatible  both rules can apply together, and in every such situation both demands can be met
   no_overlap  no possible situation makes both rules apply
   unfit       the LLM said a rule has no checkable behavior
-  invalid     the answer does not parse (undeclared name, bad syntax, a `when` using actions)
-Formulas accept `->`; a demand may also name situations (a conditional demand).
+  invalid     the answer does not parse (undeclared name, bad syntax), or one rule cannot be
+              met on its own
 `same_demand` is true when the two demands are equivalent given the facts.
+Formulas accept `->`; a demand may also name situations (a conditional demand).
 
 Usage:
-  uv run python checker/confirm_pair.py --run dev_confirm --rules data/dev/rules.json \
-      --pairs data/runs/dev_judge/judge.json [--labels data/open_coding/agent_a.json]
-Pairs taken: those labelled contradiction/override in --pairs, plus those in --labels.
-Output: data/runs/<run>/confirm.json
+  uv run python pipeline/verify_pair.py --run dev --rules data/dev/rules.json \
+      --pairs data/runs/dev/judge.json [--labels data/open_coding/agent_a.json]
+Pairs taken: those labelled contradiction/override in --pairs, plus (for analysis) every
+labelled pair of --labels.
+Output: data/runs/<run>/verify.json
 """
 
 import argparse
@@ -32,7 +34,7 @@ from z3 import And, Bool, BoolVal, Implies, Not, Or, Solver, Xor, sat
 from llm import LLM
 
 ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "formalize_pair.md").read_text()
+PROMPT = (ROOT / "prompts" / "verify_pair.md").read_text()
 CONFLICT = ("contradiction", "override")
 MAX_SITUATIONS = 10
 
@@ -158,30 +160,22 @@ def show(tag, r):
     return f"RULE {tag} (file `{r['file']}`)\n- quote: {r['quote']}\n- rule: {r['rule']}"
 
 
-async def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--run", required=True)
-    ap.add_argument("--rules", required=True)
-    ap.add_argument("--pairs", required=True, help="judge.json; its contradiction/override pairs are checked")
-    ap.add_argument("--labels", help="also check every labelled pair of this open-coding file")
-    args = ap.parse_args()
-    out_dir = ROOT / "data" / "runs" / args.run
+async def run(llm, rules_path, out_dir, pairs_path, labels_path=None):
     out_dir.mkdir(parents=True, exist_ok=True)
-
     folders = {(f.get("repo") or f["folder"]): {r["id"]: r for r in f["rules"]}
-               for f in json.loads((ROOT / args.rules).read_text())["folders"]}
+               for f in json.loads((ROOT / rules_path).read_text())["folders"]}
     todo = {}                                        # (folder, a, b) -> {"judge": label, "gold": label}
-    for r in json.loads((ROOT / args.pairs).read_text()):
+    for r in json.loads((ROOT / pairs_path).read_text()):
         if r["label"] in CONFLICT:
             todo.setdefault((r["folder"], *sorted((r["a"], r["b"]))), {})["judge"] = r["label"]
-    if args.labels:
-        for f in json.loads((ROOT / args.labels).read_text())["folders"]:
+    if labels_path:
+        for f in json.loads((ROOT / labels_path).read_text())["folders"]:
             name = f.get("repo") or f["folder"]
             for r in f.get("relations", []):
                 if r.get("a") and r.get("b"):
                     todo.setdefault((name, *sorted((r["a"], r["b"]))), {})["gold"] = r["label"]
 
-    llm, results = LLM(), []
+    results = []
     for (folder, a, b), src in todo.items():
         ra, rb = folders[folder][a], folders[folder][b]
         f = await llm.chat_json([{"role": "system", "content": PROMPT},
@@ -189,10 +183,18 @@ async def main():
         verdict, detail = decide(f) if isinstance(f, dict) else ("invalid", {"error": "not an object"})
         results.append({"folder": folder, "a": a, "b": b, **src, "verdict": verdict, **detail,
                         "formal": f, "rule_a": ra["rule"], "rule_b": rb["rule"]})
-        print(f"{verdict:10} judge={src.get('judge', '-'):13} gold={src.get('gold', '-'):13} {folder[-14:]} {a}-{b}", flush=True)
-        (out_dir / "confirm.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
-    print(dict(Counter(r["verdict"] for r in results)), llm.usage)
+        print(f"verify {verdict:10} judge={src.get('judge', '-'):13} gold={src.get('gold', '-'):13} {folder[-14:]} {a}-{b}", flush=True)
+        (out_dir / "verify.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
+    (out_dir / "verify.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
+    print("verify:", dict(Counter(r["verdict"] for r in results)), flush=True)
+    return results
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--run", required=True)
+    ap.add_argument("--rules", required=True)
+    ap.add_argument("--pairs", required=True, help="judge.json; its contradiction/override pairs are checked")
+    ap.add_argument("--labels", help="also check every labelled pair of this open-coding file")
+    args = ap.parse_args()
+    asyncio.run(run(LLM(), args.rules, ROOT / "data" / "runs" / args.run, args.pairs, args.labels))

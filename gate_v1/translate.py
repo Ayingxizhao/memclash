@@ -6,7 +6,7 @@ times); a rule that still fails, or that the model says does not fit, is marked 
 Accepted new terms are added to the vocabulary, so later rules see and reuse them.
 
 Usage:
-  uv run python checker/translate.py --run own_v1 --rules data/own/rules.json --base data/own
+  uv run python gate_v1/translate.py --run own_v1 --rules data/own/rules.json --base data/own
 Output: data/runs/<run>/records.json, vocab_additions.json, summary.json
 """
 
@@ -16,7 +16,10 @@ import json
 from collections import Counter
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))  # shared LLM client
 from llm import LLM
+
 from validate import Vocab
 
 ROOT = Path(__file__).resolve().parents[1]

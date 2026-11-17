@@ -5,8 +5,8 @@ returns rules as {quote, rule}. Each quote must be a verbatim span of the file
 (after light normalization); otherwise we retry once with feedback, then drop it.
 
 Usage:
-  uv run python checker/extract.py --run pilot --repos owner/repo [owner/repo ...]
-  uv run python checker/extract.py --run full --split prevalence
+  uv run python prep/extract.py --run pilot --repos owner/repo [owner/repo ...]
+  uv run python prep/extract.py --run full --split prevalence
 Output: data/runs/<run>/rules/<owner__repo>.json
 """
 
@@ -16,7 +16,10 @@ import json
 import re
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))  # shared LLM client
 from llm import LLM
+
 
 ROOT = Path(__file__).resolve().parents[1] / "data"
 REPOS = ROOT / "github" / "repos"

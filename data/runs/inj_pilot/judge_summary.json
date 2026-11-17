@@ -1,8 +1,8 @@
 {
- "run": "inj_pilot_judge",
  "model": "deepseek-v4-flash",
  "pairs": 70,
  "swap": false,
+ "candidates": "data/runs/inj_pilot/filter.json",
  "labels": {
   "duplicate": 26,
   "contradiction": 31,
@@ -10,9 +10,9 @@
   "none": 10
  },
  "usage": {
-  "calls": 47,
-  "cached": 23,
-  "prompt_tokens": 22068,
-  "completion_tokens": 2364
+  "calls": 0,
+  "cached": 82,
+  "prompt_tokens": 0,
+  "completion_tokens": 0
  }
 }

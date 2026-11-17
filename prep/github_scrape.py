@@ -11,12 +11,12 @@ Quality filter (v1):
   - folder path ends in "memory" (.claude/memory, .claude/projects/*/memory, memory/)
   - >= MIN_RULE_FILES files with frontmatter type: feedback | user
   - repo is not a fork
-  - >= 80% of memory files detected as English (scraper/lang.py)
+  - >= 80% of memory files detected as English (prep/lang.py)
 Template/boilerplate and duplicate detection are done later, in post-processing.
 
 Usage:
-  uv run python scraper/github_scrape.py search [--max-pages N]
-  uv run python scraper/github_scrape.py fetch  [--max-repos 30] [--seed 2520]
+  uv run python prep/github_scrape.py search [--max-pages N]
+  uv run python prep/github_scrape.py fetch  [--max-repos 30] [--seed 2520]
 Auth: uses the token from `gh auth token`.
 """
 

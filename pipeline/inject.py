@@ -6,7 +6,7 @@ paraphrase of the host (control: must not be reported as a conflict). The output
 by hand before it is used; set "keep": false on an item to drop it.
 
 Usage:
-  uv run python checker/inject.py --rules data/dev/rules.json --folder setflow \
+  uv run python pipeline/inject.py --rules data/dev/rules.json --folder setflow \
       --hosts R1:opposite,R12:value --out data/inject/dev_pilot.json
 Output: a JSON list, one item per injected rule:
   {folder, host, pattern, kind, id, file, rule, situation, keep}

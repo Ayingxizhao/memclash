@@ -4,7 +4,7 @@ One DeepSeek call per rule (prompts/translate_v2.md). The validator is determini
 unlike v1, looks at the rule text: the object must literally appear in the rule or its quote.
 
 Usage:
-  uv run python checker/translate_v2.py --run dev_v2 --rules data/dev/rules.json --base data/github/repos
+  uv run python gate_v1/translate_v2.py --run dev_v2 --rules data/dev/rules.json --base data/github/repos
 Output: data/runs/<run>/records.json, summary.json
 """
 
@@ -15,7 +15,10 @@ import re
 from collections import Counter
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))  # shared LLM client
 from llm import LLM
+
 from translate import load_rules
 
 ROOT = Path(__file__).resolve().parents[1]
