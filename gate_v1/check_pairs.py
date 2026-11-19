@@ -1,6 +1,6 @@
 """Stage B: check every rule pair of a folder with Z3.
 
-Labels (same order as prompts/label_pairs.md; stale and tension are not formalized):
+Labels (same order as prompts/data_prep/label_pairs.md; stale and tension are not formalized):
   none           different actions, or the scopes cannot both hold
   contradiction  scopes overlap and the two demands cannot both be met
   override       contradiction pattern, and one scope lies strictly inside the other

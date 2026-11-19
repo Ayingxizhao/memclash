@@ -1,12 +1,12 @@
 """Stage 1, filter: one LLM call per folder proposes the pairs worth reading.
 
-The model sees every rule of the folder and lists the related pairs (prompts/filter_folder.md).
+The model sees every rule of the folder and lists the related pairs (prompts/general/filter_folder.md).
 A single call is unstable, so the call is repeated: repeat 0 keeps the file order, repeat i > 0
 shuffles the rule order with seed i. The candidate set is the union over the repeats. Every
 relation carries its repeat number.
 
 Usage:
-  uv run python pipeline/filter_folder.py --run dev --rules data/dev/rules.json [--repeats 4]
+  uv run python pipeline/general/filter_folder.py --run dev --rules data/dev/rules.json [--repeats 4]
 Output: data/runs/<run>/filter.json (proposed pairs with label and repeat), filter_summary.json
 """
 
@@ -16,11 +16,13 @@ import json
 import random
 from collections import Counter
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 from llm import LLM
 
-ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "filter_folder.md").read_text()
+ROOT = Path(__file__).resolve().parents[2]
+PROMPT = (ROOT / "prompts" / "general" / "filter_folder.md").read_text()
 LABELS = ("duplicate", "contradiction", "override", "stale", "tension")
 
 

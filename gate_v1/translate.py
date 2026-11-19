@@ -23,7 +23,7 @@ from llm import LLM
 from validate import Vocab
 
 ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "translate.md").read_text()
+PROMPT = (ROOT / "prompts" / "gate_v1" / "translate.md").read_text()
 MAX_RETRIES = 2
 
 

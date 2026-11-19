@@ -4,7 +4,7 @@ pair of translated rules exactly with Z3.
 Unlike verify_pair.py, the LLM supplies no facts about how actions relate. What git means is
 fixed in this file: `push_delete` is a push, `pr_merge` is a merge, `.env*` matches
 `.env.example` (globs become Z3 regular expressions), and so on. The LLM only translates one
-rule at a time (prompts/git_translate.md).
+rule at a time (prompts/git/git_translate.md).
 
 Model. One git operation (an "event") has the fields listed in FIELDS. A clause is
   never    where           -> the event must not match `where`
@@ -18,11 +18,11 @@ there), the pair conflicts and that situation is the witness. For may_do, each l
 is tested on its own ("may commit or push" permits both). Otherwise the pair is compatible.
 
 Usage:
-  uv run python pipeline/git_check.py selftest
-  uv run python pipeline/git_check.py translate --rules data/inject/dev_pilot_rules.json \
-      --out data/runs/git_pilot/translate.json [--folder setflow]
-  uv run python pipeline/git_check.py check --translations data/runs/git_pilot/translate.json \
-      --out data/runs/git_pilot/check.json
+  uv run python pipeline/git/git_check.py selftest
+  uv run python pipeline/git/git_check.py translate --rules data/inject/dev_pilot_rules.json \
+      --out data/runs/git/git_pilot/translate.json [--folder setflow]
+  uv run python pipeline/git/git_check.py check --translations data/runs/git/git_pilot/translate.json \
+      --out data/runs/git/git_pilot/check.json
 """
 
 import argparse
@@ -30,11 +30,13 @@ import asyncio
 import json
 from itertools import combinations, product
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 from z3 import (And, Bool, BoolVal, Concat, Full, Implies, InRe, Int, IntVal, Not, Or, Re,
                 ReSort, Solver, String, StringSort, StringVal, sat)
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 CMDS = ["commit", "push_branch", "push_delete", "force_push", "local_merge", "pr_create",
         "pr_merge", "branch_create", "branch_delete", "checkout", "pull", "rebase", "reset_hard",
@@ -281,7 +283,7 @@ def selftest():
 
 async def translate(rules_path, out, folder=None):
     from llm import LLM
-    prompt = (ROOT / "prompts" / "git_translate.md").read_text()
+    prompt = (ROOT / "prompts" / "git" / "git_translate.md").read_text()
     llm = LLM()
     data = json.loads(Path(rules_path).read_text())
     seen, results = {}, {}

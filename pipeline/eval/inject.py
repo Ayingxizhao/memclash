@@ -1,12 +1,12 @@
 """Injection test, step 1: write rules that conflict with real host rules.
 
 For each (host rule, pattern), a model that is NOT the judge writes three new rules
-(prompts/inject_rule.md): a conflict in direct wording, the same conflict reworded, and a
+(prompts/eval/inject_rule.md): a conflict in direct wording, the same conflict reworded, and a
 paraphrase of the host (control: must not be reported as a conflict). The output is reviewed
 by hand before it is used; set "keep": false on an item to drop it.
 
 Usage:
-  uv run python pipeline/inject.py --rules data/dev/rules.json --folder setflow \
+  uv run python pipeline/eval/inject.py --rules data/dev/rules.json --folder setflow \
       --hosts R1:opposite,R12:value --out data/inject/dev_pilot.json
 Output: a JSON list, one item per injected rule:
   {folder, host, pattern, kind, id, file, rule, situation, keep}
@@ -16,11 +16,13 @@ import argparse
 import asyncio
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 from llm import LLM
 
-ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "inject_rule.md").read_text()
+ROOT = Path(__file__).resolve().parents[2]
+PROMPT = (ROOT / "prompts" / "eval" / "inject_rule.md").read_text()
 WRITER = "qwen3.6-35b"
 PATTERNS = ("opposite", "value", "narrower", "number", "permission")
 KINDS = ("conflict_direct", "conflict_reworded", "paraphrase")

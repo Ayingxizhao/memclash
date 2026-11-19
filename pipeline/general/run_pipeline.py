@@ -6,7 +6,7 @@
 A pair is reported when the judge labels it contradiction/override AND Z3 says conflict.
 
 Usage:
-  uv run python pipeline/run_pipeline.py --run dev_pipeline --rules data/dev/rules.json [--repeats 4]
+  uv run python pipeline/general/run_pipeline.py --run dev_pipeline --rules data/dev/rules.json [--repeats 4]
 Output in data/runs/<run>/: filter.json, judge.json, verify.json, reported.json, summary.json
   reported.json has the shape score.py expects (folder, a, b, label).
 """
@@ -15,13 +15,15 @@ import argparse
 import asyncio
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 import filter_folder
 import judge_pair
 import verify_pair
 from llm import LLM
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 CONFLICT = ("contradiction", "override")
 
 

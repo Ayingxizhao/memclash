@@ -1,6 +1,6 @@
 """Record shape v2: fixed verb + object COPIED from the rule text (no invented action names).
 
-One DeepSeek call per rule (prompts/translate_v2.md). The validator is deterministic and,
+One DeepSeek call per rule (prompts/gate_v1/translate_v2.md). The validator is deterministic and,
 unlike v1, looks at the rule text: the object must literally appear in the rule or its quote.
 
 Usage:
@@ -22,7 +22,7 @@ from llm import LLM
 from translate import load_rules
 
 ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "translate_v2.md").read_text()
+PROMPT = (ROOT / "prompts" / "gate_v1" / "translate_v2.md").read_text()
 MAX_RETRIES = 2
 VERBS = ("run", "edit", "create", "delete", "commit", "read", "use", "set")
 KINDS = ("command", "path", "tool", "format", "source", "setting", "code_symbol")

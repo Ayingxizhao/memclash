@@ -8,9 +8,9 @@ score: for every injected rule, look at its target pair (host, injected) after e
        Conflicts should pass all three; paraphrases should not be reported.
 
 Usage:
-  uv run python pipeline/inject_eval.py build --inject data/inject/dev_pilot.json --rules data/dev/rules.json
-  uv run python pipeline/run_pipeline.py --run inj_pilot --rules data/inject/dev_pilot_rules.json
-  uv run python pipeline/inject_eval.py score --inject data/inject/dev_pilot.json --run inj_pilot
+  uv run python pipeline/eval/inject_eval.py build --inject data/inject/dev_pilot.json --rules data/dev/rules.json
+  uv run python pipeline/general/run_pipeline.py --run inj_pilot --rules data/inject/dev_pilot_rules.json
+  uv run python pipeline/eval/inject_eval.py score --inject data/inject/dev_pilot.json --run inj_pilot
 Output of score: data/runs/<run>/inject_score.json
 """
 
@@ -19,7 +19,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 CONFLICT = ("contradiction", "override")
 
 

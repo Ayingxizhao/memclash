@@ -2,7 +2,7 @@
 
 The LLM is not told the pair was flagged and is not asked for a verdict. It returns shared
 names (situations, actions), world facts, and for each rule a `when` and a `demand` formula
-(prompts/verify_pair.md). Z3 then decides:
+(prompts/general/verify_pair.md). Z3 then decides:
   conflict    there is a possible situation in which both rules apply and no behavior meets
               both demands (the situation is returned as a witness)
   compatible  both rules can apply together, and in every such situation both demands can be met
@@ -15,14 +15,14 @@ names (situations, actions), world facts, and for each rule a `when` and a `dema
 Second pass. A `compatible` verdict has two possible reasons, recorded as `link`:
   implies      following one rule already satisfies the other (a real "no conflict")
   independent  the two required actions were named separately and nothing says how they relate
-For a flagged pair with link `independent`, one more LLM call (prompts/verify_link.md) states
+For a flagged pair with link `independent`, one more LLM call (prompts/general/verify_link.md) states
 how each action of rule A relates to each action of rule B (exclusive / one means the other /
 unrelated). The answers are added as facts and Z3 decides again. `first_verdict` keeps the
 verdict before the second pass.
 Formulas accept `->`; a demand may also name situations (a conditional demand).
 
 Usage:
-  uv run python pipeline/verify_pair.py --run dev --rules data/dev/rules.json \
+  uv run python pipeline/general/verify_pair.py --run dev --rules data/dev/rules.json \
       --pairs data/runs/dev/judge.json [--labels data/open_coding/agent_a.json]
 Pairs taken: those labelled contradiction/override in --pairs, plus (for analysis) every
 labelled pair of --labels.
@@ -36,14 +36,16 @@ import re
 from collections import Counter
 from itertools import product
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 from z3 import And, Bool, BoolVal, Implies, Not, Or, Solver, Xor, sat
 
 from llm import LLM
 
-ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "verify_pair.md").read_text()
-LINK_PROMPT = (ROOT / "prompts" / "verify_link.md").read_text()
+ROOT = Path(__file__).resolve().parents[2]
+PROMPT = (ROOT / "prompts" / "general" / "verify_pair.md").read_text()
+LINK_PROMPT = (ROOT / "prompts" / "general" / "verify_link.md").read_text()
 CONFLICT = ("contradiction", "override")
 MAX_SITUATIONS = 10
 

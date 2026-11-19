@@ -1,11 +1,11 @@
 """Stage 2, pair judge: the LLM reads two rules together and labels the pair.
 
-One call per pair (prompts/judge_pair.md). Each rule is shown with its file name, its verbatim
+One call per pair (prompts/general/judge_pair.md). Each rule is shown with its file name, its verbatim
 quote, and its restatement. With --candidates only the pairs proposed by stage 1 are judged;
 without it every pair of a folder is judged (the all-pairs baseline).
 
 Usage:
-  uv run python pipeline/judge_pair.py --run dev --rules data/dev/rules.json \
+  uv run python pipeline/general/judge_pair.py --run dev --rules data/dev/rules.json \
       [--candidates data/runs/dev/filter.json]
 Output: data/runs/<run>/judge.json (every judged pair with its label), judge_summary.json
 """
@@ -16,11 +16,13 @@ import json
 from collections import Counter
 from itertools import combinations
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # shared LLM client: pipeline/llm.py
 
 from llm import LLM
 
-ROOT = Path(__file__).resolve().parents[1]
-PROMPT = (ROOT / "prompts" / "judge_pair.md").read_text()
+ROOT = Path(__file__).resolve().parents[2]
+PROMPT = (ROOT / "prompts" / "general" / "judge_pair.md").read_text()
 LABELS = ("duplicate", "contradiction", "override", "stale", "tension", "none")
 
 
