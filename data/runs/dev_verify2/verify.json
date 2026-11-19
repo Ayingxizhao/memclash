@@ -1,0 +1,789 @@
+[
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R34",
+  "b": "R7",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "first_verdict": "compatible",
+  "link_answers": [
+   {
+    "a": "auto_execute_mutation",
+    "b": "call_edit_repository_waiting",
+    "relation": "exclusive",
+    "reason": "Calling edit<X>Repository with WAITING_ON_APPROVAL is a mutation that requires human approval, so it cannot be auto-executed without approval."
+   }
+  ],
+  "link_facts": [
+   "not (auto_execute_mutation and call_edit_repository_waiting)"
+  ],
+  "formal": {
+   "situations": {
+    "draft_to_waiting_submit": "the agent is handling a DRAFT to WAITING_ON_APPROVAL table-column submit"
+   },
+   "actions": {
+    "auto_execute_mutation": "the agent automatically executes a mutation without human approval",
+    "call_edit_repository_waiting": "the agent calls edit<X>Repository with status WAITING_ON_APPROVAL"
+   },
+   "facts": [],
+   "rule_a": {
+    "fits": true,
+    "when": "True",
+    "demand": "not auto_execute_mutation"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "draft_to_waiting_submit",
+    "demand": "call_edit_repository_waiting"
+   }
+  },
+  "rule_a": "The db-analyst must never auto-execute mutations, even if logically required.",
+  "rule_b": "For a DRAFT -> WAITING_ON_APPROVAL table-column submit, always call edit<X>Repository with status WAITING_ON_APPROVAL."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R15",
+  "b": "R8",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "independent",
+  "first_verdict": "compatible",
+  "link_answers": [
+   {
+    "a": "set_status_approved",
+    "b": "use_submit_repository",
+    "relation": "unrelated",
+    "reason": "Setting status to APPROVED directly is a separate action from using a submit function, which is meant for APPROVED to FINAL_STATUS transitions; neither action inherently includes or excludes the other."
+   }
+  ],
+  "link_facts": [],
+  "formal": {
+   "situations": {
+    "editing_repository": "The agent is editing repository code or functions",
+    "transition_approved_to_final": "The operation involves a transition from APPROVED to FINAL_STATUS"
+   },
+   "actions": {
+    "set_status_approved": "Directly setting the status to APPROVED",
+    "set_status_waiting_on_approval": "Setting the status to WAITING_ON_APPROVAL",
+    "use_submit_repository": "Using a submit<X>Repository function"
+   },
+   "facts": [
+    "not (set_status_approved and set_status_waiting_on_approval)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "editing_repository",
+    "demand": "not set_status_approved"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "transition_approved_to_final",
+    "demand": "use_submit_repository"
+   }
+  },
+  "rule_a": "Repository edit functions must never set status APPROVED directly (WAITING_ON_APPROVAL is allowed).",
+  "rule_b": "Use submit<X>Repository only for APPROVED -> FINAL_STATUS transitions."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R12",
+  "b": "R13",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "in_case_when_sql_template": "The agent is writing a CASE...WHEN SQL template",
+    "target_column_numeric": "The target column in the CASE...WHEN is numeric",
+    "bulk_update": "The CASE...WHEN is part of a bulk UPDATE statement"
+   },
+   "actions": {
+    "passes_bare_value": "Passes the value directly without CAST or string conversion",
+    "passes_stringified_value": "Passes the value as a string (e.g., via String() or toString())",
+    "wraps_in_cast_numeric": "Wraps the value in CAST(... AS NUMERIC)"
+   },
+   "facts": [
+    "not (passes_bare_value and passes_stringified_value)",
+    "not (passes_bare_value and wraps_in_cast_numeric)",
+    "not (passes_stringified_value and wraps_in_cast_numeric)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "in_case_when_sql_template and target_column_numeric",
+    "demand": "not passes_bare_value and not passes_stringified_value"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "in_case_when_sql_template and target_column_numeric and bulk_update",
+    "demand": "wraps_in_cast_numeric"
+   }
+  },
+  "rule_a": "In CASE...WHEN sql templates, never pass bare/stringified values for a numeric target column.",
+  "rule_b": "In CASE...WHEN bulk UPDATEs, wrap every numeric column value in CAST(... AS NUMERIC)."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R12",
+  "b": "R21",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "writing_case_when_sql": "The agent is writing a CASE...WHEN expression in an SQL template",
+    "target_column_numeric": "The target column of the CASE...WHEN expression is of numeric type"
+   },
+   "actions": {
+    "passes_bare_value": "Passes a bare value (e.g., item.field) without casting or string conversion",
+    "passes_stringified_value": "Passes a stringified value (e.g., String(item.field) or item.field.toString())",
+    "explicitly_casts_to_target_type": "Explicitly casts the value to the target column type"
+   },
+   "facts": [
+    "not (passes_bare_value and explicitly_casts_to_target_type)",
+    "not (passes_stringified_value and explicitly_casts_to_target_type)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_case_when_sql and target_column_numeric",
+    "demand": "not passes_bare_value and not passes_stringified_value"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "writing_case_when_sql",
+    "demand": "explicitly_casts_to_target_type"
+   }
+  },
+  "rule_a": "In CASE...WHEN sql templates, never pass bare/stringified values for a numeric target column.",
+  "rule_b": "Every CASE...WHEN expression must explicitly CAST to the target column type."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R18",
+  "b": "R19",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "in_case_when_sql_template": "The agent is writing a CASE...WHEN SQL template",
+    "target_column_is_timestamptz": "The target column in the CASE...WHEN is of type timestamp with time zone",
+    "in_bulk_update": "The CASE...WHEN is part of a bulk UPDATE statement"
+   },
+   "actions": {
+    "passes_bare_value": "Passes the value without any CAST wrapper",
+    "wraps_in_cast_timestamptz": "Wraps the value in CAST(... AS TIMESTAMPTZ)"
+   },
+   "facts": [
+    "not (passes_bare_value and wraps_in_cast_timestamptz)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "in_case_when_sql_template and target_column_is_timestamptz",
+    "demand": "not passes_bare_value"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "in_case_when_sql_template and target_column_is_timestamptz and in_bulk_update",
+    "demand": "wraps_in_cast_timestamptz"
+   }
+  },
+  "rule_a": "In CASE...WHEN sql templates, never pass bare values for a timestamptz target column.",
+  "rule_b": "In CASE...WHEN bulk UPDATEs, wrap every timestamp column value in CAST(... AS TIMESTAMPTZ)."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R18",
+  "b": "R21",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "writing_case_when_sql": "The agent is writing a CASE...WHEN expression in an SQL template.",
+    "target_column_timestamptz": "The target column of the CASE...WHEN expression is of type timestamp with time zone."
+   },
+   "actions": {
+    "passes_bare_value": "The agent passes a bare value (e.g., `THEN ${item.field ?? null}`) without a CAST.",
+    "explicitly_casts_value": "The agent explicitly CASTs the value to the target column type."
+   },
+   "facts": [
+    "not (passes_bare_value and explicitly_casts_value)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_case_when_sql and target_column_timestamptz",
+    "demand": "not passes_bare_value"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "writing_case_when_sql",
+    "demand": "explicitly_casts_value"
+   }
+  },
+  "rule_a": "In CASE...WHEN sql templates, never pass bare values for a timestamptz target column.",
+  "rule_b": "Every CASE...WHEN expression must explicitly CAST to the target column type."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R19",
+  "b": "R21",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "in_case_when_bulk_update": "The agent is writing a CASE...WHEN expression in a bulk UPDATE statement.",
+    "timestamp_column": "The column being assigned in the CASE...WHEN is a timestamp column."
+   },
+   "actions": {
+    "cast_to_timestamptz": "Wraps the value in CAST(... AS TIMESTAMPTZ).",
+    "cast_to_target_type": "Wraps the value in an explicit CAST to the target column type."
+   },
+   "facts": [
+    "cast_to_timestamptz -> cast_to_target_type"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "in_case_when_bulk_update and timestamp_column",
+    "demand": "cast_to_timestamptz"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "in_case_when_bulk_update",
+    "demand": "cast_to_target_type"
+   }
+  },
+  "rule_a": "In CASE...WHEN bulk UPDATEs, wrap every timestamp column value in CAST(... AS TIMESTAMPTZ).",
+  "rule_b": "Every CASE...WHEN expression must explicitly CAST to the target column type."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R32",
+  "b": "R35",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "user_confirmed": "The user has explicitly confirmed the execution of a DDL or DML mutation."
+   },
+   "actions": {
+    "execute_ddl_or_dml": "Executing DDL (ALTER TABLE) or DML mutations (UPDATE, INSERT, DELETE).",
+    "run_select": "Running a non-destructive SELECT query."
+   },
+   "facts": [
+    "not (execute_ddl_or_dml and run_select)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "True",
+    "demand": "execute_ddl_or_dml -> user_confirmed"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "run_select and not execute_ddl_or_dml"
+   }
+  },
+  "rule_a": "The db-analyst must not execute DDL or DML mutations without explicit user confirmation.",
+  "rule_b": "The db-analyst may only run non-destructive SELECT queries."
+ },
+ {
+  "folder": "Consteon/web-spreadsheet-example",
+  "a": "R33",
+  "b": "R35",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "independent",
+  "first_verdict": "compatible",
+  "link_answers": [
+   {
+    "a": "shows_sql",
+    "b": "runs_select",
+    "relation": "unrelated",
+    "reason": "Showing SQL is about displaying a query, while running a SELECT is about executing it; neither action necessarily implies the other."
+   },
+   {
+    "a": "shows_sql",
+    "b": "runs_mutation",
+    "relation": "unrelated",
+    "reason": "Showing SQL is a display action, and running a mutation is an execution action; one can happen without the other, and neither implies the other."
+   },
+   {
+    "a": "runs_mutation",
+    "b": "runs_select",
+    "relation": "exclusive",
+    "reason": "A mutation query is not a SELECT query, so running a mutation means not running a SELECT in the same action."
+   }
+  ],
+  "link_facts": [
+   "not (runs_mutation and runs_select)"
+  ],
+  "formal": {
+   "situations": {
+    "needs_mutation": "db-analyst needs to run a mutation (INSERT/UPDATE/DELETE)",
+    "user_confirmed": "user has confirmed the SQL before running"
+   },
+   "actions": {
+    "shows_sql": "shows the SQL to the user",
+    "runs_mutation": "runs a mutation query",
+    "runs_select": "runs a SELECT query"
+   },
+   "facts": [
+    "not (runs_mutation and runs_select)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "needs_mutation",
+    "demand": "shows_sql and (not runs_mutation) or (user_confirmed and runs_mutation)"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "runs_select and not runs_mutation"
+   }
+  },
+  "rule_a": "When the db-analyst needs a mutation, stop, show the SQL, and ask the user to confirm before running it.",
+  "rule_b": "The db-analyst may only run non-destructive SELECT queries."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R18",
+  "b": "R2",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "giving_references": "The agent is providing references or recommendations to the user"
+   },
+   "actions": {
+    "recommend_video": "Recommending any video or video course",
+    "recommend_primeagen_course": "Recommending ThePrimeagen's course as original inspiration"
+   },
+   "facts": [
+    "recommend_primeagen_course -> recommend_video"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "giving_references",
+    "demand": "not recommend_video or recommend_primeagen_course"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "giving_references",
+    "demand": "not recommend_video"
+   }
+  },
+  "rule_a": "(Preference) Do not give video references, except ThePrimeagen's course as the original inspiration.",
+  "rule_b": "Never recommend YouTube videos or video courses."
+ },
+ {
+  "folder": "MCMike0399/from-tcp-to-http",
+  "a": "R18",
+  "b": "R3",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "enhancing_course_content": "The agent is enhancing course content",
+    "giving_references": "The agent is giving references in course content"
+   },
+   "actions": {
+    "give_video_references": "Giving video references",
+    "give_primeagen_course_reference": "Giving ThePrimeagen's course as a reference",
+    "expand_reading_article_references": "Expanding reading and article references"
+   },
+   "facts": [
+    "not (give_video_references and give_primeagen_course_reference)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "giving_references",
+    "demand": "not give_video_references or give_primeagen_course_reference"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "enhancing_course_content",
+    "demand": "expand_reading_article_references and not give_video_references"
+   }
+  },
+  "rule_a": "(Preference) Do not give video references, except ThePrimeagen's course as the original inspiration.",
+  "rule_b": "When enhancing course content, expand reading/article references, not the video section."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R11",
+  "b": "R7",
+  "judge": "contradiction",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "teaching_combinatorics": "the agent is teaching binomial coefficients, counting, or basic discrete probability",
+    "friction_hit": "the agent has actually encountered friction in the current material"
+   },
+   "actions": {
+    "teach_inline": "the agent re-teaches basic combinatorics/probability inline in the current document",
+    "open_expansion_early": "the agent opens the combinatorics toolbox expansion early",
+    "create_expansion_file": "the agent creates a focused expansion file (e.g. notes/module-00-toolbox)"
+   },
+   "facts": [
+    "not (open_expansion_early and create_expansion_file)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "teaching_combinatorics",
+    "demand": "teach_inline and open_expansion_early"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "not create_expansion_file or friction_hit"
+   }
+  },
+  "rule_a": "Re-teach basic combinatorics/probability inline and open the combinatorics expansion early.",
+  "rule_b": "Do not pre-write expansion files; create one only when friction is hit."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R18",
+  "b": "R8",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "writing_course_notes": true,
+   "writing_module_lecture_notes": true
+  },
+  "formal": {
+   "situations": {
+    "writing_course_notes": "The agent is writing course notes for the AofA course.",
+    "writing_module_lecture_notes": "The agent is writing AofA module lecture notes."
+   },
+   "actions": {
+    "use_latex_inline_math": "Writing inline math in LaTeX notation \\( ... \\)",
+    "use_latex_display_math": "Writing display math in LaTeX notation $$ ... $$",
+    "write_plain_text": "Writing content in plain text without any LaTeX"
+   },
+   "facts": [
+    "not (use_latex_inline_math and write_plain_text)",
+    "not (use_latex_display_math and write_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_course_notes",
+    "demand": "use_latex_inline_math and use_latex_display_math"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "writing_module_lecture_notes",
+    "demand": "write_plain_text"
+   }
+  },
+  "rule_a": "In course notes, write inline math as \\( … \\) and display math as $$ … $$.",
+  "rule_b": "Write AofA module lecture notes in plain text, without LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R20",
+  "b": "R8",
+  "judge": "override",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "module_2_reached": true,
+   "writing_aofa_module_notes": true
+  },
+  "formal": {
+   "situations": {
+    "module_2_reached": "Module 2 (Recurrences) has been reached in the course",
+    "writing_aofa_module_notes": "Currently writing lecture notes for an AofA module"
+   },
+   "actions": {
+    "write_math_in_latex": "Write mathematical content in LaTeX",
+    "write_math_in_plain_text": "Write mathematical content in plain text"
+   },
+   "facts": [
+    "not (write_math_in_latex and write_math_in_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "module_2_reached",
+    "demand": "write_math_in_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "writing_aofa_module_notes",
+    "demand": "write_math_in_plain_text and not write_math_in_latex"
+   }
+  },
+  "rule_a": "When Module 2 is reached, write its math in LaTeX from the start.",
+  "rule_b": "Write AofA module lecture notes in plain text, without LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R33",
+  "b": "R8",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "writing_aofa_course_notes": true,
+   "writing_aofa_module_lecture_notes": true
+  },
+  "formal": {
+   "situations": {
+    "writing_aofa_course_notes": "Writing AofA course note/problem-set source files or module lecture notes",
+    "writing_aofa_module_lecture_notes": "Writing AofA module lecture notes specifically"
+   },
+   "actions": {
+    "use_latex": "Using LaTeX notation (inline or display) in the source file"
+   },
+   "facts": [
+    "writing_aofa_module_lecture_notes -> writing_aofa_course_notes"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_aofa_course_notes",
+    "demand": "use_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "writing_aofa_module_lecture_notes",
+    "demand": "not use_latex"
+   }
+  },
+  "rule_a": "AofA course note/problem-set source files use LaTeX.",
+  "rule_b": "Write AofA module lecture notes in plain text, without LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R18",
+  "b": "R36",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "writing_course_notes": true
+  },
+  "formal": {
+   "situations": {
+    "writing_course_notes": "The agent is writing or editing course notes."
+   },
+   "actions": {
+    "write_inline_math_latex": "Writing inline math using LaTeX delimiters \\( ... \\)",
+    "write_display_math_latex": "Writing display math using LaTeX delimiters $$ ... $$",
+    "explain_math_in_plain_text": "Explaining math in plain text without LaTeX notation"
+   },
+   "facts": [
+    "not (write_inline_math_latex and explain_math_in_plain_text)",
+    "not (write_display_math_latex and explain_math_in_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_course_notes",
+    "demand": "write_inline_math_latex and write_display_math_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "explain_math_in_plain_text and not write_inline_math_latex and not write_display_math_latex"
+   }
+  },
+  "rule_a": "In course notes, write inline math as \\( … \\) and display math as $$ … $$.",
+  "rule_b": "(Index) Explain math in plain text, never LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R19",
+  "b": "R37",
+  "judge": "override",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "teaching_aofa_course": true
+  },
+  "formal": {
+   "situations": {
+    "teaching_aofa_course": "The agent is working on the Analysis of Algorithms (AofA) course."
+   },
+   "actions": {
+    "use_clrs_as_primary": "The agent uses CLRS as the primary text for the AofA course.",
+    "use_sedgewick_flajolet_as_primary": "The agent uses Sedgewick-Flajolet as the primary text for the AofA course.",
+    "use_sedgewick_flajolet_as_stretch": "The agent uses Sedgewick-Flajolet as a stretch reference for the AofA course.",
+    "structure_course_by_chapters": "The agent structures the AofA course with one module per chapter of the Sedgewick-Flajolet book."
+   },
+   "facts": [
+    "not (use_clrs_as_primary and use_sedgewick_flajolet_as_primary)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "teaching_aofa_course",
+    "demand": "use_clrs_as_primary and use_sedgewick_flajolet_as_stretch"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "teaching_aofa_course",
+    "demand": "use_sedgewick_flajolet_as_primary and structure_course_by_chapters"
+   }
+  },
+  "rule_a": "Use CLRS as the primary text for the AofA course (Sedgewick-Flajolet as stretch reference).",
+  "rule_b": "(Index) The AofA course is built around the Sedgewick-Flajolet book, one module per chapter."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R20",
+  "b": "R36",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "module_2_reached": true
+  },
+  "formal": {
+   "situations": {
+    "module_2_reached": "The agent has reached Module 2 (Recurrences) in the course."
+   },
+   "actions": {
+    "write_math_in_latex": "The agent writes mathematical content in LaTeX notation.",
+    "explain_math_in_plain_text": "The agent explains mathematical content in plain text."
+   },
+   "facts": [
+    "not (write_math_in_latex and explain_math_in_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "module_2_reached",
+    "demand": "write_math_in_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "explain_math_in_plain_text and not write_math_in_latex"
+   }
+  },
+  "rule_a": "When Module 2 is reached, write its math in LaTeX from the start.",
+  "rule_b": "(Index) Explain math in plain text, never LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R22",
+  "b": "R36",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "writing_ds_cheatsheet": true,
+   "explaining_math": true
+  },
+  "formal": {
+   "situations": {
+    "writing_ds_cheatsheet": "The agent is writing in the DS class cheat sheet file",
+    "explaining_math": "The agent is explaining math content"
+   },
+   "actions": {
+    "write_math_in_latex": "Writing math using LaTeX notation",
+    "write_math_in_plain_text": "Writing math in plain text notation"
+   },
+   "facts": [
+    "not (write_math_in_latex and write_math_in_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "writing_ds_cheatsheet",
+    "demand": "write_math_in_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "explaining_math",
+    "demand": "write_math_in_plain_text and not write_math_in_latex"
+   }
+  },
+  "rule_a": "Write math in the DS cheat sheet as LaTeX.",
+  "rule_b": "(Index) Explain math in plain text, never LaTeX."
+ },
+ {
+  "folder": "shabelson-picker/applied_math",
+  "a": "R33",
+  "b": "R36",
+  "judge": "contradiction",
+  "verdict": "conflict",
+  "same_demand": false,
+  "witness": {
+   "source_files_use_latex": true
+  },
+  "formal": {
+   "situations": {
+    "source_files_use_latex": "The source files being worked on use LaTeX notation"
+   },
+   "actions": {
+    "explain_math_in_latex": "Explaining math using LaTeX notation",
+    "explain_math_in_plain_text": "Explaining math using plain text notation"
+   },
+   "facts": [
+    "not (explain_math_in_latex and explain_math_in_plain_text)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "source_files_use_latex",
+    "demand": "explain_math_in_latex"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "True",
+    "demand": "explain_math_in_plain_text and not explain_math_in_latex"
+   }
+  },
+  "rule_a": "AofA course note/problem-set source files use LaTeX.",
+  "rule_b": "(Index) Explain math in plain text, never LaTeX."
+ },
+ {
+  "folder": "thesteve0/local-llm-benchmark",
+  "a": "R10",
+  "b": "R5",
+  "judge": "override",
+  "verdict": "compatible",
+  "same_demand": false,
+  "link": "implies",
+  "formal": {
+   "situations": {
+    "benchmarking": "The agent is performing benchmark metrics collection or reporting."
+   },
+   "actions": {
+    "use_llama_cpp_timings": "Using llama.cpp server timings as the primary benchmark metrics.",
+    "use_guidellm_numbers": "Using GuideLLM client numbers as the primary benchmark metrics.",
+    "note_guidellm_supplementary": "Noting GuideLLM output as supplementary information."
+   },
+   "facts": [
+    "not (use_llama_cpp_timings and use_guidellm_numbers)"
+   ],
+   "rule_a": {
+    "fits": true,
+    "when": "benchmarking",
+    "demand": "use_llama_cpp_timings and not use_guidellm_numbers"
+   },
+   "rule_b": {
+    "fits": true,
+    "when": "benchmarking",
+    "demand": "use_llama_cpp_timings and not use_guidellm_numbers and note_guidellm_supplementary"
+   }
+  },
+  "rule_a": "(Index) Use llama.cpp server timings for benchmark metrics, not GuideLLM.",
+  "rule_b": "GuideLLM output may be noted only as supplementary."
+ }
+]

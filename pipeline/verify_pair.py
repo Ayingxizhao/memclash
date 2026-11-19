@@ -11,6 +11,14 @@ names (situations, actions), world facts, and for each rule a `when` and a `dema
   invalid     the answer does not parse (undeclared name, bad syntax), or one rule cannot be
               met on its own
 `same_demand` is true when the two demands are equivalent given the facts.
+
+Second pass. A `compatible` verdict has two possible reasons, recorded as `link`:
+  implies      following one rule already satisfies the other (a real "no conflict")
+  independent  the two required actions were named separately and nothing says how they relate
+For a flagged pair with link `independent`, one more LLM call (prompts/verify_link.md) states
+how each action of rule A relates to each action of rule B (exclusive / one means the other /
+unrelated). The answers are added as facts and Z3 decides again. `first_verdict` keeps the
+verdict before the second pass.
 Formulas accept `->`; a demand may also name situations (a conditional demand).
 
 Usage:
@@ -35,6 +43,7 @@ from llm import LLM
 
 ROOT = Path(__file__).resolve().parents[1]
 PROMPT = (ROOT / "prompts" / "verify_pair.md").read_text()
+LINK_PROMPT = (ROOT / "prompts" / "verify_link.md").read_text()
 CONFLICT = ("contradiction", "override")
 MAX_SITUATIONS = 10
 
@@ -120,8 +129,9 @@ def is_sat(*fs):
     return s.check() == sat
 
 
-def decide(f):
-    """f: the LLM's formalization. Return (verdict, detail)."""
+def decide(f, extra_facts=()):
+    """f: the LLM's formalization; extra_facts: formulas added by the second pass.
+    Return (verdict, detail)."""
     try:
         if not (f["rule_a"].get("fits", True) and f["rule_b"].get("fits", True)):
             return "unfit", {}
@@ -132,7 +142,7 @@ def decide(f):
         if len(sit) > MAX_SITUATIONS:
             raise ValueError("too many situations")
         both = {**sit, **act}
-        facts = [to_z3(x, both) for x in f.get("facts") or []]
+        facts = [to_z3(x, both) for x in [*(f.get("facts") or []), *extra_facts]]
         wa, wb = to_z3(f["rule_a"]["when"], sit), to_z3(f["rule_b"]["when"], sit)
         # a demand may be conditional on the situation ("mutate only if user_confirmed")
         da, db = to_z3(f["rule_a"]["demand"], both), to_z3(f["rule_b"]["demand"], both)
@@ -153,7 +163,32 @@ def decide(f):
         overlap = True
         if not is_sat(*facts, *fixed, da, db):                   # no behavior meets both demands
             return "conflict", {**detail, "witness": dict(zip(sit, values))}
-    return ("compatible" if overlap else "no_overlap"), detail
+    if not overlap:
+        return "no_overlap", detail
+    # why compatible: does following one rule already satisfy the other?
+    a_gives_b, b_gives_a = not is_sat(*facts, da, Not(db)), not is_sat(*facts, db, Not(da))
+    return "compatible", {**detail, "link": "implies" if a_gives_b or b_gives_a else "independent"}
+
+
+def names_in(formula, names):
+    return [n for n in dict.fromkeys(TOKEN.findall(str(formula))) if n in names]
+
+
+async def second_pass(llm, f, ra, rb):
+    """Ask how the actions of the two rules relate; return (extra facts, the model's answer)."""
+    acts = f.get("actions") or {}
+    in_a, in_b = names_in(f["rule_a"]["demand"], acts), names_in(f["rule_b"]["demand"], acts)
+    pairs = [(a, b) for a in in_a for b in in_b if a != b]
+    if not pairs:
+        return [], []
+    text = (show("A", ra) + "\n\n" + show("B", rb) + "\n\nACTIONS\n"
+            + "\n".join(f"- {n}: {acts[n]}" for n in dict.fromkeys(in_a + in_b))
+            + f"\n\nRule A requires: {f['rule_a']['demand']}\nRule B requires: {f['rule_b']['demand']}"
+            + "\n\nPAIRS\n" + "\n".join(f"- a: {a}   b: {b}" for a, b in pairs))
+    ans = await llm.chat_json([{"role": "system", "content": LINK_PROMPT}, {"role": "user", "content": text}])
+    answers = [x for x in (ans.get("pairs") or []) if isinstance(x, dict) and (x.get("a"), x.get("b")) in pairs]
+    form = {"exclusive": "not ({a} and {b})", "a_means_b": "{a} -> {b}", "b_means_a": "{b} -> {a}"}
+    return [form[x["relation"]].format(**x) for x in answers if x.get("relation") in form], answers
 
 
 def show(tag, r):
@@ -181,9 +216,17 @@ async def run(llm, rules_path, out_dir, pairs_path, labels_path=None):
         f = await llm.chat_json([{"role": "system", "content": PROMPT},
                                  {"role": "user", "content": show("A", ra) + "\n\n" + show("B", rb)}])
         verdict, detail = decide(f) if isinstance(f, dict) else ("invalid", {"error": "not an object"})
+        if verdict == "compatible" and detail["link"] == "independent" and "judge" in src:
+            extra, answers = await second_pass(llm, f, ra, rb)
+            detail.update(first_verdict=verdict, link_answers=answers, link_facts=extra)
+            if extra:
+                again, more = decide(f, extra)
+                if again != "invalid":           # an added fact that breaks a rule on its own is ignored
+                    verdict = again
+                    detail.update({k: v for k, v in more.items() if k in ("witness", "link", "same_demand")})
         results.append({"folder": folder, "a": a, "b": b, **src, "verdict": verdict, **detail,
                         "formal": f, "rule_a": ra["rule"], "rule_b": rb["rule"]})
-        print(f"verify {verdict:10} judge={src.get('judge', '-'):13} gold={src.get('gold', '-'):13} {folder[-14:]} {a}-{b}", flush=True)
+        print(f"verify {verdict:10} {'(2nd pass)' if 'first_verdict' in detail else '':10} judge={src.get('judge', '-'):13} gold={src.get('gold', '-'):13} {folder[-14:]} {a}-{b}", flush=True)
         (out_dir / "verify.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
     (out_dir / "verify.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
     print("verify:", dict(Counter(r["verdict"] for r in results)), flush=True)

@@ -4,11 +4,14 @@ Config comes from /Users/yingxizhao/dev/cs2520/.env (keys are matched case-insen
   DEEPSEEK_API_KEY, model, Base_URL
 Every call is cached by sha256(model, messages, temperature) in data/llm_cache.jsonl,
 so reruns are free and reproducible.
+LLM_PROVIDER=2 selects the second endpoint (DEEPSEEK_API_KEY2, Base_URL2); default is 1.
+Each request times out after 120 s and is retried.
 """
 
 import asyncio
 import hashlib
 import json
+import os
 from pathlib import Path
 
 from openai import AsyncOpenAI
@@ -30,7 +33,10 @@ class LLM:
     def __init__(self, concurrency=1, model=None):  # endpoint allows 1 concurrent request
         env = load_env()
         self.model = model or env["model"]             # model: override, e.g. the injection writer
-        self.client = AsyncOpenAI(api_key=env["deepseek_api_key"], base_url=env["base_url"])
+        p = os.environ.get("LLM_PROVIDER", "1")       # "2": the second endpoint in .env
+        sfx = "" if p == "1" else p
+        self.client = AsyncOpenAI(api_key=env[f"deepseek_api_key{sfx}"],
+                                  base_url=env[f"base_url{sfx}"], timeout=120, max_retries=0)
         self.sem = asyncio.Semaphore(concurrency)
         self.cache = {}
         if CACHE_PATH.exists():

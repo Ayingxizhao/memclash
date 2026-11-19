@@ -47,13 +47,14 @@ def score(args):
     for r in load("filter.json"):
         cand[key(r)].add(r.get("repeat", 0))
     judge = {key(r): r["label"] for r in load("judge.json")}
-    z3 = {key(r): r["verdict"] for r in load("verify.json")}
+    z3 = {key(r): r["verdict"] + (" (2nd pass)" if r.get("first_verdict") and r["verdict"] != r["first_verdict"] else "")
+          for r in load("verify.json")}
     rows, table = [], defaultdict(lambda: [0, 0, 0, 0])
     for it in items:
         k = (f"{it['folder']}#{it['kind']}", frozenset((it["host"], it["id"])))
         row = {**{f: it[f] for f in ("id", "host", "pattern", "kind")}, "filter_repeats": len(cand.get(k, ())),
                "judge": judge.get(k, "-"), "z3": z3.get(k, "-")}
-        row["reported"] = row["judge"] in CONFLICT and row["z3"] == "conflict"
+        row["reported"] = row["judge"] in CONFLICT and row["z3"].startswith("conflict")
         rows.append(row)
         t = table[it["kind"]]
         t[0] += 1
@@ -66,7 +67,7 @@ def score(args):
         print(f"{kind:17} {t[0]:2}  {t[1]:9}  {t[2]:10}  {t[3]:12}")
     # everything else the pipeline reported in the injected folders
     injected = {it["id"] for it in items}
-    side = [(f, sorted(p)) for (f, p), v in z3.items() if v == "conflict" and judge.get((f, p)) in CONFLICT
+    side = [(f, sorted(p)) for (f, p), v in z3.items() if v.startswith("conflict") and judge.get((f, p)) in CONFLICT
             and (f, p) not in {(f"{it['folder']}#{it['kind']}", frozenset((it["host"], it["id"]))) for it in items}]
     print(f"\nother reported conflicts: {len(side)} "
           f"({sum(bool(set(p) & injected) for _, p in side)} involve an injected rule)")

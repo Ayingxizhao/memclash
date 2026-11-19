@@ -1,0 +1,16 @@
+{
+ "run": "inj_pilot_v2",
+ "rules": "data/inject/dev_pilot_rules.json",
+ "model": "deepseek-v4-flash",
+ "repeats": 4,
+ "all_pairs": 651,
+ "candidate_pairs": 70,
+ "judge_conflict_flags": 34,
+ "reported": 25,
+ "usage": {
+  "calls": 8,
+  "cached": 116,
+  "prompt_tokens": 4621,
+  "completion_tokens": 847
+ }
+}
