@@ -37,7 +37,7 @@ class LLM:
         sfx = "" if p == "1" else p
         self.client = AsyncOpenAI(api_key=env[f"deepseek_api_key{sfx}"],
                                   base_url=env[f"base_url{sfx}"], timeout=120, max_retries=0)
-        self.sem = asyncio.Semaphore(concurrency)
+        self.sem = asyncio.Semaphore(int(os.environ.get("LLM_CONCURRENCY", concurrency)))
         self.cache = {}
         if CACHE_PATH.exists():
             for line in CACHE_PATH.open():

@@ -104,6 +104,11 @@ data/results.jsonl one row per scored run
 - Git method: on the pilot, 6 of 6 planted git conflicts caught, 0 of 3 rewordings flagged, no
   false conflicts. Two checker errors were fixed on this same folder, so a fair test on new
   folders is still needed.
+- Git method, large folders (212 git rules, tuning data): the checker reports 0 clashes, but the
+  reference built from two readers and the author's labels has 11 clashes (2 more depend on a
+  word's meaning). The checker misses all 11 because they involve things the git model cannot
+  express (9 tool choice, 1 dev-bot testing, 1 "backlog sweep"). Definition of a clash and the
+  other decisions: `docs/adr/`.
 - Missing: fair git test on the large folders; full general run on dev in `results.jsonl`; the
   single run on the held-out folders (needs both labellers finished); novelty and citation checks.
 - Dev labels come from one annotator and are incomplete. The held-out labels have not been used.

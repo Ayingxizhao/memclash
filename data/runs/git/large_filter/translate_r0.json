@@ -1,0 +1,2600 @@
+{
+ "Roudranil/variance": [
+  {
+   "id": "R15",
+   "rule": "Do not interact with GitHub project #2, Lattice, in the Variance workspace.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule forbids interacting with a GitHub Projects board (project #2, Lattice); it names no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick operation, and project-board interaction is not an operation in the model."
+   }
+  },
+  {
+   "id": "R16",
+   "rule": "Restrict GitHub Projects work in this workspace to variance, project #3.",
+   "translation": {
+    "fits": false,
+    "reason": "about restricting GitHub Projects work to a specific project, not about git operations such as commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R39",
+   "rule": "Keep raw Variance reconnaissance in internal docs/enemy-recon/.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git ('store/keep files in the repository' counts). 2 one requirement: keep raw recon files in docs/enemy-recon/. 3 'do Y / always do Y' -> must_do. 4 commit (put in version control). 5 folder docs/enemy-recon/ -> file docs/enemy-recon/*; no branch, no other fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": "docs/enemy-recon/*"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R43",
+   "rule": "Keep raw competitive reconnaissance in Variance docs/enemy-recon/ for internal reference.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may go into the repository / where files are stored). 2 one requirement: store raw reconnaissance in docs/enemy-recon/. 3 imperative 'keep X in Y' -> must_do. 4 'store/keep in the repository' -> commit. 5 folder docs/enemy-recon/ -> file docs/enemy-recon/*.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": "docs/enemy-recon/*"
+      }
+     }
+    ],
+    "left_out": "for internal reference (no git field)"
+   }
+  },
+  {
+   "id": "R61",
+   "rule": "Do not interact with Lattice GitHub project #2 under any circumstances during Variance work.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule forbids interacting with a GitHub Projects board (Lattice project #2), which is not a git operation in the model (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is named); it concerns which project/tracker to work with, not git."
+   }
+  },
+  {
+   "id": "R62",
+   "rule": "Do not touch Roudranil's Lattice project #2, ID PVT_kwHOA51EZs4BOMMG.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule forbids interacting with a GitHub Projects board (Lattice project #2); it names no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick operation and says nothing about what may go into the repository, so it is not about git."
+   }
+  },
+  {
+   "id": "R63",
+   "rule": "For all GitHub Projects interactions in Variance, use project #3 or filter by name variance, whether using MCP or gh-cc-var.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says which GitHub Project (#3 / name variance) to work with and which tool to use for that; it names no commit, push, merge, branch, pull request, pull, rebase, reset or cherry-pick, and nothing about what may go into the repository."
+   }
+  },
+  {
+   "id": "R64",
+   "rule": "Skip Lattice entirely if it appears in a GitHub Projects result during Variance work.",
+   "translation": {
+    "fits": false,
+    "reason": "About filtering GitHub Projects results and skipping another project, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, or cherry-picks."
+   }
+  },
+  {
+   "id": "R80",
+   "rule": "Do not read Variance markdown with the Read tool, cat, head, or equivalent shell commands.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tools may be used to read markdown files, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R85",
+   "rule": "In round two of future Variance PM\u2013LE specification reviews, have the PM respond with clarified, acknowledged, deferred, escalated, or pushback dispositions.",
+   "translation": {
+    "fits": false,
+    "reason": "about a PM specification-review process and dispositions, not about git operations or repository content"
+   }
+  },
+  {
+   "id": "R96",
+   "rule": "Use the single uniform version controlled by Variance's root version file for all files.",
+   "translation": {
+    "fits": false,
+    "reason": "This rule is about which version number to use (a versioning policy tied to the repository-root version file) for files, not about any git operation such as commit, push, merge, branch, pull request, pull, rebase, reset or cherry-pick, and it names no concrete operation to forbid, permit or require."
+   }
+  },
+  {
+   "id": "R100",
+   "rule": "Do not reference a Variance version bump in commit messages, tracker entries, or diff logs unless the founder has set that version first.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule governs commit-message/tracker/diff-log content, not a git operation in the model; the model has no commit-message field."
+   }
+  },
+  {
+   "id": "R101",
+   "rule": "Defer all Variance version control decisions to the founder through the repository-root version file.",
+   "translation": {
+    "fits": false,
+    "reason": "vague: no concrete git operation is named; it only says to defer version-control decisions to the founder through a repository-root version file"
+   }
+  },
+  {
+   "id": "R223",
+   "rule": "Translate the Variance founder's repository screenshots and annotations into code guidance.",
+   "translation": {
+    "fits": false,
+    "reason": "about interpreting screenshots/annotations into code guidance (how code is written and what to work on), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R227",
+   "rule": "Include updated golden files in every Variance PR that changes UI.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (PR contents). 2 one requirement: include updated golden files in UI-changing PRs. 3 'include' -> must_do. 4 PR -> pr_create. 5 'golden files' as named; 'changes UI' has no field, left out.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ],
+       "file": "golden files"
+      }
+     }
+    ],
+    "left_out": "that changes UI (no field for UI changes)"
+   }
+  },
+  {
+   "id": "R228",
+   "rule": "Use git for Variance local code operations, including branches, commits, push, pull, merge, and rebase.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use (git) for local code operations, not a git behavior rule"
+   }
+  },
+  {
+   "id": "R229",
+   "rule": "Use MCP for Variance remote writes such as issues, PRs, project items, sub-issue links, and reviews.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool (MCP) to use for GitHub remote writes such as issues, PRs, project items, and reviews, not about git operations"
+   }
+  },
+  {
+   "id": "R230",
+   "rule": "Use gh-cc-var for Variance remote/project reads, branch lists, and operations for which MCP returns 403.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool (gh-cc-var vs MCP) to use for remote/project reads, branch lists, and 403 fallbacks, not about git operations"
+   }
+  },
+  {
+   "id": "R231",
+   "rule": "Do not use plain gh during Variance GitHub work.",
+   "translation": {
+    "fits": false,
+    "reason": "about which CLI tool to use for GitHub operations, not about git operations"
+   }
+  },
+  {
+   "id": "R232",
+   "rule": "Use gh-cc-var whenever invoking the GitHub CLI for Variance.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use (gh-cc-var instead of plain gh) for GitHub CLI invocations, not about git operations"
+   }
+  },
+  {
+   "id": "R233",
+   "rule": "Do not touch Lattice GitHub project #2 during Variance work.",
+   "translation": {
+    "fits": false,
+    "reason": "about interacting with a GitHub Project, not about git commits, pushes, merges, branches, pull requests, pulls, rebases, resets, or cherry-picks"
+   }
+  },
+  {
+   "id": "R234",
+   "rule": "Restrict Variance GitHub Projects work to variance project #3, ID PVT_kwHOA51EZs4BUfV9.",
+   "translation": {
+    "fits": false,
+    "reason": "This is about scoping GitHub Projects (project board) work to project #3, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks; the model has no operation or field for project boards or project IDs, so no git clause can express it."
+   }
+  },
+  {
+   "id": "R235",
+   "rule": "When creating a Variance feature branch, first check out main.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: check out main before creating a feature branch. 3 'before X, do Y' -> only_if. 4 branch_create; checkout. 5 branch main. 'feature branch' gives no branch name; 'Variance' is a workspace qualifier, left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      },
+      "needs": {
+       "cmd": [
+        "checkout"
+       ],
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "Variance (workspace qualifier); 'feature branch' gives no named branch"
+   }
+  },
+  {
+   "id": "R236",
+   "rule": "Pull main before creating a Variance feature branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: pull main before creating a Variance feature branch. 3 'before X, do Y' -> only_if. 4 branch creation -> branch_create, pull -> pull. 5 named branch main applies to the pull; the feature branch has no named branch.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      },
+      "needs": {
+       "cmd": [
+        "pull"
+       ],
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R237",
+   "rule": "Create a Variance feature branch locally with git checkout -b using a feat/ branch name.",
+   "translation": {
+    "fits": true,
+    "steps": "1 rule is about git (branch creation). 2 one requirement: create a Variance feature branch locally with git checkout -b using a feat/ name. 3 'Create ...' -> must_do. 4 git checkout -b -> branch_create. 5 branch prefix feat/ stated -> branch feat/*.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ],
+       "branch": "feat/*"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R238",
+   "rule": "Stage selected Variance files with git add before committing.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (staging files for a commit). 2 one requirement: stage the selected files with git add. 3 'do Y' -> must_do. 4 'add to git' maps to commit (no separate stage operation in the model). 5 no branch, no file pattern, no conditions stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "the 'before committing' ordering and staging itself (the model has no stage/add operation; 'add to git' maps to commit); 'selected Variance files' (no file pattern is named)"
+   }
+  },
+  {
+   "id": "R239",
+   "rule": "Commit a Variance feature with git commit and a feat: description message.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: commit a Variance feature with a feat: description message. 3 imperative instruction -> must_do. 4 commit. 5 no branch, file, or other modeled fields stated; mention format not modeled.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "feat: description commit message format (not modeled); 'Variance feature' does not specify a branch or file pattern"
+   }
+  },
+  {
+   "id": "R240",
+   "rule": "Push the Variance feature branch to origin with upstream tracking.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: push the feature branch. 3 imperative 'Push' -> must_do. 4 push (generic). 5 'the feature branch' gives no branch name; origin/upstream tracking are not model fields.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": "to origin with upstream tracking (not represented in the model)"
+   }
+  },
+  {
+   "id": "R241",
+   "rule": "List all remote Variance branches with gh-cc-var api repos/Roudranil/variance/branches and extract their names.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use (gh-cc-var api) for listing/reading remote branches, not about a git operation in the model (listing branches is a read, and tool choice is not git)"
+   }
+  },
+  {
+   "id": "R242",
+   "rule": "To check a single Variance branch's existence via MCP, call get_repository_tree with its name as tree_sha.",
+   "translation": {
+    "fits": false,
+    "reason": "It specifies using an MCP tool to check branch existence, not a git operation such as commit, push, merge, branch create/delete, pull request, pull, rebase, reset, or cherry-pick."
+   }
+  },
+  {
+   "id": "R243",
+   "rule": "Use MCP create_pull_request to create a Variance pull request.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 create a Variance pull request. 3 directive 'Use ... to create' -> must_do. 4 create PR -> pr_create. 5 no branch or file named; MCP tool choice is not a model field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "use MCP create_pull_request (tool choice, not a git-operation field)"
+   }
+  },
+  {
+   "id": "R244",
+   "rule": "Include Closes #N in a Variance PR body to link its issue and project field.",
+   "translation": {
+    "fits": false,
+    "reason": "vague: requires including text in a PR body, which is not a concrete git operation in the model"
+   }
+  },
+  {
+   "id": "R245",
+   "rule": "Permit creating a Variance PR with gh-cc-var pr create, targeting main from the feature branch, as a CLI alternative to MCP.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (PR creation). 2 one requirement: permit creating a PR targeting main. 3 'Permit' -> may_do. 4 create a PR -> pr_create. 5 target main -> branch main; 'the feature branch' gives no branch field.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ],
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "using gh-cc-var pr create as a CLI alternative to MCP (tool choice, not in the model); 'from the feature branch' (no branch name given)"
+   }
+  },
+  {
+   "id": "R246",
+   "rule": "Permit reading Variance PR details with either MCP pull_request_read or gh-cc-var pr view.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says which tool may be used to read Variance PR details (MCP pull_request_read or gh-cc-var pr view); reading PR details is not a git operation in the model, and choosing between tools is excluded."
+   }
+  },
+  {
+   "id": "R247",
+   "rule": "Use MCP to read Variance PR details when programmatic extraction of specific fields is needed.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use (MCP) for reading PR details, not about a git operation"
+   }
+  },
+  {
+   "id": "R248",
+   "rule": "Use MCP update_pull_request to update Variance PR titles, bodies, or states.",
+   "translation": {
+    "fits": false,
+    "reason": "Only says which tool (MCP update_pull_request) to use for updating PR titles/bodies/states; it does not state any git operation from the model (no update-PR operation exists), so it is a tool-choice rule, not a git rule."
+   }
+  },
+  {
+   "id": "R249",
+   "rule": "Use MCP update_pull_request_branch to synchronize a Variance PR branch with its base.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: synchronizing a PR branch with its base is a branch operation. 2 one requirement: synchronize a Variance PR branch with its base. 3 imperative 'Use ... to ...' -> must_do. 4 synchronizing a branch with its base -> rebase. 5 no named branch, file, approval, or other fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "rebase"
+       ]
+      }
+     }
+    ],
+    "left_out": "the specific MCP tool name update_pull_request_branch (tool choice, not represented as a git field)"
+   }
+  },
+  {
+   "id": "R250",
+   "rule": "Permit synchronizing a Variance PR branch with gh-cc-var pr update-branch as a CLI alternative.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (PR branch synchronization). 2 one requirement: permit synchronizing a Variance PR branch. 3 'permit' -> may_do. 4 synchronizing a PR branch -> pull. 5 no branch/file/approval fields stated.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "gh-cc-var pr update-branch as a CLI alternative (tool choice, not modeled)"
+   }
+  },
+  {
+   "id": "R251",
+   "rule": "Use MCP pull_request_review_write to review Variance pull requests.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says which tool to use (MCP pull_request_review_write) for reviewing pull requests; it does not state any git operation (commit, push, merge, branch, PR create/merge, pull, rebase, reset, cherry-pick) or what may go into the repository. Reviewing is also not an operation in the model, and 'which tool to use' is explicitly excluded."
+   }
+  },
+  {
+   "id": "R252",
+   "rule": "Use add_comment_to_pending_review for inline comments on specific Variance PR lines.",
+   "translation": {
+    "fits": false,
+    "reason": "It only names which tool (add_comment_to_pending_review) to use for inline PR review comments \u2014 a tool choice, not a git operation on commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks."
+   }
+  },
+  {
+   "id": "R253",
+   "rule": "Use MCP add_reply_to_pull_request_comment to reply to Variance PR comment threads.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only specifies which tool to use (MCP add_reply_to_pull_request_comment) for replying to PR comment threads; replying to comments is not one of the modeled git operations, so it is a tool-choice rule, not a git rule."
+   }
+  },
+  {
+   "id": "R254",
+   "rule": "Use MCP merge_pull_request to merge a Variance pull request.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (PR merge). 2 one requirement: merge a Variance pull request. 3 imperative 'use ... to merge' -> must_do. 4 pr_merge. 5 no branch/file/approval fields stated. 6 done.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "the MCP merge_pull_request tool choice (tool selection is not modeled)"
+   }
+  },
+  {
+   "id": "R258",
+   "rule": "Before requesting Variance job logs, obtain the job ID from actions_list with list_workflow_jobs and the run ID.",
+   "translation": {
+    "fits": false,
+    "reason": "About the order of GitHub Actions API calls (list_workflow_jobs before requesting job logs), not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks."
+   }
+  },
+  {
+   "id": "R259",
+   "rule": "Use MCP actions_run_trigger to manually trigger a Variance workflow.",
+   "translation": {
+    "fits": false,
+    "reason": "about triggering a GitHub Actions workflow with MCP, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R260",
+   "rule": "Use MCP issue_write to create Variance bug issues.",
+   "translation": {
+    "fits": false,
+    "reason": "Creating Variance bug issues with MCP issue_write is a GitHub issue-tracker action, not a git operation (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick involved)."
+   }
+  },
+  {
+   "id": "R264",
+   "rule": "Use MCP search_issues or search_pull_requests to search Variance issues or PRs.",
+   "translation": {
+    "fits": false,
+    "reason": "About which tool to use (MCP search_issues/search_pull_requests) for searching issues and PRs, not about what the agent does with commits, pushes, merges, branches, or PRs."
+   }
+  },
+  {
+   "id": "R265",
+   "rule": "Use search_pull_requests rather than list_pull_requests when searching Variance PRs by author.",
+   "translation": {
+    "fits": false,
+    "reason": "About which tool/MCP method to use for searching pull requests (search_pull_requests vs list_pull_requests), not about a git operation in the model."
+   }
+  },
+  {
+   "id": "R266",
+   "rule": "Bootstrap Variance GitHub labels once at project start.",
+   "translation": {
+    "fits": false,
+    "reason": "about creating GitHub project labels, not a git operation"
+   }
+  },
+  {
+   "id": "R267",
+   "rule": "Before creating Variance project labels, check existing labels with list_label.",
+   "translation": {
+    "fits": false,
+    "reason": "about checking and creating GitHub project labels, not about git commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R268",
+   "rule": "After checking existing labels, create missing Variance epic, story, task, bug, and p0\u2013p3 labels with label_write using the specified colors and descriptions.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about creating GitHub labels (label_write with colors and descriptions) \u2014 label management is not one of the modeled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick), so it is not about git."
+   }
+  },
+  {
+   "id": "R269",
+   "rule": "Create a Variance epic with MCP issue_write, an EPIC: title, a goal/stories body, and the epic label.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about creating a GitHub epic issue with a specific MCP tool, title format, body, and label \u2014 issue/tracker tooling, not a git operation (no commit, push, merge, branch, PR, pull, rebase, reset, or cherry-pick)."
+   }
+  },
+  {
+   "id": "R275",
+   "rule": "Use MCP sub_issue_write reprioritize with before_id or after_id to reorder Variance sub-issues.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says which tool and call to use (MCP sub_issue_write reprioritize with before_id/after_id) to reorder Variance sub-issues; it describes no commit, push, merge, branch, pull request, pull, rebase, reset or cherry-pick, and nothing about what may enter the repository."
+   }
+  },
+  {
+   "id": "R281",
+   "rule": "Obtain Variance iteration option IDs with gh-cc-var project field-list 3 --owner Roudranil --format json.",
+   "translation": {
+    "fits": false,
+    "reason": "about which GitHub CLI command to use for reading project field metadata, not about git operations"
+   }
+  },
+  {
+   "id": "R283",
+   "rule": "Link a Variance PR to project #3 with projects_write add_project_item, item_type pull_request, and its PR number.",
+   "translation": {
+    "fits": false,
+    "reason": "about linking a PR to a GitHub project item, not one of the modeled git operations"
+   }
+  },
+  {
+   "id": "R284",
+   "rule": "Use gh-cc-var to view the Variance project board.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use to view a project board, not about git operations or what may go into the repository"
+   }
+  },
+  {
+   "id": "R285",
+   "rule": "Use MCP list_issues to list open Variance issues, optionally filtering by labels.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about how to read Variance issues through MCP (list_issues with optional label filters), not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, cherry-picks, or what may go into the repository."
+   }
+  },
+  {
+   "id": "R289",
+   "rule": "Use MCP issue_write update to close or reopen a Variance issue, supplying the appropriate state and a state_reason when closing.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about closing or reopening GitHub issues via MCP, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, or cherry-picks."
+   }
+  },
+  {
+   "id": "R290",
+   "rule": "Remove Variance project-board items with projects_write delete_project_item and the item ID for project #3.",
+   "translation": {
+    "fits": false,
+    "reason": "about deleting GitHub Project board items via projects_write, not a commit, push, merge, branch, pull request, pull, rebase, reset or cherry-pick"
+   }
+  },
+  {
+   "id": "R291",
+   "rule": "Use gh-cc-var api to list Variance branches because MCP does not provide branch listing.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use for listing branches, not a modeled git operation"
+   }
+  },
+  {
+   "id": "R292",
+   "rule": "Use gh-cc-var project for every Variance project read.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool to use (gh-cc-var project) for project reads, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  }
+ ],
+ "eladb/agenta": [
+  {
+   "id": "R2",
+   "rule": "Do not request another approval round after Elad resolves design forks.",
+   "translation": {
+    "fits": false,
+    "reason": "about approval workflow after design forks, not about a git operation"
+   }
+  },
+  {
+   "id": "R11",
+   "rule": "When an agenta PR wedges with all checks green, close the stuck PR.",
+   "translation": {
+    "fits": false,
+    "reason": "closing a pull request is not an operation in the model"
+   }
+  },
+  {
+   "id": "R12",
+   "rule": "When an agenta PR wedges with all checks green, recreate the PR on a fresh branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (creating a pull request). 2 one requirement: recreate the PR on a fresh branch. 3 'when X, do Y' -> must_do. 4 recreate the PR -> pr_create. 5 no branch name, no file, no approval/tests fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "the wedge condition 'with all checks green' (no field in the model); 'on a fresh branch' (no branch name given, and branch creation is not named as a separate operation)"
+   }
+  },
+  {
+   "id": "R13",
+   "rule": "Do not bypass agenta branch protection with the --admin merge option.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: do not use --admin to bypass branch protection when merging. 3 'do not' -> never. 4 merge. 5 no branch name given; --admin -> admin_bypass true.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "admin_bypass": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R54",
+   "rule": "Create a separate gotcha issue for each named agenta CD flake.",
+   "translation": {
+    "fits": false,
+    "reason": "About creating tracking issues (task tracking), not a git operation \u2014 the model has no issue-creation operation."
+   }
+  },
+  {
+   "id": "R55",
+   "rule": "Fix each named agenta CD flake in its own small focused PR rather than a mega-cleanup.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (it dictates how PRs are created). 2 one requirement: open a separate focused PR per named CD flake. 3 'do Y' -> must_do. 4 create a PR -> pr_create. 5 no branch, file, or other field stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "'small focused' and 'rather than a mega-cleanup' (vague scope/size goal, no field in the model); 'each named agenta CD flake' (per-issue granularity is not a field)"
+   }
+  },
+  {
+   "id": "R56",
+   "rule": "Do not panic-merge during an agenta CD-red streak.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (merge). 2 one requirement: no merging while the CD is red. 3 'do not X' -> never. 4 merge, no detail -> merge. 5 CD-red streak -> tests_passed false; no branch/file named.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "tests_passed": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R58",
+   "rule": "Permit skipping dev-bot testing for test-only agenta PRs.",
+   "translation": {
+    "fits": false,
+    "reason": "It permits skipping dev-bot testing for test-only PRs; it is about testing, not about a git operation such as commit, push, merge, branch, PR creation, pull, rebase, reset, or cherry-pick."
+   }
+  },
+  {
+   "id": "R66",
+   "rule": "When agenta auto-merge wedges because legacy combined status remains pending despite successful check-runs, close the stuck PR.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule's only action is closing a pull request ('close the stuck PR'), which is not one of the modeled operations (no pr close exists; the model covers pr_create and pr_merge only). The trigger condition (legacy combined status pending despite successful check-runs) is also not representable, so no clause can be built without inventing an operation name."
+   }
+  },
+  {
+   "id": "R67",
+   "rule": "When agenta auto-merge wedges because legacy combined status remains pending despite successful check-runs, redo the PR on a fresh branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (redoing a PR on a fresh branch). 2 one requirement: redo the PR on a fresh branch. 3 'when X, do Y' with no permission wording -> must_do. 4 create a fresh branch -> branch_create; open the PR -> pr_create. 5 no branch name given ('a fresh branch'), no files; the wedge trigger is not an operation in the model, left out.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "the trigger 'auto-merge wedges because legacy combined status remains pending despite successful check-runs' (a stuck auto-merge condition, not a completed operation in the model)"
+   }
+  },
+  {
+   "id": "R68",
+   "rule": "Do not keep fighting an agenta auto-merge wedge lasting over ten minutes with all signals green.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule's condition (auto-merge wedge lasting over ten minutes with all signals green) cannot be expressed with the model's fields (no field for elapsed time or wedge state), so no concrete clause can be formed."
+   }
+  },
+  {
+   "id": "R69",
+   "rule": "If an agenta PR has been wedged for over ten minutes with all signals green, close it with a one-line note.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule's only requirement is to close a wedged pull request, and closing a PR is not one of the modeled git operations (commit, push, merge, branch create/delete, pr_create, pr_merge, pull, rebase, reset, cherry-pick); there is nothing left to translate."
+   }
+  },
+  {
+   "id": "R70",
+   "rule": "After closing a green but wedged agenta PR, push the same commit on a fresh branch based on current origin/main.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (push after closing a PR). 2 one requirement: push the commit on a fresh branch. 3 'after X, do Y' -> must_do. 4 push -> push. 5 no branch name (fresh branch is unnamed; main is only the base, not the target), no file, no other fields.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": "after closing a green but wedged PR (closing a PR is not a modeled operation); based on current origin/main (no field for a base branch; main is not written to); green (CI check status is not a modeled field)"
+   }
+  },
+  {
+   "id": "R71",
+   "rule": "After moving a wedged agenta PR's commit to a fresh branch, open a new PR.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: open a new PR after moving the commit to a fresh branch. 3 'after X, do Y' -> must_do. 4 open a new PR -> pr_create. 5 no branch/file/other fields stated; the 'after moving ... to a fresh branch' condition names no modeled operation, left out.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "after moving a wedged agenta PR's commit to a fresh branch (no matching operation in the model)"
+   }
+  },
+  {
+   "id": "R72",
+   "rule": "Rearm auto-merge on the replacement agenta PR after recovering from a green auto-merge wedge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (rearming auto-merge acts on a PR merge). 2 one requirement: re-arm auto-merge on the replacement PR. 3 'after X, do Y' -> must_do. 4 arming a PR's auto-merge -> pr_merge. 5 no branch or file named; 'replacement' is not a branch name; 'after recovering from a green auto-merge wedge' names no operation from the model.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "after recovering from a green auto-merge wedge (the recovery steps are not named as operations in this rule)"
+   }
+  },
+  {
+   "id": "R73",
+   "rule": "Do not use gh pr merge --admin to bypass agenta branch protection when a PR is wedged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (merge of a PR). 2 one requirement: never bypass agenta branch protection with --admin on pr merge. 3 'do not' -> never. 4 gh pr merge -> pr_merge. 5 bypass branch protection via --admin -> admin_bypass: true; no branch/file/other fields stated.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ],
+       "admin_bypass": true
+      }
+     }
+    ],
+    "left_out": "when a PR is wedged (no field in the model); 'agenta branch protection' is not a branch name, so no branch field"
+   }
+  },
+  {
+   "id": "R78",
+   "rule": "Before changing shared-host skills or CLAUDE.md, explicitly state whether the change is repo-local or host-wide.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about how to make a file change (stating whether the change to CLAUDE.md/skills is repo-local or host-wide before editing), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets, cherry-picks, or what may go into the repository."
+   }
+  },
+  {
+   "id": "R135",
+   "rule": "Do not bold issue or PR URLs posted in chat with Elad; the application instruction extends this to all GitHub URLs.",
+   "translation": {
+    "fits": false,
+    "reason": "about chat formatting of GitHub URLs, not about git operations"
+   }
+  },
+  {
+   "id": "R136",
+   "rule": "Do not format GitHub URLs as labeled markdown links in chat with Elad.",
+   "translation": {
+    "fits": false,
+    "reason": "about how to format chat messages (markdown links), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R137",
+   "rule": "Place each GitHub URL alone on its own line when chatting with Elad.",
+   "translation": {
+    "fits": false,
+    "reason": "about chat message formatting of GitHub URLs, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R141",
+   "rule": "Pause for agenta issue review only once, after issue creation.",
+   "translation": {
+    "fits": false,
+    "reason": "about pausing for issue review after issue creation, which is a workflow/approval step; issue creation is not a git operation in the model (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is named)"
+   }
+  },
+  {
+   "id": "R142",
+   "rule": "Perform the agenta dev-bot test stage before arming auto-merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (constrains when auto-merge on a PR may be armed, a merge action). 2 one requirement: run dev-bot test stage before arming auto-merge. 3 'before X, do Y' -> only_if. 4 arming auto-merge -> pr_merge. 5 dev-bot test stage -> tests_passed: true.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ]
+      },
+      "needs": {
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R143",
+   "rule": "For meaningful agenta feature PRs, offer a bun start dev-bot run and joint Slack iteration before arming auto-merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: it gates arming auto-merge. 2 dev-bot run before auto-merge; joint Slack iteration. 3 'before ... arming' -> only_if. 4 arming auto-merge -> pr_merge. 5 dev-bot run -> tests_passed; meaningful feature PRs and Slack iteration are not representable.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ]
+      },
+      "needs": {
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "meaningful agenta feature PRs (vague), offer (modality), joint Slack iteration (communication, not a git field)"
+   }
+  },
+  {
+   "id": "R144",
+   "rule": "After an agenta subagent reports a meaningful feature PR URL, ask about dev-bot testing through AskUserQuestion.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says to ask the user (via AskUserQuestion) about dev-bot testing after a PR URL is reported; it names no commit, push, merge, branch, pull, rebase, reset or cherry-pick action, so it is about which task/step to do next, not about git."
+   }
+  },
+  {
+   "id": "R146",
+   "rule": "Permit iterative agenta UX refinement over multiple PRs.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (PRs). 2 one requirement: allow iterative UX refinement across several PRs. 3 'Permit' -> may_do. 4 PRs -> pr_create. 5 no branch, file, approval, or test fields stated. 6 one may_do clause.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "iterative UX refinement (motivation; no separate git operation)"
+   }
+  },
+  {
+   "id": "R150",
+   "rule": "Prefer one focused agenta PR per refinement to a single large PR aiming for perfection.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (about pull requests). 2 one requirement: one focused PR per refinement. 3 'prefer' is a preference, translated like any rule, states doing the practice -> must_do. 4 pr_create. 5 no branch, file, size limit or other field stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "rather than a single large PR aiming for perfection (comparison, no concrete operation or file limit given)"
+   }
+  },
+  {
+   "id": "R154",
+   "rule": "In agenta change-workflow step one, create the drafted issue directly after design forks are resolved without an extra draft-approval round.",
+   "translation": {
+    "fits": false,
+    "reason": "about creating a drafted issue and skipping an approval round, not about git operations"
+   }
+  },
+  {
+   "id": "R163",
+   "rule": "Use worktree isolation for structural changes in /home/agenta.",
+   "translation": {
+    "fits": false,
+    "reason": "About how the agent sets up its working environment (worktree isolation / which tool to use) for an unspecified class of 'structural changes', not about a git operation such as committing, pushing, merging, branching, pulling, rebasing, resetting or cherry-picking. No operation from the model is named, and 'structural changes' is a vague goal."
+   }
+  },
+  {
+   "id": "R164",
+   "rule": "For a Workflow on /home/agenta that restructures or moves src/ or scripts/ files, set isolation worktree on every agent call.",
+   "translation": {
+    "fits": false,
+    "reason": "It only says to enable worktree isolation on agent calls; it names no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick, so it is not about a git operation."
+   }
+  },
+  {
+   "id": "R165",
+   "rule": "Before a /home/agenta Workflow moves or restructures committed files, either isolate every agent in a worktree or pause the watchdog cron for the Workflow's duration.",
+   "translation": {
+    "fits": false,
+    "reason": "about workflow isolation and watchdog handling for structural file changes, not a git commit/push/merge/branch/PR operation"
+   }
+  },
+  {
+   "id": "R166",
+   "rule": "Permit single-agent, single-file edits on /home/agenta without worktree isolation or watchdog pausing, unlike multi-phase refactors leaving inconsistent intermediate states.",
+   "translation": {
+    "fits": false,
+    "reason": "Not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, cherry-picks, or what may go into the repository; it concerns agent isolation and watchdog pausing for edits."
+   }
+  },
+  {
+   "id": "R168",
+   "rule": "Use a worktree if a /home/agenta Workflow phase would leave a partial rename that breaks bun scripts/canary.ts imports.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule prescribes workflow isolation (run the Workflow phase in a worktree) to avoid a partial rename breaking bun scripts/canary.ts imports; it names no commit, push, merge, branch, PR, pull, rebase, reset, or cherry-pick, and the model has no worktree operation \u2014 it is about which tool/isolation to use, not about git operations."
+   }
+  }
+ ],
+ "TotalFluke/SudokuQuest": [
+  {
+   "id": "R3",
+   "rule": "Prefer committing SudokuQuest infrastructure and deployment configuration to the repository over local CLI setup.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: committing configuration to the repository. 2 one requirement: commit infrastructure/deployment configuration. 3 'prefer ... over ...' treated as an imperative to commit; local CLI setup is not a git operation. 4 commit. 5 no branch or file path named; no other fields.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "over local CLI setup (not a git operation); no named file path for infrastructure/deployment configuration"
+   }
+  },
+  {
+   "id": "R4",
+   "rule": "After SudokuQuest implement runs, start each worktree's development server before merging.",
+   "translation": {
+    "fits": false,
+    "reason": "The requirement is to start each worktree's development server (a browser-review/tooling step, like running tests), not a git operation. 'Before merging' only names a timing reference; no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is required, forbidden or permitted, and the model has no field for starting a dev server."
+   }
+  },
+  {
+   "id": "R5",
+   "rule": "Print the SudokuQuest worktree dev-server links for review before merging implementation branches.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (it constrains merges). 2 one requirement: the dev-server links must be printed for review before merging. 3 'before X, do Y' -> only_if. 4 merge. 5 'implementation branches' is generic, no branch field; the user review before merging -> user_confirmed; printing the links itself has no field.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "printing the worktree dev-server links itself (not a git operation; no field in the model), and the browser review step beyond the user's approval"
+   }
+  },
+  {
+   "id": "R7",
+   "rule": "Permit stacking a SudokuQuest implementation on its unmerged dependency's branch instead of waiting for that branch to merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: permit stacking on the unmerged dependency branch instead of waiting for merge. 3 'Permit' -> may_do. 4 stacking implementation on a branch -> branch_create. 5 no named branch given, so no branch field.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "waiting for the dependency branch to merge (not an operation the rule asks the agent to perform)"
+   }
+  },
+  {
+   "id": "R8",
+   "rule": "Check what a SudokuQuest sibling dependency branch has actually pushed before accepting a blocked-plan claim.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (inspecting what a branch has pushed on the remote). 2 one requirement: verify pushed contents of the sibling dependency branch before trusting a blocked-plan claim. 3 'before X, do Y' -> must_do for the check (the condition 'accepting a blocked-plan claim' is not a git operation the model can express). 4 checking remote branch contents -> pull. 5 'sibling dependency branch' is not a named branch, so no branch field; no other fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "accepting a blocked-plan claim (a workflow decision, not a git operation)"
+   }
+  },
+  {
+   "id": "R9",
+   "rule": "After resolving a SudokuQuest merge, diff resolved files against the implementation branch tip.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule requires running a git diff after resolving a merge; diff is not one of the modeled git operations, so it cannot be represented as a clause."
+   }
+  },
+  {
+   "id": "R10",
+   "rule": "Do not treat the absence of conflict markers as proof that a SudokuQuest merge is correct.",
+   "translation": {
+    "fits": false,
+    "reason": "vague: the rule is about how to judge a merge's correctness (not accepting the absence of conflict markers as proof), not about performing a git operation; no operation or field in the model captures it, and translating it would wrongly forbid merges outright"
+   }
+  },
+  {
+   "id": "R12",
+   "rule": "Trigger a live CI run before reporting SudokuQuest workflow changes complete.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about triggering a live CI run before reporting work complete; it names no commit, push, merge, branch, PR, pull, rebase, reset, or cherry-pick, so it is not about git."
+   }
+  },
+  {
+   "id": "R24",
+   "rule": "Prefer committing SudokuQuest infrastructure/deploy configuration to the repository over interactive or local CLI setup.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: says to commit infrastructure/deploy configuration to the repository. 2 requirement: commit that configuration; interactive/local CLI setup is not git and is dropped. 3 positive preference translated as may_do. 4 commit. 5 no branch or file pattern is named; no other fields are stated. 6 one clause.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "interactive or local CLI setup (not a git operation)"
+   }
+  },
+  {
+   "id": "R25",
+   "rule": "Prefer repository-based infrastructure and deploy configuration, such as GitHub Actions, over interactive/local setup for SudokuQuest.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: repository-based configuration means storing config in version control. 2 one requirement: prefer repo-based infra/deploy config over interactive/local setup. 3 'prefer' treated as the allowed/encouraged choice -> may_do. 4 commit. 5 no named branch or file; GitHub Actions is only an example; local setup is not a git operation.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "interactive/local setup (not a git operation); GitHub Actions (example only, no file path given)"
+   }
+  },
+  {
+   "id": "R26",
+   "rule": "When proposing SudokuQuest deployment, CI, or infrastructure changes, default to committed workflows/configuration rather than instructions to run local commands.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what goes into the repository: commit configuration instead of local commands). 2 one requirement: prefer committing deployment/CI/infrastructure configuration to the repo. 3 'default to X' is a preference -> translated normally as must_do. 4 commit. 5 no branch named; 'workflows/configuration' is not a named file or folder path, so no file field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "'deployment, CI, or infrastructure changes' (no concrete file path or pattern named, so no file field); 'rather than instructions to run local commands' (the alternative is advice given to the user, not a git operation)"
+   }
+  },
+  {
+   "id": "R32",
+   "rule": "Arrange browser review of SudokuQuest branches after parallel workflow:implement runs and before merging.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (it gates merging). 2 one requirement: no merge before browser review. 3 'before merging' -> only_if. 4 'merging' with no detail -> merge. 5 review/approval -> user_confirmed true; the workflow:implement timing is not a git operation.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "after parallel workflow:implement runs (workflow:implement is not a git operation in the model); arranging the browser review itself is not a git operation"
+   }
+  },
+  {
+   "id": "R33",
+   "rule": "After parallel SudokuQuest workflow:implement runs, start each worktree's development server for browser review.",
+   "translation": {
+    "fits": false,
+    "reason": "about starting development servers for browser review, not a git operation"
+   }
+  },
+  {
+   "id": "R34",
+   "rule": "Print each SudokuQuest worktree dev-server link for browser review after parallel implementation runs.",
+   "translation": {
+    "fits": false,
+    "reason": "about printing dev-server links for browser review, not about a git operation"
+   }
+  },
+  {
+   "id": "R35",
+   "rule": "When reporting completed SudokuQuest implementation branches, offer to start each worktree's development server.",
+   "translation": {
+    "fits": false,
+    "reason": "about offering to start development servers, not about git operations"
+   }
+  },
+  {
+   "id": "R37",
+   "rule": "Assign each SudokuQuest agent worktree its own development-server port in 5200\u20135499.",
+   "translation": {
+    "fits": false,
+    "reason": "about assigning development-server ports to worktrees, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R38",
+   "rule": "After the user views normal SudokuQuest implementation branches, shut down their review servers before fetching or merging.",
+   "translation": {
+    "fits": false,
+    "reason": "It only orders shutting down review servers; fetching is not in the model and merging is only a timing reference, while the required action itself is not a git operation."
+   }
+  },
+  {
+   "id": "R39",
+   "rule": "If a vanished SudokuQuest worktree leaves a stale locked name, use a new branch suffix rather than force-unlocking it.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about worktree locking and branch naming after a vanished worktree, not about committing, pushing, merging, branching, PRs, pulls, rebases, resets or cherry-picks; force-unlocking and branch suffixes have no operation in the model."
+   }
+  },
+  {
+   "id": "R40",
+   "rule": "Tell SudokuQuest implementation orchestrators to push each phase immediately after its gates pass.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (push). 2 one requirement: push each phase after its gates pass. 3 'after X, do Y' -> must_do. 4 push. 5 gates pass -> tests_passed true; no branch or file named.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push"
+       ],
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "SudokuQuest implementation orchestrators (actor context); each phase (no field for phases)"
+   }
+  },
+  {
+   "id": "R41",
+   "rule": "Do not let SudokuQuest implementation orchestrators accumulate unpushed completed work.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (about pushing work). 2 one requirement: push completed work promptly instead of letting it accumulate unpushed. 3 phrased as a duty, not a permission or a precondition -> must_do. 4 push (any push, no detail). 5 no branch, file, or other field stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R42",
+   "rule": "When a SudokuQuest implementation run dies, check git ls-remote origin to determine what survived on the remote.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about diagnosing a dead implementation run by inspecting the remote with 'git ls-remote origin' \u2014 a read-only remote query. It names no operation in the model (no commit, push, merge, branch create/delete, pull, rebase, reset, cherry-pick), so there is no clause to model."
+   }
+  },
+  {
+   "id": "R43",
+   "rule": "Place long-lived SudokuQuest review worktrees outside .claude/worktrees/.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about where to place review worktrees on disk (outside .claude/worktrees/), not about any git operation such as committing, pushing, merging, branching, pull requests, pulls, rebases, resets or cherry-picks, nor about what may go into the repository."
+   }
+  },
+  {
+   "id": "R44",
+   "rule": "Place SudokuQuest work intended for next-day review in a sibling directory on a variants/* branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (branch placement). 2 one requirement: put next-day-review work on a variants/* branch. 3 'place' -> must_do. 4 placing work in version control -> commit. 5 branch named variants/* -> branch; sibling directory and review timing have no field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "branch": "variants/*"
+      }
+     }
+    ],
+    "left_out": "sibling directory (worktree location not in model); next-day review timing (no field)"
+   }
+  },
+  {
+   "id": "R45",
+   "rule": "Do not manually clean up orphaned SudokuQuest review worktrees and servers.",
+   "translation": {
+    "fits": false,
+    "reason": "about manually cleaning up orphaned review worktrees and servers, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, or cherry-picks"
+   }
+  },
+  {
+   "id": "R46",
+   "rule": "Use the workflow plugin's reap-worktrees.sh for orphaned SudokuQuest review worktrees rather than manually killing processes and force-unlocking.",
+   "translation": {
+    "fits": false,
+    "reason": "It prescribes which tool/script to use (the workflow plugin's reap-worktrees.sh) for cleaning up orphaned review worktrees instead of manually killing processes and force-unlocking; worktree cleanup is not one of the modeled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick), so it is a tooling/process rule rather than a rule about git operations."
+   }
+  },
+  {
+   "id": "R47",
+   "rule": "During a SudokuQuest workflow:implementall backlog sweep, do not request user review before merging branches.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: merge branches without requesting user review. 2 one requirement: merge branches without requesting user review. 3 review is waived, so the merge is permitted -> may_do. 4 merging branches -> merge. 5 user review/approval waived -> user_confirmed false; no branch or file named. 6 checked.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "user_confirmed": false
+      }
+     }
+    ],
+    "left_out": "during a SudokuQuest workflow:implementall backlog sweep (workflow context is not modeled)"
+   }
+  },
+  {
+   "id": "R48",
+   "rule": "Require browser review before merging ordinary SudokuQuest workflow:implement branches, except that workflow:implementall backlog sweeps waive the review gate.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 require review before ordinary implement-branch merges; implementall sweep waiver. 3 'before X, do Y' -> only_if. 4 merge. 5 browser review mapped to user_confirmed; no branch name given; workflow-type exception left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "workflow:implementall backlog sweeps waive the review gate (no model field distinguishes workflow type from ordinary implement branches)"
+   }
+  },
+  {
+   "id": "R49",
+   "rule": "In a SudokuQuest workflow:implementall final report, plainly identify changes merged without review.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only governs what a final report must disclose (which merges happened without review); it names no git operation to perform, permit, forbid or condition \u2014 reporting/report content is not a git operation."
+   }
+  },
+  {
+   "id": "R50",
+   "rule": "After shutting down SudokuQuest implementation review servers, fetch remote changes before merging.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (fetch/pull before merging). 2 one requirement: fetch remote changes before merging; shutting down review servers is not git. 3 'before X, do Y' -> only_if. 4 merging -> merge, fetch remote changes -> pull. 5 no branch, file, or other fields stated.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "cmd": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "shutting down SudokuQuest implementation review servers (not a git operation)"
+   }
+  },
+  {
+   "id": "R51",
+   "rule": "After shutting down SudokuQuest implementation review servers, pull the latest changes before merging.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (pull, merge). 2 two requirements: pull the latest changes; pull before merging. 3 'before X, do Y' -> only_if for the ordering, 'do Y' -> must_do for the pull itself. 4 pull -> pull, merge -> merge. 5 no branch/file/approval stated; 'after shutting down review servers' is not an operation in the model.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ]
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "after": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "after shutting down SudokuQuest implementation review servers (shutting down servers is not a git operation in the model)"
+   }
+  },
+  {
+   "id": "R52",
+   "rule": "After browser review, server shutdown, and fetch/pull, merge the approved SudokuQuest implementation branches to master.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: merge approved implementation branches to master after fetch/pull. 3 'after X, do Y' -> must_do. 4 merge -> merge. 5 target branch master; approved -> user_confirmed true; fetch/pull -> after pull. 6 checked.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "branch": "master",
+       "user_confirmed": true,
+       "after": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "browser review and server shutdown (not git operations in the model); fetch is not a model operation (pull used); source implementation branch identity is not named"
+   }
+  },
+  {
+   "id": "R53",
+   "rule": "After merging approved SudokuQuest implementation branches to master, run workflow:finalise.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 merge approved branches to master; run workflow:finalise (non-git, dropped). 3 must_do for merge. 4 merge. 5 branch master; approved -> user_confirmed true.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "branch": "master",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "run workflow:finalise (not a git operation in the model)"
+   }
+  },
+  {
+   "id": "R55",
+   "rule": "Personally verify the live run before reporting SudokuQuest CI or workflow work complete.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about personally verifying a live CI/workflow run before reporting work complete \u2014 it names no git operation (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick) and says nothing about what may go into the repository, so it is about verification/tooling rather than git."
+   }
+  },
+  {
+   "id": "R57",
+   "rule": "For any SudokuQuest .github/workflows/ or CI-adjacent script change, trigger a real run through npm run agent, workflow_dispatch, an exercising push, or equivalent.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about verifying CI/workflow changes by exercising them with a real run (npm run agent, workflow_dispatch, etc.) \u2014 i.e. how to run/validate tests \u2014 not about what the agent does with commits, pushes, merges, branches or PRs; the 'exercising push' is only one optional means among several and no git operation is required."
+   }
+  },
+  {
+   "id": "R59",
+   "rule": "Track which SudokuQuest setup steps the user has confirmed, including branch protection, repository settings, and secrets.",
+   "translation": {
+    "fits": false,
+    "reason": "about tracking user-confirmed deployment/setup steps such as branch protection, repository settings, and secrets, not about performing a git operation"
+   }
+  },
+  {
+   "id": "R61",
+   "rule": "If confirmation of an already-confirmed SudokuQuest setup step is genuinely needed, verify it server-side with gh.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about how to verify an already-confirmed setup step (using gh server-side), not about performing any commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick, so it names no git operation in the model."
+   }
+  },
+  {
+   "id": "R62",
+   "rule": "Verify SudokuQuest implementation merges by diffing resolved files against the implementation branch tip.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only prescribes a post-merge verification step (diffing resolved files against the implementation branch tip). It does not say whether a commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick may or must happen, and 'diff / verify a merge' is not one of the modeled operations, so no clause can be expressed."
+   }
+  },
+  {
+   "id": "R63",
+   "rule": "Do not verify a SudokuQuest merge merely by the absence of conflict markers.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about how to verify a merge is correct (absence of conflict markers is not proof), not about performing a git operation; no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is required or forbidden, and the model has no field for verification method."
+   }
+  },
+  {
+   "id": "R64",
+   "rule": "Before any SudokuQuest merge adding a numbered file, list the numbered directory on master to detect number collisions.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (merge precondition). 2 one requirement: before a merge adding a numbered file, list the numbered directory on master. 3 'before X, do Y' -> only_if. 4 merge -> merge. 5 master -> branch; list the directory/file list -> files_shown; numbered file/directory has no concrete pattern, left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ],
+       "branch": "master"
+      },
+      "needs": {
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": "adding a numbered file / numbered directory (no concrete file or directory pattern given); detect number collisions (intent only)"
+   }
+  },
+  {
+   "id": "R65",
+   "rule": "When numbered SudokuQuest artifacts collide across branches, renumber the later artifact to the next free value.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about how to resolve a numbered-artifact naming collision across branches by renumbering a file; it names no git operation (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick) and renumbering a file is not something the model can express."
+   }
+  },
+  {
+   "id": "R67",
+   "rule": "For a SudokuQuest SAVE_VERSION collision, chain migrations so the later branch has its own migration step at the next free version.",
+   "translation": {
+    "fits": false,
+    "reason": "It prescribes how to write/chain migration code when two SAVE_VERSION numbers collide, not a git operation (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is named)."
+   }
+  },
+  {
+   "id": "R68",
+   "rule": "Do not collapse two SudokuQuest branches' migrations under one version number when resolving a SAVE_VERSION collision.",
+   "translation": {
+    "fits": false,
+    "reason": "about migration version numbering, not a git operation"
+   }
+  },
+  {
+   "id": "R69",
+   "rule": "Preserve the audit note documenting SudokuQuest artifact renumbering rather than overwriting its history.",
+   "translation": {
+    "fits": false,
+    "reason": "about preserving a documentation/audit note, not about commits, pushes, merges, branches, or other git operations"
+   }
+  },
+  {
+   "id": "R70",
+   "rule": "After resolving a SudokuQuest merge, run git diff <branch-tip> -- <path> for every touched file.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule requires a read-only git diff check after resolving a merge; diff/inspection is not one of the modeled git operations."
+   }
+  },
+  {
+   "id": "R71",
+   "rule": "Read every touched file's diff against the SudokuQuest implementation branch tip after resolving a merge.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only prescribes a read-only verification step (diffing every touched file against the implementation branch tip after a merge is resolved). It does not say what to commit, push, merge, branch, pull, rebase, reset or cherry-pick, so there is no modelled git operation to translate."
+   }
+  },
+  {
+   "id": "R72",
+   "rule": "Apply a blanket prefer-branch instruction only to conflicting hunks during SudokuQuest merges, not whole files.",
+   "translation": {
+    "fits": false,
+    "reason": "the rule is about how a merge conflict is resolved (applying a prefer-branch instruction hunk-by-hunk rather than whole-file), a conflict-resolution methodology with no concrete git operation or field in the model; no requirement survives"
+   }
+  },
+  {
+   "id": "R73",
+   "rule": "If given a blanket prefer-branch instruction during a SudokuQuest merge, restore raw conflict markers.",
+   "translation": {
+    "fits": false,
+    "reason": "about merge conflict resolution procedure (restoring conflict markers), not a modeled git operation"
+   }
+  },
+  {
+   "id": "R74",
+   "rule": "Resolve SudokuQuest merge conflicts hunk by hunk after restoring markers for a blanket prefer-branch instruction.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (merge conflict resolution). 2 one requirement: resolve merge conflicts hunk by hunk after restoring markers. 3 'after X, do Y' -> must_do. 4 merge conflicts -> merge. 5 no branch/file/approval/tests fields stated; hunk-by-hunk and marker restoration have no model field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "hunk by hunk; restoring markers for a blanket prefer-branch instruction (no model field or operation)"
+   }
+  },
+  {
+   "id": "R75",
+   "rule": "Run npm run check after resolving SudokuQuest merges.",
+   "translation": {
+    "fits": false,
+    "reason": "about running npm run check after merges, not a git operation"
+   }
+  },
+  {
+   "id": "R76",
+   "rule": "Run SudokuQuest test:all after resolving merges, in addition to typechecking.",
+   "translation": {
+    "fits": false,
+    "reason": "about running tests/typechecking after merges (how to run tests), not a git operation"
+   }
+  },
+  {
+   "id": "R77",
+   "rule": "Allow only one session to work in the SudokuQuest primary checkout during a merge.",
+   "translation": {
+    "fits": false,
+    "reason": "no concrete git operation: it restricts concurrent sessions in the primary checkout during a merge, which the model cannot express"
+   }
+  },
+  {
+   "id": "R78",
+   "rule": "Acquire the SudokuQuest primary-checkout merge lock before spawning the merge agent.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about acquiring a process-level merge lock before spawning an agent, not about what the agent does with commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks; the model has no field for a lock, so it cannot be translated."
+   }
+  },
+  {
+   "id": "R79",
+   "rule": "Release the SudokuQuest primary-checkout merge lock after the merge run completes.",
+   "translation": {
+    "fits": false,
+    "reason": "about releasing a workflow merge lock, not a git operation in the model"
+   }
+  },
+  {
+   "id": "R80",
+   "rule": "Do not work around a held SudokuQuest merge lock by merging in a worktree or bypassing the merge skill.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (merge). 2 one git requirement: do not work around a held merge lock by merging in a worktree; bypassing the merge skill is not a git operation and is dropped. 3 never. 4 local_merge. 5 no branch/file/etc.; held-lock and worktree conditions have no model field.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "local_merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "held merge lock condition (no model field); merging in a worktree (no model field); bypassing the merge skill (not a git operation)"
+   }
+  },
+  {
+   "id": "R81",
+   "rule": "When the SudokuQuest merge lock is held, wait or ask the user whether it is stale.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about how to handle a held SudokuQuest merge lock (wait, or ask the user whether it is stale). It names no git operation to commit, push, merge, branch, reset, etc., and imposes no permission or prohibition on one, so there is nothing to translate into the operation model."
+   }
+  },
+  {
+   "id": "R82",
+   "rule": "Before any SudokuQuest merge adding a numbered file, list the numbered directory on every unmerged sibling branch, not just the branch being merged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: it restricts merges. 2 one requirement: before a merge that adds a numbered file, list the numbered directory on all unmerged sibling branches. 3 'Before X, do Y' -> only_if. 4 merge. 5 no named branch or exact file/pattern; listing mapped to files_shown; sibling-branch scope left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": "adding a numbered file (no exact path or pattern given); listing the numbered directory on every unmerged sibling branch, not just the branch being merged (no field for branch-wide directory inspection)"
+   }
+  },
+  {
+   "id": "R83",
+   "rule": "When a SudokuQuest plan depends on an in-flight sibling, stack its implement worktree on the sibling branch instead of waiting for a merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: stack implement worktree on sibling branch instead of waiting for merge. 3 imperative 'stack' -> must_do. 4 stacking on a branch -> branch_create. 5 sibling branch is unnamed, so no branch field; waiting for a merge is not a modeled operation.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      }
+     }
+    ],
+    "left_out": "waiting for a merge (waiting is not modeled; no merge operation is required or forbidden); dependency on an in-flight sibling (no model field); SudokuQuest plan context"
+   }
+  },
+  {
+   "id": "R84",
+   "rule": "Check pushed sibling-branch contents before accepting a SudokuQuest plan's blocked note.",
+   "translation": {
+    "fits": false,
+    "reason": "It is a verification/process instruction ('check the pushed contents of a sibling branch before accepting a blocked claim'); it names no git operation from the model (no commit, push, merge, branch, pull, rebase, reset or cherry-pick), and 'checking what was pushed' has no operation name \u2014 reading the remote is not one of the modelled operations."
+   }
+  },
+  {
+   "id": "R85",
+   "rule": "For SudokuQuest branch stacking, have the orchestrator perform the prescribed fetch, dependency-branch checkout, and cherry-pick setup once in its own fresh worktree.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 fetch; dependency-branch checkout; cherry-pick setup. 3 must_do for remaining operations. 4 checkout, cherry_pick. 5 no branch/file/approval fields; worktree/once/orchestrator are not modelled; fetch is not a modelled operation.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "checkout"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "cherry_pick"
+       ]
+      }
+     }
+    ],
+    "left_out": "fetch (not a modelled git operation); dependency branch name (not named); orchestrator, own fresh worktree, and once (not modelled)"
+   }
+  },
+  {
+   "id": "R86",
+   "rule": "Permit the SudokuQuest orchestrator to switch branches for stacking in its fresh worktree; the branch-switching ban still applies to phase agents.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (switching branches). 2 permit orchestrator checkout; phase-agent ban depends on actor. 3 'permit' -> may_do. 4 switch branches -> checkout. 5 no branch/file/other fields stated; actor and worktree context not modeled.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "checkout"
+       ]
+      }
+     }
+    ],
+    "left_out": "phase-agent branch-switching ban and orchestrator/fresh-worktree context (no actor or worktree field in the model)"
+   }
+  },
+  {
+   "id": "R87",
+   "rule": "Fetch origin before setting up the stacked SudokuQuest implementation branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: fetch origin before setting up the stacked branch. 3 'before X, do Y' -> only_if. 4 branch setup -> branch_create; fetch origin mapped to pull. 5 no branch/file names; ordering encoded with after: [pull].",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      },
+      "needs": {
+       "after": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R88",
+   "rule": "Create or reset the stacked SudokuQuest implementations/<plan>-2 branch from origin/implementations/<dependency>.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: create or reset the stacked branch. 3 imperative -> must_do. 4 create branch -> branch_create, reset -> reset_hard. 5 branch implementations/<plan>-2; source origin/implementations/<dependency> has no matching field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_create",
+        "reset_hard"
+       ],
+       "branch": "implementations/<plan>-2"
+      }
+     }
+    ],
+    "left_out": "source branch origin/implementations/<dependency> (no field for the starting point of branch creation/reset)"
+   }
+  },
+  {
+   "id": "R89",
+   "rule": "Cherry-pick the current SudokuQuest plan's earlier phase commits onto its stacked dependency branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 cherry-pick earlier phase commits onto stacked dependency branch. 3 'do Y' -> must_do. 4 cherry_pick. 5 no exact branch name given; no other fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "cherry_pick"
+       ]
+      }
+     }
+    ],
+    "left_out": "stacked dependency branch (no exact branch name given); earlier phase commits (no operation name)"
+   }
+  },
+  {
+   "id": "R91",
+   "rule": "Permit starting SudokuQuest stacked work immediately when its required sibling types are already pushed.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about when to start SudokuQuest stacked work (task sequencing) based on a pushed-state condition, not about performing a git operation such as commit, push, merge, branch create/delete, pull, rebase, reset, or cherry-pick."
+   }
+  },
+  {
+   "id": "R92",
+   "rule": "Defer only SudokuQuest work items that depend on the sibling's uncommitted phases.",
+   "translation": {
+    "fits": false,
+    "reason": "It is about which work items to defer (task planning), not about a git operation: 'uncommitted phases' only describes the sibling's state; no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick is named."
+   }
+  },
+  {
+   "id": "R93",
+   "rule": "Tell a stacked SudokuQuest implementation agent to refetch before finalizing.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (refetch = pull). 2 one requirement: refetch before finalizing. 3 'do Y before X' -> must_do pull; the 'before finalizing' condition has no field. 4 pull. 5 no branch, file, or other field stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ]
+      }
+     }
+    ],
+    "left_out": "before finalizing (finalizing is not a git operation in the model); 'stacked SudokuQuest implementation agent' (no branch name given)"
+   }
+  },
+  {
+   "id": "R94",
+   "rule": "Tell a stacked SudokuQuest implementation agent to rebase before finalizing.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (rebase). 2 one requirement: rebase before finalizing. 3 instruction to do the rebase -> must_do; 'before finalizing' adds no modeled git operation. 4 rebase. 5 no branch, file, or other fields stated.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "rebase"
+       ]
+      }
+     }
+    ],
+    "left_out": "before finalizing (finalizing is not a git operation in the model); 'stacked SudokuQuest implementation agent' is context only"
+   }
+  },
+  {
+   "id": "R95",
+   "rule": "If a stacked SudokuQuest dependency still has not landed, tell the agent to defer the blocked work rather than stub the engine or lower a gate.",
+   "translation": {
+    "fits": false,
+    "reason": "Not about a concrete git operation: it concerns deferring blocked implementation work rather than stubbing or lowering gates, not commits, pushes, merges, branches, or pull requests."
+   }
+  },
+  {
+   "id": "R96",
+   "rule": "If a stacked SudokuQuest dependency still has not landed, tell the agent to report the deferred work.",
+   "translation": {
+    "fits": false,
+    "reason": "about reporting deferred work when a dependency has not landed, not a concrete git operation"
+   }
+  },
+  {
+   "id": "R99",
+   "rule": "Record a SudokuQuest plan's branch stacking in progress.md.",
+   "translation": {
+    "fits": false,
+    "reason": "about recording progress in progress.md, not about performing a git operation such as commit, push, merge, or branch creation"
+   }
+  },
+  {
+   "id": "R100",
+   "rule": "Merge a stacked SudokuQuest implementation branch only after merging its base branch.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (about merging). 2 one requirement: merge the stacked branch only after its base branch is merged. 3 'only after X' -> only_if. 4 merge (no detail) -> merge. 5 no branch names given ('stacked branch', 'its base branch'); the earlier merge goes in after: [merge].",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "merge"
+       ]
+      },
+      "needs": {
+       "after": [
+        "merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "which branch is stacked and which is its base (no branch names given)"
+   }
+  }
+ ],
+ "kelu124/lattice-verilog-projects": [
+  {
+   "id": "R1",
+   "rule": "Make every clone shallow (--depth 1).",
+   "translation": {
+    "fits": false,
+    "reason": "about making clones shallow, which is not one of the modelled git operations"
+   }
+  },
+  {
+   "id": "R2",
+   "rule": "Fetch only gateware submodules, via clone.sh --submodule.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule prescribes which tool/flag to use (clone.sh --submodule) and restricts submodule fetching; fetching submodules is not one of the modelled git operations (no operation name covers it), and the tool/flag choice is not a git requirement in this model."
+   }
+  },
+  {
+   "id": "R3",
+   "rule": "For every gateware repo, record FPGA size, toolchain, HDL language, license and tests in the catalogue.",
+   "translation": {
+    "fits": false,
+    "reason": "about recording catalogue metadata, not about git operations such as commits, pushes, merges, branches, or what may be committed"
+   }
+  },
+  {
+   "id": "R4",
+   "rule": "Exclude ULX5M-GS repos from the catalogue.",
+   "translation": {
+    "fits": false,
+    "reason": "about excluding repos from a catalogue, not about git operations such as commits, pushes, merges, branches, or PRs"
+   }
+  },
+  {
+   "id": "R5",
+   "rule": "Delete non-gateware files (tools, bitstreams, PCB, PDFs, images) from local clones.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about pruning files from the local working copies on disk (a filesystem/task-housekeeping action), not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks, and not about what may go into the repository \u2014 the model has no operation for deleting files from a working tree."
+   }
+  },
+  {
+   "id": "R6",
+   "rule": "Never commit to the local clones.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (commit). 2 one requirement: never commit to the local clones. 3 'never' -> never. 4 commit. 5 'local clones' is not a branch or file pattern, so no branch/file field.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "the local clones (a location, not a branch or file pattern in the model)"
+   }
+  },
+  {
+   "id": "R7",
+   "rule": "After pruning clones, report the space saved.",
+   "translation": {
+    "fits": false,
+    "reason": "about pruning local clones and reporting disk space saved, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R8",
+   "rule": "Run `prune.py --apply --all` after each clone batch.",
+   "translation": {
+    "fits": false,
+    "reason": "about running a pruning script after clone batches, not a git operation"
+   }
+  },
+  {
+   "id": "R9",
+   "rule": "Run `make lpfs` after cloning.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only says to run a build command (`make lpfs`) after cloning; cloning is not one of the modelled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick), and running a make target is task/tool execution rather than git behaviour."
+   }
+  },
+  {
+   "id": "R11",
+   "rule": "Treat docs/ as a generated just-the-docs GitHub Pages site.",
+   "translation": {
+    "fits": false,
+    "reason": "about how docs/ is generated and presented as a documentation site, not about git operations"
+   }
+  },
+  {
+   "id": "R13",
+   "rule": "Do the bookkeeping before a push.",
+   "translation": {
+    "fits": false,
+    "reason": "vague: 'bookkeeping' is not a concrete git operation and no model field represents it; only 'before a push' mentions git."
+   }
+  },
+  {
+   "id": "R14",
+   "rule": "Push only when the owner asks.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (about pushing). 2 one requirement: push only when the owner asks. 3 'only X when Y' -> only_if. 4 push (any push, no detail) -> push. 5 owner asks -> user_asked true; no branch or file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R23",
+   "rule": "For every gateware repo in the catalogue, record FPGA size(s), toolchain, HDL language and license.",
+   "translation": {
+    "fits": false,
+    "reason": "about recording catalogue metadata (FPGA size, toolchain, HDL, license), not a git operation"
+   }
+  },
+  {
+   "id": "R24",
+   "rule": "In the catalogue FPGA field, record which ECP5 size(s) the repo targets.",
+   "translation": {
+    "fits": false,
+    "reason": "about what to record in the catalogue, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R39",
+   "rule": "Generate docs/ from data/ for the GitHub Pages site.",
+   "translation": {
+    "fits": false,
+    "reason": "It only says how to produce the docs site (generate docs/ from data/), which is a build/task instruction, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks, and not about what may go into the repository."
+   }
+  },
+  {
+   "id": "R40",
+   "rule": "Keep sources.tsv, submodules.tsv and history.tsv in .claude/memory/.",
+   "translation": {
+    "fits": false,
+    "reason": "Only says where bookkeeping files (sources.tsv, submodules.tsv, history.tsv) should live on disk; it names no git operation (no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick) and says nothing about what may be committed."
+   }
+  },
+  {
+   "id": "R41",
+   "rule": "Organise the site around reusable cores and the projects that use them, by function, not as a list of all repos.",
+   "translation": {
+    "fits": false,
+    "reason": "About how the documentation site is organised (grouping by function around reusable cores), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks."
+   }
+  },
+  {
+   "id": "R46",
+   "rule": "Commit data and regenerated docs together.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (commit). 2 one requirement: commit data and regenerated docs together. 3 'do Y' -> must_do. 4 commit. 5 folders data/ -> data/*, docs/ -> docs/*; 'together' has no field, noted in left_out.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": "data/*"
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": "docs/*"
+      }
+     }
+    ],
+    "left_out": "'together' / in the same commit (the model has no field for grouping files into one commit)"
+   }
+  },
+  {
+   "id": "R52",
+   "rule": "Commit and push at checkpoints when asked.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 commit when asked; push when asked. 3 'when asked' -> only_if for each. 4 commit, push. 5 user_asked true; no branch named; 'at checkpoints' has no concrete git field, left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "at checkpoints (vague timing, no concrete git field)"
+   }
+  },
+  {
+   "id": "R54",
+   "rule": "Keep everything recoverable in the repo.",
+   "translation": {
+    "fits": false,
+    "reason": "vague"
+   }
+  },
+  {
+   "id": "R56",
+   "rule": "Commit and push at checkpoints when asked.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 commit when asked; push when asked. 3 'when asked' -> only_if for each. 4 commit, push. 5 user_asked true; no branch named; 'at checkpoints' has no concrete git field, left out.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "at checkpoints (vague timing, no concrete git field)"
+   }
+  },
+  {
+   "id": "R57",
+   "rule": "Never push unless asked.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (about pushing). 2 one requirement: push only when asked. 3 'never push unless asked' -> 'do not X without Y' -> only_if. 4 push (any push, no detail). 5 'unless asked' -> user_asked: true.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R58",
+   "rule": "Do the bookkeeping (skills, memory) before a push.",
+   "translation": {
+    "fits": false,
+    "reason": "vague: bookkeeping (skills, memory) is not a git operation, so no git clause remains"
+   }
+  },
+  {
+   "id": "R62",
+   "rule": "Finish work by updating memory, TODO and COMMIT_LOG.",
+   "translation": {
+    "fits": false,
+    "reason": "about updating bookkeeping files (memory, TODO, COMMIT_LOG), not a git operation"
+   }
+  },
+  {
+   "id": "R63",
+   "rule": "Push only when asked.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: push only when asked. 3 'only when' -> only_if. 4 push -> push. 5 user asks -> user_asked: true.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R64",
+   "rule": "Keep all memory in the tracked .claude/memory/, never only in ~/.claude/projects/.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git: it says where the agent's memory files must live \u2014 in the tracked (version-controlled) folder. 2 one requirement: keep all memory in the tracked .claude/memory/; 'never only in ~/.claude/projects/' is about placement outside the repo, dropped. 3 'keep/always' -> must_do. 4 store in version control -> commit. 5 folder .claude/memory/ -> file .claude/memory/*; no branch named.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".claude/memory/*"
+      }
+     }
+    ],
+    "left_out": "never only in ~/.claude/projects/ (location outside the repository, not a git operation)"
+   }
+  },
+  {
+   "id": "R68",
+   "rule": "Take hardware ground truth from the board repo and its manual.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule says where to source hardware information (the board repo and its manual); it names no commit, push, merge, branch, PR, pull, rebase, reset or cherry-pick operation and sets no rule about what may go into the repository."
+   }
+  },
+  {
+   "id": "R70",
+   "rule": "Update the registry row and detail block in the same commit as the review.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: commit the registry row and detail block together with the review. 3 'do' -> must_do. 4 commit. 5 no branch or file path stated; 'review' is not a modeled git operation.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "same commit as the review (review is not a modeled git operation); registry row and detail block (no file paths given)"
+   }
+  },
+  {
+   "id": "R71",
+   "rule": "Tag projects with the shared function-tag vocabulary.",
+   "translation": {
+    "fits": false,
+    "reason": "about classifying/cataloguing projects with a tag vocabulary, not about git operations"
+   }
+  },
+  {
+   "id": "R73",
+   "rule": "Local clones in original_sources/ may be pruned of non-gateware files.",
+   "translation": {
+    "fits": false,
+    "reason": "about pruning local files in clones, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R74",
+   "rule": "Never commit to the clones.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (commit). 2 one requirement: never commit. 3 'never' -> never. 4 commit. 5 no branch or file named; 'the clones' has no field in the model.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "the clones (target repo/location has no field in the model)"
+   }
+  },
+  {
+   "id": "R77",
+   "rule": "Never commit to the clones; leave deletions unstaged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (commit). 2 two requirements: never commit to the clones; leave deletions unstaged. 3 'never' -> never; second is about the staging area, not expressible. 4 commit. 5 no branch or file named ('to the clones' is a location, not a branch/path); 'deletions unstaged' has no field.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      }
+     }
+    ],
+    "left_out": "'to the clones' (no branch or file pattern named); 'leave deletions unstaged' (staging/index state is not part of the model)"
+   }
+  },
+  {
+   "id": "R78",
+   "rule": "When pruning, always keep HDL, constraint files, build scripts, testbenches, ROM/memory-init files and firmware sources, READMEs and license files.",
+   "translation": {
+    "fits": false,
+    "reason": "about which files to keep when pruning local clones, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R80",
+   "rule": "When checking a clone is unmodified, ignore deletions.",
+   "translation": {
+    "fits": false,
+    "reason": "about how to interpret whether a clone is unmodified when checking for deletions, not about performing a git operation such as commit, push, merge, branch, PR, pull, rebase, reset, or cherry-pick"
+   }
+  },
+  {
+   "id": "R81",
+   "rule": "Re-run `prune.py --apply` after every new clone batch and after `clone.sh --restore`.",
+   "translation": {
+    "fits": false,
+    "reason": "about when to run the prune.py script after cloning/restoring, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets, or cherry-picks"
+   }
+  },
+  {
+   "id": "R82",
+   "rule": "Do not prune while subagents are reading the clones.",
+   "translation": {
+    "fits": false,
+    "reason": "about pruning local clone files, not a git operation in the model"
+   }
+  },
+  {
+   "id": "R86",
+   "rule": "When a user wants to build X, open the matching function in data/cores.json, check the license, then the repo's catalogue row.",
+   "translation": {
+    "fits": false,
+    "reason": "about looking up build info, licenses and catalogue rows, not about git operations or repository contents"
+   }
+  },
+  {
+   "id": "R88",
+   "rule": "Make every clone under original_sources/ shallow (--depth 1).",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only prescribes how clones are made (a shallow-clone flag, --depth 1). Cloning is not one of the modelled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick) and it says nothing about what may go into the repository, so it is a tool/invocation choice rather than a git rule."
+   }
+  },
+  {
+   "id": "R89",
+   "rule": "Make all upstream clones shallow (--depth 1).",
+   "translation": {
+    "fits": false,
+    "reason": "shallow cloning (--depth 1) is not one of the modelled git operations"
+   }
+  },
+  {
+   "id": "R90",
+   "rule": "Do not fetch submodules by default.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about fetching submodules (clone/submodule setup), which is not one of the modelled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick)."
+   }
+  },
+  {
+   "id": "R91",
+   "rule": "Fetch a submodule only when it is explicitly gateware the repo is built around.",
+   "translation": {
+    "fits": false,
+    "reason": "about fetching a submodule, which is not one of the modelled git operations"
+   }
+  },
+  {
+   "id": "R92",
+   "rule": "Fetch gateware submodules with `clone.sh --submodule`, shallow, at the pinned commit, recorded in submodules.tsv.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule is about how to fetch submodules (flag, shallow clone, pinned commit) and about writing a bookkeeping record to submodules.tsv; none of the modelled git operations (commit, push, merge, branch, PR, pull, rebase, reset, cherry-pick) is named, so there is no requirement left to translate."
+   }
+  },
+  {
+   "id": "R93",
+   "rule": "Never fetch frameworks/generators, software, test suites, hardware libraries, or already-cloned upstreams as submodules.",
+   "translation": {
+    "fits": false,
+    "reason": "about which submodules to fetch (frameworks, software, test suites, hardware libraries, already-cloned upstreams); fetching submodules is not one of the modelled git operations (commit, push, merge, PR, pull, rebase, reset, cherry-pick, branch ops), so the requirement cannot be expressed"
+   }
+  },
+  {
+   "id": "R94",
+   "rule": "Never unshallow or full-clone.",
+   "translation": {
+    "fits": false,
+    "reason": "about clone/unshallow behavior, which is not one of the git operations in the model"
+   }
+  },
+  {
+   "id": "R95",
+   "rule": "For newer repos, get history stats from the GitHub API and add them to history.tsv.",
+   "translation": {
+    "fits": false,
+    "reason": "About gathering history statistics via the GitHub API and recording them in history.tsv (bookkeeping/catalogue maintenance), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets, cherry-picks, or what may go into the repository."
+   }
+  },
+  {
+   "id": "R96",
+   "rule": "After cloning, prune non-gateware files.",
+   "translation": {
+    "fits": false,
+    "reason": "about deleting non-gateware files from local clones, not about commits, pushes, merges, branches, pull requests, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R97",
+   "rule": "Use ulx3s/ulx3s-examples instead of the 404 emard/ulx3s-examples.",
+   "translation": {
+    "fits": false,
+    "reason": "The rule only chooses which upstream source/repository to use (ulx3s/ulx3s-examples rather than the 404 emard/ulx3s-examples); it names no commit, push, merge, branch, pull request, pull, rebase, reset or cherry-pick and says nothing about what may go into the repository."
+   }
+  },
+  {
+   "id": "R98",
+   "rule": "To refresh the collection, re-fetch the sources, diff against sources.tsv, clone new ones, and add a dated row here.",
+   "translation": {
+    "fits": false,
+    "reason": "This is a collection-refresh workflow: re-fetching upstream sources, diffing against sources.tsv, cloning new repos and adding a dated row. Cloning/refetching external repositories and editing a catalogue row are not git operations in the model (no clone operation; the fuzzily worded 're-fetch' is not a pull of the working branch), so no clause can be modelled."
+   }
+  },
+  {
+   "id": "R103",
+   "rule": "Do not re-add ULX5M-GS without asking.",
+   "translation": {
+    "fits": false,
+    "reason": "about re-adding repos to the catalogue, not about a git operation"
+   }
+  }
+ ]
+}

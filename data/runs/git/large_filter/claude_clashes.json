@@ -1,0 +1,40 @@
+{
+  "reader": "Claude (has seen the checker's output: 0 clashes; not blind)",
+  "clashes": [
+    {"folder": "Roudranil/variance", "a": "R230", "b": "R247",
+     "quote_a": "Use gh-cc-var for Variance remote/project reads, branch lists, and operations for which MCP returns 403.",
+     "quote_b": "Use MCP to read Variance PR details when programmatic extraction of specific fields is needed.",
+     "situation": "The agent reads PR details for field extraction: R247 says use MCP, R230 says remote reads go through gh-cc-var.",
+     "confidence": "unsure", "why_unsure": "'remote/project reads' may mean only project-board reads; R246 permits either tool for PR reads"},
+    {"folder": "Roudranil/variance", "a": "R230", "b": "R264",
+     "quote_a": "Use gh-cc-var for Variance remote/project reads, branch lists, and operations for which MCP returns 403.",
+     "quote_b": "Use MCP search_issues or search_pull_requests to search Variance issues or PRs.",
+     "situation": "The agent searches PRs (a remote read): R264 says MCP, R230 says gh-cc-var.",
+     "confidence": "unsure", "why_unsure": "same reading question as above; also applies to R285 (MCP list_issues)"},
+    {"folder": "Roudranil/variance", "a": "R292", "b": "R63",
+     "quote_a": "Use gh-cc-var project for every Variance project read.",
+     "quote_b": "For all GitHub Projects interactions in Variance, use project #3 or filter by name variance, whether using MCP or gh-cc-var.",
+     "situation": "R63 assumes project reads may use MCP; R292 forbids that.",
+     "confidence": "unsure", "why_unsure": "R63 may only be about which project, not which tool"},
+    {"folder": "eladb/agenta", "a": "R142", "b": "R58",
+     "quote_a": "Perform the agenta dev-bot test stage before arming auto-merge.",
+     "quote_b": "Permit skipping dev-bot testing for test-only agenta PRs.",
+     "situation": "A test-only PR: R58 allows arming auto-merge without dev-bot testing, R142 requires it.",
+     "confidence": "unsure", "why_unsure": "R58 reads as an exception to R142, though R142 states no exception"},
+    {"folder": "TotalFluke/SudokuQuest", "a": "R32", "b": "R47",
+     "quote_a": "Arrange browser review of SudokuQuest branches after parallel workflow:implement runs and before merging.",
+     "quote_b": "During a SudokuQuest workflow:implementall backlog sweep, do not request user review before merging branches.",
+     "situation": "In a backlog sweep, R32 requires arranging browser review before merging, R47 forbids requesting it.",
+     "confidence": "unsure", "why_unsure": "R48 states the sweep exception explicitly; and implementall may not count as an implement run. Same for R5 vs R47."}
+  ],
+  "same_situation_pairs": [
+    {"folder": "TotalFluke/SudokuQuest", "a": "R47", "b": "R48", "situation": "workflow:implementall backlog sweep", "clash": false},
+    {"folder": "TotalFluke/SudokuQuest", "a": "R32", "b": "R47", "situation": "backlog sweep after implement runs", "clash": true},
+    {"folder": "TotalFluke/SudokuQuest", "a": "R95", "b": "R96", "situation": "stacked dependency has not landed", "clash": false},
+    {"folder": "eladb/agenta", "a": "R11", "b": "R69", "situation": "PR wedged with all checks green", "clash": false},
+    {"folder": "eladb/agenta", "a": "R68", "b": "R11", "situation": "PR wedged with all checks green", "clash": false},
+    {"folder": "eladb/agenta", "a": "R164", "b": "R165", "situation": "Workflow restructuring files on /home/agenta", "clash": false},
+    {"folder": "kelu124/lattice-verilog-projects", "a": "R8", "b": "R82", "situation": "after a clone batch while subagents read the clones", "clash": false}
+  ],
+  "notes": "No sure clash found. 4 of the 5 unsure pairs are about which tool to use (MCP vs gh-cc-var) or a permission that acts as an exception, which our git model does not express. The only git-operation one (R32 vs R47) is resolved by R48's explicit exception. Most rules are repeats (e.g. 'push only when asked' x4, 'never commit to the clones' x3, 'shallow clone' x3) or steps of one workflow."
+}

@@ -28,6 +28,8 @@ Usage:
 import argparse
 import asyncio
 import json
+import random
+import re
 from itertools import combinations, product
 from pathlib import Path
 import sys
@@ -40,7 +42,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 CMDS = ["commit", "push_branch", "push_delete", "force_push", "local_merge", "pr_create",
         "pr_merge", "branch_create", "branch_delete", "checkout", "pull", "rebase", "reset_hard",
-        "cherry_pick"]
+        "cherry_pick", "fetch", "worktree_add", "worktree_remove"]
 # What git means is fixed here: every kind of push is a push, every kind of merge is a merge.
 PUSHES, MERGES = ["push_branch", "push_delete", "force_push"], ["local_merge", "pr_merge"]
 GROUPS = {"push": PUSHES, "any_push": PUSHES,
@@ -52,7 +54,7 @@ GROUPS = {"push": PUSHES, "any_push": PUSHES,
 # lists, in every situation it covers. Fields the rule leaves open are the agent's choice.
 SITUATION = ["after", "after_branch", "n_files", "user_asked", "tests_passed"]
 BOOLS = ["has_secret", "user_asked", "user_confirmed", "files_shown", "secrets_checked",
-         "tests_passed", "admin_bypass"]
+         "tests_passed", "admin_bypass", "in_worktree"]
 GLOBS = ["branch", "file", "after_branch"]
 FIELDS = ["cmd", "after", "min_files", "max_files"] + GLOBS + BOOLS
 TYPES = ["never", "only_if", "must_do", "may_do"]
@@ -92,6 +94,11 @@ class Event:
         self.n_files = Int(f"{tag}_n_files")
         self.s = {g: String(f"{tag}_{g}") for g in GLOBS}
         self.b = {k: Bool(f"{tag}_{k}") for k in BOOLS}
+        self.tag = tag
+
+    def cond(self, name):
+        """An unknown yes/no fact: the condition a rule names but the model cannot express."""
+        return Bool(f"{self.tag}_cond_{name}")
 
     def wellformed(self):
         return And(self.cmd >= 0, self.cmd < len(CMDS), self.after >= -1,
@@ -100,6 +107,9 @@ class Event:
     def match(self, where):
         cs = []
         for k, v in where.items():
+            if k == "_cond":
+                cs.append(self.cond(v))
+                continue
             if k not in FIELDS:
                 raise ValueError(f"unknown field {k!r}")
             if k == "cmd":
@@ -140,10 +150,29 @@ def validate(t):
     for c in t.get("clauses", []):
         if c.get("type") not in TYPES:
             raise ValueError(f"unknown clause type {c.get('type')!r}")
-        if c["type"] == "only_if" and not c.get("needs"):
+        if c["type"] == "only_if" and not c.get("needs") and not c.get("when_unmodeled"):
             raise ValueError("only_if without needs")
+        if "cmd" in c.get("needs", {}):
+            raise ValueError("an operation in needs (write 'before X do Y' as needs after: [Y])")
         Event("v").match(c.get("where", {}))
         Event("v").match(c.get("needs", {}))
+
+
+def prepared(t, tag):
+    """Clauses with a left-out condition (`when_unmodeled`) apply only when an unknown fact of
+    their own holds. That fact is never named by another rule, so such a clause cannot clash
+    with every other rule; at worst a clash is missed."""
+    out = []
+    for i, c in enumerate(t.get("clauses", [])):
+        c = dict(c)
+        if c.get("when_unmodeled") and c["type"] == "only_if" and not c.get("needs"):
+            # "X only after <something the model cannot express>": an unknown prerequisite
+            # the agent can meet, so this clause never blocks anything on its own
+            c["needs"] = {"_cond": f"{tag}{i}"}
+        elif c.get("when_unmodeled"):
+            c["where"] = {**c.get("where", {}), "_cond": f"{tag}{i}"}
+        out.append(c)
+    return out
 
 
 def witness(s, e):
@@ -168,7 +197,7 @@ def check_pair(ta, tb):
         validate(ta), validate(tb)
     except (ValueError, TypeError) as err:
         return "invalid", {"error": str(err)}
-    ca, cb = ta["clauses"], tb["clauses"]
+    ca, cb = prepared(ta, "a"), prepared(tb, "b")
     for own, other, tag in ((ca, cb, "a"), (cb, ca, "b")):
         for i, x in enumerate(own):
             if x["type"] not in ("must_do", "may_do"):
@@ -202,6 +231,8 @@ def situations(e, x, clauses):
     Sample values come from both rules. For may_do, each listed operation is tested."""
     mentioned = set(x.get("where", {}))
     dims = []
+    if "_cond" in mentioned:  # the clause's own unknown condition holds in its own situation
+        dims.append([e.cond(x["where"]["_cond"]) == BoolVal(True)])
     if "after" in mentioned or "after_branch" in mentioned:
         dims.append([e.after == v for v in range(-1, len(CMDS))])
     if "after_branch" in mentioned:
@@ -262,8 +293,21 @@ HAND = {
     "X14": {"fits": True, "clauses": [{"type": "may_do", "where": {
         "cmd": ["commit", "push"], "has_secret": True}}]},
     "R15": {"fits": True, "clauses": [{"type": "may_do", "where": {"cmd": ["any_merge"]}}]},
+    # large-folder design check: "first check out main" with an operation inside needs
+    "L235_bad": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["branch_create"]},
+                                            "needs": {"cmd": ["checkout"], "branch": "main"}}]},
+    "L235": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["branch_create"]},
+                                        "needs": {"after": ["checkout"]}}]},
+    "L237": {"fits": True, "clauses": [{"type": "must_do", "where": {"cmd": ["branch_create"], "branch": "feat/*"}}]},
+    # "never commit to the local clones": condition the model cannot express
+    "L6_cond": {"fits": True, "clauses": [{"type": "never", "where": {"cmd": ["commit"]},
+                                           "when_unmodeled": "in the local clones"}]},
+    "L6_nocond": {"fits": True, "clauses": [{"type": "never", "where": {"cmd": ["commit"]}}]},
+    "L46": {"fits": True, "clauses": [{"type": "must_do", "where": {"cmd": ["commit"], "file": "data/*"}}]},
 }
-EXPECT = [("R1", "X2", "conflict"), ("R6", "X14", "conflict"), ("R3_lit", "X8", "conflict"),
+EXPECT = [("L235_bad", "L237", "invalid"), ("L235", "L237", "compatible"),
+          ("L6_cond", "L46", "compatible"), ("L6_nocond", "L46", "conflict"),
+          ("R1", "X2", "conflict"), ("R6", "X14", "conflict"), ("R3_lit", "X8", "conflict"),
           ("R3", "R15", "compatible"),("R1", "X1", "conflict"), ("R1", "X3", "compatible"), ("R3", "X8", "conflict"),
           ("R5", "X8", "compatible"), ("R2", "R5", "compatible"), ("R2", "R3", "compatible"),
           ("R6", "X13", "conflict"), ("R6", "X15", "compatible"),
@@ -281,28 +325,83 @@ def selftest():
 
 # ---------------------------------------------------------------- LLM translation and checking
 
-async def translate(rules_path, out, folder=None):
+async def translate(rules_path, out, folder=None, repeat=0, prompt_name="git_translate",
+                    only=None):
+    """repeat 0 lists the other rules in file order; repeat i > 0 shuffles them with seed i,
+    so each repeat is a separate LLM call for the same rule (used to measure consistency).
+    only: a filter.json from `filter`; then only kept rules are translated, and the context
+    lists only the other kept rules of the folder."""
     from llm import LLM
-    prompt = (ROOT / "prompts" / "git" / "git_translate.md").read_text()
+    prompt = (ROOT / "prompts" / "git" / f"{prompt_name}.md").read_text()
     llm = LLM()
     data = json.loads(Path(rules_path).read_text())
-    seen, results = {}, {}
+    keep = None
+    if only:
+        keep = {(r["folder"], r["id"]) for r in json.loads(Path(only).read_text()) if r["keep"]}
+    jobs, results = {}, {}
     for fo in data["folders"]:
         name = fo.get("repo", fo.get("folder"))
         if folder and folder not in name:
             continue
-        for r in fo["rules"]:
+        rules = [r for r in fo["rules"] if keep is None or (name, r["id"]) in keep]
+        for r in rules:
             key = r["rule"]
-            if key not in seen:
-                ctx = "\n".join(f"- {x['rule']}" for x in fo["rules"] if x is not r)
+            if key not in jobs:
+                others = [x for x in rules if x is not r]
+                if repeat:
+                    random.Random(repeat).shuffle(others)
+                ctx = "\n".join(f"- {x['rule']}" for x in others)
                 user = f"Other rules of the folder (context only):\n{ctx}\n\nRULE:\n{r['rule']}"
-                seen[key] = await llm.chat_json([{"role": "system", "content": prompt},
-                                                 {"role": "user", "content": user}])
-            results.setdefault(name, []).append({"id": r["id"], "rule": r["rule"],
-                                                 "translation": seen[key]})
+                jobs[key] = llm.chat_json([{"role": "system", "content": prompt},
+                                           {"role": "user", "content": user}])
+            results.setdefault(name, []).append({"id": r["id"], "rule": r["rule"]})
+    keys = list(jobs)
+    done = dict(zip(keys, await asyncio.gather(*(jobs[k] for k in keys))))
+    for rules in results.values():
+        for r in rules:
+            r["translation"] = done[r["rule"]]
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps(results, indent=1))
-    print(f"{len(seen)} rules translated, usage {llm.usage}")
+    print(f"{len(jobs)} rules translated, usage {llm.usage}")
+
+
+# ---------------------------------------------------------------- which rules are about git
+
+# Written from git's own command list and GitHub terms, not from the test rules.
+GIT_WORDS = re.compile(
+    r"\bgit\b|\bgh\b|github|gitlab|\bcommit|\bpush|\bpull\b|\bpulls\b|\bpulled\b|\bfetch|\bmerg"
+    r"|\brebase|\bbranch|\bcheckout|\bcheck out\b|\bswitch to\b|cherry.pick|\bstash|\btags?\b"
+    r"|\btagged\b|\breset\b|\brevert|\bamend|\bsquash|fast.forward|force.push|--force|worktree"
+    r"|submodule|\bclone|\borigin\b|upstream|\bremote\b|\bHEAD\b|\bmain\b|\bmaster\b"
+    r"|pull request|\bPRs?\b|version.control|\brepo\b|\brepos\b|repositor|gitignore|\bstag(e|ed|ing)\b"
+    r"|\bdiff\b|\bbisect|\bblame\b|pre-commit|branch protection|merge queue|\bupstream",
+    re.I)
+
+
+async def filter_rules(rules_path, out):
+    """Two independent nets: GIT_WORDS and a short LLM yes/no question without folder
+    context (prompts/git/git_filter.md). A rule is kept if either says git."""
+    from llm import LLM
+    prompt = (ROOT / "prompts" / "git" / "git_filter.md").read_text()
+    llm = LLM()
+    data = json.loads(Path(rules_path).read_text())
+    rows, calls = [], []
+    for fo in data["folders"]:
+        name = fo.get("repo", fo.get("folder"))
+        for r in fo["rules"]:
+            rows.append({"folder": name, "id": r["id"], "rule": r["rule"],
+                         "keyword": bool(GIT_WORDS.search(r["rule"]))})
+            calls.append(llm.chat_json([{"role": "system", "content": prompt},
+                                        {"role": "user", "content": f"RULE:\n{r['rule']}"}]))
+    for row, ans in zip(rows, await asyncio.gather(*calls)):
+        row["llm"] = bool(ans.get("git"))
+        row["reason"] = ans.get("reason", "")
+        row["keep"] = row["keyword"] or row["llm"]
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    Path(out).write_text(json.dumps(rows, indent=1))
+    from collections import Counter
+    print(Counter((r["keyword"], r["llm"]) for r in rows), "(keyword, llm)")
+    print(f"kept {sum(r['keep'] for r in rows)} of {len(rows)}, usage {llm.usage}")
 
 
 def check(translations, out):
@@ -319,6 +418,54 @@ def check(translations, out):
     print(Counter(r["verdict"] for r in rows))
 
 
+# ---------------------------------------------------------------- consistency of translations
+
+def meaning(t, e):
+    """The three parts of a translation's meaning, as formulas over one operation e:
+    what it forbids or restricts, what it requires, what it permits."""
+    cs = prepared(t, "m")
+    rules = And(constraints(e, cs)) if constraints(e, cs) else BoolVal(True)
+    must = Or([e.match(c.get("where", {})) for c in cs if c["type"] == "must_do"] or [BoolVal(False)])
+    may = Or([e.match(c.get("where", {})) for c in cs if c["type"] == "may_do"] or [BoolVal(False)])
+    return rules, must, may
+
+
+def same_meaning(ta, tb):
+    """True if two translations of one rule mean the same: both 'not git', or both valid and,
+    for every possible operation, they restrict, require and permit exactly the same."""
+    if not ta.get("fits") or not tb.get("fits"):
+        return not ta.get("fits") and not tb.get("fits")
+    try:
+        validate(ta), validate(tb)
+    except (ValueError, TypeError):
+        return False
+    e = Event("m")
+    return all(not is_sat(e.wellformed(), x != y) for x, y in zip(meaning(ta, e), meaning(tb, e)))
+
+
+def consistency(paths, out, pairs=()):
+    """Compare repeated translations of each rule; `pairs` = (rule id, rewording id, folder)."""
+    runs = [json.loads(Path(p).read_text()) for p in paths]
+    by_text = [{r["rule"]: r for rules in run.values() for r in rules} for run in runs]
+    rows = []
+    for text, r0 in by_text[0].items():
+        ts = [b[text]["translation"] for b in by_text]
+        agree = [same_meaning(ts[0], t) for t in ts[1:]]
+        rows.append({"id": r0["id"], "rule": text, "fits": [bool(t.get("fits")) for t in ts],
+                     "same_as_first": agree, "all_same": all(agree)})
+    re_rows = []
+    for host, para, folder in pairs:
+        for k, run in enumerate(runs):
+            rs = {r["id"]: r["translation"] for r in run[folder]}
+            re_rows.append({"run": k, "rule": host, "rewording": para,
+                            "same": same_meaning(rs[host], rs[para])})
+    Path(out).write_text(json.dumps({"rules": rows, "rewordings": re_rows}, indent=1))
+    n, fit = len(rows), [r for r in rows if any(r["fits"])]
+    print(f"rules {n}: same meaning in all {len(runs)} runs: {sum(r['all_same'] for r in rows)}"
+          f" | git rules {len(fit)}: {sum(r['all_same'] for r in fit)}")
+    print(f"rewordings: same meaning as their rule in {sum(r['same'] for r in re_rows)} of {len(re_rows)}")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -327,13 +474,28 @@ if __name__ == "__main__":
     t.add_argument("--rules", required=True)
     t.add_argument("--out", required=True)
     t.add_argument("--folder")
+    t.add_argument("--repeat", type=int, default=0)
+    t.add_argument("--prompt", default="git_translate", help="prompt file in prompts/git/ (without .md)")
+    t.add_argument("--only", help="filter.json from `filter`: translate only kept rules")
+    f = sub.add_parser("filter")
+    f.add_argument("--rules", required=True)
+    f.add_argument("--out", required=True)
     c = sub.add_parser("check")
     c.add_argument("--translations", required=True)
     c.add_argument("--out", required=True)
+    s = sub.add_parser("consistency")
+    s.add_argument("--translations", nargs="+", required=True)
+    s.add_argument("--out", required=True)
+    s.add_argument("--rewordings", default="", help="host:rewording:folder,... e.g. R1:X3:repo#paraphrase")
     a = ap.parse_args()
     if a.cmd == "selftest":
         selftest()
     elif a.cmd == "translate":
-        asyncio.run(translate(a.rules, a.out, a.folder))
-    else:
+        asyncio.run(translate(a.rules, a.out, a.folder, a.repeat, a.prompt, a.only))
+    elif a.cmd == "filter":
+        asyncio.run(filter_rules(a.rules, a.out))
+    elif a.cmd == "check":
         check(a.translations, a.out)
+    else:
+        pairs = [tuple(p.split(":", 2)) for p in a.rewordings.split(",") if p]
+        consistency(a.translations, a.out, pairs)

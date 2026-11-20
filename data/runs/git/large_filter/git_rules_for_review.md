@@ -1,0 +1,227 @@
+# Git rules for review
+
+Rules kept by the git filter, grouped by folder. Rule numbers are the original ones in each folder.
+
+## Roudranil/variance (60 rules)
+
+- **R15** Do not interact with GitHub project #2, Lattice, in the Variance workspace.
+- **R16** Restrict GitHub Projects work in this workspace to variance, project #3.
+- **R39** Keep raw Variance reconnaissance in internal docs/enemy-recon/.
+- **R43** Keep raw competitive reconnaissance in Variance docs/enemy-recon/ for internal reference.
+- **R61** Do not interact with Lattice GitHub project #2 under any circumstances during Variance work.
+- **R62** Do not touch Roudranil's Lattice project #2, ID PVT_kwHOA51EZs4BOMMG.
+- **R63** For all GitHub Projects interactions in Variance, use project #3 or filter by name variance, whether using MCP or gh-cc-var.
+- **R64** Skip Lattice entirely if it appears in a GitHub Projects result during Variance work.
+- **R80** Do not read Variance markdown with the Read tool, cat, head, or equivalent shell commands.
+- **R85** In round two of future Variance PM–LE specification reviews, have the PM respond with clarified, acknowledged, deferred, escalated, or pushback dispositions.
+- **R96** Use the single uniform version controlled by Variance's root version file for all files.
+- **R100** Do not reference a Variance version bump in commit messages, tracker entries, or diff logs unless the founder has set that version first.
+- **R101** Defer all Variance version control decisions to the founder through the repository-root version file.
+- **R223** Translate the Variance founder's repository screenshots and annotations into code guidance.
+- **R227** Include updated golden files in every Variance PR that changes UI.
+- **R228** Use git for Variance local code operations, including branches, commits, push, pull, merge, and rebase.
+- **R229** Use MCP for Variance remote writes such as issues, PRs, project items, sub-issue links, and reviews.
+- **R230** Use gh-cc-var for Variance remote/project reads, branch lists, and operations for which MCP returns 403.
+- **R231** Do not use plain gh during Variance GitHub work.
+- **R232** Use gh-cc-var whenever invoking the GitHub CLI for Variance.
+- **R233** Do not touch Lattice GitHub project #2 during Variance work.
+- **R234** Restrict Variance GitHub Projects work to variance project #3, ID PVT_kwHOA51EZs4BUfV9.
+- **R235** When creating a Variance feature branch, first check out main.
+- **R236** Pull main before creating a Variance feature branch.
+- **R237** Create a Variance feature branch locally with git checkout -b using a feat/ branch name.
+- **R238** Stage selected Variance files with git add before committing.
+- **R239** Commit a Variance feature with git commit and a feat: description message.
+- **R240** Push the Variance feature branch to origin with upstream tracking.
+- **R241** List all remote Variance branches with gh-cc-var api repos/Roudranil/variance/branches and extract their names.
+- **R242** To check a single Variance branch's existence via MCP, call get_repository_tree with its name as tree_sha.
+- **R243** Use MCP create_pull_request to create a Variance pull request.
+- **R244** Include Closes #N in a Variance PR body to link its issue and project field.
+- **R245** Permit creating a Variance PR with gh-cc-var pr create, targeting main from the feature branch, as a CLI alternative to MCP.
+- **R246** Permit reading Variance PR details with either MCP pull_request_read or gh-cc-var pr view.
+- **R247** Use MCP to read Variance PR details when programmatic extraction of specific fields is needed.
+- **R248** Use MCP update_pull_request to update Variance PR titles, bodies, or states.
+- **R249** Use MCP update_pull_request_branch to synchronize a Variance PR branch with its base.
+- **R250** Permit synchronizing a Variance PR branch with gh-cc-var pr update-branch as a CLI alternative.
+- **R251** Use MCP pull_request_review_write to review Variance pull requests.
+- **R252** Use add_comment_to_pending_review for inline comments on specific Variance PR lines.
+- **R253** Use MCP add_reply_to_pull_request_comment to reply to Variance PR comment threads.
+- **R254** Use MCP merge_pull_request to merge a Variance pull request.
+- **R258** Before requesting Variance job logs, obtain the job ID from actions_list with list_workflow_jobs and the run ID.
+- **R259** Use MCP actions_run_trigger to manually trigger a Variance workflow.
+- **R260** Use MCP issue_write to create Variance bug issues.
+- **R264** Use MCP search_issues or search_pull_requests to search Variance issues or PRs.
+- **R265** Use search_pull_requests rather than list_pull_requests when searching Variance PRs by author.
+- **R266** Bootstrap Variance GitHub labels once at project start.
+- **R267** Before creating Variance project labels, check existing labels with list_label.
+- **R268** After checking existing labels, create missing Variance epic, story, task, bug, and p0–p3 labels with label_write using the specified colors and descriptions.
+- **R269** Create a Variance epic with MCP issue_write, an EPIC: title, a goal/stories body, and the epic label.
+- **R275** Use MCP sub_issue_write reprioritize with before_id or after_id to reorder Variance sub-issues.
+- **R281** Obtain Variance iteration option IDs with gh-cc-var project field-list 3 --owner Roudranil --format json.
+- **R283** Link a Variance PR to project #3 with projects_write add_project_item, item_type pull_request, and its PR number.
+- **R284** Use gh-cc-var to view the Variance project board.
+- **R285** Use MCP list_issues to list open Variance issues, optionally filtering by labels.
+- **R289** Use MCP issue_write update to close or reopen a Variance issue, supplying the appropriate state and a state_reason when closing.
+- **R290** Remove Variance project-board items with projects_write delete_project_item and the item ID for project #3.
+- **R291** Use gh-cc-var api to list Variance branches because MCP does not provide branch listing.
+- **R292** Use gh-cc-var project for every Variance project read.
+
+## eladb/agenta (32 rules)
+
+- **R2** Do not request another approval round after Elad resolves design forks.
+- **R11** When an agenta PR wedges with all checks green, close the stuck PR.
+- **R12** When an agenta PR wedges with all checks green, recreate the PR on a fresh branch.
+- **R13** Do not bypass agenta branch protection with the --admin merge option.
+- **R54** Create a separate gotcha issue for each named agenta CD flake.
+- **R55** Fix each named agenta CD flake in its own small focused PR rather than a mega-cleanup.
+- **R56** Do not panic-merge during an agenta CD-red streak.
+- **R58** Permit skipping dev-bot testing for test-only agenta PRs.
+- **R66** When agenta auto-merge wedges because legacy combined status remains pending despite successful check-runs, close the stuck PR.
+- **R67** When agenta auto-merge wedges because legacy combined status remains pending despite successful check-runs, redo the PR on a fresh branch.
+- **R68** Do not keep fighting an agenta auto-merge wedge lasting over ten minutes with all signals green.
+- **R69** If an agenta PR has been wedged for over ten minutes with all signals green, close it with a one-line note.
+- **R70** After closing a green but wedged agenta PR, push the same commit on a fresh branch based on current origin/main.
+- **R71** After moving a wedged agenta PR's commit to a fresh branch, open a new PR.
+- **R72** Rearm auto-merge on the replacement agenta PR after recovering from a green auto-merge wedge.
+- **R73** Do not use gh pr merge --admin to bypass agenta branch protection when a PR is wedged.
+- **R78** Before changing shared-host skills or CLAUDE.md, explicitly state whether the change is repo-local or host-wide.
+- **R135** Do not bold issue or PR URLs posted in chat with Elad; the application instruction extends this to all GitHub URLs.
+- **R136** Do not format GitHub URLs as labeled markdown links in chat with Elad.
+- **R137** Place each GitHub URL alone on its own line when chatting with Elad.
+- **R141** Pause for agenta issue review only once, after issue creation.
+- **R142** Perform the agenta dev-bot test stage before arming auto-merge.
+- **R143** For meaningful agenta feature PRs, offer a bun start dev-bot run and joint Slack iteration before arming auto-merge.
+- **R144** After an agenta subagent reports a meaningful feature PR URL, ask about dev-bot testing through AskUserQuestion.
+- **R146** Permit iterative agenta UX refinement over multiple PRs.
+- **R150** Prefer one focused agenta PR per refinement to a single large PR aiming for perfection.
+- **R154** In agenta change-workflow step one, create the drafted issue directly after design forks are resolved without an extra draft-approval round.
+- **R163** Use worktree isolation for structural changes in /home/agenta.
+- **R164** For a Workflow on /home/agenta that restructures or moves src/ or scripts/ files, set isolation worktree on every agent call.
+- **R165** Before a /home/agenta Workflow moves or restructures committed files, either isolate every agent in a worktree or pause the watchdog cron for the Workflow's duration.
+- **R166** Permit single-agent, single-file edits on /home/agenta without worktree isolation or watchdog pausing, unlike multi-phase refactors leaving inconsistent intermediate states.
+- **R168** Use a worktree if a /home/agenta Workflow phase would leave a partial rename that breaks bun scripts/canary.ts imports.
+
+## TotalFluke/SudokuQuest (71 rules)
+
+- **R3** Prefer committing SudokuQuest infrastructure and deployment configuration to the repository over local CLI setup.
+- **R4** After SudokuQuest implement runs, start each worktree's development server before merging.
+- **R5** Print the SudokuQuest worktree dev-server links for review before merging implementation branches.
+- **R7** Permit stacking a SudokuQuest implementation on its unmerged dependency's branch instead of waiting for that branch to merge.
+- **R8** Check what a SudokuQuest sibling dependency branch has actually pushed before accepting a blocked-plan claim.
+- **R9** After resolving a SudokuQuest merge, diff resolved files against the implementation branch tip.
+- **R10** Do not treat the absence of conflict markers as proof that a SudokuQuest merge is correct.
+- **R12** Trigger a live CI run before reporting SudokuQuest workflow changes complete.
+- **R24** Prefer committing SudokuQuest infrastructure/deploy configuration to the repository over interactive or local CLI setup.
+- **R25** Prefer repository-based infrastructure and deploy configuration, such as GitHub Actions, over interactive/local setup for SudokuQuest.
+- **R26** When proposing SudokuQuest deployment, CI, or infrastructure changes, default to committed workflows/configuration rather than instructions to run local commands.
+- **R32** Arrange browser review of SudokuQuest branches after parallel workflow:implement runs and before merging.
+- **R33** After parallel SudokuQuest workflow:implement runs, start each worktree's development server for browser review.
+- **R34** Print each SudokuQuest worktree dev-server link for browser review after parallel implementation runs.
+- **R35** When reporting completed SudokuQuest implementation branches, offer to start each worktree's development server.
+- **R37** Assign each SudokuQuest agent worktree its own development-server port in 5200–5499.
+- **R38** After the user views normal SudokuQuest implementation branches, shut down their review servers before fetching or merging.
+- **R39** If a vanished SudokuQuest worktree leaves a stale locked name, use a new branch suffix rather than force-unlocking it.
+- **R40** Tell SudokuQuest implementation orchestrators to push each phase immediately after its gates pass.
+- **R41** Do not let SudokuQuest implementation orchestrators accumulate unpushed completed work.
+- **R42** When a SudokuQuest implementation run dies, check git ls-remote origin to determine what survived on the remote.
+- **R43** Place long-lived SudokuQuest review worktrees outside .claude/worktrees/.
+- **R44** Place SudokuQuest work intended for next-day review in a sibling directory on a variants/* branch.
+- **R45** Do not manually clean up orphaned SudokuQuest review worktrees and servers.
+- **R46** Use the workflow plugin's reap-worktrees.sh for orphaned SudokuQuest review worktrees rather than manually killing processes and force-unlocking.
+- **R47** During a SudokuQuest workflow:implementall backlog sweep, do not request user review before merging branches.
+- **R48** Require browser review before merging ordinary SudokuQuest workflow:implement branches, except that workflow:implementall backlog sweeps waive the review gate.
+- **R49** In a SudokuQuest workflow:implementall final report, plainly identify changes merged without review.
+- **R50** After shutting down SudokuQuest implementation review servers, fetch remote changes before merging.
+- **R51** After shutting down SudokuQuest implementation review servers, pull the latest changes before merging.
+- **R52** After browser review, server shutdown, and fetch/pull, merge the approved SudokuQuest implementation branches to master.
+- **R53** After merging approved SudokuQuest implementation branches to master, run workflow:finalise.
+- **R55** Personally verify the live run before reporting SudokuQuest CI or workflow work complete.
+- **R57** For any SudokuQuest .github/workflows/ or CI-adjacent script change, trigger a real run through npm run agent, workflow_dispatch, an exercising push, or equivalent.
+- **R59** Track which SudokuQuest setup steps the user has confirmed, including branch protection, repository settings, and secrets.
+- **R61** If confirmation of an already-confirmed SudokuQuest setup step is genuinely needed, verify it server-side with gh.
+- **R62** Verify SudokuQuest implementation merges by diffing resolved files against the implementation branch tip.
+- **R63** Do not verify a SudokuQuest merge merely by the absence of conflict markers.
+- **R64** Before any SudokuQuest merge adding a numbered file, list the numbered directory on master to detect number collisions.
+- **R65** When numbered SudokuQuest artifacts collide across branches, renumber the later artifact to the next free value.
+- **R67** For a SudokuQuest SAVE_VERSION collision, chain migrations so the later branch has its own migration step at the next free version.
+- **R68** Do not collapse two SudokuQuest branches' migrations under one version number when resolving a SAVE_VERSION collision.
+- **R69** Preserve the audit note documenting SudokuQuest artifact renumbering rather than overwriting its history.
+- **R70** After resolving a SudokuQuest merge, run git diff <branch-tip> -- <path> for every touched file.
+- **R71** Read every touched file's diff against the SudokuQuest implementation branch tip after resolving a merge.
+- **R72** Apply a blanket prefer-branch instruction only to conflicting hunks during SudokuQuest merges, not whole files.
+- **R73** If given a blanket prefer-branch instruction during a SudokuQuest merge, restore raw conflict markers.
+- **R74** Resolve SudokuQuest merge conflicts hunk by hunk after restoring markers for a blanket prefer-branch instruction.
+- **R75** Run npm run check after resolving SudokuQuest merges.
+- **R76** Run SudokuQuest test:all after resolving merges, in addition to typechecking.
+- **R77** Allow only one session to work in the SudokuQuest primary checkout during a merge.
+- **R78** Acquire the SudokuQuest primary-checkout merge lock before spawning the merge agent.
+- **R79** Release the SudokuQuest primary-checkout merge lock after the merge run completes.
+- **R80** Do not work around a held SudokuQuest merge lock by merging in a worktree or bypassing the merge skill.
+- **R81** When the SudokuQuest merge lock is held, wait or ask the user whether it is stale.
+- **R82** Before any SudokuQuest merge adding a numbered file, list the numbered directory on every unmerged sibling branch, not just the branch being merged.
+- **R83** When a SudokuQuest plan depends on an in-flight sibling, stack its implement worktree on the sibling branch instead of waiting for a merge.
+- **R84** Check pushed sibling-branch contents before accepting a SudokuQuest plan's blocked note.
+- **R85** For SudokuQuest branch stacking, have the orchestrator perform the prescribed fetch, dependency-branch checkout, and cherry-pick setup once in its own fresh worktree.
+- **R86** Permit the SudokuQuest orchestrator to switch branches for stacking in its fresh worktree; the branch-switching ban still applies to phase agents.
+- **R87** Fetch origin before setting up the stacked SudokuQuest implementation branch.
+- **R88** Create or reset the stacked SudokuQuest implementations/<plan>-2 branch from origin/implementations/<dependency>.
+- **R89** Cherry-pick the current SudokuQuest plan's earlier phase commits onto its stacked dependency branch.
+- **R91** Permit starting SudokuQuest stacked work immediately when its required sibling types are already pushed.
+- **R92** Defer only SudokuQuest work items that depend on the sibling's uncommitted phases.
+- **R93** Tell a stacked SudokuQuest implementation agent to refetch before finalizing.
+- **R94** Tell a stacked SudokuQuest implementation agent to rebase before finalizing.
+- **R95** If a stacked SudokuQuest dependency still has not landed, tell the agent to defer the blocked work rather than stub the engine or lower a gate.
+- **R96** If a stacked SudokuQuest dependency still has not landed, tell the agent to report the deferred work.
+- **R99** Record a SudokuQuest plan's branch stacking in progress.md.
+- **R100** Merge a stacked SudokuQuest implementation branch only after merging its base branch.
+
+## kelu124/lattice-verilog-projects (49 rules)
+
+- **R1** Make every clone shallow (--depth 1).
+- **R2** Fetch only gateware submodules, via clone.sh --submodule.
+- **R3** For every gateware repo, record FPGA size, toolchain, HDL language, license and tests in the catalogue.
+- **R4** Exclude ULX5M-GS repos from the catalogue.
+- **R5** Delete non-gateware files (tools, bitstreams, PCB, PDFs, images) from local clones.
+- **R6** Never commit to the local clones.
+- **R7** After pruning clones, report the space saved.
+- **R8** Run `prune.py --apply --all` after each clone batch.
+- **R9** Run `make lpfs` after cloning.
+- **R11** Treat docs/ as a generated just-the-docs GitHub Pages site.
+- **R13** Do the bookkeeping before a push.
+- **R14** Push only when the owner asks.
+- **R23** For every gateware repo in the catalogue, record FPGA size(s), toolchain, HDL language and license.
+- **R24** In the catalogue FPGA field, record which ECP5 size(s) the repo targets.
+- **R39** Generate docs/ from data/ for the GitHub Pages site.
+- **R40** Keep sources.tsv, submodules.tsv and history.tsv in .claude/memory/.
+- **R41** Organise the site around reusable cores and the projects that use them, by function, not as a list of all repos.
+- **R46** Commit data and regenerated docs together.
+- **R52** Commit and push at checkpoints when asked.
+- **R54** Keep everything recoverable in the repo.
+- **R56** Commit and push at checkpoints when asked.
+- **R57** Never push unless asked.
+- **R58** Do the bookkeeping (skills, memory) before a push.
+- **R62** Finish work by updating memory, TODO and COMMIT_LOG.
+- **R63** Push only when asked.
+- **R64** Keep all memory in the tracked .claude/memory/, never only in ~/.claude/projects/.
+- **R68** Take hardware ground truth from the board repo and its manual.
+- **R70** Update the registry row and detail block in the same commit as the review.
+- **R71** Tag projects with the shared function-tag vocabulary.
+- **R73** Local clones in original_sources/ may be pruned of non-gateware files.
+- **R74** Never commit to the clones.
+- **R77** Never commit to the clones; leave deletions unstaged.
+- **R78** When pruning, always keep HDL, constraint files, build scripts, testbenches, ROM/memory-init files and firmware sources, READMEs and license files.
+- **R80** When checking a clone is unmodified, ignore deletions.
+- **R81** Re-run `prune.py --apply` after every new clone batch and after `clone.sh --restore`.
+- **R82** Do not prune while subagents are reading the clones.
+- **R86** When a user wants to build X, open the matching function in data/cores.json, check the license, then the repo's catalogue row.
+- **R88** Make every clone under original_sources/ shallow (--depth 1).
+- **R89** Make all upstream clones shallow (--depth 1).
+- **R90** Do not fetch submodules by default.
+- **R91** Fetch a submodule only when it is explicitly gateware the repo is built around.
+- **R92** Fetch gateware submodules with `clone.sh --submodule`, shallow, at the pinned commit, recorded in submodules.tsv.
+- **R93** Never fetch frameworks/generators, software, test suites, hardware libraries, or already-cloned upstreams as submodules.
+- **R94** Never unshallow or full-clone.
+- **R95** For newer repos, get history stats from the GitHub API and add them to history.tsv.
+- **R96** After cloning, prune non-gateware files.
+- **R97** Use ulx3s/ulx3s-examples instead of the 404 emard/ulx3s-examples.
+- **R98** To refresh the collection, re-fetch the sources, diff against sources.tsv, clone new ones, and add a dated row here.
+- **R103** Do not re-add ULX5M-GS without asking.

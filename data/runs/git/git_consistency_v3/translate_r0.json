@@ -1,0 +1,1405 @@
+{
+ "M-Hernandez/setflow#conflict_direct": [
+  {
+   "id": "R1",
+   "rule": "After every merge to main, delete the feature branch locally and on the remote.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (deleting branches after merge). 2 local delete; remote delete. 3 'after X, do Y' -> must_do x2. 4 branch_delete, push_delete. 5 'merge to main' -> after: [merge], after_branch: main; 'the feature branch' is not a named branch, no branch field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R2",
+   "rule": "After gh pr merge, run git branch -d and git push origin --delete for the branch, then switch to main and pull.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 local branch delete; remote branch delete; switch to main; pull. 3 'after X, do Y' -> must_do for each. 4 branch_delete, push_delete, checkout, pull. 5 main is named for checkout and pull; after pr_merge, then after deletes, then after checkout.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "checkout"
+       ],
+       "branch": "main",
+       "after": [
+        "branch_delete",
+        "push_delete"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ],
+       "branch": "main",
+       "after": [
+        "checkout"
+       ]
+      }
+     }
+    ],
+    "left_out": "for the branch (no branch name given)"
+   }
+  },
+  {
+   "id": "R3",
+   "rule": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: confirm files before push, merge, or PR creation. 3 'before X, do Y' -> only_if. 4 push, merge, pr_create. 5 confirm which files -> user_confirmed and files_shown; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge",
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R4",
+   "rule": "Do not assume approval for pushes/merges; show the file list and get explicit approval.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (pushes, merges). 2 one requirement: push/merge need shown file list and explicit approval. 3 'do not X without Y' -> only_if. 4 push, merge. 5 files_shown, user_confirmed.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R5",
+   "rule": "Before any git push or gh pr create, show the changed files and ask for confirmation.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 show files + confirm before push; show files + confirm before pr_create (two requirements). 3 'before X, do Y' -> only_if x2. 4 push, pr_create. 5 show the changed files -> files_shown true; ask for confirmation -> user_confirmed true; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R6",
+   "rule": "Never commit credentials to the repo.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (never commit X is about what may go into the repo). 2 one requirement: never commit credentials. 3 'never' -> never. 4 commit. 5 credentials -> has_secret true.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R7",
+   "rule": "Keep credentials in gitignored .env files; commit only .env.example with placeholder values.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be committed). 2 credentials must not be committed; only .env.example may be committed. 3 'keep credentials in gitignored' -> never; 'commit only' -> may_do. 4 commit. 5 credentials -> has_secret true; .env.example -> file .env.example; placeholder values -> has_secret false.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env.example",
+       "has_secret": false
+      }
+     }
+    ],
+    "left_out": "the .gitignore mechanism itself (no gitignore field); the .env filename is treated as the ignored storage location, not a commit target"
+   }
+  },
+  {
+   "id": "R8",
+   "rule": "Before any commit, verify no .env files, API keys, or secrets are staged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be staged/committed). 2 three requirements: check staged files for secrets; never commit secrets/API keys; never commit .env files. 3 fixed pattern 'verify no X is staged' -> only_if + never. 4 commit. 5 secrets/API keys -> has_secret; .env files -> file .env; verify -> secrets_checked.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "secrets_checked": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R9",
+   "rule": "Load any credentials used by code from environment variables.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code reads credentials (environment variables), not about git operations"
+   }
+  },
+  {
+   "id": "R10",
+   "rule": "Immediately flag hardcoded values that look like real credentials.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code is written/reviewed (detecting hardcoded credentials in source), not about commits, pushes, merges, branches, or what may go into the repository"
+   }
+  },
+  {
+   "id": "R11",
+   "rule": "Work on issue #17 next: run the ingestion pipeline end-to-end on 6 seed DJs before Phase 2.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next and how to run the ingestion pipeline, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R12",
+   "rule": "Do not use the system Python 3.9.6 (/usr/bin/python3) for this project.",
+   "translation": {
+    "fits": false,
+    "reason": "About which Python interpreter/version to use for the project, not about git operations."
+   }
+  },
+  {
+   "id": "R13",
+   "rule": "(Preference) Always confirm files with the user before push/merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (push/merge). 2 one requirement: confirm files with the user before push/merge. 3 'before X, do Y' -> only_if. 4 push -> push; merge -> merge. 5 confirm files -> user_confirmed true and files_shown true; no branch/file stated.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": "(Preference) marker (does not change the translation)"
+   }
+  },
+  {
+   "id": "R14",
+   "rule": "(Preference) Keep the repo clean: no stale branches, no credentials, tested code.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (branches, repo contents). 2 items: no stale branches; no credentials; tested code; 'keep the repo clean' is the vague header. 3 'no X' -> never for credentials; 'tested code' -> only_if for commit; 'no stale branches' names no operation (no delete, no branch, no timing) -> vague, dropped. 4 commit for credentials and tests. 5 credentials/secrets -> has_secret: true; tests pass -> tests_passed: true; no branch or file named.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "keep the repo clean (vague goal); no stale branches (a repo state, not a git operation: no deletion, branch name or timing is stated)"
+   }
+  },
+  {
+   "id": "R15",
+   "rule": "(Preference) Work incrementally with feature branches, PRs, merge, and cleanup.",
+   "translation": {
+    "fits": false,
+    "reason": "vague"
+   }
+  },
+  {
+   "id": "R16",
+   "rule": "(Index) Next work items are issues #4 and #5.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next, not about git operations"
+   }
+  },
+  {
+   "id": "X1",
+   "rule": "After every merge to main, keep the feature branch locally and on the remote.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (branch retention after merge). 2 keep branch locally; keep branch on remote. 3 both are prohibitions on deleting -> never. 4 local keep -> branch_delete; remote keep -> push_delete. 5 'after every merge to main' -> after: [merge], after_branch: main; 'the feature branch' gives no branch name.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X4",
+   "rule": "Always use the system Python 3.9.6 (/usr/bin/python3) for this project.",
+   "translation": {
+    "fits": false,
+    "reason": "about which Python interpreter/version to use, not about git operations"
+   }
+  },
+  {
+   "id": "X7",
+   "rule": "Before merging a pull request that touches fewer than 3 files, skip user confirmation and proceed directly to merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: merge PRs touching fewer than 3 files without confirmation. 3 'skip Y and do X' -> must_do. 4 merge the PR -> pr_merge. 5 fewer than 3 files -> max_files 2; skip user confirmation -> user_confirmed false.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ],
+       "max_files": 2,
+       "user_confirmed": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X10",
+   "rule": "Run the ingestion pipeline end-to-end on 12 seed DJs before starting Phase 2.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next (running the ingestion pipeline), not about git operations"
+   }
+  },
+  {
+   "id": "X13",
+   "rule": "You may commit hardcoded API keys and credentials directly to the repository when necessary for local development.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may go into the repository). 2 one requirement: committing credentials is permitted. 3 'you may' -> may_do. 4 commit. 5 credentials -> has_secret true; 'when necessary for local development' cannot be expressed -> when_unmodeled.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      },
+      "when_unmodeled": "when necessary for local development"
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X16",
+   "rule": "Hardcode all credentials directly into the source code files rather than loading them from environment variables.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code reads credentials / hardcoding values in source code, not about git operations"
+   }
+  }
+ ],
+ "M-Hernandez/setflow#conflict_reworded": [
+  {
+   "id": "R1",
+   "rule": "After every merge to main, delete the feature branch locally and on the remote.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (deleting branches after merge). 2 local delete; remote delete. 3 'after X, do Y' -> must_do x2. 4 branch_delete, push_delete. 5 'merge to main' -> after: [merge], after_branch: main; 'the feature branch' is not a named branch, no branch field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R2",
+   "rule": "After gh pr merge, run git branch -d and git push origin --delete for the branch, then switch to main and pull.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 local branch delete; remote branch delete; switch to main; pull. 3 'after X, do Y' -> must_do for each. 4 branch_delete, push_delete, checkout, pull. 5 main is named for checkout and pull; after pr_merge, then after deletes, then after checkout.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "checkout"
+       ],
+       "branch": "main",
+       "after": [
+        "branch_delete",
+        "push_delete"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ],
+       "branch": "main",
+       "after": [
+        "checkout"
+       ]
+      }
+     }
+    ],
+    "left_out": "for the branch (no branch name given)"
+   }
+  },
+  {
+   "id": "R3",
+   "rule": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: confirm files before push, merge, or PR creation. 3 'before X, do Y' -> only_if. 4 push, merge, pr_create. 5 confirm which files -> user_confirmed and files_shown; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge",
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R4",
+   "rule": "Do not assume approval for pushes/merges; show the file list and get explicit approval.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (pushes, merges). 2 one requirement: push/merge need shown file list and explicit approval. 3 'do not X without Y' -> only_if. 4 push, merge. 5 files_shown, user_confirmed.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R5",
+   "rule": "Before any git push or gh pr create, show the changed files and ask for confirmation.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 show files + confirm before push; show files + confirm before pr_create (two requirements). 3 'before X, do Y' -> only_if x2. 4 push, pr_create. 5 show the changed files -> files_shown true; ask for confirmation -> user_confirmed true; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R6",
+   "rule": "Never commit credentials to the repo.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (never commit X is about what may go into the repo). 2 one requirement: never commit credentials. 3 'never' -> never. 4 commit. 5 credentials -> has_secret true.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R7",
+   "rule": "Keep credentials in gitignored .env files; commit only .env.example with placeholder values.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be committed). 2 credentials must not be committed; only .env.example may be committed. 3 'keep credentials in gitignored' -> never; 'commit only' -> may_do. 4 commit. 5 credentials -> has_secret true; .env.example -> file .env.example; placeholder values -> has_secret false.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env.example",
+       "has_secret": false
+      }
+     }
+    ],
+    "left_out": "the .gitignore mechanism itself (no gitignore field); the .env filename is treated as the ignored storage location, not a commit target"
+   }
+  },
+  {
+   "id": "R8",
+   "rule": "Before any commit, verify no .env files, API keys, or secrets are staged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be staged/committed). 2 three requirements: check staged files for secrets; never commit secrets/API keys; never commit .env files. 3 fixed pattern 'verify no X is staged' -> only_if + never. 4 commit. 5 secrets/API keys -> has_secret; .env files -> file .env; verify -> secrets_checked.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "secrets_checked": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R9",
+   "rule": "Load any credentials used by code from environment variables.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code reads credentials (environment variables), not about git operations"
+   }
+  },
+  {
+   "id": "R10",
+   "rule": "Immediately flag hardcoded values that look like real credentials.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code is written/reviewed (detecting hardcoded credentials in source), not about commits, pushes, merges, branches, or what may go into the repository"
+   }
+  },
+  {
+   "id": "R11",
+   "rule": "Work on issue #17 next: run the ingestion pipeline end-to-end on 6 seed DJs before Phase 2.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next and how to run the ingestion pipeline, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R12",
+   "rule": "Do not use the system Python 3.9.6 (/usr/bin/python3) for this project.",
+   "translation": {
+    "fits": false,
+    "reason": "About which Python interpreter/version to use for the project, not about git operations."
+   }
+  },
+  {
+   "id": "R13",
+   "rule": "(Preference) Always confirm files with the user before push/merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (push/merge). 2 one requirement: confirm files with the user before push/merge. 3 'before X, do Y' -> only_if. 4 push -> push; merge -> merge. 5 confirm files -> user_confirmed true and files_shown true; no branch/file stated.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": "(Preference) marker (does not change the translation)"
+   }
+  },
+  {
+   "id": "R14",
+   "rule": "(Preference) Keep the repo clean: no stale branches, no credentials, tested code.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (branches, repo contents). 2 items: no stale branches; no credentials; tested code; 'keep the repo clean' is the vague header. 3 'no X' -> never for credentials; 'tested code' -> only_if for commit; 'no stale branches' names no operation (no delete, no branch, no timing) -> vague, dropped. 4 commit for credentials and tests. 5 credentials/secrets -> has_secret: true; tests pass -> tests_passed: true; no branch or file named.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "keep the repo clean (vague goal); no stale branches (a repo state, not a git operation: no deletion, branch name or timing is stated)"
+   }
+  },
+  {
+   "id": "R15",
+   "rule": "(Preference) Work incrementally with feature branches, PRs, merge, and cleanup.",
+   "translation": {
+    "fits": false,
+    "reason": "vague"
+   }
+  },
+  {
+   "id": "R16",
+   "rule": "(Index) Next work items are issues #4 and #5.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next, not about git operations"
+   }
+  },
+  {
+   "id": "X2",
+   "rule": "Once a pull request is merged into the primary branch, retain the source branch in both local and remote repositories.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 local retain; remote retain. 3 'retain' = do not delete -> never x2. 4 branch_delete, push_delete. 5 'once a pull request is merged' -> after pr_merge; 'primary branch' is not a named branch, left out.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     }
+    ],
+    "left_out": "into the primary branch (no concrete branch name given); the source branch (not named)"
+   }
+  },
+  {
+   "id": "X5",
+   "rule": "Select the default OS binary located at /usr/bin/python3 as the runtime for all development tasks.",
+   "translation": {
+    "fits": false,
+    "reason": "about which tool/runtime to use (the Python interpreter), not about git operations"
+   }
+  },
+  {
+   "id": "X8",
+   "rule": "When a pull request modifies less than three files, bypass the approval step and merge immediately.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: permit merging a PR without approval when it touches fewer than three files. 3 permission ('bypass ... and merge immediately') -> may_do. 4 merge the PR -> pr_merge. 5 fewer than three files -> max_files 2; bypass approval -> user_confirmed false; no branch or file named.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "pr_merge"
+       ],
+       "max_files": 2,
+       "user_confirmed": false
+      }
+     }
+    ],
+    "left_out": "'immediately' (timing not modeled)"
+   }
+  },
+  {
+   "id": "X14",
+   "rule": "It is permissible to store sensitive authentication tokens and secret strings within the version-controlled codebase.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may go into the repository). 2 one requirement: storing secrets in version control is permitted. 3 'it is permissible to' -> may_do. 4 store in version control -> commit. 5 tokens/secrets -> has_secret true.",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X17",
+   "rule": "Embed API keys and passwords as literal strings within the application logic instead of relying on external variable injection.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code handles credentials (hardcoding secrets as literal strings in source code), not about commits, pushes, merges, branches, PRs or what may go into the repository"
+   }
+  }
+ ],
+ "M-Hernandez/setflow#paraphrase": [
+  {
+   "id": "R1",
+   "rule": "After every merge to main, delete the feature branch locally and on the remote.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (deleting branches after merge). 2 local delete; remote delete. 3 'after X, do Y' -> must_do x2. 4 branch_delete, push_delete. 5 'merge to main' -> after: [merge], after_branch: main; 'the feature branch' is not a named branch, no branch field.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R2",
+   "rule": "After gh pr merge, run git branch -d and git push origin --delete for the branch, then switch to main and pull.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 local branch delete; remote branch delete; switch to main; pull. 3 'after X, do Y' -> must_do for each. 4 branch_delete, push_delete, checkout, pull. 5 main is named for checkout and pull; after pr_merge, then after deletes, then after checkout.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "pr_merge"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "checkout"
+       ],
+       "branch": "main",
+       "after": [
+        "branch_delete",
+        "push_delete"
+       ]
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "pull"
+       ],
+       "branch": "main",
+       "after": [
+        "checkout"
+       ]
+      }
+     }
+    ],
+    "left_out": "for the branch (no branch name given)"
+   }
+  },
+  {
+   "id": "R3",
+   "rule": "Before git push, git merge, or creating a PR, confirm with the user which files will be pushed or merged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: confirm files before push, merge, or PR creation. 3 'before X, do Y' -> only_if. 4 push, merge, pr_create. 5 confirm which files -> user_confirmed and files_shown; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge",
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R4",
+   "rule": "Do not assume approval for pushes/merges; show the file list and get explicit approval.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (pushes, merges). 2 one requirement: push/merge need shown file list and explicit approval. 3 'do not X without Y' -> only_if. 4 push, merge. 5 files_shown, user_confirmed.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R5",
+   "rule": "Before any git push or gh pr create, show the changed files and ask for confirmation.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 show files + confirm before push; show files + confirm before pr_create (two requirements). 3 'before X, do Y' -> only_if x2. 4 push, pr_create. 5 show the changed files -> files_shown true; ask for confirmation -> user_confirmed true; no branch/file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R6",
+   "rule": "Never commit credentials to the repo.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (never commit X is about what may go into the repo). 2 one requirement: never commit credentials. 3 'never' -> never. 4 commit. 5 credentials -> has_secret true.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R7",
+   "rule": "Keep credentials in gitignored .env files; commit only .env.example with placeholder values.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be committed). 2 credentials must not be committed; only .env.example may be committed. 3 'keep credentials in gitignored' -> never; 'commit only' -> may_do. 4 commit. 5 credentials -> has_secret true; .env.example -> file .env.example; placeholder values -> has_secret false.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env.example",
+       "has_secret": false
+      }
+     }
+    ],
+    "left_out": "the .gitignore mechanism itself (no gitignore field); the .env filename is treated as the ignored storage location, not a commit target"
+   }
+  },
+  {
+   "id": "R8",
+   "rule": "Before any commit, verify no .env files, API keys, or secrets are staged.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may be staged/committed). 2 three requirements: check staged files for secrets; never commit secrets/API keys; never commit .env files. 3 fixed pattern 'verify no X is staged' -> only_if + never. 4 commit. 5 secrets/API keys -> has_secret; .env files -> file .env; verify -> secrets_checked.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "secrets_checked": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "file": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "R9",
+   "rule": "Load any credentials used by code from environment variables.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code reads credentials (environment variables), not about git operations"
+   }
+  },
+  {
+   "id": "R10",
+   "rule": "Immediately flag hardcoded values that look like real credentials.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code is written/reviewed (detecting hardcoded credentials in source), not about commits, pushes, merges, branches, or what may go into the repository"
+   }
+  },
+  {
+   "id": "R11",
+   "rule": "Work on issue #17 next: run the ingestion pipeline end-to-end on 6 seed DJs before Phase 2.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next and how to run the ingestion pipeline, not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks"
+   }
+  },
+  {
+   "id": "R12",
+   "rule": "Do not use the system Python 3.9.6 (/usr/bin/python3) for this project.",
+   "translation": {
+    "fits": false,
+    "reason": "About which Python interpreter/version to use for the project, not about git operations."
+   }
+  },
+  {
+   "id": "R13",
+   "rule": "(Preference) Always confirm files with the user before push/merge.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (push/merge). 2 one requirement: confirm files with the user before push/merge. 3 'before X, do Y' -> only_if. 4 push -> push; merge -> merge. 5 confirm files -> user_confirmed true and files_shown true; no branch/file stated.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": "(Preference) marker (does not change the translation)"
+   }
+  },
+  {
+   "id": "R14",
+   "rule": "(Preference) Keep the repo clean: no stale branches, no credentials, tested code.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (branches, repo contents). 2 items: no stale branches; no credentials; tested code; 'keep the repo clean' is the vague header. 3 'no X' -> never for credentials; 'tested code' -> only_if for commit; 'no stale branches' names no operation (no delete, no branch, no timing) -> vague, dropped. 4 commit for credentials and tests. 5 credentials/secrets -> has_secret: true; tests pass -> tests_passed: true; no branch or file named.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "keep the repo clean (vague goal); no stale branches (a repo state, not a git operation: no deletion, branch name or timing is stated)"
+   }
+  },
+  {
+   "id": "R15",
+   "rule": "(Preference) Work incrementally with feature branches, PRs, merge, and cleanup.",
+   "translation": {
+    "fits": false,
+    "reason": "vague"
+   }
+  },
+  {
+   "id": "R16",
+   "rule": "(Index) Next work items are issues #4 and #5.",
+   "translation": {
+    "fits": false,
+    "reason": "about which task to do next, not about git operations"
+   }
+  },
+  {
+   "id": "X3",
+   "rule": "Following each merge operation into main, remove the feature branch from both local storage and the remote server.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 local delete after merge into main; remote delete after merge into main. 3 'following X, do Y' -> must_do x2. 4 branch_delete, push_delete; merge. 5 after merge, after_branch main; feature branch has no branch name.",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "push_delete"
+       ],
+       "after": [
+        "merge"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X9",
+   "rule": "Prior to executing a git push, git merge, or pull request creation, verify with the user which files are involved in the operation.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git. 2 one requirement: confirm which files before push/merge/PR. 3 'prior to X, verify Y' -> only_if, X in where, Y in needs. 4 push, merge, pr_create. 5 'confirm which files' -> user_confirmed + files_shown; no branch or file named.",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "push",
+        "merge",
+        "pr_create"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true,
+       "files_shown": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X12",
+   "rule": "Prior to Phase 2, execute the complete ingestion pipeline using exactly six seed DJs for issue #17.",
+   "translation": {
+    "fits": false,
+    "reason": "This rule is about which task to do next and how to run the ingestion pipeline (issue #17, six seed DJs, before Phase 2), not about commits, pushes, merges, branches, PRs, pulls, rebases, resets or cherry-picks."
+   }
+  },
+  {
+   "id": "X15",
+   "rule": "Do not add any sensitive secrets or authentication data to the version control system.",
+   "translation": {
+    "fits": true,
+    "steps": "1 git (what may go into version control). 2 one requirement: never commit secrets. 3 'do not' -> never. 4 add to version control -> commit. 5 sensitive secrets/authentication data -> has_secret: true.",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "commit"
+       ],
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "id": "X18",
+   "rule": "Retrieve all secrets and authentication tokens from environment variables for use in the codebase.",
+   "translation": {
+    "fits": false,
+    "reason": "about how code obtains credentials (environment variables), not about commits, pushes, merges, branches or what may go into the repository"
+   }
+  }
+ ]
+}
