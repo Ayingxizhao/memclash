@@ -1,0 +1,364 @@
+{
+  "repo": "QuagKhai003/assessment",
+  "dir": ".claude/memory",
+  "n_files": 7,
+  "n_rules": 59,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "communication-direct-concise.md",
+      "quote": "use direct voice",
+      "rule": "Respond using direct voice."
+    },
+    {
+      "id": "R2",
+      "file": "communication-direct-concise.md",
+      "quote": "keep responses concise and direct",
+      "rule": "Keep responses concise and direct."
+    },
+    {
+      "id": "R3",
+      "file": "communication-direct-concise.md",
+      "quote": "Active/direct voice.",
+      "rule": "Write in active/direct voice."
+    },
+    {
+      "id": "R4",
+      "file": "communication-direct-concise.md",
+      "quote": "Short.",
+      "rule": "Keep responses short."
+    },
+    {
+      "id": "R5",
+      "file": "communication-direct-concise.md",
+      "quote": "Cut preamble and restating.",
+      "rule": "Cut preamble and do not restate what was already said."
+    },
+    {
+      "id": "R6",
+      "file": "communication-direct-concise.md",
+      "quote": "State the point, then stop.",
+      "rule": "State the point, then stop."
+    },
+    {
+      "id": "R7",
+      "file": "communication-direct-concise.md",
+      "quote": "Applies to written deliverables too (DECISIONS.md etc.)",
+      "rule": "Apply the same conciseness to written deliverables such as DECISIONS.md."
+    },
+    {
+      "id": "R8",
+      "file": "communication-direct-concise.md",
+      "quote": "keep entries modular and concise with a clear explanation, not long over-written prose",
+      "rule": "In written deliverables, keep entries modular and concise with a clear explanation rather than long over-written prose."
+    },
+    {
+      "id": "R9",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "DECISIONS.md entries must read like a real decision/discussion between the user and me — NOT a description of what the thing is.",
+      "rule": "Write DECISIONS.md entries as a real decision/discussion between the user and the AI, not as a description of what the thing is."
+    },
+    {
+      "id": "R10",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "Each entry, concise, in the user's first-person voice",
+      "rule": "Write each DECISIONS.md entry concisely and in the user's first-person voice."
+    },
+    {
+      "id": "R11",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "who proposed it (\"my call\" / \"Claude proposed\")",
+      "rule": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\")."
+    },
+    {
+      "id": "R12",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "what the user pushed back on",
+      "rule": "In each DECISIONS.md entry, state what the user pushed back on."
+    },
+    {
+      "id": "R13",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "what they agreed / didn't agree on",
+      "rule": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on."
+    },
+    {
+      "id": "R14",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "the trade-off",
+      "rule": "In each DECISIONS.md entry, include the trade-off."
+    },
+    {
+      "id": "R15",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "and the reason.",
+      "rule": "In each DECISIONS.md entry, include the reason for the decision."
+    },
+    {
+      "id": "R16",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "write each entry as a short narrative of the back-and-forth",
+      "rule": "Write each DECISIONS.md entry as a short narrative of the back-and-forth."
+    },
+    {
+      "id": "R17",
+      "file": "decisions-read-as-discussion.md",
+      "quote": "Keep it concise.",
+      "rule": "Keep each DECISIONS.md entry concise."
+    },
+    {
+      "id": "R18",
+      "file": "never-commit-without-approval.md",
+      "quote": "Every commit needs the user's approval",
+      "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+    },
+    {
+      "id": "R19",
+      "file": "never-commit-without-approval.md",
+      "quote": "Stage/prepare, then wait for the go before committing.",
+      "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing."
+    },
+    {
+      "id": "R20",
+      "file": "never-commit-without-approval.md",
+      "quote": "Docs / decisions / planning / non-code: commit on the current branch",
+      "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch."
+    },
+    {
+      "id": "R21",
+      "file": "never-commit-without-approval.md",
+      "quote": "Code: on its own dedicated branch.",
+      "rule": "Commit code changes only on a dedicated branch created for that work."
+    },
+    {
+      "id": "R22",
+      "file": "never-commit-without-approval.md",
+      "quote": "Never work code directly on `main`/`master`",
+      "rule": "Never write or commit code directly on the main or master branch."
+    },
+    {
+      "id": "R23",
+      "file": "never-commit-without-approval.md",
+      "quote": "check out a branch and commit there after approval.",
+      "rule": "Check out a branch for code changes and commit there only after receiving approval."
+    },
+    {
+      "id": "R24",
+      "file": "never-commit-without-approval.md",
+      "quote": "Never delete branches",
+      "rule": "Never delete git branches."
+    },
+    {
+      "id": "R25",
+      "file": "never-commit-without-approval.md",
+      "quote": "leave merged branches in place",
+      "rule": "Leave merged branches in place rather than removing them."
+    },
+    {
+      "id": "R26",
+      "file": "never-commit-without-approval.md",
+      "quote": "Pushing to a remote needs approval regardless of what changed.",
+      "rule": "Obtain approval before pushing to a remote, regardless of what changed."
+    },
+    {
+      "id": "R27",
+      "file": "never-commit-without-approval.md",
+      "quote": "Always wait for approval before any commit.",
+      "rule": "Always wait for the user's approval before making any commit."
+    },
+    {
+      "id": "R28",
+      "file": "never-touch-user-env.md",
+      "quote": "Never read, open, `cat`, or `sed` the user's `.env` file",
+      "rule": "Never read, open, `cat`, or `sed` the user's `.env` file."
+    },
+    {
+      "id": "R29",
+      "file": "never-touch-user-env.md",
+      "quote": "Never edit `.env` either.",
+      "rule": "Never edit the user's `.env` file."
+    },
+    {
+      "id": "R30",
+      "file": "never-touch-user-env.md",
+      "quote": "To tell the user what to change, edit `.env.example` (the safe committed template) with the right values + comments, or explain in chat",
+      "rule": "To tell the user what config or secret changes to make, edit `.env.example` with the right values and comments, or explain the change in chat."
+    },
+    {
+      "id": "R31",
+      "file": "never-touch-user-env.md",
+      "quote": "for any env/config fix, update `.env.example` or describe the change in chat — never touch the real `.env`.",
+      "rule": "For any env/config fix, update `.env.example` or describe the change in chat, and never touch the real `.env`."
+    },
+    {
+      "id": "R32",
+      "file": "prefer-official-generators.md",
+      "quote": "User wants scaffolding done through official generators (e.g. `create-next-app`), not hand-written.",
+      "rule": "Scaffold projects using official generators such as create-next-app instead of hand-writing the scaffolding."
+    },
+    {
+      "id": "R33",
+      "file": "prefer-official-generators.md",
+      "quote": "Do everything through the generator",
+      "rule": "Perform all scaffolding work through the official generator."
+    },
+    {
+      "id": "R34",
+      "file": "prefer-official-generators.md",
+      "quote": "keep its files",
+      "rule": "Keep the files produced by the official generator."
+    },
+    {
+      "id": "R35",
+      "file": "prefer-official-generators.md",
+      "quote": "then only UPDATE or ADD what's project-specific on top",
+      "rule": "After generating, only update or add project-specific changes on top of the generated files."
+    },
+    {
+      "id": "R36",
+      "file": "prefer-official-generators.md",
+      "quote": "don't substitute hand-rolled versions of files the generator provides (configs, layout, page, globals.css, etc.)",
+      "rule": "Do not replace generator-provided files such as configs, layout, page, or globals.css with hand-rolled versions."
+    },
+    {
+      "id": "R37",
+      "file": "prefer-official-generators.md",
+      "quote": "run the generator with the right flags",
+      "rule": "Run the official generator with the appropriate flags."
+    },
+    {
+      "id": "R38",
+      "file": "prefer-official-generators.md",
+      "quote": "keep its output",
+      "rule": "Keep the output produced by the official generator."
+    },
+    {
+      "id": "R39",
+      "file": "prefer-official-generators.md",
+      "quote": "layer project code/config on top",
+      "rule": "Layer project-specific code and configuration on top of the generated output."
+    },
+    {
+      "id": "R40",
+      "file": "track-project-decisions.md",
+      "quote": "the user wants me to note/track their decisions as we make them throughout the conversation",
+      "rule": "During the Gradion assessment work, note and track the user's decisions as they are made throughout the conversation."
+    },
+    {
+      "id": "R41",
+      "file": "track-project-decisions.md",
+      "quote": "but only decisions related to the project, not everything",
+      "rule": "Track only decisions related to the project, not every decision."
+    },
+    {
+      "id": "R42",
+      "file": "track-project-decisions.md",
+      "quote": "Record a decision only AFTER the user explicitly confirms it",
+      "rule": "Record a decision only after the user explicitly confirms it."
+    },
+    {
+      "id": "R43",
+      "file": "track-project-decisions.md",
+      "quote": "never mid-discussion or from my own proposal the user hasn't accepted",
+      "rule": "Never record a decision mid-discussion or from your own proposal that the user has not accepted."
+    },
+    {
+      "id": "R44",
+      "file": "track-project-decisions.md",
+      "quote": "Once confirmed, record it (DECISIONS.md entry).",
+      "rule": "Once a decision is confirmed, record it as an entry in DECISIONS.md."
+    },
+    {
+      "id": "R45",
+      "file": "track-project-decisions.md",
+      "quote": "Do not log trivia or non-project chatter.",
+      "rule": "Do not log trivia or non-project chatter."
+    },
+    {
+      "id": "R46",
+      "file": "track-project-decisions.md",
+      "quote": "Always capture the REASONING behind each decision, both sides",
+      "rule": "Always capture the reasoning behind each decision, from both sides."
+    },
+    {
+      "id": "R47",
+      "file": "track-project-decisions.md",
+      "quote": "when the user pushes back or makes their own call, record their reasoning",
+      "rule": "When the user pushes back or makes their own call, record the user's reasoning."
+    },
+    {
+      "id": "R48",
+      "file": "track-project-decisions.md",
+      "quote": "when the user accepts my proposal, record my reasoning too",
+      "rule": "When the user accepts your proposal, record your reasoning too."
+    },
+    {
+      "id": "R49",
+      "file": "track-project-decisions.md",
+      "quote": "Every entry should say why, not just what",
+      "rule": "Every decision entry should state why, not just what."
+    },
+    {
+      "id": "R50",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "the user wants me as a coworker/copilot, not an order-taker",
+      "rule": "On this project, act as a coworker/copilot who collaborates, not as an order-taker."
+    },
+    {
+      "id": "R51",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "Engage as a peer",
+      "rule": "Engage with the user as a peer rather than as a subordinate."
+    },
+    {
+      "id": "R52",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "take positions",
+      "rule": "Take clear positions on the work instead of staying neutral."
+    },
+    {
+      "id": "R53",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "discuss trade-offs",
+      "rule": "Discuss trade-offs explicitly when working through decisions."
+    },
+    {
+      "id": "R54",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "push back",
+      "rule": "Push back when you disagree rather than silently complying."
+    },
+    {
+      "id": "R55",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "not by me just listing options and awaiting orders",
+      "rule": "Do not merely list options and wait for orders; participate in deciding."
+    },
+    {
+      "id": "R56",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "Take a stance and argue it briefly",
+      "rule": "Take a stance and argue for it briefly."
+    },
+    {
+      "id": "R57",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "invite pushback",
+      "rule": "Invite the user to push back on your stance."
+    },
+    {
+      "id": "R58",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "converge together",
+      "rule": "Converge on a decision together with the user."
+    },
+    {
+      "id": "R59",
+      "file": "work-as-coworker-copilot.md",
+      "quote": "Avoid dumping every option as a checklist.",
+      "rule": "Avoid dumping every option as a checklist."
+    }
+  ],
+  "dropped": []
+}

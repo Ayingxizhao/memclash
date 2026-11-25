@@ -1,0 +1,7 @@
+- [Track project decisions](track-project-decisions.md) — note user's project decisions live as we make them, project-only
+- [Communication: direct + concise](communication-direct-concise.md) — direct voice, concise, cut preamble
+- [Never commit without approval](never-commit-without-approval.md) — no git commit/push without explicit user go
+- [Work as coworker/copilot](work-as-coworker-copilot.md) — discuss as a peer with opinions, not an order-taker
+- [Prefer official generators](prefer-official-generators.md) — scaffold via create-next-app; don't hand-roll, only layer project changes
+- [Decisions read as discussion](decisions-read-as-discussion.md) — DECISIONS.md entries narrate the real back-and-forth, not dry descriptions
+- [Never touch user .env](never-touch-user-env.md) — never read/edit .env; use .env.example to communicate config fixes

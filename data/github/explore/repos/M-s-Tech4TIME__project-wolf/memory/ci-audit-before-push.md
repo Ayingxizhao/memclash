@@ -1,0 +1,57 @@
+---
+name: ci-audit-before-push
+description: "STANDING RULE (2026-06-11) — before EVERY push, audit .github/workflows/* for changes the current slice/phase makes necessary (paths, job lists, strict-mypy set, smoke checks, shipped artifacts); apply them in the same commit so CI reaches a complete stable closeout with the push, never after it."
+metadata:
+  node_type: memory
+  type: feedback
+---
+
+STANDING RULE (2026-06-11): the operator directed — verbatim intent — "from now
+on before pushing, check whether the CI-related things need any changes or
+modifications relevant to the current slices or phases that we worked with. If
+any changes or modifications are necessary or required, do accordingly — make
+sure CI-related things get a complete stable checkout/closeout."
+
+**Why:** the Phase 6.4 push failed two CI jobs (alembic-check + smoke-mtls)
+because ci.yml still referenced renamed paths, and a follow-up commit was
+needed. The operator wants CI co-evolved with the slice, not patched after a
+red run.
+
+**How to apply — pre-push checklist (run before EVERY `git push`):**
+
+1. `grep` ci.yml (+ release.yml, dependabot.yml, .gitleaks.toml,
+   .github/scripts/) for every path / module / file the slice renamed,
+   added, or removed.
+2. New Python packages → consider the strict-mypy set in BOTH ci.yml's
+   typecheck job AND the Makefile typecheck target (keep them in parity).
+3. New shipped artifacts (.deb contents, /usr/bin shims) → extend
+   smoke-deb-install's verification loops; check git file modes (100755
+   for executables).
+4. New migrations → alembic-check + smoke-mtls run them on a FRESH
+   Postgres; verify against a clean DB, not just the aged dev DB
+   (see the Phase 6.4 FK-naming lesson).
+5. New test files → confirm directory discovery picks them up; named
+   explicit gates (isolation suite) need path updates when files rename.
+6. Run the FULL local gate before pushing — mirror EVERY CI job, not a
+   subset. For services/ changes that means ALL of: `uv run ruff check .`
+   (the backend lint gate — easy to forget), `uv run mypy <strict set>
+   --strict`, `uv run pytest services/server/tests packages/`, the
+   cross-org isolation gate, `alembic check` (from services/server or with
+   `-c services/server/alembic.ini`), and for frontend `tsc --noEmit` +
+   `eslint .` + `npm run build`. Watch out for two-tool tension: ruff C416
+   wants `dict(rows)`, but a SQLAlchemy `Row` isn't a tuple to mypy — use
+   `.tuples().all()` so both pass.
+7. After push: watch the run (`gh run watch <id> --exit-status`, and read
+   `$?` directly — piping to `tail` masks the exit code) until fully green.
+   The slice is not closed until CI is. CAUTION: a push to `main` triggers
+   TWO workflows — the real **CI** workflow (event=push: Lint/Type-check/
+   Test/Frontend/…) AND a dynamic "Push on main" run. `gh run list --branch
+   main --limit 1` can return the dynamic one, which goes green independently;
+   watching it gives a FALSE green (this exact mistake let an E501 lint
+   failure through on CI run #234, 2026-06-30 — `ruff check <file>` from
+   `services/server` had also masked it; point 6's `ruff check .` from REPO
+   ROOT is the catch). Always select the CI workflow run by its name (filter
+   the run whose jobs include "Lint (ruff)"), not just the latest run id.
+
+Related: [[integrity-across-the-stack]], [[no-unaddressed-errors]],
+[[periodic-plan-sync]].

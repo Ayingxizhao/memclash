@@ -1,0 +1,2290 @@
+{
+  "repo": "ruddyribera-ops/CRUDDY-OPENCODE",
+  "dir": "memory",
+  "n_files": 22,
+  "n_rules": 380,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "TRIGGERS.md",
+      "quote": "powershell -File $CONFIG/scripts/hook-startup.ps1",
+      "rule": "At every session start, run hook-startup.ps1."
+    },
+    {
+      "id": "R2",
+      "file": "TRIGGERS.md",
+      "quote": "powershell -File $CONFIG/scripts/append-session-log.ps1 -TaskName \"<name>\" -Agent \"<agent>\" -Result \"<result>\" -TokensEst \"~N\"",
+      "rule": "At task completion, run append-session-log.ps1 with the task name, agent, result, and estimated token count."
+    },
+    {
+      "id": "R3",
+      "file": "TRIGGERS.md",
+      "quote": "powershell -File $CONFIG/scripts/write-handover.ps1",
+      "rule": "On session idle or error, run write-handover.ps1."
+    },
+    {
+      "id": "R4",
+      "file": "TRIGGERS.md",
+      "quote": "powershell -File $CONFIG/scripts/stamp-sprint.ps1 -TaskDescription \"<desc>\" -SprintPath \"<project>/.opencode/memory/current_sprint.md\"",
+      "rule": "On session idle or error, run stamp-sprint.ps1 with the task description and sprint path."
+    },
+    {
+      "id": "R5",
+      "file": "TRIGGERS.md",
+      "quote": "# Manual — read session.yaml + session_log for current sprint",
+      "rule": "For a status query, manually read session.yaml and session_log for the current sprint to aggregate tasks done, decisions made, and blockers."
+    },
+    {
+      "id": "R6",
+      "file": "TRIGGERS.md",
+      "quote": "Append ONE line to `memory/lessons_learned.md`",
+      "rule": "When the user corrects the approach or an error is resolved non-obviously, append one line to memory/lessons_learned.md."
+    },
+    {
+      "id": "R7",
+      "file": "TRIGGERS.md",
+      "quote": "Write KG node (type: lesson, name: {topic}, data: {what happened})",
+      "rule": "When the user corrects the approach or an error is resolved non-obviously, write a KG node of type lesson with name {topic} and data {what happened}."
+    },
+    {
+      "id": "R8",
+      "file": "TRIGGERS.md",
+      "quote": "If blocking issue resolved: send mail to relevant agent",
+      "rule": "If a blocking issue is resolved, send mail to the relevant agent."
+    },
+    {
+      "id": "R9",
+      "file": "TRIGGERS.md",
+      "quote": "Format: `YYYY-MM-DD | {topic} | {what was wrong} → {what fixed it}`",
+      "rule": "When appending a lesson to lessons_learned.md, use the format `YYYY-MM-DD | {topic} | {what was wrong} → {what fixed it}`."
+    },
+    {
+      "id": "R10",
+      "file": "TRIGGERS.md",
+      "quote": "powershell -File $CONFIG/scripts/update-session-yaml.ps1 -Decision \"<text>\"",
+      "rule": "When a decision is made, run update-session-yaml.ps1 with -Decision \"<text>\" to append the decision to the decisions array in session.yaml."
+    },
+    {
+      "id": "R11",
+      "file": "TRIGGERS.md",
+      "quote": "Writes to KG: Decision node + relation to project",
+      "rule": "When a decision is made, write a Decision node and a relation to the project in KG."
+    },
+    {
+      "id": "R12",
+      "file": "TRIGGERS.md",
+      "quote": "Update `memory/project_active.md`",
+      "rule": "When project state changes (version bump, deploy, or new issue), update memory/project_active.md."
+    },
+    {
+      "id": "R13",
+      "file": "TRIGGERS.md",
+      "quote": "Write KG node (type: state_change, name: {change})",
+      "rule": "When project state changes, write a KG node of type state_change with name {change}."
+    },
+    {
+      "id": "R14",
+      "file": "TRIGGERS.md",
+      "quote": "Notify relevant agents via mail if applicable",
+      "rule": "When project state changes, notify relevant agents via mail if applicable."
+    },
+    {
+      "id": "R15",
+      "file": "TRIGGERS.md",
+      "quote": "Log error to session_log + KG:",
+      "rule": "When an error is detected, log the error to session_log and KG."
+    },
+    {
+      "id": "R16",
+      "file": "TRIGGERS.md",
+      "quote": "Write KG Error node with error message + stack",
+      "rule": "When an error is detected, write a KG Error node with the error message and stack."
+    },
+    {
+      "id": "R17",
+      "file": "TRIGGERS.md",
+      "quote": "Link to relevant Decision/Task nodes",
+      "rule": "When an error is detected, link the error to relevant Decision/Task nodes."
+    },
+    {
+      "id": "R18",
+      "file": "TRIGGERS.md",
+      "quote": "All scripts are fire-and-forget (non-blocking)",
+      "rule": "Run all scripts as fire-and-forget and do not block on them."
+    },
+    {
+      "id": "R19",
+      "file": "TRIGGERS.md",
+      "quote": "KG writes use retry up to 3 times on failure",
+      "rule": "Retry KG writes up to 3 times on failure."
+    },
+    {
+      "id": "R20",
+      "file": "TRIGGERS.md",
+      "quote": "`session.yaml` is the single source of truth for session state",
+      "rule": "Use session.yaml as the single source of truth for session state."
+    },
+    {
+      "id": "R21",
+      "file": "ci_cd_deployment.md",
+      "quote": "Every commit to `main` triggers: tests",
+      "rule": "Ensure every commit to `main` triggers the test suite."
+    },
+    {
+      "id": "R22",
+      "file": "ci_cd_deployment.md",
+      "quote": "(if pass) deploy to Railway",
+      "rule": "If the tests pass, deploy to Railway."
+    },
+    {
+      "id": "R23",
+      "file": "ci_cd_deployment.md",
+      "quote": "(if fail) stop + notify",
+      "rule": "If the tests fail, stop the deployment and notify."
+    },
+    {
+      "id": "R24",
+      "file": "ci_cd_deployment.md",
+      "quote": "Copy workflows from `.github/workflows/` to each repo",
+      "rule": "Copy the workflows from `.github/workflows/` into each repository."
+    },
+    {
+      "id": "R25",
+      "file": "ci_cd_deployment.md",
+      "quote": "Set GitHub Secrets (RAILWAY_TOKEN, SERVICE_IDs)",
+      "rule": "Set the GitHub Secrets for `RAILWAY_TOKEN` and the service IDs."
+    },
+    {
+      "id": "R26",
+      "file": "ci_cd_deployment.md",
+      "quote": "Push to main → auto-tests + auto-deploys",
+      "rule": "Push to `main` to trigger automatic tests and automatic deploys."
+    },
+    {
+      "id": "R27",
+      "file": "ci_cd_deployment.md",
+      "quote": "Run tests (pytest for Python, npm test for Node)",
+      "rule": "Run tests with `pytest` for Python projects and `npm test` for Node projects."
+    },
+    {
+      "id": "R28",
+      "file": "ci_cd_deployment.md",
+      "quote": "Tests fail? → Stop, notify, no deploy",
+      "rule": "If tests fail, stop, notify, and do not deploy."
+    },
+    {
+      "id": "R29",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Create `.github/workflows/` directory** in repo root",
+      "rule": "Create a `.github/workflows/` directory in the repository root."
+    },
+    {
+      "id": "R30",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Copy workflow file** (pria-deploy.yml, etc.) to `.github/workflows/`",
+      "rule": "Copy the workflow file (e.g., `pria-deploy.yml`) into `.github/workflows/`."
+    },
+    {
+      "id": "R31",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Add GitHub Secrets:**\n   - `RAILWAY_TOKEN` — from Railway.app account settings\n   - `RAILWAY_SERVICE_ID` — service ID for this project\n   - For Math Platform: `MATH_PLATFORM_BACKEND_SERVICE_ID` + `MATH_PLATFORM_FRONTEND_SERVICE_ID`",
+      "rule": "Add the required GitHub Secrets: `RAILWAY_TOKEN`, `RAILWAY_SERVICE_ID`, and, for Math Platform, `MATH_PLATFORM_BACKEND_SERVICE_ID` and `MATH_PLATFORM_FRONTEND_SERVICE_ID`."
+    },
+    {
+      "id": "R32",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Enable Actions** in repo settings",
+      "rule": "Enable Actions in the repository settings."
+    },
+    {
+      "id": "R33",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Commit + push** to main",
+      "rule": "Commit and push to `main`."
+    },
+    {
+      "id": "R34",
+      "file": "ci_cd_deployment.md",
+      "quote": "use `--timeout=30` in pytest",
+      "rule": "Use `--timeout=30` with pytest for PRIA to handle e2e cold-start failures."
+    },
+    {
+      "id": "R35",
+      "file": "ci_cd_deployment.md",
+      "quote": "Can skip e2e: `pytest tests/ --ignore=tests/e2e`",
+      "rule": "E2E tests may be skipped by running `pytest tests/ --ignore=tests/e2e`."
+    },
+    {
+      "id": "R36",
+      "file": "ci_cd_deployment.md",
+      "quote": "If deploy fails, manually rollback via Railway dashboard",
+      "rule": "If a deploy fails, manually rollback via the Railway dashboard."
+    },
+    {
+      "id": "R37",
+      "file": "ci_cd_deployment.md",
+      "quote": "Use SSE (Server-Sent Events) as fallback for live updates",
+      "rule": "Use SSE (Server-Sent Events) as the fallback for live updates on Palma Coin."
+    },
+    {
+      "id": "R38",
+      "file": "ci_cd_deployment.md",
+      "quote": "Frontend needs `NEXT_PUBLIC_API_URL` set in Railway env vars",
+      "rule": "Set `NEXT_PUBLIC_API_URL` in the Railway environment variables for the Math Platform frontend."
+    },
+    {
+      "id": "R39",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Revert commit** locally + push new commit",
+      "rule": "If a deploy breaks production, revert the commit locally and push a new commit."
+    },
+    {
+      "id": "R40",
+      "file": "ci_cd_deployment.md",
+      "quote": "**Or manually rollback** via Railway dashboard:",
+      "rule": "If a deploy breaks production, you may instead manually rollback via the Railway dashboard."
+    },
+    {
+      "id": "R41",
+      "file": "ci_cd_deployment.md",
+      "quote": "Service → Deployments → find previous build → click \"Rollback\"",
+      "rule": "In the Railway dashboard, go to Service → Deployments, find the previous build, and click \"Rollback\"."
+    },
+    {
+      "id": "R42",
+      "file": "ci_cd_deployment.md",
+      "quote": "railway rollback --to <deployment-id>",
+      "rule": "If a deploy breaks production, you may run `railway rollback --to <deployment-id>` as a manual CLI rollback."
+    },
+    {
+      "id": "R43",
+      "file": "ci_cd_deployment.md",
+      "quote": "Always test locally first (`pytest`, `npm test`)",
+      "rule": "Always test locally first using `pytest` or `npm test`."
+    },
+    {
+      "id": "R44",
+      "file": "ci_cd_deployment.md",
+      "quote": "Let CI catch errors before deploy",
+      "rule": "Let CI catch errors before deploying."
+    },
+    {
+      "id": "R45",
+      "file": "ci_cd_deployment.md",
+      "quote": "Keep previous 2 builds (Railway default)",
+      "rule": "Keep the previous 2 builds (the Railway default)."
+    },
+    {
+      "id": "R46",
+      "file": "ci_cd_deployment.md",
+      "quote": "✅ Deploy succeeds → GitHub PR comment says \"✅ Deployed\"",
+      "rule": "When a deploy succeeds, have GitHub post a PR comment saying \"✅ Deployed\"."
+    },
+    {
+      "id": "R47",
+      "file": "ci_cd_deployment.md",
+      "quote": "❌ Tests fail → GitHub PR comment says \"❌ Tests failed, no deploy\"",
+      "rule": "When tests fail, have GitHub post a PR comment saying \"❌ Tests failed, no deploy\"."
+    },
+    {
+      "id": "R48",
+      "file": "ci_cd_deployment.md",
+      "quote": "⚠️ Warnings (e.g., WebSocket on Palma) → included in success comment",
+      "rule": "Include warnings such as the Palma WebSocket issue in the success comment."
+    },
+    {
+      "id": "R49",
+      "file": "ci_cd_deployment.md",
+      "quote": "If you need to deploy without a new commit:\n\n```bash\n# From repo directory\ngh workflow run pria-deploy.yml --ref main\ngh workflow run palma-coin-deploy.yml --ref main\ngh workflow run math-platform-deploy.yml --ref main\n```",
+      "rule": "To manually trigger a deployment without a new commit, run `gh workflow run <workflow>.yml --ref main` from the repository directory."
+    },
+    {
+      "id": "R50",
+      "file": "ci_cd_deployment.md",
+      "quote": "Or via GitHub UI: Actions → workflow name → \"Run workflow\" button",
+      "rule": "You may also trigger a deployment without a new commit via GitHub UI by going to Actions → workflow name → \"Run workflow\"."
+    },
+    {
+      "id": "R51",
+      "file": "ci_cd_deployment.md",
+      "quote": "Change test command: edit `run: pytest...`",
+      "rule": "To change the test command, edit `run: pytest...` in the workflow."
+    },
+    {
+      "id": "R52",
+      "file": "ci_cd_deployment.md",
+      "quote": "Add environment variables: add to Railway service env vars",
+      "rule": "To add environment variables, add them to the Railway service environment variables."
+    },
+    {
+      "id": "R53",
+      "file": "ci_cd_deployment.md",
+      "quote": "Change deploy branch: edit `branches: [main]`",
+      "rule": "To change the deploy branch, edit `branches: [main]` in the workflow."
+    },
+    {
+      "id": "R54",
+      "file": "ci_cd_deployment.md",
+      "quote": "Skip e2e tests: add `--ignore=tests/e2e` to pytest",
+      "rule": "To skip e2e tests, add `--ignore=tests/e2e` to the pytest command."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "validates ALL required files exist before declaring done.",
+      "rule": "When running project initialization, validate that all required files exist before declaring initialization done."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "If any file is missing → ERROR exit with list of missing files.",
+      "rule": "If any required file is missing during project initialization, exit with an error listing the missing files."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "Complement to grep, not replacement.",
+      "rule": "Use cocoindex-code as a complement to grep, not as a replacement for grep."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "Use for E2E fixtures, seed data, mock API responses.",
+      "rule": "Use @faker-js/faker to generate E2E fixtures, seed data, and mock API responses."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "Could adopt: references/ split pattern, scripts/ black-box helpers, evaluation QA pairs, contribution guidelines.",
+      "rule": "You may adopt the references/ split pattern, scripts/ black-box helpers, evaluation QA pairs, and contribution guidelines from the awesome-agent-skills ecosystem."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "Reference architecture only.",
+      "rule": "Use feynman only as a reference architecture, not as an implementation dependency."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "One skill per PR, strict format, CI validation.",
+      "rule": "When contributing community skills, submit one skill per pull request, follow a strict format, and pass CI validation."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "| `fake-data-generator` | \"generate test data\", \"seed database\", \"mock responses\" | Faker.js patterns for test fixtures |",
+      "rule": "Create a `fake-data-generator` skill that triggers on \"generate test data\", \"seed database\", or \"mock responses\" and provides Faker.js patterns for test fixtures."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "| `ast-semantic-search` | \"find where X is implemented\", \"search semantically\" | Cocoindex integration |",
+      "rule": "Create an `ast-semantic-search` skill that triggers on \"find where X is implemented\" or \"search semantically\" to integrate Cocoindex."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_awesome_ecosystem.md",
+      "quote": "| `violit-app-builder` | \"build tool UI\", \"create dashboard\" | Reactive Python web UIs |",
+      "rule": "Create a `violit-app-builder` skill that triggers on \"build tool UI\" or \"create dashboard\" for reactive Python web UIs."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_background_servers.md",
+      "quote": "Redirect output to NUL (Windows black hole) to detach the process.",
+      "rule": "Redirect a background server's output to NUL to detach the process from the shell."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_background_servers.md",
+      "quote": "NEVER: `Start-Process php artisan serve` without redirect — blocks forever.",
+      "rule": "Never start `php artisan serve` with `Start-Process` without redirecting its output."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_background_servers.md",
+      "quote": "NEVER: `php artisan serve > /dev/null 2>&1 &` — bash background, not PowerShell.",
+      "rule": "Never use the bash background form `php artisan serve > /dev/null 2>&1 &` in PowerShell."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_background_servers.md",
+      "quote": "ALWAYS for PHP/Laravel servers:\n    Start-Process -NoNewWindow -WindowStyle Hidden php -ArgumentList \"artisan\",\"serve\",\"--port=XXXX\" -RedirectStandardOutput NUL -RedirectStandardError NUL",
+      "rule": "When starting PHP/Laravel servers, always use Start-Process with -NoNewWindow, -WindowStyle Hidden, and stdout/stderr redirected to NUL."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_background_servers.md",
+      "quote": "For Node/Express servers:\n    Start-Process -NoNewWindow -WindowStyle Hidden node -ArgumentList \"server.js\",\"--port=XXXX\" -RedirectStandardOutput NUL -RedirectStandardError NUL",
+      "rule": "When starting Node/Express servers, use Start-Process with -NoNewWindow, -WindowStyle Hidden, and stdout/stderr redirected to NUL."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_background_servers.md",
+      "quote": "Alternative: Use `Start-Process -PassThru` to get the PID immediately, which also works.",
+      "rule": "As an alternative when starting a background server, you may use `Start-Process -PassThru` to obtain the PID immediately."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_background_servers.md",
+      "quote": "Always redirect stdout and stderr to NUL when starting background servers:",
+      "rule": "Always redirect both stdout and stderr to NUL when starting background servers."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_background_servers.md",
+      "quote": "**Before starting any background server**, always add `-RedirectStandardOutput NUL -RedirectStandardError NUL`",
+      "rule": "Before starting any background server, always add `-RedirectStandardOutput NUL` and `-RedirectStandardError NUL` to the start command."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_background_servers.md",
+      "quote": "**For the OpenCode coordinator and all agents**, this pattern should be automatic when starting servers",
+      "rule": "For the OpenCode coordinator and all agents, automatically use this background-server pattern when starting servers."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_background_servers.md",
+      "quote": "After starting, wait 3 seconds",
+      "rule": "After starting a background server, wait 3 seconds before proceeding."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_background_servers.md",
+      "quote": "then `Invoke-WebRequest http://127.0.0.1:PORT -UseBasicParsing` to confirm it's up",
+      "rule": "After starting a background server, run `Invoke-WebRequest http://127.0.0.1:PORT -UseBasicParsing` to confirm it is up."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_background_servers.md",
+      "quote": "This pattern should be in the coordinator's permanent workflow.",
+      "rule": "Include this background-server pattern in the coordinator's permanent workflow."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_background_servers.md",
+      "quote": "When any agent needs to start a server, the coordinator should enforce:",
+      "rule": "When any agent needs to start a server, the coordinator should enforce use of the correct Start-Process command with output redirected to NUL."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_background_servers.md",
+      "quote": "# Kill on specific port (preferred)\nStop-Process -Id (Get-NetTCPConnection -LocalPort 8080).OwningProcess -Force -ErrorAction SilentlyContinue",
+      "rule": "When stopping a background server, prefer killing the process on the specific port with `Stop-Process -Id (Get-NetTCPConnection -LocalPort 8080).OwningProcess -Force -ErrorAction SilentlyContinue`."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_commit_convention.md",
+      "quote": "Always use this exact shape:",
+      "rule": "Always format commit messages as `type(scope): subject in imperative mood`, optionally followed by a body."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_commit_convention.md",
+      "quote": "optional body explaining WHY (not WHAT — the diff shows what)",
+      "rule": "When a commit body is included, explain WHY the change was made rather than WHAT changed."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_commit_convention.md",
+      "quote": "## Types (pick one)",
+      "rule": "Prefix every commit with exactly one type from the defined list of types."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `feat` | New user-facing feature |",
+      "rule": "Use the `feat` type for a commit that adds a new user-facing feature."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `fix` | Bug fix |",
+      "rule": "Use the `fix` type for a commit that fixes a bug."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `refactor` | Code change that doesn't add/fix a feature |",
+      "rule": "Use the `refactor` type for a code change that neither adds nor fixes a feature."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `test` | Adding or fixing tests only |",
+      "rule": "Use the `test` type for commits that only add or fix tests."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `docs` | README, inline docs, comments |",
+      "rule": "Use the `docs` type for changes to README, inline docs, or comments."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `ops` | Railway/Docker/infra/env config |",
+      "rule": "Use the `ops` type for Railway, Docker, infrastructure, or environment config changes."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `ci` | GitHub Actions / pipeline only |",
+      "rule": "Use the `ci` type for changes limited to GitHub Actions or pipeline configuration."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_commit_convention.md",
+      "quote": "| `chore` | Deps bump, lockfile, formatting — nothing else |",
+      "rule": "Use the `chore` type only for dependency bumps, lockfile changes, or formatting, and nothing else."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_commit_convention.md",
+      "quote": "- PRIA: `auth`, `ui`, `api`, `db`, `e2e`, `seed`, `deploy`",
+      "rule": "When adding a scope to a PRIA commit, use one of: auth, ui, api, db, e2e, seed, deploy."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_commit_convention.md",
+      "quote": "Omit if change is cross-cutting",
+      "rule": "Omit the scope when the change is cross-cutting."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_commit_convention.md",
+      "quote": "When creating ANY commit, the coordinator (or the specialist doing the commit) must follow this format.",
+      "rule": "The coordinator or the specialist making the commit must follow the commit format for any commit they create."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_commit_convention.md",
+      "quote": "If the commit doesn't fit one of the types above, the change probably does more than one thing — split it first.",
+      "rule": "If a change does not fit one of the listed commit types, split the change before committing."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "When an HTTP endpoint returns an unexpected status (404, 502, etc.), inspect the response **body** and **headers** before proposing a cause.",
+      "rule": "When an HTTP endpoint returns an unexpected status (such as 404 or 502), inspect the response body and headers before proposing a cause."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "**Before forming a hypothesis, run:**",
+      "rule": "Before forming a hypothesis about an unexpected HTTP status, run curl commands to capture the status code, body shape, and headers of the response."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "**If the response came from your app, the bug is in your code.**",
+      "rule": "If the response came from your own application, treat the bug as being in your code."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "Don't go looking for infrastructure causes.",
+      "rule": "If the response came from your own application, do not look for infrastructure causes."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "Reorder middleware, fix routes, check handler registration — whatever the specific symptom says.",
+      "rule": "If the response came from your own application, fix the code according to the specific symptom (e.g., reorder middleware, fix routes, or check handler registration)."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "**If the response came from the proxy/CDN,** then start looking at routing rules, Caddyfile, Nginx config, Cloudflare rules, Railway domain settings, etc.",
+      "rule": "If the response came from the proxy or CDN, start investigating routing rules, Caddyfile, Nginx config, Cloudflare rules, and Railway domain settings."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "If a future session's guidance starts with \"the proxy is routing to...\", demand the curl evidence before acting on it.",
+      "rule": "If guidance in a future session claims the proxy is routing requests somewhere, demand the curl evidence before acting on it."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_debug_hypothesis.md",
+      "quote": "Writing a memory that says \"X is a proxy-layer issue\" without having verified the body/headers.",
+      "rule": "Do not write a memory stating something is a proxy-layer issue without having verified the response body and headers."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_e2e_waits.md",
+      "quote": "When writing or editing Playwright tests targeting Railway deploys (PRIA's `tests/test_e2e.py`), don't rely on `page.wait_for_timeout(2_000)` / `3_000` for initial page render.",
+      "rule": "When writing or editing Playwright tests that target Railway deploys, do not rely on fixed page.wait_for_timeout timers (e.g., 2,000 or 3,000 ms) for initial page render."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_e2e_waits.md",
+      "quote": "For initial page load on Streamlit: use `page.goto(..., wait_until=\"networkidle\", timeout=30_000)`",
+      "rule": "For initial page load on Streamlit, use page.goto with wait_until=\"networkidle\" and timeout=30_000."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_e2e_waits.md",
+      "quote": "then `page.wait_for_selector(\"[data-testid='stTextInput'] input\", timeout=30_000)`",
+      "rule": "For initial page load on Streamlit, after page.goto call page.wait_for_selector for the selector \"[data-testid='stTextInput'] input\" with timeout=30_000."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_e2e_waits.md",
+      "quote": "Timers are fine for *post-action* waits (after a click, while Streamlit rerenders)",
+      "rule": "Fixed timers are allowed for post-action waits, such as after a click while Streamlit rerenders."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_e2e_waits.md",
+      "quote": "Any time a new e2e test starts by opening the app, add an explicit selector wait, not a timer.",
+      "rule": "Whenever a new e2e test starts by opening the app, add an explicit selector wait."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_e2e_waits.md",
+      "quote": "Any time a new e2e test starts by opening the app, add an explicit selector wait, not a timer.",
+      "rule": "Whenever a new e2e test starts by opening the app, do not use a timer as the wait."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_e2e_waits.md",
+      "quote": "Generalizes to any Streamlit-on-Railway project, not just PRIA.",
+      "rule": "Apply these e2e waiting rules to any Streamlit-on-Railway project, not just PRIA."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "If `git push` is rejected with \"remote contains work you don't have\", do NOT immediately run `git pull`",
+      "rule": "If `git push` is rejected with \"remote contains work you don't have\", do not immediately run `git pull`."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "do NOT immediately run `git pull` or `git rebase origin/BRANCH`",
+      "rule": "If `git push` is rejected with \"remote contains work you don't have\", do not immediately run `git rebase origin/BRANCH`."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "Fetch first",
+      "rule": "When `git push` is rejected because the remote diverged, fetch first before inspecting or acting."
+    },
+    {
+      "id": "R112",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "then inspect the divergence",
+      "rule": "After fetching a divergent remote, inspect the divergence before deciding how to act."
+    },
+    {
+      "id": "R113",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Fetch, don't pull:**",
+      "rule": "When handling a divergent remote, fetch instead of pulling."
+    },
+    {
+      "id": "R114",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Inspect the divergence:**",
+      "rule": "After fetching a divergent remote, inspect the divergence."
+    },
+    {
+      "id": "R115",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Look for warning signs:**",
+      "rule": "When inspecting a divergent remote, look for warning signs of a force-push or squash."
+    },
+    {
+      "id": "R116",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Compare actual file contents, not just git state:**",
+      "rule": "When evaluating divergence between local and remote, compare actual file contents, not only git state."
+    },
+    {
+      "id": "R117",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "Normalize line endings on Windows (CRLF vs LF trap):",
+      "rule": "When comparing file contents on Windows, normalize line endings to avoid CRLF vs LF differences."
+    },
+    {
+      "id": "R118",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Decide intentionally, and announce before acting:**",
+      "rule": "Decide intentionally how to handle the divergent remote."
+    },
+    {
+      "id": "R119",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Decide intentionally, and announce before acting:**",
+      "rule": "Announce your decision before acting on the divergent remote."
+    },
+    {
+      "id": "R120",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Align local to remote** (you accept the squash): `git reset --hard origin/BRANCH` + manually re-apply your changes + commit + push.",
+      "rule": "If you accept the remote squash, you may align local to remote by resetting hard to `origin/BRANCH`, manually re-applying your changes, committing, and pushing."
+    },
+    {
+      "id": "R121",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Force-push your history** (you reject the remote shape): confirm with user first — this is destructive to shared state.",
+      "rule": "If you reject the remote shape and choose to force-push your history, confirm with the user first because it is destructive to shared state."
+    },
+    {
+      "id": "R122",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Never** silently rebase against a divergent remote and resolve conflicts blind; the resulting commit will contain content the user didn't intend.",
+      "rule": "Never silently rebase against a divergent remote."
+    },
+    {
+      "id": "R123",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Never** silently rebase against a divergent remote and resolve conflicts blind; the resulting commit will contain content the user didn't intend.",
+      "rule": "Never resolve conflicts blind when rebasing against a divergent remote."
+    },
+    {
+      "id": "R124",
+      "file": "feedback_git_divergent_remote.md",
+      "quote": "**Anti-pattern:** running `git pull --rebase` or `git rebase origin/BRANCH` as a reflex when push is rejected, without checking whether the remote is a force-push/squash.",
+      "rule": "Do not reflexively run `git pull --rebase` or `git rebase origin/BRANCH` when push is rejected without first checking whether the remote is a force-push or squash."
+    },
+    {
+      "id": "R125",
+      "file": "feedback_learning.md",
+      "quote": "The catch-all `app.get(\"*\")` and static middleware `app.use(express.static)` MUST be registered AFTER all API routes.",
+      "rule": "Register the catch-all `app.get(\"*\")` and `express.static` middleware after all API routes."
+    },
+    {
+      "id": "R126",
+      "file": "feedback_learning.md",
+      "quote": "When adding new API routes, always register them before any `app.use(\"*\")` or `app.use(express.static)` middleware.",
+      "rule": "When adding new API routes, always register them before any `app.use(\"*\")` or `app.use(express.static)` middleware."
+    },
+    {
+      "id": "R127",
+      "file": "feedback_learning.md",
+      "quote": "Keep a separate short-path clone of the repo for deployments.",
+      "rule": "Keep a separate short-path clone of the repository for deployments."
+    },
+    {
+      "id": "R128",
+      "file": "feedback_learning.md",
+      "quote": "Keep `C:\\railway-deploy` as a dedicated `git clone` of the project's origin.",
+      "rule": "Keep `C:\\railway-deploy` as a dedicated `git clone` of the project's origin for deployments."
+    },
+    {
+      "id": "R129",
+      "file": "feedback_learning.md",
+      "quote": "On deploy: `cd C:\\railway-deploy && git pull origin BRANCH && railway up --detach`.",
+      "rule": "On deploy, run `cd C:\\railway-deploy && git pull origin BRANCH && railway up --detach`."
+    },
+    {
+      "id": "R130",
+      "file": "feedback_learning.md",
+      "quote": "When linked service is lost (fresh clone, new machine), use `railway service link \"SERVICE_NAME\"` once",
+      "rule": "When the linked Railway service is lost (e.g., fresh clone or new machine), run `railway service link \"SERVICE_NAME\"` once."
+    },
+    {
+      "id": "R131",
+      "file": "feedback_learning.md",
+      "quote": "Force-redeploy from the Railway dashboard.",
+      "rule": "If API endpoints return HTML after a deploy, force-redeploy from the Railway dashboard."
+    },
+    {
+      "id": "R132",
+      "file": "feedback_learning.md",
+      "quote": "After any server.js change affecting routing, always verify `/api/version` returns JSON (not HTML) before declaring the deploy done.",
+      "rule": "After any server.js change affecting routing, always verify `/api/version` returns JSON (not HTML) before declaring the deploy done."
+    },
+    {
+      "id": "R133",
+      "file": "feedback_learning.md",
+      "quote": "Dockerfile MUST contain `RUN npm ci && npm run build` in the same stage that runs `node server.js`.",
+      "rule": "Dockerfile MUST contain `RUN npm ci && npm run build` in the same stage that runs `node server.js`."
+    },
+    {
+      "id": "R134",
+      "file": "feedback_learning.md",
+      "quote": "For an SPA: `API routes → express.static → app.get(\"*\") catch-all → 404 handler → error handler`.",
+      "rule": "For an SPA, register Express middleware in this order: API routes, then `express.static`, then the `app.get(\"*\")` catch-all, then the 404 handler, then the error handler."
+    },
+    {
+      "id": "R135",
+      "file": "feedback_learning.md",
+      "quote": "The 404 handler must come AFTER static, not before.",
+      "rule": "Register the Express 404 handler after `express.static`, not before it."
+    },
+    {
+      "id": "R136",
+      "file": "feedback_learning.md",
+      "quote": "If `/` returns 404 but `/api/*` works, check the 404 body.",
+      "rule": "When `/` returns 404 but `/api/*` works, check the 404 response body."
+    },
+    {
+      "id": "R137",
+      "file": "feedback_learning.md",
+      "quote": "Boot the server locally and curl every endpoint that matters — especially the one that's broken — BEFORE pushing a server-side fix.",
+      "rule": "Before pushing a server-side fix, boot the server locally and curl every endpoint that matters, especially the broken one."
+    },
+    {
+      "id": "R138",
+      "file": "feedback_learning.md",
+      "quote": "`PORT=3457 node server.js &` → `curl localhost:3457/` + `curl localhost:3457/api/version` → confirm expected body + status → stop → THEN commit/push.",
+      "rule": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+    },
+    {
+      "id": "R139",
+      "file": "feedback_learning.md",
+      "quote": "Don't skip for \"trivial\" reorderings",
+      "rule": "Do not skip local validation even for \"trivial\" reorderings."
+    },
+    {
+      "id": "R140",
+      "file": "feedback_learning.md",
+      "quote": "Run `npm run lint` before every commit.",
+      "rule": "Run `npm run lint` before every commit."
+    },
+    {
+      "id": "R141",
+      "file": "feedback_learning.md",
+      "quote": "Don't let lint errors accumulate.",
+      "rule": "Do not let lint errors accumulate."
+    },
+    {
+      "id": "R142",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Before implementing, state ONE alternative approach and why you chose this one.",
+      "rule": "Before implementing a task, state one alternative approach and explain why you chose the current one."
+    },
+    {
+      "id": "R143",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Exit criteria must include runtime command, not file count.",
+      "rule": "Write exit criteria around a runtime command rather than a count of files created."
+    },
+    {
+      "id": "R144",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Every exit criteria block MUST include one edge case.",
+      "rule": "Every exit criteria block must include at least one edge case to verify."
+    },
+    {
+      "id": "R145",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Coordinator ALWAYS uses compressed format",
+      "rule": "Always use the compressed instruction format when handing work off."
+    },
+    {
+      "id": "R146",
+      "file": "feedback_m3_compensation.md",
+      "quote": "No context repetition",
+      "rule": "When sending compressed-format instructions, do not repeat context."
+    },
+    {
+      "id": "R147",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Never send: \"improve the pipeline\" — too vague for M3",
+      "rule": "Never send vague directives such as \"improve the pipeline\"."
+    },
+    {
+      "id": "R148",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Route to DeepSeek V4 Pro (not M3) when task involves:",
+      "rule": "Route tasks involving architecture decisions with multiple valid approaches to DeepSeek V4 Pro instead of M3."
+    },
+    {
+      "id": "R149",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Route to DeepSeek V4 Pro (not M3) when task involves:",
+      "rule": "Route tasks involving refactoring with ambiguous scope to DeepSeek V4 Pro instead of M3."
+    },
+    {
+      "id": "R150",
+      "file": "feedback_m3_compensation.md",
+      "quote": "Route to DeepSeek V4 Pro (not M3) when task involves:",
+      "rule": "Route tasks involving debugging without a clear error message to DeepSeek V4 Pro instead of M3."
+    },
+    {
+      "id": "R151",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Only save lessons that would genuinely surprise a developer joining a new project.",
+      "rule": "In memory files, only save lessons that would genuinely surprise a developer joining a new project."
+    },
+    {
+      "id": "R152",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Skip: obvious knowledge, language fundamentals, platform basics, and project diaries.",
+      "rule": "When writing memory files, skip obvious knowledge, language fundamentals, platform basics, and project diaries."
+    },
+    {
+      "id": "R153",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Fit the file on one screen.",
+      "rule": "Keep each memory file short enough to fit on one screen."
+    },
+    {
+      "id": "R154",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Always Sync Local with Remote Before Auditing Code",
+      "rule": "Always sync local code with the remote before auditing code."
+    },
+    {
+      "id": "R155",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Before touching any codebase, run `git fetch + git log --oneline origin/main`.",
+      "rule": "Before touching any codebase, run `git fetch + git log --oneline origin/main`."
+    },
+    {
+      "id": "R156",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Every session start — fetch first, audit second, change third.",
+      "rule": "At every session start, fetch from the remote first, audit second, and change third."
+    },
+    {
+      "id": "R157",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Never Trust `x-user-role` from Request Headers",
+      "rule": "Never trust the `x-user-role` value from request headers."
+    },
+    {
+      "id": "R158",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Server-side must validate from a trusted source: DB lookup, JWT cookie, or server session.",
+      "rule": "Validate authorization server-side from a trusted source such as a DB lookup, JWT cookie, or server session."
+    },
+    {
+      "id": "R159",
+      "file": "feedback_palma_lessons.md",
+      "quote": "When writing `isTeacher` / `requireAuth` middleware — always query the DB or verify the JWT server-side.",
+      "rule": "When writing `isTeacher` or `requireAuth` middleware, always query the DB or verify the JWT server-side."
+    },
+    {
+      "id": "R160",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Never read role from `req.headers`.",
+      "rule": "Never read the user's role from `req.headers`."
+    },
+    {
+      "id": "R161",
+      "file": "feedback_palma_lessons.md",
+      "quote": "For Railway deployments, use Railway's Postgres plugin from day one.",
+      "rule": "For Railway deployments, use Railway's Postgres plugin from day one."
+    },
+    {
+      "id": "R162",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Never rely on container filesystem for persistent data.",
+      "rule": "Never rely on the container filesystem for persistent data."
+    },
+    {
+      "id": "R163",
+      "file": "feedback_palma_lessons.md",
+      "quote": "When building real-time features, test WebSocket in production early.",
+      "rule": "When building real-time features, test WebSocket in production early."
+    },
+    {
+      "id": "R164",
+      "file": "feedback_palma_lessons.md",
+      "quote": "If it breaks on Railway, either enable Railway's TCP networking or fall back to Server-Sent Events or polling",
+      "rule": "If WebSocket breaks on Railway, either enable Railway's TCP networking or fall back to Server-Sent Events or polling."
+    },
+    {
+      "id": "R165",
+      "file": "feedback_palma_lessons.md",
+      "quote": "don't assume it works because it works locally.",
+      "rule": "When building real-time features, do not assume WebSocket works in production because it works locally."
+    },
+    {
+      "id": "R166",
+      "file": "feedback_palma_lessons.md",
+      "quote": "don't assume the app is down",
+      "rule": "When you see Railway's branded 404, do not assume the app is down."
+    },
+    {
+      "id": "R167",
+      "file": "feedback_palma_lessons.md",
+      "quote": "check `railway logs`",
+      "rule": "When you see Railway's branded 404, check `railway logs`."
+    },
+    {
+      "id": "R168",
+      "file": "feedback_palma_lessons.md",
+      "quote": "verify the container is actually running Express on the right port",
+      "rule": "When you see Railway's branded 404, verify the container is actually running Express on the right port."
+    },
+    {
+      "id": "R169",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Every `INSERT` must use `RETURNING *` or `RETURNING id` to get the inserted row immediately.",
+      "rule": "Every SQL `INSERT` must use `RETURNING *` or `RETURNING id` to get the inserted row immediately."
+    },
+    {
+      "id": "R170",
+      "file": "feedback_palma_lessons.md",
+      "quote": "replace all `last_insert_rowid()` calls with `INSERT ... RETURNING *`",
+      "rule": "When migrating from SQLite to PostgreSQL, replace all `last_insert_rowid()` calls with `INSERT ... RETURNING *`."
+    },
+    {
+      "id": "R171",
+      "file": "feedback_palma_lessons.md",
+      "quote": "make it a search/replace rule, not a manual audit",
+      "rule": "When migrating from SQLite to PostgreSQL, make the `last_insert_rowid()` replacement a search/replace rule, not a manual audit."
+    },
+    {
+      "id": "R172",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Seeds Must Use `ON CONFLICT DO NOTHING`",
+      "rule": "Seed code must use `ON CONFLICT DO NOTHING`."
+    },
+    {
+      "id": "R173",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Every insert in seed code must be wrapped with `ON CONFLICT (...) DO NOTHING`.",
+      "rule": "Every insert in seed code must be wrapped with `ON CONFLICT (...) DO NOTHING`."
+    },
+    {
+      "id": "R174",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Any seed/upsert function must be idempotent — safe to run on a database that already has the data.",
+      "rule": "Any seed or upsert function must be idempotent and safe to run on a database that already has the data."
+    },
+    {
+      "id": "R175",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Audit Actual Remote Code Before Deciding What Is Broken",
+      "rule": "Audit the actual remote code before deciding what is broken."
+    },
+    {
+      "id": "R176",
+      "file": "feedback_palma_lessons.md",
+      "quote": "run `git fetch origin`",
+      "rule": "Before changing any file, run `git fetch origin`."
+    },
+    {
+      "id": "R177",
+      "file": "feedback_palma_lessons.md",
+      "quote": "read the actual file from the remote branch.",
+      "rule": "Before changing any file, read the actual file from the remote branch."
+    },
+    {
+      "id": "R178",
+      "file": "feedback_palma_lessons.md",
+      "quote": "Don't assume local state == remote state.",
+      "rule": "Do not assume local state equals remote state."
+    },
+    {
+      "id": "R179",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "**Run Windows Defender exclusion** (PowerShell — must be run as Administrator)",
+      "rule": "When EACCESS appears during Playwright MCP use, add Windows Defender exclusions for the ms-playwright directory and the Temp/playwright-* directory under LOCALAPPDATA, using PowerShell run as Administrator."
+    },
+    {
+      "id": "R180",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "Then restart OpenCode.",
+      "rule": "After adding the Windows Defender exclusion, restart OpenCode."
+    },
+    {
+      "id": "R181",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "**Clear stale temp files** if Defender exclusion doesn't resolve it",
+      "rule": "If the Windows Defender exclusion does not resolve the EACCESS error, clear stale Playwright temp files from the Temp/playwright-* and Temp/.playwright-* directories under LOCALAPPDATA."
+    },
+    {
+      "id": "R182",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "**Reinstall the MCP package** if still failing",
+      "rule": "If Playwright MCP is still failing after clearing stale temp files, uninstall the global @playwright/mcp package and run `npx -y @playwright/mcp@latest` to reinstall it."
+    },
+    {
+      "id": "R183",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "**Verify** by running in a PowerShell terminal (outside OpenCode) first",
+      "rule": "When troubleshooting EACCESS, first verify by running the Playwright chromium launch check in a PowerShell terminal outside OpenCode."
+    },
+    {
+      "id": "R184",
+      "file": "feedback_playwright_eaccess.md",
+      "quote": "No path or env changes needed",
+      "rule": "Do not make path or environment-variable changes to the Playwright MCP configuration to address EACCESS; the configuration is correct and EACCESS is a runtime block."
+    },
+    {
+      "id": "R185",
+      "file": "feedback_windows_shell.md",
+      "quote": "**Default shell: pwsh (PowerShell 7.6.2).**",
+      "rule": "Use pwsh (PowerShell 7.6.2) as the default shell."
+    },
+    {
+      "id": "R186",
+      "file": "feedback_windows_shell.md",
+      "quote": "Use powershell (5.1) only when pwsh is unavailable.",
+      "rule": "Use PowerShell 5.1 only when pwsh is unavailable."
+    },
+    {
+      "id": "R187",
+      "file": "feedback_windows_shell.md",
+      "quote": "| Agent runs it via the Bash tool | Git Bash (MINGW64) | POSIX works |",
+      "rule": "When the agent runs a command via the Bash tool, POSIX syntax is allowed."
+    },
+    {
+      "id": "R188",
+      "file": "feedback_windows_shell.md",
+      "quote": "| Agent SHOWS user a command to copy-paste | **pwsh 7** | PowerShell syntax required |",
+      "rule": "When showing the user a command to copy-paste, use pwsh 7 and PowerShell syntax."
+    },
+    {
+      "id": "R189",
+      "file": "feedback_windows_shell.md",
+      "quote": "| Scripts saved under `scripts/` | PowerShell | `.ps1` |",
+      "rule": "Save scripts under `scripts/` as PowerShell `.ps1` files."
+    },
+    {
+      "id": "R190",
+      "file": "feedback_windows_shell.md",
+      "quote": "Default assumption: if you are telling the user to run a command in their terminal, it is PowerShell.",
+      "rule": "When telling the user to run a command in their terminal, assume it is PowerShell."
+    },
+    {
+      "id": "R191",
+      "file": "feedback_windows_shell.md",
+      "quote": "When in doubt, output PowerShell.",
+      "rule": "When in doubt, output PowerShell."
+    },
+    {
+      "id": "R192",
+      "file": "feedback_windows_shell.md",
+      "quote": "Default to `&&`.",
+      "rule": "In user-facing commands, default to `&&`."
+    },
+    {
+      "id": "R193",
+      "file": "feedback_windows_shell.md",
+      "quote": "Use `; if ($?)` only if you know the user is on PS 5.1.",
+      "rule": "Use `; if ($?)` only if you know the user is on PowerShell 5.1."
+    },
+    {
+      "id": "R194",
+      "file": "feedback_windows_shell.md",
+      "quote": "**`$VAR` without `$env:` prefix** — bash syntax, fails silently in PS (expands to nothing).",
+      "rule": "Do not use `$VAR` without the `$env:` prefix in PowerShell."
+    },
+    {
+      "id": "R195",
+      "file": "feedback_windows_shell.md",
+      "quote": "**Heredocs** — do NOT exist in PS.",
+      "rule": "Do not use heredocs in PowerShell."
+    },
+    {
+      "id": "R196",
+      "file": "feedback_windows_shell.md",
+      "quote": "Use `@\"...\"@` here-strings",
+      "rule": "In PowerShell, use `@\"...\"@` here-strings instead of heredocs."
+    },
+    {
+      "id": "R197",
+      "file": "feedback_windows_shell.md",
+      "quote": "write to a `.ps1` file",
+      "rule": "In PowerShell, write commands to a `.ps1` file instead of using heredocs."
+    },
+    {
+      "id": "R198",
+      "file": "feedback_windows_shell.md",
+      "quote": "Don't mix.",
+      "rule": "Do not mix single quotes and double quotes in PowerShell."
+    },
+    {
+      "id": "R199",
+      "file": "feedback_windows_shell.md",
+      "quote": "Default to `/`",
+      "rule": "In PowerShell paths, default to `/`."
+    },
+    {
+      "id": "R200",
+      "file": "feedback_windows_shell.md",
+      "quote": "quote with single quotes",
+      "rule": "In PowerShell paths, quote the path with single quotes as an alternative to using backslashes."
+    },
+    {
+      "id": "R201",
+      "file": "feedback_windows_shell.md",
+      "quote": "**`sudo`** — doesn't exist.",
+      "rule": "Do not use `sudo` in PowerShell."
+    },
+    {
+      "id": "R202",
+      "file": "feedback_windows_shell.md",
+      "quote": "elevate the whole PS session (\"Run as Administrator\")",
+      "rule": "To elevate privileges in PowerShell, run the whole PS session as Administrator."
+    },
+    {
+      "id": "R203",
+      "file": "feedback_windows_shell.md",
+      "quote": "use `Start-Process -Verb RunAs`",
+      "rule": "To elevate privileges in PowerShell, use `Start-Process -Verb RunAs`."
+    },
+    {
+      "id": "R204",
+      "file": "feedback_windows_shell.md",
+      "quote": "**`export`** — doesn't exist.",
+      "rule": "Do not use `export` in PowerShell."
+    },
+    {
+      "id": "R205",
+      "file": "feedback_windows_shell.md",
+      "quote": "Use `$env:NAME='value'`.",
+      "rule": "Use `$env:NAME='value'` to set an environment variable in PowerShell."
+    },
+    {
+      "id": "R206",
+      "file": "feedback_windows_shell.md",
+      "quote": "**`xargs`** — not native.",
+      "rule": "Do not use `xargs` in PowerShell."
+    },
+    {
+      "id": "R207",
+      "file": "feedback_windows_shell.md",
+      "quote": "Use `ForEach-Object`: `ls *.py | ForEach-Object { python $_.Name }`.",
+      "rule": "Use `ForEach-Object` instead of `xargs` in PowerShell."
+    },
+    {
+      "id": "R208",
+      "file": "feedback_windows_shell.md",
+      "quote": "Normalize first:",
+      "rule": "Normalize line endings before diffing cross-platform files."
+    },
+    {
+      "id": "R209",
+      "file": "feedback_windows_shell.md",
+      "quote": "Write to `script.ps1`",
+      "rule": "When invoking PowerShell inline from Bash, write the code to `script.ps1`."
+    },
+    {
+      "id": "R210",
+      "file": "feedback_windows_shell.md",
+      "quote": "call `powershell -File script.ps1`",
+      "rule": "When invoking PowerShell inline from Bash, call `powershell -File script.ps1`."
+    },
+    {
+      "id": "R211",
+      "file": "feedback_windows_shell.md",
+      "quote": "escape `$` as `\\$`",
+      "rule": "When invoking PowerShell inline from Bash, escape `$` as `\\$`."
+    },
+    {
+      "id": "R212",
+      "file": "feedback_windows_shell.md",
+      "quote": "use single quotes around the whole `-Command` arg",
+      "rule": "When invoking PowerShell inline from Bash, use single quotes around the whole `-Command` argument."
+    },
+    {
+      "id": "R213",
+      "file": "feedback_windows_shell.md",
+      "quote": "**Before showing the user ANY command to copy-paste**, check: is this PowerShell-safe?",
+      "rule": "Before showing the user any command to copy-paste, check whether it is PowerShell-safe."
+    },
+    {
+      "id": "R214",
+      "file": "feedback_windows_shell.md",
+      "quote": "If not, translate using the table above.",
+      "rule": "If the command is not PowerShell-safe, translate it using the Bash-to-PowerShell table."
+    },
+    {
+      "id": "R215",
+      "file": "feedback_windows_shell.md",
+      "quote": "If the command involves piping, env vars, or chaining → default to writing a `.ps1` script under `~/.config/opencode/scripts/`",
+      "rule": "If a shown command involves piping, environment variables, or chaining, default to writing a `.ps1` script under `~/.config/opencode/scripts/`."
+    },
+    {
+      "id": "R216",
+      "file": "feedback_windows_shell.md",
+      "quote": "tell the user to run `powershell -File <path>`.",
+      "rule": "Tell the user to run the written script with `powershell -File <path>`."
+    },
+    {
+      "id": "R217",
+      "file": "feedback_windows_shell.md",
+      "quote": "When a command fails with \"unexpected EOF\", \"The term 'export' is not recognized\", or \"variable $X is null\" → it's bash-in-PowerShell. Rewrite.",
+      "rule": "When a command fails with \"unexpected EOF\", \"The term 'export' is not recognized\", or \"variable $X is null\", rewrite it as PowerShell."
+    },
+    {
+      "id": "R218",
+      "file": "feedback_windows_shell.md",
+      "quote": "if you just typed `export`, `$VAR` (no `$env:`), or `<<EOF` in a command meant for the user — STOP.",
+      "rule": "If you just typed `export`, `$VAR` without `$env:`, or `<<EOF` in a command meant for the user, stop."
+    },
+    {
+      "id": "R219",
+      "file": "feedback_windows_shell.md",
+      "quote": "Translate first.",
+      "rule": "Translate the command to PowerShell before proceeding."
+    },
+    {
+      "id": "R220",
+      "file": "feedback_windows_shell.md",
+      "quote": "`&&` is safe in pwsh 7.",
+      "rule": "Using `&&` is safe in pwsh 7."
+    },
+    {
+      "id": "R221",
+      "file": "lessons_learned.md",
+      "quote": "When adding a new risky pattern: add to BOTH files.",
+      "rule": "When adding a new risky pattern, add it to both DNA.yaml COORD-003 triggers and main-coordinator.md Challenger Rule keywords."
+    },
+    {
+      "id": "R222",
+      "file": "lessons_learned.md",
+      "quote": "COORD-003 triggers + main-coordinator.md Challenger Rule keywords must stay in sync.",
+      "rule": "Keep DNA.yaml COORD-003 triggers and main-coordinator.md Challenger Rule keywords in sync."
+    },
+    {
+      "id": "R223",
+      "file": "lessons_learned.md",
+      "quote": "For any file > ~500 lines, use PowerShell Add-Content via the Bash tool to append content in batches, then verify with Get-Content.",
+      "rule": "For any file larger than about 500 lines, append content in batches with PowerShell Add-Content via the Bash tool, then verify with Get-Content."
+    },
+    {
+      "id": "R224",
+      "file": "lessons_learned.md",
+      "quote": "Always verify line count and </html> uniqueness after multi-append workflows.",
+      "rule": "After multi-append workflows, verify the line count and that </html> appears only once."
+    },
+    {
+      "id": "R225",
+      "file": "lessons_learned.md",
+      "quote": "For multi-line PHP work, always use temp files.",
+      "rule": "For multi-line PHP work, always use temp files."
+    },
+    {
+      "id": "R226",
+      "file": "lessons_learned.md",
+      "quote": "Workaround: write a temp PHP file with `write` tool, then `php temp.php`, then delete it.",
+      "rule": "To run PHP code that breaks PowerShell quoting, write a temporary PHP file with the write tool, run `php temp.php`, then delete it."
+    },
+    {
+      "id": "R227",
+      "file": "lessons_learned.md",
+      "quote": "After each session, write key decisions, failures, and lessons here.",
+      "rule": "After each session, write key decisions, failures, and lessons in lessons_learned.md."
+    },
+    {
+      "id": "R228",
+      "file": "lessons_learned.md",
+      "quote": "the agent MUST write a lessons-learned entry if:",
+      "rule": "After any task completes, write a lessons-learned entry if a bug took more than 30 minutes to diagnose, a pattern not in any skill was discovered, a decision had non-obvious tradeoffs, or the same mistake was corrected twice."
+    },
+    {
+      "id": "R229",
+      "file": "lessons_learned.md",
+      "quote": "Always use `modname=Students/NeuroProfile.php` (WITH `.php` extension) in RosarioSIS URLs.",
+      "rule": "Always include the `.php` extension in RosarioSIS `modname=Students/NeuroProfile.php` URLs."
+    },
+    {
+      "id": "R230",
+      "file": "lessons_learned.md",
+      "quote": "The `profile_exceptions` table also needs the `.php` suffix in MODNAME column.",
+      "rule": "Include the `.php` suffix in the MODNAME column of the `profile_exceptions` table."
+    },
+    {
+      "id": "R231",
+      "file": "lessons_learned.md",
+      "quote": "Any link/form/action in RosarioSIS plugins MUST use `Modules.php?modname=Path/Module.php` format.",
+      "rule": "Any link, form, or action in RosarioSIS plugins must use the `Modules.php?modname=Path/Module.php` format."
+    },
+    {
+      "id": "R232",
+      "file": "lessons_learned.md",
+      "quote": "Never `index.php?modname=...`.",
+      "rule": "Never use `index.php?modname=...` for RosarioSIS plugin links, forms, or actions."
+    },
+    {
+      "id": "R233",
+      "file": "lessons_learned.md",
+      "quote": "The .php suffix is required on the modname value",
+      "rule": "Include the `.php` suffix on the RosarioSIS modname value."
+    },
+    {
+      "id": "R234",
+      "file": "lessons_learned.md",
+      "quote": "When using FastAPI TestClient with in-memory storage, always reset app state between tests using an autouse fixture.",
+      "rule": "When using FastAPI TestClient with in-memory storage, reset app state between tests with an autouse fixture."
+    },
+    {
+      "id": "R235",
+      "file": "lessons_learned.md",
+      "quote": "Always verify actual path with `ls` or `Get-ChildItem`.",
+      "rule": "After Windows/Git Bash path translation, verify the actual path with `ls` or `Get-ChildItem`."
+    },
+    {
+      "id": "R236",
+      "file": "lessons_learned.md",
+      "quote": "budget 30+ file operations per skill.",
+      "rule": "Budget at least 30 file operations per MiniMax skill installation."
+    },
+    {
+      "id": "R237",
+      "file": "lessons_learned.md",
+      "quote": "Never use fixed timeouts for external service readiness.",
+      "rule": "Never use fixed timeouts to wait for external service readiness."
+    },
+    {
+      "id": "R238",
+      "file": "lessons_learned.md",
+      "quote": "Use `wait_for_selector` with Playwright instead.",
+      "rule": "Use Playwright `wait_for_selector` instead of fixed timeouts."
+    },
+    {
+      "id": "R239",
+      "file": "lessons_learned.md",
+      "quote": "GH token must have `repo` scope for private repo operations.",
+      "rule": "Ensure the GitHub token has `repo` scope for private repository operations."
+    },
+    {
+      "id": "R240",
+      "file": "lessons_learned.md",
+      "quote": "**Keep entries short** --- one screen max per entry",
+      "rule": "Keep each lessons-learned entry short, no more than one screen per entry."
+    },
+    {
+      "id": "R241",
+      "file": "lessons_learned.md",
+      "quote": "**Date every entry** --- for traceability",
+      "rule": "Date every lessons-learned entry for traceability."
+    },
+    {
+      "id": "R242",
+      "file": "lessons_learned.md",
+      "quote": "**State the lesson first** --- don't bury it",
+      "rule": "State the lesson first in each entry; do not bury it."
+    },
+    {
+      "id": "R243",
+      "file": "lessons_learned.md",
+      "quote": "**Mark as Applied when applied** --- and note in `MEMORY.md` hook",
+      "rule": "Mark an entry as Applied when it is applied and note it in the `MEMORY.md` hook."
+    },
+    {
+      "id": "R244",
+      "file": "lessons_learned.md",
+      "quote": "**Delete stale entries** --- if a lesson is now in a skill or feedback file, mark it obsolete",
+      "rule": "Delete stale entries, or mark them obsolete if the lesson is now in a skill or feedback file."
+    },
+    {
+      "id": "R245",
+      "file": "lessons_learned.md",
+      "quote": "**Cross-reference skills** --- if a lesson maps to a skill, note which one",
+      "rule": "If a lesson maps to a skill, cross-reference that skill in the entry."
+    },
+    {
+      "id": "R246",
+      "file": "lessons_learned.md",
+      "quote": "Always normalize line endings before regex processing in PowerShell",
+      "rule": "In PowerShell, normalize line endings before regex processing or splitting."
+    },
+    {
+      "id": "R247",
+      "file": "lessons_learned.md",
+      "quote": "Always use `[PSCustomObject]@{}` instead of `@{}` when creating objects that will be iterated and their properties accessed with dot notation or displayed in formatted output.",
+      "rule": "Use `[PSCustomObject]@{}` instead of `@{}` for objects that will be iterated with dot-notation property access or displayed in formatted output."
+    },
+    {
+      "id": "R248",
+      "file": "lessons_learned.md",
+      "quote": "Always test with trailing slash when calling FastAPI routes from Python.",
+      "rule": "When calling FastAPI routes from Python, test with a trailing slash."
+    },
+    {
+      "id": "R249",
+      "file": "lessons_learned.md",
+      "quote": "Use -L with curl.",
+      "rule": "Use `curl -L` when calling FastAPI routes that may redirect."
+    },
+    {
+      "id": "R250",
+      "file": "lessons_learned.md",
+      "quote": "For FastAPI body params with defaults, always put = None on the function parameter, NOT inside Body() declaration.",
+      "rule": "For FastAPI body params with defaults, put `= None` on the function parameter, not inside the `Body()` declaration."
+    },
+    {
+      "id": "R251",
+      "file": "lessons_learned.md",
+      "quote": "When running Python on Windows with unicode output, always `chcp 65001` first or use PYTHONIOENCODING=utf-8.",
+      "rule": "When running Python on Windows with Unicode output, run `chcp 65001` first or set `PYTHONIOENCODING=utf-8`."
+    },
+    {
+      "id": "R252",
+      "file": "lessons_learned.md",
+      "quote": "plugins use action hooks (`add_action()`) and the plugin's own module entry points must be accessed via `plugins/{PluginName}/modules/{Module}/{Module}.php` directly, NOT via `Students/` prefixed URLs.",
+      "rule": "Access RosarioSIS plugin module entry points directly via `plugins/{PluginName}/modules/{Module}/{Module}.php`, not via `Students/` prefixed URLs."
+    },
+    {
+      "id": "R253",
+      "file": "lessons_learned.md",
+      "quote": "Multi-file operations (refactor, debug, analyze) need isMultiFile conditional scoring (+1.5-2x base).",
+      "rule": "Apply `isMultiFile` conditional scoring with a 1.5–2x base boost to multi-file operations such as refactor, debug, and analyze."
+    },
+    {
+      "id": "R254",
+      "file": "lessons_learned.md",
+      "quote": "Explicit phrases like \"across N files\", \"in N files\" need a dedicated boost (+0.5).",
+      "rule": "Add a dedicated +0.5 boost for explicit phrases like \"across N files\" and \"in N files\"."
+    },
+    {
+      "id": "R255",
+      "file": "lessons_learned.md",
+      "quote": "The isMultiStep detector needs to catch \"check X and fix Y\" patterns explicitly.",
+      "rule": "Make the `isMultiStep` detector explicitly catch \"check X and fix Y\" patterns."
+    },
+    {
+      "id": "R256",
+      "file": "lessons_learned.md",
+      "quote": "Next time user says \"this isn't the app I was working on\" --- immediately check Railway URL (already live), screenshot it, AND check GitHub repos.",
+      "rule": "When the user says \"this isn't the app I was working on,\" immediately check the Railway URL, screenshot it, and check GitHub repos."
+    },
+    {
+      "id": "R257",
+      "file": "lessons_learned.md",
+      "quote": "Don't assume it's local.",
+      "rule": "Do not assume the app is available locally."
+    },
+    {
+      "id": "R258",
+      "file": "lessons_learned.md",
+      "quote": "When inserting into RosarioSIS tables with foreign key constraints, always verify NOT NULL columns by checking the schema first:",
+      "rule": "Before inserting into RosarioSIS tables with foreign key constraints, verify NOT NULL columns by checking the schema first."
+    },
+    {
+      "id": "R259",
+      "file": "lessons_learned.md",
+      "quote": "`students` table has NO `syear` column --- enrollment year is stored in `student_enrollment.syear` (join required).",
+      "rule": "To filter RosarioSIS students by enrollment year, join `student_enrollment.syear`; do not query `students` alone."
+    },
+    {
+      "id": "R260",
+      "file": "lessons_learned.md",
+      "quote": "Always verify with `\\d schedule` to see if `schedule_ind*` indexes are unique or not.",
+      "rule": "Always verify with `\\d schedule` whether `schedule_ind*` indexes are unique."
+    },
+    {
+      "id": "R261",
+      "file": "lessons_learned.md",
+      "quote": "Debug: `php -r 'var_dump(unserialize(\"VALUE\"))'` to test validity.",
+      "rule": "Use `php -r 'var_dump(unserialize(\"VALUE\"))'` to test whether a RosarioSIS config value is valid."
+    },
+    {
+      "id": "R262",
+      "file": "lessons_learned.md",
+      "quote": "VERSION must always be stored as plain string `12.8` (not serialized) to prevent Update() from running.",
+      "rule": "Store RosarioSIS VERSION as the plain string `12.8`, not serialized, to prevent `Update()` from running."
+    },
+    {
+      "id": "R263",
+      "file": "lessons_learned.md",
+      "quote": "Debug Config() output in actual app context with `docker exec neurosis_rosariosis php /tmp/debug_version5.php`.",
+      "rule": "Debug `Config()` output in the actual app context with `docker exec neurosis_rosariosis php /tmp/debug_version5.php`."
+    },
+    {
+      "id": "R264",
+      "file": "lessons_learned.md",
+      "quote": "set VERSION to plain `12.8` AND create event trigger to block duplicate sequence creation as belt-and-suspenders.",
+      "rule": "If `school_fields_id_seq already exists` appears after other fixes, set VERSION to plain `12.8` and create an event trigger to block duplicate sequence creation."
+    },
+    {
+      "id": "R265",
+      "file": "lessons_learned.md",
+      "quote": "No hacer SQL manual para crear usuarios admin",
+      "rule": "Do not create admin users with manual SQL."
+    },
+    {
+      "id": "R266",
+      "file": "lessons_learned.md",
+      "quote": "Siempre dejar que la app haga lo suyo.",
+      "rule": "Always let the application handle admin user creation itself."
+    },
+    {
+      "id": "R267",
+      "file": "lessons_learned.md",
+      "quote": "max 100 palabras/slide",
+      "rule": "Limit 5th-grade presentation slides to a maximum of 100 words."
+    },
+    {
+      "id": "R268",
+      "file": "lessons_learned.md",
+      "quote": "SOLO bullets",
+      "rule": "Use only bullet points in 5th-grade presentations."
+    },
+    {
+      "id": "R269",
+      "file": "lessons_learned.md",
+      "quote": "jerga reemplazada",
+      "rule": "Replace jargon in 5th-grade presentations."
+    },
+    {
+      "id": "R270",
+      "file": "lessons_learned.md",
+      "quote": "elementos de pensamiento integrados",
+      "rule": "Integrate thinking elements in 5th-grade presentations."
+    },
+    {
+      "id": "R271",
+      "file": "lessons_learned.md",
+      "quote": "paleta warm",
+      "rule": "Use a warm palette in 5th-grade presentations."
+    },
+    {
+      "id": "R272",
+      "file": "lessons_learned.md",
+      "quote": "No asumir 'parrafo = profesional'.",
+      "rule": "Do not assume that a paragraph equals a professional presentation."
+    },
+    {
+      "id": "R273",
+      "file": "lessons_learned.md",
+      "quote": "detect headers dynamically by scanning for key labels like EMAIL/APELLIDO before ETL.",
+      "rule": "Before ETL, detect Excel headers dynamically by scanning for key labels such as EMAIL and APELLIDO."
+    },
+    {
+      "id": "R274",
+      "file": "lessons_learned.md",
+      "quote": "Clean frontmatter editing requires replacing the entire block, not appending.",
+      "rule": "When editing YAML frontmatter, replace the entire block rather than appending."
+    },
+    {
+      "id": "R275",
+      "file": "lessons_learned.md",
+      "quote": "avoid `description: |` or `description: >` without text --- YAML parses them as empty.",
+      "rule": "Avoid `description: |` or `description: >` without text, because YAML parses them as empty."
+    },
+    {
+      "id": "R276",
+      "file": "lessons_learned.md",
+      "quote": "Use inline description strings.",
+      "rule": "Use inline description strings in YAML frontmatter."
+    },
+    {
+      "id": "R277",
+      "file": "lessons_learned.md",
+      "quote": "Target L1 size: 50-200 lines per skill.",
+      "rule": "When refactoring a skill to progressive disclosure, target an L1 size of 50–200 lines per skill."
+    },
+    {
+      "id": "R278",
+      "file": "lessons_learned.md",
+      "quote": "Always use `-RedirectStandardOutput NUL -RedirectStandardError NUL` to truly background servers in PowerShell.",
+      "rule": "Use `-RedirectStandardOutput NUL -RedirectStandardError NUL` to truly background servers in PowerShell."
+    },
+    {
+      "id": "R279",
+      "file": "lessons_learned.md",
+      "quote": "The coordinator must always enforce this pattern for any background server start.",
+      "rule": "The coordinator must enforce the NUL redirection pattern for any background server start."
+    },
+    {
+      "id": "R280",
+      "file": "lessons_learned.md",
+      "quote": "Any migration using `Schema::drop()` or `Schema::dropIfExists()` on an existing table must have a data-presence guard (`DB::table()->count()` check) that skips execution and logs a warning if rows exist.",
+      "rule": "Any migration that uses `Schema::drop()` or `Schema::dropIfExists()` on an existing table must check for existing rows with `DB::table()->count()`, skip execution, and log a warning if rows exist."
+    },
+    {
+      "id": "R281",
+      "file": "lessons_learned.md",
+      "quote": "Always prefer additive migrations (new column + data migration + drop old) over destructive DROP+CREATE.",
+      "rule": "Prefer additive migrations (new column, data migration, then drop old) over destructive DROP+CREATE."
+    },
+    {
+      "id": "R282",
+      "file": "lessons_learned.md",
+      "quote": "Document the alternative procedure inline for operators who need to run it on production.",
+      "rule": "Document the safe alternative procedure inline for operators who need to run the migration on production."
+    },
+    {
+      "id": "R283",
+      "file": "lessons_learned.md",
+      "quote": "Use single-quoted here-strings for PHP code.",
+      "rule": "Use single-quoted PowerShell here-strings for PHP code."
+    },
+    {
+      "id": "R284",
+      "file": "lessons_learned.md",
+      "quote": "Use UTF8Encoding(false) for BOM-free output.",
+      "rule": "Use `UTF8Encoding(false)` for BOM-free output."
+    },
+    {
+      "id": "R285",
+      "file": "lessons_learned.md",
+      "quote": "Project handovers to agents should be DELTA-only, not context-repeat.",
+      "rule": "Make project handovers to agents DELTA-only, not context-repeat."
+    },
+    {
+      "id": "R286",
+      "file": "lessons_learned.md",
+      "quote": "Always send coordinates + pattern + exit criteria",
+      "rule": "Always send coordinates, pattern, and exit criteria; never send context the agent already has."
+    },
+    {
+      "id": "R287",
+      "file": "lessons_learned.md",
+      "quote": "load handover + checkpoints + project state",
+      "rule": "At session start, load the handover, checkpoints, and project state."
+    },
+    {
+      "id": "R288",
+      "file": "lessons_learned.md",
+      "quote": "append session_log.md + update KG + check for lessons/decisions",
+      "rule": "When a task completes, append to session_log.md, update the knowledge graph, and check for lessons or decisions."
+    },
+    {
+      "id": "R289",
+      "file": "lessons_learned.md",
+      "quote": "write lessons_learned.md + create KG entity",
+      "rule": "When a lesson is discovered, write lessons_learned.md and create a knowledge-graph entity."
+    },
+    {
+      "id": "R290",
+      "file": "lessons_learned.md",
+      "quote": "update project_active.md",
+      "rule": "When project state changes, update project_active.md."
+    },
+    {
+      "id": "R291",
+      "file": "lessons_learned.md",
+      "quote": "write handover + archive old one + stamp sprint",
+      "rule": "At session end, write a handover, archive the old one, and stamp the sprint."
+    },
+    {
+      "id": "R292",
+      "file": "lessons_learned.md",
+      "quote": "When testing with a different database backend, ALWAYS edit server/.env directly",
+      "rule": "When testing with a different database backend, edit `server/.env` directly, not just PowerShell environment variables."
+    },
+    {
+      "id": "R293",
+      "file": "lessons_learned.md",
+      "quote": "Use utf-8-sig when reading .md/.yaml/.json config files.",
+      "rule": "Always use `utf-8-sig` when reading `.md`, `.yaml`, and `.json` config files."
+    },
+    {
+      "id": "R294",
+      "file": "lessons_learned.md",
+      "quote": "Always verify skill directories match YAML references.",
+      "rule": "Always verify that skill directories match YAML references."
+    },
+    {
+      "id": "R295",
+      "file": "lessons_learned.md",
+      "quote": "Always verify the count matches expectations.",
+      "rule": "After parsing or validating rules, verify the count matches expectations."
+    },
+    {
+      "id": "R296",
+      "file": "lessons_learned.md",
+      "quote": "always write fresh from scratch instead of doing string replacement on large PS files.",
+      "rule": "For large PowerShell files, write fresh from scratch instead of doing string replacement."
+    },
+    {
+      "id": "R297",
+      "file": "lessons_learned.md",
+      "quote": "Always use two hyphens (--) instead.",
+      "rule": "In PowerShell 5.1 strings, use two hyphens (`--`) instead of an em dash."
+    },
+    {
+      "id": "R298",
+      "file": "lessons_learned.md",
+      "quote": "Always READ the implementation, don't trust the comment.",
+      "rule": "Always read the implementation; do not trust the comment."
+    },
+    {
+      "id": "R299",
+      "file": "lessons_learned.md",
+      "quote": "Always verify opencode.json directly, don't trust AGENTS.md statements about server status.",
+      "rule": "Always verify `opencode.json` directly; do not trust `AGENTS.md` statements about server status."
+    },
+    {
+      "id": "R300",
+      "file": "lessons_learned.md",
+      "quote": "Always check the actual `.d.ts` export signature.",
+      "rule": "Always check the actual `.d.ts` export signature when importing ESM packages in TypeScript."
+    },
+    {
+      "id": "R301",
+      "file": "lessons_learned.md",
+      "quote": "Fix: `import { pinoHttp as pinoHttpFn } from 'pino-http'` (named export) OR use the `.default ?? module` pattern.",
+      "rule": "For `pino-http` under NodeNext, import the named export `pinoHttp` or use the `.default ?? module` pattern."
+    },
+    {
+      "id": "R302",
+      "file": "lessons_learned.md",
+      "quote": "Always check the actual function signature, not just the call site.",
+      "rule": "Always check the actual function signature, not just the call site."
+    },
+    {
+      "id": "R303",
+      "file": "lessons_learned.md",
+      "quote": "The function signature must be changed OR the cast must be on the right side.",
+      "rule": "If a helper function returns `Promise<any>`, change the function signature or cast the return value on the right side instead of passing `<Type>` at the call site."
+    },
+    {
+      "id": "R304",
+      "file": "lessons_learned.md",
+      "quote": "Migration runners must handle `duplicate key` (PostgreSQL 23505) gracefully",
+      "rule": "Migration runners must handle PostgreSQL 23505 duplicate-key errors by logging and continuing, not exiting."
+    },
+    {
+      "id": "R305",
+      "file": "lessons_learned.md",
+      "quote": "For dev servers on Windows, use: (1) Git Bash `nohup process &` for true backgrounding, (2) redirect stdout/stderr to a file, (3) or use the `desktop-commander_start_process` tool which properly manages process lifecycle.",
+      "rule": "For dev servers on Windows, use Git Bash `nohup process &` with stdout/stderr redirected to a file, or use `desktop-commander_start_process` to manage the process lifecycle."
+    },
+    {
+      "id": "R306",
+      "file": "lessons_learned.md",
+      "quote": "For HTTP header inspection (Set-Cookie, ETag, etc.), always use raw `http` module via `node -e` or `curl -v`.",
+      "rule": "For HTTP header inspection such as Set-Cookie or ETag, use the raw `http` module via `node -e` or `curl -v`."
+    },
+    {
+      "id": "R307",
+      "file": "lessons_learned.md",
+      "quote": "Don't rely on PowerShell's Invoke-WebRequest wrapper for header inspection.",
+      "rule": "Do not rely on PowerShell's `Invoke-WebRequest` wrapper for header inspection."
+    },
+    {
+      "id": "R308",
+      "file": "lessons_learned.md",
+      "quote": "never call bash 3+ times, use glob instead",
+      "rule": "Never call bash three or more times in succession for file searches; use glob instead."
+    },
+    {
+      "id": "R309",
+      "file": "lessons_learned.md",
+      "quote": "prefer glob/grep over bash for file operations",
+      "rule": "Prefer glob/grep over bash for file operations."
+    },
+    {
+      "id": "R310",
+      "file": "lessons_learned.md",
+      "quote": "When restoring archived content, always check for name conflicts with active content.",
+      "rule": "When restoring archived content, check for name conflicts with active content."
+    },
+    {
+      "id": "R311",
+      "file": "lessons_learned.md",
+      "quote": "Auto-memory must be plugin-driven, not coordinator-manual",
+      "rule": "Make auto-memory plugin-driven, not coordinator-manual."
+    },
+    {
+      "id": "R312",
+      "file": "lessons_learned.md",
+      "quote": "**wrap the protocol in a single script**",
+      "rule": "When a hook is unavailable, wrap the end-of-task protocol in a single script that the coordinator can call with one command."
+    },
+    {
+      "id": "R313",
+      "file": "lessons_learned.md",
+      "quote": "Don't rely on documentation; the call must be one line.",
+      "rule": "Do not rely on documentation; make the protocol call one line."
+    },
+    {
+      "id": "R314",
+      "file": "lessons_learned.md",
+      "quote": "Local-only health checks (`validate-config.ps1`, etc.) should NEVER run in CI",
+      "rule": "Never run local-only health checks such as `validate-config.ps1` in CI."
+    },
+    {
+      "id": "R315",
+      "file": "lessons_learned.md",
+      "quote": "Repo-state checks (`tests/test-manifest-schema.mjs`, `validate-skills.ts`, etc.) SHOULD run in CI",
+      "rule": "Run repo-state checks such as `tests/test-manifest-schema.mjs` and `validate-skills.ts` in CI."
+    },
+    {
+      "id": "R316",
+      "file": "lessons_learned.md",
+      "quote": "These need DIFFERENT validation sets",
+      "rule": "Use different validation sets for the live machine and the CI runner."
+    },
+    {
+      "id": "R317",
+      "file": "lessons_learned_append.md",
+      "quote": "VERSION must always be stored as plain string `12.8` (not serialized) to prevent Update() from running.",
+      "rule": "Always store the VERSION config value as a plain string `12.8`, not serialized, so that Update() does not run."
+    },
+    {
+      "id": "R318",
+      "file": "lessons_learned_append.md",
+      "quote": "Debug: `php -r 'var_dump(unserialize(\"VALUE\"))'` to test validity.",
+      "rule": "Use `php -r 'var_dump(unserialize(\"VALUE\"))'` to test whether a config value is valid."
+    },
+    {
+      "id": "R319",
+      "file": "lessons_learned_append.md",
+      "quote": "Debug Config() output in actual app context with `docker exec neurosis_rosariosis php /tmp/debug_version5.php`.",
+      "rule": "Debug Config() output in the actual app context using `docker exec neurosis_rosariosis php /tmp/debug_version5.php`."
+    },
+    {
+      "id": "R320",
+      "file": "lessons_learned_append.md",
+      "quote": "set VERSION to plain `12.8`",
+      "rule": "If `school_fields_id_seq already exists` appears after all other fixes, set VERSION to a plain `12.8`."
+    },
+    {
+      "id": "R321",
+      "file": "lessons_learned_append.md",
+      "quote": "create event trigger to block duplicate sequence creation as belt-and-suspenders",
+      "rule": "If `school_fields_id_seq already exists` appears after all other fixes, create an event trigger to block duplicate sequence creation as a safeguard."
+    },
+    {
+      "id": "R322",
+      "file": "master-plan.md",
+      "quote": "this session is PLANNING only",
+      "rule": "In this session, perform planning only; do not execute sprint work in it."
+    },
+    {
+      "id": "R323",
+      "file": "master-plan.md",
+      "quote": "Read this file first (memory/master-plan.md)",
+      "rule": "When opening a new session to continue work, read memory/master-plan.md before doing anything else."
+    },
+    {
+      "id": "R324",
+      "file": "master-plan.md",
+      "quote": "Check \"Sprint Progress\" table below for current status",
+      "rule": "When opening a new session to continue work, check the \"Sprint Progress\" table for the current sprint status."
+    },
+    {
+      "id": "R325",
+      "file": "master-plan.md",
+      "quote": "Open the relevant skill/rule file for the sprint you're working",
+      "rule": "When working on a sprint, open the skill or rule file relevant to that sprint."
+    },
+    {
+      "id": "R326",
+      "file": "master-plan.md",
+      "quote": "Execute the \"Sprint Actions\" from the section below",
+      "rule": "When continuing work, execute the \"Sprint Actions\" listed in the relevant sprint section."
+    },
+    {
+      "id": "R327",
+      "file": "master-plan.md",
+      "quote": "Update the \"Sprint Progress\" table when done",
+      "rule": "When a sprint is done, update the \"Sprint Progress\" table."
+    },
+    {
+      "id": "R328",
+      "file": "master-plan.md",
+      "quote": "Commit changes before closing session",
+      "rule": "Before closing a session, commit the changes."
+    },
+    {
+      "id": "R329",
+      "file": "master-plan.md",
+      "quote": "You do NOT need to re-research",
+      "rule": "If compaction fires mid-sprint, you are not required to re-research the topic."
+    },
+    {
+      "id": "R330",
+      "file": "master-plan.md",
+      "quote": "re-read this plan",
+      "rule": "If compaction fires mid-sprint, re-read this plan."
+    },
+    {
+      "id": "R331",
+      "file": "master-plan.md",
+      "quote": "Pick up from where you left off.",
+      "rule": "If this session ends and you resume in a new session, resume from the point where you left off."
+    },
+    {
+      "id": "R332",
+      "file": "master-plan.md",
+      "quote": "Read memory/checkpoint.yaml",
+      "rule": "If memory/checkpoint.yaml exists, read it when resuming."
+    },
+    {
+      "id": "R333",
+      "file": "master-plan.md",
+      "quote": "Start fresh from the Sprint Progress table",
+      "rule": "If memory/checkpoint.yaml does not exist, start from the \"Sprint Progress\" table."
+    },
+    {
+      "id": "R334",
+      "file": "master-plan.md",
+      "quote": "If you later expand to multi-agent with background agents, revisit this.",
+      "rule": "If you later expand to a multi-agent setup with background agents, revisit the mail delivery guarantee."
+    },
+    {
+      "id": "R335",
+      "file": "master-plan.md",
+      "quote": "For now, skip.",
+      "rule": "For now, skip the Sprint 5 mail delivery guarantee and take no action on it."
+    },
+    {
+      "id": "R336",
+      "file": "master-plan.md",
+      "quote": "No new tools needed — adapt existing OSS.",
+      "rule": "Adapt existing open-source software rather than introducing new tools."
+    },
+    {
+      "id": "R337",
+      "file": "master-plan.md",
+      "quote": "don't copy, reference only",
+      "rule": "Do not copy Claude Code's auto-memory implementation; use it only as a reference."
+    },
+    {
+      "id": "R338",
+      "file": "skill_docker_localdev.md",
+      "quote": "Before any `docker compose` command, verify daemon is up:",
+      "rule": "Before running any `docker compose` command, verify the Docker daemon is up."
+    },
+    {
+      "id": "R339",
+      "file": "skill_docker_localdev.md",
+      "quote": "If error → restart Docker Desktop before proceeding",
+      "rule": "If the Docker daemon check returns an error, restart Docker Desktop before proceeding."
+    },
+    {
+      "id": "R340",
+      "file": "skill_docker_localdev.md",
+      "quote": "Wait for postgres to be ready",
+      "rule": "After starting services, wait for Postgres to be ready."
+    },
+    {
+      "id": "R341",
+      "file": "skill_docker_localdev.md",
+      "quote": "don't run migrations immediately",
+      "rule": "Do not run migrations immediately after starting services."
+    },
+    {
+      "id": "R342",
+      "file": "skill_docker_localdev.md",
+      "quote": "Run migrations (only after postgres is ready)",
+      "rule": "Run migrations only after Postgres is ready."
+    },
+    {
+      "id": "R343",
+      "file": "skill_docker_localdev.md",
+      "quote": "Wait for: \"database system is ready to accept connections\"",
+      "rule": "Before running migrations, wait for the Postgres log message \"database system is ready to accept connections\"."
+    },
+    {
+      "id": "R344",
+      "file": "skill_docker_localdev.md",
+      "quote": "Review the generated file in alembic/versions/ BEFORE applying",
+      "rule": "Review the generated Alembic migration file in alembic/versions before applying it."
+    },
+    {
+      "id": "R345",
+      "file": "skill_docker_localdev.md",
+      "quote": "ALWAYS backup first",
+      "rule": "For a breaking migration such as a column rename or type change, always back up the database first."
+    },
+    {
+      "id": "R346",
+      "file": "skill_docker_localdev.md",
+      "quote": "Only use `down -v` on schema changes.",
+      "rule": "Only use `docker compose down -v` on schema changes."
+    },
+    {
+      "id": "R347",
+      "file": "skill_docker_localdev.md",
+      "quote": "Never on normal restarts.",
+      "rule": "Never use `docker compose down -v` on normal restarts."
+    },
+    {
+      "id": "R348",
+      "file": "skill_docker_localdev.md",
+      "quote": "Migration changes still need `alembic upgrade head`.",
+      "rule": "After migration changes, still run `alembic upgrade head`."
+    },
+    {
+      "id": "R349",
+      "file": "skill_docker_localdev.md",
+      "quote": "Always use Docker",
+      "rule": "Always use Docker for the FastAPI backend."
+    },
+    {
+      "id": "R350",
+      "file": "skill_docker_localdev.md",
+      "quote": "never run FastAPI directly",
+      "rule": "Never run FastAPI directly."
+    },
+    {
+      "id": "R351",
+      "file": "skill_docker_localdev.md",
+      "quote": "Add `D:\\Temp\\playwright-browsers` to Defender exclusions",
+      "rule": "Add `D:\\Temp\\playwright-browsers` to Windows Defender exclusions."
+    },
+    {
+      "id": "R352",
+      "file": "skill_docker_localdev.md",
+      "quote": "`docker compose down -v` then `up -d`",
+      "rule": "If the Postgres volume has a stale schema after a schema change, run `docker compose down -v` then `docker compose up -d`."
+    },
+    {
+      "id": "R353",
+      "file": "skill_docker_localdev.md",
+      "quote": "`docker compose down` then `up -d`",
+      "rule": "If an old container is still running and causing a backend port conflict, run `docker compose down` then `docker compose up -d`."
+    },
+    {
+      "id": "R354",
+      "file": "skill_docker_localdev.md",
+      "quote": "Restart Docker Desktop, then `docker compose up -d`",
+      "rule": "If the Docker daemon pipe drops, restart Docker Desktop and then run `docker compose up -d`."
+    },
+    {
+      "id": "R355",
+      "file": "skill_docker_localdev.md",
+      "quote": "`APP_KEY` must be generated once: `docker compose exec backend php artisan key:generate`",
+      "rule": "Generate the Laravel `APP_KEY` once using `docker compose exec backend php artisan key:generate`."
+    },
+    {
+      "id": "R356",
+      "file": "skill_docker_localdev.md",
+      "quote": "Frontend `NEXT_PUBLIC_API_URL` must match backend Railway URL on deploy",
+      "rule": "On deploy, ensure the frontend `NEXT_PUBLIC_API_URL` matches the backend Railway URL."
+    },
+    {
+      "id": "R357",
+      "file": "skill_docker_localdev.md",
+      "quote": "verify PostgreSQL RLS policies before any production deploy",
+      "rule": "Before any production deploy, verify PostgreSQL RLS policies for FERPA compliance."
+    },
+    {
+      "id": "R358",
+      "file": "skill_docker_localdev.md",
+      "quote": "Same patterns apply.",
+      "rule": "Apply the same Docker Compose local development patterns to EduFlow."
+    },
+    {
+      "id": "R359",
+      "file": "skill_docker_localdev.md",
+      "quote": "Check daemon is alive (`docker info`)",
+      "rule": "Before running Docker Compose commands, check that the Docker daemon is alive using `docker info`."
+    },
+    {
+      "id": "R360",
+      "file": "skill_docker_localdev.md",
+      "quote": "Know which command destroys volumes (`down -v`) and which doesn't (`down`)",
+      "rule": "Know which Docker Compose command destroys volumes (`down -v`) and which does not (`down`)."
+    },
+    {
+      "id": "R361",
+      "file": "skill_docker_localdev.md",
+      "quote": "Never run backend/frontend directly on Windows",
+      "rule": "Never run the backend or frontend directly on Windows."
+    },
+    {
+      "id": "R362",
+      "file": "skill_docker_localdev.md",
+      "quote": "For schema changes: backup first",
+      "rule": "For schema changes, back up the database first."
+    },
+    {
+      "id": "R363",
+      "file": "skill_docker_localdev.md",
+      "quote": "then migrate",
+      "rule": "For schema changes, run migrations after backing up."
+    },
+    {
+      "id": "R364",
+      "file": "skill_docker_localdev.md",
+      "quote": "then verify",
+      "rule": "For schema changes, verify after migrating."
+    },
+    {
+      "id": "R365",
+      "file": "skill_docker_localdev.md",
+      "quote": "keep container node_modules separate",
+      "rule": "Keep the container's `node_modules` separate when mounting the Next.js frontend."
+    },
+    {
+      "id": "R366",
+      "file": "skill_docker_localdev.md",
+      "quote": "All services should show \"running\"",
+      "rule": "After starting services, verify that all services show \"running\"."
+    },
+    {
+      "id": "R367",
+      "file": "skill_websocket_railway.md",
+      "quote": "Confirm it's a proxy problem, not a server problem",
+      "rule": "When diagnosing a WebSocket connection on Railway that connects but then drops, confirm whether the issue is a proxy problem rather than a server problem."
+    },
+    {
+      "id": "R368",
+      "file": "skill_websocket_railway.md",
+      "quote": "From a machine outside Railway",
+      "rule": "When testing a Railway WebSocket connection, run the test from a machine outside Railway."
+    },
+    {
+      "id": "R369",
+      "file": "skill_websocket_railway.md",
+      "quote": "Check Railway logs for the upgrade request",
+      "rule": "Check Railway logs for the WebSocket upgrade request."
+    },
+    {
+      "id": "R370",
+      "file": "skill_websocket_railway.md",
+      "quote": "Verify PORT env var is correct",
+      "rule": "Verify that the PORT environment variable is correct."
+    },
+    {
+      "id": "R371",
+      "file": "skill_websocket_railway.md",
+      "quote": "Switch to Server-Sent Events (SSE) for read-only streams",
+      "rule": "As a workaround for Railway WebSocket proxy failures, use Server-Sent Events (SSE) for read-only streams."
+    },
+    {
+      "id": "R372",
+      "file": "skill_websocket_railway.md",
+      "quote": "Poll every 2-3s via regular HTTP",
+      "rule": "As a simple fallback for Railway WebSocket proxy failures, poll every 2-3 seconds via regular HTTP."
+    },
+    {
+      "id": "R373",
+      "file": "skill_websocket_railway.md",
+      "quote": "Add a separate Railway service as a TCP proxy",
+      "rule": "When escalating to a TCP proxy on Railway, add a separate Railway service as a TCP proxy."
+    },
+    {
+      "id": "R374",
+      "file": "skill_websocket_railway.md",
+      "quote": "See Railway docs: Private Networking + TCP Proxy",
+      "rule": "Consult the Railway docs on Private Networking and TCP Proxy when evaluating a TCP proxy workaround."
+    },
+    {
+      "id": "R375",
+      "file": "skill_websocket_railway.md",
+      "quote": "Never promise WebSocket will work on Railway without testing first",
+      "rule": "When working on any Railway-deployed real-time feature, never promise that WebSocket will work on Railway without testing it first."
+    },
+    {
+      "id": "R376",
+      "file": "skill_websocket_railway.md",
+      "quote": "Default to SSE for server-push scenarios",
+      "rule": "When working on any Railway-deployed real-time feature, default to SSE for server-push scenarios."
+    },
+    {
+      "id": "R377",
+      "file": "skill_websocket_railway.md",
+      "quote": "Default to polling for low-frequency updates",
+      "rule": "When working on any Railway-deployed real-time feature, default to polling for low-frequency updates."
+    },
+    {
+      "id": "R378",
+      "file": "skill_websocket_railway.md",
+      "quote": "Only escalate to TCP proxy if truly bidirectional and high-frequency",
+      "rule": "When working on any Railway-deployed real-time feature, only escalate to a TCP proxy if the communication is truly bidirectional and high-frequency."
+    },
+    {
+      "id": "R379",
+      "file": "skill_websocket_railway.md",
+      "quote": "SSE for coin updates",
+      "rule": "For Palma Coin, prefer SSE for coin updates."
+    },
+    {
+      "id": "R380",
+      "file": "skill_websocket_railway.md",
+      "quote": "HTTP polling for votes",
+      "rule": "For Palma Coin, prefer HTTP polling for votes."
+    }
+  ],
+  "dropped": []
+}

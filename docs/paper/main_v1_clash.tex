@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Finding Clashes in Coding-Agent Memory:\\Formal Checking, LLM Judges, and Where Each Fails}
+\author{CS2520 Project}
+\date{December 2026}
+
+\begin{document}
+\maketitle
+
+% Topic sentences only (draft skeleton, 2026-11-23). Numbers marked TBD are pending.
+
+\begin{abstract}
+Coding agents accumulate memory rules that can contradict one another, and we ask whether
+translating each rule into a small formal vocabulary and checking it with Z3 finds these
+clashes better than asking an LLM directly.
+\end{abstract}
+
+\section{Introduction}
+Memory folders and \texttt{CLAUDE.md} files grow by accretion, so an agent can be told both to
+force-push a branch and never to force-push it, with no warning to the user.
+
+\section{Related Work}
+Prior work on natural-language-to-logic translation shows that solver hybrids win when
+translation is narrow and reasoning is deep or spans several requirements, and lose when
+understanding the text is the hard part.
+
+\section{What Counts as a Clash}
+We define a clash as a situation, named by the rules, in which no single action follows all of
+them, reading an explicit ``may'' as a strong permission.
+
+\section{Method}
+\subsection{Vocabulary}
+A fixed vocabulary of git, file, and task actions with conditions lets every rule in scope be
+written as a small set of obligation, prohibition, permission, and conditional clauses.
+\subsection{Two-Step Translation}
+An LLM first lists each rule's requirements with exact quotes and scopes, then encodes them,
+and a code check makes sure every requirement is either encoded or explicitly left out.
+\subsection{Checking Pairs and Groups with Z3}
+Z3 searches every situation the rules distinguish for one where no action satisfies them all,
+for pairs and for groups of three rules, and returns that situation as a witness.
+
+\section{Data}
+We collected 1,287 rules from five real memory folders, labelled translation sets with two
+independent labellers, and built planted and natural clash sets.
+
+\section{Experiments and Results}
+\subsection{Translation Accuracy}
+Two-step translation beats one-step translation by 14 points on in-scope rules when either
+labeller's defensible reading counts, while the two labellers themselves agree on only 67\%.
+\subsection{Pairwise Clashes}
+On planted git/file clashes the checker finds 15--18 of 20 with no false alarms, but a direct
+LLM judge finds all of them, so on single pairs the LLM is the stronger baseline.
+\subsection{Clashes Among Three Rules}
+On groups of three rules that clash only together, the set-level checker finds only the group
+whose rules all translate (1 of 8, no false alarms), while an LLM reading the whole folder finds
+5 of 8, so translation and vocabulary, not set-level reasoning, decide the outcome.
+\subsection{Real Folders at Full Size}
+Across five full folders, most real clashes concern tool choice rather than git or files, and a
+single whole-folder LLM pass misses many of them.
+
+\section{Discussion}
+Z3 is exact about what it receives, so the failures we observe come from translating rules one
+at a time and from choosing which rules to compare, not from the reasoning.
+
+\section{Limitations}
+Our labels come from model labellers on five folders, recall over all pairs is unknown, and the
+development set was partly tuned on.
+
+\section{Conclusion}
+Formal checking is worth keeping for clashes inside its vocabulary, especially those that need
+several rules at once, and an LLM judge should handle the rest with a person settling ambiguous
+cases.
+
+\end{document}

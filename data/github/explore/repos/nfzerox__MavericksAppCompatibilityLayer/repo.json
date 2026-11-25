@@ -1,0 +1,39 @@
+{
+  "repo": "nfzerox/MavericksAppCompatibilityLayer",
+  "fork": false,
+  "archived": false,
+  "stars": 16,
+  "description": "A backport compatibility layer for old macOS. Out of the box: patches iWork from May 2016 to run on OS X 10.9 Mavericks. Under the hood: Mach-O bind weakening + stub dylib injection. Pair with Claude Code to back-port other newer-OS apps.",
+  "default_branch": "main",
+  "license": null,
+  "pushed_at": "2026-05-20T03:48:22Z",
+  "created_at": "2026-05-19T16:41:36Z",
+  "root_claude_md": true,
+  "folder": {
+    "dir": "memory",
+    "n_md": 13,
+    "n_rule_files": 6,
+    "type_counts": {
+      "reference": 1,
+      "project": 5,
+      "feedback": 6
+    },
+    "has_index": true,
+    "last_commit": "2026-05-18T02:00:00Z",
+    "files": {
+      "memory/MEMORY.md": "3fb524664a21ae56dca321ef4616d466acc7d4cee692939f8464c906809ea40a",
+      "memory/feedback_commit_cadence.md": "ae3f9bb958e27cb481a5fdb4179adc2f699af4d03de25a7c1d9bb62c59c3b13d",
+      "memory/feedback_human_in_loop.md": "6af1b827a4f3ff999420d8b987fb46b2dc9d37790bce3fc8b6e25535ea3b361d",
+      "memory/feedback_kpf_dylib_hot_swap.md": "120e0070297120ad455c77b35000caba36a23bd496f64cbfefd5cec0eacfa5cf",
+      "memory/feedback_objc_swizzle_subclass.md": "623cf90d19e60eb297b3d520662b211c249e8a4f69232ad2f90135adac40e06b",
+      "memory/feedback_ssh_efficiency.md": "80830c637e49d96ab17e9455f1a23dc910166a3e52e8bf1b0bfbf93c793b1243",
+      "memory/feedback_systematic_porting.md": "6aa879d00d6756515ddbaa68acffb91fecd5abc571555187a6a6f8c76a2324cf",
+      "memory/project_kpf9_1010_state.md": "37476db8bda1f505fc74920eb726fcc2f9aa8fc19229a2874dac3d1e38728407",
+      "memory/project_kpf9_1011_state.md": "b1016b64de91d27539a396bad4eab4a4e4122ed5a763d6fb43c40b18a029b147",
+      "memory/project_kpf9_sierra_coreui_sideload.md": "0c2cfac41de6e45d69da3ff278c4ac36868f9d219889a2ba8c557c92295931d8",
+      "memory/project_kpf_numbers_canvas_inset.md": "6dcd30b047506494923192edfd6f2c4af9da536fe225366d043ee10667b9c801",
+      "memory/project_kpf_numbers_tab_title.md": "bc86ae981876dff9e5c7d9413777816befdeb65d61cd9c4c10d80e165868f996",
+      "memory/reference_kpf_ssh.md": "78a85d5c8194e8cce2e073cc28e57459e266d388ee6c02048e84ba085037c0d0"
+    }
+  }
+}

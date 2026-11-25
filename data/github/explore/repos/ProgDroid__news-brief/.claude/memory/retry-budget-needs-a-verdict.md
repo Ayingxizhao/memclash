@@ -1,0 +1,80 @@
+---
+name: retry-budget-needs-a-verdict
+description: "A counter that permanently retires work may only be charged by failures that obtained a verdict about that work — an outage charged to the item retires data nobody ever judged, and the obvious fix overshoots into an infinite retry"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: e6d626fb-1862-4525-a333-1ae4323e8d37
+  modified: 2026-09-08T16:31:24.650Z
+---
+
+**A counter that permanently retires a unit of work may only be charged by failures that actually
+obtained a verdict about it.** An infrastructure fault is a statement about the host, never about
+the work.
+
+**Why:** measured 2026-09-08 in news-brief. `item_triage.integrate_attempts >= 3` is a one-way
+door — no prompt-version bump brings a retired item back. A ~90s host DNS fault (it took out RSS
+fetches, Telegram `getUpdates` and the Anthropic API simultaneously) failed three whole
+integration batches, and the bare `except Exception` charged +1 to every item in them: ~15 items
+spent a third of their lifetime budget on a fault that never let a model see them. Three unrelated
+outages and an item is gone for good.
+
+**The loss is not random, which is what makes it a measurement problem rather than an annoyance.**
+The select is `ORDER BY i.id LIMIT n`, so failures always land on the *front* of the queue — the
+oldest corpus. Whatever reads the surviving rows later sees a biased sample and has no way to tell
+infrastructure from content.
+
+**The obvious fix overshoots.** "Do not charge on failure" turns a permanently-malformed request
+into an unbounded retry: a 4xx will be refused identically next hour, so the batch re-pays an
+expensive generation every pass and nothing ever retires it — quieter than the bug it replaces,
+and therefore worse. The discriminator is not *was it an error* but **did anything judge the
+work**.
+
+**How to apply:**
+
+1. For every failure path that increments a permanent counter, ask: did this obtain a verdict
+   about the unit? If not, defer — leave the counter alone and let the next pass re-select it.
+2. With `requests`: `getattr(exc, "response", None) is None` separates DNS/connect/timeout from
+   HTTP status errors; on top of that, **429 and 5xx are the server declining to answer**, which
+   is likewise not a verdict. Everything else, including non-`RequestException`, charges.
+3. **Count deferrals in their own field**, never folded into the failure counter. Folding them
+   misattributes a host fault as poor output quality — the same confound as
+   [[fail-closed-needs-status-not-count]], and in this project it was exactly what made a P3
+   "follow-up" turn out to be a gate-validity bug.
+4. Assert the property on the **database column**, not the tally: the column is the thing that is
+   one-way. Then write a second test for the property the first cannot see — that a deferred unit
+   is genuinely re-offered rather than quietly marked done.
+5. **A one-way counter with no alerting is a stop-loss you have not built.** `news-brief-bqa.15`,
+   BUILT 2026-09-08: `comprehend.retirement` + `brief.comprehend_retirement_alert`, once per change
+   from the hourly monitor. The design lesson that survives the bead: **report the population one
+   failure AWAY from the door alongside the count already through it.** A one-way counter can only
+   ever report a loss that already happened; the at-risk count is the same query and is the only
+   half the operator can still act on.
+
+Related: [[shared-helper-carries-first-callers-tuning]] (retry layers MULTIPLY — 3 item-level × 2
+HTTP; put the retry where budget accounting lives), [[newsbrief-comprehension-pipeline]].
+
+
+## Relaxing a fail-closed rule REPLACES its bound, never removes it (2026-09-10, news-brief-h8p)
+
+The rule here generalised cleanly: a batch whose *response* could not be parsed judged nothing
+either, so it must not charge `integrate_attempts` — 45 items were retired in one day for an
+`items type=dict` that said nothing about them.
+
+**But the test standing in the way was not an oversight, and its docstring said so:**
+
+> Without it a classifier answering 'transient' to everything passes both tests above, and a
+> permanently-malformed batch re-pays an 8192-token generation every hour forever because nothing
+> ever retires it.
+
+That is the bound that keeps the deferral honest. It was **replaced** — a budgeted
+`integrate_defers` column that converts back into a charge at a ceiling — not deleted. **When a
+test blocks the change you are making, read its docstring for the failure it was buying: relaxing
+the rule means re-buying that protection some other way, and deleting the test spends the protection
+without noticing.**
+
+Two specifics worth keeping. **The ceiling's default must survive being wrong about the rate**:
+at 3x the measured per-batch failure rate, ten consecutive misses is still ~1e-6, so the argument
+does not rest on the hand-count. And **do not put two different no-verdict causes on one counter**:
+transport (self-clearing) stayed uncapped precisely because one long outage on a shared ceiling
+would walk the corpus to the cap and let the next unrelated fault charge immediately.

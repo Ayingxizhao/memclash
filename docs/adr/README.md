@@ -12,3 +12,5 @@ Numbers are never reused. A decision that changes is not edited; a new ADR super
 | [0005](0005-git-filter.md) | Find git rules with keywords OR an LLM question; estimate misses by sampling | Accepted |
 | [0006](0006-reference-labels.md) | Build the reference from two separate readers plus the author's decision | Accepted |
 | [0007](0007-tuning-vs-final-test.md) | Large folders are tuning data; the held-out folders are run once | Accepted |
+| [0008](0008-git-and-file-vocabulary.md) | One fixed vocabulary for git and basic file rules | Accepted |
+| [0009](0009-include-claude-md.md) | Check the repo's CLAUDE.md together with the memory folder | Accepted |

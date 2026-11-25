@@ -1,0 +1,51 @@
+---
+name: tdd-plan-fixtures-drift-from-contracts
+description: "When executing these detailed TDD plans, the plan's own test fixtures/assertions can use fields the real functions don't — verify fixtures against real contracts, not just the functions called"
+metadata: 
+  node_type: memory
+  type: feedback
+  originSessionId: b859e710-6883-40ff-8249-13c07d61a21b
+  modified: 2026-07-22T11:40:37.562Z
+---
+
+When executing the news-brief `docs/superpowers/plans/*.md` TDD plans (Sleeve A/B era, same author/style), the plan verifies the FUNCTIONS it calls against the foundation but its **test fixtures and assertions can silently disagree with the real function contracts** — the red step then fails for the wrong reason, or the green step is unreachable.
+
+**Why:** the plan author hand-wrote both test and impl in one pass without running them; field-name/shape mismatches slip through. Sleeve A (2026-07-22) hit THREE in 7 tasks: (1) Task 3 fixture `_parse_pg_market` omitted `question` while impl read `parsed["question"]` → KeyError; (2) Task 6 `trade_history` list-fallback referenced unbound `items` → NameError on a list response; (3) Task 7 test asserted `agg["overall"]["n"]` on rows carrying `realized_return`, but `validation._stats` scores ONLY `net_return` → `overall` is None, assertion crashes regardless of the fix. Live rows carry `realized_return` (no `net_return`), so they're already excluded from `aggregate_performance` by _stats naturally; the `execution!="live"` guard is belt-and-suspenders.
+
+**Sleeve B (2026-07-22) hit THREE more in 7 tasks, incl. a NEW flavor — the fixture can be INTERNALLY SELF-INCONSISTENT, not just drifting from a real symbol:** (1) Task-2 `_sleeve_b_open_ok` test asserted amount 10 was "within both caps" yet amount 9 was "over total" at the SAME exposure 20 / total-cap 25 — mathematically impossible (10>9, so if 9 is over-total then 10 is too); NO correct impl of the described logic can pass it. Fixed the happy-path amount to 5.0 (20+5=25, inclusive boundary), intent preserved. (2) Task-5 `fake_open` omitted the `id` key the real `open_live_position` always sets and `_predict_commit` reads (`row["id"]`) → KeyError. (3) `brief.py` needed `import common` added so the wizard reads flags as module attrs (see [[newsbrief-flag-access-module-attr]]).
+
+**How to apply:** before trusting a plan's red→green, sanity-check the fixture field names against the REAL symbol bodies (read `_parse_pg_market`, `_stats`, `close_live_position`, etc. with serena), not just that the called function exists. Also **arithmetic-check the fixture's own assertions for internal consistency** (a monotonic guard can't call a larger amount "within" and a smaller one "over" at fixed caps). When a plan test fails at the red step for a reason other than "symbol missing" (KeyError/NameError/None-subscript/contradictory-assert), suspect a fixture bug and fix the test to the real contract / a self-consistent case — preserve the test's INTENT, don't rubber-stamp the plan's literal fixture. Flag each such deviation in the commit body. Six such defects across Sleeve A+B (3 each) — treat it as expected, not exceptional. Relates to [[polygram-live-trading-spec]].
+
+
+## When the fixture and the code share ONE unverified assumption (2026-09-10, news-brief-8fy)
+
+The recorded cases here are fixtures drifting from a real *function's* contract. This is the harder
+variant: fixture and implementation agreed perfectly, and **both were wrong about an external
+system**. Every test on the PolyGram exit path hardcoded `{"id": "pos_x", ...}`, authored from the
+same inference as the code that read `p["id"]`. The live venue sends no `id` at all.
+
+**A test suite cannot falsify an assumption it was written from.** Green means the code matches the
+fixture, and the fixture is just the assumption again. This is invisible to every reading pass,
+because the two halves are consistent — that is the whole failure mode.
+
+**The fix is not more tests, it is one measurement.** Where a fixture stands in for an external
+response, the shape must come from a captured real response, and the test should say WHEN it was
+measured (this repo now does: "Measured field set, 2026-09-10: ..."). An undated fixture of an
+external shape is a guess with a green tick next to it.
+
+Cross-reference [[tests-asserting-less-than-their-name]]: the same path also had a stub that
+accepted the identifier and never asserted it, so neither half of the pair could catch the other.
+
+
+**Third instance, 2026-09-11 (`rhg`):** `_fill()` in `tests/test_polygram_live.py` returned 8.06 shares at 0.62 for $5 — i.e. `shares = amount/fill`, the docs' arithmetic — and `test_open_live_position_writes_truthful_row` asserted `entry_price == fill_price` and `cost_basis == amount` against it. Nine real fills said `shares = 2 + 0.0205/fill` and the wallet said cost = amount + fee. A fixture whose numbers are *derived from the formula under test* can never catch the formula being wrong; `MEASURED_BUY_2026_09_01` now sits beside it with the real order. **When a fixture's numbers are round or self-consistent, ask where they came from.**
+
+**Fourth and fifth instances, 2026-09-11 (the retirement plan):** (4) the plan's own test code called
+`_closed(asset_class="prediction", net_return=0.5)` against a helper whose signature is
+`_closed(asset_class, net, ...)` — a TypeError before AND after the change, which a red-team caught by
+running the snippet. **A plan that pastes test code must have run it, or say it hasn't.** (5) the
+subtler one: `test_aggregate_performance_excludes_live` had a live row that was ALSO
+`asset_class == "prediction"`; once the new prediction clause landed, that row was excluded either
+way and the live clause had no test that could fail. **A fixture that satisfies two exclusion
+clauses at once discriminates neither** — when you add a clause, re-read every fixture the OLD
+clause's test uses and make each row trip exactly one clause. The mutation check ("revert only the
+live clause → exactly 1 failure") is what proved the fix.

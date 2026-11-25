@@ -1,0 +1,3278 @@
+{
+ "reader": "claude_a",
+ "folders": [
+  {
+   "folder": "ACCESS-NRI__access-agentic-optimisation",
+   "words_read": "full",
+   "n_instructions_estimate": 12,
+   "file_instructions": [
+    {
+     "file": ".claude/memory/feedback_ssh_heredoc.md",
+     "quote": "Never use `ssh gadi \"cat > file << 'EOF'\\n...\\nEOF\"` to write files containing shell variables like `${VAR}`.",
+     "action": "create",
+     "force": "never",
+     "target": "files containing shell variables (written on Gadi via ssh heredoc)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_ssh_heredoc.md",
+     "quote": "Use Python to write multi-line files to Gadi, AND avoid `${VAR}` patterns in the content",
+     "action": "create",
+     "force": "must",
+     "target": "multi-line files on Gadi",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_ssh_heredoc.md",
+     "quote": "do NOT write a separate script file",
+     "action": "create",
+     "force": "never",
+     "target": "separate script file",
+     "target_is_path": false,
+     "condition": "If the Python code itself needs literal double-quote characters"
+    },
+    {
+     "file": ".claude/memory/feedback_access_om3_short_runs.md",
+     "quote": "set BOTH the stop AND restart parameters in `nuopc.runconfig` to match the desired run length",
+     "action": "edit",
+     "force": "must",
+     "target": "nuopc.runconfig",
+     "target_is_path": true,
+     "condition": "For short ACCESS-OM3 test runs"
+    },
+    {
+     "file": ".claude/memory/feedback_access_om3_short_runs.md",
+     "quote": "Also set `restart_freq: 35D` in `config.yaml`",
+     "action": "edit",
+     "force": "must",
+     "target": "config.yaml",
+     "target_is_path": true,
+     "condition": "For short ACCESS-OM3 test runs"
+    },
+    {
+     "file": ".claude/memory/reference_gadi_python_env.md",
+     "quote": "or adjust the path to `HERE = '.'`",
+     "action": "edit",
+     "force": "may",
+     "target": "notebook using relative paths",
+     "target_is_path": false,
+     "condition": "If the notebook uses relative paths"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/feedback_ssh_heredoc.md",
+     "a_quote": "AND avoid `${VAR}` patterns in the content — use literal values instead",
+     "b_file": ".claude/memory/feedback_ssh_heredoc.md",
+     "b_quote": "If you genuinely need `${VAR}` to appear literally in the written file (e.g. a PBS script that uses those variables at runtime), escape the dollar sign",
+     "topic": "files",
+     "situation": "Writing a PBS script to Gadi that needs ${VAR} at runtime",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "Same file gives an explicit exception; arguably not a clash at all, listed for completeness."
+    }
+   ],
+   "other_topics": [
+    "Gadi/PBS job submission",
+    "payu workflow",
+    "bash scripting style",
+    "ACCESS-OM3 model config"
+   ]
+  },
+  {
+   "folder": "MWBMPartners__iHymns",
+   "words_read": "full",
+   "n_instructions_estimate": 40,
+   "file_instructions": [
+    {
+     "file": "memory/feedback_source_data.md",
+     "quote": "Never delete, modify, or touch files in `.SourceSongData/`.",
+     "action": "delete",
+     "force": "never",
+     "target": ".SourceSongData/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_source_data.md",
+     "quote": "Never delete, modify, or touch files in `.SourceSongData/`.",
+     "action": "edit",
+     "force": "never",
+     "target": ".SourceSongData/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_source_data.md",
+     "quote": "Only read from it (e.g., the song parser).",
+     "action": "read",
+     "force": "may",
+     "target": ".SourceSongData/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_claude_brief.md",
+     "quote": "Do NOT edit it to bump versions, add sections, or refresh metadata.",
+     "action": "edit",
+     "force": "never",
+     "target": ".claude/ProjectBrief.md",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_claude_brief.md",
+     "quote": "record the current reality in `.claude/projects/.../memory/project_ihymns.md` and/or a new `feedback_*.md` file instead",
+     "action": "edit",
+     "force": "must",
+     "target": "memory/project_ihymns.md or new feedback_*.md",
+     "target_is_path": true,
+     "condition": "If information there becomes stale"
+    },
+    {
+     "file": "memory/user_profile.md",
+     "quote": "Wants all documentation updated automatically after every change",
+     "action": "edit",
+     "force": "must",
+     "target": "all documentation",
+     "target_is_path": false,
+     "condition": "after every change"
+    },
+    {
+     "file": "memory/user_profile.md",
+     "quote": "Prefers to **push to GitHub manually** (commit but don't push)",
+     "action": "push",
+     "force": "never",
+     "target": "GitHub (repo)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/user_profile.md",
+     "quote": "(commit but don't push)",
+     "action": "commit",
+     "force": "may",
+     "target": "repo changes",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_appweb_dir.md",
+     "quote": "All web-related files, deployment paths, and documentation should reference `appWeb/`.",
+     "action": "create",
+     "force": "must",
+     "target": "web-related files under appWeb/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_app_dirs.md",
+     "quote": "Never use bare `apple/`, `android/`, or `web/`.",
+     "action": "create",
+     "force": "never",
+     "target": "apple/, android/, web/ directories",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_phase1_seo_pwa_social.md",
+     "quote": "Standing task: keep JSON schema in sync with any songs.json structure changes",
+     "action": "edit",
+     "force": "must",
+     "target": "data/songs.schema.json",
+     "target_is_path": true,
+     "condition": "any songs.json structure changes"
+    },
+    {
+     "file": "memory/feedback_phase1_seo_pwa_social.md",
+     "quote": "CHANGELOG.md allowed to deploy (removed from exclusions)",
+     "action": "push",
+     "force": "may",
+     "target": "CHANGELOG.md",
+     "target_is_path": true,
+     "condition": "deploy via lftp"
+    },
+    {
+     "file": "memory/feedback_phase1_seo_pwa_social.md",
+     "quote": "Excludes: IDE files (.vscode, .idea, .xcodeproj, .sublime-*), repo files (.git, .github), OS files (.DS_Store, Thumbs.db)",
+     "action": "push",
+     "force": "never",
+     "target": "IDE files, .git, .github, OS files",
+     "target_is_path": true,
+     "condition": "deploy via lftp"
+    },
+    {
+     "file": "memory/feedback_phase1_simplicity.md",
+     "quote": "Accept the current \"copy songs.json into each deploy directory\" approach as good enough.",
+     "action": "create",
+     "force": "may",
+     "target": "songs.json copies in each deploy directory",
+     "target_is_path": true,
+     "condition": "Phase 1"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/user_profile.md",
+     "a_quote": "Wants all documentation updated automatically after every change",
+     "b_file": "memory/feedback_claude_brief.md",
+     "b_quote": "Do NOT edit it to bump versions, add sections, or refresh metadata.",
+     "topic": "files",
+     "situation": "A change makes the version/metadata in .claude/ProjectBrief.md stale",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "ProjectBrief rule is newer and says to record the update in project_ihymns.md instead, which reads as an exception; unsure whether ProjectBrief counts as 'documentation'."
+    },
+    {
+     "a_file": "memory/feedback_phase1_seo_pwa_social.md",
+     "a_quote": "Version bumps only on `beta` branch (industry standard)",
+     "b_file": "memory/project_resume_2026-06-06_merged_to_alpha.md",
+     "b_quote": "#1162 (migration **OR-probe** drift fix for `tblSongLinkSuggestions.Signal` + the v0.770.0 version bump)",
+     "topic": "git",
+     "situation": "Bumping the app version in work that merges to alpha",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The later record shows a version bump merged to alpha, contradicting the beta-only rule; it is a record rather than an instruction, and the resume file says older files are stale."
+    },
+    {
+     "a_file": "memory/feedback_phase1_simplicity.md",
+     "a_quote": "Accept the current \"copy songs.json into each deploy directory\" approach as good enough.",
+     "b_file": "memory/project_resume_2026-06-06_merged_to_alpha.md",
+     "b_quote": "the other files in this dir are a stale cross-device sync (v0.10.1-era)",
+     "topic": "files",
+     "situation": "Deciding how song data is distributed to deploy directories now that the DB-direct layer is live",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The newer resume file declares the older memories stale, which arguably supersedes the songs.json-copy guidance."
+    }
+   ],
+   "other_topics": [
+    "colour scheme / UI style",
+    "code comments and annotation style",
+    "database naming",
+    "auth/roles architecture",
+    "CI/CD lftp deploy",
+    "version management",
+    "GitHub issues tracking"
+   ]
+  },
+  {
+   "folder": "RedAvocado22__claude-code-mentoring",
+   "words_read": "full",
+   "n_instructions_estimate": 30,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Read `./memory/mentoring_rules.md` and `./memory/user_profile.md` before responding.",
+     "action": "read",
+     "force": "must",
+     "target": "./memory/mentoring_rules.md, ./memory/user_profile.md",
+     "target_is_path": true,
+     "condition": "Session start"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "All memory read/write uses `./memory/` (project root).",
+     "action": "edit",
+     "force": "must",
+     "target": "./memory/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Rewrite the user's code — point out the problem, user fixes it",
+     "action": "edit",
+     "force": "never",
+     "target": "the user's code",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Claude writes: JPA entities, mappers, repos, migration SQL, DTOs, exception classes, unit tests.",
+     "action": "create",
+     "force": "only_if",
+     "target": "JPA entities, mappers, repos, migration SQL, DTOs, exception classes, unit tests",
+     "target_is_path": false,
+     "condition": "User says \"I know this already, write the boilerplate\" (Mode B)"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "User always writes: domain layer (value objects, domain model, events, business methods), configs, stubs.",
+     "action": "create",
+     "force": "never",
+     "target": "domain layer, configs, stubs",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/mentoring_rules.md",
+     "quote": "Boilerplate: user writes it, Claude explains each decision as they go",
+     "action": "create",
+     "force": "never",
+     "target": "boilerplate",
+     "target_is_path": false,
+     "condition": "Mode A (default)"
+    },
+    {
+     "file": "memory/mentoring_rules.md",
+     "quote": "Claude writes: JPA entities, mappers, repos, migration SQL, DTOs, exception classes, unit tests, Postman tests",
+     "action": "create",
+     "force": "only_if",
+     "target": "JPA entities, mappers, repos, migration SQL, DTOs, exception classes, unit tests, Postman tests",
+     "target_is_path": false,
+     "condition": "Mode B"
+    },
+    {
+     "file": "memory/MEMORY.md",
+     "quote": "At the end of each session, update:\n1. `dev_progress.md`",
+     "action": "edit",
+     "force": "must",
+     "target": "dev_progress.md, recurring_mistakes.md, feedback_log.md",
+     "target_is_path": true,
+     "condition": "At the end of each session"
+    },
+    {
+     "file": "memory/MEMORY.md",
+     "quote": "Create new files for important context not covered by the above",
+     "action": "create",
+     "force": "must",
+     "target": "new memory files",
+     "target_is_path": false,
+     "condition": "important context not covered by the above"
+    },
+    {
+     "file": "memory/dev_progress.md",
+     "quote": "Update every session.",
+     "action": "edit",
+     "force": "must",
+     "target": "dev_progress.md",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_log.md",
+     "quote": "Expensive — ask first, don't assume \"best practice\" means \"necessary here\".",
+     "action": "create",
+     "force": "only_if",
+     "target": "new files (expensive scope)",
+     "target_is_path": false,
+     "condition": "adding scope beyond what was asked; ask first"
+    },
+    {
+     "file": "memory/recurring_mistakes.md",
+     "quote": "Fix: commit after each coherent change — method done, bug fixed, new file wired up.",
+     "action": "commit",
+     "force": "must",
+     "target": "each coherent change",
+     "target_is_path": false,
+     "condition": ""
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/MEMORY.md",
+     "a_quote": "Create new files for important context not covered by the above",
+     "b_file": "memory/feedback_log.md",
+     "b_quote": "Expensive (new files, new dependency, architecture change). Cheap — just add it. Expensive — ask first",
+     "topic": "ask-before-acting",
+     "situation": "End of session, Claude wants to create a new memory file",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One says create new files as part of the protocol, the other says new files are expensive and need asking first; the feedback entry is about code scope, so they may not overlap."
+    }
+   ],
+   "other_topics": [
+    "tone",
+    "mentoring modes A/B",
+    "code review protocol",
+    "teaching style",
+    "context compaction",
+    "no Co-Authored-By"
+   ]
+  },
+  {
+   "folder": "paulcaron16k__gh-agile",
+   "words_read": "full",
+   "n_instructions_estimate": 55,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "rewritten the snapshot; review both and commit them",
+     "action": "commit",
+     "force": "must",
+     "target": "GitHub_API_changelog.md and GitHub_API_spec.json snapshot",
+     "target_is_path": true,
+     "condition": "after `make api-drift` reports drift"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Adding a column to the export means adding it to `github_catalog.json`",
+     "action": "edit",
+     "force": "must",
+     "target": "github_catalog.json",
+     "target_is_path": true,
+     "condition": "Adding a column to the export"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "nothing here writes an `agile_*` file",
+     "action": "create",
+     "force": "never",
+     "target": "agile_* files",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**do not restate live state in this file, and do not \"helpfully\" copy it back.** Add it to `docs/tasks.md` or leave it out.",
+     "action": "edit",
+     "force": "never",
+     "target": "CLAUDE.md (live state)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Add it to `docs/tasks.md` or leave it out.",
+     "action": "edit",
+     "force": "may",
+     "target": "docs/tasks.md",
+     "target_is_path": true,
+     "condition": "recording live state"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Read it before touching anything live**",
+     "action": "read",
+     "force": "must",
+     "target": "docs/tasks.md (Live state section)",
+     "target_is_path": true,
+     "condition": "before touching anything live"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Findings that cost something to learn, with the measurement. Read before repeating an experiment",
+     "action": "read",
+     "force": "must",
+     "target": "docs/lessons.md",
+     "target_is_path": true,
+     "condition": "before repeating an experiment"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Profile** — `.github/agile.json`, visible and checked in",
+     "action": "commit",
+     "force": "must",
+     "target": ".github/agile.json",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "When a hint goes, its old command line joins `REMOVED` in `tests/test_retired_spellings.py`",
+     "action": "edit",
+     "force": "must",
+     "target": "tests/test_retired_spellings.py",
+     "target_is_path": true,
+     "condition": "When a hint goes"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Non-obvious workarounds carry a comment saying *why*, with the measurement where there was one.",
+     "action": "edit",
+     "force": "must",
+     "target": "code containing non-obvious workarounds",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "`make api-spec` rewrites the baseline from scratch.",
+     "action": "edit",
+     "force": "may",
+     "target": "GitHub_API_spec.json",
+     "target_is_path": true,
+     "condition": ""
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/github-iterations-destroy-assignments.md",
+     "a_quote": "Never rename or re-date a sprint to \"tidy up\".",
+     "b_file": "CLAUDE.md",
+     "b_quote": "**A sprint may be renamed.** Until #290 it could not be",
+     "topic": "other",
+     "situation": "User asks to tidy the sprint-naming seam on the board",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "CLAUDE.md records the later fix (#290, ids now sent) and says the seam 'can now be tidied or kept', superseding the memory file."
+    },
+    {
+     "a_file": ".claude/memory/github-iterations-destroy-assignments.md",
+     "a_quote": "**Why:** there is no safe write. The field cannot hold history.",
+     "b_file": "CLAUDE.md",
+     "b_quote": "With ids sent, a rename is an ordinary write and costs what adding a sprint costs.",
+     "topic": "other",
+     "situation": "Deciding whether an iteration-config write (e.g. sprint create) is safe",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "Same supersession by #290; memory file is stale."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "**do not restate live state in this file, and do not \"helpfully\" copy it back.**",
+     "b_file": "CLAUDE.md",
+     "b_quote": "**Use the sandbox: `paulcaron16k/agile-test`, checked out at `../agile-test`.** See its `plan.txt`. Private, issues enabled, its own board (project `#19`)",
+     "topic": "files",
+     "situation": "The sandbox repo/project number/checkout changes and CLAUDE.md must either be updated (restating live state) or left wrong",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "CLAUDE.md itself restates repositories, project numbers and checkouts, which its Live state section says live only in docs/tasks.md; it may be treated as policy rather than live state."
+    }
+   ],
+   "other_topics": [
+    "stdlib-only constraint",
+    "testing policy / sandbox",
+    "GitHub API iteration defect",
+    "export schema/catalog",
+    "durations in seconds",
+    "CLI conventions",
+    "Python version floor",
+    "merge-check workflow"
+   ]
+  },
+  {
+   "folder": "sid597__Softland",
+   "words_read": "full",
+   "n_instructions_estimate": 150,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "While a question is live, write nothing under `docs/` or memory — no routing, no landing, no commits",
+     "action": "create",
+     "force": "never",
+     "target": "docs/ and memory",
+     "target_is_path": true,
+     "condition": "While a question is live"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "While a question is live, write nothing under `docs/` or memory — no routing, no landing, no commits",
+     "action": "commit",
+     "force": "never",
+     "target": "any",
+     "target_is_path": false,
+     "condition": "While a question is live"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Disk happens at settlement — Sid's word (\"land it\", \"settled\", a yes to \"settle this?\") — or at session end, where the full write-set ... is previewed in one message so Sid can veto",
+     "action": "create",
+     "force": "only_if",
+     "target": "docs/ and memory writes",
+     "target_is_path": true,
+     "condition": "at settlement (Sid's word) or at session end with previewed write-set"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "commit freely, code, docs, and law files alike, on `main`, no approval needed, with no condition on what may go public",
+     "action": "commit",
+     "force": "may",
+     "target": "code, docs, and law files",
+     "target_is_path": false,
+     "condition": "once settled"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Pushing/merging stays Sid's alone",
+     "action": "push",
+     "force": "never",
+     "target": "repo",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Use `.claude/memory/MEMORY.md` for the retained working preferences. Read it if it is not already in the session context",
+     "action": "read",
+     "force": "must",
+     "target": ".claude/memory/MEMORY.md",
+     "target_is_path": true,
+     "condition": "if not already in session context"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "At the start of a build session, read `docs/decisions.md`",
+     "action": "read",
+     "force": "must",
+     "target": "docs/decisions.md",
+     "target_is_path": true,
+     "condition": "At the start of a build session"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Before gathering, reviewing, explaining, or changing client or server code, read that source root's guidance and map",
+     "action": "read",
+     "force": "must",
+     "target": "src/app/client/CLAUDE.md, src/app/client/README.md, src/app/server/CLAUDE.md, src/app/server/README.md",
+     "target_is_path": true,
+     "condition": "Before gathering, reviewing, explaining, or changing client or server code"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Keep affected explanations and their immediate parent maps aligned with code changes",
+     "action": "edit",
+     "force": "must",
+     "target": "affected explanations and parent maps (docstrings, READMEs)",
+     "target_is_path": false,
+     "condition": "with code changes"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "do not silently resolve a contradiction by rewriting the vision",
+     "action": "edit",
+     "force": "never",
+     "target": "vision (docs/carry-on.md, vision/LOG.md)",
+     "target_is_path": true,
+     "condition": "to resolve a contradiction silently"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "consult it when a question needs their rationale or evidence, rather than loading it by default",
+     "action": "read",
+     "force": "only_if",
+     "target": "history/",
+     "target_is_path": true,
+     "condition": "when a question needs their rationale or evidence"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "read `.claude/skills/staff-product-architect.md`",
+     "action": "read",
+     "force": "must",
+     "target": ".claude/skills/staff-product-architect.md",
+     "target_is_path": true,
+     "condition": "falsification pass of code review"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**NEVER read `src/app/server/env.clj`** — API keys; reference as symbols only.",
+     "action": "read",
+     "force": "never",
+     "target": "src/app/server/env.clj",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "'don't keep things in tmp they will be lost when i restart'",
+     "action": "create",
+     "force": "never",
+     "target": "tmp",
+     "target_is_path": true,
+     "condition": "suggestion section, at discretion"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "`vision/LOG.md` — the primary source, verbatim (his words, append-only).",
+     "action": "edit",
+     "force": "never",
+     "target": "vision/LOG.md (other than append)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-ask-before-deleting.md",
+     "quote": "treat a deletion as a question to Sid, not a step in a plan: name the files, what they are, why they would go, what is lost, then wait for his word.",
+     "action": "delete",
+     "force": "only_if",
+     "target": "any file, even regenerable self-made ones",
+     "target_is_path": false,
+     "condition": "after naming the files and getting Sid's word"
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "Session handoffs, fact bases, starters and proposals for a piece of work go under `src/proposal/<work>*`",
+     "action": "create",
+     "force": "must",
+     "target": "src/proposal/<work>*",
+     "target_is_path": true,
+     "condition": "handoffs, fact bases, starters, proposals"
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "`history/` is the archive of earlier work and is out of bounds for new writes.",
+     "action": "create",
+     "force": "never",
+     "target": "history/",
+     "target_is_path": true,
+     "condition": "unless Sid names it"
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "Saved web pages and PDFs from research sessions ... go to a depot beside the repos, `/mnt/data/projects/research/<project>/<work>/`",
+     "action": "ignore",
+     "force": "must",
+     "target": "big fetched captures (web pages, PDFs)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "`.gitignore` has `src/proposal/**/sources/`.",
+     "action": "ignore",
+     "force": "must",
+     "target": "src/proposal/**/sources/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "No symlink from the repo into the depot",
+     "action": "create",
+     "force": "never",
+     "target": "symlink from repo into depot",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "The research repository has no remote and is never pushed anywhere public",
+     "action": "push",
+     "force": "never",
+     "target": "/mnt/data/projects/research/ repo",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "\"we should also commit the research folder so it is not lost\"",
+     "action": "commit",
+     "force": "must",
+     "target": "research folder (own repo)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "quote": "Nested clones of public repositories are listed in its `CLONES.md` rather than committed.",
+     "action": "commit",
+     "force": "never",
+     "target": "nested clones of public repositories",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback-memory-long-term-only.md",
+     "quote": "Never write memory mid-flow without Sid's word.",
+     "action": "edit",
+     "force": "only_if",
+     "target": "memory",
+     "target_is_path": false,
+     "condition": "mid-flow requires Sid's word"
+    },
+    {
+     "file": ".claude/memory/feedback-memory-long-term-only.md",
+     "quote": "that goes in the live folder's PROGRESS.md (Now rewritten on change, Log append-only)",
+     "action": "edit",
+     "force": "must",
+     "target": "src/proposal/<work>/PROGRESS.md",
+     "target_is_path": true,
+     "condition": "weekly state, mid-flow rulings"
+    },
+    {
+     "file": ".claude/memory/feedback-parallel-sessions-share-the-working-tree.md",
+     "quote": "stage named paths only, never a folder that another session may be writing in",
+     "action": "commit",
+     "force": "only_if",
+     "target": "own named paths",
+     "target_is_path": false,
+     "condition": "after git log/status check before each commit"
+    },
+    {
+     "file": ".claude/memory/feedback-show-before-writing-into-an-approved-page.md",
+     "quote": "show him first: every item in plain words, what each would change on the page, and which need his decision. Write on his word",
+     "action": "edit",
+     "force": "only_if",
+     "target": "a page Sid has approved",
+     "target_is_path": false,
+     "condition": "on his word after showing each item"
+    },
+    {
+     "file": ".claude/memory/feedback-before-building-from-a-page.md",
+     "quote": "Before writing code from a page, send Sid one short message ... Wait for go.",
+     "action": "create",
+     "force": "only_if",
+     "target": "code built from a page",
+     "target_is_path": false,
+     "condition": "after Sid's go"
+    },
+    {
+     "file": ".claude/memory/reference-store-proof-runs-and-the-shell.md",
+     "quote": "Either wait for the sequence, or take the baseline from a detached worktree",
+     "action": "edit",
+     "force": "never",
+     "target": "src-store, test-store",
+     "target_is_path": true,
+     "condition": "while a proof sequence still has a proof to start"
+    },
+    {
+     "file": ".claude/memory/reference-store-proof-runs-and-the-shell.md",
+     "quote": "Never open a file under a build's `runs/` whose name begins `raw-`",
+     "action": "read",
+     "force": "never",
+     "target": "runs/raw-*",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/project-first-record-research-application.md",
+     "quote": "Reading fence he set for this work: never `research/loop/` or `research/sources/`.",
+     "action": "read",
+     "force": "never",
+     "target": "research/loop/, research/sources/",
+     "target_is_path": true,
+     "condition": "first-record work"
+    },
+    {
+     "file": ".claude/memory/project-inland-integration-2026-09-14.md",
+     "quote": "point at FACTS.md before any code hunt",
+     "action": "read",
+     "force": "must",
+     "target": "src/proposal/inland-integration-2026-09-14/FACTS.md",
+     "target_is_path": true,
+     "condition": "In a session on the Inland integration"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "commit freely, code, docs, and law files alike, on `main`, no approval needed, with no condition on what may go public",
+     "b_file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "b_quote": "big fetched captures and research-only work go to the depot ... never into the Softland repo and never linked from it",
+     "topic": "git",
+     "situation": "A research session has saved PDFs or a research-only folder in the working tree and work is settled",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "CLAUDE.md says no condition on what may go public, the memory says those files must never be committed; 'no condition' probably targets licensing, not file kinds."
+    },
+    {
+     "a_file": ".claude/memory/feedback-ask-before-deleting.md",
+     "a_quote": "treat a deletion as a question to Sid, not a step in a plan",
+     "b_file": ".claude/memory/feedback-test-when-a-part-is-whole.md",
+     "b_quote": "Removal, renames and small changes: one short list of what goes, then the edit, then the proofs.",
+     "topic": "ask-before-acting",
+     "situation": "A build removes code files no longer needed",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "The test note says it 'does not loosen the rule to confirm before a destructive or outward-facing action'."
+    },
+    {
+     "a_file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "a_quote": "`history/` is the archive of earlier work and is out of bounds for new writes.",
+     "b_file": ".claude/memory/feedback-proposals-under-src-proposal.md",
+     "b_quote": "Sid wants the proposal folder to hold only what gets passed on, and the rest moved to `history/`",
+     "topic": "files",
+     "situation": "Retiring superseded proposal material",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "Explicit exception: history/ writes allowed when Sid names it, which he did."
+    },
+    {
+     "a_file": ".claude/memory/reference-desktop-browser-harness-road.md",
+     "a_quote": "If the repo doc and this memory diverge, this memory wins until a session re-proves the road.",
+     "b_file": ".claude/memory/MEMORY.md",
+     "b_quote": "Primary sources over any session's compression — including everything in this file.",
+     "topic": "other",
+     "situation": "docs/guides/browser-verification.md and the memory give different launch commands",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The specific memory note states its own precedence, but the index's lens puts primary sources above memory; which is 'primary' here is ambiguous."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "So length is not a cost to save. The working is the deliverable.",
+     "b_file": ".claude/memory/feedback-large-research-loads-go-small.md",
+     "b_quote": "Keep write-ups short (about a page per item) and say what was not read.",
+     "topic": "output-format",
+     "situation": "Writing up the application of a large research load",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One forbids treating length as a cost, the other asks for short write-ups; the research note calls itself a shape, not a rule."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Sid has never asked for short output.",
+     "b_file": ".claude/memory/feedback-a-question-to-sid-carries-its-own-context.md",
+     "b_quote": "When it is his turn to decide, send the decision message alone ... This does not shorten an exploration: there the working is still what he reads.",
+     "topic": "output-format",
+     "situation": "Sending Sid a decision message",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "The newer note scopes itself to decision messages and explicitly keeps the long working for exploration."
+    },
+    {
+     "a_file": ".claude/memory/project-store-offers-the-spectrum.md",
+     "a_quote": "the answer is \"the store supports both, with a default\"; do not ask Sid to pick.",
+     "b_file": ".claude/memory/feedback-rig-server-inland-are-examples.md",
+     "b_quote": "when a question has no ruling, write it as open and put it to Sid",
+     "topic": "ask-before-acting",
+     "situation": "An unruled store question with two ends that tools could both want",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One says don't ask Sid, pick 'both + default'; the other says unruled questions go to Sid; the spectrum rule may itself count as the ruling."
+    },
+    {
+     "a_file": ".claude/memory/feedback-test-when-a-part-is-whole.md",
+     "a_quote": "Keep the checks that a method or a skill already sets at its stage boundaries",
+     "b_file": ".claude/memory/feedback-test-when-a-part-is-whole.md",
+     "b_quote": "the earlier line here, \"keep the checks that a method already sets at its stage boundaries\", was too weak.",
+     "topic": "other",
+     "situation": "Running a named staged method on a small removal",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "Later dated entry explicitly corrects the earlier line."
+    }
+   ],
+   "other_topics": [
+    "vision/carry-on reading",
+    "architecture protection (no caching patches)",
+    "model routing / delegation",
+    "how to ask Sid questions",
+    "exploration style (few-many-few)",
+    "commit attribution",
+    "testing cadence",
+    "browser/WebGL harness recipes"
+   ]
+  },
+  {
+   "folder": "Pomax__image-deduplicate",
+   "words_read": "full",
+   "n_instructions_estimate": 10,
+   "file_instructions": [
+    {
+     "file": ".claude/memory/build-only-through-the-build-script.md",
+     "quote": "Never run `cargo build --release --workspace` and the two `mv` calls by hand.",
+     "action": "edit",
+     "force": "never",
+     "target": "release binaries (moved by hand)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/build-only-through-the-build-script.md",
+     "quote": "If the build needs to change, change the script.",
+     "action": "edit",
+     "force": "must",
+     "target": "scripts\\build.bat / scripts/build.sh",
+     "target_is_path": true,
+     "condition": "If the build needs to change"
+    },
+    {
+     "file": ".claude/memory/test-against-the-network-folder-only.md",
+     "quote": "read the folder from `crate::settings::Settings::load().folder` or take it from the environment.",
+     "action": "read",
+     "force": "must",
+     "target": "the folder in the application's settings file (network mount)",
+     "target_is_path": false,
+     "condition": "verifying a fix"
+    },
+    {
+     "file": ".claude/memory/test-against-the-network-folder-only.md",
+     "quote": "If there is no folder set, fail loudly rather than falling back to a temp directory.",
+     "action": "create",
+     "force": "never",
+     "target": "temp directory of generated files (for verification)",
+     "target_is_path": false,
+     "condition": "If there is no folder set"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/one-test-at-a-time.md",
+     "a_quote": "those tests all work on a temporary folder on a fast disk, where the fault does not exist",
+     "b_file": ".claude/memory/test-against-the-network-folder-only.md",
+     "b_quote": "Calling a fix good on the strength of a temporary directory of generated files is forbidden.",
+     "topic": "other",
+     "situation": "Verifying a fix by running the one named test, if that test uses a temp folder",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The one-test rule's own description says tests use temp folders, while verification must use the network folder; measure-before-changing implies named tests can target the real folder, so it may be fine."
+    },
+    {
+     "a_file": ".claude/memory/build-only-through-the-build-script.md",
+     "a_quote": "Never run `cargo build --release --workspace` and the two `mv` calls by hand.",
+     "b_file": ".claude/memory/one-test-at-a-time.md",
+     "b_quote": "`cargo test --bin imgdedupe <exact_test_name>`",
+     "topic": "tools",
+     "situation": "Running a test, which also compiles the crate with cargo by hand",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Likely compatible (the ban targets release builds and moving binaries), but cargo test is a by-hand cargo build."
+    }
+   ],
+   "other_topics": [
+    "measure before changing",
+    "testing scope",
+    "build process"
+   ]
+  },
+  {
+   "folder": "iltan987__collectify",
+   "words_read": "full",
+   "n_instructions_estimate": 18,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "then **propose** a commit message and **wait** for the user's approval. Never `--no-verify`.",
+     "action": "commit",
+     "force": "only_if",
+     "target": "phase work",
+     "target_is_path": false,
+     "condition": "lint/build/test green at phase boundary and user approval"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Do not hand-edit `package.json` / `pnpm-lock.yaml`.",
+     "action": "edit",
+     "force": "never",
+     "target": "package.json, pnpm-lock.yaml",
+     "target_is_path": true,
+     "condition": "by hand (use pnpm CLI)"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "new agent memory goes in `<repo>/.claude/memory/`, indexed in `.claude/memory/MEMORY.md`.",
+     "action": "create",
+     "force": "must",
+     "target": "<repo>/.claude/memory/",
+     "target_is_path": true,
+     "condition": "new agent memory"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "No writes to `~/.claude/projects/.../memory/`.",
+     "action": "edit",
+     "force": "never",
+     "target": "~/.claude/projects/.../memory/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_memory_in_project_folder.md",
+     "quote": "Do not re-populate the per-user folder with content.",
+     "action": "create",
+     "force": "never",
+     "target": "~/.claude/projects/.../memory/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_memory_in_project_folder.md",
+     "quote": "project-folder memory is committed to git and shared with the whole team",
+     "action": "commit",
+     "force": "must",
+     "target": ".claude/memory/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_memory_in_project_folder.md",
+     "quote": "When the user asks to remember or forget something, make the change here.",
+     "action": "edit",
+     "force": "must",
+     "target": ".claude/memory/",
+     "target_is_path": true,
+     "condition": "When the user asks to remember or forget something"
+    },
+    {
+     "file": ".claude/memory/feedback_no_coauthor_trailer.md",
+     "quote": "If existing scripts/templates would inject one, disable that path and surface it to the user.",
+     "action": "edit",
+     "force": "must",
+     "target": "scripts/templates that inject co-author trailers",
+     "target_is_path": false,
+     "condition": "If existing scripts/templates would inject one"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "No writes to `~/.claude/projects/.../memory/`.",
+     "b_file": ".claude/memory/feedback_memory_in_project_folder.md",
+     "b_quote": "The per-user `~/.claude/projects/.../memory/MEMORY.md` contains a single-line pointer redirecting the harness to `.claude/memory/MEMORY.md`",
+     "topic": "files",
+     "situation": "The per-user pointer file is missing or stale and auto-load breaks",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The pointer is described as an accepted state and 'do not re-populate ... with content' narrows the ban, but neither text says whether recreating the pointer is allowed."
+    }
+   ],
+   "other_topics": [
+    "phased gates / lint-build-test",
+    "verify library APIs",
+    "delegate interactive auth steps",
+    "TypeScript typing style",
+    "no co-author trailers"
+   ]
+  },
+  {
+   "folder": "brijam__Mello",
+   "words_read": "full",
+   "n_instructions_estimate": 35,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Copy `.env.example` to `.env`.",
+     "action": "create",
+     "force": "must",
+     "target": ".env",
+     "target_is_path": true,
+     "condition": "environment setup"
+    },
+    {
+     "file": "memory/project_trello_export.md",
+     "quote": "Build the Trello import as a standalone script/tool within the Mello project.",
+     "action": "create",
+     "force": "must",
+     "target": "Trello import script within the Mello project",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_no_external_network.md",
+     "quote": "No CDN-hosted fonts, icons, CSS, or JS — all assets bundled locally",
+     "action": "create",
+     "force": "must",
+     "target": "locally bundled assets (fonts, icons, CSS, JS)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_tdd.md",
+     "quote": "Write failing tests FIRST, then implement to pass",
+     "action": "create",
+     "force": "must",
+     "target": "test files (before implementation code)",
+     "target_is_path": false,
+     "condition": ""
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/feedback_tdd.md",
+     "a_quote": "Run full test suite after every change",
+     "b_file": "CLAUDE.md",
+     "b_quote": "Always confirm before running server tests.",
+     "topic": "ask-before-acting",
+     "situation": "After a change, the agent must run the full suite (which includes server tests that truncate tables) but must confirm first",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Both can be satisfied by asking each time, but the TDD rule implies running automatically after every change while CLAUDE.md requires a confirmation gate."
+    },
+    {
+     "a_file": "memory/feedback_no_external_network.md",
+     "a_quote": "The running application must never make outbound network requests.",
+     "b_file": "memory/project_trello_export.md",
+     "b_quote": "Build the Trello import as a standalone script/tool within the Mello project.",
+     "topic": "other",
+     "situation": "The Trello import tool inside the project calls trello.com APIs",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Probably compatible since the import is a one-off tool rather than the running app, but neither file says so."
+    }
+   ],
+   "other_topics": [
+    "feature scope / exclusions",
+    "TDD and coverage",
+    "UI centering",
+    "accessibility font sizes",
+    "tech stack conventions"
+   ]
+  },
+  {
+   "folder": "shubhambansal013__gei",
+   "words_read": "full",
+   "n_instructions_estimate": 40,
+   "file_instructions": [
+    {
+     "file": ".claude/memory/project_apr_execution.md",
+     "quote": "When picking up this branch, **read `HANDOFF.md` at repo root first**",
+     "action": "read",
+     "force": "must",
+     "target": "HANDOFF.md",
+     "target_is_path": true,
+     "condition": "When picking up this branch"
+    },
+    {
+     "file": ".claude/memory/README.md",
+     "quote": "When starting a session on this repo, read:\n\n1. `../../CLAUDE.md`",
+     "action": "read",
+     "force": "must",
+     "target": "CLAUDE.md, HANDOFF.md, .claude/memory/MEMORY.md",
+     "target_is_path": true,
+     "condition": "When starting a session"
+    },
+    {
+     "file": ".claude/memory/project_gei_inventory.md",
+     "quote": "Two hand-authored files: `components/ui/form.tsx` and `components/ui/sonner.tsx` — don't regenerate.",
+     "action": "edit",
+     "force": "never",
+     "target": "components/ui/form.tsx, components/ui/sonner.tsx (regenerate)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/project_spec_immutable.md",
+     "quote": "Do not edit these in place, even when their content goes stale relative to shipped code.",
+     "action": "edit",
+     "force": "never",
+     "target": "docs/superpowers/specs/*.md, docs/superpowers/plans/*.md",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/project_spec_immutable.md",
+     "quote": "If an amendment is needed, create a new dated file in the same directory",
+     "action": "create",
+     "force": "must",
+     "target": "new dated file in docs/superpowers/specs/ or plans/",
+     "target_is_path": true,
+     "condition": "If an amendment is needed"
+    },
+    {
+     "file": ".claude/memory/project_spec_immutable.md",
+     "quote": "`schema.sql` — canonical DB schema (update whenever migrations land)",
+     "action": "edit",
+     "force": "must",
+     "target": "schema.sql",
+     "target_is_path": true,
+     "condition": "whenever migrations land"
+    },
+    {
+     "file": ".claude/memory/project_spec_immutable.md",
+     "quote": "Editable equivalents that should stay in sync:",
+     "action": "edit",
+     "force": "must",
+     "target": "README.md, docs/permissions.md, docs/architecture.md, docs/DESIGN.md, CLAUDE.md, HANDOFF.md",
+     "target_is_path": true,
+     "condition": "keep in sync with code"
+    },
+    {
+     "file": ".claude/memory/README.md",
+     "quote": "Safe to edit / add / remove when a convention changes or a new preference emerges.",
+     "action": "edit",
+     "force": "may",
+     "target": ".claude/memory/ files",
+     "target_is_path": true,
+     "condition": "when a convention changes or a new preference emerges"
+    },
+    {
+     "file": ".claude/memory/README.md",
+     "quote": "Safe to edit / add / remove when a convention changes or a new preference emerges.",
+     "action": "delete",
+     "force": "may",
+     "target": ".claude/memory/ files",
+     "target_is_path": true,
+     "condition": "when a convention changes"
+    },
+    {
+     "file": ".claude/memory/README.md",
+     "quote": "If a fact conflicts with what you observe in the code, trust the code and update the file.",
+     "action": "edit",
+     "force": "must",
+     "target": ".claude/memory/ files",
+     "target_is_path": true,
+     "condition": "If a fact conflicts with the code"
+    },
+    {
+     "file": ".claude/memory/README.md",
+     "quote": "Don't commit secrets here. These files live in git.",
+     "action": "commit",
+     "force": "never",
+     "target": "secrets in .claude/memory/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/feedback_direct_push.md",
+     "quote": "After a coherent set of commits, push with `git push`",
+     "action": "push",
+     "force": "may",
+     "target": "feature/foundation",
+     "target_is_path": false,
+     "condition": "After a coherent set of commits"
+    },
+    {
+     "file": ".claude/memory/feedback_direct_push.md",
+     "quote": "Do not touch `main` without explicit instruction.",
+     "action": "push",
+     "force": "never",
+     "target": "main",
+     "target_is_path": false,
+     "condition": "without explicit instruction"
+    },
+    {
+     "file": ".claude/memory/feedback_commit_sig.md",
+     "quote": "git -c user.email=vkcsenitj@gmail.com -c user.name=\"Vivek Kumar\" commit ...",
+     "action": "commit",
+     "force": "must",
+     "target": "every programmatic commit (inline identity)",
+     "target_is_path": false,
+     "condition": "When committing programmatically"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/feedback_commit_sig.md",
+     "a_quote": "Every commit body ends with:\n\n```\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>",
+     "b_file": ".claude/memory/feedback_concise_reports.md",
+     "b_quote": "Vivek is the author-of-record for everything shipped; commits need to read like he wrote them.",
+     "topic": "git",
+     "situation": "Writing a commit message",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "An AI co-author trailer arguably makes a commit not read as Vivek's own; one could read 'read like he wrote them' as tone only."
+    },
+    {
+     "a_file": ".claude/memory/MEMORY.md",
+     "a_quote": "feature/foundation is the active branch and merges direct to main",
+     "b_file": ".claude/memory/feedback_direct_push.md",
+     "b_quote": "Do not touch `main` without explicit instruction.",
+     "topic": "git",
+     "situation": "Work on feature/foundation is done and ready to land on main",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The index describes the practice; the direct_push rule adds that merging to main needs explicit instruction, which reads as the governing condition."
+    },
+    {
+     "a_file": ".claude/memory/feedback_parallel.md",
+     "a_quote": "Even when the work is fairly small; demonstrating the pattern matters.",
+     "b_file": ".claude/memory/feedback_parallel.md",
+     "b_quote": "For small focused changes (single-file fix), inline is fine and faster than worktree overhead.",
+     "topic": "tools",
+     "situation": "A small task with two independent single-file lanes",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "Same file gives a small-change exception, but where 'fairly small' ends and 'single-file fix' begins is unclear."
+    }
+   ],
+   "other_topics": [
+    "parallel swarm execution",
+    "reporting style / no emojis",
+    "commit message conventions",
+    "GitHub issue triage",
+    "source-of-truth hierarchy",
+    "Supabase RLS"
+   ]
+  },
+  {
+   "folder": "deathemperor__pensieve",
+   "words_read": "full",
+   "n_instructions_estimate": 30,
+   "file_instructions": [
+    {
+     "file": ".claude/memory/feedback_pensieve_visual_system.md",
+     "quote": "If new categories are added, give them ONE accent in the same saturation/lightness range as the six above and add to `categoryThemeMap`.",
+     "action": "edit",
+     "force": "must",
+     "target": "categoryThemeMap",
+     "target_is_path": false,
+     "condition": "If new categories are added"
+    },
+    {
+     "file": ".claude/memory/feedback_design_critique.md",
+     "quote": "**ask for color/typography references first** (URLs to sites he likes, magazine names, specific aesthetic shorthand) before changing any code.",
+     "action": "edit",
+     "force": "only_if",
+     "target": "site code",
+     "target_is_path": false,
+     "condition": "after asking for references when Loc critiques visual design"
+    },
+    {
+     "file": ".claude/memory/feedback_design_critique.md",
+     "quote": "treat them as scaffolding to be replaced, not as a baseline to defend",
+     "action": "edit",
+     "force": "may",
+     "target": "placeholder theme palettes (natural-ponds, rocket-science, ...)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/project_pensieve.md",
+     "quote": "don't start content extraction until it arrives",
+     "action": "read",
+     "force": "only_if",
+     "target": "Facebook DYI export",
+     "target_is_path": false,
+     "condition": "after the user provides the export path"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/feedback_pensieve_decisions.md",
+     "a_quote": "They want creative, distinct visual treatments per category — this is a load-bearing aesthetic requirement, not a nice-to-have.",
+     "b_file": ".claude/memory/feedback_pensieve_visual_system.md",
+     "b_quote": "**No warm creams. No parchment. No swapping backgrounds per category.**",
+     "topic": "other",
+     "situation": "Designing the page for a category (e.g. fish posts as a natural-pond theme)",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "The visual-system note is later and records that Loc explicitly rejected the per-category 'different worlds' approach; only one accent varies."
+    },
+    {
+     "a_file": ".claude/memory/feedback_pensieve_decisions.md",
+     "a_quote": "If a future choice would contradict one of them (e.g., suggesting Pages for simplicity, or a single site-wide theme for speed), flag the tradeoff explicitly",
+     "b_file": ".claude/memory/feedback_pensieve_visual_system.md",
+     "b_quote": "if a future change tries to introduce themed backgrounds, multi-font swapping, or warm cream/parchment surfaces, push back",
+     "topic": "other",
+     "situation": "A change touches category theming",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "Opposite guard rails; the newer visual-system decision wins, but the older note and the MEMORY.md index line ('per-category themes') were never updated."
+    },
+    {
+     "a_file": ".claude/memory/feedback_pensieve_decisions.md",
+     "a_quote": "**Domain: `*.workers.dev` subdomain for now.**",
+     "b_file": ".claude/memory/feedback_pensieve_visual_system.md",
+     "b_quote": "Locked-in design language for pensieve.huuloc.com",
+     "topic": "other",
+     "situation": "Configuring the site's domain/routing",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Three domains appear (workers.dev, pensieve.huuloc.com, huuloc.com/pensieve in MEMORY.md); 'for now' implies a later swap but which form won is unstated."
+    }
+   ],
+   "other_topics": [
+    "visual design system",
+    "handling design critiques",
+    "hosting stack",
+    "bilingual content",
+    "post classification priors",
+    "user identity"
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "words_read": "full",
+   "n_instructions_estimate": 60,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Never commit, push, or delete a branch without an explicit user \"go\".",
+     "action": "commit",
+     "force": "only_if",
+     "target": "any change",
+     "target_is_path": false,
+     "condition": "explicit user \"go\""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Never commit, push, or delete a branch without an explicit user \"go\".",
+     "action": "push",
+     "force": "only_if",
+     "target": "remote",
+     "target_is_path": false,
+     "condition": "explicit user \"go\""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Code on its own branch; docs/non-code can commit on the current branch.",
+     "action": "commit",
+     "force": "may",
+     "target": "docs/non-code",
+     "target_is_path": false,
+     "condition": "on the current branch, after approval"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Never touch `.env`.** Don't read or edit the user's `.env`.",
+     "action": "read",
+     "force": "never",
+     "target": ".env",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Never touch `.env`.** Don't read or edit the user's `.env`.",
+     "action": "edit",
+     "force": "never",
+     "target": ".env",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/never-touch-user-env.md",
+     "quote": "edit `.env.example` (the safe committed template) with the right values + comments",
+     "action": "edit",
+     "force": "may",
+     "target": ".env.example",
+     "target_is_path": true,
+     "condition": "to tell the user what config to change"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Update `DECISIONS.md`, `docs/plan.md`, `docs/tasks.md`, `TESTING.md` as part of the change, not as an afterthought.",
+     "action": "edit",
+     "force": "must",
+     "target": "DECISIONS.md, docs/plan.md, docs/tasks.md, TESTING.md",
+     "target_is_path": true,
+     "condition": "as part of the change"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "When a real test run changes, refresh the `TESTING.md` count/report.",
+     "action": "edit",
+     "force": "must",
+     "target": "TESTING.md",
+     "target_is_path": true,
+     "condition": "When a real test run changes"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "reusable ones in `src/components/`, page-specific ones in a colocated `_components/` folder",
+     "action": "create",
+     "force": "must",
+     "target": "src/components/, _components/",
+     "target_is_path": true,
+     "condition": "frontend components"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Key in env var**, never committed. Ship `.env.example`.",
+     "action": "commit",
+     "force": "never",
+     "target": "Gemini API key",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Ship `.env.example`.",
+     "action": "commit",
+     "force": "must",
+     "target": ".env.example",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Merged branches may be deleted once the user asks; never delete on your own initiative.",
+     "action": "delete",
+     "force": "only_if",
+     "target": "merged git branches",
+     "target_is_path": false,
+     "condition": "once the user asks"
+    },
+    {
+     "file": ".claude/memory/never-commit-without-approval.md",
+     "quote": "**Never delete branches** — leave merged branches in place",
+     "action": "delete",
+     "force": "never",
+     "target": "git branches",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/track-project-decisions.md",
+     "quote": "Record a decision only AFTER the user explicitly confirms it",
+     "action": "edit",
+     "force": "only_if",
+     "target": "DECISIONS.md",
+     "target_is_path": true,
+     "condition": "after the user explicitly confirms the decision"
+    },
+    {
+     "file": ".claude/memory/prefer-official-generators.md",
+     "quote": "don't substitute hand-rolled versions of files the generator provides (configs, layout, page, globals.css, etc.)",
+     "action": "create",
+     "force": "never",
+     "target": "hand-rolled versions of generator-provided files",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Task checklist (tick as we build): `docs/tasks.md`",
+     "action": "edit",
+     "force": "must",
+     "target": "docs/tasks.md",
+     "target_is_path": true,
+     "condition": "as we build"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Merged branches may be deleted once the user asks; never delete on your own initiative.",
+     "b_file": ".claude/memory/never-commit-without-approval.md",
+     "b_quote": "**Never delete branches** — leave merged branches in place",
+     "topic": "git",
+     "situation": "The user asks to delete a merged branch",
+     "status": "clash",
+     "confidence": "sure",
+     "why": "CLAUDE.md keeps deletion possible on request while the memory forbids it outright; no text says which wins."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "`start.sh` also creates `.env` from `.env.example` on first run, never overwriting an existing one",
+     "b_file": ".claude/memory/never-touch-user-env.md",
+     "b_quote": "Never read, open, `cat`, or `sed` the user's `.env` file",
+     "topic": "files",
+     "situation": "The agent runs ./start.sh on a fresh checkout, which creates .env",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Running the documented start command makes the agent create .env, though the creation is done by a script and only when no user .env exists."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Update `DECISIONS.md`, `docs/plan.md`, `docs/tasks.md`, `TESTING.md` as part of the change, not as an afterthought.",
+     "b_file": ".claude/memory/track-project-decisions.md",
+     "b_quote": "Record a decision only AFTER the user explicitly confirms it — never mid-discussion or from my own proposal the user hasn't accepted",
+     "topic": "ask-before-acting",
+     "situation": "A change embodies a design choice the user hasn't confirmed yet",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One says write DECISIONS.md with the change, the other says wait for confirmation; likely reconcilable by confirming first."
+    }
+   ],
+   "other_topics": [
+    "DECISIONS.md voice",
+    "component structure",
+    "Gemini API rules",
+    "code style / naming",
+    "testing scope",
+    "coworker stance",
+    "concise communication"
+   ]
+  },
+  {
+   "folder": "oThinas__audio-book-track",
+   "words_read": "full",
+   "n_instructions_estimate": 120,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Adicionar uma entidade nova (ex: `book`, `chapter`) **NUNCA** toca `src/lib/db/seed-test.ts`.",
+     "action": "edit",
+     "force": "never",
+     "target": "src/lib/db/seed-test.ts",
+     "target_is_path": true,
+     "condition": "when adding a new domain entity (unless a feature redoes the admin)"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Criar uma factory em `__tests__/helpers/factories.ts` (ex: `createTestBook(db, overrides)`).",
+     "action": "edit",
+     "force": "must",
+     "target": "__tests__/helpers/factories.ts",
+     "target_is_path": true,
+     "condition": "to provide new test data"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Interfaces de repositório (ports) vivem em `src/lib/repositories/<entidade>-repository.ts`** (raiz da pasta). **NUNCA** em `src/lib/domain/`",
+     "action": "create",
+     "force": "must",
+     "target": "src/lib/repositories/<entidade>-repository.ts",
+     "target_is_path": true,
+     "condition": "repository interfaces"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**NUNCA** em `src/lib/domain/`",
+     "action": "create",
+     "force": "never",
+     "target": "repository interfaces in src/lib/domain/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Interfaces em arquivos separados** — nunca co-localizadas com implementações ou tipos de domínio.",
+     "action": "create",
+     "force": "must",
+     "target": "separate interface files",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "`DrizzleUserPreferenceRepository` implementa `UserPreferenceRepository`, morando em `src/lib/repositories/drizzle/`",
+     "action": "create",
+     "force": "must",
+     "target": "src/lib/repositories/drizzle/",
+     "target_is_path": true,
+     "condition": "concrete Drizzle repositories"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Componentes de feature DEVEM residir em `src/components/features/<feature>/`**",
+     "action": "create",
+     "force": "must",
+     "target": "src/components/features/<feature>/",
+     "target_is_path": true,
+     "condition": "feature components"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Pastas `_components/` (ou qualquer variante colocada dentro de `src/app/`) são **PROIBIDAS**",
+     "action": "create",
+     "force": "never",
+     "target": "src/app/**/_components/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "DEVE residir em hooks customizados co-localizados em `src/components/features/<feature>/hooks/use-<scope>.ts`",
+     "action": "create",
+     "force": "must",
+     "target": "src/components/features/<feature>/hooks/use-<scope>.ts",
+     "target_is_path": true,
+     "condition": "client component logic"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Arquivo `design.pen`** — consultar via Pencil MCP antes de construir qualquer tela nova",
+     "action": "read",
+     "force": "must",
+     "target": "design.pen",
+     "target_is_path": true,
+     "condition": "before building any new screen"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Drizzle ORM**: usar `generate` + `migrate` — `drizzle-kit push` é proibido.",
+     "action": "create",
+     "force": "must",
+     "target": "Drizzle migration files (via generate)",
+     "target_is_path": false,
+     "condition": "schema changes"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Migrations devem ser reversíveis.**",
+     "action": "create",
+     "force": "must",
+     "target": "migrations (reversible)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "read the current plan at specs/041-authenticated-a11y/plan.md",
+     "action": "read",
+     "force": "must",
+     "target": "specs/041-authenticated-a11y/plan.md",
+     "target_is_path": true,
+     "condition": "for additional context"
+    },
+    {
+     "file": "memory/feedback_biome_via_cli.md",
+     "quote": "Create biome.json via `bunx biome init` CLI command instead of manually writing the file.",
+     "action": "create",
+     "force": "never",
+     "target": "biome.json (by hand)",
+     "target_is_path": true,
+     "condition": "When setting up Biome"
+    },
+    {
+     "file": "memory/feedback_schemas_folder.md",
+     "quote": "Use `lib/schemas/` instead of `lib/validations/` for Zod schema files.",
+     "action": "create",
+     "force": "must",
+     "target": "src/lib/schemas/",
+     "target_is_path": true,
+     "condition": "Zod schema files"
+    },
+    {
+     "file": "memory/feedback_no_null_assertion.md",
+     "quote": "import from a validated env module (e.g., `src/lib/env.ts`) that uses Zod",
+     "action": "read",
+     "force": "must",
+     "target": "validated env module (src/lib/env.ts)",
+     "target_is_path": true,
+     "condition": "Whenever accessing process.env"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "**Respostas de erro padronizadas** — usar helpers de `lib/api/responses.ts` (ex: `unauthorizedResponse`, `validationErrorResponse`).",
+     "b_file": "CLAUDE.md",
+     "b_quote": "Helpers legados de resposta (`unauthorizedResponse`, `validationErrorResponse`, `notFoundResponse`, `conflictResponse`, `unprocessableEntityResponse`) — removidos. Toda rota nova passa pelo `withApiErrorHandler`.",
+     "topic": "other",
+     "situation": "Writing an error response in a new /api/v1 route",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The anti-pattern list records the helpers as removed (a later decision), but the Architecture section still mandates them and nothing marks it stale."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "`toast.success(...)` (e equivalentes verde+checkmark) são **proibidos**.",
+     "b_file": "CLAUDE.md",
+     "b_quote": "O service emite o flag `reactivated: true` no envelope e a UI mostra um toast de \"desarquivado\".",
+     "topic": "other",
+     "situation": "Creating an entity that reactivates an archived record",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "A success-type toast for reactivation looks like what the toast rule forbids, unless it is a neutral informative toast, which is unstated."
+    },
+    {
+     "a_file": "memory/feedback_no_null_assertion.md",
+     "a_quote": "import from a validated env module (e.g., `src/lib/env.ts`)",
+     "b_file": "CLAUDE.md",
+     "b_quote": "**`src/lib/env/schema.ts` separado de `index.ts`**",
+     "topic": "files",
+     "situation": "Creating or importing the env module",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Memory names a single file src/lib/env.ts, CLAUDE.md a folder src/lib/env/ with schema.ts and index.ts; memory says 'e.g.', so possibly just stale."
+    }
+   ],
+   "other_topics": [
+    "domain rules (chapter status lifecycle, money in cents)",
+    "layered architecture / DI",
+    "UI component rules",
+    "REST API conventions",
+    "TDD / coverage",
+    "test classification and doubles",
+    "quality verification phase",
+    "speckit workflow",
+    "language of artifacts"
+   ]
+  },
+  {
+   "folder": "PoweredBySymfony__summoner-build-lab",
+   "words_read": "skimmed: memory/reference_all_skills.md, memory/reference_skills_complete.md (skill catalogs; grepped for rules and read the hook/workflow sections); all other files read fully",
+   "n_instructions_estimate": 45,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "git add src/test/*.ts\n   git commit -m \"test(file): raise coverage to X%\"",
+     "action": "commit",
+     "force": "must",
+     "target": "src/test/*.ts",
+     "target_is_path": true,
+     "condition": "after npm run test:coverage validates locally"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "✅ GitHub: push/PR (avec confirmation)",
+     "action": "push",
+     "force": "only_if",
+     "target": "GitHub",
+     "target_is_path": false,
+     "condition": "avec confirmation"
+    },
+    {
+     "file": "memory/feedback_git_workflow.md",
+     "quote": "Push to `optimization/sonarqube-audit` branch",
+     "action": "push",
+     "force": "must",
+     "target": "optimization/sonarqube-audit",
+     "target_is_path": false,
+     "condition": "after lint/build/test:coverage pass"
+    },
+    {
+     "file": "memory/feedback_git_workflow.md",
+     "quote": "**No force-push to main** — always use normal commits to `optimization/sonarqube-audit`",
+     "action": "push",
+     "force": "never",
+     "target": "main (force-push)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Memory File** : `MEMORY.md` (auto-updated with lessons learned)",
+     "action": "edit",
+     "force": "must",
+     "target": "MEMORY.md",
+     "target_is_path": true,
+     "condition": "lessons learned"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**Cognitive Complexity** : 76 issues CRITICAL — ne pas les régler maintenant, focus coverage",
+     "action": "edit",
+     "force": "never",
+     "target": "files with cognitive-complexity issues (refactor)",
+     "target_is_path": false,
+     "condition": "now (during coverage push)"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "**BLOCKER Security** : 3 issues — laisser pour après (après coverage atteint 60%+)",
+     "action": "edit",
+     "force": "never",
+     "target": "ml/tests/test_pipeline.py, ml/models/artifacts.py, prisma migration.sql (BLOCKER fixes)",
+     "target_is_path": true,
+     "condition": "until coverage reaches 60%+"
+    },
+    {
+     "file": "memory/feedback_testing.md",
+     "quote": "For services (Lot 2), inject mocked repositories — don't hit real DB",
+     "action": "create",
+     "force": "must",
+     "target": "service tests with mocked repositories",
+     "target_is_path": false,
+     "condition": "Lot 2"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "git add src/test/*.ts\n   git commit -m \"test(file): raise coverage to X%\"",
+     "b_file": "memory/reference_skills_complete.md",
+     "b_quote": "**Step 2: User commits**",
+     "topic": "git",
+     "situation": "Tests for a file are written and pass; who runs git commit / git push",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "CLAUDE.md and feedback_git_workflow have the agent commit and push, the skills catalog says commit and push are 'User's command'; I only skimmed that catalog."
+    },
+    {
+     "a_file": "memory/feedback_git_workflow.md",
+     "a_quote": "5. Push to `optimization/sonarqube-audit` branch",
+     "b_file": "CLAUDE.md",
+     "b_quote": "✅ GitHub: push/PR (avec confirmation)",
+     "topic": "ask-before-acting",
+     "situation": "After a passing commit, whether to push without asking",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The workflow lists push as a routine step; CLAUDE.md conditions it on confirmation, which can be read as the governing gate."
+    },
+    {
+     "a_file": "memory/feedback_git_workflow.md",
+     "a_quote": "3. Verify SonarQube Quality Gate status (check new code % specifically)\n4. Commit",
+     "b_file": "memory/feedback_git_workflow.md",
+     "b_quote": "GitHub Actions runs SonarQube analysis on every push",
+     "topic": "other",
+     "situation": "Checking the Quality Gate for a commit before it is pushed",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The gate is computed after push, so 'verify before commit' cannot be done for the new code unless a local scan is run; ordering is contradictory."
+    }
+   ],
+   "other_topics": [
+    "SonarQube coverage lots",
+    "test style (table-driven, mocks)",
+    "quality gate",
+    "skills/agents catalog",
+    "MCP servers",
+    "reporting style"
+   ]
+  },
+  {
+   "folder": "MikeStitt__stick-e-bot",
+   "words_read": "full",
+   "n_instructions_estimate": 80,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Do not add to or edit this CLAUDE.md file, add to the appropriate subdocument per the Constitution.",
+     "action": "edit",
+     "force": "never",
+     "target": "CLAUDE.md",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "add to the appropriate subdocument per the Constitution",
+     "action": "edit",
+     "force": "must",
+     "target": "appropriate subdocument per the Constitution",
+     "target_is_path": false,
+     "condition": "when adding instructions"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Summarize [`.claude/rules/constitution.md`](.claude/rules/constitution.md), the parts that bear on the task in hand",
+     "action": "read",
+     "force": "must",
+     "target": ".claude/rules/constitution.md",
+     "target_is_path": true,
+     "condition": "every session start and every compaction"
+    },
+    {
+     "file": "memory/conversation-mode-is-not-a-task.md",
+     "quote": "I stay in the conversation. No edits, no investigation runs, no picking up the next item.",
+     "action": "edit",
+     "force": "never",
+     "target": "any file",
+     "target_is_path": false,
+     "condition": "while the user is having a conversation, until they type a direction for action"
+    },
+    {
+     "file": "memory/say-when-you-carry-on.md",
+     "quote": "finish the ask, commit it, then say in a sentence what was done and what is starting next",
+     "action": "commit",
+     "force": "must",
+     "target": "the finished ask",
+     "target_is_path": false,
+     "condition": "during an unattended run"
+    },
+    {
+     "file": "memory/derive-dont-maintain.md",
+     "quote": "**A document must not tally its own contents.**",
+     "action": "edit",
+     "force": "never",
+     "target": "documents (counts/sizes/tallies of contents)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/one-fact-one-home.md",
+     "quote": "Do not write a fact into a document when another document already establishes and enforces it.",
+     "action": "edit",
+     "force": "never",
+     "target": "documents restating facts enforced elsewhere",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/one-fact-one-home.md",
+     "quote": "before adding a sentence, ask which file *enforces* the thing. Put it there, once, and link to it",
+     "action": "edit",
+     "force": "must",
+     "target": "the file that enforces the fact",
+     "target_is_path": false,
+     "condition": "before adding a sentence"
+    },
+    {
+     "file": "memory/fix-the-model-retake-the-frames.md",
+     "quote": "When a fix changes what the model looks like, the frames of the old state are wrong and MUST be retaken.",
+     "action": "create",
+     "force": "must",
+     "target": "tutorial frames (screenshots) of touched steps",
+     "target_is_path": false,
+     "condition": "When a fix changes what the model looks like"
+    },
+    {
+     "file": "memory/capture-while-you-experiment.md",
+     "quote": "Name the frame by its step identifier at the moment the state is on screen.",
+     "action": "create",
+     "force": "must",
+     "target": "named frames via gui.frame(page, path)",
+     "target_is_path": false,
+     "condition": "while working out the click sequence"
+    },
+    {
+     "file": "memory/drawing-conventions.md",
+     "quote": "keep quantities in the build plan's tables and out of the SVG",
+     "action": "edit",
+     "force": "never",
+     "target": "plan SVG sheets (counts)",
+     "target_is_path": false,
+     "condition": "when generating sheets with src/stickbot/make_plans.py"
+    },
+    {
+     "file": "memory/trust-the-user-or-read-the-docs.md",
+     "quote": "When I do not know how Onshape behaves, read `.docs/onshape-gui-howto.md` first.",
+     "action": "read",
+     "force": "must",
+     "target": ".docs/onshape-gui-howto.md",
+     "target_is_path": true,
+     "condition": "When I do not know how Onshape behaves"
+    },
+    {
+     "file": "memory/read-think-plan-do.md",
+     "quote": "**Read** the files the task names.",
+     "action": "read",
+     "force": "must",
+     "target": "files the task names",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/write-for-students-who-will-succeed.md",
+     "quote": "Keep the failure in the run's build notes, where the audience is the next builder, not the student.",
+     "action": "edit",
+     "force": "must",
+     "target": "run build notes (failures); not the student-facing page",
+     "target_is_path": false,
+     "condition": "when a build finding is worth teaching"
+    },
+    {
+     "file": "memory/no-invented-gates.md",
+     "quote": "If a result arrives that closes an open item, correct the record that carries it the same day, including a published register.",
+     "action": "edit",
+     "force": "must",
+     "target": "the record carrying the open item (incl. published register)",
+     "target_is_path": false,
+     "condition": "If a result arrives that closes an open item"
+    },
+    {
+     "file": "memory/numbers-carry-units.md",
+     "quote": "The document half is enforced by the units rule in `.claude/rules/parts/prose-style.md`; see [[one-fact-one-home]] and do not restate it\nelsewhere.",
+     "action": "edit",
+     "force": "never",
+     "target": "other documents (restating the units rule)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/never-busy-wait-in-bash.md",
+     "quote": "redirect to a file and read the file",
+     "action": "create",
+     "force": "must",
+     "target": "log file for long job output",
+     "target_is_path": false,
+     "condition": "long jobs"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/conversation-mode-is-not-a-task.md",
+     "a_quote": "No edits, no investigation runs, no picking up the next item.",
+     "b_file": "memory/say-when-you-carry-on.md",
+     "b_quote": "finish the ask, commit it, then say in a sentence what was done and what is starting next. Then start it.",
+     "topic": "ask-before-acting",
+     "situation": "The user asks something mid-run and Claude has finished an ask",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "conversation-mode says it 'wins whenever the user is present and talking'; say-when-you-carry-on scopes itself to unattended runs."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Do not add to or edit this CLAUDE.md file, add to the appropriate subdocument per the Constitution.",
+     "b_file": "memory/one-fact-one-home.md",
+     "b_quote": "`CLAUDE.md` is what actually enforces the always-read ritual ... before adding a sentence, ask which file *enforces* the thing. Put it there, once",
+     "topic": "files",
+     "situation": "The always-read ritual needs to change; the enforcing file is CLAUDE.md, which may not be edited",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "one-fact-one-home sends the change to the enforcing file, CLAUDE.md forbids editing itself; the user could still edit it."
+    },
+    {
+     "a_file": "memory/one-fact-one-home.md",
+     "a_quote": "Do not write a fact into a document when another document already establishes and enforces it.",
+     "b_file": "memory/instructions-state-facts-not-importance.md",
+     "b_quote": "Since 2026-08-11 the Constitution says so outright: Working Rule 8 carries a sub-bullet — *do not grandstand, and do not use hyperbole",
+     "topic": "files",
+     "situation": "Maintaining the memory that quotes a Constitution rule",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The memory restates a rule the Constitution enforces; it may count as a pointer plus quote rather than a duplicate."
+    },
+    {
+     "a_file": "memory/read-think-plan-do.md",
+     "a_quote": "**Investigate** — look at the thing itself, not only what is written about it.",
+     "b_file": "memory/trust-the-user-or-read-the-docs.md",
+     "b_quote": "Proposing to open the CAD and test every dialog, every feature type, or every menu to establish a general fact is not a valid plan",
+     "topic": "tools",
+     "situation": "Unsure how an Onshape dialog behaves in general",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "trust-the-user narrows driving the CAD to facts about this model and orders how-to, user, docs first; read-think-plan-do is general."
+    }
+   ],
+   "other_topics": [
+    "CAD design intent",
+    "tutorial capture/frames",
+    "prose style (units, em dashes, plain words, no hype)",
+    "Onshape API gotchas",
+    "browser session handling",
+    "student-facing writing tone",
+    "conversation vs autonomous mode"
+   ]
+  },
+  {
+   "folder": "enthusiasticgeek__vani-compiler",
+   "words_read": "skimmed: memory/project_vani_async_design.md, memory/project_vani_backend.md, memory/project_vani_condvar_design.md, memory/project_vani_container_affine_contract.md, memory/project_vani_embedded_position.md, memory/project_vani_data_structures_roadmap.md, memory/project_vani_safety_standards.md, memory/project_vani_windows_fixes.md (grepped for directives, read 'How to apply' sections); all feedback_*, MEMORY.md, user_*, project_vani_status_file.md, project_vani_next_session.md, project_vani_affine_standing.md read fully",
+   "n_instructions_estimate": 70,
+   "file_instructions": [
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "Read / write any file under `/tmp` and `~/vani/` (and its subtree).",
+     "action": "edit",
+     "force": "may",
+     "target": "/tmp and ~/vani/",
+     "target_is_path": true,
+     "condition": "vāṇī workflow, without asking"
+    },
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "Read / write any file under `/tmp` and `~/vani/` (and its subtree).",
+     "action": "read",
+     "force": "may",
+     "target": "/tmp and ~/vani/",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "Stage and `git commit` changes to `~/vani/` when the closure is complete (use the standard HEREDOC commit message format and skip user files like `vani_logo.png`).",
+     "action": "commit",
+     "force": "may",
+     "target": "~/vani/ changes",
+     "target_is_path": true,
+     "condition": "when the closure is complete"
+    },
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "skip user files like `vani_logo.png`",
+     "action": "commit",
+     "force": "never",
+     "target": "user files like vani_logo.png",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "Continue to confirm before:\n- `git push` (visible to others).",
+     "action": "push",
+     "force": "only_if",
+     "target": "~/vani remote",
+     "target_is_path": false,
+     "condition": "after confirmation"
+    },
+    {
+     "file": "memory/feedback_vani_file_access.md",
+     "quote": "- Destructive ops outside `~/vani/` or `/tmp`.",
+     "action": "delete",
+     "force": "only_if",
+     "target": "files outside ~/vani/ or /tmp",
+     "target_is_path": true,
+     "condition": "after confirmation"
+    },
+    {
+     "file": "memory/project_vani_status_file.md",
+     "quote": "when you complete a unit of work in this repo, update `STATUS.md` in the same commit",
+     "action": "edit",
+     "force": "must",
+     "target": "STATUS.md",
+     "target_is_path": true,
+     "condition": "when a unit of work changes features, TODOs or known issues"
+    },
+    {
+     "file": "memory/project_vani_status_file.md",
+     "quote": "Issue resolved → delete the entry (not strike-through); TODO.md preserves the history.",
+     "action": "delete",
+     "force": "must",
+     "target": "resolved entries in STATUS.md",
+     "target_is_path": true,
+     "condition": "Issue resolved"
+    },
+    {
+     "file": "memory/feedback_vani_language_design.md",
+     "quote": "Don't bulk-rename existing files mid-session without user confirmation — that's a 58-file rename plus test expectations.",
+     "action": "edit",
+     "force": "only_if",
+     "target": "existing .intent files (rename to .vani)",
+     "target_is_path": true,
+     "condition": "user confirmation"
+    },
+    {
+     "file": "memory/feedback_vani_language_design.md",
+     "quote": "when touching example files or compiler file-handling code, prefer / use `.vani`",
+     "action": "create",
+     "force": "must",
+     "target": "*.vani files",
+     "target_is_path": true,
+     "condition": "when touching example files"
+    },
+    {
+     "file": "memory/project_vani_affine_standing.md",
+     "quote": "He wants every proposed container, algorithm, or API in [[project-vani-backend]] / TODO.md / STATUS.md / README.md flagged",
+     "action": "edit",
+     "force": "must",
+     "target": "TODO.md, STATUS.md, README.md",
+     "target_is_path": true,
+     "condition": "when proposing containers/algorithms/APIs"
+    },
+    {
+     "file": "memory/project_vani_next_session.md",
+     "quote": "Read this at session start, then open STATUS.md for the detailed task descriptions and test names.",
+     "action": "read",
+     "force": "must",
+     "target": "project_vani_next_session.md, STATUS.md",
+     "target_is_path": true,
+     "condition": "at session start"
+    },
+    {
+     "file": "memory/project_vani_next_session.md",
+     "quote": "Commit after every 2–3 tests pass so the user can push immediately. Don't batch to end of session.",
+     "action": "commit",
+     "force": "must",
+     "target": "work in progress",
+     "target_is_path": false,
+     "condition": "after every 2-3 tests pass"
+    },
+    {
+     "file": "memory/project_vani_safety_standards.md",
+     "quote": "User said \"list tasks, ask before coding.\" No code in flight.",
+     "action": "create",
+     "force": "only_if",
+     "target": "safety-standard implementation code",
+     "target_is_path": false,
+     "condition": "after asking"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/feedback_vani_file_access.md",
+     "a_quote": "Stage and `git commit` changes to `~/vani/` when the closure is complete",
+     "b_file": "memory/project_vani_next_session.md",
+     "b_quote": "Commit after every 2–3 tests pass so the user can push immediately. Don't batch to end of session.",
+     "topic": "git",
+     "situation": "Mid-closure, 2-3 new tests pass but the closure is not finished",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One sets the commit point at closure completion, the other after every 2-3 passing tests; 'when' may be permissive rather than exclusive."
+    },
+    {
+     "a_file": "memory/feedback_vani_file_access.md",
+     "a_quote": "just create / edit / read / build / run / commit without seeking confirmation",
+     "b_file": "memory/project_vani_safety_standards.md",
+     "b_quote": "User said \"list tasks, ask before coding.\"",
+     "topic": "ask-before-acting",
+     "situation": "Starting implementation of safety-standard tiers in ~/vani",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The specific later instruction wins for that arc, and MEMORY.md records the arc as fully shipped 2026-06-03, so it is now moot."
+    },
+    {
+     "a_file": "memory/project_vani_data_structures_roadmap.md",
+     "a_quote": "When the user says \"continue\" / \"next\" after closure #351, the next focal item is **#352 Hash/Ord interface** unless they specify otherwise.",
+     "b_file": "memory/project_vani_next_session.md",
+     "b_quote": "### Step 1 — Continue error-message elaboration (IN PROGRESS)",
+     "topic": "other",
+     "situation": "User says 'continue' at the start of a new session",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "next_session is newer (2026-06-12) and MEMORY.md says to pick up there, but the roadmap file was not updated."
+    },
+    {
+     "a_file": "memory/MEMORY.md",
+     "a_quote": "Pick Tier 1 first — only tier where verification doesn't need platform access.",
+     "b_file": "memory/project_vani_next_session.md",
+     "b_quote": "All Tier 1 + Tier 2 work shipped.",
+     "topic": "other",
+     "situation": "Choosing next work",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "Later handoff records Tier 1 done; index text is stale."
+    }
+   ],
+   "other_topics": [
+    "language design philosophy",
+    "affine ownership flags",
+    "async design",
+    "embedded/unsafe policy",
+    "safety-standard attributes",
+    "Windows parity",
+    "Devanagari keyword grammar"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "words_read": "skimmed: .claude/memory/gene-self-awareness-report.md, gene-patterns.md, gene-debugging.md, cfp-WM-092-research-findings.md, cfp-hook-lifecycle-analysis.md, cfp-settings-gen-audit.md, cfp-dependency-analysis.md, agentdb-upgrade-CLAUDE_FLOW_MEMORY_MAP.md, agentdb-upgrade-QUICK_REFERENCE.md, agentdb-upgrade-SOURCE_FILE_REFERENCE.md, agentdb-upgrade-SYSTEMS_RELATIONSHIP.md, pipeline-failures.md (imported reference material; grepped for directives); CLAUDE.md, MEMORY.md, all feedback-*, project-*, plan-template, reference-verdaccio, gene-preferences read fully",
+   "n_instructions_estimate": 110,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER create files unless they're absolutely necessary for achieving your goal",
+     "action": "create",
+     "force": "only_if",
+     "target": "any file",
+     "target_is_path": false,
+     "condition": "absolutely necessary"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER proactively create documentation files (*.md) or README files unless explicitly requested",
+     "action": "create",
+     "force": "never",
+     "target": "*.md, README files",
+     "target_is_path": true,
+     "condition": "unless explicitly requested"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER save working files, text/mds, or tests to the root folder",
+     "action": "create",
+     "force": "never",
+     "target": "root folder",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Use `/src` for source code files",
+     "action": "create",
+     "force": "must",
+     "target": "/src, /tests, /docs, /config, /scripts, /examples by kind",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "ALWAYS read a file before editing it",
+     "action": "read",
+     "force": "must",
+     "target": "any file to be edited",
+     "target_is_path": false,
+     "condition": "before editing"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER commit secrets, credentials, or .env files",
+     "action": "commit",
+     "force": "never",
+     "target": "secrets, credentials, .env files",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "ALWAYS verify build succeeds before committing",
+     "action": "commit",
+     "force": "only_if",
+     "target": "code changes",
+     "target_is_path": false,
+     "condition": "build succeeds (and tests pass)"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER begin execution — spawning agents/swarms, running a migration, or making multi-file changes — without an explicit user go-ahead.",
+     "action": "edit",
+     "force": "only_if",
+     "target": "multiple files",
+     "target_is_path": false,
+     "condition": "explicit user go-ahead"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "`mcp__ruflo__memory_store` | Writing to MEMORY.md from in-session work",
+     "action": "edit",
+     "force": "never",
+     "target": "MEMORY.md (prefer memory_store)",
+     "target_is_path": true,
+     "condition": "persisting patterns/decisions from in-session work (preference)"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**Implemented ADRs are historical records — NEVER modify them.** Create a new ADR that references the old one.",
+     "action": "edit",
+     "force": "never",
+     "target": "implemented ADRs (docs/adr/)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "Create a new ADR that references the old one.",
+     "action": "create",
+     "force": "must",
+     "target": "new ADR in docs/adr/",
+     "target_is_path": true,
+     "condition": "when an implemented ADR needs change"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "NEVER modify the project CLAUDE.md unless explicitly asked",
+     "action": "edit",
+     "force": "never",
+     "target": "CLAUDE.md",
+     "target_is_path": true,
+     "condition": "unless explicitly asked"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "ALWAYS run `npm run preflight` before staging",
+     "action": "commit",
+     "force": "only_if",
+     "target": "staged changes",
+     "target_is_path": false,
+     "condition": "after npm run preflight"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "ALWAYS commit often",
+     "action": "commit",
+     "force": "must",
+     "target": "work",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**Direct-to-main**: for quick fixes, commit directly to fork main, push, let timer pick up",
+     "action": "push",
+     "force": "may",
+     "target": "fork main",
+     "target_is_path": false,
+     "condition": "quick fixes"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "Patches live in fork TypeScript source at `~/src/forks/{ruflo,agentic-flow,ruv-FANN}`",
+     "action": "edit",
+     "force": "must",
+     "target": "~/src/forks/{ruflo,agentic-flow,ruv-FANN} TypeScript source",
+     "target_is_path": true,
+     "condition": "creating patches"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**NEVER clear published-versions.json without reconciling with npm**",
+     "action": "delete",
+     "force": "only_if",
+     "target": "config/published-versions.json contents",
+     "target_is_path": true,
+     "condition": "after reconciling with npm"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**NEVER manually set versions** — use fork-version.mjs",
+     "action": "edit",
+     "force": "never",
+     "target": "fork package.json versions (by hand)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**NEVER force push forks to fix version state** — npm is immutable, work forward",
+     "action": "push",
+     "force": "never",
+     "target": "forks (force push)",
+     "target_is_path": false,
+     "condition": "to fix version state"
+    },
+    {
+     "file": ".claude/memory/feedback-patch-tracking.md",
+     "quote": "Update MEMORY.md Active Patches section with the new ID",
+     "action": "edit",
+     "force": "must",
+     "target": "MEMORY.md Active Patches section",
+     "target_is_path": true,
+     "condition": "When creating a new patch"
+    },
+    {
+     "file": ".claude/memory/feedback-adr-format.md",
+     "quote": "When creating any new ADR (docs/adr/NNNN-*.md):\n1. Use MADR template",
+     "action": "create",
+     "force": "must",
+     "target": "docs/adr/NNNN-*.md (SPARC+MADR)",
+     "target_is_path": true,
+     "condition": "When creating any new ADR"
+    },
+    {
+     "file": ".claude/memory/feedback-full-output.md",
+     "quote": "Use `command 2>&1 | tee /tmp/logfile.log` for all build/test commands. Read the full log file afterward",
+     "action": "create",
+     "force": "must",
+     "target": "/tmp/logfile.log",
+     "target_is_path": true,
+     "condition": "all build/test commands"
+    },
+    {
+     "file": ".claude/memory/plan-template-clean-slate-release.md",
+     "quote": "rm -f scripts/.last-promoted-version scripts/.last-build-state",
+     "action": "delete",
+     "force": "must",
+     "target": "scripts/.last-promoted-version, scripts/.last-build-state, /tmp/ruflo-build",
+     "target_is_path": true,
+     "condition": "clean-slate release"
+    },
+    {
+     "file": ".claude/memory/plan-template-clean-slate-release.md",
+     "quote": "git add config/published-versions.json",
+     "action": "commit",
+     "force": "must",
+     "target": "config/published-versions.json",
+     "target_is_path": true,
+     "condition": "clean-slate release after reconcile"
+    },
+    {
+     "file": ".claude/memory/project-embedding-framework.md",
+     "quote": "Changing models = editing `embeddings.json`, no code changes.",
+     "action": "edit",
+     "force": "must",
+     "target": ".claude-flow/embeddings.json",
+     "target_is_path": true,
+     "condition": "changing embedding models"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/plan-template-clean-slate-release.md",
+     "a_quote": "git reset --hard upstream/main\ngit push origin main --force",
+     "b_file": ".claude/memory/MEMORY.md",
+     "b_quote": "**NEVER force push forks to fix version state** — npm is immutable, work forward",
+     "topic": "git",
+     "situation": "Pipeline state is inconsistent and the clean-slate template is used",
+     "status": "clash",
+     "confidence": "sure",
+     "why": "The template's trigger is inconsistent pipeline state and its first step force-pushes fork main; pipeline-failures.md also says 'NEVER assume a clean reset is possible'."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "`mcp__ruflo__memory_store` | Writing to MEMORY.md from in-session work",
+     "b_file": ".claude/memory/feedback-patch-tracking.md",
+     "b_quote": "Update MEMORY.md Active Patches section with the new ID",
+     "topic": "files",
+     "situation": "Recording a newly created patch",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "CLAUDE.md prefers the MCP memory store over writing MEMORY.md, the feedback file requires editing MEMORY.md; 'prefer over' is soft."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "NEVER proactively create documentation files (*.md) or README files unless explicitly requested",
+     "b_file": ".claude/memory/MEMORY.md",
+     "b_quote": "**Implemented ADRs are historical records — NEVER modify them.** Create a new ADR that references the old one.",
+     "topic": "files",
+     "situation": "A change affects an implemented ADR and the user did not ask for docs",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Creating a new ADR .md is required by the memory but is proactive doc creation under CLAUDE.md."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "never suggest starting or stopping Verdaccio (it is always on)",
+     "b_file": ".claude/memory/reference-verdaccio.md",
+     "b_quote": "Restart: `systemctl --user restart verdaccio`",
+     "topic": "tools",
+     "situation": "The registry seems unhealthy",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The reference offers restart as the remedy while CLAUDE.md bans suggesting stop/start; they also disagree on binding (*:4873 vs 'localhost only')."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "NEVER begin execution — spawning agents/swarms, running a migration, or making multi-file changes — without an explicit user go-ahead.",
+     "b_file": ".claude/memory/MEMORY.md",
+     "b_quote": "**Direct-to-main**: for quick fixes, commit directly to fork main, push, let timer pick up",
+     "topic": "ask-before-acting",
+     "situation": "A quick fix touching several files",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Memory suggests direct commit+push for quick fixes; CLAUDE.md requires a go-ahead for multi-file changes; single-file fixes would not clash."
+    },
+    {
+     "a_file": ".claude/memory/feedback-full-output.md",
+     "a_quote": "Never use `tail -N` or `head -N` to truncate output.",
+     "b_file": ".claude/memory/feedback-never-hang.md",
+     "b_quote": "tail -1 /tmp/log.log",
+     "topic": "tools",
+     "situation": "Polling a backgrounded pipeline",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The never-hang poll loop uses tail -1, which the full-output rule bans; the intent (truncating final output) likely differs."
+    },
+    {
+     "a_file": ".claude/memory/gene-preferences.md",
+     "a_quote": "npx @claude-flow/cli@latest [command]",
+     "b_file": ".claude/memory/MEMORY.md",
+     "b_quote": "By default, ALL instructions target the **repackaged published version** (`@sparkleideas/*` packages that users install)",
+     "topic": "tools",
+     "situation": "User asks a question about claude-flow; which CLI to query",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Imported predecessor preference points at upstream @claude-flow, the default scope says @sparkleideas; the gene file is imported from another project."
+    }
+   ],
+   "other_topics": [
+    "fork/patch model",
+    "ADR format",
+    "test policy (never dismiss flaky, fix all TS errors)",
+    "pipeline running (no hang, no dry-run)",
+    "agent orchestration / swarm rules",
+    "plugin installation",
+    "Verdaccio infra",
+    "embedding config"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "words_read": "skimmed: .claude/memory/netty-protocol.md, mcpe-*.md, bedrock-*.md, beta-*.md, pre-netty-release-protocol.md, client-jars.md, tested-clients.md, e2e-versions.md, e2e-screenshot-fixes.md, rd-bot-plan.md, rd-e2e-plan.md, material-catalog.md, bridge-*.md, block-policy.md, debugging.md (protocol/reference notes; grepped for directives and read hits in context); CLAUDE.md, MEMORY.md (directive sections), all feedback_*, e2e-testing.md rules, e2e-test-plan.md setup, server-api-decisions.md read",
+   "n_instructions_estimate": 90,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "it MUST also be written or updated in the corresponding `.claude/memory/` file in this repository",
+     "action": "edit",
+     "force": "must",
+     "target": ".claude/memory/ (MEMORY.md and topic sub-files)",
+     "target_is_path": true,
+     "condition": "Whenever a memory is created or updated in ~/.claude/projects/.../memory/"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "NEVER delete or reset world save files (server-world.dat, server-players.dat, or similar) without explicit user permission.",
+     "action": "delete",
+     "force": "only_if",
+     "target": "server-world.dat, server-players.dat, or similar",
+     "target_is_path": true,
+     "condition": "explicit user permission"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Before ANY destructive file operation (rm, overwrite, reset) on non-code data files in the project root, ALWAYS ask the user first.",
+     "action": "delete",
+     "force": "only_if",
+     "target": "non-code data files in the project root",
+     "target_is_path": false,
+     "condition": "ask the user first"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Before ANY destructive file operation (rm, overwrite, reset) on non-code data files in the project root, ALWAYS ask the user first.",
+     "action": "edit",
+     "force": "only_if",
+     "target": "non-code data files in the project root (overwrite/reset)",
+     "target_is_path": false,
+     "condition": "ask the user first"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Delete any temporary test infrastructure after verification.",
+     "action": "delete",
+     "force": "must",
+     "target": "temporary test infrastructure",
+     "target_is_path": false,
+     "condition": "after verification"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "`tee /tmp/rdforward-server.log` lets you read logs later",
+     "action": "create",
+     "force": "may",
+     "target": "/tmp/rdforward-server.log",
+     "target_is_path": true,
+     "condition": "running the server"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "BEFORE committing or moving to the next feature/task, audit whether tests exist for what was added.",
+     "action": "commit",
+     "force": "only_if",
+     "target": "new features",
+     "target_is_path": false,
+     "condition": "after user confirms it works and unit+integration tests exist and pass"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Do not add tests speculatively before the user confirms — the design may still change.",
+     "action": "create",
+     "force": "only_if",
+     "target": "unit and integration tests",
+     "target_is_path": false,
+     "condition": "after the user confirms the feature works"
+    },
+    {
+     "file": ".claude/memory/feedback_build_fatjar.md",
+     "quote": "run `./gradlew buildAll` and confirm `rd-server-0.2.0-SNAPSHOT-all.jar` exists under `rd-server/build/libs/` before asking for a retest",
+     "action": "create",
+     "force": "must",
+     "target": "rd-server/build/libs/rd-server-0.2.0-SNAPSHOT-all.jar",
+     "target_is_path": true,
+     "condition": "before asking user to retest a server-side change"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**Packet format changes**: Always create new packet classes for changed wire formats, never modify existing ones.",
+     "action": "edit",
+     "force": "never",
+     "target": "existing packet classes",
+     "target_is_path": false,
+     "condition": "wire format changes"
+    },
+    {
+     "file": ".claude/memory/MEMORY.md",
+     "quote": "**Packet format changes**: Always create new packet classes for changed wire formats",
+     "action": "create",
+     "force": "must",
+     "target": "new packet classes",
+     "target_is_path": false,
+     "condition": "changed wire formats"
+    },
+    {
+     "file": ".claude/memory/server-api-decisions.md",
+     "quote": "when rewriting any of the five API utilities above, delete the old static class entirely, migrate all callers in the same PR. Do NOT leave static facade shims.",
+     "action": "delete",
+     "force": "must",
+     "target": "old static API classes (CommandRegistry, Scheduler, ModConfig, PermissionManager, ServerEvents)",
+     "target_is_path": false,
+     "condition": "when rewriting those API utilities"
+    },
+    {
+     "file": ".claude/memory/e2e-test-plan.md",
+     "quote": "Stop server, delete all map and player data",
+     "action": "delete",
+     "force": "must",
+     "target": "map and player data",
+     "target_is_path": false,
+     "condition": "Pre-Test Setup"
+    },
+    {
+     "file": ".claude/memory/e2e-testing.md",
+     "quote": "ALWAYS read the scenario source code before assuming what a screenshot should look like.",
+     "action": "read",
+     "force": "must",
+     "target": "E2E scenario source code",
+     "target_is_path": false,
+     "condition": "before judging a screenshot"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": ".claude/memory/e2e-test-plan.md",
+     "a_quote": "Stop server, delete all map and player data",
+     "b_file": ".claude/memory/feedback_no_delete_world.md",
+     "b_quote": "NEVER delete or reset world save files (server-world.dat, server-players.dat, or similar) without explicit user permission.",
+     "topic": "files",
+     "situation": "Setting up an E2E test run per the plan",
+     "status": "clash",
+     "confidence": "sure",
+     "why": "The plan's setup step deletes world/player data with no permission step; the data-protection rule forbids that without explicit permission."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "ALWAYS test ALL previously supported versions after making changes.",
+     "b_file": "CLAUDE.md",
+     "b_quote": "Do NOT start tests proactively. Only run tests when the user explicitly asks.",
+     "topic": "ask-before-acting",
+     "situation": "After adding a new protocol version, the user has not asked to run tests",
+     "status": "clash",
+     "confidence": "sure",
+     "why": "One requires testing all versions after every change, the other forbids running tests unless asked; same for 'Run the relevant test tasks ... before committing'."
+    },
+    {
+     "a_file": ".claude/memory/feedback_server_start.md",
+     "a_quote": "sleep infinity | java -jar rd-server/build/libs/rd-server-0.1.0-SNAPSHOT-all.jar",
+     "b_file": "CLAUDE.md",
+     "b_quote": "sleep infinity | java -jar rd-server/build/libs/rd-server-0.2.0-SNAPSHOT-all.jar",
+     "topic": "tools",
+     "situation": "Starting the server when permitted",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Different jar versions; likely the memory is stale but nothing says so."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Every code change — whether adding a new protocol version, refactoring shared code, or fixing a bug — MUST preserve full compatibility with ALL previously supported clients.",
+     "b_file": ".claude/memory/server-api-decisions.md",
+     "b_quote": "## Q3: Clean rewrite of server API infra (no backward compat)",
+     "topic": "other",
+     "situation": "Rewriting CommandRegistry/Scheduler APIs",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "Backward compat targets game clients, the Q3 decision targets internal server API with no external consumers; scopes differ but the wording overlaps."
+    },
+    {
+     "a_file": ".claude/memory/e2e-test-plan.md",
+     "a_quote": "can run 2 servers on different ports for parallel testing — split clients into two halves",
+     "b_file": "CLAUDE.md",
+     "b_quote": "NEVER run two Gradle test suites in parallel.",
+     "topic": "other",
+     "situation": "Running the E2E plan in parallel",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Parallel servers may be manual testing, not Gradle suites; unclear if they overlap."
+    }
+   ],
+   "other_topics": [
+    "backwards compatibility across protocol versions",
+    "lazy loading / per-session codecs",
+    "bridge stub logging",
+    "server start/stop control",
+    "E2E test rules",
+    "protocol wire-format notes",
+    "waiting for user confirmation"
+   ]
+  },
+  {
+   "folder": "sonic-mast__aibtc-workspace",
+   "words_read": "skimmed: memory/bounty-audit-fix-pr-infeasible.md, news-gov-migration.md, state-api-reliability.md, news-filing.md, cf-asn-block-write-ops.md, wallet-signing-and-unlock.md, news-audit-2026-04-27.md, verify-before-filing.md, legion-mcp-tools-fixed.md, cloud-mcp-pattern.md, body-of-work.md, project_eic_pause.md, eic-rubric-v3.md, testnet-local-execution.md, arxiv-permission-denied.md, github-comment-apostrophe-escaping.md, gemini-review-utf8-crash.md, posted-bounty-duplicate-txid.md, classifier-*.md, identity-service-extended-outage.md, and the remaining small reference notes (grepped for directives; read hits in context); CLAUDE.md, memory/MEMORY.md, all feedback_*, memory-write-guardrails.md, memory-index-dead-links.md, gist-*, automode-classifier-gist.md, github-mcp-scope.md, inbox-*, outbox-field.md, token-optimization.md read fully",
+   "n_instructions_estimate": 160,
+   "file_instructions": [
+    {
+     "file": "CLAUDE.md",
+     "quote": "Read `SOUL.md` first.",
+     "action": "read",
+     "force": "must",
+     "target": "SOUL.md",
+     "target_is_path": true,
+     "condition": "at start"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "only write memories when something surprising or non-obvious happens. Keep under 20 entries.",
+     "action": "create",
+     "force": "only_if",
+     "target": "memory/ files and MEMORY.md entries",
+     "target_is_path": true,
+     "condition": "something surprising or non-obvious happens; index under 20 entries"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Never hand-edit one — the next sync overwrites it",
+     "action": "edit",
+     "force": "never",
+     "target": "reference/** (verbatim mirrors)",
+     "target_is_path": true,
+     "condition": ""
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "Sync fork main with upstream before every new branch.",
+     "action": "push",
+     "force": "must",
+     "target": "fork main (sync with upstream)",
+     "target_is_path": false,
+     "condition": "before every new branch"
+    },
+    {
+     "file": "CLAUDE.md",
+     "quote": "`scripts/gemini-review.py` (single-shot, REVIEW.md-calibrated) runs and findings are fixed BEFORE any `bounty_submit` or push",
+     "action": "push",
+     "force": "only_if",
+     "target": "code changes",
+     "target_is_path": false,
+     "condition": "after local gemini-review findings are fixed"
+    },
+    {
+     "file": "memory/memory-write-guardrails.md",
+     "quote": "When editing `MEMORY.md` in Phase 6b, only ever add/update **one line** for the memory you just wrote — never regenerate the whole file",
+     "action": "edit",
+     "force": "only_if",
+     "target": "MEMORY.md",
+     "target_is_path": true,
+     "condition": "add/update one line only"
+    },
+    {
+     "file": "memory/memory-write-guardrails.md",
+     "quote": "Before pushing, sanity-check every line still matches `[Title](memory/<name>.md) — ...` and that `<name>.md` exists",
+     "action": "push",
+     "force": "only_if",
+     "target": "MEMORY.md",
+     "target_is_path": true,
+     "condition": "every index line resolves to an existing memory/ file"
+    },
+    {
+     "file": "memory/memory-write-guardrails.md",
+     "quote": "path allowlist (MEMORY.md + `memory/*.md` only)",
+     "action": "commit",
+     "force": "only_if",
+     "target": "MEMORY.md, memory/*.md via scripts/memory-commit.sh",
+     "target_is_path": true,
+     "condition": "Phase 6b memory writes"
+    },
+    {
+     "file": "memory/memory-index-dead-links.md",
+     "quote": "Before trusting any `MEMORY.md` line, or before writing a new one, check the target file actually exists under `memory/`",
+     "action": "read",
+     "force": "must",
+     "target": "memory/ directory listing",
+     "target_is_path": true,
+     "condition": "before trusting or writing an index line"
+    },
+    {
+     "file": "memory/feedback_automode_memory_push_block.md",
+     "quote": "write files locally, or push them to a branch/PR (works fine) and leave the PR for the operator — the loop cannot merge it",
+     "action": "push",
+     "force": "never",
+     "target": "main (memory push / PR merge)",
+     "target_is_path": false,
+     "condition": "scheduled runs"
+    },
+    {
+     "file": "memory/cf-asn-block-write-ops.md",
+     "quote": "prefer local `git commit && git push origin main` over the Contents-API `PUT ... branch:\"main\"` pattern",
+     "action": "push",
+     "force": "may",
+     "target": "main (memory/prompt changes)",
+     "target_is_path": false,
+     "condition": "local scheduled or interactive run"
+    },
+    {
+     "file": "memory/feedback_automode_memory_push_block.md",
+     "quote": "operator must manually create the gist from the local file",
+     "action": "push",
+     "force": "never",
+     "target": "public gist of local file (bounties/*.md)",
+     "target_is_path": true,
+     "condition": "in scheduled runs; operator does it"
+    },
+    {
+     "file": "memory/gist-visibility-immutable.md",
+     "quote": "Never touch the original graded file itself",
+     "action": "edit",
+     "force": "never",
+     "target": "original graded file in a submitted gist",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/gist-visibility-immutable.md",
+     "quote": "pass `public` explicitly whenever it says \"public gist.\"",
+     "action": "push",
+     "force": "must",
+     "target": "gist (public visibility)",
+     "target_is_path": false,
+     "condition": "bounty spec requires public gist"
+    },
+    {
+     "file": "memory/github-comment-apostrophe-escaping.md",
+     "quote": "prefer writing the body to a temp file first (`Write` tool or `cat <<'EOF' > /tmp/body.txt`)",
+     "action": "create",
+     "force": "may",
+     "target": "/tmp/body.txt",
+     "target_is_path": true,
+     "condition": "GitHub comment bodies with apostrophes"
+    },
+    {
+     "file": "memory/cloud-mcp-pattern.md",
+     "quote": "All MCP tools used in the prompt must be pre-approved in `.claude/settings.json` (committed to repo).",
+     "action": "edit",
+     "force": "must",
+     "target": ".claude/settings.json",
+     "target_is_path": true,
+     "condition": "MCP tools used in the prompt"
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/feedback_automode_memory_push_block.md",
+     "a_quote": "write files locally, or push them to a branch/PR (works fine) and leave the PR for the operator — the loop cannot merge it",
+     "b_file": "memory/cf-asn-block-write-ops.md",
+     "b_quote": "prefer local `git commit && git push origin main` over the Contents-API `PUT ... branch:\"main\"` pattern",
+     "topic": "git",
+     "situation": "A scheduled run needs to land a memory change on main",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "One says leave main to the operator, the newer note says push to main directly since plain git push isn't blocked; it doesn't say the operator-gate intent is lifted."
+    },
+    {
+     "a_file": "CLAUDE.md",
+     "a_quote": "Keep under 20 entries.",
+     "b_file": "memory/memory-index-dead-links.md",
+     "b_quote": "When several unlinked `.md` files exist under `memory/` with no index entry (there were ~28 at last check ...) ... still worth reconciling opportunistically.",
+     "topic": "files",
+     "situation": "Indexing the ~28 unlinked memory files",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Reconciling all unlinked files would push the index well past the 20-entry cap."
+    },
+    {
+     "a_file": "memory/memory-write-guardrails.md",
+     "a_quote": "sanity-check every line still matches `[Title](memory/<name>.md) — ...`",
+     "b_file": "memory/MEMORY.md",
+     "b_quote": "- [Outbox field is \"reply\" not \"content\"](outbox-field.md)",
+     "topic": "files",
+     "situation": "Adding a line to the index; which link format to use",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "The index in this folder uses the ## Feedback/## Projects structure and bare filenames the guardrail calls a red flag; may be because this is memory/MEMORY.md, not the root MEMORY.md."
+    },
+    {
+     "a_file": "memory/memory-write-guardrails.md",
+     "a_quote": "only ever add/update **one line** for the memory you just wrote — never regenerate the whole file",
+     "b_file": "memory/memory-index-dead-links.md",
+     "b_quote": "The remaining ~15 dead entries were dropped from the index rather than reconstructed",
+     "topic": "files",
+     "situation": "Cleaning many dead links from MEMORY.md at once",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The guardrail's 2026-07-15 update allows bigger removals with MEMORY_ALLOW_RESTRUCTURE=1 for operator-approved restructures."
+    },
+    {
+     "a_file": "memory/feedback_automode_memory_push_block.md",
+     "a_quote": "operator must manually create the gist from the local file ... Do NOT attempt workarounds",
+     "b_file": "memory/automode-classifier-gist.md",
+     "b_quote": "Relay deployed → `publish-gist.sh` works in scheduled runs.",
+     "topic": "files",
+     "situation": "A bounty needs a gist published during a scheduled run",
+     "status": "settled",
+     "confidence": "unsure",
+     "why": "The relay is described as the operator-authorized fix, which reads as a later decision, but the older file still says don't work around."
+    }
+   ],
+   "other_topics": [
+    "News Legion governance/filing rules",
+    "inbox/outbox API handling",
+    "wallet unlock",
+    "state API usage",
+    "bounty hunting",
+    "classifier blocks in auto-mode",
+    "model routing for tokens",
+    "no autonomous trading",
+    "local-first code review"
+   ]
+  },
+  {
+   "folder": "IntrustIT__intrust-canon",
+   "words_read": "skimmed: all 57 memory/reference_*.md files (UI canon docs, ~95k words; grepped for file/git/precedence directives, read reference_unsaved_changes_guard.md header, reference_canon_sweep_field_notes.md scaffold section, reference_list_page_template.md precedence sections); all 8 memory/feedback_*.md read fully",
+   "n_instructions_estimate": 400,
+   "file_instructions": [
+    {
+     "file": "memory/feedback_canon_strictness.md",
+     "quote": "add it to the canon (a feedback or reference memory file, plus an entry under \"Reusable primitives now live + canonical\" in `MEMORY.md`'s active-work block)",
+     "action": "create",
+     "force": "must",
+     "target": "feedback_*/reference_* memory file + MEMORY.md entry",
+     "target_is_path": true,
+     "condition": "When a fresh primitive proves itself in the live UI"
+    },
+    {
+     "file": "memory/feedback_canon_strictness.md",
+     "quote": "FIRST run a grep on `components/` + `lib/` for likely primitive names",
+     "action": "read",
+     "force": "must",
+     "target": "components/, lib/",
+     "target_is_path": true,
+     "condition": "before citing canon docs in a preflight"
+    },
+    {
+     "file": "memory/feedback_unsaved_guard_semantics.md",
+     "quote": "Needs to be upstreamed into `docs/canon/reference_unsaved_changes_guard.md` on the next canon-repo sync.",
+     "action": "edit",
+     "force": "must",
+     "target": "docs/canon/reference_unsaved_changes_guard.md",
+     "target_is_path": true,
+     "condition": "on the next canon-repo sync"
+    },
+    {
+     "file": "memory/feedback_search_comment_inclusion.md",
+     "quote": "Needs upstream to `docs/canon/reference_global_search.md` + `docs/canon/reference_list_standards.md` on next sync.",
+     "action": "edit",
+     "force": "must",
+     "target": "docs/canon/reference_global_search.md, docs/canon/reference_list_standards.md",
+     "target_is_path": true,
+     "condition": "on next sync"
+    },
+    {
+     "file": "memory/feedback_types_live_on_containers.md",
+     "quote": "Adding `isStractical: true` to the Todo model. Don't.",
+     "action": "edit",
+     "force": "never",
+     "target": "Todo model schema (type fields on atomic entities)",
+     "target_is_path": false,
+     "condition": ""
+    },
+    {
+     "file": "memory/feedback_canonical_role_labels.md",
+     "quote": "**Don't change** internal code identifiers — schema fields (`ownerId`, `assignedToId`), Prisma enum values, sortKeys, groupBy keys.",
+     "action": "edit",
+     "force": "never",
+     "target": "schema fields, Prisma enum values, sortKeys, groupBy keys",
+     "target_is_path": false,
+     "condition": "during the label sweep"
+    },
+    {
+     "file": "memory/feedback_always_visible_affordances.md",
+     "quote": "**Anti-canon pattern to remove on sight:**",
+     "action": "edit",
+     "force": "must",
+     "target": "code with opacity-0 group-hover:opacity-100 affordances",
+     "target_is_path": false,
+     "condition": "on sight (except Class B exceptions)"
+    },
+    {
+     "file": "memory/reference_section_header_add_affordance.md",
+     "quote": "Don't change the className without updating this doc and sweeping every consumer in the same commit.",
+     "action": "commit",
+     "force": "only_if",
+     "target": "className change + this doc + all consumers",
+     "target_is_path": false,
+     "condition": "all in the same commit"
+    },
+    {
+     "file": "memory/reference_canon_sweep_field_notes.md",
+     "quote": "**Diff-check against pilot** before committing.",
+     "action": "commit",
+     "force": "only_if",
+     "target": "new list page/editor scaffold",
+     "target_is_path": false,
+     "condition": "after diff-check against pilot"
+    },
+    {
+     "file": "memory/reference_canon_sweep_field_notes.md",
+     "quote": "They're slated for a final cleanup commit before merge — DO NOT strip prematurely",
+     "action": "edit",
+     "force": "never",
+     "target": "diagnostic logs in handleReorderDrop",
+     "target_is_path": false,
+     "condition": "until Ricky confirms drag is rock-solid"
+    },
+    {
+     "file": "memory/reference_canon_sweep_field_notes.md",
+     "quote": "**Copy the pilot file verbatim** as the new page's starting structure.",
+     "action": "create",
+     "force": "must",
+     "target": "new list page (copied from app/todos/page.tsx)",
+     "target_is_path": true,
+     "condition": "building a new OS list page"
+    },
+    {
+     "file": "memory/reference_status_pill_semantics.md",
+     "quote": "Each sweep is its own commit so the diff stays scoped.",
+     "action": "commit",
+     "force": "must",
+     "target": "each sweep",
+     "target_is_path": false,
+     "condition": ""
+    }
+   ],
+   "clashes": [
+    {
+     "a_file": "memory/reference_canon_sweep_field_notes.md",
+     "a_quote": "Any unintended divergence in chrome (Band 2 spacing, kebab shape, search input padding) is drift. Fix to match pilot.",
+     "b_file": "memory/reference_list_page_template.md",
+     "b_quote": "When the live pilot disagrees with this template, **this template wins** — the pilot has drift to fix.",
+     "topic": "other",
+     "situation": "A new list page matches the template but differs from app/todos/page.tsx where the pilot has drifted",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Field notes make the pilot the reference to match before committing; the template says the template beats the pilot; neither cross-references the other's precedence."
+    },
+    {
+     "a_file": "memory/reference_unsaved_changes_guard.md",
+     "a_quote": "**Cancel button** → check dirty, prompt if dirty.",
+     "b_file": "memory/feedback_unsaved_guard_semantics.md",
+     "b_quote": "**Cancel button** | Skip prompt. Reset `dirtyRef.current = false`. Call `onClose()` directly.",
+     "topic": "other",
+     "situation": "User clicks Cancel in a dirty slide-over editor",
+     "status": "settled",
+     "confidence": "sure",
+     "why": "The reference doc is marked SUPERSEDED by the feedback doc."
+    },
+    {
+     "a_file": "memory/feedback_canon_strictness.md",
+     "a_quote": "plus an entry under \"Reusable primitives now live + canonical\" in `MEMORY.md`'s active-work block",
+     "b_file": "memory/feedback_unsaved_guard_semantics.md",
+     "b_quote": "Needs to be upstreamed into `docs/canon/reference_unsaved_changes_guard.md` on the next canon-repo sync.",
+     "topic": "files",
+     "situation": "Recording a new canon rule: memory file + MEMORY.md, or docs/canon/",
+     "status": "clash",
+     "confidence": "unsure",
+     "why": "Two homes for canon (memory files vs docs/canon) with sync described as pending; probably a workflow rather than a contradiction. MEMORY.md is not in this folder."
+    }
+   ],
+   "other_topics": [
+    "UI canon strictness",
+    "role/label terminology",
+    "Done/Not done wording",
+    "unsaved-changes guard",
+    "search scope",
+    "list page template",
+    "affordance visibility",
+    "confirm dialogs",
+    "color/typography canon"
+   ]
+  }
+ ],
+ "notes": "Method: one pass per folder, reading each folder's .md files with shell cat/grep. Instruction counts (n_instructions_estimate) are rough; for the large UI-canon folder (IntrustIT, ~100k words) the 400 is a guess. Folders over or near 30k words (IntrustIT, sonic-mast, RDForward, ruflo-patch, vani-compiler) had reference/protocol notes skimmed by grepping for directives (never/always/must/commit/push/delete/etc.) and reading hits in context. A file-level clash hidden in prose without those keywords could be missed there. summoner-build-lab's two skill catalogs were also skimmed even though that folder is small. file_instructions lists the clearer file-action instructions, not every one. Code-style rules (e.g. 'put components in X') were included when they name a path. Rules about the content of commit messages (no Co-Authored-By) were left out of file_instructions as not file actions, but are noted in other_topics. A rule that names several paths appears as one entry with a combined target. 'settled' was used when a later dated note or an explicit SUPERSEDED/exception marker exists, even when the older file was not updated; most of those are marked unsure. Several 'clashes' are a stale fact (jar version, domain, env path) against a current instruction; their topic was set honestly but they may not count as instruction clashes under a strict reading. Pensieve's CLAUDE.md holds just the text 'AGENTS.md' (AGENTS.md is not a .md in scope). intrust-canon's feedback refers to a MEMORY.md that does not exist in that folder. Process note: the scratchpad was shared with another reader; my first assembler script and notes.txt collided with theirs mid-run (their script overwrote mine, and mine was briefly at their notes path). My fragments were kept separate and were checked before this final write."
+}

@@ -1,0 +1,724 @@
+{
+  "repo": "jamieleecho/space-bandits",
+  "dir": ".claude/projects/-Users-jcho-src-space-bandits/memory",
+  "n_files": 4,
+  "n_rules": 119,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_project_structure.md",
+      "quote": "Object group numbers (e.g., 10) must match across: the `.c`/`.h` filename prefix, the sprite JSON `Group` field, and the `GroupID` referenced in level JSON.",
+      "rule": "Ensure object group numbers match across the object .c/.h filename prefix, the sprite JSON Group field, and the GroupID referenced in level JSON."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_project_structure.md",
+      "quote": "Level numbers must match across: the level `.c`/`.json` filename prefix, the splash image prefix (`game/images/XX-levelN.png`), and the index in `images.json`.",
+      "rule": "Ensure level numbers match across the level .c/.json filename prefix, the splash image prefix game/images/XX-levelN.png, and the index in images.json."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_project_structure.md",
+      "quote": "Each sprite group JSON can reference its own PNG file.",
+      "rule": "A sprite group JSON may reference its own PNG file."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_project_structure.md",
+      "quote": "You don't have to add sprites to the shared `01-sprites.png`.",
+      "rule": "It is not required to add sprites to the shared 01-sprites.png."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_project_structure.md",
+      "quote": "Creating a separate small PNG per group works fine.",
+      "rule": "Creating a separate small PNG per sprite group is allowed."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_project_structure.md",
+      "quote": "Each channel is 2 bits: values are 0, 85, 170, or 255 only.",
+      "rule": "For CoCo 3 palette channels, use only 0, 85, 170, or 255."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_project_structure.md",
+      "quote": "Each screen/tileset uses at most 16 colors.",
+      "rule": "Ensure each screen or tileset uses at most 16 colors."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_project_structure.md",
+      "quote": "PNGs must be indexed (palette mode 'P').",
+      "rule": "Save PNGs in indexed palette mode 'P'."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_project_structure.md",
+      "quote": "Magenta (255, 0, 255) is the standard transparent color for sprites.",
+      "rule": "Use magenta (255, 0, 255) as the standard transparent color for sprites."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_project_structure.md",
+      "quote": "Adding a new level means appending to this array.",
+      "rule": "When adding a new level, append its entry to the images.json array."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_project_structure.md",
+      "quote": "The tileset PNG dimensions should match the `TilemapSize` in the tileset JSON (or be larger if more tile variety is needed).",
+      "rule": "Set tileset PNG dimensions to match the TilemapSize in the tileset JSON, or make them larger if more tile variety is needed."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_project_structure.md",
+      "quote": "Functions passed to `RegisterObject` and `RegisterLevel` use only an initial capital, not camelCase.",
+      "rule": "Name functions passed to RegisterObject and RegisterLevel with only an initial capital, not camelCase."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_project_structure.md",
+      "quote": "Struct/typedef names CAN be camelCase",
+      "rule": "Struct and typedef names may use camelCase."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_project_structure.md",
+      "quote": "These are defined inside the `#ifdef DynospriteObject_DataDefinition` block only.",
+      "rule": "Define DynospriteObject_DataSize and DynospriteObject_InitSize only inside the #ifdef DynospriteObject_DataDefinition block."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_project_structure.md",
+      "quote": "`DynospriteObject_DataSize` = the size in bytes of the object's state struct (byte = 1, word = 2, etc.).",
+      "rule": "Set DynospriteObject_DataSize to the size in bytes of the object's state struct."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_project_structure.md",
+      "quote": "Must match `sizeof(ObjectState)`.",
+      "rule": "Ensure DynospriteObject_DataSize matches sizeof(ObjectState)."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_project_structure.md",
+      "quote": "`DynospriteObject_InitSize` = the number of bytes passed to the object's Init function via `initData`.",
+      "rule": "Set DynospriteObject_InitSize to the number of bytes passed to the object's Init function via initData."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_project_structure.md",
+      "quote": "If `InitData` is empty in the JSON, this should be 0.",
+      "rule": "If the level JSON InitData is empty, set DynospriteObject_InitSize to 0."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_project_structure.md",
+      "quote": "`ClassInit` function must be wrapped in `#ifdef __APPLE__`",
+      "rule": "Wrap the ClassInit function in #ifdef __APPLE__."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_project_structure.md",
+      "quote": "All object and level `.c` files are wrapped in `#ifdef __cplusplus extern \"C\" {` / `#endif` brackets.",
+      "rule": "Wrap all object and level .c files in the `#ifdef __cplusplus extern \"C\" {` / `#endif` brackets."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_project_structure.md",
+      "quote": "The `active` field in level JSON: `3` = active, `0` = inactive.",
+      "rule": "In level JSON, set the active field to 3 for active and 0 for inactive."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_project_structure.md",
+      "quote": "don't use `1` or `true`.",
+      "rule": "Do not use 1 or true for the level JSON active field."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_project_structure.md",
+      "quote": "Use Python Pillow to create indexed PNGs: `Image.new('P', (w, h))` with `img.putpalette()` using the CoCo 3 color values.",
+      "rule": "Use Python Pillow to create indexed PNGs with Image.new('P', (w, h)) and img.putpalette() using the CoCo 3 color values."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_project_structure.md",
+      "quote": "Pillow may need to be installed: `pip3 install --break-system-packages Pillow`",
+      "rule": "If Pillow needs to be installed, install it with pip3 install --break-system-packages Pillow."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_project_structure.md",
+      "quote": "Change `FirstLevel` in `game/defaults-config.json` to jump straight to a specific level (e.g., set to 3 to test level 3 without playing through earlier levels).",
+      "rule": "To test a specific level, change FirstLevel in game/defaults-config.json to that level."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/tiles/XX-name.json` + `.png` (tileset)",
+      "rule": "When adding a complete new level, create or modify the tileset file game/tiles/XX-name.json and its .png file."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/sprites/XX-name.json` + `.png` (sprite group, if new objects)",
+      "rule": "When adding a complete new level and adding new objects, create or modify the sprite group file game/sprites/XX-name.json and its .png file."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/objects/XX-name.c` + `.h` (object code, if new objects)",
+      "rule": "When adding a complete new level and adding new objects, create or modify the object code files game/objects/XX-name.c and .h."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/levels/XX-name.json` + `.c` (level config + code)",
+      "rule": "When adding a complete new level, create or modify the level config and code files game/levels/XX-name.json and .c."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/images/XX-levelN.png` (splash screen)",
+      "rule": "When adding a complete new level, create or modify the splash screen image game/images/XX-levelN.png."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_project_structure.md",
+      "quote": "`game/images/images.json` (add splash entry)",
+      "rule": "When adding a complete new level, add a splash entry to game/images/images.json."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_project_structure.md",
+      "quote": "Xcode project pbxproj (all new files)",
+      "rule": "When adding a complete new level, add all new files to the Xcode project pbxproj."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_project_structure.md",
+      "quote": "When creating new game content, use this as a checklist.",
+      "rule": "When creating new game content, use this file as a checklist."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_project_structure.md",
+      "quote": "Verify numbering is consistent across all file types before building.",
+      "rule": "Before building, verify that numbering is consistent across all file types."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_xcode_project.md",
+      "quote": "When adding game files (objects, levels, etc.) to the Xcode project, use the conventions Xcode itself uses — not the conventions from the older bulk-imported files.",
+      "rule": "When adding game files such as objects or levels to the Xcode project, use the conventions Xcode itself uses rather than the conventions from the older bulk-imported files."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_xcode_project.md",
+      "quote": "Use `sourceTree = SOURCE_ROOT` with path relative to the Xcode project root: `../game/objects/10-littleguy.c`",
+      "rule": "When adding .c or .h source files under game/ to the Xcode project, use sourceTree = SOURCE_ROOT with a path relative to the Xcode project root."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_xcode_project.md",
+      "quote": "Do NOT use `sourceTree = \"<group>\"` with deep relative paths like `../../../../game/objects/...`",
+      "rule": "Do not use sourceTree = \"<group>\" with deep relative paths like ../../../../game/objects/... for game source files."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_xcode_project.md",
+      "quote": "For .c files that contain `#ifdef __cplusplus` / CMOC C code, set `explicitFileType = sourcecode.cpp.objcpp` so Xcode compiles them as Objective-C++.",
+      "rule": "When adding a .c file that contains #ifdef __cplusplus or CMOC C code to the Xcode project, set explicitFileType to sourcecode.cpp.objcpp."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_xcode_project.md",
+      "quote": "Header files use `lastKnownFileType = sourcecode.c.h`",
+      "rule": "When adding header files to the Xcode project, use lastKnownFileType = sourcecode.c.h."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_xcode_project.md",
+      "quote": "child file references use just the filename with `sourceTree = \"<group>\"`",
+      "rule": "For .json and .png resource files under game/sprites, game/tiles, or game/images, use just the filename with sourceTree = \"<group>\" for child file references."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_xcode_project.md",
+      "quote": "When adding new game source files to the pbxproj, always use `sourceTree = SOURCE_ROOT` with `../game/...` paths",
+      "rule": "When adding new game source files to the pbxproj, always use sourceTree = SOURCE_ROOT with ../game/... paths."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_xcode_project.md",
+      "quote": "`explicitFileType = sourcecode.cpp.objcpp` for .c files",
+      "rule": "When adding .c files to the pbxproj, set explicitFileType to sourcecode.cpp.objcpp."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_xcode_project.md",
+      "quote": "Validate with `plutil -lint` after editing.",
+      "rule": "After editing the pbxproj, validate it with plutil -lint."
+    },
+    {
+      "id": "R44",
+      "file": "CLAUDE.md",
+      "quote": "Game assets use `XX-descriptivename` prefix (two-digit index for ordering).",
+      "rule": "Game assets must be named with an `XX-descriptivename` prefix, where `XX` is a two-digit index used for ordering."
+    },
+    {
+      "id": "R45",
+      "file": "CLAUDE.md",
+      "quote": "./coco-dev",
+      "rule": "Start the Docker build environment by running `./coco-dev`."
+    },
+    {
+      "id": "R46",
+      "file": "CLAUDE.md",
+      "quote": "make all",
+      "rule": "Build the standard CoCo 3 disk image by running `make all`."
+    },
+    {
+      "id": "R47",
+      "file": "CLAUDE.md",
+      "quote": "make all CPU=6309",
+      "rule": "Build the 6309-optimized disk image by running `make all CPU=6309`."
+    },
+    {
+      "id": "R48",
+      "file": "CLAUDE.md",
+      "quote": "exit",
+      "rule": "Exit the Docker environment by running `exit`."
+    },
+    {
+      "id": "R49",
+      "file": "CLAUDE.md",
+      "quote": "make test",
+      "rule": "Run the game in the MAME emulator with `make test`."
+    },
+    {
+      "id": "R50",
+      "file": "CLAUDE.md",
+      "quote": "open \"Space Bandits/Space Bandits.xcodeproj\"",
+      "rule": "Open the macOS Xcode project by running `open \"Space Bandits/Space Bandits.xcodeproj\"`."
+    },
+    {
+      "id": "R51",
+      "file": "CLAUDE.md",
+      "quote": "xcodebuild -project \"Space Bandits/Space Bandits.xcodeproj\" -scheme \"Space Bandits\" build",
+      "rule": "Build the macOS version with the specified `xcodebuild` command."
+    },
+    {
+      "id": "R52",
+      "file": "CLAUDE.md",
+      "quote": "**Never use `Gfx_BkgrndLastX` / `Gfx_BkgrndLastY`** in game code.",
+      "rule": "Never use `Gfx_BkgrndLastX` or `Gfx_BkgrndLastY` in game code."
+    },
+    {
+      "id": "R53",
+      "file": "CLAUDE.md",
+      "quote": "Each level's `CalculateBkgrndNewXY` function (e.g., `ChiricoCalculateBkgrndNewXY` in `game/levels/03-chirico.c`) is responsible for setting `Gfx_BkgrndNewX` / `Gfx_BkgrndNewY`.",
+      "rule": "Each level's `CalculateBkgrndNewXY` function must set `Gfx_BkgrndNewX` and `Gfx_BkgrndNewY`."
+    },
+    {
+      "id": "R54",
+      "file": "CLAUDE.md",
+      "quote": "All objects should **read** `Gfx_BkgrndNewX` for screen-relative position calculations.",
+      "rule": "All objects should read `Gfx_BkgrndNewX` when calculating screen-relative positions."
+    },
+    {
+      "id": "R55",
+      "file": "CLAUDE.md",
+      "quote": "Objects should **not write** to `Gfx_BkgrndNewX`.",
+      "rule": "Objects should not write to `Gfx_BkgrndNewX`."
+    },
+    {
+      "id": "R56",
+      "file": "CLAUDE.md",
+      "quote": "To check if an object is on-screen, compare its screen X/Y against `[0, SCREEN_WIDTH]`/`[0, SCREEN_HEIGHT]` accounting for the object's half-width/half-height.",
+      "rule": "To determine whether an object is on-screen, compare its screen X and Y against `[0, SCREEN_WIDTH]` and `[0, SCREEN_HEIGHT]`, accounting for the object's half-width and half-height."
+    },
+    {
+      "id": "R57",
+      "file": "CLAUDE.md",
+      "quote": "Rather than snapping the camera to the target position, `CalculateBkgrndNewXY` should clamp the per-frame scroll delta to these maximums, creating a smooth \"catch up\" effect when the player moves fast or jumps.",
+      "rule": "`CalculateBkgrndNewXY` should clamp the per-frame scroll delta to at most 2 units of `Gfx_BkgrndNewX` horizontally and 4 pixels of `Gfx_BkgrndNewY` vertically, rather than snapping the camera to the target position."
+    },
+    {
+      "id": "R58",
+      "file": "CLAUDE.md",
+      "quote": "For parallax effects (e.g., clouds), objects can compute their `globalX` based on `Gfx_BkgrndNewX` with a reduced ratio (e.g., move 1 pixel per 8 scroll increments).",
+      "rule": "For parallax effects, objects may compute their `globalX` from `Gfx_BkgrndNewX` using a reduced ratio."
+    },
+    {
+      "id": "R59",
+      "file": "CLAUDE.md",
+      "quote": "Call `PlaySound(SOUND_ID)` from any object's C code.",
+      "rule": "Call `PlaySound(SOUND_ID)` from an object's C code to play a sound."
+    },
+    {
+      "id": "R60",
+      "file": "CLAUDE.md",
+      "quote": "Add WAV file to `game/sounds/` with `XX-name.wav` naming (XX = next number)",
+      "rule": "When adding a new sound, add the WAV file to `game/sounds/` using `XX-name.wav` naming, where `XX` is the next number."
+    },
+    {
+      "id": "R61",
+      "file": "CLAUDE.md",
+      "quote": "Add `#define SOUND_NAME XX` to `game/objects/object_info.h`",
+      "rule": "When adding a new sound, add a `#define SOUND_NAME XX` entry to `game/objects/object_info.h`."
+    },
+    {
+      "id": "R62",
+      "file": "CLAUDE.md",
+      "quote": "Add file reference, build file, copy phase entry, and group entry to the Xcode pbxproj (see \"Adding Files to the Xcode Project\" below)",
+      "rule": "When adding a new sound, add its file reference, build file, copy phase entry, and group entry to the Xcode pbxproj."
+    },
+    {
+      "id": "R63",
+      "file": "CLAUDE.md",
+      "quote": "Set waveforms before calling `SequencerPlay` or `MusicStart`.",
+      "rule": "Set the desired waveforms before calling `SequencerPlay` or `MusicStart`."
+    },
+    {
+      "id": "R64",
+      "file": "CLAUDE.md",
+      "quote": "Replace `0` with `1` or `2` for voices 1 and 2.",
+      "rule": "When setting waveforms for music voices 1 or 2, replace the `0` suffix with `1` or `2`."
+    },
+    {
+      "id": "R65",
+      "file": "CLAUDE.md",
+      "quote": "Include it in any level's C code to get automatic song playback with looping.",
+      "rule": "Include `game/shared/sequencer.h` in a level's C code to get automatic looping song playback."
+    },
+    {
+      "id": "R66",
+      "file": "CLAUDE.md",
+      "quote": "Call once per frame from CalculateBkgrndNewXY",
+      "rule": "Call `SequencerTick()` once per frame from the level's `CalculateBkgrndNewXY` function."
+    },
+    {
+      "id": "R67",
+      "file": "CLAUDE.md",
+      "quote": "Set `MUSIC_VOICES=N` (0-3) in the Makefile to control how many voices are compiled:",
+      "rule": "Set `MUSIC_VOICES=N` (0-3) in the Makefile to control how many music voices are compiled."
+    },
+    {
+      "id": "R68",
+      "file": "CLAUDE.md",
+      "quote": "For scrolling levels, objects must not be drawn if **any part** of the sprite would be clipped **vertically** by the top or bottom screen edges.",
+      "rule": "In scrolling levels, do not draw an object if any part of its sprite would be clipped vertically by the top or bottom screen edge."
+    },
+    {
+      "id": "R69",
+      "file": "CLAUDE.md",
+      "quote": "Use the `active` field on the COB:",
+      "rule": "Use the `active` field on the COB to control whether an object is updated and drawn."
+    },
+    {
+      "id": "R70",
+      "file": "CLAUDE.md",
+      "quote": "cob->active = OBJECT_UPDATE_ACTIVE;  /* update only, don't draw */",
+      "rule": "When a sprite would be vertically clipped, set `cob->active` to `OBJECT_UPDATE_ACTIVE` so the object updates but is not drawn."
+    },
+    {
+      "id": "R71",
+      "file": "CLAUDE.md",
+      "quote": "cob->active = OBJECT_ACTIVE;         /* update and draw */",
+      "rule": "When a sprite is fully visible, set `cob->active` to `OBJECT_ACTIVE` so the object updates and is drawn."
+    },
+    {
+      "id": "R72",
+      "file": "CLAUDE.md",
+      "quote": "The `Active` value in the level JSON must match the object's initial visibility.",
+      "rule": "The `Active` value in the level JSON must match the object's initial visibility."
+    },
+    {
+      "id": "R73",
+      "file": "CLAUDE.md",
+      "quote": "If an object starts off-screen (based on `BkgrndStartX`/`BkgrndStartY`), set its `Active` to `1` (`OBJECT_UPDATE_ACTIVE`) in the JSON, not `3`.",
+      "rule": "If an object starts off-screen based on `BkgrndStartX`/`BkgrndStartY`, set its `Active` value to `1` (`OBJECT_UPDATE_ACTIVE`) in the level JSON, not `3`."
+    },
+    {
+      "id": "R74",
+      "file": "CLAUDE.md",
+      "quote": "Use `findObjectByGroup()` from `object_info.h` to locate other objects:",
+      "rule": "Use `findObjectByGroup()` from `object_info.h` to locate other objects for collision detection."
+    },
+    {
+      "id": "R75",
+      "file": "CLAUDE.md",
+      "quote": "To check collision against **all** objects of a group (e.g., multiple birds), iterate the object table directly:",
+      "rule": "To check collision against all objects in a group, iterate the object table directly."
+    },
+    {
+      "id": "R76",
+      "file": "CLAUDE.md",
+      "quote": "Profile with `SPEEDTEST=1` or `VISUALTIME=1`.",
+      "rule": "Profile performance with `SPEEDTEST=1` or `VISUALTIME=1`."
+    },
+    {
+      "id": "R77",
+      "file": "CLAUDE.md",
+      "quote": "Prefer assembly for hot paths.",
+      "rule": "Prefer assembly for performance-critical hot paths."
+    },
+    {
+      "id": "R78",
+      "file": "CLAUDE.md",
+      "quote": "C (via CMOC) is acceptable for object logic.",
+      "rule": "C via CMOC is acceptable for object logic."
+    },
+    {
+      "id": "R79",
+      "file": "CLAUDE.md",
+      "quote": "The sprite compiler (`scripts/sprite2asm.py`) generates optimized unrolled ASM — don't hand-write sprite routines.",
+      "rule": "Do not hand-write sprite routines; use the sprite compiler `scripts/sprite2asm.py` to generate optimized unrolled ASM."
+    },
+    {
+      "id": "R80",
+      "file": "CLAUDE.md",
+      "quote": "6309 builds are ~29% faster; test both CPU targets.",
+      "rule": "Test both the 6809 and 6309 CPU targets."
+    },
+    {
+      "id": "R81",
+      "file": "CLAUDE.md",
+      "quote": "**New object:** Create `game/objects/XX-name/` with JSON descriptor + C or ASM source.",
+      "rule": "When adding a new object, create `game/objects/XX-name/` with a JSON descriptor and C or ASM source."
+    },
+    {
+      "id": "R82",
+      "file": "CLAUDE.md",
+      "quote": "Follow existing patterns.",
+      "rule": "When adding game content, follow existing patterns."
+    },
+    {
+      "id": "R83",
+      "file": "CLAUDE.md",
+      "quote": "**New sprite:** Add PNG to `game/sprites/`, create JSON descriptor.",
+      "rule": "When adding a new sprite, add its PNG to `game/sprites/` and create a JSON descriptor."
+    },
+    {
+      "id": "R84",
+      "file": "CLAUDE.md",
+      "quote": "**New level:** Create `game/levels/XX-name.json` (config) + `XX-name.c` (level code with Init and CalculateBkgrndNewXY).",
+      "rule": "When adding a new level, create `game/levels/XX-name.json` config and `XX-name.c` level code containing `Init` and `CalculateBkgrndNewXY`."
+    },
+    {
+      "id": "R85",
+      "file": "CLAUDE.md",
+      "quote": "A level image `game/images/XX-levelN.png` (132x96 indexed PNG, preview/splash for the level)",
+      "rule": "When adding a new level, provide a 132x96 indexed PNG level image at `game/images/XX-levelN.png`."
+    },
+    {
+      "id": "R86",
+      "file": "CLAUDE.md",
+      "quote": "A corresponding entry in `game/images/images.json` (one entry per level, with BackgroundColor, ForegroundColor, ProgressColor for the loading screen)",
+      "rule": "When adding a new level, add a corresponding entry in `game/images/images.json` with `BackgroundColor`, `ForegroundColor`, and `ProgressColor` for the loading screen."
+    },
+    {
+      "id": "R87",
+      "file": "CLAUDE.md",
+      "quote": "Set `FirstLevel` in `game/defaults-config.json` to change the default level",
+      "rule": "Set `FirstLevel` in `game/defaults-config.json` to change the default level."
+    },
+    {
+      "id": "R88",
+      "file": "CLAUDE.md",
+      "quote": "**New tileset:** Add PNG + JSON to `game/tiles/`.",
+      "rule": "When adding a new tileset, add its PNG and JSON files to `game/tiles/`."
+    },
+    {
+      "id": "R89",
+      "file": "CLAUDE.md",
+      "quote": "**Maximum 127 unique tiles** per tileset.",
+      "rule": "A tileset may contain at most 127 unique tiles."
+    },
+    {
+      "id": "R90",
+      "file": "CLAUDE.md",
+      "quote": "**Index 0 must be the background color.**",
+      "rule": "Palette index 0 must be the background color."
+    },
+    {
+      "id": "R91",
+      "file": "CLAUDE.md",
+      "quote": "Set `TileSetStart` Y to `16` in the tileset JSON.",
+      "rule": "Set `TileSetStart` Y to `16` in the tileset JSON to skip the palette block."
+    },
+    {
+      "id": "R92",
+      "file": "CLAUDE.md",
+      "quote": "`TileSetSize` height covers only the tile area (excludes the palette block).",
+      "rule": "`TileSetSize` height must cover only the tile area and exclude the palette block."
+    },
+    {
+      "id": "R93",
+      "file": "CLAUDE.md",
+      "quote": "RGB channel values must be **0, 1, 2, or 3** (CoCo 3 native 2-bit-per-channel, 64 colors total).",
+      "rule": "RGB channel values must be 0, 1, 2, or 3."
+    },
+    {
+      "id": "R94",
+      "file": "CLAUDE.md",
+      "quote": "If fewer than 16 colors are needed, fill remaining slots in this priority order:",
+      "rule": "If fewer than 16 colors are needed, fill the remaining palette slots in this priority order: white, black, grey, dark grey, pure red shades, pure green shades, pure blue shades."
+    },
+    {
+      "id": "R95",
+      "file": "CLAUDE.md",
+      "quote": "Skip any already present in the palette.",
+      "rule": "When filling unused palette slots, skip any colors already present in the palette."
+    },
+    {
+      "id": "R96",
+      "file": "CLAUDE.md",
+      "quote": "Sprite PNGs must be **indexed-color images** that use the **same palette indices** as the tileset image for their level.",
+      "rule": "Sprite PNGs must be indexed-color images that use the same palette indices as the tileset image for their level."
+    },
+    {
+      "id": "R97",
+      "file": "CLAUDE.md",
+      "quote": "The transparent color (typically `(255,0,255)` magenta) should be placed at **index 16** (outside the 16-color tileset palette).",
+      "rule": "Place the transparent color at palette index 16, outside the 16-color tileset palette."
+    },
+    {
+      "id": "R98",
+      "file": "CLAUDE.md",
+      "quote": "The sprite JSON's `\"Palette\"` value must be set to the **tileset number** for the level (e.g., `3` for level 3, `4` for level 4).",
+      "rule": "Set the sprite JSON's `\"Palette\"` value to the tileset number for the level."
+    },
+    {
+      "id": "R99",
+      "file": "CLAUDE.md",
+      "quote": "When creating a tileset, analyze all pixels across **both** the tileset image and the sprite PNGs used on that level (excluding transparent key colors like `(255,0,255)`).",
+      "rule": "When creating a tileset, analyze all pixels across both the tileset image and the sprite PNGs used on that level, excluding transparent key colors."
+    },
+    {
+      "id": "R100",
+      "file": "CLAUDE.md",
+      "quote": "Sort by pixel count to prioritize the most-used colors.",
+      "rule": "Sort colors by pixel count to prioritize the most-used colors when choosing the shared palette."
+    },
+    {
+      "id": "R101",
+      "file": "CLAUDE.md",
+      "quote": "When adding new game source/resource files, the Xcode project file (`Space Bandits/Space Bandits.xcodeproj/project.pbxproj`) must be updated.",
+      "rule": "When adding new game source or resource files, update `Space Bandits/Space Bandits.xcodeproj/project.pbxproj`."
+    },
+    {
+      "id": "R102",
+      "file": "CLAUDE.md",
+      "quote": "Find existing entries for a similar object (e.g., search for `11-bird` or `12-cat`) and follow the same pattern.",
+      "rule": "When updating the Xcode project file, find existing entries for a similar object and follow the same pattern."
+    },
+    {
+      "id": "R103",
+      "file": "CLAUDE.md",
+      "quote": "**`.c` source:** `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, `sourceTree = SOURCE_ROOT`",
+      "rule": "For a new `.c` source file in the Xcode project, set `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, and `sourceTree = SOURCE_ROOT`."
+    },
+    {
+      "id": "R104",
+      "file": "CLAUDE.md",
+      "quote": "**`.h` header:** `lastKnownFileType = sourcecode.c.h`, `path = \"../game/objects/XX-name.h\"`, `sourceTree = SOURCE_ROOT`",
+      "rule": "For a new `.h` header in the Xcode project, set `lastKnownFileType = sourcecode.c.h`, `path = \"../game/objects/XX-name.h\"`, and `sourceTree = SOURCE_ROOT`."
+    },
+    {
+      "id": "R105",
+      "file": "CLAUDE.md",
+      "quote": "**`.json` sprite descriptor:** `fileEncoding = 4`, `lastKnownFileType = text.json`, `path = \"XX-name.json\"`, `sourceTree = \"<group>\"` (filename only, group path handles the rest)",
+      "rule": "For a new `.json` sprite descriptor in the Xcode project, set `fileEncoding = 4`, `lastKnownFileType = text.json`, `path = \"XX-name.json\"`, and `sourceTree = \"<group>\"`."
+    },
+    {
+      "id": "R106",
+      "file": "CLAUDE.md",
+      "quote": "**`.png` sprite image:** `lastKnownFileType = image.png`, `path = \"XX-name.png\"`, `sourceTree = \"<group>\"`",
+      "rule": "For a new `.png` sprite image in the Xcode project, set `lastKnownFileType = image.png`, `path = \"XX-name.png\"`, and `sourceTree = \"<group>\"`."
+    },
+    {
+      "id": "R107",
+      "file": "CLAUDE.md",
+      "quote": "**`.wav` sound:** `lastKnownFileType = audio.wav`, `path = \"XX-name.wav\"`, `sourceTree = \"<group>\"`",
+      "rule": "For a new `.wav` sound in the Xcode project, set `lastKnownFileType = audio.wav`, `path = \"XX-name.wav\"`, and `sourceTree = \"<group>\"`."
+    },
+    {
+      "id": "R108",
+      "file": "CLAUDE.md",
+      "quote": "**PBXBuildFile** — Add build file entries for `.c` (in Sources), and for each resource (`.json`, `.png`, `.wav`) in the appropriate Copy Files phase",
+      "rule": "Add build file entries in PBXBuildFile for `.c` files in Sources and for each resource in the appropriate Copy Files phase."
+    },
+    {
+      "id": "R109",
+      "file": "CLAUDE.md",
+      "quote": "**PBXFileReference** — Add file reference entries for `.c`, `.h`, `.json`, `.png` (or `.wav`)",
+      "rule": "Add file reference entries in PBXFileReference for `.c`, `.h`, `.json`, and `.png` or `.wav` files."
+    },
+    {
+      "id": "R110",
+      "file": "CLAUDE.md",
+      "quote": "**PBXGroup \"objects\"** — Add `.h` and `.c` references to the objects group children",
+      "rule": "Add `.h` and `.c` references to the objects group children in the `objects` PBXGroup."
+    },
+    {
+      "id": "R111",
+      "file": "CLAUDE.md",
+      "quote": "**PBXGroup \"sprites\"** (or \"sounds\", \"levels\", etc.) — Add resource file references to the appropriate group children",
+      "rule": "Add resource file references to the appropriate group children in the relevant PBXGroup."
+    },
+    {
+      "id": "R112",
+      "file": "CLAUDE.md",
+      "quote": "**PBXCopyFilesBuildPhase** — Add resource build file refs to the correct copy phase (\"Copy sprites Files\", \"Copy sounds Files\", etc.)",
+      "rule": "Add resource build file references to the correct copy phase in PBXCopyFilesBuildPhase."
+    },
+    {
+      "id": "R113",
+      "file": "CLAUDE.md",
+      "quote": "**PBXSourcesBuildPhase** — Add `.c` build file ref",
+      "rule": "Add the `.c` build file reference to PBXSourcesBuildPhase."
+    },
+    {
+      "id": "R114",
+      "file": "CLAUDE.md",
+      "quote": "Always validate after editing: `plutil -lint \"Space Bandits/Space Bandits.xcodeproj/project.pbxproj\"`",
+      "rule": "After editing the Xcode project file, always validate it with `plutil -lint \"Space Bandits/Space Bandits.xcodeproj/project.pbxproj\"`."
+    },
+    {
+      "id": "R115",
+      "file": "CLAUDE.md",
+      "quote": "Engine code: 6809/6309 assembly (lwasm syntax)",
+      "rule": "Write engine code in 6809/6309 assembly using lwasm syntax."
+    },
+    {
+      "id": "R116",
+      "file": "CLAUDE.md",
+      "quote": "Game object/level code: CMOC C (subset of C targeting 6809) or assembly",
+      "rule": "Write game object and level code in CMOC C or assembly."
+    },
+    {
+      "id": "R117",
+      "file": "CLAUDE.md",
+      "quote": "Build scripts: Python 3",
+      "rule": "Write build scripts in Python 3."
+    },
+    {
+      "id": "R118",
+      "file": "CLAUDE.md",
+      "quote": "macOS port: Objective-C with OCUnit tests",
+      "rule": "Write the macOS port in Objective-C with OCUnit tests."
+    },
+    {
+      "id": "R119",
+      "file": "CLAUDE.md",
+      "quote": "Use `MAMEDBG=1` for debugging.",
+      "rule": "Use `MAMEDBG=1` for debugging."
+    }
+  ],
+  "dropped": []
+}

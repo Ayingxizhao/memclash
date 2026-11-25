@@ -15,7 +15,11 @@ Pair check. For every must_do / may_do clause X of either rule, and every situat
 (see `situations`): is there an operation that matches X and obeys every never / only_if clause
 of both rules? If in some situation there is none (while X's own rule alone can be followed
 there), the pair conflicts and that situation is the witness. For may_do, each listed operation
-is tested on its own ("may commit or push" permits both). Otherwise the pair is compatible.
+is tested on its own ("may commit or push" permits both). For only_if clause X ("when you do
+this, do it this way"), the operation X names is imagined: if each rule alone allows some way to
+do it but no way obeys both, the pair conflicts ("commit only in a worktree" vs "commit only
+outside one"). If the other rule simply forbids the operation, the agent can skip it: no
+conflict. Otherwise the pair is compatible.
 
 Usage:
   uv run python pipeline/git/git_check.py selftest
@@ -90,7 +94,10 @@ class Event:
 
     def __init__(self, tag):
         self.cmd = Int(f"{tag}_cmd")
-        self.after = Int(f"{tag}_after")  # -1: no earlier operation
+        # which operations were done earlier (any number of them, not only the last one), so
+        # "check out main first" and "pull main first" can both hold. after_branch is still one
+        # branch shared by all earlier operations.
+        self.prior = {c: Bool(f"{tag}_prior_{c}") for c in CMDS}
         self.n_files = Int(f"{tag}_n_files")
         self.s = {g: String(f"{tag}_{g}") for g in GLOBS}
         self.b = {k: Bool(f"{tag}_{k}") for k in BOOLS}
@@ -101,8 +108,7 @@ class Event:
         return Bool(f"{self.tag}_cond_{name}")
 
     def wellformed(self):
-        return And(self.cmd >= 0, self.cmd < len(CMDS), self.after >= -1,
-                   self.after < len(CMDS), self.n_files >= 0)
+        return And(self.cmd >= 0, self.cmd < len(CMDS), self.n_files >= 0)
 
     def match(self, where):
         cs = []
@@ -115,7 +121,7 @@ class Event:
             if k == "cmd":
                 cs.append(Or([self.cmd == CMDS.index(c) for c in expand(v)]))
             elif k == "after":
-                cs.append(Or([self.after == CMDS.index(c) for c in expand(v)]))
+                cs.append(Or([self.prior[c] for c in expand(v)]))
             elif k == "min_files":
                 cs.append(self.n_files >= int(v))
             elif k == "max_files":
@@ -178,9 +184,9 @@ def prepared(t, tag):
 def witness(s, e):
     m = s.model()
     out = {"cmd": CMDS[m.eval(e.cmd).as_long()]}
-    a = m.eval(e.after).as_long()
-    if a >= 0:
-        out["after"] = CMDS[a]
+    done = [c for c in CMDS if bool(m.eval(e.prior[c], model_completion=True))]
+    if done:
+        out["after"] = done
     for g in GLOBS:
         v = m.eval(e.s[g])
         out[g] = v.as_string() if hasattr(v, "as_string") else str(v)
@@ -200,15 +206,19 @@ def check_pair(ta, tb):
     ca, cb = prepared(ta, "a"), prepared(tb, "b")
     for own, other, tag in ((ca, cb, "a"), (cb, ca, "b")):
         for i, x in enumerate(own):
-            if x["type"] not in ("must_do", "may_do"):
+            if x["type"] not in ("must_do", "may_do", "only_if"):
                 continue
             e = Event(f"{tag}{i}")
             base = [e.wellformed(), e.match(x.get("where", {}))]
-            if not is_sat(*base, *constraints(e, own)):
+            if x["type"] != "only_if" and not is_sat(*base, *constraints(e, own)):
                 return "invalid", {"error": f"rule_{tag} clause {i} cannot be met on its own"}
             for fixed in situations(e, x, ca + cb):
                 if not is_sat(*base, *fixed, *constraints(e, own)):
                     continue  # not a situation this rule can handle on its own
+                if x["type"] == "only_if" and not is_sat(*base, *fixed, *constraints(e, other)):
+                    # nothing forces this operation, and the other rule simply forbids it here
+                    # ("never push" vs "push only after tests"): the agent can skip it
+                    continue
                 if is_sat(*base, *fixed, *constraints(e, own), *constraints(e, other)):
                     continue
                 s2 = Solver()
@@ -221,10 +231,6 @@ def check_pair(ta, tb):
     return "compatible", {}
 
 
-def sample(pattern):
-    return str(pattern).replace("*", "x")
-
-
 def situations(e, x, clauses):
     """Every situation to test for clause x: one value per situation field that x itself names
     (fields x does not name stay open: a rule is tested in the situations it talks about).
@@ -234,11 +240,20 @@ def situations(e, x, clauses):
     if "_cond" in mentioned:  # the clause's own unknown condition holds in its own situation
         dims.append([e.cond(x["where"]["_cond"]) == BoolVal(True)])
     if "after" in mentioned or "after_branch" in mentioned:
-        dims.append([e.after == v for v in range(-1, len(CMDS))])
+        # nothing done earlier, or one given operation done earlier (the rest stay open)
+        dims.append([And([Not(p) for p in e.prior.values()])] + [p for p in e.prior.values()])
     if "after_branch" in mentioned:
-        vals = {sample(c[p]["after_branch"]) for c in clauses for p in ("where", "needs")
-                if "after_branch" in c.get(p, {})} | {"zz_other"}
-        dims.append([e.s["after_branch"] == StringVal(v) for v in sorted(vals)])
+        # one situation per possible inside/outside combination of the branch patterns both
+        # rules name, checked exactly (release-* and *-prod overlap at release-prod)
+        pats = sorted({str(c[p]["after_branch"]) for c in clauses for p in ("where", "needs")
+                       if "after_branch" in c.get(p, {})})
+        regions = []
+        for signs in product((True, False), repeat=len(pats)):
+            inside = [InRe(e.s["after_branch"], glob_re(q)) for q in pats]
+            f = And([m if s else Not(m) for m, s in zip(inside, signs)])
+            if is_sat(f):
+                regions.append(f)
+        dims.append(regions)
     if "min_files" in mentioned or "max_files" in mentioned:
         ts = {int(c[p][k]) for c in clauses for p in ("where", "needs")
               for k in ("min_files", "max_files") if k in c.get(p, {})}
@@ -304,6 +319,30 @@ HAND = {
                                            "when_unmodeled": "in the local clones"}]},
     "L6_nocond": {"fits": True, "clauses": [{"type": "never", "where": {"cmd": ["commit"]}}]},
     "L46": {"fits": True, "clauses": [{"type": "must_do", "where": {"cmd": ["commit"], "file": "data/*"}}]},
+    # two "when you do X, do it this way" rules (review fix: these were never tested)
+    "W_in": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["commit"]},
+                                        "needs": {"in_worktree": True}}]},
+    "W_out": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["commit"]},
+                                         "needs": {"in_worktree": False}}]},
+    "P_never": {"fits": True, "clauses": [{"type": "never", "where": {"cmd": ["push"]}}]},
+    "P_tests": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["push"]},
+                                           "needs": {"tests_passed": True}}]},
+    "P_ok": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["any_push"]},
+                                        "needs": {"user_confirmed": True}}]},
+    "P_force_no": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["force_push"]},
+                                              "needs": {"user_confirmed": False}}]},
+    # large folder R235 / R236: two different steps before creating a branch; both can be done
+    "L235_main": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["branch_create"]},
+                                             "needs": {"after": ["checkout"], "after_branch": "main"}}]},
+    "L236_main": {"fits": True, "clauses": [{"type": "only_if", "where": {"cmd": ["branch_create"]},
+                                             "needs": {"after": ["pull"], "after_branch": "main"}}]},
+    # overlapping branch patterns: a merge into "release-prod" matches both
+    "G_rel": {"fits": True, "clauses": [{"type": "must_do", "where": {
+        "cmd": ["branch_delete"], "after": ["pr_merge"], "after_branch": "release-*"}}]},
+    "G_prod": {"fits": True, "clauses": [{"type": "never", "where": {
+        "cmd": ["branch_delete"], "after": ["pr_merge"], "after_branch": "*-prod"}}]},
+    "G_dev": {"fits": True, "clauses": [{"type": "never", "where": {
+        "cmd": ["branch_delete"], "after": ["pr_merge"], "after_branch": "dev-*"}}]},
 }
 EXPECT = [("L235_bad", "L237", "invalid"), ("L235", "L237", "compatible"),
           ("L6_cond", "L46", "compatible"), ("L6_nocond", "L46", "conflict"),
@@ -311,7 +350,11 @@ EXPECT = [("L235_bad", "L237", "invalid"), ("L235", "L237", "compatible"),
           ("R3", "R15", "compatible"),("R1", "X1", "conflict"), ("R1", "X3", "compatible"), ("R3", "X8", "conflict"),
           ("R5", "X8", "compatible"), ("R2", "R5", "compatible"), ("R2", "R3", "compatible"),
           ("R6", "X13", "conflict"), ("R6", "X15", "compatible"),
-          ("R7", "R8_exact", "compatible"), ("R7", "R8_glob", "conflict")]
+          ("R7", "R8_exact", "compatible"), ("R7", "R8_glob", "conflict"),
+          ("W_in", "W_out", "conflict"), ("P_never", "P_tests", "compatible"),
+          ("P_ok", "P_force_no", "conflict"), ("R3", "R5", "compatible"),
+          ("L235_main", "L236_main", "compatible"),
+          ("G_rel", "G_prod", "conflict"), ("G_rel", "G_dev", "compatible")]
 
 
 def selftest():

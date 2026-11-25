@@ -1,0 +1,395 @@
+{
+ "planted_found": 6,
+ "planted": [
+  {
+   "host": "R1",
+   "planted": "X1",
+   "kind": "conflict_direct",
+   "verdict": "clash",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  },
+  {
+   "host": "R1",
+   "planted": "X2",
+   "kind": "conflict_reworded",
+   "verdict": "clash",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  },
+  {
+   "host": "R3",
+   "planted": "X7",
+   "kind": "conflict_direct",
+   "verdict": "clash",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  },
+  {
+   "host": "R3",
+   "planted": "X8",
+   "kind": "conflict_reworded",
+   "verdict": "clash",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  },
+  {
+   "host": "R6",
+   "planted": "X13",
+   "kind": "conflict_direct",
+   "verdict": "exception",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  },
+  {
+   "host": "R6",
+   "planted": "X14",
+   "kind": "conflict_reworded",
+   "verdict": "exception",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "found": true
+  }
+ ],
+ "paraphrases_correct": 1,
+ "paraphrases": [
+  {
+   "host": "R1",
+   "planted": "X3",
+   "kind": "paraphrase",
+   "verdict": "compatible",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "same_meaning": true,
+   "correct": true
+  },
+  {
+   "host": "R3",
+   "planted": "X9",
+   "kind": "paraphrase",
+   "verdict": "compatible",
+   "status": [
+    "ok",
+    "ok"
+   ],
+   "same_meaning": false,
+   "correct": false
+  },
+  {
+   "host": "R6",
+   "planted": "X15",
+   "kind": "paraphrase",
+   "verdict": "skipped",
+   "status": [
+    "ok",
+    "unclear"
+   ],
+   "same_meaning": false,
+   "correct": false
+  }
+ ],
+ "other_flagged": [],
+ "all_expected": [
+  {
+   "planted": "X1",
+   "real": "R1",
+   "verdict": "clash",
+   "why": "keep vs delete the feature branch after a merge to main (host)",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X1",
+   "real": "R2",
+   "verdict": "clash",
+   "why": "R2 deletes the branch after gh pr merge; a PR merged into main is covered by both",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X1",
+   "real": "R14",
+   "verdict": "clash",
+   "why": "'no stale branches' (the file explains: no merged feature branches lingering) vs keep the branch",
+   "got": "skipped",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "not_in_scope",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X2",
+   "real": "R1",
+   "verdict": "clash",
+   "why": "host",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X2",
+   "real": "R2",
+   "verdict": "clash",
+   "why": "as X1",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X2",
+   "real": "R14",
+   "verdict": "clash",
+   "why": "as X1",
+   "got": "skipped",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "not_in_scope",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X7",
+   "real": "R3",
+   "verdict": "clash",
+   "why": "merge small PRs without confirmation vs confirm files before merging (host)",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X7",
+   "real": "R4",
+   "verdict": "clash",
+   "why": "get explicit approval for merges",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X7",
+   "real": "R13",
+   "verdict": "clash",
+   "why": "always confirm files before merge",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X8",
+   "real": "R3",
+   "verdict": "clash",
+   "why": "host",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X8",
+   "real": "R4",
+   "verdict": "clash",
+   "why": "as X7",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X8",
+   "real": "R13",
+   "verdict": "clash",
+   "why": "as X7",
+   "got": "clash",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X13",
+   "real": "R6",
+   "verdict": "exception",
+   "why": "may commit credentials vs never commit credentials (host)",
+   "got": "exception",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X13",
+   "real": "R8",
+   "verdict": "exception",
+   "why": "before any commit, verify no secrets are staged",
+   "got": "compatible",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X13",
+   "real": "R14",
+   "verdict": "exception",
+   "why": "'no credentials' in the repo",
+   "got": "skipped",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "not_in_scope",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X13",
+   "real": "R7",
+   "verdict": "exception",
+   "why": "keep credentials in gitignored .env; commit only .env.example",
+   "limit": "R7 is about what is in the repo (state); X13 is a commit action; the two are not compared in this version",
+   "got": "compatible",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X14",
+   "real": "R6",
+   "verdict": "exception",
+   "why": "host",
+   "got": "exception",
+   "found": true,
+   "found_any": true,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X14",
+   "real": "R8",
+   "verdict": "exception",
+   "why": "as X13",
+   "got": "compatible",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X14",
+   "real": "R14",
+   "verdict": "exception",
+   "why": "as X13",
+   "got": "skipped",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "not_in_scope",
+    "ok"
+   ]
+  },
+  {
+   "planted": "X14",
+   "real": "R7",
+   "verdict": "exception",
+   "why": "as X13",
+   "limit": "as X13",
+   "got": "compatible",
+   "found": false,
+   "found_any": false,
+   "found_possible": false,
+   "status": [
+    "ok",
+    "ok"
+   ]
+  }
+ ]
+}

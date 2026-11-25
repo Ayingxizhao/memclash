@@ -1,0 +1,3 @@
+- [No Co-Authored-By trailer in commits](feedback_no_coauthor_trailer.md) — never add co-author/agent-attribution trailers to git commits; codified in constitution
+- [Memory lives in the project folder](feedback_memory_in_project_folder.md) — write memory to `.claude/memory/` here, never to the per-user `~/.claude/projects/...` path; codified in constitution
+- [Avoid unknown/any/never and eslint-disable](feedback_avoid_unknown_any_never.md) — user dislikes broad escape-hatch types and lint-silencers; prefer concrete shapes; if widening is required, use `unknown` (no `any` + eslint-disable) and comment why

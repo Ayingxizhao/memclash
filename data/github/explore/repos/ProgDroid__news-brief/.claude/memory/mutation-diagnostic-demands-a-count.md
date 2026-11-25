@@ -1,0 +1,249 @@
+---
+name: mutation-diagnostic-demands-a-count
+description: "Require a subagent to break the code and report HOW MANY tests failed, not whether one did — it audits the tests, and it caught the controller's own mistakes four times"
+metadata: 
+  promoted_to: plugin
+  node_type: memory
+  type: feedback
+  originSessionId: 19b68250-ca61-4936-834b-18d6a595831c
+  modified: 2026-09-08T06:16:36.006Z
+---
+
+When a fix round adds a test, require the worker to **break the code deliberately and report the
+number of tests that failed**, not whether any did. Name the mutation precisely (which line, to
+what), and ask which tests moved.
+
+**Why:** a test written to catch a specific regression should be *shown* catching it. Asking
+"did it fail?" invites a yes. Asking "how many, and which?" turns the diagnostic into an audit of
+the tests themselves, and it repeatedly audited *me*:
+
+- Four tests added for a `bool`-is-`int` guard, four sites fixed — **3 of 4 failed** on the
+  reverted code. The fourth was mine and vacuous: it fed rows `{"id": True}` then `{"id": 1}` and
+  asserted `== {1: True}`, but `hash(True) == hash(1)`, so both rows addressed the same dict slot
+  and the second write always overwrote the first. My test for the collision was defeated *by* the
+  collision. "It failed" would have hidden this completely.
+- Two mutations in one round failed **zero** tests — two fixes that no test could distinguish from
+  their absence. Fixes on trust, shipped green.
+- A mutation failing *more* tests than expected is also a finding: the test measures something
+  broader than its name. Ask for the extras to be named.
+- **Failing FEWER than expected, while every mutation is still caught, is the subtlest finding.**
+  2026-09-08, five mutations caught by 3/3/10/1/2 tests: I predicted 4 for one and got 3. A
+  "deferred item is re-offered" test still passed under a mutation that charged the item, because
+  the ceiling is 3 and a once-charged item is *still* re-selected. Neither test was redundant —
+  one guards the charge, the other guards that the deferral path does not mark the item done — but
+  a pass/fail check would have said "caught" and taught nothing. **Pre-register each count before
+  running, and read every disagreement as information about which test does which work.**
+
+**How to apply:** name the mutation exactly ("change `return None` to `continue` in the entity
+loop, keep the trailing empty-list check"), state which single test must fail, and require the
+count plus any others. Run it **fail-first** where possible — against the broken code *before*
+applying the fix; run after and it is reassurance, not evidence.
+
+**Two traps in the instruction itself, both mine.** `git checkout <path>` restores the *fix* once
+it is committed, so a revert diagnostic must name the commit to revert **to**. And a revert is the
+wrong probe when the behaviour is original and correct — there, name a mutation instead.
+
+Sibling technique to [[tests-asserting-less-than-their-name]]; the substitution form (swap in a
+plausible *wrong* implementation) found the two worst defects in the comprehension build, both
+invisible to three reading passes each. See [[newsbrief-comprehension-pipeline]].
+
+## 2026-09-08 — two refinements to the pre-registered count, one of them a CORRECTION
+
+Measured while shipping `news-brief-5fc` and the `b42.2` instrument, doing the mutations myself
+rather than through a worker. Both are about the arithmetic of the prediction, which is the part
+that decides whether a disagreement teaches anything.
+
+**1. Subtract the silence-assertions.** Predicting "gut the detector, all 12 new tests fail" is
+wrong by construction: a test asserting that nothing is reported is satisfied by an implementation
+that reports nothing, ever. The honest prediction was 11 of 12, and 11 is what came back. So
+before writing the number down, count the tests whose assertion an EMPTY or INERT implementation
+already passes, and exclude them — then make sure each of those has a presence-sibling holding it
+up, because they are exactly the tests that carry no weight under this mutation.
+
+**2. When the count OVERSHOOTS, first check the mutation is the one you named.** The entry above
+says a mutation failing more tests than expected means "the test measures something broader than
+its name". That is one explanation and I reached for it first; it was wrong. Predicted 1 failure
+for "empty window returns 0.0 instead of None", got 3 — because the mutation was applied with
+`sed 's/^        return None$/        return 0.0/'` and that pattern matched the same line in
+THREE functions. The tests were fine and each of the three `None` returns was independently held
+by one test, which is a stronger result than intended but not the one I predicted.
+
+**How to apply:** a regex-applied mutation must be verified by what it CHANGED, not by what it was
+meant to change — `grep -n` the pattern first, or read the diff. An anchored pattern that looks
+specific (`^        return None$`) is specific to an INDENTATION LEVEL, not to a function. Only
+once the mutation is confirmed to be the named one does a surprising count license the
+"broader than its name" reading.
+
+## 2026-09-08 — COUNT THE LIST, DO NOT DERIVE THE NUMBER
+
+Three pre-registrations lost in one session, all the same way, none of them about the code:
+
+- "13 new tests" — arithmetic from a total minus a remembered baseline. It was 12.
+- "10 in the store file plus 2 wrappers" — I had written 9 plus 2. It was 11.
+- "3 scripts, 1 fails" — `scripts/` held 7, so the control was six-wide, not two.
+
+Every one was a prediction about MY OWN artifact, derived by subtraction or memory rather than
+read off the thing itself. The tests were right each time; the number was not. That is the
+[[the-prediction-had-a-generator]] shape at its smallest — the generator was mental arithmetic,
+and correcting the figure afterwards fixes nothing, because the next estimate is made the same way.
+
+**How to apply:** before writing a count down, run `grep -c "^def test"` or list the names. A
+pre-registration is only worth something if a disagreement is informative, and a prediction with a
+sloppy generator turns every disagreement into "recount", which is exactly the noise the technique
+exists to remove.
+
+**The countermeasure that DID work, same session:** assert the mutation anchor matches exactly
+once inside the patch script (`assert s.count(old) == 1`). Four mutations, four predictions of
+"exactly one failing test", four hits — and unlike the earlier sed that silently hit three
+functions, a wrong anchor now refuses to apply instead of quietly widening the experiment.
+
+## An OVERSHOOT usually means you broke the code, not that the tests are strong (2026-09-09)
+
+Two mutations reported **22** and **10** failing tests. That reads as excellent coverage and proved
+nothing: both had deleted a `%s` placeholder while the params tuple still supplied it, so every
+query raised before reaching an assertion. **A mutation that breaks the STATEMENT tests nothing
+about its MEANING.**
+
+- **A mutation must leave the code runnable.** Preserve arity, placeholder count, and types; change
+  only the semantics. Rewritten to keep the placeholders in place, the same two scored 2 and 1.
+- **Check the failure MODE, not just the count.** Assertion failures are signal; import errors,
+  `TypeError`, and database exceptions mean the experiment did not run. A count without that check
+  is `pipe-eats-the-exit-code` wearing different clothes.
+- **A big number is a smell.** If a one-line change fails a fifth of the suite, suspect the harness
+  before congratulating the tests.
+
+**Predicting ZERO in advance is legitimate and worth doing.** One guard was short-circuit only —
+`CROSS JOIN unnest('{}')` returns no rows with or without it — so the mutation could not fail
+anything. Saying so before running turned a would-be embarrassment into a stated limit, and the
+test still earns its place against a *future* fallback, which is the risk the docstring names.
+
+**An UNDERSHOOT is the interesting one.** A prediction of 3 that scored 2 found a vacuous test
+([[tests-asserting-less-than-their-name]]); the survivor was the headline assertion, passing with
+the feature removed. **When fewer tests fail than predicted, suspect the tests, not the
+prediction.** When more fail, suspect the mutation.
+
+
+## A boundary test stops being one when the BOUNDARY MOVES (2026-09-10)
+
+Shipping `b42.5` Phase 1. Five pre-registered mutations, **two failed zero tests**, and neither was
+a weak test when it was written — the code moved underneath both.
+
+**1. The boundary relocated and the test kept its old literal.** `due_feeds` originally compared
+`now - polled_at >= interval`, so the boundary for a 120-minute feed sat at 120, and the test
+inserted a poll at exactly `minutes_ago=120`. Then a half-tick of slack was added — `now - at +
+slack >= interval` — which moved the true edge to `interval - slack` = **105**. The test now sat
+fifteen minutes clear of the edge, so flipping `>=` to `>` changed its answer not at all. It kept
+passing the whole time and never signalled that it had stopped testing anything.
+
+**The tell is that a boundary test names a number the implementation also names.** When the
+comparison gains a term, every literal in every test written against the old comparison is
+silently stale. Derive the boundary in the test (`120 - _interval_minutes() // 2`) instead of
+writing it out, and add the one-minute-short sibling so the pair pins the edge from both sides.
+
+**2. Two candidate constants can be indistinguishable ON THE INPUTS YOU CHOSE.** Widening the
+slack from half a tick to a full tick failed nothing — and that was *correct* for the values under
+test. For any interval that is a whole number of ticks, `j*nominal - δ + nominal/2 >= k*nominal`
+and the full-tick version both first hold at `j == k`. They diverge only on NON-multiples: a
+declared 75 minutes polls every 90 under half-tick and every **60** under full-tick, i.e. more
+often than declared. The discriminating test had to use 75; no amount of care with 30/60/90/120
+could have found it.
+
+**How to apply:** when a mutation changes a constant rather than a branch, ask *on which inputs do
+the two values disagree* before believing a zero. If the answer is "none of the ones I test", the
+mutation is not weak evidence of good coverage — it is no evidence at all, and the test set is
+missing the case that separates them. Same family as `a-control-that-agrees-with-the-bug-proves-
+nothing`, one level up: here the control agreed with the mutant because the *arithmetic* made them
+equal, not because the probe was broken.
+
+Both gaps were invisible to three red-team reading passes over the same plan. Only running the
+mutations found them — the saturation point [[tests-asserting-less-than-their-name]] names.
+
+
+## A mutation that REWORDS is not a mutation (2026-09-10, news-brief-8fy)
+
+Pre-registered five, four matched, and the fifth failed **zero** tests. Following the rule
+above -- when the count undershoots, suspect the tests -- both halves turned out to be wrong.
+
+**The mutation was bad.** It changed a log message's wording, not its behaviour. Rewording
+*should* fail nothing. **A mutation has to delete or invert something the code DOES**; editing a
+string literal tests your phrasing, and a zero there is meaningless rather than reassuring.
+
+**And the tests were weak in a way only that revealed.** The disagreement pair asserted on the
+word `"disagree"` appearing (or not) in the log text -- **a word the implementation itself
+chooses**. Rename the message and the presence sibling passes vacuously forever, having silently
+stopped discriminating anything. Same shape as the boundary literal that stopped being a
+boundary: the test names a value the implementation also names, so the two drift together.
+
+Rewritten to assert on the **log RECORDS** -- exactly one WARNING carrying both numbers when the
+sizes differ, zero when they agree. Re-run with a corrected mutation (delete the check outright)
+it fails 1, and with its neighbour (warn on everything) it fails 2, which is what the pair was
+supposed to have been doing.
+
+**How to apply:** before believing a zero, ask whether the mutation removed BEHAVIOUR. And when
+a test asserts on log text, assert on records and counts, never on a phrase the source can
+freely rewrite.
+
+## 2026-09-25 (comprehension cost phase 1): three new ways the COUNT lies
+
+- **A `-k` filter is a probe that can silently exclude the subject.** A brief's
+  `-k "account or empty_account"` did not match `test_a_400_saying_the_credit_balance_is_too_low_is_billing`.
+  The mutation read 0 when the truth was 1. **Run mutations against WHOLE modules; a filtered 0 is
+  UNKNOWN.**
+- **Mutating one half of an up/down migration pair breaks every rollback test through it.**
+  A predicted 2 read 4. The extra two were rollback tests hitting `UndefinedObject` because the
+  unmutated DOWN script dropped a constraint the mutated UP never created. Count the other half.
+- **Adding a test invalidates earlier pre-registrations that pass through the same line.** A
+  fix round added `test_exhaustion_is_persisted`, and two older mutations then read 3 vs 2 and 2 vs 1.
+  The tests were right; the numbers had not been re-registered. **When a fix adds a test, recount
+  every pre-registered mutation on the lines it touches.**
+
+**And one that worked: predicting ZERO found a gap.** "Delete the integration spend line" was
+predicted to fail 0 and did. That is a coverage hole named in advance, and the test it prompted is
+what later caught the model swap above.
+
+## A ZERO can mean the guard is DUPLICATED, not untested (2026-09-26, `news-brief-1tl`)
+
+Eight pre-registered mutations on `scripts/probe_clustering.py`; seven matched, one read 0:
+deleting `len(group) < cap` from `capped_bfs`'s `while` failed nothing. The cap test was fine.
+The cap is enforced TWICE, and the inner `if len(group) >= cap: break` held it alone. Removing
+the inner break failed 2; removing both failed 2. So the `while` condition is an early exit,
+and the inner break is the load-bearing guard.
+
+**How to apply:** when a guard mutation reads 0, grep for a second site enforcing the same
+invariant before concluding the test is weak. Then mutate each site alone AND both together.
+The site whose removal fails tests is the real guard. Name it in the record so a later refactor
+does not delete the "redundant" one.
+
+## 2026-09-26 (6kr): a change can blind its OWN test, and a relocation can be a non-mutation
+
+Three mutation checks lost in one build, and each was a test that could not fail. All three were
+found by running mutations or traces; none by the two plan red-teams.
+- **The task's own change made the order test unobservable.** A test pinned "reference pre-check
+  runs before the entity-less return". Task 5 then made the entity-less branch fall through for
+  reference-only items, so moving the pre-check changed nothing for that fixture. The order was
+  observable only on a MIXED item (a NEW event plus an unresolved reference). **When a task
+  changes a branch, re-ask which inputs still discriminate every guard around it.** This is
+  `the-rule-exempts-its-own-origin` at unit scale.
+- **Moving an increment to the END of a block is not a mutation of "increment after commit"**,
+  because nothing after it can raise. It reads 0 honestly. Name the regression the guard exists
+  for (here, an eager per-event increment) and mutate THAT.
+- **A required mutation can be silently skipped.** The implementer's table had 3 rows, and the
+  controller had required 4. Check each report's mutation table against the list of required
+  rows before dispatching review; do not rely on the review to count them.
+- **An inclusive-boundary test on decimal operands can be unable to fail** (2026-09-26, `y1x`).
+  `0.85 - 0.05 == 0.7999999999999999`, so a case "exactly at 5 points" passes under `>=` AND
+  `>`. Found while pre-registering the `>=`-to-`>` mutation: a correct prediction of "1 failure"
+  was impossible. Compare `round(a - b, 9)` against the tolerance. **Writing the expected count
+  is what exposes a boundary test that cannot discriminate.**
+- **A count far ABOVE the prediction usually means a broken MUTANT.** 14 failures against a
+  predicted 2 came from a mutant that was a SQL type error (`timestamptz + timestamptz`) and
+  crashed every test that touched it. Fix the mutant and re-run before believing that the tests
+  are "very sensitive". A mutant that fails to execute is not a mutation.
+
+- **A ZERO can also mean the mutant never applied.** A scripted exact-string mutant whose pattern
+  matches nothing leaves the source untouched, and "0 failed" then reads as a test gap. Assert
+  the pattern matches EXACTLY once and report `BROKEN MUTANT` otherwise -- and match CRLF too:
+  some working-tree files here are CRLF (autocrlf), so a `\n` pattern silently counts 0
+  (2026-10-02; harness: copy, mutate, run all three files, restore in `finally`, assert bytes).
+
+**From the index (moved 2026-10-02):** A task's own change can blind its order test; a relocation to block-end is a non-mutation; check report tables for skipped required rows.

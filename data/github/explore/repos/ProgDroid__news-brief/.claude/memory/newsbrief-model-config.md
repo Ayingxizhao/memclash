@@ -1,0 +1,33 @@
+---
+name: newsbrief-model-config
+description: Sonnet-5 swap + NEWSBRIEF_MODEL override + explicit per-call thinking config; the adaptive-thinking-by-default gotcha (Sonnet 5 AND Haiku 5.5); Haiku 5.5's prompt-length price tier; row-vs-hardcoded model sites
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 40aa02f5-7c80-41e3-83b3-331d1377553b
+  modified: 2026-10-10T15:13:55.027Z
+---
+
+2026-07-02 BUILT+PUSHED (e118a76 → origin/main, Docker deploy triggered; 551 tests): the three Sonnet constants moved `claude-sonnet-4-6` → `claude-sonnet-5`. Haiku constants untouched (brief_memory.RECONCILE_MODEL, backtest/scorer_llm.py).
+
+**SUPERSEDED 2026-09-02 — how you SET the model changed; the gotchas below did not.** `brief.SIGNALS_MODEL` and `claim_verify.VERIFY_MODEL` **no longer exist as constants** — do not grep for them. Since `0q0.7.6` all three are `settings` rows read through `common.KNOBS`, so a model swap is a ROW EDIT and takes effect inside ~60s with no redeploy and no container recreate (it used to be an env var read at IMPORT time, needing both):
+
+- `common.MODEL` — key `NEWSBRIEF_MODEL`, default `claude-sonnet-5`. This is the one to change.
+- `brief._signals_model()` — key `NEWSBRIEF_SIGNALS_MODEL`, **default `""` meaning "follow MODEL"**.
+- `claim_verify._model()` — key `NEWSBRIEF_CLAIM_VERIFY_MODEL`, same empty-means-follow rule.
+
+**Why the empty default rather than a copy of the model id:** a duplicated literal strands both post-generation calls on the old model the moment `NEWSBRIEF_MODEL` moves, silently — which is this memory's own lesson turned into a foot-gun. Set a per-call-site row ONLY to pin that one call deliberately (e.g. a cheaper judge). See [[newsbrief-runtime-foundation-phase-1]] for the knob seam.
+
+**Why (the non-obvious gotcha):** on `claude-sonnet-5`, OMITTING `thinking` runs *adaptive thinking* (Sonnet 4.6 ran thinking-OFF when omitted), and thinking tokens count against `max_tokens` → truncation on tight/forced-tool calls (the recurring [[signals-parse-error-is-truncation]] failure). Before this change every call omitted `thinking`, so the model bump silently flipped all of them on.
+
+**SECOND budget-eater found live 2026-07-02 — the tokenizer, independent of thinking.** Sonnet 5 also emits ~30% MORE tokens for the same content than 4.6 (new tokenizer), so a fixed `max_tokens` sized for 4.6 can truncate even with thinking DISABLED. The signals forced-tool call (thinking off, `max_tokens=2048`) truncated on the first signal-rich brief → `emit_signals` returned an incomplete tool input → `missing 'signals' list` parse_error, signals wiped that day. Fix dfabcd1: `SIGNALS_MAX_TOKENS 2048→8192` + log stop_reason before parse. LESSON: after a model swap, both levers shrink effective room — audit EVERY tight fixed `max_tokens` (not just the ones you flipped thinking on), and prefer a named constant with headroom over an inline literal. Full incident: [[signals-parse-error-is-truncation]] recurrence #4.
+
+**How to apply:** set `thinking` EXPLICITLY on every Anthropic call — never rely on the per-model default (it changes across model bumps). Rule of thumb: forced-tool / tight-budget extraction → `{"type":"disabled"}`; prose synthesis or a reasoning judge with headroom → `{"type":"adaptive"}`. Current per-call config: brief synthesis (submit_batch, 16384 batch, no HTTP timeout) = adaptive; claim verify (grounding judge) = adaptive + VERIFY_MAX_TOKENS raised 4096→8192; signals / in_depth / trading (2048 forced-tool or raw-JSON) = disabled.
+
+**Haiku 5.5 (`claude-haiku-5-5`, adopted in code 2026-10-10, `c5k`) has the same trap, plus three more.**
+- Like Sonnet 5, OMITTING `thinking` runs adaptive thinking. Haiku 4.5 did not, so every call written for it changes silently on a model swap. Reconcile omitted the field, and so did the backtest scorer, which had `max_tokens=16` and read `content[0].text`. That would have returned an empty score once a thinking block came first.
+- `{"type":"disabled"}` is accepted only at effort ≤ `high`. The default is **`medium`**, not `high`, so never pair it with `xhigh`/`max`.
+- It costs $0.10/$0.50 only when the prompt (input + cache reads + cache writes) is ≤100K tokens. Above that, EVERY token of the call is billed at $0.50/$2.50. That is why `comprehend.price_of(model, prompt_tokens)` is tier-aware: a flat entry would under-price long calls 5x.
+- **The two Haiku call sites move by different mechanisms.** Triage is a settings ROW (`NEWSBRIEF_TRIAGE_MODEL`), and its price entry must be DEPLOYED before the row names the model, or `UnpricedModel` aborts every pass. Reconcile is HARDCODED (`brief_memory.RECONCILE_MODEL`) and moves on deploy. A model swap is therefore partly a deploy and partly a row edit; check which one each call site is before calling the swap done.
+
+**Watch on enable:** claim_verify pairs adaptive thinking with a forced `tool_choice:{type:tool}`. First-party API allows this combo (only Bedrock forbids it), but verify is flag-gated OFF + fail-safe — when you set `CLAIM_VERIFY_ENABLED=1`, check the first `verification-{day}.json`; if it 400s, switch that call's `tool_choice` to `auto` or drop thinking. Response parsing is already thinking-safe (fetch_batch_results joins only `type=="text"`; claim_verify filters the `emit_claim_checks` tool_use block), so thinking blocks won't corrupt extraction.

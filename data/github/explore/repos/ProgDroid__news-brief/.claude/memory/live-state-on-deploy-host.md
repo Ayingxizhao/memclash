@@ -1,0 +1,53 @@
+---
+name: live-state-on-deploy-host
+description: "Live mutable state (book/signals/watchlist/feedback/sources/enrichment) lives on the DEPLOYMENT HOST volume, NOT in the dev repo — local runs against real data need the JSONs copied over"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 4356315d-665d-43bb-a1c0-dba9009690e0
+---
+
+The repo on this dev machine is pure code. ALL mutable runtime state lives on the deployment host, not here.
+
+**Why:** `common.py` sets `DATA_DIR = Path(os.environ.get("NEWSBRIEF_DATA_DIR", "/app/logs"))` and `SIGNALS_DIR = DATA_DIR/"signals"`; `trading.py` keeps `book.json`/`watchlist.json` under `PAPER_DIR`; `brief.py` has `feedback.json`, plus `sources.json` and `enrichment/enrichment-<date>.json` — all under `DATA_DIR`. In prod that's the container's `/app/logs`, bind-mounted from `${APPDATA_DIR}/news-brief` on the deploy host (see `docker-compose.yml`). The dev box has **no** `APPDATA_DIR` in `.env`, no local `appdata/`, and no running container — so none of that state exists locally. This is the same deliberate code/state split that lets `/addsource` persist without a redeploy ([[telegram-source-management-daemon]]).
+
+**How to apply:** To run/validate anything against REAL state on this machine (e.g. the enrichment universe from live book/signals), you must get the JSONs first: `docker cp`/`scp` `book.json`, `watchlist.json`, the latest `signals/signals-*.json`, `feedback.json` off the deploy host into a local dir, then point `NEWSBRIEF_DATA_DIR` at it (or feed them to the relevant function). Don't assume the repo has them — it never will. The fastest path is often just to ask the user to paste the files (done 2026-06-20 for the Bigdata Step-2 universe). See [[brief-local-run]].
+
+**Best technique — run a read-only probe IN-PLACE on the host (used heavily 2026-06-25 to debug PolyGram + the signals timeout):** instead of exfiltrating JSONs, write a small probe `.py` that imports the project modules, mount it into the deployed image, and run it on the host so it sees the real volume + env (creds, network) live. The user runs it; you author the probe and read the printed output. Exact invocation (the compose stack needs BOTH env-files and the `--file`):
+`docker compose --file ./news-brief.yml --env-file ../global.env --env-file ./news-brief.env run --rm -v "$PWD/probe.py:/app/probe.py" --entrypoint python newsbrief-collect /app/probe.py`
+`--entrypoint python` OVERRIDES the mode-dispatch entrypoint so it runs the probe, NOT a collect — no state mutation. To exercise UNRELEASED code before the CI image rebuilds, `git pull` on the host then ALSO mount the changed module: add `-v "$PWD/trading.py:/app/trading.py"`. CAUTION: the host **re-runs the whole pipeline on every image pull** (a deploy = a fresh collect), so a redeploy regenerates/overwrites today's `signals-*.json` and re-opens paper positions — a broken post-gen call corrupts state on every pull, not just at the 6am cron.
+
+**THE REPO IS PUBLIC, and live output must never be committed (learned 2026-08-29).**
+`gh repo view` reports `ProgDroid/news-brief` as **PUBLIC**. The root `.gitignore` carries a
+standing decision that goes with it: `from-server/` — *"Live state pulled off the deploy host
+for offline analysis — never commit"* — plus `av_data/`, `scratch_av/`, `.gdelt_cache/` and
+`*.log`. So anything derived from real briefs, ledgers or the paper book is publication, not
+just a commit.
+
+**Why:** this bit during the Epic 1 session. The 2026-08-29 replay artifacts (90 briefs of
+generated analysis, the hand-audited break detections) existed only in a session temp
+scratchpad and were at risk of being cleaned. The obvious move — commit them as test fixtures
+so the gold-set harness could run in CI — was **wrong**, and `.gitignore` already said so. They
+went to `from-server/replay-2026-08-29/` instead. Note also that the one existing "gold" fixture,
+`tests/fixtures/enrichment/theme_gold.json`, is **synthetic** (`"FT"`, `example.com`) — there is
+no precedent for committing real derived data, and its synthetic-ness is the precedent.
+
+**How to apply:** before proposing that ANY runtime artifact enter git, read `.gitignore` first
+and remember the repo is public. Credential scanning is necessary but not sufficient — the
+replay files had no secrets at all and still should not be published. To make something durable
+without publishing it, put it under `from-server/`, which survives temp cleanup and stays out of
+git. If a test genuinely needs the data, synthesise a fixture that keeps the structure and drops
+the real text. See [[newsbrief-kb-architecture-2026-08-29]].
+
+## 2026-09-07 — there is NO git checkout on the deploy host
+
+Confirmed by him. That settles a recurring question: a diagnostic script cannot be run "from a
+checkout" there, and pasting a heredoc over is the fallback he explicitly dislikes ("pasting is a
+bit cumbersome"). **Prefer committing a diagnostic to `scripts/` and letting CI rebuild the image**,
+even though that costs a build round trip — `scripts/` is currently in the Dockerfile COPY
+allowlist (`Dockerfile:55`), and CI lints `scripts` as a DIRECTORY, so a new file needs no workflow
+edit and `tests/test_packaging.py` does not reference `scripts` at all.
+
+Run it with `docker compose run --rm --entrypoint python newsbrief scripts/<name>.py`. The
+bind-mount recipe above still works and is right for code that is not committed yet; it is not
+right as the standing answer, because it makes every future run a paste.

@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One translated rule (vocabulary v2.1, ADR 0008 + docs/review/vocab_v2_1_rubric.md)",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "const": "not_in_scope"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "word",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "const": "unclear"
+        },
+        "word": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason",
+        "clauses",
+        "left_out"
+      ],
+      "properties": {
+        "status": {
+          "const": "ok"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "clauses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/clause"
+          }
+        },
+        "left_out": {
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "action": {
+      "enum": [
+        "commit",
+        "stage",
+        "push",
+        "push_branch",
+        "force_push",
+        "push_delete",
+        "merge",
+        "local_merge",
+        "pr_merge",
+        "pr_create",
+        "branch_create",
+        "branch_delete",
+        "any_branch_delete",
+        "checkout",
+        "pull",
+        "rebase",
+        "reset_hard",
+        "cherry_pick",
+        "fetch",
+        "worktree_add",
+        "worktree_remove",
+        "read",
+        "create",
+        "edit",
+        "move",
+        "delete",
+        "run"
+      ]
+    },
+    "facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "cmd": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "path": {
+          "$ref": "#/$defs/paths"
+        },
+        "dest_path": {
+          "$ref": "#/$defs/paths"
+        },
+        "path_except": {
+          "$ref": "#/$defs/paths"
+        },
+        "in_repo": {
+          "$ref": "#/$defs/paths"
+        },
+        "kind": {
+          "enum": [
+            "file",
+            "dir"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "pattern": "^(test|build|lint|format|deploy|migrate|publish|restart|other:.+)$"
+        },
+        "suite": {
+          "const": "all"
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "after_branch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "after": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "running": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "user_asked": {
+          "type": "boolean"
+        },
+        "user_confirmed": {
+          "type": "boolean"
+        },
+        "tests_passed": {
+          "type": "boolean"
+        },
+        "has_secret": {
+          "type": "boolean"
+        },
+        "files_shown": {
+          "type": "boolean"
+        },
+        "secrets_checked": {
+          "type": "boolean"
+        },
+        "admin_bypass": {
+          "type": "boolean"
+        },
+        "in_worktree": {
+          "type": "boolean"
+        },
+        "min_files": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_files": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "after_task": {
+          "type": "string",
+          "pattern": "^(test|build|lint|format|deploy|migrate|publish|restart|other:.+)$"
+        },
+        "after_path": {
+          "$ref": "#/$defs/paths"
+        },
+        "after_ok": {
+          "type": "boolean"
+        }
+      }
+    },
+    "clause": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "where"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "never",
+            "only_if",
+            "must_do",
+            "may_do",
+            "must_hold",
+            "never_hold"
+          ]
+        },
+        "where": {
+          "$ref": "#/$defs/facts"
+        },
+        "needs": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/facts"
+            },
+            {
+              "not": {
+                "required": [
+                  "cmd"
+                ]
+              }
+            }
+          ]
+        },
+        "when_unmodeled": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "only_if"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "needs"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "needs"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "must_hold",
+                  "never_hold"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "where": {
+                "required": [
+                  "in_repo"
+                ],
+                "propertyNames": {
+                  "enum": [
+                    "in_repo",
+                    "path_except"
+                  ]
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "where": {
+                "required": [
+                  "cmd"
+                ],
+                "not": {
+                  "required": [
+                    "in_repo"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

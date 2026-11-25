@@ -217,8 +217,24 @@ def cmd_fetch(args):
             if c.get("kept"):
                 kept_repos.add(c["repo"])
                 kept_owners.add(c["repo"].split("/")[0])
+    out_cands, repos_dir = CANDIDATES, REPOS
+    if args.out_dir:
+        # separate exploration set: folders already in the dataset (and their owners) are
+        # skipped, and nothing is written to the dataset's own files
+        out = Path(args.out_dir)
+        out_cands, repos_dir = out / "candidates.jsonl", out / "repos"
+        out.mkdir(parents=True, exist_ok=True)
+        if out_cands.exists():
+            for c in map(json.loads, out_cands.open()):
+                done.add((c["repo"], c["dir"]))
+                if c.get("kept"):
+                    kept_owners.add(c["repo"].split("/")[0])
+        excluded = set(kept_repos)
+        kept_repos = {c["repo"] for c in map(json.loads, out_cands.open()) if c.get("kept")} \
+            if out_cands.exists() else set()
+        kept_owners |= {r.split("/")[0] for r in excluded}
     print(f"{len(repos)} candidate repos, {len(kept_repos)} already kept, target {args.max_repos}")
-    with CANDIDATES.open("a") as cand_out:
+    with out_cands.open("a") as cand_out:
         for repo in repos:
             if len(kept_repos) >= args.max_repos:
                 break
@@ -255,14 +271,14 @@ def cmd_fetch(args):
                 print(f"[{len(kept_repos) + keep}/{args.max_repos}] {'KEEP' if keep else 'skip'} "
                       f"{repo}/{d} md={stats['n_md']} rules={stats['n_rule_files']}")
                 if keep:
-                    save_repo(repo, d, meta, stats, files)
+                    save_repo(repo, d, meta, stats, files, repos_dir)
                     kept_repos.add(repo)
                     kept_owners.add(repo.split("/")[0])
                     break  # one folder per repo
 
 
-def save_repo(repo, d, meta, stats, files):
-    repo_dir = REPOS / repo.replace("/", "__")
+def save_repo(repo, d, meta, stats, files, repos_dir=REPOS):
+    repo_dir = repos_dir / repo.replace("/", "__")
     for path, text in files.items():
         save(repo_dir, path, text)
     claude = fetch_raw(f"https://raw.githubusercontent.com/{repo}/{meta['default_branch']}/CLAUDE.md")
@@ -286,6 +302,8 @@ def main():
     f.add_argument("--seed", type=int, default=2520)
     f.add_argument("--max-md", type=int, default=None, help="skip folders with more .md files (dev set)")
     f.add_argument("--max-kb", type=float, default=None, help="skip folders whose .md files exceed this size (gold cap)")
+    f.add_argument("--out-dir", default=None,
+                   help="write a separate exploration set here (skips folders and owners already in the dataset)")
     args = ap.parse_args()
     {"search": cmd_search, "fetch": cmd_fetch}[args.cmd](args)
 

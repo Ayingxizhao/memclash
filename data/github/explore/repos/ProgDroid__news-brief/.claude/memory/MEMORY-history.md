@@ -1,0 +1,22 @@
+# Memory History - news-brief (shipped milestones)
+
+Archived from `MEMORY.md` to keep the always-loaded index lean. These are "work shipped" markers. **Not auto-loaded each session.** Read on demand when you need context on past work; the full detail lives in each linked topic file and in git history.
+
+## Bigdata enrichment and sources redesign (shipped)
+
+- [Sources & edge-latency thread (2026-06-14)](brief-sources-and-edge-latency-thread.md) — SHIPPED 2026-06-14: pinned-hybrid brief (/pin /unpin) + region-native sources (kind tags) + market pulse + forward tilt; revisit edge ~2026-06-28
+- [Bigdata enrichment SHIPPED (Feature A) (2026-06-20)](bigdata-enrichment-shipped.md) — 2026-06-20: enrichment/ package + brief integration, flag-gated DARK (ENRICHMENT_ENABLED off); provider seam (Null/Fixture/Bigdata); read-only/never-sizing; how to enable; v1 gaps (UNVERIFIED REST field names, no evidence in v1, Top-Stories deferred, backtest=Feature B pending)
+- [Bigdata enrichment validated live (2026-06-20)](bigdata-enrichment-validated-live.md) — 2026-06-20 Step 2 DONE: flag-on path exercised end-to-end with REAL MCP data; gap #1 (REST field names) de-risked for MCP shapes; fixtures saved to enrichment/fixtures/live_2026-06-20/; NEE=2CB4C9 RR=947B28 new entity ids
+- [Bigdata MCP enrichment brainstorm (2026-06-24)](bigdata-mcp-enrichment-brainstorm.md) — 2026-06-24: drive bigdata MCP connector as headless live-enrichment provider; self-serve DEAD-END (business-email gate); MCP-primary+AV-fallback behind existing seam; sizing track now CLOSED null → key (if it lands) = DESCRIPTIVE brief depth only, see [[sentiment-sizing-null-decided]]
+- [bigdata.com eval + trading split (2026-06-19)](bigdata-evaluation-and-trading-split.md) — 2026-06-19: brief→informational+signal-feeder, trading→autonomous; DECIDED to integrate; eval/pricing/alternatives-landscape context (Search API Batch $0.0075/q; real spend ~$2/mo); decision = "what is bigdata worth"
+- [Bigdata next steps (later session) (2026-06-20)](bigdata-next-steps.md) — Feature B engine (Tasks 1–8) BUILT+PUSHED 2026-06-20; Task 8 pilot inconclusive at n≈18 (don't fan out). REMAINING: Task 9 REST source only. STILL-OPEN Minors: event_filtered(b), fixture-themes(d). **Gotcha: CI has NO pandas → guard backtest pandas tests with `importorskip`**
+- [Enrichment universe bugs (2026-06-20)](enrichment-universe-bugs.md) — 2 latent bugs found by live validation (AVAV_ double-underscore quirk drops AVAV coverage; VEUA/SPOL ETF-leak); FIXED + pushed 2026-06-20 (a402f65, TDD'd)
+- [AV sentiment backtest validated (2026-06-24)](av-sentiment-backtest-validated.md) — 2026-06-24 live test: Alpha Vantage NEWS_SENTIMENT goes back to Jan 2010 (NOT ~2022 — old note corrected), + 15yr transcript sentiment; two self-serve Feature-B backtest paths needing NO bigdata REST key; BattleFin alts (Aiera/Carbon Arc) rejected; RESULT = confident null, see [[sentiment-sizing-null-decided]]
+- [Bigdata enable: spec + plan + BUILT (2026-07-19)](bigdata-enable-spec-plan.md) — 2026-07-19 IMPLEMENTED via subagent-driven development: native-field SentimentScore + smoothed trend, `ENRICHMENT_THEMES_ENABLED` toggle, ToS derived-only snapshot, hand-rolled REST (no SDK). NEXT = push (= Docker deploy), then enable on the host
+- [Bigdata REST API verified (2026-07-19)](bigdata-rest-api-verified.md) — the real REST shapes, live-verified: **`X-API-KEY` not Bearer**, and `providers_bigdata.py` WAS wrong in nearly every particular until the rewrite landed — enrichment/providers_bigdata.py now carries X-API-KEY and the real shapes, so that warning is spent. The SDK is being sunset — **stay hand-rolled REST**. **Enabling is a provider REWRITE, not a flag flip**; scope stays descriptive-only.
+
+## Shipped milestones
+
+- [Multi-asset trading build (2026-06-14)](multi-asset-trading-build.md) — equity/crypto/prediction paper→live; ALL phases 1–5 DONE + pushed 2026-06-14 (modules + unified book.json + crypto/Kraken + PolyGram prediction + validation.py/go-live gate + volume monitor cron + /watch /unwatch /positions /performance cmds); build COMPLETE → [[brief-sources-and-edge-latency-thread]] is next
+- [T212 401 diagnosis (2026-06-01)](t212-401-diagnosis.md) — RESOLVED; auth is HTTP Basic base64(KEY_ID:KEY); root cause was literal-placeholder bug
+- [Brief claim-memory build (2026-06-24)](brief-claim-memory-build.md) — BUILT 2026-06-24: repetition is CLAIM-level, not topic-level; standing-claim ledger live since 2026-06-25 via a separate, fail-safe reconcile call.

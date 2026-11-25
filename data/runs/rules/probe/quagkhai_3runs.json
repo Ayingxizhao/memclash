@@ -1,0 +1,2775 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R3",
+   "file": "communication-direct-concise.md",
+   "rule": "Write in active/direct voice.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only asks for a writing voice/style, which is not about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write in active/direct voice.",
+       "keep": "outside_vocabulary",
+       "why": "Prose style choice, not a git/file/task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only concerns writing style (voice of prose), not git, files or running a task, so no requirement is translatable.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write in active/direct voice.",
+       "keep": "outside_vocabulary",
+       "why": "Prose style preference about how to phrase text, not an action on git, files or a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only concerns writing style (voice of prose), which is not about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write in active/direct voice.",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes a prose style, not a git, file or task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R10",
+   "file": "decisions-read-as-discussion.md",
+   "rule": "Write each DECISIONS.md entry concisely and in the user's first-person voice.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only prescribes the wording style of DECISIONS.md entries (brevity and first-person voice); it asks for no git, file or task action.",
+     "requirements": [
+      {
+       "id": "concise",
+       "quote": "Write each DECISIONS.md entry concisely",
+       "keep": "outside_vocabulary",
+       "why": "prose style for the entry text, not a file or task action"
+      },
+      {
+       "id": "first-person",
+       "quote": "in the user's first-person voice",
+       "keep": "outside_vocabulary",
+       "why": "prescribes writing voice, not a file or task action"
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only governs the style of DECISIONS.md entries (brevity and first-person voice), not git, file or task-running operations.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write each DECISIONS.md entry concisely",
+       "keep": "vague",
+       "why": "\"concisely\" gives no concrete or checkable criterion."
+      },
+      {
+       "id": "r2",
+       "quote": "in the user's first-person voice",
+       "keep": "outside_vocabulary",
+       "why": "Writing style/wording, not a git, file or task-running action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only constrains the writing style of DECISIONS.md entries (brevity and voice), not git, file operations, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write each DECISIONS.md entry concisely",
+       "keep": "outside_vocabulary",
+       "why": "Documentation writing style, not a file/git/task action."
+      },
+      {
+       "id": "r2",
+       "quote": "in the user's first-person voice",
+       "keep": "outside_vocabulary",
+       "why": "Dictates writing voice, a content style choice."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R11",
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\").",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only governs the content/wording of DECISIONS.md entries (documentation authoring), not any git, file or task-running action.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\").",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes what information to write in a document's entries, i.e. content/wording, not a git or file operation."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule prescribes the content of a documentation entry (attributing who proposed each decision), which is a writing/content-style matter, not a git, file-handling or task-running instruction.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\").",
+       "keep": "outside_vocabulary",
+       "why": "Concrete, but it dictates documentation content/wording, not git, file or task operations."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The only requirement is about what content to write inside a decision log entry, not about git, file handling or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\").",
+       "keep": "outside_vocabulary",
+       "why": "Documentation content/wording rule, not a file operation or task step."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R13",
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only prescribes the content of documentation entries (what a DECISIONS.md entry must state); it asks for no git, file or task-running action.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on.",
+       "keep": "outside_vocabulary",
+       "why": "Documentation content convention, not a git/file/task operation."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only prescribes the content of each DECISIONS.md entry; it asks for no concrete action on git, files or task execution.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on.",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes the substance of documentation content, not a file/git/task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "rule dictates the prose content of DECISIONS.md entries, not a git/file action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on.",
+       "keep": "translate",
+       "why": "Concerns what must be written into a file's entries."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R15",
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, include the reason for the decision.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "rule governs the content of a document entry, not a git, file or task action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, include the reason for the decision.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "documentation content style for DECISIONS.md entries, not a git, file or task action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, include the reason for the decision.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "content requirement for what a DECISIONS.md entry must say, not a file or git action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "In each DECISIONS.md entry, include the reason for the decision.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R17",
+   "file": "decisions-read-as-discussion.md",
+   "rule": "Keep each DECISIONS.md entry concise.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The only rule is a style guideline about how to word documentation entries; nothing concrete about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep each DECISIONS.md entry concise.",
+       "keep": "vague",
+       "why": "\"Concise\" states no checkable action or limit."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only asks for brevity (\"concise\") in DECISIONS.md entries, which names no concrete action or limit, so it is vague and nothing is translatable.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep each DECISIONS.md entry concise.",
+       "keep": "vague",
+       "why": "No concrete length or content limit is given; \"concise\" cannot be checked."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The single rule asks for a shorthand-entry style quality (\"concise\") without any concrete action, so nothing can be translated into a step.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep each DECISIONS.md entry concise.",
+       "keep": "vague",
+       "why": "No concrete, checkable length or content is specified."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "file": "never-commit-without-approval.md",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit only with explicit user approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "no commit without explicit user approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "r2: outside_vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Obtain the user's explicit approval before making any commit",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "whether it contains docs or code",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [
+       {
+        "req": "r2",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "do not commit without the user's explicit approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": [
+      "'admin_bypass' is a required property",
+      "'after' is a required property",
+      "'after_branch' is a required property",
+      "'after_ok' is a required property",
+      "'after_path' is a required property",
+      "'after_task' is a required property",
+      "'branch' is a required property",
+      "'cmd' is a required property",
+      "'dest_path' is a required property",
+      "'files_shown' is a required property",
+      "'has_secret' is a required property",
+      "'in_repo' is a required property",
+      "'in_worktree' is a required property",
+      "'kind' is a required property",
+      "'max_files' is a required property",
+      "'min_files' is a required property",
+      "'path' is a required property",
+      "'path_except' is a required property",
+      "'running' is a required property",
+      "'secrets_checked' is a required property",
+      "'suite' is a required property",
+      "'task' is a required property",
+      "'tests_passed' is a required property",
+      "'user_asked' is a required property",
+      "'user_confirmed' is a required property",
+      "True is not of type 'string'",
+      "True is not one of ['unstated', 'true', 'false']"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit non-code changes on the current branch; no new branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "for docs, decisions, planning and other non-code changes"
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "commit-non-code-on-current-branch",
+       "quote": "Commit docs, decisions, planning, and other non-code changes on the current branch",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "no-new-branch",
+       "quote": "without checking out a new branch",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "commit-non-code-on-current-branch",
+       "no-new-branch"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "commit non-code changes on the current branch, without creating a new one",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "on the current branch, without checking out a new branch"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "commit non-code changes directly on the current branch; never check out a new branch for them",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       }
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "checkout",
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Commit docs, decisions, planning, and other non-code changes on the current branch",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "2",
+       "quote": "without checking out a new branch",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1",
+       "2"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit code changes only on a dedicated branch created for that work.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit only after creating a branch for the work; \"dedicated\" branch cannot be modeled",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "after": [
+         "branch_create"
+        ]
+       },
+       "when_unmodeled": "on a dedicated branch created for that work"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit code changes only on a dedicated branch created for that work.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "commit only on a branch created for that work",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "after": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "dedicated-branch",
+       "quote": "Commit code changes only on a dedicated branch created for that work.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "dedicated-branch"
+      ],
+      "left_out": []
+     },
+     "template_errors": [
+      "'admin_bypass' is a required property",
+      "'after' is a required property",
+      "'after_branch' is a required property",
+      "'after_ok' is a required property",
+      "'after_path' is a required property",
+      "'after_task' is a required property",
+      "'branch' is a required property",
+      "'cmd' is a required property",
+      "'dest_path' is a required property",
+      "'files_shown' is a required property",
+      "'has_secret' is a required property",
+      "'in_repo' is a required property",
+      "'in_worktree' is a required property",
+      "'kind' is a required property",
+      "'max_files' is a required property",
+      "'min_files' is a required property",
+      "'path' is a required property",
+      "'path_except' is a required property",
+      "'running' is a required property",
+      "'secrets_checked' is a required property",
+      "'suite' is a required property",
+      "'task' is a required property",
+      "'tests_passed' is a required property",
+      "'user_asked' is a required property",
+      "'user_confirmed' is a required property"
+     ]
+    },
+    {
+     "status": "ok",
+     "reason": "commit only after creating a dedicated branch for the work",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "after": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit code changes only on a dedicated branch created for that work.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "file": "never-commit-without-approval.md",
+   "rule": "Never delete git branches.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "never delete a branch, no place named",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never delete git branches.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "never delete branches",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never delete git branches.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "never delete a branch",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Never delete git branches.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "file": "never-commit-without-approval.md",
+   "rule": "Always wait for the user's approval before making any commit.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit only after the user's approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "wait-for-approval-before-commit",
+       "quote": "Always wait for the user's approval before making any commit.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "wait-for-approval-before-commit"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "commit only after the user's approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Always wait for the user's approval before making any commit.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": [
+      "True is not of type 'string'",
+      "True is not one of ['unstated', 'true', 'false']"
+     ]
+    },
+    {
+     "status": "ok",
+     "reason": "commit only after user approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Always wait for the user's approval before making any commit.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R31",
+   "file": "never-touch-user-env.md",
+   "rule": "For any env/config fix, update `.env.example` or describe the change in chat, and never touch the real `.env`.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "Update .env.example for env/config fixes; \"touch\" in the second part is ambiguous.",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env.example"
+        ]
+       },
+       "when_unmodeled": "for any env/config fix"
+      }
+     ],
+     "left_out": "describe-in-chat: outside_vocabulary; never-touch-real-env: unclear_word (touch)",
+     "requirements": [
+      {
+       "id": "update-example-env",
+       "quote": "For any env/config fix, update `.env.example`",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "describe-in-chat",
+       "quote": "or describe the change in chat",
+       "keep": "outside_vocabulary",
+       "why": "Alternative to editing the file: concerns what to tell the user, not a file or git action."
+      },
+      {
+       "id": "never-touch-real-env",
+       "quote": "never touch the real `.env`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "update-example-env"
+      ],
+      "left_out": [
+       {
+        "req": "describe-in-chat",
+        "reason": "outside_vocabulary",
+        "word": ""
+       },
+       {
+        "req": "never-touch-real-env",
+        "reason": "unclear_word",
+        "word": "touch"
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "update .env.example rather than the real .env",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env.example"
+        ]
+       },
+       "when_unmodeled": "for any env/config fix"
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env"
+        ]
+       }
+      }
+     ],
+     "left_out": "r2: outside_vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "For any env/config fix, update `.env.example`",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "describe the change in chat",
+       "keep": "outside_vocabulary",
+       "why": "It is about what to tell the user, not about git, files or running a task."
+      },
+      {
+       "id": "r3",
+       "quote": "never touch the real `.env`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1",
+       "r3"
+      ],
+      "left_out": [
+       {
+        "req": "r2",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "Do X for env/config fixes; never touch the real .env",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env.example"
+        ]
+       },
+       "when_unmodeled": "for any env/config fix"
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "For any env/config fix, update `.env.example` or describe the change in chat",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "never touch the real `.env`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1",
+       "r2"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R34",
+   "file": "prefer-official-generators.md",
+   "rule": "Keep the files produced by the official generator.",
+   "runs": [
+    {
+     "status": "unclear",
+     "word": "keep",
+     "reason": "\"keep\" could mean do not delete, or stay committed in the repo; the text does not say which, and no path is given",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep the files produced by the official generator.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "unclear_word",
+        "word": "keep"
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: \"files produced by the official generator\" is a named group with no path",
+     "requirements": [
+      {
+       "id": "keep-generated-files",
+       "quote": "Keep the files produced by the official generator.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "keep-generated-files",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: \"files produced by the official generator\" is a named group with no path",
+     "requirements": [
+      {
+       "id": "keep-generated-files",
+       "quote": "Keep the files produced by the official generator.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "keep-generated-files",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R50",
+   "file": "work-as-coworker-copilot.md",
+   "rule": "On this project, act as a coworker/copilot who collaborates, not as an order-taker.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only sets a collaboration stance (be a coworker/copilot, not an order-taker); it asks for no concrete action on git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "On this project, act as a coworker/copilot who collaborates",
+       "keep": "vague",
+       "why": "No concrete action; only a general working stance."
+      },
+      {
+       "id": "r2",
+       "quote": "not as an order-taker",
+       "keep": "vague",
+       "why": "Forbids a demeanor, not anything concrete."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only sets an interaction role/style (collaborator rather than order-taker); it asks nothing about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "act as a coworker/copilot who collaborates, not as an order-taker",
+       "keep": "outside_vocabulary",
+       "why": "Defines the working relationship/role with the user, not a git, file or task-running action."
+      }
+     ],
+     "uncovered_words": [
+      "project"
+     ],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only asks for a general working stance (collaborator rather than order-taker) and names no concrete action about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "act as a coworker/copilot who collaborates, not as an order-taker",
+       "keep": "vague",
+       "why": "Describes an attitude, no concrete action to perform."
+      }
+     ],
+     "uncovered_words": [
+      "project"
+     ],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R54",
+   "file": "work-as-coworker-copilot.md",
+   "rule": "Push back when you disagree rather than silently complying.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only prescribes how the agent should communicate with the user (voice disagreement instead of complying silently); it asks for nothing about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Push back when you disagree rather than silently complying.",
+       "keep": "outside_vocabulary",
+       "why": "About conversational stance toward the user, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only governs how the agent communicates disagreement with the user; it does not touch git, files, or running a task, so there is nothing to translate.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Push back when you disagree rather than silently complying.",
+       "keep": "outside_vocabulary",
+       "why": "About how to respond to the user (communication stance), not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only concerns how to communicate with the user (voicing disagreement), not git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Push back when you disagree rather than silently complying.",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes a conversational stance toward the user, not any git, file, or task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R65",
+   "file": "CLAUDE.md",
+   "rule": "Split the frontend into focused component files.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: no action word for splitting code into files",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Split the frontend into focused component files.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The only requirement is a code organization/style directive, not an instruction about git, file operations or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Split the frontend into focused component files.",
+       "keep": "outside_vocabulary",
+       "why": "Code structure/style guidance, not a concrete git, file or task-running action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "code organization style, not a git, file or task action",
+     "requirements": [
+      {
+       "id": "split-frontend-into-component-files",
+       "quote": "Split the frontend into focused component files.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "split-frontend-into-component-files",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "file": "CLAUDE.md",
+   "rule": "Never delete a branch without an explicit user go.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "do not X without Y",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Never delete a branch without an explicit user go.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "do not delete a branch without user approval",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "no-branch-deletion-without-approval",
+       "quote": "Never delete a branch without an explicit user go.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "no-branch-deletion-without-approval"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "do not X without Y",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       },
+       "needs": {
+        "user_confirmed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "no-branch-delete-without-approval",
+       "quote": "Never delete a branch without an explicit user go.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "no-branch-delete-without-approval"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R74",
+   "file": "CLAUDE.md",
+   "rule": "Put code on its own branch.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch: create a branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "file": "CLAUDE.md",
+   "rule": "Documentation and non-code changes may be committed on the current branch.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "allowed action: commit docs/non-code on the current branch",
+     "clauses": [
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "documentation and non-code changes, on the current branch"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Documentation and non-code changes may be committed on the current branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "commits of documentation/non-code changes are allowed on the current branch",
+     "clauses": [
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Documentation and non-code changes may be committed on the current branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "\"may be committed\" on the current branch is a permission to commit.",
+     "clauses": [
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "documentation and non-code changes"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Documentation and non-code changes may be committed on the current branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R77",
+   "file": "CLAUDE.md",
+   "rule": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule forbids introducing shared constants, config, or indirection for fixed requirement values. It is a concrete code-organisation preference, not something about git, files, or running a task, so there is nothing to translate.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps.",
+       "keep": "outside_vocabulary",
+       "why": "Concrete code-structure/style rule, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule is a code-design guideline about not abstracting fixed values; it says nothing about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps.",
+       "keep": "outside_vocabulary",
+       "why": "Code structure/style guidance, not a git, file or task-running instruction."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule constrains code structure (no shared constants/config/indirection), which is code style rather than git, file, or task-running behavior.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps.",
+       "keep": "outside_vocabulary",
+       "why": "Code-design/style constraint, not about git, files, or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R78",
+   "file": "CLAUDE.md",
+   "rule": "Do not read or edit the user's .env file.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "do not read or edit .env",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "read"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not read",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "or edit the user's .env file",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1",
+       "r2"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "do not read or edit the .env file",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "read"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not read or edit the user's .env file",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "Do not read or edit the user's .env file",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1",
+       "r2"
+      ],
+      "left_out": []
+     },
+     "template_errors": [
+      "'after' is a required property"
+     ]
+    },
+    {
+     "status": "ok",
+     "reason": "never read or edit the .env file",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "read"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         ".env"
+        ],
+        "kind": "file"
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not read",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "or edit the user's .env file.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step1"
+     ],
+     "trace": {
+      "clause_req": [
+       "r1",
+       "r2"
+      ],
+      "left_out": []
+     },
+     "template_errors": [
+      "'admin_bypass' is a required property",
+      "'after' is a required property",
+      "'after_branch' is a required property",
+      "'after_ok' is a required property",
+      "'after_path' is a required property",
+      "'after_task' is a required property",
+      "'branch' is a required property",
+      "'dest_path' is a required property",
+      "'files_shown' is a required property",
+      "'has_secret' is a required property",
+      "'in_repo' is a required property",
+      "'in_worktree' is a required property",
+      "'max_files' is a required property",
+      "'min_files' is a required property",
+      "'path_except' is a required property",
+      "'running' is a required property",
+      "'secrets_checked' is a required property",
+      "'suite' is a required property",
+      "'task' is a required property",
+      "'tests_passed' is a required property",
+      "'user_asked' is a required property",
+      "'user_confirmed' is a required property"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R81",
+   "file": "CLAUDE.md",
+   "rule": "When a real test run changes, refresh the TESTING.md count and report.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "when a test run changes, refresh the count in TESTING.md",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "after": [
+         "run"
+        ],
+        "path": [
+         "TESTING.md"
+        ],
+        "after_task": "test"
+       },
+       "when_unmodeled": "a real test run changes"
+      }
+     ],
+     "left_out": "report-the-change: outside_vocabulary",
+     "requirements": [
+      {
+       "id": "refresh-testing-md-count",
+       "quote": "When a real test run changes, refresh the TESTING.md count",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "report-the-change",
+       "quote": "and report",
+       "keep": "outside_vocabulary",
+       "why": "Reporting concerns what to tell the user, not a git/file/task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "refresh-testing-md-count"
+      ],
+      "left_out": [
+       {
+        "req": "report-the-change",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "after a test run changes the count, refresh TESTING.md",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "after": [
+         "run"
+        ],
+        "path": [
+         "TESTING.md"
+        ],
+        "after_task": "test"
+       },
+       "when_unmodeled": "a real test run changes the count"
+      }
+     ],
+     "left_out": "2: outside_vocabulary",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "When a real test run changes, refresh the TESTING.md count",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "2",
+       "quote": "report",
+       "keep": "outside_vocabulary",
+       "why": "Concerns what to tell the user, not git, files, or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": [
+       {
+        "req": "2",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "refresh the TESTING.md count only after a test run whose count changed",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "edit"
+        ],
+        "path": [
+         "TESTING.md"
+        ]
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "test"
+       },
+       "when_unmodeled": "when a real test run changes"
+      }
+     ],
+     "left_out": "r2: vague",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "When a real test run changes, refresh the TESTING.md count",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "and report",
+       "keep": "vague",
+       "why": "Does not say what to report, in what form, or to whom."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [
+       {
+        "req": "r2",
+        "reason": "vague",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R102",
+   "file": "CLAUDE.md",
+   "rule": "If the text yields no characters or chapters, fail the step with a delete-this-project or start-a-new-one message.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "failure handling for a text-parsing step, not a git/file/task action",
+     "requirements": [
+      {
+       "id": "fail-step-when-empty",
+       "quote": "If the text yields no characters or chapters, fail the step",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "failure-message-content",
+       "quote": "with a delete-this-project or start-a-new-one message",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes what to tell the user, not a git/file/task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "fail-step-when-empty",
+        "reason": "outside_vocabulary",
+        "word": ""
+       },
+       {
+        "req": "failure-message-content",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: failing a workflow step with a message has no vocabulary",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "If the text yields no characters or chapters, fail the step with a delete-this-project or start-a-new-one message.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "failing a step with a message is not a git, file or task action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "If the text yields no characters or chapters, fail the step with a delete-this-project or start-a-new-one message.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R120",
+   "file": "CLAUDE.md",
+   "rule": "Put implementation mechanics such as locking and temp-file swapping inside the function and explain them with a short comment.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule is about code organization and commenting style, not about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Put implementation mechanics such as locking and temp-file swapping inside the function",
+       "keep": "outside_vocabulary",
+       "why": "Code structure/style guidance, not a git, file or task-running action."
+      },
+      {
+       "id": "r2",
+       "quote": "explain them with a short comment",
+       "keep": "outside_vocabulary",
+       "why": "Asks for source-code documentation style."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule is about code organization and commenting style, not about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Put implementation mechanics such as locking and temp-file swapping inside the function",
+       "keep": "outside_vocabulary",
+       "why": "Code structure/design choice, not a git, file or task-running action."
+      },
+      {
+       "id": "r2",
+       "quote": "explain them with a short comment",
+       "keep": "outside_vocabulary",
+       "why": "Commenting/documentation style, not a git, file or task-running action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule is about code structure and commenting style, not about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Put implementation mechanics such as locking and temp-file swapping inside the function",
+       "keep": "outside_vocabulary",
+       "why": "Code organization/style choice, not git, files or task execution."
+      },
+      {
+       "id": "2",
+       "quote": "explain them with a short comment",
+       "keep": "outside_vocabulary",
+       "why": "Commenting style in code, not git, files or task execution."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R121",
+   "file": "CLAUDE.md",
+   "rule": "Write concise and direct comments.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only concerns code-comment writing style, not git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write concise and direct comments.",
+       "keep": "outside_vocabulary",
+       "why": "Code style guidance about how to word comments, not a git/file/task action."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only constrains comment writing style (code style), not git, file or task-running actions.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write concise and direct comments.",
+       "keep": "outside_vocabulary",
+       "why": "Code style guidance about how comments should be written, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule only concerns code comment style, which is not about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write concise and direct comments.",
+       "keep": "outside_vocabulary",
+       "why": "Code comment style, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R133",
+   "file": "CLAUDE.md",
+   "rule": "Do not write E2E tests.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule forbids writing a particular kind of test; it says nothing about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Do not write E2E tests.",
+       "keep": "outside_vocabulary",
+       "why": "Concerns which tests/code to produce, not git, files or task execution."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule forbids writing a kind of test, which is a testing/code practice rather than an instruction about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not write E2E tests.",
+       "keep": "outside_vocabulary",
+       "why": "Concrete, but it is about test authoring practice, not git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule forbids writing a particular kind of test, which is a choice of testing approach rather than an instruction about git, files or running a task; no requirement is in scope for translation.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not write E2E tests.",
+       "keep": "outside_vocabulary",
+       "why": "Specifies a testing approach/technique, not git, file or task-running behavior."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R139",
+   "file": "CLAUDE.md",
+   "rule": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule asks for a specific piece of code (an integration test with a mocked dependency), which is about code/testing practice rather than git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini.",
+       "keep": "outside_vocabulary",
+       "why": "Concrete coding task: writing a test with a mocked dependency, not git/file/task-running work."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule asks for a specific piece of test code to be written (integration test through 5 steps with a mocked Gemini); it says nothing about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini.",
+       "keep": "outside_vocabulary",
+       "why": "Prescribes what test code to author and which dependency to mock, i.e. code/tooling choice rather than git, files or task execution."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule asks for writing a test (code work), not for anything about git, files or running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini.",
+       "keep": "outside_vocabulary",
+       "why": "Concerns writing test code, not git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R146",
+   "file": "CLAUDE.md",
+   "rule": "Write tests first for backend pipeline logic.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "The rule states a single development-practice requirement (test-first workflow for backend pipeline logic); it is not about git, file operations, or steps for running a task.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write tests first for backend pipeline logic.",
+       "keep": "outside_vocabulary",
+       "why": "A coding workflow/approach preference (test-first development), not a git, file or task-running instruction."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule has one requirement, but it is a coding practice (test-first development) rather than an instruction about git, files, or running a task, so nothing is in scope for translation.",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write tests first for backend pipeline logic.",
+       "keep": "outside_vocabulary",
+       "why": "Development practice about code, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    },
+    {
+     "status": "unclear",
+     "word": "write",
+     "reason": "\"write tests\" does not say whether test files are created or existing ones edited",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write tests first for backend pipeline logic.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "1",
+        "reason": "unclear_word",
+        "word": "write"
+       }
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R147",
+   "file": "CLAUDE.md",
+   "rule": "Write tests after the implementation for frontend states.",
+   "runs": [
+    {
+     "status": "unclear",
+     "word": "write",
+     "reason": "\"write tests\" does not say whether new test files are created or existing ones edited",
+     "requirements": [
+      {
+       "id": "write-tests-after-implementation",
+       "quote": "Write tests after the implementation for frontend states.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "write-tests-after-implementation",
+        "reason": "unclear_word",
+        "word": "write"
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "unclear",
+     "word": "write",
+     "reason": "\"write\" could mean creating test files or editing existing ones; the rule does not say which",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Write tests after the implementation for frontend states.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "unclear_word",
+        "word": "write"
+       }
+      ]
+     },
+     "template_errors": []
+    },
+    {
+     "status": "not_in_scope",
+     "reason": "The rule requires a code-development practice (when to write tests), which is not about git, files, or running a task.",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Write tests after the implementation for frontend states.",
+       "keep": "outside_vocabulary",
+       "why": "Code/testing practice, not about git, files or running a task."
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R152",
+   "file": "CLAUDE.md",
+   "rule": "Put code on its own branch.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch: create a branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    },
+    {
+     "status": "ok",
+     "reason": "code must go on its own branch",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "branch_create"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Put code on its own branch.",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": []
+     },
+     "template_errors": []
+    }
+   ]
+  }
+ ],
+ "mode": "two_step",
+ "usage": {
+  "calls": 122,
+  "cached": 15,
+  "prompt_tokens": 270788,
+  "completion_tokens": 70310
+ }
+}

@@ -1,0 +1,74 @@
+# Project memory — news-brief
+
+- [📁 Historical milestones](MEMORY-history.md) — Bigdata.com enrichment arc, sources & edge-latency redesign, multi-asset trading build, claim-memory build, T212 auth fix. NOT auto-loaded; read on demand.
+
+- [Trading retrospective 2026-08-16](trading-retrospective-2026-08-16.md) — **distrust every pre-2026-08-16 number.** "Fade the event" is DEAD. **REJECTED on evidence, don't re-propose: the momentum-prediction cap, the BTFDBot parallel sleeve.**
+- [Analysis stats traps](analysis-stats-traps.md) — **eight** traps behind confident wrong numbers. Read before trusting any measurement here.
+- [PolyGram live trading spec](polygram-live-trading-spec.md) — **RETIRED 2026-09-11, code removed: ~$1/share fees at any price. Don't re-propose.**
+- [Self-improving trading roadmap](self-improving-trading-roadmap.md) — staged A→B→C→D; Stage A BUILT, **Stage B NEXT** (edit `performance_prompt_block`'s HARDCODED dim tuple, not `_DIMENSIONS`).
+
+- [External geo-dashboards borrow-backlog](external-geo-dashboards-backlog.md) — CLOSED 2026-06-26. Durable: the ≥3-entries native→proxy gate, the AGPL-vs-MIT guard.
+- [Mauldin TWIE Wix-warmup scrape](mauldin-twie-wix-warmup-scrape.md) — TWIE comes from Wix's `wix-warmup-data` JSON (no RSS); only the ARTICLE page carries records.
+- [Telegram send-long convention](telegram-send-long-convention.md) — `telegram_send_long` wraps every growth-prone send; bare `telegram_send` only for fixed-size acks. **Tests: patch all THREE send channels**, or "nothing was sent" passes vacuously.
+- [Model config + thinking gotcha](newsbrief-model-config.md) — model = the `NEWSBRIEF_MODEL` **settings row** (no redeploy). **Set `thinking` EXPLICITLY on every call** — adaptive thinking eats max_tokens and truncates.
+- [Sim-env external data axis](sim-env-external-data-axis.md) — simulated-2026 clock; backtest on pre-2025 windows for real yfinance+GDELT data; date GDELT files by MODAL SQLDATE
+- [Backtest non-stationarity check](backtest-nonstationarity-check.md) — a held-out IC alone isn't proof; check per-year sign stability to catch regime artifacts; also normalize + tighten scope
+- [Formatter owns style](formatter-owns-style.md) — ruff reflows brief.py on save; don't preserve hand-alignment
+- [brief.py sibling prompt strings](brief-py-sibling-prompt-strings.md) — 3 big prompt blocks; "edit the prompt" mis-targets — name the symbol + match unique surrounding text
+- [Env var needs compose passthrough](env-var-needs-compose-passthrough.md) — a knob is invisible in the container until the compose **anchor** declares it, and the anchor SEEDS the row. **Verify the EFFECT, never the row.**
+- [Dockerfile COPY allowlist](dockerfile-copy-allowlist.md) — a new TOP-LEVEL module needs Dockerfile COPY + two workflow lists, or it ModuleNotFounds in production while CI is green. `tests/test_packaging.py` enforces it — extend it, don't hand-maintain a list.
+- [Source fetch failure modes](source-fetch-failure-modes.md) — `RSS failed` is 3 problems: 403 bot UA (never retry), 429 Nitter rate-limit, presstv.ir REVOKED cert → IRNA (don't re-add). Reproduce with curl AND requests.
+- [Commodity signals are index class](commodity-signals-are-index-class.md) — BRENT etc. are asset CLASS `index`, reclassified at normalize time, not open time (dedup key is built first). Its prediction branch is gone (oh4)
+- [Google News RSS recipe](google-news-rss-recipe.md) — feeds for dead publisher RSS; `site:` not `allinurl:`+`when:`. **A whole-domain `site:` proxy ingests author/tag/help pages: list ALL titles first. "Native returns 0" = that PATH failed.**
+- [Direct-page temp sources](direct-page-temp-sources.md) — temp sources can be `source_type=page` (scraped). **PENDING: host re-add of both BCA dashboards as page sources.**
+- [Paper sim: no fees (decided)](paper-sim-no-fees-decision.md) — frictionless by design; demo T212 account rejected
+- [Run brief.py locally](brief-local-run.md) — the gate is THREE commands, and **`pytest` alone is green with the DB layer SKIPPED** — export `DATABASE_URL`.
+- [Deferred review findings](newsbrief-deferred-findings.md) — one item per session, proper design each. **STILL OPEN, deferred-for-cause:** #2 `split_html_message` tag-split, #3 latent `fetch_web_source` fallback.
+- [Beads hygiene + the Stop hook](newsbrief-beads-hygiene.md) — a bead id ALONE on a line in a commit means "completes it"; inline prose is a reference. **`bd update --notes` OVERWRITES (use `--append-notes`).**
+- [Commit straight to main](newsbrief-commit-to-main.md) — solo repo; don't branch first
+- [User runs concurrent sessions](user-runs-concurrent-sessions.md) — unexplained working-tree changes are HIS (another session): flag and ask, never revert or stash; commit explicit paths, never `-A`; a foreign change may be half a feature
+- [HTTP error body is the diagnosis](http-error-body-is-the-diagnosis.md) — `HTTPError` stringifies to status+URL only; log `resp.text` (+ the request body on writes) or a 400 is unactionable; ~25 sites still discard it
+- [Fail-closed paths need status, not counts](fail-closed-needs-status-not-count.md) — `0` from a multi-gate silent path is unattributable: return which gate fired, shown where the operator looks; a swallowed exception is a `crashed` state.
+- [Write-only fields hide from read paths](write-only-fields-hide-from-read-paths.md) — when every GET works and only the POST fails, look for the field no read consumes
+- [Signals delimiter fragility](signals-delimiter-fragility.md) — HISTORICAL (removed); rule stands: no markdown-looking in-band markers
+- [Signals parse_error = truncation](signals-parse-error-is-truncation.md) — project-wide: a post-gen call's parse/format failure is usually **max_tokens truncation, not a bad parser**. Check `stop_reason` first; size max_tokens + timeout to the workload.
+- [Batch pipeline timing](batch-pipeline-timing.md) — submit→collect may span 12h but must share a UTC day. A crashed submit with `NameResolutionError` created NO batch — resubmit freely.
+- [Stooq ticker resolution](stooq-ticker-resolution.md) — signals carry plain symbols (SHEL); T212 keys are SYMBOL_US_EQ / SYMBOLl_EQ; resolve by base, prefer US
+- [Stooq dead → Yahoo+Alpaca](stooq-dead-provider-replacement.md) — Stooq's free API is gone; quotes are market-routed Yahoo+Alpaca failover. T212 has no quote endpoint.
+- [Run Python from the Bash tool](python-via-powershell.md) — **`py` first** (`py -m pytest`, `py script.py`): it returns the real exit code; the winpty-wrapped `python` alias does not.
+- [Live state on deploy host](live-state-on-deploy-host.md) — runtime state lives on the deploy host, NOT the dev repo; **the repo is PUBLIC and `.gitignore` forbids committing live output (`from-server/`)**
+- [Fix the tooling, don't route around it](fix-the-tooling-dont-route-around-it.md) — FIX a false-firing guard, don't work around it; a second wrong firing on the same shape = stop and offer the fix. Verify a hook in BOTH directions.
+- [User working style](user-working-style.md) — doesn't rubber-stamp recommendations; lead with honest tradeoffs, expect to defend "recommended"; sequences work by context budget and audits what gets published
+- [Subagent dispatch practices](subagent-review-stalls.md) — **DEFAULT TO DISPATCHING.** Prevent parks: put "run the gate in the FOREGROUND" in the shared context before dispatching. **Agents list claims they did NOT run; a reviewer RUNS them.**
+- [Fork subagent overreach](fork-subagent-overreach.md) — `fork` inherits full context and runs the whole plan, not your narrow prompt, and may misreport scope; use fresh agents for scoped tasks, verify git
+- [Flag access = module attr](newsbrief-flag-access-module-attr.md) — read knobs as `common.X`, never `from common import X`: a from-copy freezes at import and defeats both host toggles and monkeypatch.
+- [TDD plan fixtures drift from contracts](tdd-plan-fixtures-drift-from-contracts.md) — plan-written fixtures drift from real signatures, and fixture and code can AGREE while both are wrong. **Run pasted test code or label it unrun.**
+- [Plugin "not cached" = scope mismatch](plugin-scope-mismatch-not-cached.md) — /doctor fix: flip the install record project→user scope in installed_plugins.json
+- [Telegram commands are text-parsed](telegram-commands-text-parsed.md) — handlers run on message text; setMyCommands self-sync + callback_query built
+- [Telegram source mgmt + command daemon](telegram-source-management-daemon.md) — commands mode is a long-poll daemon, the ONLY getUpdates consumer (a second 409s); temp sources via /addsource, stored in sources.json.
+- [Sentiment-sizing CLOSED null](sentiment-sizing-null-decided.md) — DECIDED: sentiment does NOT size positions (confident null, n≈7k); enrichment is descriptive-only.
+- [TradingAgents patterns to mine](tradingagents-patterns-to-mine.md) — NOT adopted; mine bull/bear-debate + risk-manager stage + its AlphaVantage wiring in a SEPARATE later spec
+- [Signals extraction → own call](signals-extraction-separate-call-followup.md) — signals are a separate forced-tool call. LESSON: size a post-gen call's timeout to ITS model's latency; one copied from a faster model silently wiped signals.
+- [PolyGram candidate-search fix](polygram-candidate-search-fix.md) — feature RETIRED (oh4); durable lesson: case-insensitive SUBSTRING matching makes short tokens toxic (MU→Musk) — search entity tokens of ≥4 chars.
+- [KB architecture redirection 2026-08-29](newsbrief-kb-architecture-2026-08-29.md) — brief = a render over an accumulated KB; Epic 1 closed. **Quarantine is the default for an unmeasured field; measurement lifts it.** Follow-up `6wc`.
+- [KB schema 0006 + the ledger cutover 0007](newsbrief-kb-schema-0006.md) — KB tables + claim ledger in Postgres. **Read before touching the schema or `claim_store.py` (owns all its SQL).** Retirement is a `retired_on` date, **never a DELETE**.
+- [Runtime foundation, phases 1 and 2](newsbrief-runtime-foundation-phase-1.md) — **All config is `settings` ROWS**: new knob = `KNOBS` entry + delete the constant + compose anchor line. **The unpushed-hold is OVER — don't re-apply it.**
+- [Continuous capture (Epic 2, b42.1)](newsbrief-capture-feature.md) — **ON since 2026-09-04. `captured_items` is DEAD; `items` has no feed column BY DESIGN.** Holds the reference alert contract (`capture.liveness`).
+- [Comprehend cost baseline](newsbrief-comprehend-cost.md) — **the 2026-09-25 £15/day was INPUT VOLUME: check per-outlet counts first.** DEAD IDEAS: truncating bodies, caching the 777-token prefix.
+- [Comprehension cost redesign, phase 1](comprehension-cost-redesign-phase-1.md) — **Comprehension OFF since 2026-11-18** (user: may not be worth it; 2r5/bqa.11 deferred to 2026-12-16). Don't re-enable without asking. History + phase 2 in the file.
+- [Snapshot config per unit of work](snapshot-config-per-unit-of-work.md) — a knob re-read through the 60 s settings cache can change MID-PASS. Resolve it once per pass and thread it through.
+- [Comprehension pipeline (bqa.4b)](newsbrief-comprehension-pipeline.md) — OFF since 2026-11-18 (was LIVE); ranking is pg_trgm. **`corroboration_by_outlet` CANNOT A/B a ranking change at this size.** Gate `bqa.11` = step 2 of the cost runbook.
+- [Reconstruction drifts from production](reconstruction-drifts-from-production.md) — a diagnostic that REIMPLEMENTS production's query drifts when production changes; **a control comparing two copies can't notice.** Call the production function with an `as_of`.
+- [A ledger dates what it records](a-ledger-dates-what-it-records.md) — a timestamp ledger dates its OWN events, never the thing you want dated. **Put the precondition next to the number; make an unanswerable instrument REFUSE.** Replays filter by BIRTH.
+- [Never give a model raw database ids](never-give-a-model-raw-database-ids.md) — use an opaque label space (`ENT1`), never real keys. **Ignoring unknown ids and falling through is the trap.**
+- [Retry budgets need a verdict](retry-budget-needs-a-verdict.md) — a counter that PERMANENTLY retires work is charged only by failures that **judged** it: timeout/429/5xx defer, 4xx charges. Deferrals get their OWN field; **never two no-verdict causes on one counter.**
+- [Shared helper carries its first caller's tuning](shared-helper-carries-first-callers-tuning.md) — a constant whose comment justifies it *here* is scoped to ONE caller; a second caller re-derives it. **Retry layers MULTIPLY** — retry where budget accounting lives.
+- [Mutation diagnostics demand a COUNT](mutation-diagnostic-demands-a-count.md) — make the worker BREAK the code and report **how many** tests failed, pre-registered; it audits the TESTS. A zero or far-too-high count = a broken, unapplied or duplicated mutant.
+- [Tests asserting less than their name](tests-asserting-less-than-their-name.md) — **the dominant defect class here**: a test names a PROPERTY and asserts an easy PROXY. **Mentally delete the code — does the test still pass?**
+- [Test network guard](test-network-guard.md) — the suite blocks non-loopback sockets AND fails any test that caused a blocked call, swallowed or not; how to stub, and when `allow_blocked_network` is legitimate
+- [Memory corpus travels now](memory-corpus-does-not-travel.md) — `hydrate-memory.sh` injects the committed index where absent. **The repo is PUBLIC — review the memory diff before committing.**
+- [Red-team saturation](red-team-saturation.md) — stop spec red-team rounds when objections migrate to a DOWNSTREAM consumer: cut scope into a checklist for that spec, don't revise again.
+- [Parallel implementers share the test DB](parallel-implementers-share-test-db.md) — disjoint files ≠ independent: every DB fixture DROPs the schema on the ONE test Postgres, so concurrent pytest runs collide. Overlap implementers only with read-only reviewers.
+- [Event census (SP0)](event-census-sp0.md) — within-6h gap ruling (don't reopen window length). **FREEZE on `census.py`/`census_metrics.py`/`census_*` until step 10. RE-GATE after windows 3+4, BEFORE window 5 (`vd9.14`) — remind the operator, code won't stop.**
+- [Postgres role/grant gotchas](postgres-role-grant-gotchas.md) — PG 18.6: CREATEROLE needs ADMIN OPTION to ALTER a role; memberships are the hole ACL checks miss; plpgsql plans both sides of an AND guard — nest the IF.
+- [Watch job + pushed private files](watch-and-pushed-files.md) — 8lp SCHEDULED 06:30 PROVISIONALLY (gate `8lp.1` deferred to 12-03, still owed); replay needs `--entrypoint python`; missing theses push warns nightly BY DECISION; TRIGGERED alerts RING (decided 11-19), all else silent. Price rows (vap) = stage 2 of the same job; bars dated in EXCHANGE tz (FX 23:00Z in summer).

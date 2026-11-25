@@ -7,6 +7,7 @@ returns rules as {quote, rule}. Each quote must be a verbatim span of the file
 Usage:
   uv run python prep/extract.py --run pilot --repos owner/repo [owner/repo ...]
   uv run python prep/extract.py --run full --split prevalence
+  uv run python prep/extract.py --run survey_rules --repos-dir data/github/explore/repos --repos owner/repo
 Output: data/runs/<run>/rules/<owner__repo>.json
 """
 
@@ -73,11 +74,16 @@ async def extract_file(llm: LLM, fname: str, text: str):
     return good, dropped
 
 
-async def extract_repo(llm: LLM, repo: str, out_dir: Path):
-    repo_dir = REPOS / repo.replace("/", "__")
+async def extract_repo(llm: LLM, repo: str, out_dir: Path, repos_dir: Path = REPOS,
+                       claude_md: bool = False):
+    """claude_md: also extract the repo's root CLAUDE.md (ADR 0009), placed last so the ids of
+    memory-folder rules do not change."""
+    repo_dir = repos_dir / repo.replace("/", "__")
     info = json.loads((repo_dir / "repo.json").read_text())
     mem = repo_dir / info["folder"]["dir"]
     files = sorted(p for p in mem.glob("*.md") if p.name != "MEMORY.md")
+    if claude_md and (repo_dir / "CLAUDE.md").exists():
+        files.append(repo_dir / "CLAUDE.md")
     results = await asyncio.gather(*(extract_file(llm, p.name, p.read_text(errors="replace")) for p in files))
     rules, dropped = [], []
     for p, (good, bad) in zip(files, results):
@@ -97,13 +103,17 @@ async def main():
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--repos", nargs="+")
     g.add_argument("--split", choices=["prevalence", "gold"])
+    ap.add_argument("--claude-md", action="store_true",
+                    help="also extract the repo's root CLAUDE.md (ADR 0009)")
+    ap.add_argument("--repos-dir", default=str(REPOS),
+                    help="where the downloaded repos are (e.g. data/github/explore/repos)")
     args = ap.parse_args()
     repos = args.repos or json.loads((ROOT / "github" / "split.json").read_text())[args.split]
     out_dir = ROOT / "runs" / args.run / "rules"
     out_dir.mkdir(parents=True, exist_ok=True)
     llm = LLM()
     for repo in repos:
-        await extract_repo(llm, repo, out_dir)
+        await extract_repo(llm, repo, out_dir, Path(args.repos_dir), args.claude_md)
     print("usage:", llm.usage)
 
 

@@ -1,0 +1,8 @@
+- [Sean Munley](user_sean.md) — project creator, Bumper turning 70 Jan 2027, billiards hustler origin story
+- [Min font size 16px](feedback_font_size.md) — all text 16px min, 55+ target audience accessibility
+- [Collections feature](project_collections.md) — many-to-many recordings/collections, default collections on signup
+- [No speculative changes](feedback_no_guessing.md) — diagnose first, recommend fix, wait for approval before changing code
+- [Video pipeline pivot](project_video_pipeline.md) — async story→video pipeline (Deepgram word timestamps, Claude scenes, Flux, ffmpeg); ElevenLabs demoted to consent-gated extras
+- [Direct style](feedback_direct_style.md) — bullets, numbers, specific step-by-step instructions
+- [Phase 4 results](project_phase4_results.md) — all spikes passed; illustrated style chosen; flux-kontext-pro; de-aging needs era photos
+- [Status Sept 2026](project_status_sept2026.md) — full film loop live; re-roll/remake/questions shipped; remaining items need Sean
