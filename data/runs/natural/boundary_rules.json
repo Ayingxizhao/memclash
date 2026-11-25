@@ -1,0 +1,514 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R19",
+   "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "stage",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "rule": "Never delete git branches.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R26",
+   "rule": "Obtain approval before pushing to a remote, regardless of what changed.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "rule": "Always wait for the user's approval before making any commit.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R28",
+   "rule": "Never read, open, `cat`, or `sed` the user's `.env` file.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "read",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R29",
+   "rule": "Never edit the user's `.env` file.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "edit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R71",
+   "rule": "Never commit without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R72",
+   "rule": "Never push without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "rule": "Never delete a branch without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R149",
+   "rule": "Get user approval for every commit, including documentation and code changes.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R157",
+   "rule": "Never delete a branch on your own initiative.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R158",
+   "rule": "Get approval before pushing to a remote, regardless of what changed.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R219",
+   "rule": "Only start the server when the user indicates they want it running, such as by saying \"start the server\", \"let's test it\", or \"fire it up\".",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R223",
+   "rule": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "rule": "Always run test tasks sequentially.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R387",
+   "rule": "Wait for one test task to complete before starting the next.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R393",
+   "rule": "Do not start tests proactively.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R394",
+   "rule": "Only run tests when the user explicitly asks.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R75",
+   "rule": "Do not write directly to MEMORY.md, which is auto-generated from topic files.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit"
+       ],
+       "path": "MEMORY.md"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R167",
+   "rule": "Never start Verdaccio manually; Verdaccio is managed by systemd.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:start verdaccio"
+      }
+     }
+    ],
+    "left_out": "The vocabulary does not represent systemd ownership; it is the stated reason for the prohibition."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R173",
+   "rule": "Never proactively create documentation (.md) or README files unless the user explicitly requests them.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": [
+        "*.md",
+        "README*"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The path patterns approximate the rule's documentation and README categories."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R179",
+   "rule": "Never commit secrets, credentials, or .env files.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": "The secret field collectively represents secrets and credentials."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R203",
+   "rule": "Never commit .env files or any file containing secrets.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R224",
+   "rule": "Never install a plugin without explicit user confirmation.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:install plugin"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  }
+ ]
+}

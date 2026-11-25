@@ -1,0 +1,208 @@
+{
+ "groups": [
+  {
+   "ids": [
+    "T5c",
+    "T5b",
+    "T5a"
+   ],
+   "verdict": "group_exception",
+   "detail": {
+    "by": "rule 2 clause 0",
+    "action": {
+     "cmd": "delete",
+     "path": "g2_0_path",
+     "dest_path": "g2_0_dest_path",
+     "branch": "g2_0_branch",
+     "task": "g2_0_task",
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    }
+   }
+  }
+ ],
+ "pairs": [
+  {
+   "ids": [
+    "T3a",
+    "T3b"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "T3a",
+    "T9b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T11a",
+    "T11b"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "T11a",
+    "T6b"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "T15a",
+    "R24"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "T11b",
+    "T6a"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "R74",
+    "R20"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "R75",
+    "T4b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "R75",
+    "T16b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T3b",
+    "T9a"
+   ],
+   "verdict": "clash"
+  },
+  {
+   "ids": [
+    "T9a",
+    "T9b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "R20",
+    "T4b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "R20",
+    "T16b"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T4b",
+    "T16a"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T4b",
+    "T4a"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T16b",
+    "T16a"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "T16b",
+    "T4a"
+   ],
+   "verdict": "possible_clash"
+  },
+  {
+   "ids": [
+    "R24",
+    "T8a"
+   ],
+   "verdict": "clash"
+  }
+ ],
+ "status": {
+  "T1a": "unclear",
+  "T1b": "ok",
+  "T1c": "not_in_scope",
+  "T2a": "ok",
+  "T2b": "ok",
+  "T2c": "not_in_scope",
+  "T3a": "ok",
+  "T3b": "ok",
+  "T3c": "ok",
+  "T4a": "ok",
+  "T4b": "ok",
+  "T4c": "unclear",
+  "T5a": "ok",
+  "T5b": "ok",
+  "T5c": "ok",
+  "T6a": "ok",
+  "T6b": "ok",
+  "T6c": "invalid_output",
+  "T7a": "ok",
+  "T7b": "ok",
+  "T7c": "ok",
+  "T8a": "ok",
+  "T8b": "invalid_output",
+  "T8c": "not_in_scope",
+  "T9a": "ok",
+  "T9b": "ok",
+  "T9c": "ok",
+  "T10a": "ok",
+  "T10b": "ok",
+  "T10c": "invalid_output",
+  "T11a": "ok",
+  "T11b": "ok",
+  "T11c": "ok",
+  "T12a": "ok",
+  "T12b": "ok",
+  "T12c": "invalid_output",
+  "T13a": "unclear",
+  "T13b": "ok",
+  "T13c": "not_in_scope",
+  "T14a": "ok",
+  "T14b": "ok",
+  "T14c": "ok",
+  "T15a": "ok",
+  "T15b": "not_in_scope",
+  "T15c": "not_in_scope",
+  "T16a": "ok",
+  "T16b": "ok",
+  "T16c": "not_in_scope"
+ }
+}

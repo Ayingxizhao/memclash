@@ -1,0 +1,93 @@
+{
+ "pairs": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "a": "R24",
+   "b": "R156",
+   "verdict": "exception",
+   "situation": "The user asks to delete a merged branch: R156 permits deleting it, but R24 forbids deleting any git branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "a": "R25",
+   "b": "R156",
+   "verdict": "exception",
+   "situation": "The user asks to remove a merged branch: R156 permits deletion, while R25 says to leave merged branches in place rather than removing them."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "a": "R77",
+   "b": "R99",
+   "verdict": "clash",
+   "situation": "Implementing the backend image cap: R99 requires slicing to MAX_CHARACTERS/MAX_CHAPTERS constants, while R77 forbids shared constants or indirection for the fixed 2/1 image caps."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R78",
+   "b": "R235",
+   "verdict": "clash",
+   "situation": "After applying file patches, R78 requires removing and re-adding the MCP server, while R235 forbids running the claude mcp add bootstrap command that re-adding would require."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R84",
+   "b": "R89",
+   "verdict": "exception",
+   "situation": "A claude-flow question remains unanswered after the CLI and memory checks; R89 permits falling back to source code or docs, while R84 forbids reading source code."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R116",
+   "b": "R144",
+   "verdict": "clash",
+   "situation": "Preparing the clean-slate release, R144 requires manually deleting .last-promoted-version and .last-build-state, while R116 forbids manually modifying pipeline state."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R117",
+   "b": "R144",
+   "verdict": "clash",
+   "situation": "Preparing the clean-slate release, R144 requires manually deleting pipeline state files, while R117 says to fix pipeline code instead of manually hacking state."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R118",
+   "b": "R131",
+   "verdict": "clash",
+   "situation": "Resetting a fork's main branch for the clean-slate release, R131 requires force-pushing it to origin, while R118 forbids force-pushing the fork main branch to fix version state."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R126",
+   "b": "R144",
+   "verdict": "clash",
+   "situation": "Preparing the clean-slate release, R144 deletes .last-promoted-version, resetting published state, while R126 says to move forward only and not reset or rewind published state."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R127",
+   "b": "R147",
+   "verdict": "clash",
+   "situation": "Before the clean-slate publish succeeds, R147 requires committing the reconciled published-versions state, while R127 forbids saving pipeline state before publish succeeds."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R212",
+   "b": "R213",
+   "verdict": "clash",
+   "situation": "Work qualifies as a new feature or 3+ file change but its complexity is uncertain; R212 requires spawning agents, while R213 says to start working directly and escalate only if scope grows."
+  }
+ ],
+ "usage": {
+  "QuagKhai003__assessment,sparkling__ruflo-patch": {
+   "calls": 2,
+   "cached": 0,
+   "prompt_tokens": 11501,
+   "completion_tokens": 94452
+  }
+ },
+ "folders": [
+  "QuagKhai003__assessment",
+  "sparkling__ruflo-patch"
+ ]
+}

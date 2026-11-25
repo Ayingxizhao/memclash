@@ -1,0 +1,276 @@
+```json
+{
+  "rules": [
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R18",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "Correctly requires user confirmation for every commit."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R20",
+      "translation_ok": false,
+      "fixed": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": [
+                "commit"
+              ]
+            },
+            "when_unmodeled": "the changes are documentation, decisions, planning, or other non-code changes"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "checkout"
+              ]
+            },
+            "when_unmodeled": "the checkout is to a new branch for those non-code changes"
+          }
+        ],
+        "left_out": ""
+      },
+      "clarified_rule": "Commit documentation, decisions, planning, and other non-code changes on the currently checked-out branch; do not check out a new branch for them.",
+      "note": "The translation globally forbids branch creation and fails to prohibit the stated checkout."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R21",
+      "translation_ok": false,
+      "fixed": {
+        "status": "not_in_scope",
+        "clauses": null,
+        "left_out": null
+      },
+      "clarified_rule": "",
+      "note": "The vocabulary cannot verify branch dedication or that the created branch is currently used."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R24",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "The group covers both local and remote branch deletion."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R27",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "Every commit is correctly conditional on user approval."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R73",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "Both forms of branch deletion correctly require explicit confirmation."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R74",
+      "translation_ok": false,
+      "fixed": {
+        "status": "not_in_scope",
+        "clauses": null,
+        "left_out": null
+      },
+      "clarified_rule": "Place code changes on a branch dedicated to those code changes.",
+      "note": "Creating any branch does not ensure that code is placed on its own branch."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R75",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "The strong permission and its unmodeled content and branch conditions are preserved."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R78",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "Both prohibited actions target .env files under the defined bare-name path semantics."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R146",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "The vocabulary cannot identify test code, backend pipeline logic, or their implementation order."
+    },
+    {
+      "folder": "QuagKhai003__assessment",
+      "id": "R147",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "For frontend-state work, write the implementation before writing its tests.",
+      "note": "The original leaves the attachment of “for frontend states” and the corresponding work unclear."
+    },
+    {
+      "folder": "martinambrus__RDForward",
+      "id": "R224",
+      "translation_ok": false,
+      "fixed": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "run"
+              ],
+              "task": "restart",
+              "after": [
+                "run"
+              ],
+              "after_task": "build"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the restart is automatic and targets the server"
+          }
+        ],
+        "left_out": ""
+      },
+      "clarified_rule": "",
+      "note": "The saved clause incorrectly covers every post-build restart, regardless of target or automatic execution."
+    },
+    {
+      "folder": "martinambrus__RDForward",
+      "id": "R386",
+      "translation_ok": false,
+      "fixed": {
+        "status": "not_in_scope",
+        "clauses": null,
+        "left_out": null
+      },
+      "clarified_rule": "",
+      "note": "Concurrency and sequential execution cannot be represented; the clause instead obligates running tests."
+    },
+    {
+      "folder": "martinambrus__RDForward",
+      "id": "R213",
+      "translation_ok": false,
+      "fixed": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "delete"
+              ],
+              "path": [
+                "server-world.dat",
+                "server-players.dat"
+              ],
+              "kind": "file"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "delete"
+              ],
+              "kind": "file"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the target is another similar world save file"
+          }
+        ],
+        "left_out": ""
+      },
+      "clarified_rule": "",
+      "note": "The saved translation omits similar world-save files beyond the two examples."
+    },
+    {
+      "folder": "martinambrus__RDForward",
+      "id": "R217",
+      "translation_ok": false,
+      "fixed": {
+        "status": "not_in_scope",
+        "clauses": null,
+        "left_out": null
+      },
+      "clarified_rule": "Start or restart the RDForward server process only when the user has given implicit or explicit permission.",
+      "note": "The vocabulary cannot express implicit-or-explicit permission or restrict generic restart to this process."
+    },
+    {
+      "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+      "id": "R363",
+      "translation_ok": false,
+      "fixed": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": [
+                "run"
+              ],
+              "task": "migrate",
+              "after": [
+                "run"
+              ],
+              "after_task": "other:backing up"
+            },
+            "when_unmodeled": "for schema changes"
+          }
+        ],
+        "left_out": ""
+      },
+      "clarified_rule": "For schema changes, perform the backup before running migrations.",
+      "note": "The migration obligation and preceding backup action are representable."
+    },
+    {
+      "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+      "id": "R273",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "Dynamic header detection and label-scanning behavior are outside the fixed action vocabulary."
+    },
+    {
+      "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+      "id": "R362",
+      "translation_ok": false,
+      "fixed": {
+        "status": "not_in_scope",
+        "clauses": null,
+        "left_out": null
+      },
+      "clarified_rule": "",
+      "note": "The translation omits “first”; the vocabulary cannot identify arbitrary schema-change actions for ordering."
+    },
+    {
+      "folder": "sparkling__ruflo-patch",
+      "id": "R194",
+      "translation_ok": true,
+      "fixed": null,
+      "clarified_rule": "",
+      "note": "A commit correctly requires an earlier successful build."
+    }
+  ]
+}
+```

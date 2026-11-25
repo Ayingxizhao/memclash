@@ -1,0 +1,470 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "file": "never-commit-without-approval.md",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "when_unmodeled": "for docs, decisions, planning and other non-code changes"
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit code changes only on a dedicated branch created for that work.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "after": [
+        "branch_create"
+       ]
+      },
+      "when_unmodeled": "on a dedicated branch created for that work"
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "file": "never-commit-without-approval.md",
+   "rule": "Never delete git branches.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "any_branch_delete"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "file": "never-commit-without-approval.md",
+   "rule": "Always wait for the user's approval before making any commit.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "file": "CLAUDE.md",
+   "rule": "Never delete a branch without an explicit user go.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "any_branch_delete"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R74",
+   "file": "CLAUDE.md",
+   "rule": "Put code on its own branch.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "branch_create"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "file": "CLAUDE.md",
+   "rule": "Documentation and non-code changes may be committed on the current branch.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "when_unmodeled": "documentation and non-code changes, on the current branch"
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R78",
+   "file": "CLAUDE.md",
+   "rule": "Do not read or edit the user's .env file.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "read"
+       ],
+       "path": [
+        ".env"
+       ],
+       "kind": "file"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "edit"
+       ],
+       "path": [
+        ".env"
+       ],
+       "kind": "file"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R146",
+   "file": "CLAUDE.md",
+   "rule": "Write tests first for backend pipeline logic.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R147",
+   "file": "CLAUDE.md",
+   "rule": "Write tests after the implementation for frontend states.",
+   "source": "probe/quagkhai_3runs.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "unclear",
+    "clauses": null,
+    "left_out": null
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R224",
+   "file": "feedback_restart_server.md",
+   "rule": "Do not automatically restart the server after rebuilds unless the user permits it.",
+   "source": "dev/B21_think.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "restart",
+       "after": [
+        "run"
+       ],
+       "after_task": "build"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "file": "CLAUDE.md",
+   "rule": "Always run test tasks sequentially.",
+   "source": "dev/B21_think.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "test"
+      },
+      "when_unmodeled": "sequentially (one at a time)"
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "file": "feedback_no_delete_world.md",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission.",
+   "source": "label_set/FINAL_v21_two_step.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "delete"
+       ],
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ],
+       "kind": "file"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R217",
+   "file": "feedback_no_server_start.md",
+   "rule": "Do not start or restart the RDForward server process unless the user gives implicit or explicit permission.",
+   "source": "label_set/FINAL_v21_two_step.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "other:start the RDForward server process"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "restart"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R363",
+   "file": "skill_docker_localdev.md",
+   "rule": "For schema changes, run migrations after backing up.",
+   "source": "label_set/FINAL_v21_two_step.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "invalid_output",
+    "clauses": null,
+    "left_out": null
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R273",
+   "file": "lessons_learned.md",
+   "rule": "Before ETL, detect Excel headers dynamically by scanning for key labels such as EMAIL and APELLIDO.",
+   "source": "label_set/FINAL_v21_two_step.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R362",
+   "file": "skill_docker_localdev.md",
+   "rule": "For schema changes, back up the database first.",
+   "source": "label_set/FINAL_v21_two_step.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "other:back up the database"
+      },
+      "when_unmodeled": "For schema changes"
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "file": "CLAUDE.md",
+   "rule": "Always verify the build succeeds before committing.",
+   "source": "dev/B21_think.json",
+   "n_runs": 3,
+   "run1": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "after": [
+        "run"
+       ],
+       "after_task": "build",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  }
+ ]
+}

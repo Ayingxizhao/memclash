@@ -1,0 +1,348 @@
+{
+ "QuagKhai003__assessment": {
+  "R3": {
+   "file": "communication-direct-concise.md",
+   "rule": "Write in active/direct voice."
+  },
+  "R10": {
+   "file": "decisions-read-as-discussion.md",
+   "rule": "Write each DECISIONS.md entry concisely and in the user's first-person voice."
+  },
+  "R11": {
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\")."
+  },
+  "R13": {
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on."
+  },
+  "R15": {
+   "file": "decisions-read-as-discussion.md",
+   "rule": "In each DECISIONS.md entry, include the reason for the decision."
+  },
+  "R17": {
+   "file": "decisions-read-as-discussion.md",
+   "rule": "Keep each DECISIONS.md entry concise."
+  },
+  "R18": {
+   "file": "never-commit-without-approval.md",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+  },
+  "R20": {
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch."
+  },
+  "R21": {
+   "file": "never-commit-without-approval.md",
+   "rule": "Commit code changes only on a dedicated branch created for that work."
+  },
+  "R24": {
+   "file": "never-commit-without-approval.md",
+   "rule": "Never delete git branches."
+  },
+  "R27": {
+   "file": "never-commit-without-approval.md",
+   "rule": "Always wait for the user's approval before making any commit."
+  },
+  "R31": {
+   "file": "never-touch-user-env.md",
+   "rule": "For any env/config fix, update `.env.example` or describe the change in chat, and never touch the real `.env`."
+  },
+  "R34": {
+   "file": "prefer-official-generators.md",
+   "rule": "Keep the files produced by the official generator."
+  },
+  "R50": {
+   "file": "work-as-coworker-copilot.md",
+   "rule": "On this project, act as a coworker/copilot who collaborates, not as an order-taker."
+  },
+  "R54": {
+   "file": "work-as-coworker-copilot.md",
+   "rule": "Push back when you disagree rather than silently complying."
+  },
+  "R65": {
+   "file": "CLAUDE.md",
+   "rule": "Split the frontend into focused component files."
+  },
+  "R73": {
+   "file": "CLAUDE.md",
+   "rule": "Never delete a branch without an explicit user go."
+  },
+  "R74": {
+   "file": "CLAUDE.md",
+   "rule": "Put code on its own branch."
+  },
+  "R75": {
+   "file": "CLAUDE.md",
+   "rule": "Documentation and non-code changes may be committed on the current branch."
+  },
+  "R77": {
+   "file": "CLAUDE.md",
+   "rule": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps."
+  },
+  "R78": {
+   "file": "CLAUDE.md",
+   "rule": "Do not read or edit the user's .env file."
+  },
+  "R81": {
+   "file": "CLAUDE.md",
+   "rule": "When a real test run changes, refresh the TESTING.md count and report."
+  },
+  "R102": {
+   "file": "CLAUDE.md",
+   "rule": "If the text yields no characters or chapters, fail the step with a delete-this-project or start-a-new-one message."
+  },
+  "R120": {
+   "file": "CLAUDE.md",
+   "rule": "Put implementation mechanics such as locking and temp-file swapping inside the function and explain them with a short comment."
+  },
+  "R121": {
+   "file": "CLAUDE.md",
+   "rule": "Write concise and direct comments."
+  },
+  "R133": {
+   "file": "CLAUDE.md",
+   "rule": "Do not write E2E tests."
+  },
+  "R139": {
+   "file": "CLAUDE.md",
+   "rule": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini."
+  },
+  "R146": {
+   "file": "CLAUDE.md",
+   "rule": "Write tests first for backend pipeline logic."
+  },
+  "R147": {
+   "file": "CLAUDE.md",
+   "rule": "Write tests after the implementation for frontend states."
+  },
+  "R32": {
+   "file": "prefer-official-generators.md",
+   "rule": "Scaffold projects using official generators such as create-next-app instead of hand-writing the scaffolding."
+  },
+  "R80": {
+   "file": "CLAUDE.md",
+   "rule": "Update DECISIONS.md, docs/plan.md, docs/tasks.md, and TESTING.md as part of the change, not as an afterthought."
+  },
+  "R47": {
+   "file": "track-project-decisions.md",
+   "rule": "When the user pushes back or makes their own call, record the user's reasoning."
+  },
+  "R62": {
+   "file": "CLAUDE.md",
+   "rule": "Write one or two paragraphs per decision covering who proposed it, the push-back, where it landed, and the trade-off."
+  },
+  "R64": {
+   "file": "CLAUDE.md",
+   "rule": "Keep DECISIONS.md entries concise."
+  },
+  "R122": {
+   "file": "CLAUDE.md",
+   "rule": "Lead a comment with the block's main purpose and mention how it runs only where non-obvious."
+  },
+  "R156": {
+   "file": "CLAUDE.md",
+   "rule": "You may delete merged branches only after the user asks."
+  }
+ },
+ "martinambrus__RDForward": {
+  "R224": {
+   "file": "feedback_restart_server.md",
+   "rule": "Do not automatically restart the server after rebuilds unless the user permits it."
+  },
+  "R386": {
+   "file": "CLAUDE.md",
+   "rule": "Always run test tasks sequentially."
+  },
+  "R343": {
+   "file": "server-api-decisions.md",
+   "rule": "Make the Core ModLoader scan only rdmod.{json,yml,toml}; leave plugin.yml and fabric.mod.json to their respective bridges."
+  },
+  "R105": {
+   "file": "e2e-test-plan.md",
+   "rule": "Click an empty inventory slot."
+  },
+  "R60": {
+   "file": "e2e-test-plan.md",
+   "rule": "Delete all map and player data as part of pre-test setup."
+  },
+  "R213": {
+   "file": "feedback_no_delete_world.md",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission."
+  },
+  "R217": {
+   "file": "feedback_no_server_start.md",
+   "rule": "Do not start or restart the RDForward server process unless the user gives implicit or explicit permission."
+  },
+  "R317": {
+   "file": "server-api-decisions.md",
+   "rule": "Do not create client-side stubs for rd-bridge-fabric."
+  },
+  "R284": {
+   "file": "netty-protocol.md",
+   "rule": "For 1.20.2 (v764), add explicit reverse entries for every S2C packet the server sends; do not rely on cascade to v762, which gives wrong IDs."
+  },
+  "R22": {
+   "file": "beta-protocol.md",
+   "rule": "When parsing a Beta 1.8 handshake in `username;host:port` format, strip the `;host:port` suffix."
+  }
+ },
+ "jamieleecho__space-bandits": {
+  "R3": {
+   "file": "feedback_project_structure.md",
+   "rule": "A sprite group JSON may reference its own PNG file."
+  },
+  "R114": {
+   "file": "CLAUDE.md",
+   "rule": "After editing the Xcode project file, always validate it with `plutil -lint \"Space Bandits/Space Bandits.xcodeproj/project.pbxproj\"`."
+  },
+  "R89": {
+   "file": "CLAUDE.md",
+   "rule": "A tileset may contain at most 127 unique tiles."
+  },
+  "R85": {
+   "file": "CLAUDE.md",
+   "rule": "When adding a new level, provide a 132x96 indexed PNG level image at `game/images/XX-levelN.png`."
+  },
+  "R28": {
+   "file": "feedback_project_structure.md",
+   "rule": "When adding a complete new level and adding new objects, create or modify the object code files game/objects/XX-name.c and .h."
+  },
+  "R81": {
+   "file": "CLAUDE.md",
+   "rule": "When adding a new object, create `game/objects/XX-name/` with a JSON descriptor and C or ASM source."
+  },
+  "R88": {
+   "file": "CLAUDE.md",
+   "rule": "When adding a new tileset, add its PNG and JSON files to `game/tiles/`."
+  },
+  "R60": {
+   "file": "CLAUDE.md",
+   "rule": "When adding a new sound, add the WAV file to `game/sounds/` using `XX-name.wav` naming, where `XX` is the next number."
+  },
+  "R54": {
+   "file": "CLAUDE.md",
+   "rule": "All objects should read `Gfx_BkgrndNewX` when calculating screen-relative positions."
+  },
+  "R18": {
+   "file": "feedback_project_structure.md",
+   "rule": "If the level JSON InitData is empty, set DynospriteObject_InitSize to 0."
+  }
+ },
+ "ruddyribera-ops__CRUDDY-OPENCODE": {
+  "R298": {
+   "file": "lessons_learned.md",
+   "rule": "Always read the implementation; do not trust the comment."
+  },
+  "R133": {
+   "file": "feedback_learning.md",
+   "rule": "Dockerfile MUST contain `RUN npm ci && npm run build` in the same stage that runs `node server.js`."
+  },
+  "R208": {
+   "file": "feedback_windows_shell.md",
+   "rule": "Normalize line endings before diffing cross-platform files."
+  },
+  "R101": {
+   "file": "feedback_debug_hypothesis.md",
+   "rule": "Do not write a memory stating something is a proxy-layer issue without having verified the response body and headers."
+  },
+  "R152": {
+   "file": "feedback_palma_lessons.md",
+   "rule": "When writing memory files, skip obvious knowledge, language fundamentals, platform basics, and project diaries."
+  },
+  "R24": {
+   "file": "ci_cd_deployment.md",
+   "rule": "Copy the workflows from `.github/workflows/` into each repository."
+  },
+  "R353": {
+   "file": "skill_docker_localdev.md",
+   "rule": "If an old container is still running and causing a backend port conflict, run `docker compose down` then `docker compose up -d`."
+  },
+  "R30": {
+   "file": "ci_cd_deployment.md",
+   "rule": "Copy the workflow file (e.g., `pria-deploy.yml`) into `.github/workflows/`."
+  },
+  "R17": {
+   "file": "TRIGGERS.md",
+   "rule": "When an error is detected, link the error to relevant Decision/Task nodes."
+  },
+  "R245": {
+   "file": "lessons_learned.md",
+   "rule": "If a lesson maps to a skill, cross-reference that skill in the entry."
+  },
+  "R350": {
+   "file": "skill_docker_localdev.md",
+   "rule": "Never run FastAPI directly."
+  },
+  "R122": {
+   "file": "feedback_git_divergent_remote.md",
+   "rule": "Never silently rebase against a divergent remote."
+  },
+  "R363": {
+   "file": "skill_docker_localdev.md",
+   "rule": "For schema changes, run migrations after backing up."
+  },
+  "R22": {
+   "file": "ci_cd_deployment.md",
+   "rule": "If the tests pass, deploy to Railway."
+  },
+  "R127": {
+   "file": "feedback_learning.md",
+   "rule": "Keep a separate short-path clone of the repository for deployments."
+  },
+  "R244": {
+   "file": "lessons_learned.md",
+   "rule": "Delete stale entries, or mark them obsolete if the lesson is now in a skill or feedback file."
+  },
+  "R59": {
+   "file": "feedback_awesome_ecosystem.md",
+   "rule": "You may adopt the references/ split pattern, scripts/ black-box helpers, evaluation QA pairs, and contribution guidelines from the awesome-agent-skills ecosystem."
+  },
+  "R216": {
+   "file": "feedback_windows_shell.md",
+   "rule": "Tell the user to run the written script with `powershell -File <path>`."
+  },
+  "R316": {
+   "file": "lessons_learned.md",
+   "rule": "Use different validation sets for the live machine and the CI runner."
+  },
+  "R273": {
+   "file": "lessons_learned.md",
+   "rule": "Before ETL, detect Excel headers dynamically by scanning for key labels such as EMAIL and APELLIDO."
+  },
+  "R362": {
+   "file": "skill_docker_localdev.md",
+   "rule": "For schema changes, back up the database first."
+  }
+ },
+ "sparkling__ruflo-patch": {
+  "R194": {
+   "file": "CLAUDE.md",
+   "rule": "Always verify the build succeeds before committing."
+  },
+  "R133": {
+   "file": "plan-template-clean-slate-release.md",
+   "rule": "Delete all local branches other than main in each fork."
+  },
+  "R118": {
+   "file": "pipeline-failures.md",
+   "rule": "Never force push the fork main branch to fix version state."
+  },
+  "R131": {
+   "file": "plan-template-clean-slate-release.md",
+   "rule": "Force-push the reset main branch to origin for each fork."
+  },
+  "R4": {
+   "file": "agentdb-upgrade-CLAUDE_FLOW_MEMORY_MAP.md",
+   "rule": "When the memory system is not responding, check that `@claude-flow/memory` is installed by running `npm ls @claude-flow/memory`."
+  },
+  "R6": {
+   "file": "agentdb-upgrade-CLAUDE_FLOW_MEMORY_MAP.md",
+   "rule": "When the memory system is not responding, check that the embedding model is cached under `~/.cache/huggingface/models/...`."
+  },
+  "R93": {
+   "file": "gene-preferences.md",
+   "rule": "Refer to `entire-cli.md` for the full Entire CLI reference."
+  }
+ }
+}

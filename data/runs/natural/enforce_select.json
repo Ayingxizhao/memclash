@@ -1,0 +1,508 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R3",
+   "eligible": false,
+   "reason": "Writing-style requirement, not an action constraint."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R10",
+   "eligible": false,
+   "reason": "Constrains prose style and voice."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R11",
+   "eligible": false,
+   "reason": "Requires specific document content."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R13",
+   "eligible": false,
+   "reason": "Requires specific document content."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R15",
+   "eligible": false,
+   "reason": "Requires reasons within document text."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R17",
+   "eligible": false,
+   "reason": "Conciseness is a writing-style constraint."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "eligible": true,
+   "reason": "Commit requires explicit user confirmation."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "eligible": true,
+   "reason": "Constrains commits by change kind and branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "eligible": true,
+   "reason": "Code commit requires an earlier dedicated branch creation."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "eligible": true,
+   "reason": "Directly forbids branch deletion."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "eligible": true,
+   "reason": "Commit requires prior user approval."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R31",
+   "eligible": false,
+   "reason": "Combines alternatives, chat, and multiple file-action requirements."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R34",
+   "eligible": false,
+   "reason": "Keep is vague about which file actions are forbidden."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R50",
+   "eligible": false,
+   "reason": "Describes collaboration behavior, not a concrete action."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R54",
+   "eligible": false,
+   "reason": "Describes conversational behavior, not a vocabulary action."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R65",
+   "eligible": false,
+   "reason": "Constrains code organization and content."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "eligible": true,
+   "reason": "Branch deletion requires user confirmation."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R74",
+   "eligible": true,
+   "reason": "Constrains code work to its own branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "eligible": true,
+   "reason": "Permits non-code commits on the current branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R77",
+   "eligible": false,
+   "reason": "Constrains code design and fixed numeric values."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R78",
+   "eligible": true,
+   "reason": "Directly forbids reading or editing a named path."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R81",
+   "eligible": false,
+   "reason": "Imposes later documentation-update obligations."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R102",
+   "eligible": false,
+   "reason": "Failure behavior and message content lack vocabulary actions."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R120",
+   "eligible": false,
+   "reason": "Constrains implementation and comment content."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R121",
+   "eligible": false,
+   "reason": "Constrains comment writing style."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R133",
+   "eligible": false,
+   "reason": "Writing E2E code is a content constraint."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R139",
+   "eligible": false,
+   "reason": "Requires particular test code and unsupported numeric details."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R146",
+   "eligible": true,
+   "reason": "Implementation edits require an earlier test-writing step."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R147",
+   "eligible": true,
+   "reason": "Test-file edits require an earlier implementation step."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R32",
+   "eligible": false,
+   "reason": "Specifies generator tooling and scaffolding method."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R80",
+   "eligible": false,
+   "reason": "Requires eventual updates to several files."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R47",
+   "eligible": false,
+   "reason": "Requires recording particular reasoning content."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R62",
+   "eligible": false,
+   "reason": "Constrains prose content and paragraph count."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R64",
+   "eligible": false,
+   "reason": "Conciseness is a writing-style constraint."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R122",
+   "eligible": false,
+   "reason": "Constrains comment wording and detail."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R156",
+   "eligible": false,
+   "reason": "Merged status is unavailable in the vocabulary."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R224",
+   "eligible": true,
+   "reason": "Server restart requires user permission."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "eligible": true,
+   "reason": "Forbids starting a test while another test runs."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R343",
+   "eligible": false,
+   "reason": "Constrains implementation behavior and file-format handling."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R105",
+   "eligible": false,
+   "reason": "Click is not a vocabulary action."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R60",
+   "eligible": false,
+   "reason": "Requires deletions as eventual test setup."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "eligible": true,
+   "reason": "Deleting matching save paths requires user permission."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R217",
+   "eligible": true,
+   "reason": "Named server start or restart requires permission."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R317",
+   "eligible": false,
+   "reason": "Client-side stub describes file content, not a path."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R284",
+   "eligible": false,
+   "reason": "Constrains protocol implementation and numeric identifiers."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R22",
+   "eligible": false,
+   "reason": "Constrains parsing behavior and text transformation."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R3",
+   "eligible": false,
+   "reason": "Describes permitted JSON content."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R114",
+   "eligible": false,
+   "reason": "Requires a later validation action after editing."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R89",
+   "eligible": false,
+   "reason": "Unsupported numeric limit on content elements."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R85",
+   "eligible": false,
+   "reason": "Requires later file creation with unsupported image properties."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R28",
+   "eligible": false,
+   "reason": "Requires multiple eventual file creations or edits."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R81",
+   "eligible": false,
+   "reason": "Requires multiple files with specified content."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R88",
+   "eligible": false,
+   "reason": "Requires multiple eventual file creations."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R60",
+   "eligible": false,
+   "reason": "Requires eventual creation with unsupported numbering."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R54",
+   "eligible": false,
+   "reason": "Constrains code content and variable usage."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R18",
+   "eligible": false,
+   "reason": "Constrains code or data content."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R298",
+   "eligible": false,
+   "reason": "Imposes a vague reading obligation."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R133",
+   "eligible": false,
+   "reason": "Constrains Dockerfile command content and stage structure."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R208",
+   "eligible": false,
+   "reason": "Diffing and line-ending normalization lack vocabulary actions."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R101",
+   "eligible": false,
+   "reason": "Constrains written claims and verification content."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R152",
+   "eligible": false,
+   "reason": "Constrains memory-file content."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R24",
+   "eligible": false,
+   "reason": "Requires eventual copying across repositories."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R353",
+   "eligible": false,
+   "reason": "Unsupported conflict condition triggers two task obligations."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R30",
+   "eligible": false,
+   "reason": "Imposes an eventual file-copy obligation."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R17",
+   "eligible": false,
+   "reason": "Constrains graph or document content."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R245",
+   "eligible": false,
+   "reason": "Requires particular cross-reference content."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R350",
+   "eligible": false,
+   "reason": "Directly specifies an unsupported execution style."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R122",
+   "eligible": false,
+   "reason": "Divergent-remote state is unavailable in the vocabulary."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R363",
+   "eligible": true,
+   "reason": "Migration requires an earlier named backup task."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R22",
+   "eligible": false,
+   "reason": "Requires deployment when tests pass, an eventual obligation."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R127",
+   "eligible": false,
+   "reason": "Clone creation is not a vocabulary action."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R244",
+   "eligible": false,
+   "reason": "Staleness and lesson location are unsupported conditions."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R59",
+   "eligible": false,
+   "reason": "Permits broad design patterns, not one concrete action."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R216",
+   "eligible": false,
+   "reason": "Constrains user-facing instructions and shell invocation style."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R316",
+   "eligible": false,
+   "reason": "Constrains validation-set content and organization."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R273",
+   "eligible": true,
+   "reason": "ETL requires one earlier named header-detection task."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R362",
+   "eligible": true,
+   "reason": "Migration requires an earlier named database-backup task."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "eligible": true,
+   "reason": "Commit requires an earlier successful build."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R133",
+   "eligible": false,
+   "reason": "Commands eventual deletion of many branches."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R118",
+   "eligible": false,
+   "reason": "Purpose and fork status are unavailable conditions."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R131",
+   "eligible": false,
+   "reason": "Commands an eventual force push."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R4",
+   "eligible": false,
+   "reason": "Unsupported system state triggers a diagnostic obligation."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R6",
+   "eligible": false,
+   "reason": "Unsupported system state triggers a checking obligation."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R93",
+   "eligible": false,
+   "reason": "Imposes a vague reference or reading obligation."
+  }
+ ]
+}

@@ -1,0 +1,308 @@
+{
+ "groups": [
+  {
+   "group": "G1",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "release_notes.md",
+     "rule": "Add a Markdown changelog for every release."
+    },
+    {
+     "file": "feedback_docs_location.md",
+     "rule": "Place all new Markdown documentation under `docs/`."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Keep release metadata outside `docs/`, except for human-readable changelogs."
+    }
+   ],
+   "situation": "The release changelog can be added under `docs/`, using the stated exception for human-readable changelogs."
+  },
+  {
+   "group": "G2",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "hotfix_handoff.md",
+     "rule": "Deploy every completed hotfix before handing the task back."
+    },
+    {
+     "file": "feedback_tagged_deploys.md",
+     "rule": "Deploy only commits that already have a release tag."
+    },
+    {
+     "file": "release_tag_policy.md",
+     "rule": "Create a release tag only after the deployment succeeds."
+    }
+   ],
+   "situation": "A completed untagged hotfix is ready for handoff, so deployment requires an existing tag while creation of that tag requires the deployment to have succeeded."
+  },
+  {
+   "group": "G3",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "feedback_push_policy.md",
+     "rule": "Push the task branch before reporting the work complete."
+    },
+    {
+     "file": "verification_before_push.md",
+     "rule": "Push changes only after the relevant tests pass."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Do not run the full regression suite unless the user asks, but targeted tests may be run before a push."
+    }
+   ],
+   "situation": "The agent can run the relevant targeted tests and push after they pass without running the full regression suite."
+  },
+  {
+   "group": "G4",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "documentation_handoff.md",
+     "rule": "Commit every completed documentation fix before handing the task back."
+    },
+    {
+     "file": "feedback_commit_scope.md",
+     "rule": "Never create a commit containing only documentation files."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Never mix documentation changes with any other file type in one commit."
+    }
+   ],
+   "situation": "A completed task changes only a documentation file, which must be committed but can be neither a documentation-only commit nor a commit containing another file type."
+  },
+  {
+   "group": "G5",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "generated_file_cleanup.md",
+     "rule": "You may delete obsolete generated files once nothing references them."
+    },
+    {
+     "file": "feedback_verify_deletions.md",
+     "rule": "Delete generated files only after a successful build."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Do not run the build unless the user explicitly asks for it."
+    }
+   ],
+   "situation": "An unreferenced generated file is eligible for deletion, but the user has requested no build and no successful build exists for the current changes."
+  },
+  {
+   "group": "G6",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "pull_request_handoff.md",
+     "rule": "Merge an approved pull request before closing its task."
+    },
+    {
+     "file": "feedback_merge_strategy.md",
+     "rule": "Use squash merging for pull requests and do not create merge commits."
+    },
+    {
+     "file": "audit_history.md",
+     "rule": "Preserve every commit when merging a pull request labeled `audit`."
+    }
+   ],
+   "situation": "An approved pull request without the `audit` label can be squash-merged before the task is closed."
+  },
+  {
+   "group": "G7",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "lint_before_commit.md",
+     "rule": "Before committing any source change, run lint and require it to pass."
+    },
+    {
+     "file": "test_order.md",
+     "rule": "Run lint only after the unit tests pass."
+    },
+    {
+     "file": "feedback_commit_first.md",
+     "rule": "Run unit tests for a change only after that change has been committed."
+    }
+   ],
+   "situation": "A source change must now be committed, but lint must precede the commit, tests must precede lint, and the commit must precede tests."
+  },
+  {
+   "group": "G8",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "branch_cleanup.md",
+     "rule": "Delete merged task branches before the final handoff."
+    },
+    {
+     "file": "release_branch_policy.md",
+     "rule": "Delete a merged release branch only after its tip has been tagged."
+    },
+    {
+     "file": "feedback_no_maintenance_tags.md",
+     "rule": "Never create release tags for maintenance-only branches."
+    }
+   ],
+   "situation": "A merged maintenance branch can be deleted before handoff because the tag prerequisite applies only to release branches."
+  },
+  {
+   "group": "G9",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "task_completion.md",
+     "rule": "Push the working branch at the end of every completed task."
+    },
+    {
+     "file": "feedback_tests_before_push.md",
+     "rule": "Push a branch only after the full test suite passes for its current changes."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Run the full test suite only when the user explicitly requests it."
+    }
+   ],
+   "situation": "A task is complete with untested changes, the user has not requested the full test suite, and the branch must be pushed for completion."
+  },
+  {
+   "group": "G10",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "generated_file_cleanup.md",
+     "rule": "You may delete obsolete generated files after a successful build."
+    },
+    {
+     "file": "feedback_build_scope.md",
+     "rule": "Run builds only when the user asks, except when validating generated-file cleanup."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Run a successful build immediately before deleting generated files."
+    }
+   ],
+   "situation": "The cleanup-validation exception permits a build, after which the obsolete generated files may be deleted."
+  },
+  {
+   "group": "G11",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "pull_request_handoff.md",
+     "rule": "Merge every approved pull request before closing its task."
+    },
+    {
+     "file": "feedback_no_merge_commits.md",
+     "rule": "Do not use merge commits when merging pull requests."
+    },
+    {
+     "file": "preserve_pr_history.md",
+     "rule": "Never squash or rebase an approved pull request."
+    }
+   ],
+   "situation": "An approved pull request must be merged, but merge commits, squash merging, and rebase merging are all unavailable."
+  },
+  {
+   "group": "G12",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "lint_before_commit.md",
+     "rule": "Commit source changes only after lint passes."
+    },
+    {
+     "file": "test_order.md",
+     "rule": "Run lint only after the unit tests pass."
+    },
+    {
+     "file": "feedback_precommit_tests.md",
+     "rule": "Run unit tests before committing source changes."
+    }
+   ],
+   "situation": "The agent can run unit tests, then lint, and then commit the source changes."
+  },
+  {
+   "group": "G13",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "release_notes.md",
+     "rule": "Add a Markdown changelog when preparing every release."
+    },
+    {
+     "file": "feedback_docs_location.md",
+     "rule": "Place every new Markdown document under `docs/`."
+    },
+    {
+     "file": "release_metadata.md",
+     "rule": "Keep all release metadata outside `docs/`."
+    }
+   ],
+   "situation": "A release is being prepared and its required new Markdown changelog is release metadata, so it must be both under and outside `docs/`."
+  },
+  {
+   "group": "G14",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "hotfix_handoff.md",
+     "rule": "Deploy every completed hotfix before handing the task back."
+    },
+    {
+     "file": "feedback_tagged_deploys.md",
+     "rule": "Deploy hotfixes only from tagged commits on `main`."
+    },
+    {
+     "file": "release_tag_policy.md",
+     "rule": "After hotfix CI passes on `main`, create the release tag before deployment."
+    }
+   ],
+   "situation": "The hotfix can be merged to `main`, pass CI, receive a release tag, and then be deployed before handoff."
+  },
+  {
+   "group": "G15",
+   "kind": "clash",
+   "rules": [
+    {
+     "file": "branch_cleanup.md",
+     "rule": "Delete every merged task branch before the final handoff."
+    },
+    {
+     "file": "feedback_tag_before_delete.md",
+     "rule": "Delete a branch only after its tip has been tagged."
+    },
+    {
+     "file": "maintenance_tags.md",
+     "rule": "Never create tags for maintenance-only changes."
+    }
+   ],
+   "situation": "An untagged maintenance-only task branch has been merged and must be deleted before handoff, but deletion requires a tag that may not be created."
+  },
+  {
+   "group": "G16",
+   "kind": "control",
+   "rules": [
+    {
+     "file": "documentation_handoff.md",
+     "rule": "Commit every completed documentation fix before handing the task back."
+    },
+    {
+     "file": "feedback_commit_scope.md",
+     "rule": "Avoid documentation-only commits unless the task itself is documentation-only."
+    },
+    {
+     "file": "CLAUDE.md",
+     "rule": "Keep documentation changes separate from source code unless both are required by the same task."
+    }
+   ],
+   "situation": "A documentation-only task can be committed by itself under the explicit exception and handed back."
+  }
+ ]
+}

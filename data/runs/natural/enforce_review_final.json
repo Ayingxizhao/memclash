@@ -1,0 +1,455 @@
+{
+ "meta": {
+  "how": "Claude and Codex reviewed independently; the user settled disagreements on 2026-11-24 via .lavish/enforce_review.html.",
+  "user_notes": {
+   "R20": "dropped: purpose of a checkout (for docs) is not visible in an action",
+   "R213": "agree with Codex; the rule owner should make 'similar files' explicit (future step)"
+  },
+  "name_list": "Task names renamed to enforce_names.json (meaning unchanged): 'other:start the RDForward server process' -> 'other:rdforward server'; 'other:backing up' -> 'other:back up the database'."
+ },
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch.",
+   "clarified_rule": "Commit documentation, decisions, planning, and other non-code changes on the currently checked-out branch; do not check out a new branch for them.",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "rule": "Commit code changes only on a dedicated branch created for that work.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "rule": "Never delete git branches.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "any_branch_delete"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "rule": "Always wait for the user's approval before making any commit.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "rule": "Never delete a branch without an explicit user go.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "any_branch_delete"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R74",
+   "rule": "Put code on its own branch.",
+   "clarified_rule": "Place code changes on a branch dedicated to those code changes.",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "rule": "Documentation and non-code changes may be committed on the current branch.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "when_unmodeled": "documentation and non-code changes, on the current branch"
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R78",
+   "rule": "Do not read or edit the user's .env file.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "read"
+       ],
+       "path": [
+        ".env"
+       ],
+       "kind": "file"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "edit"
+       ],
+       "path": [
+        ".env"
+       ],
+       "kind": "file"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R146",
+   "rule": "Write tests first for backend pipeline logic.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R147",
+   "rule": "Write tests after the implementation for frontend states.",
+   "clarified_rule": "For frontend-state work, write the implementation before writing its tests.",
+   "translation": {
+    "status": "unclear",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R224",
+   "rule": "Do not automatically restart the server after rebuilds unless the user permits it.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "restart",
+       "after": [
+        "run"
+       ],
+       "after_task": "build"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "rule": "Always run test tasks sequentially.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "delete"
+       ],
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ],
+       "kind": "file"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "delete"
+       ],
+       "kind": "file"
+      },
+      "needs": {
+       "user_confirmed": true
+      },
+      "when_unmodeled": "the target is another similar world save file"
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "codex",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R217",
+   "rule": "Do not start or restart the RDForward server process unless the user gives implicit or explicit permission.",
+   "clarified_rule": "Start or restart the RDForward server process only when the user has given implicit or explicit permission.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "restart"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R363",
+   "rule": "For schema changes, run migrations after backing up.",
+   "clarified_rule": "For schema changes, perform the backup before running migrations.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "migrate",
+       "after": [
+        "run"
+       ],
+       "after_task": "other:back up the database"
+      },
+      "when_unmodeled": "for schema changes"
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "codex",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R273",
+   "rule": "Before ETL, detect Excel headers dynamically by scanning for key labels such as EMAIL and APELLIDO.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R362",
+   "rule": "For schema changes, back up the database first.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "decided_by": "codex",
+   "changed_from_run1": true
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "rule": "Always verify the build succeeds before committing.",
+   "clarified_rule": "",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "commit"
+       ]
+      },
+      "needs": {
+       "after": [
+        "run"
+       ],
+       "after_task": "build",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "decided_by": "claude+codex agree",
+   "changed_from_run1": false
+  }
+ ]
+}

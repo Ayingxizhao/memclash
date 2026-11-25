@@ -1,0 +1,2006 @@
+{
+ "note": "Missed-clash probe: random 200 (seed 2520) of the pairs sharing >=2 content words that neither whole-folder screen flagged.",
+ "pool": 4860,
+ "items": [
+  {
+   "item": "S1",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R97",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks how smart claude-flow is, or asks about neural, SONA, or MoE status, run `neural status`.",
+   "b": "R114",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks about security posture or vulnerabilities, run `security scan`."
+  },
+  {
+   "item": "S2",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R188",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "When showing the user a command to copy-paste, use pwsh 7 and PowerShell syntax.",
+   "b": "R216",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Tell the user to run the written script with `powershell -File <path>`."
+  },
+  {
+   "item": "S3",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R40",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "For .json and .png resource files under game/sprites, game/tiles, or game/images, use just the filename with sourceTree = \"<group>\" for child file references.",
+   "b": "R103",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.c` source file in the Xcode project, set `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, and `sourceTree = SOURCE_ROOT`."
+  },
+  {
+   "item": "S4",
+   "folder": "martinambrus__RDForward",
+   "a": "R123",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Walk or fly to the map edge by detecting non-air 10 blocks ahead.",
+   "b": "R256",
+   "file_b": "mcpe-protocol.md",
+   "rule_b": "Break the first non-air block within 5-block reach."
+  },
+  {
+   "item": "S5",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R98",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks how routing works or why claude-flow picked a specific agent, run `hooks explain --task \"[topic]\"`.",
+   "b": "R233",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Rely on hooks storing outcomes automatically after a task and do not call session-start/end yourself."
+  },
+  {
+   "item": "S6",
+   "folder": "martinambrus__RDForward",
+   "a": "R332",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "When rewriting any of the five API utilities (CommandRegistry, Scheduler, ModConfig, PermissionManager, ServerEvents), delete the old static class entirely.",
+   "b": "R335",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Implement VersionCapability as a registry class with a static factory, not an enum, because enums cannot extend."
+  },
+  {
+   "item": "S7",
+   "folder": "martinambrus__RDForward",
+   "a": "R83",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "After placing cobblestone next to you to the right, wait 4 seconds.",
+   "b": "R377",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If you get `BindException: Address already in use`, kill the old process first and wait 2-3 seconds."
+  },
+  {
+   "item": "S8",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R27",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "Run tests with `pytest` for Python projects and `npm test` for Node projects.",
+   "b": "R54",
+   "file_b": "ci_cd_deployment.md",
+   "rule_b": "To skip e2e tests, add `--ignore=tests/e2e` to the pytest command."
+  },
+  {
+   "item": "S9",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R30",
+   "file_a": "feedback-adr-format.md",
+   "rule_a": "When creating any new ADR (docs/adr/NNNN-*.md), use the MADR template with sections Status, Date, Deciders, Context, Decision, Consequences, and Related.",
+   "b": "R72",
+   "file_b": "feedback-patch-tracking.md",
+   "rule_b": "When creating a new patch, reference the corresponding issue number in the pull request and in the commit message."
+  },
+  {
+   "item": "S10",
+   "folder": "martinambrus__RDForward",
+   "a": "R80",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify the placed cobblestone is converted to grass.",
+   "b": "R118",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "For Alpha clients, verify there are 64 total cobblestone."
+  },
+  {
+   "item": "S11",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R221",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When the active toolset doesn't cover a needed capability, first run `ruflo skill list` to check whether a skill provides it.",
+   "b": "R225",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Install a plugin only when the user asked for a capability not covered by `ruflo skill list` or active MCP tools AND the user confirmed the install."
+  },
+  {
+   "item": "S12",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R49",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "To manually trigger a deployment without a new commit, run `gh workflow run <workflow>.yml --ref main` from the repository directory.",
+   "b": "R127",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Keep a separate short-path clone of the repository for deployments."
+  },
+  {
+   "item": "S13",
+   "folder": "martinambrus__RDForward",
+   "a": "R50",
+   "file_a": "client-jars.md",
+   "rule_a": "When a client JAR for Alpha v1.2.0 is needed, use Alpha v1.2.0_02 (protocol v3) instead, since v1.2.0 is only available on OmniArchive.",
+   "b": "R198",
+   "file_b": "feedback_build_fatjar.md",
+   "rule_b": "Do not rely on per-module build tasks such as `:rd-bridge-bukkit:compileJava` alone to prepare a server-side change for testing, since the user launches the fat jar."
+  },
+  {
+   "item": "S14",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R43",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "After editing the pbxproj, validate it with plutil -lint.",
+   "b": "R114",
+   "file_b": "CLAUDE.md",
+   "rule_b": "After editing the Xcode project file, always validate it with `plutil -lint \"Space Bandits/Space Bandits.xcodeproj/project.pbxproj\"`."
+  },
+  {
+   "item": "S15",
+   "folder": "martinambrus__RDForward",
+   "a": "R69",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify there is air in all directions five blocks each way: front, back, left, right, and top.",
+   "b": "R157",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Verify both clients see the block removed by taking 2 screenshots."
+  },
+  {
+   "item": "S16",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R229",
+   "file_a": "lessons_learned.md",
+   "rule_a": "Always include the `.php` extension in RosarioSIS `modname=Students/NeuroProfile.php` URLs.",
+   "b": "R261",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Use `php -r 'var_dump(unserialize(\"VALUE\"))'` to test whether a RosarioSIS config value is valid."
+  },
+  {
+   "item": "S17",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R75",
+   "file_a": "CLAUDE.md",
+   "rule_a": "To check collision against all objects in a group, iterate the object table directly.",
+   "b": "R110",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Add `.h` and `.c` references to the objects group children in the `objects` PBXGroup."
+  },
+  {
+   "item": "S18",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R11",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "Set tileset PNG dimensions to match the TilemapSize in the tileset JSON, or make them larger if more tile variety is needed.",
+   "b": "R26",
+   "file_b": "feedback_project_structure.md",
+   "rule_b": "When adding a complete new level, create or modify the tileset file game/tiles/XX-name.json and its .png file."
+  },
+  {
+   "item": "S19",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R228",
+   "file_a": "CLAUDE.md",
+   "rule_a": "If plugin commands don't appear after installation, tell the user to run `/reload-plugins`.",
+   "b": "R235",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never run the one-time bootstrap `claude mcp add claude-flow -- npx -y @sparkleideas/ruflo@latest`; only the user runs it, once."
+  },
+  {
+   "item": "S20",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R20",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "Wrap all object and level .c files in the `#ifdef __cplusplus extern \"C\" {` / `#endif` brackets.",
+   "b": "R102",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When updating the Xcode project file, find existing entries for a similar object and follow the same pattern."
+  },
+  {
+   "item": "S21",
+   "folder": "martinambrus__RDForward",
+   "a": "R81",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "For survival-only clients, verify the inventory has a 64-cobblestone stack.",
+   "b": "R192",
+   "file_b": "feedback_backwards_compat.md",
+   "rule_b": "Before editing any shared code, trace all callers to verify which clients are affected."
+  },
+  {
+   "item": "S22",
+   "folder": "martinambrus__RDForward",
+   "a": "R202",
+   "file_a": "feedback_e2e_spawn_protection.md",
+   "rule_a": "When a new E2E test fails and the logs contain \"[SpawnProtection] Blocked\", verify that E2ETestServer writes server.properties before the server starts.",
+   "b": "R232",
+   "file_b": "feedback_wait_for_confirmation.md",
+   "rule_b": "After asking the user to test something, wait for their explicit \"I tried\" or result message before checking logs."
+  },
+  {
+   "item": "S23",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R109",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what rules govern claude-flow, or asks about policies or constitution, run `guidance`.",
+   "b": "R228",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If plugin commands don't appear after installation, tell the user to run `/reload-plugins`."
+  },
+  {
+   "item": "S24",
+   "folder": "martinambrus__RDForward",
+   "a": "R77",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Place cobblestone where the grass block was removed.",
+   "b": "R128",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "In creative mode, place one block from each inventory slot in a row, starting a new row 3 blocks behind after 80 blocks."
+  },
+  {
+   "item": "S25",
+   "folder": "martinambrus__RDForward",
+   "a": "R31",
+   "file_a": "block-policy.md",
+   "rule_a": "When a new protocol version drops blocks, drop a YAML file at `/replacements/<key>.yml`.",
+   "b": "R361",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Guard new behavior behind version checks so only the targeted client type is affected."
+  },
+  {
+   "item": "S26",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R113",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "When handling a divergent remote, fetch instead of pulling.",
+   "b": "R119",
+   "file_b": "feedback_git_divergent_remote.md",
+   "rule_b": "Announce your decision before acting on the divergent remote."
+  },
+  {
+   "item": "S27",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R113",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what claude-flow can do or requests a capabilities overview, read `.claude-flow/CAPABILITIES.md`.",
+   "b": "R115",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks how claude-flow would handle a task or requests pre-task analysis, run `hooks pre-task --description \"[task]\"`."
+  },
+  {
+   "item": "S28",
+   "folder": "martinambrus__RDForward",
+   "a": "R65",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Have the first client that logs in perform the single-client tests.",
+   "b": "R146",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Have Client 2 press T."
+  },
+  {
+   "item": "S29",
+   "folder": "martinambrus__RDForward",
+   "a": "R33",
+   "file_a": "block-policy.md",
+   "rule_a": "When adding a new chokepoint policy, such as creative-restricted or claim-protected, write a BlockPolicy implementation.",
+   "b": "R353",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding support for new protocol versions, always test all previously supported versions after making changes."
+  },
+  {
+   "item": "S30",
+   "folder": "martinambrus__RDForward",
+   "a": "R251",
+   "file_a": "mcpe-protocol.md",
+   "rule_a": "Encode per-column per-section data as a flag byte, 16 block IDs, and 8 metadata nibble bytes.",
+   "b": "R295",
+   "file_b": "netty-protocol.md",
+   "rule_b": "For v768 PlayerInput (SteerVehicle), encode the packet as a single byte flags field; do not use the old float sideways + float forward + byte flags format."
+  },
+  {
+   "item": "S31",
+   "folder": "martinambrus__RDForward",
+   "a": "R158",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Have Client 2 place a block to the right.",
+   "b": "R161",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Verify both clients see the block removed by taking 2 screenshots."
+  },
+  {
+   "item": "S32",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R209",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Batch all independent file reads, writes, and edits into one message.",
+   "b": "R210",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Batch all independent Bash commands into one message."
+  },
+  {
+   "item": "S33",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R102",
+   "file_a": "feedback_e2e_waits.md",
+   "rule_a": "When writing or editing Playwright tests that target Railway deploys, do not rely on fixed page.wait_for_timeout timers (e.g., 2,000 or 3,000 ms) for initial page render.",
+   "b": "R105",
+   "file_b": "feedback_e2e_waits.md",
+   "rule_b": "Fixed timers are allowed for post-action waits, such as after a click while Streamlit rerenders."
+  },
+  {
+   "item": "S34",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R78",
+   "file_a": "gene-debugging.md",
+   "rule_a": "After applying file patches, restart the MCP server by removing and re-adding it and starting a new session.",
+   "b": "R171",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never create a new file unless it is absolutely necessary to achieve the goal."
+  },
+  {
+   "item": "S35",
+   "folder": "martinambrus__RDForward",
+   "a": "R95",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "After holding left-click until the block under your feet is grass, wait 4 seconds.",
+   "b": "R96",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Verify there is grass below your feet."
+  },
+  {
+   "item": "S36",
+   "folder": "martinambrus__RDForward",
+   "a": "R68",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify the client is standing on a grass block.",
+   "b": "R113",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "For Alpha clients, verify there are 64 total cobblestone after the throw."
+  },
+  {
+   "item": "S37",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R110",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "If `git push` is rejected with \"remote contains work you don't have\", do not immediately run `git rebase origin/BRANCH`.",
+   "b": "R341",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Do not run migrations immediately after starting services."
+  },
+  {
+   "item": "S38",
+   "folder": "martinambrus__RDForward",
+   "a": "R72",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "For survival-only clients running pre-Beta 1.8, verify the inventory contains 64 cobblestone.",
+   "b": "R369",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If only 1.8 clients are connected, no 1.21-specific packet registry overlays should be loaded."
+  },
+  {
+   "item": "S39",
+   "folder": "QuagKhai003__assessment",
+   "a": "R81",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When a real test run changes, refresh the TESTING.md count and report.",
+   "b": "R106",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Run tests with npm test."
+  },
+  {
+   "item": "S40",
+   "folder": "martinambrus__RDForward",
+   "a": "R31",
+   "file_a": "block-policy.md",
+   "rule_a": "When a new protocol version drops blocks, drop a YAML file at `/replacements/<key>.yml`.",
+   "b": "R260",
+   "file_b": "mcpe-v27-protocol.md",
+   "rule_b": "Only accept clients using protocol 27; do not accept a range of protocol versions."
+  },
+  {
+   "item": "S41",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R229",
+   "file_a": "lessons_learned.md",
+   "rule_a": "Always include the `.php` extension in RosarioSIS `modname=Students/NeuroProfile.php` URLs.",
+   "b": "R252",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Access RosarioSIS plugin module entry points directly via `plugins/{PluginName}/modules/{Module}/{Module}.php`, not via `Students/` prefixed URLs."
+  },
+  {
+   "item": "S42",
+   "folder": "martinambrus__RDForward",
+   "a": "R46",
+   "file_a": "bridge-plugin-events.md",
+   "rule_a": "When refactoring BukkitPluginWrapper, preserve the order plugin.onEnable() \u2192 bridge listeners \u2192 registerCommands \u2192 dispatchPluginEvent(new PluginEnableEvent(plugin)).",
+   "b": "R374",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When a Bukkit/Paper plugin invokes a method on a bridge stub that has no real implementation, the stub must call `StubCallLog.logOnce(pluginId, signature)`."
+  },
+  {
+   "item": "S43",
+   "folder": "martinambrus__RDForward",
+   "a": "R158",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Have Client 2 place a block to the right.",
+   "b": "R298",
+   "file_b": "netty-protocol.md",
+   "rule_b": "For v773, ensure the block tag #minecraft:lightning_rods exists because the channeling enchantment's built-in data references it; otherwise the client fails to parse the enchantment registry."
+  },
+  {
+   "item": "S44",
+   "folder": "martinambrus__RDForward",
+   "a": "R163",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Repeat steps 23 through 31 for every remaining client in the test list.",
+   "b": "R277",
+   "file_b": "netty-protocol.md",
+   "rule_b": "When spawning a player for 1.8 clients, send PlayerListItem ADD_PLAYER before SpawnPlayer so the client can resolve the name from the tab list."
+  },
+  {
+   "item": "S45",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R49",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "To manually trigger a deployment without a new commit, run `gh workflow run <workflow>.yml --ref main` from the repository directory.",
+   "b": "R51",
+   "file_b": "ci_cd_deployment.md",
+   "rule_b": "To change the test command, edit `run: pytest...` in the workflow."
+  },
+  {
+   "item": "S46",
+   "folder": "martinambrus__RDForward",
+   "a": "R2",
+   "file_a": "bedrock-bot-plan.md",
+   "rule_a": "The Bedrock bot packet handler must handle encryption when the server enables it.",
+   "b": "R283",
+   "file_b": "netty-protocol.md",
+   "rule_b": "For 1.20.2 (v764), register the full 54-entry C2S forward packet map; do not use sparse registration because it causes wrong packet handlers via cascade."
+  },
+  {
+   "item": "S47",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R44",
+   "file_a": "feedback-fork-purpose.md",
+   "rule_a": "Do not describe the fork as merely scope renaming; describe its primary value as shipping current upstream HEAD code with correct dependency pinning and bug-fix patches.",
+   "b": "R53",
+   "file_b": "feedback-never-dismiss-flaky.md",
+   "rule_b": "When upstream generates broken code, patch the generator in the fork."
+  },
+  {
+   "item": "S48",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R116",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "When evaluating divergence between local and remote, compare actual file contents, not only git state.",
+   "b": "R176",
+   "file_b": "feedback_palma_lessons.md",
+   "rule_b": "Before changing any file, run `git fetch origin`."
+  },
+  {
+   "item": "S49",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R158",
+   "file_a": "project-bash-vs-nodejs.md",
+   "rule_a": "When the conversion is scheduled, create lib/pipeline-node.mjs containing shared Node.js pipeline utilities (logging, timing, state, git helpers, retry).",
+   "b": "R159",
+   "file_b": "project-bash-vs-nodejs.md",
+   "rule_b": "When the conversion is scheduled, update the dispatcher sync-and-build.sh so it calls `node scripts/ruflo-publish.mjs`."
+  },
+  {
+   "item": "S50",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R86",
+   "file_a": "feedback_commit_convention.md",
+   "rule_a": "Use the `docs` type for changes to README, inline docs, or comments.",
+   "b": "R93",
+   "file_b": "feedback_commit_convention.md",
+   "rule_b": "If a change does not fit one of the listed commit types, split the change before committing."
+  },
+  {
+   "item": "S51",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R35",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "When adding game files such as objects or levels to the Xcode project, use the conventions Xcode itself uses rather than the conventions from the older bulk-imported files.",
+   "b": "R38",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "When adding a .c file that contains #ifdef __cplusplus or CMOC C code to the Xcode project, set explicitFileType to sourcecode.cpp.objcpp."
+  },
+  {
+   "item": "S52",
+   "folder": "martinambrus__RDForward",
+   "a": "R289",
+   "file_a": "netty-protocol.md",
+   "rule_a": "In the v766 biome registry, send the_void at index 0 and plains at index 1 so the plains entry's position-based ID is 1, matching the chunk biome palette value.",
+   "b": "R297",
+   "file_b": "netty-protocol.md",
+   "rule_b": "In v770 chunk section palette data arrays, omit the VarInt length prefix."
+  },
+  {
+   "item": "S53",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R323",
+   "file_a": "master-plan.md",
+   "rule_a": "When opening a new session to continue work, read memory/master-plan.md before doing anything else.",
+   "b": "R324",
+   "file_b": "master-plan.md",
+   "rule_b": "When opening a new session to continue work, check the \"Sprint Progress\" table for the current sprint status."
+  },
+  {
+   "item": "S54",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R172",
+   "file_a": "feedback_palma_lessons.md",
+   "rule_a": "Seed code must use `ON CONFLICT DO NOTHING`.",
+   "b": "R173",
+   "file_b": "feedback_palma_lessons.md",
+   "rule_b": "Every insert in seed code must be wrapped with `ON CONFLICT (...) DO NOTHING`."
+  },
+  {
+   "item": "S55",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R124",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "Do not reflexively run `git pull --rebase` or `git rebase origin/BRANCH` when push is rejected without first checking whether the remote is a force-push or squash.",
+   "b": "R176",
+   "file_b": "feedback_palma_lessons.md",
+   "rule_b": "Before changing any file, run `git fetch origin`."
+  },
+  {
+   "item": "S56",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R32",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level, add all new files to the Xcode project pbxproj.",
+   "b": "R107",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.wav` sound in the Xcode project, set `lastKnownFileType = audio.wav`, `path = \"XX-name.wav\"`, and `sourceTree = \"<group>\"`."
+  },
+  {
+   "item": "S57",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R67",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "Never use the bash background form `php artisan serve > /dev/null 2>&1 &` in PowerShell.",
+   "b": "R283",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Use single-quoted PowerShell here-strings for PHP code."
+  },
+  {
+   "item": "S58",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R170",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Do exactly what the user asked and nothing beyond it (no extra work or scope).",
+   "b": "R227",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never change plugin enable/disable state at user scope."
+  },
+  {
+   "item": "S59",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R166",
+   "file_a": "project-upstream-sync-2026-04-03.md",
+   "rule_a": "Before performing the next upstream sync, check whether more of our patches have been absorbed upstream.",
+   "b": "R221",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When the active toolset doesn't cover a needed capability, first run `ruflo skill list` to check whether a skill provides it."
+  },
+  {
+   "item": "S60",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R103",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what workers are running or asks about daemon status, run `daemon status`.",
+   "b": "R111",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what config is set, run `config list`."
+  },
+  {
+   "item": "S61",
+   "folder": "QuagKhai003__assessment",
+   "a": "R19",
+   "file_a": "never-commit-without-approval.md",
+   "rule_a": "Stage and prepare changes, then wait for the user's go-ahead before committing.",
+   "b": "R27",
+   "file_b": "never-commit-without-approval.md",
+   "rule_b": "Always wait for the user's approval before making any commit."
+  },
+  {
+   "item": "S62",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R116",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "When evaluating divergence between local and remote, compare actual file contents, not only git state.",
+   "b": "R234",
+   "file_b": "lessons_learned.md",
+   "rule_b": "When using FastAPI TestClient with in-memory storage, reset app state between tests with an autouse fixture."
+  },
+  {
+   "item": "S63",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R127",
+   "file_a": "feedback_learning.md",
+   "rule_a": "Keep a separate short-path clone of the repository for deployments.",
+   "b": "R365",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Keep the container's `node_modules` separate when mounting the Next.js frontend."
+  },
+  {
+   "item": "S64",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R317",
+   "file_a": "lessons_learned_append.md",
+   "rule_a": "Always store the VERSION config value as a plain string `12.8`, not serialized, so that Update() does not run.",
+   "b": "R320",
+   "file_b": "lessons_learned_append.md",
+   "rule_b": "If `school_fields_id_seq already exists` appears after all other fixes, set VERSION to a plain `12.8`."
+  },
+  {
+   "item": "S65",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R37",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "Use SSE (Server-Sent Events) as the fallback for live updates on Palma Coin.",
+   "b": "R371",
+   "file_b": "skill_websocket_railway.md",
+   "rule_b": "As a workaround for Railway WebSocket proxy failures, use Server-Sent Events (SSE) for read-only streams."
+  },
+  {
+   "item": "S66",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R26",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level, create or modify the tileset file game/tiles/XX-name.json and its .png file.",
+   "b": "R40",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "For .json and .png resource files under game/sprites, game/tiles, or game/images, use just the filename with sourceTree = \"<group>\" for child file references."
+  },
+  {
+   "item": "S67",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R103",
+   "file_a": "CLAUDE.md",
+   "rule_a": "For a new `.c` source file in the Xcode project, set `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, and `sourceTree = SOURCE_ROOT`.",
+   "b": "R107",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.wav` sound in the Xcode project, set `lastKnownFileType = audio.wav`, `path = \"XX-name.wav\"`, and `sourceTree = \"<group>\"`."
+  },
+  {
+   "item": "S68",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R197",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "In PowerShell, write commands to a `.ps1` file instead of using heredocs.",
+   "b": "R219",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Translate the command to PowerShell before proceeding."
+  },
+  {
+   "item": "S69",
+   "folder": "martinambrus__RDForward",
+   "a": "R207",
+   "file_a": "feedback_lazy_loading.md",
+   "rule_a": "Extract version-specific if-else chains in shared handlers into codec or strategy classes selected at connection time.",
+   "b": "R269",
+   "file_b": "mcpe-v81-protocol.md",
+   "rule_b": "When parsing the chain JSON, extract displayName from extraData."
+  },
+  {
+   "item": "S70",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R95",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what is happening, what is running, or the current state of claude-flow, run `status`.",
+   "b": "R104",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what workers exist or asks about worker capabilities, run `hooks worker list`."
+  },
+  {
+   "item": "S71",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R14",
+   "file_a": "TRIGGERS.md",
+   "rule_a": "When project state changes, notify relevant agents via mail if applicable.",
+   "b": "R285",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Make project handovers to agents DELTA-only, not context-repeat."
+  },
+  {
+   "item": "S72",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R119",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "Announce your decision before acting on the divergent remote.",
+   "b": "R122",
+   "file_b": "feedback_git_divergent_remote.md",
+   "rule_b": "Never silently rebase against a divergent remote."
+  },
+  {
+   "item": "S73",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R12",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "Name functions passed to RegisterObject and RegisterLevel with only an initial capital, not camelCase.",
+   "b": "R13",
+   "file_b": "feedback_project_structure.md",
+   "rule_b": "Struct and typedef names may use camelCase."
+  },
+  {
+   "item": "S74",
+   "folder": "martinambrus__RDForward",
+   "a": "R332",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "When rewriting any of the five API utilities (CommandRegistry, Scheduler, ModConfig, PermissionManager, ServerEvents), delete the old static class entirely.",
+   "b": "R333",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Migrate all callers in the same PR when rewriting any of those five API utilities."
+  },
+  {
+   "item": "S75",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R98",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks how routing works or why claude-flow picked a specific agent, run `hooks explain --task \"[topic]\"`.",
+   "b": "R111",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what config is set, run `config list`."
+  },
+  {
+   "item": "S76",
+   "folder": "martinambrus__RDForward",
+   "a": "R56",
+   "file_a": "e2e-screenshot-fixes.md",
+   "rule_a": "In VerifySplitStep, either increase the wait time or verify the item is in the correct slot before taking the screenshot.",
+   "b": "R161",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Verify both clients see the block removed by taking 2 screenshots."
+  },
+  {
+   "item": "S77",
+   "folder": "martinambrus__RDForward",
+   "a": "R129",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify each placed block converts to cobblestone.",
+   "b": "R134",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Jump onto the first placed block."
+  },
+  {
+   "item": "S78",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R84",
+   "file_a": "gene-preferences.md",
+   "rule_a": "Do not guess, read source code, or check GitHub to answer questions about claude-flow.",
+   "b": "R97",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks how smart claude-flow is, or asks about neural, SONA, or MoE status, run `neural status`."
+  },
+  {
+   "item": "S79",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R60",
+   "file_a": "feedback_awesome_ecosystem.md",
+   "rule_a": "Use feynman only as a reference architecture, not as an implementation dependency.",
+   "b": "R337",
+   "file_b": "master-plan.md",
+   "rule_b": "Do not copy Claude Code's auto-memory implementation; use it only as a reference."
+  },
+  {
+   "item": "S80",
+   "folder": "martinambrus__RDForward",
+   "a": "R35",
+   "file_a": "block-policy.md",
+   "rule_a": "When adding a new chokepoint policy, compose it with existing policies by chaining inside coerce.",
+   "b": "R353",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding support for new protocol versions, always test all previously supported versions after making changes."
+  },
+  {
+   "item": "S81",
+   "folder": "martinambrus__RDForward",
+   "a": "R192",
+   "file_a": "feedback_backwards_compat.md",
+   "rule_a": "Before editing any shared code, trace all callers to verify which clients are affected.",
+   "b": "R356",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding version thresholds, verify that all versions in the affected range behave the same way."
+  },
+  {
+   "item": "S82",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R31",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level, add a splash entry to game/images/images.json.",
+   "b": "R85",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new level, provide a 132x96 indexed PNG level image at `game/images/XX-levelN.png`."
+  },
+  {
+   "item": "S83",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R67",
+   "file_a": "feedback-no-test-levels.md",
+   "rule_a": "Use plain names\u2014preflight, unit, and acceptance\u2014for all references to test levels instead of L-level labels.",
+   "b": "R68",
+   "file_b": "feedback-no-test-levels.md",
+   "rule_b": "When discussing tests, say \"unit tests\", \"acceptance tests\", and \"preflight checks\", never \"L0 tests\" or \"L1 unit tests\"."
+  },
+  {
+   "item": "S84",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R186",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "Use PowerShell 5.1 only when pwsh is unavailable.",
+   "b": "R193",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Use `; if ($?)` only if you know the user is on PowerShell 5.1."
+  },
+  {
+   "item": "S85",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R102",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When updating the Xcode project file, find existing entries for a similar object and follow the same pattern.",
+   "b": "R107",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.wav` sound in the Xcode project, set `lastKnownFileType = audio.wav`, `path = \"XX-name.wav\"`, and `sourceTree = \"<group>\"`."
+  },
+  {
+   "item": "S86",
+   "folder": "martinambrus__RDForward",
+   "a": "R129",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify each placed block converts to cobblestone.",
+   "b": "R236",
+   "file_b": "material-catalog.md",
+   "rule_b": "Do not change the pre-Flattening block ids of the 19 protected modern Material names (AIR, STONE, GRASS_BLOCK, DIRT, COBBLESTONE, OAK_PLANKS, OAK_SAPLING, BEDROCK, WATER, LAVA, SAND, GRAVEL, GOLD_ORE, IRON_ORE, COAL_ORE, OAK_LOG, OAK_LEAVES, GLASS, TNT)."
+  },
+  {
+   "item": "S87",
+   "folder": "martinambrus__RDForward",
+   "a": "R63",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "When running parallel tests, split clients into two halves.",
+   "b": "R139",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Start the next client from the full test list."
+  },
+  {
+   "item": "S88",
+   "folder": "martinambrus__RDForward",
+   "a": "R157",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify both clients see the block removed by taking 2 screenshots.",
+   "b": "R321",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "For cross-platform mods, ship both rdmod.json for the server and fabric.mod.json for the client, either in the same JAR or separately."
+  },
+  {
+   "item": "S89",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R33",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When creating new game content, use this file as a checklist.",
+   "b": "R82",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding game content, follow existing patterns."
+  },
+  {
+   "item": "S90",
+   "folder": "martinambrus__RDForward",
+   "a": "R354",
+   "file_a": "CLAUDE.md",
+   "rule_a": "New protocol version support must not break older versions.",
+   "b": "R359",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If a method is used by multiple protocol versions, add a version parameter and branch or create a version-specific override."
+  },
+  {
+   "item": "S91",
+   "folder": "martinambrus__RDForward",
+   "a": "R331",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Leave existing feature classes (BanManager, BlockOwnerRegistry, GriefProtection, WhitelistManager, TeamManager, ServerProperties) in place because they are features, not API infrastructure.",
+   "b": "R342",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Keep the old Event/EventResult classes in rd-protocol extending the new rd-api types for internal protocol callers, with rd-api as the authoritative API."
+  },
+  {
+   "item": "S92",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R105",
+   "file_a": "CLAUDE.md",
+   "rule_a": "For a new `.json` sprite descriptor in the Xcode project, set `fileEncoding = 4`, `lastKnownFileType = text.json`, `path = \"XX-name.json\"`, and `sourceTree = \"<group>\"`.",
+   "b": "R106",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.png` sprite image in the Xcode project, set `lastKnownFileType = image.png`, `path = \"XX-name.png\"`, and `sourceTree = \"<group>\"`."
+  },
+  {
+   "item": "S93",
+   "folder": "martinambrus__RDForward",
+   "a": "R97",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "For survival-only clients, select the 64-cobblestone stack.",
+   "b": "R119",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "For non-Alpha clients, verify one 31-cobblestone stack and one 16-cobblestone stack."
+  },
+  {
+   "item": "S94",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R4",
+   "file_a": "TRIGGERS.md",
+   "rule_a": "On session idle or error, run stamp-sprint.ps1 with the task description and sprint path.",
+   "b": "R322",
+   "file_b": "master-plan.md",
+   "rule_b": "In this session, perform planning only; do not execute sprint work in it."
+  },
+  {
+   "item": "S95",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R88",
+   "file_a": "gene-preferences.md",
+   "rule_a": "If the matching CLI command does not fully answer a claude-flow question, check memory with `memory search --query \"[topic]\"`.",
+   "b": "R90",
+   "file_b": "gene-preferences.md",
+   "rule_b": "Prefix all claude-flow CLI commands with `npx @claude-flow/cli@latest`."
+  },
+  {
+   "item": "S96",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R90",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Palette index 0 must be the background color.",
+   "b": "R97",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Place the transparent color at palette index 16, outside the 16-color tileset palette."
+  },
+  {
+   "item": "S97",
+   "folder": "martinambrus__RDForward",
+   "a": "R194",
+   "file_a": "feedback_backwards_compat.md",
+   "rule_a": "After any change to packet handling, test at least one client from each supported version range.",
+   "b": "R357",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When touching shared code paths such as packet dispatch, chunk sending, or login sequence, re-test at least one client from each supported version range."
+  },
+  {
+   "item": "S98",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R206",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "Do not use `xargs` in PowerShell.",
+   "b": "R207",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Use `ForEach-Object` instead of `xargs` in PowerShell."
+  },
+  {
+   "item": "S99",
+   "folder": "martinambrus__RDForward",
+   "a": "R319",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Ship the rd-api client interfaces (DrawContext, ClientEvents, GameOverlay, KeyBinding, etc.) with a Fabric companion mod in rd-client that wires dispatch from RubyDungMixin hooks.",
+   "b": "R325",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Implement client mods through real Fabric."
+  },
+  {
+   "item": "S100",
+   "folder": "martinambrus__RDForward",
+   "a": "R153",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify both clients see the message by taking 2 screenshots.",
+   "b": "R360",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Before editing any shared code, trace all callers to verify which clients are affected."
+  },
+  {
+   "item": "S101",
+   "folder": "martinambrus__RDForward",
+   "a": "R13",
+   "file_a": "beta-protocol.md",
+   "rule_a": "For Beta clients, implement Q-drops with PlayerDigging status=4 instead of using PickupSpawn.",
+   "b": "R344",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Implement tab completion on Alpha/Beta/pre-1.13 clients as server-side pseudo-only because there is no protocol support for Brigadier-style completion."
+  },
+  {
+   "item": "S102",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R40",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "If a deploy breaks production, you may instead manually rollback via the Railway dashboard.",
+   "b": "R41",
+   "file_b": "ci_cd_deployment.md",
+   "rule_b": "In the Railway dashboard, go to Service \u2192 Deployments, find the previous build, and click \"Rollback\"."
+  },
+  {
+   "item": "S103",
+   "folder": "martinambrus__RDForward",
+   "a": "R157",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify both clients see the block removed by taking 2 screenshots.",
+   "b": "R360",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Before editing any shared code, trace all callers to verify which clients are affected."
+  },
+  {
+   "item": "S104",
+   "folder": "martinambrus__RDForward",
+   "a": "R154",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Have Client 1 place a block to the right.",
+   "b": "R161",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Verify both clients see the block removed by taking 2 screenshots."
+  },
+  {
+   "item": "S105",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R99",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what agent should handle a task or how to route a task, run `hooks route --task \"[description]\"`.",
+   "b": "R113",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what claude-flow can do or requests a capabilities overview, read `.claude-flow/CAPABILITIES.md`."
+  },
+  {
+   "item": "S106",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R22",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "If the tests pass, deploy to Railway.",
+   "b": "R102",
+   "file_b": "feedback_e2e_waits.md",
+   "rule_b": "When writing or editing Playwright tests that target Railway deploys, do not rely on fixed page.wait_for_timeout timers (e.g., 2,000 or 3,000 ms) for initial page render."
+  },
+  {
+   "item": "S107",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R90",
+   "file_a": "feedback_commit_convention.md",
+   "rule_a": "When adding a scope to a PRIA commit, use one of: auth, ui, api, db, e2e, seed, deploy.",
+   "b": "R108",
+   "file_b": "feedback_e2e_waits.md",
+   "rule_b": "Apply these e2e waiting rules to any Streamlit-on-Railway project, not just PRIA."
+  },
+  {
+   "item": "S108",
+   "folder": "martinambrus__RDForward",
+   "a": "R113",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "For Alpha clients, verify there are 64 total cobblestone after the throw.",
+   "b": "R118",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "For Alpha clients, verify there are 64 total cobblestone."
+  },
+  {
+   "item": "S109",
+   "folder": "martinambrus__RDForward",
+   "a": "R8",
+   "file_a": "beta-protocol.md",
+   "rule_a": "For String16 clients, resolve the protocol version with `fromNumber(pv, Family.BETA)`; otherwise resolve it with `fromNumber(pv, Family.ALPHA, Family.BETA)`.",
+   "b": "R193",
+   "file_b": "feedback_backwards_compat.md",
+   "rule_b": "Guard new behavior behind version checks so only the targeted client type is affected."
+  },
+  {
+   "item": "S110",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R10",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a new level, append its entry to the images.json array.",
+   "b": "R27",
+   "file_b": "feedback_project_structure.md",
+   "rule_b": "When adding a complete new level and adding new objects, create or modify the sprite group file game/sprites/XX-name.json and its .png file."
+  },
+  {
+   "item": "S111",
+   "folder": "martinambrus__RDForward",
+   "a": "R35",
+   "file_a": "block-policy.md",
+   "rule_a": "When adding a new chokepoint policy, compose it with existing policies by chaining inside coerce.",
+   "b": "R351",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Every code change, whether adding a new protocol version, refactoring shared code, or fixing a bug, must preserve full compatibility with all previously supported clients."
+  },
+  {
+   "item": "S112",
+   "folder": "martinambrus__RDForward",
+   "a": "R194",
+   "file_a": "feedback_backwards_compat.md",
+   "rule_a": "After any change to packet handling, test at least one client from each supported version range.",
+   "b": "R361",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Guard new behavior behind version checks so only the targeted client type is affected."
+  },
+  {
+   "item": "S113",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R28",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level and adding new objects, create or modify the object code files game/objects/XX-name.c and .h.",
+   "b": "R42",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "When adding .c files to the pbxproj, set explicitFileType to sourcecode.cpp.objcpp."
+  },
+  {
+   "item": "S114",
+   "folder": "martinambrus__RDForward",
+   "a": "R23",
+   "file_a": "beta-protocol.md",
+   "rule_a": "For Beta 1.8 server list ping (0xFE), respond with 0xFF followed by String16(\"motd\u00a7players\u00a7max\") and then close the connection.",
+   "b": "R26",
+   "file_b": "beta-protocol.md",
+   "rule_b": "In Beta 1.8 (v17) Login C2S, omit the \"unused\" String16 field."
+  },
+  {
+   "item": "S115",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R196",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "In PowerShell, use `@\"...\"@` here-strings instead of heredocs.",
+   "b": "R197",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "In PowerShell, write commands to a `.ps1` file instead of using heredocs."
+  },
+  {
+   "item": "S116",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R83",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks any question about claude-flow, first query claude-flow about itself before answering.",
+   "b": "R107",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks how far along V3 is or asks about implementation progress, run `progress`."
+  },
+  {
+   "item": "S117",
+   "folder": "martinambrus__RDForward",
+   "a": "R190",
+   "file_a": "feedback_backwards_compat.md",
+   "rule_a": "If a shared method is used by multiple protocol versions, never change its behavior globally.",
+   "b": "R351",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Every code change, whether adding a new protocol version, refactoring shared code, or fixing a bug, must preserve full compatibility with all previously supported clients."
+  },
+  {
+   "item": "S118",
+   "folder": "martinambrus__RDForward",
+   "a": "R19",
+   "file_a": "beta-protocol.md",
+   "rule_a": "Register InputPacket (0x1B) C2S for all Beta versions and silently consume its 18-byte vehicle steering input.",
+   "b": "R26",
+   "file_b": "beta-protocol.md",
+   "rule_b": "In Beta 1.8 (v17) Login C2S, omit the \"unused\" String16 field."
+  },
+  {
+   "item": "S119",
+   "folder": "martinambrus__RDForward",
+   "a": "R23",
+   "file_a": "beta-protocol.md",
+   "rule_a": "For Beta 1.8 server list ping (0xFE), respond with 0xFF followed by String16(\"motd\u00a7players\u00a7max\") and then close the connection.",
+   "b": "R329",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Register built-in server commands (help, list, stop, tp, kick, ban, etc.) with the __server__ owner through the new CommandRegistry interface."
+  },
+  {
+   "item": "S120",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R43",
+   "file_a": "feedback-fork-purpose.md",
+   "rule_a": "Publish the fork's packages under the `@sparkleideas/*` npm scope.",
+   "b": "R44",
+   "file_b": "feedback-fork-purpose.md",
+   "rule_b": "Do not describe the fork as merely scope renaming; describe its primary value as shipping current upstream HEAD code with correct dependency pinning and bug-fix patches."
+  },
+  {
+   "item": "S121",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R70",
+   "file_a": "feedback-patch-tracking.md",
+   "rule_a": "Every fork patch must have a corresponding GitHub issue in the fork repository.",
+   "b": "R72",
+   "file_b": "feedback-patch-tracking.md",
+   "rule_b": "When creating a new patch, reference the corresponding issue number in the pull request and in the commit message."
+  },
+  {
+   "item": "S122",
+   "folder": "martinambrus__RDForward",
+   "a": "R230",
+   "file_a": "feedback_wait_for_confirmation.md",
+   "rule_a": "When waiting for the user to test something, do not draw conclusions from timed log checks or notifications.",
+   "b": "R388",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Before launching any Gradle test, always check with `ps aux | grep -E \"testCrossVersion|testLWJGL3|testModern|e2e-xv-|GradleWorker\" | grep -v grep` to verify no other test is already running."
+  },
+  {
+   "item": "S123",
+   "folder": "martinambrus__RDForward",
+   "a": "R188",
+   "file_a": "feedback_backwards_compat.md",
+   "rule_a": "Prioritize backwards compatibility over clean code, performance, and new features.",
+   "b": "R352",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Backwards compatibility with previously supported clients takes precedence over clean code, performance, and new features."
+  },
+  {
+   "item": "S124",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R35",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "When adding game files such as objects or levels to the Xcode project, use the conventions Xcode itself uses rather than the conventions from the older bulk-imported files.",
+   "b": "R81",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new object, create `game/objects/XX-name/` with a JSON descriptor and C or ASM source."
+  },
+  {
+   "item": "S125",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R302",
+   "file_a": "lessons_learned.md",
+   "rule_a": "Always check the actual function signature, not just the call site.",
+   "b": "R303",
+   "file_b": "lessons_learned.md",
+   "rule_b": "If a helper function returns `Promise<any>`, change the function signature or cast the return value on the right side instead of passing `<Type>` at the call site."
+  },
+  {
+   "item": "S126",
+   "folder": "martinambrus__RDForward",
+   "a": "R197",
+   "file_a": "feedback_build_fatjar.md",
+   "rule_a": "Always run `./gradlew buildAll` before signaling that a server-side change is ready for the user to test manually.",
+   "b": "R390",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never run a full test suite when only a single test needs to verify a bug fix."
+  },
+  {
+   "item": "S127",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R61",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When adding a new sound, add a `#define SOUND_NAME XX` entry to `game/objects/object_info.h`.",
+   "b": "R101",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding new game source or resource files, update `Space Bandits/Space Bandits.xcodeproj/project.pbxproj`."
+  },
+  {
+   "item": "S128",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R151",
+   "file_a": "feedback_palma_lessons.md",
+   "rule_a": "In memory files, only save lessons that would genuinely surprise a developer joining a new project.",
+   "b": "R153",
+   "file_b": "feedback_palma_lessons.md",
+   "rule_b": "Keep each memory file short enough to fit on one screen."
+  },
+  {
+   "item": "S129",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R252",
+   "file_a": "lessons_learned.md",
+   "rule_a": "Access RosarioSIS plugin module entry points directly via `plugins/{PluginName}/modules/{Module}/{Module}.php`, not via `Students/` prefixed URLs.",
+   "b": "R259",
+   "file_b": "lessons_learned.md",
+   "rule_b": "To filter RosarioSIS students by enrollment year, join `student_enrollment.syear`; do not query `students` alone."
+  },
+  {
+   "item": "S130",
+   "folder": "martinambrus__RDForward",
+   "a": "R236",
+   "file_a": "material-catalog.md",
+   "rule_a": "Do not change the pre-Flattening block ids of the 19 protected modern Material names (AIR, STONE, GRASS_BLOCK, DIRT, COBBLESTONE, OAK_PLANKS, OAK_SAPLING, BEDROCK, WATER, LAVA, SAND, GRAVEL, GOLD_ORE, IRON_ORE, COAL_ORE, OAK_LOG, OAK_LEAVES, GLASS, TNT).",
+   "b": "R263",
+   "file_b": "mcpe-v27-protocol.md",
+   "rule_b": "After a block change, resend the entire chunk via FullChunkData instead of relying on UpdateBlockPacket."
+  },
+  {
+   "item": "S131",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R358",
+   "file_a": "skill_docker_localdev.md",
+   "rule_a": "Apply the same Docker Compose local development patterns to EduFlow.",
+   "b": "R360",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Know which Docker Compose command destroys volumes (`down -v`) and which does not (`down`)."
+  },
+  {
+   "item": "S132",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R70",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When a sprite would be vertically clipped, set `cob->active` to `OBJECT_UPDATE_ACTIVE` so the object updates but is not drawn.",
+   "b": "R72",
+   "file_b": "CLAUDE.md",
+   "rule_b": "The `Active` value in the level JSON must match the object's initial visibility."
+  },
+  {
+   "item": "S133",
+   "folder": "martinambrus__RDForward",
+   "a": "R59",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Stop the server before starting the test setup.",
+   "b": "R223",
+   "file_b": "feedback_restart_server.md",
+   "rule_b": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running."
+  },
+  {
+   "item": "S134",
+   "folder": "martinambrus__RDForward",
+   "a": "R202",
+   "file_a": "feedback_e2e_spawn_protection.md",
+   "rule_a": "When a new E2E test fails and the logs contain \"[SpawnProtection] Blocked\", verify that E2ETestServer writes server.properties before the server starts.",
+   "b": "R388",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Before launching any Gradle test, always check with `ps aux | grep -E \"testCrossVersion|testLWJGL3|testModern|e2e-xv-|GradleWorker\" | grep -v grep` to verify no other test is already running."
+  },
+  {
+   "item": "S135",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R67",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "Never use the bash background form `php artisan serve > /dev/null 2>&1 &` in PowerShell.",
+   "b": "R223",
+   "file_b": "lessons_learned.md",
+   "rule_b": "For any file larger than about 500 lines, append content in batches with PowerShell Add-Content via the Bash tool, then verify with Get-Content."
+  },
+  {
+   "item": "S136",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R231",
+   "file_a": "lessons_learned.md",
+   "rule_a": "Any link, form, or action in RosarioSIS plugins must use the `Modules.php?modname=Path/Module.php` format.",
+   "b": "R232",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Never use `index.php?modname=...` for RosarioSIS plugin links, forms, or actions."
+  },
+  {
+   "item": "S137",
+   "folder": "martinambrus__RDForward",
+   "a": "R170",
+   "file_a": "e2e-testing.md",
+   "rule_a": "For movement input in Alpha, write directly to the `he.f[]` boolean array via reflection rather than using KeyBinding.pressed.",
+   "b": "R171",
+   "file_b": "e2e-testing.md",
+   "rule_b": "Inject mouse clicks in Alpha by calling `Minecraft.a(int)` via reflection, with 0 for left and 1 for right."
+  },
+  {
+   "item": "S138",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R38",
+   "file_a": "feedback-fix-all-ts-errors.md",
+   "rule_a": "If any TypeScript errors exist after a build, create patches to fix them in the appropriate fork.",
+   "b": "R47",
+   "file_b": "feedback-full-output.md",
+   "rule_b": "For all build and test commands, run them as `command 2>&1 | tee /tmp/logfile.log`."
+  },
+  {
+   "item": "S139",
+   "folder": "martinambrus__RDForward",
+   "a": "R389",
+   "file_a": "CLAUDE.md",
+   "rule_a": "If another test is already running, stop and ask the user before proceeding.",
+   "b": "R394",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Only run tests when the user explicitly asks."
+  },
+  {
+   "item": "S140",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R179",
+   "file_a": "feedback_playwright_eaccess.md",
+   "rule_a": "When EACCESS appears during Playwright MCP use, add Windows Defender exclusions for the ms-playwright directory and the Temp/playwright-* directory under LOCALAPPDATA, using PowerShell run as Administrator.",
+   "b": "R184",
+   "file_b": "feedback_playwright_eaccess.md",
+   "rule_b": "Do not make path or environment-variable changes to the Playwright MCP configuration to address EACCESS; the configuration is correct and EACCESS is a runtime block."
+  },
+  {
+   "item": "S141",
+   "folder": "martinambrus__RDForward",
+   "a": "R214",
+   "file_a": "feedback_no_delete_world.md",
+   "rule_a": "Never reset world save files such as server-world.dat, server-players.dat, or similar without explicit user permission.",
+   "b": "R215",
+   "file_b": "feedback_no_delete_world.md",
+   "rule_b": "Before any destructive file operation (rm, overwrite, reset) on data files in the project root\u2014including world saves, player data, configuration, and any non-code files that may contain user-generated state\u2014always ask the user first."
+  },
+  {
+   "item": "S142",
+   "folder": "martinambrus__RDForward",
+   "a": "R364",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Defer initialization of these lazy-loaded protocol components to the first client connection of that protocol type.",
+   "b": "R366",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When multiple protocol versions share a handler method via cascading if-else chains on protocol version numbers, extract version-specific wire format logic into separate codec/strategy classes selected at connection time."
+  },
+  {
+   "item": "S143",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R118",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Never force push the fork main branch to fix version state.",
+   "b": "R136",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "After resetting a fork, verify its issues were preserved by running gh issue list --state all -R <owner/repo>."
+  },
+  {
+   "item": "S144",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R190",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "When telling the user to run a command in their terminal, assume it is PowerShell.",
+   "b": "R219",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Translate the command to PowerShell before proceeding."
+  },
+  {
+   "item": "S145",
+   "folder": "martinambrus__RDForward",
+   "a": "R206",
+   "file_a": "feedback_lazy_loading.md",
+   "rule_a": "Do not load any protocol adapter until a client of that type actually connects.",
+   "b": "R344",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Implement tab completion on Alpha/Beta/pre-1.13 clients as server-side pseudo-only because there is no protocol support for Brigadier-style completion."
+  },
+  {
+   "item": "S146",
+   "folder": "QuagKhai003__assessment",
+   "a": "R86",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Never call Gemini from the client.",
+   "b": "R92",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Only retry a failed Gemini call when the user triggers the retry."
+  },
+  {
+   "item": "S147",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R110",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what plugins are installed, run `plugins list`.",
+   "b": "R115",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks how claude-flow would handle a task or requests pre-task analysis, run `hooks pre-task --description \"[task]\"`."
+  },
+  {
+   "item": "S148",
+   "folder": "QuagKhai003__assessment",
+   "a": "R20",
+   "file_a": "never-commit-without-approval.md",
+   "rule_a": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch.",
+   "b": "R151",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Commit documentation and non-code changes on the current branch without creating a new branch."
+  },
+  {
+   "item": "S149",
+   "folder": "martinambrus__RDForward",
+   "a": "R53",
+   "file_a": "debugging.md",
+   "rule_a": "Run the full test suite only for final verification, after all fixes have been applied.",
+   "b": "R139",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Start the next client from the full test list."
+  },
+  {
+   "item": "S150",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R188",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "When showing the user a command to copy-paste, use pwsh 7 and PowerShell syntax.",
+   "b": "R219",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Translate the command to PowerShell before proceeding."
+  },
+  {
+   "item": "S151",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R181",
+   "file_a": "feedback_playwright_eaccess.md",
+   "rule_a": "If the Windows Defender exclusion does not resolve the EACCESS error, clear stale Playwright temp files from the Temp/playwright-* and Temp/.playwright-* directories under LOCALAPPDATA.",
+   "b": "R189",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "Save scripts under `scripts/` as PowerShell `.ps1` files."
+  },
+  {
+   "item": "S152",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R16",
+   "file_a": "TRIGGERS.md",
+   "rule_a": "When an error is detected, write a KG Error node with the error message and stack.",
+   "b": "R17",
+   "file_b": "TRIGGERS.md",
+   "rule_b": "When an error is detected, link the error to relevant Decision/Task nodes."
+  },
+  {
+   "item": "S153",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R35",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "When adding game files such as objects or levels to the Xcode project, use the conventions Xcode itself uses rather than the conventions from the older bulk-imported files.",
+   "b": "R39",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "When adding header files to the Xcode project, use lastKnownFileType = sourcecode.c.h."
+  },
+  {
+   "item": "S154",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R51",
+   "file_a": "feedback-never-dismiss-flaky.md",
+   "rule_a": "When acceptance tests fail, investigate the exact cause, fix it, and verify 32/32.",
+   "b": "R68",
+   "file_b": "feedback-no-test-levels.md",
+   "rule_b": "When discussing tests, say \"unit tests\", \"acceptance tests\", and \"preflight checks\", never \"L0 tests\" or \"L1 unit tests\"."
+  },
+  {
+   "item": "S155",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R35",
+   "file_a": "feedback_xcode_project.md",
+   "rule_a": "When adding game files such as objects or levels to the Xcode project, use the conventions Xcode itself uses rather than the conventions from the older bulk-imported files.",
+   "b": "R42",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "When adding .c files to the pbxproj, set explicitFileType to sourcecode.cpp.objcpp."
+  },
+  {
+   "item": "S156",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R9",
+   "file_a": "TRIGGERS.md",
+   "rule_a": "When appending a lesson to lessons_learned.md, use the format `YYYY-MM-DD | {topic} | {what was wrong} \u2192 {what fixed it}`.",
+   "b": "R80",
+   "file_b": "feedback_commit_convention.md",
+   "rule_b": "When a commit body is included, explain WHY the change was made rather than WHAT changed."
+  },
+  {
+   "item": "S157",
+   "folder": "martinambrus__RDForward",
+   "a": "R281",
+   "file_a": "netty-protocol.md",
+   "rule_a": "For 1.9 BlockPlacement, encode cursor positions as three unsigned bytes; do not use floats, which were introduced in 1.11+.",
+   "b": "R295",
+   "file_b": "netty-protocol.md",
+   "rule_b": "For v768 PlayerInput (SteerVehicle), encode the packet as a single byte flags field; do not use the old float sideways + float forward + byte flags format."
+  },
+  {
+   "item": "S158",
+   "folder": "martinambrus__RDForward",
+   "a": "R88",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "After reaching max height while holding jump and right-click, wait 4 seconds.",
+   "b": "R92",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "After stopping at max height, wait 4 seconds."
+  },
+  {
+   "item": "S159",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R110",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what plugins are installed, run `plugins list`.",
+   "b": "R224",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never install a plugin without explicit user confirmation."
+  },
+  {
+   "item": "S160",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R377",
+   "file_a": "skill_websocket_railway.md",
+   "rule_a": "When working on any Railway-deployed real-time feature, default to polling for low-frequency updates.",
+   "b": "R378",
+   "file_b": "skill_websocket_railway.md",
+   "rule_b": "When working on any Railway-deployed real-time feature, only escalate to a TCP proxy if the communication is truly bidirectional and high-frequency."
+  },
+  {
+   "item": "S161",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R62",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When adding a new sound, add its file reference, build file, copy phase entry, and group entry to the Xcode pbxproj.",
+   "b": "R84",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new level, create `game/levels/XX-name.json` config and `XX-name.c` level code containing `Init` and `CalculateBkgrndNewXY`."
+  },
+  {
+   "item": "S162",
+   "folder": "martinambrus__RDForward",
+   "a": "R30",
+   "file_a": "block-policy.md",
+   "rule_a": "When a new protocol version drops blocks, do not touch the ServerWorld coercion path.",
+   "b": "R190",
+   "file_b": "feedback_backwards_compat.md",
+   "rule_b": "If a shared method is used by multiple protocol versions, never change its behavior globally."
+  },
+  {
+   "item": "S163",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R117",
+   "file_a": "feedback_git_divergent_remote.md",
+   "rule_a": "When comparing file contents on Windows, normalize line endings to avoid CRLF vs LF differences.",
+   "b": "R223",
+   "file_b": "lessons_learned.md",
+   "rule_b": "For any file larger than about 500 lines, append content in batches with PowerShell Add-Content via the Bash tool, then verify with Get-Content."
+  },
+  {
+   "item": "S164",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R98",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks how routing works or why claude-flow picked a specific agent, run `hooks explain --task \"[topic]\"`.",
+   "b": "R109",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what rules govern claude-flow, or asks about policies or constitution, run `guidance`."
+  },
+  {
+   "item": "S165",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R329",
+   "file_a": "master-plan.md",
+   "rule_a": "If compaction fires mid-sprint, you are not required to re-research the topic.",
+   "b": "R330",
+   "file_b": "master-plan.md",
+   "rule_b": "If compaction fires mid-sprint, re-read this plan."
+  },
+  {
+   "item": "S166",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R32",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level, add all new files to the Xcode project pbxproj.",
+   "b": "R85",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new level, provide a 132x96 indexed PNG level image at `game/images/XX-levelN.png`."
+  },
+  {
+   "item": "S167",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R83",
+   "file_a": "feedback_commit_convention.md",
+   "rule_a": "Use the `fix` type for a commit that fixes a bug.",
+   "b": "R85",
+   "file_b": "feedback_commit_convention.md",
+   "rule_b": "Use the `test` type for commits that only add or fix tests."
+  },
+  {
+   "item": "S168",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R36",
+   "file_a": "ci_cd_deployment.md",
+   "rule_a": "If a deploy fails, manually rollback via the Railway dashboard.",
+   "b": "R40",
+   "file_b": "ci_cd_deployment.md",
+   "rule_b": "If a deploy breaks production, you may instead manually rollback via the Railway dashboard."
+  },
+  {
+   "item": "S169",
+   "folder": "martinambrus__RDForward",
+   "a": "R319",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Ship the rd-api client interfaces (DrawContext, ClientEvents, GameOverlay, KeyBinding, etc.) with a Fabric companion mod in rd-client that wires dispatch from RubyDungMixin hooks.",
+   "b": "R324",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Skip any task that touches a client mod loader or a client-side bridge."
+  },
+  {
+   "item": "S170",
+   "folder": "martinambrus__RDForward",
+   "a": "R51",
+   "file_a": "debugging.md",
+   "rule_a": "When a test fails during a full suite run, do not re-run the entire test suite to debug it.",
+   "b": "R202",
+   "file_b": "feedback_e2e_spawn_protection.md",
+   "rule_b": "When a new E2E test fails and the logs contain \"[SpawnProtection] Blocked\", verify that E2ETestServer writes server.properties before the server starts."
+  },
+  {
+   "item": "S171",
+   "folder": "martinambrus__RDForward",
+   "a": "R221",
+   "file_a": "feedback_restart_server.md",
+   "rule_a": "Do not start or restart the RDForward server process unless the user gives implicit or explicit permission.",
+   "b": "R232",
+   "file_b": "feedback_wait_for_confirmation.md",
+   "rule_b": "After asking the user to test something, wait for their explicit \"I tried\" or result message before checking logs."
+  },
+  {
+   "item": "S172",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R38",
+   "file_a": "feedback-fix-all-ts-errors.md",
+   "rule_a": "If any TypeScript errors exist after a build, create patches to fix them in the appropriate fork.",
+   "b": "R173",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never proactively create documentation (.md) or README files unless the user explicitly requests them."
+  },
+  {
+   "item": "S173",
+   "folder": "martinambrus__RDForward",
+   "a": "R90",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "At max height, hold jump and right-click for 5 more seconds.",
+   "b": "R91",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Stop holding jump and right-click."
+  },
+  {
+   "item": "S174",
+   "folder": "martinambrus__RDForward",
+   "a": "R197",
+   "file_a": "feedback_build_fatjar.md",
+   "rule_a": "Always run `./gradlew buildAll` before signaling that a server-side change is ready for the user to test manually.",
+   "b": "R198",
+   "file_b": "feedback_build_fatjar.md",
+   "rule_b": "Do not rely on per-module build tasks such as `:rd-bridge-bukkit:compileJava` alone to prepare a server-side change for testing, since the user launches the fat jar."
+  },
+  {
+   "item": "S175",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R86",
+   "file_a": "gene-preferences.md",
+   "rule_a": "Answer questions about claude-flow from the CLI command output.",
+   "b": "R88",
+   "file_b": "gene-preferences.md",
+   "rule_b": "If the matching CLI command does not fully answer a claude-flow question, check memory with `memory search --query \"[topic]\"`."
+  },
+  {
+   "item": "S176",
+   "folder": "martinambrus__RDForward",
+   "a": "R31",
+   "file_a": "block-policy.md",
+   "rule_a": "When a new protocol version drops blocks, drop a YAML file at `/replacements/<key>.yml`.",
+   "b": "R193",
+   "file_b": "feedback_backwards_compat.md",
+   "rule_b": "Guard new behavior behind version checks so only the targeted client type is affected."
+  },
+  {
+   "item": "S177",
+   "folder": "martinambrus__RDForward",
+   "a": "R326",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Remove the existing static singletons wholesale: CommandRegistry (rd-server/api), Scheduler, ModConfig, PermissionManager, and the ServerEvents.clearAll() pattern.",
+   "b": "R330",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Remove the Scheduler.init()/reset() lifecycle and make the scheduler a ModManager-owned instance lifecycled with the server."
+  },
+  {
+   "item": "S178",
+   "folder": "QuagKhai003__assessment",
+   "a": "R65",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Split the frontend into focused component files.",
+   "b": "R67",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Put page-specific frontend components in a colocated _components/ folder."
+  },
+  {
+   "item": "S179",
+   "folder": "martinambrus__RDForward",
+   "a": "R74",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Remove the grass block to the right.",
+   "b": "R94",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "Hold left-click until the block under your feet is grass."
+  },
+  {
+   "item": "S180",
+   "folder": "martinambrus__RDForward",
+   "a": "R159",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify both clients see the placed block by taking 2 screenshots.",
+   "b": "R237",
+   "file_b": "material-catalog.md",
+   "rule_b": "Do not conflate BED (the item, id 355) with BED_BLOCK (the placed block, id 26); treat them according to pre-Flattening semantics."
+  },
+  {
+   "item": "S181",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R47",
+   "file_a": "feedback-full-output.md",
+   "rule_a": "For all build and test commands, run them as `command 2>&1 | tee /tmp/logfile.log`.",
+   "b": "R228",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If plugin commands don't appear after installation, tell the user to run `/reload-plugins`."
+  },
+  {
+   "item": "S182",
+   "folder": "martinambrus__RDForward",
+   "a": "R89",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Verify you are at map height with cobblestone below your feet.",
+   "b": "R122",
+   "file_b": "e2e-test-plan.md",
+   "rule_b": "For Alpha clients, verify there are 64 total cobblestone in the inventory."
+  },
+  {
+   "item": "S183",
+   "folder": "QuagKhai003__assessment",
+   "a": "R49",
+   "file_a": "track-project-decisions.md",
+   "rule_a": "Every decision entry should state why, not just what.",
+   "b": "R148",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Produce TESTING.md describing what you test, what you skip, and why, plus a real test-run report."
+  },
+  {
+   "item": "S184",
+   "folder": "QuagKhai003__assessment",
+   "a": "R22",
+   "file_a": "never-commit-without-approval.md",
+   "rule_a": "Never write or commit code directly on the main or master branch.",
+   "b": "R23",
+   "file_b": "never-commit-without-approval.md",
+   "rule_b": "Check out a branch for code changes and commit there only after receiving approval."
+  },
+  {
+   "item": "S185",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R132",
+   "file_a": "feedback_learning.md",
+   "rule_a": "After any server.js change affecting routing, always verify `/api/version` returns JSON (not HTML) before declaring the deploy done.",
+   "b": "R357",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Before any production deploy, verify PostgreSQL RLS policies for FERPA compliance."
+  },
+  {
+   "item": "S186",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R63",
+   "file_a": "feedback-no-dry-run.md",
+   "rule_a": "Never use `npm run deploy:dry-run` or the `--test-only` flag.",
+   "b": "R64",
+   "file_b": "feedback-no-dry-run.md",
+   "rule_b": "Always run `npm run deploy` to execute the full deploy pipeline."
+  },
+  {
+   "item": "S187",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R27",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level and adding new objects, create or modify the sprite group file game/sprites/XX-name.json and its .png file.",
+   "b": "R103",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.c` source file in the Xcode project, set `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, and `sourceTree = SOURCE_ROOT`."
+  },
+  {
+   "item": "S188",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R179",
+   "file_a": "feedback_playwright_eaccess.md",
+   "rule_a": "When EACCESS appears during Playwright MCP use, add Windows Defender exclusions for the ms-playwright directory and the Temp/playwright-* directory under LOCALAPPDATA, using PowerShell run as Administrator.",
+   "b": "R180",
+   "file_b": "feedback_playwright_eaccess.md",
+   "rule_b": "After adding the Windows Defender exclusion, restart OpenCode."
+  },
+  {
+   "item": "S189",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R183",
+   "file_a": "feedback_playwright_eaccess.md",
+   "rule_a": "When troubleshooting EACCESS, first verify by running the Playwright chromium launch check in a PowerShell terminal outside OpenCode.",
+   "b": "R258",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Before inserting into RosarioSIS tables with foreign key constraints, verify NOT NULL columns by checking the schema first."
+  },
+  {
+   "item": "S190",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R27",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level and adding new objects, create or modify the sprite group file game/sprites/XX-name.json and its .png file.",
+   "b": "R40",
+   "file_b": "feedback_xcode_project.md",
+   "rule_b": "For .json and .png resource files under game/sprites, game/tiles, or game/images, use just the filename with sourceTree = \"<group>\" for child file references."
+  },
+  {
+   "item": "S191",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R83",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When adding a new sprite, add its PNG to `game/sprites/` and create a JSON descriptor.",
+   "b": "R85",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new level, provide a 132x96 indexed PNG level image at `game/images/XX-levelN.png`."
+  },
+  {
+   "item": "S192",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R85",
+   "file_a": "gene-preferences.md",
+   "rule_a": "Run the matching claude-flow CLI command(s) listed in the routing table.",
+   "b": "R95",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what is happening, what is running, or the current state of claude-flow, run `status`."
+  },
+  {
+   "item": "S193",
+   "folder": "martinambrus__RDForward",
+   "a": "R211",
+   "file_a": "feedback_lazy_loading.md",
+   "rule_a": "When broadcast methods dispatch to mixed-version recipients, use the recipient's codec, not the sender's codec.",
+   "b": "R370",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Broadcast methods that write to sessions of mixed versions must dispatch on the recipient's codec, not the sender's."
+  },
+  {
+   "item": "S194",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R69",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Use the `active` field on the COB to control whether an object is updated and drawn.",
+   "b": "R71",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When a sprite is fully visible, set `cob->active` to `OBJECT_ACTIVE` so the object updates and is drawn."
+  },
+  {
+   "item": "S195",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R73",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "For the OpenCode coordinator and all agents, automatically use this background-server pattern when starting servers.",
+   "b": "R74",
+   "file_b": "feedback_background_servers.md",
+   "rule_b": "After starting a background server, wait 3 seconds before proceeding."
+  },
+  {
+   "item": "S196",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R52",
+   "file_a": "feedback-never-dismiss-flaky.md",
+   "rule_a": "When a test is non-deterministic, fix the test to be deterministic (e.g., sentinel-based instead of timing-based).",
+   "b": "R67",
+   "file_b": "feedback-no-test-levels.md",
+   "rule_b": "Use plain names\u2014preflight, unit, and acceptance\u2014for all references to test levels instead of L-level labels."
+  },
+  {
+   "item": "S197",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R95",
+   "file_a": "gene-preferences.md",
+   "rule_a": "When the user asks what is happening, what is running, or the current state of claude-flow, run `status`.",
+   "b": "R96",
+   "file_b": "gene-preferences.md",
+   "rule_b": "When the user asks what claude-flow has learned, or asks about patterns or knowledge, run `neural patterns --list`."
+  },
+  {
+   "item": "S198",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R6",
+   "file_a": "TRIGGERS.md",
+   "rule_a": "When the user corrects the approach or an error is resolved non-obviously, append one line to memory/lessons_learned.md.",
+   "b": "R223",
+   "file_b": "lessons_learned.md",
+   "rule_b": "For any file larger than about 500 lines, append content in batches with PowerShell Add-Content via the Bash tool, then verify with Get-Content."
+  },
+  {
+   "item": "S199",
+   "folder": "martinambrus__RDForward",
+   "a": "R151",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Have Client 1 type \"I SEE YOU\".",
+   "b": "R193",
+   "file_b": "feedback_backwards_compat.md",
+   "rule_b": "Guard new behavior behind version checks so only the targeted client type is affected."
+  },
+  {
+   "item": "S200",
+   "folder": "QuagKhai003__assessment",
+   "a": "R34",
+   "file_a": "prefer-official-generators.md",
+   "rule_a": "Keep the files produced by the official generator.",
+   "b": "R37",
+   "file_b": "prefer-official-generators.md",
+   "rule_b": "Run the official generator with the appropriate flags."
+  }
+ ]
+}

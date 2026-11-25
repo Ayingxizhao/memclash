@@ -1,0 +1,83 @@
+{
+ "QuagKhai003__assessment": {
+  "R18": {
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+  },
+  "R19": {
+   "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing."
+  },
+  "R24": {
+   "rule": "Never delete git branches."
+  },
+  "R26": {
+   "rule": "Obtain approval before pushing to a remote, regardless of what changed."
+  },
+  "R27": {
+   "rule": "Always wait for the user's approval before making any commit."
+  },
+  "R28": {
+   "rule": "Never read, open, `cat`, or `sed` the user's `.env` file."
+  },
+  "R29": {
+   "rule": "Never edit the user's `.env` file."
+  },
+  "R71": {
+   "rule": "Never commit without an explicit user go."
+  },
+  "R72": {
+   "rule": "Never push without an explicit user go."
+  },
+  "R73": {
+   "rule": "Never delete a branch without an explicit user go."
+  },
+  "R149": {
+   "rule": "Get user approval for every commit, including documentation and code changes."
+  },
+  "R157": {
+   "rule": "Never delete a branch on your own initiative."
+  },
+  "R158": {
+   "rule": "Get approval before pushing to a remote, regardless of what changed."
+  }
+ },
+ "martinambrus__RDForward": {
+  "R219": {
+   "rule": "Only start the server when the user indicates they want it running, such as by saying \"start the server\", \"let's test it\", or \"fire it up\"."
+  },
+  "R223": {
+   "rule": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running."
+  },
+  "R386": {
+   "rule": "Always run test tasks sequentially."
+  },
+  "R387": {
+   "rule": "Wait for one test task to complete before starting the next."
+  },
+  "R393": {
+   "rule": "Do not start tests proactively."
+  },
+  "R394": {
+   "rule": "Only run tests when the user explicitly asks."
+  }
+ },
+ "sparkling__ruflo-patch": {
+  "R75": {
+   "rule": "Do not write directly to MEMORY.md, which is auto-generated from topic files."
+  },
+  "R167": {
+   "rule": "Never start Verdaccio manually; Verdaccio is managed by systemd."
+  },
+  "R173": {
+   "rule": "Never proactively create documentation (.md) or README files unless the user explicitly requests them."
+  },
+  "R179": {
+   "rule": "Never commit secrets, credentials, or .env files."
+  },
+  "R203": {
+   "rule": "Never commit .env files or any file containing secrets."
+  },
+  "R224": {
+   "rule": "Never install a plugin without explicit user confirmation."
+  }
+ }
+}

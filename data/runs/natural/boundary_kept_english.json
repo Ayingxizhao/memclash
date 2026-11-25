@@ -1,0 +1,129 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R19",
+   "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "rule": "Never delete git branches."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R26",
+   "rule": "Obtain approval before pushing to a remote, regardless of what changed."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "rule": "Always wait for the user's approval before making any commit."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R28",
+   "rule": "Never read, open, `cat`, or `sed` the user's `.env` file."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R29",
+   "rule": "Never edit the user's `.env` file."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R71",
+   "rule": "Never commit without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R72",
+   "rule": "Never push without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "rule": "Never delete a branch without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R149",
+   "rule": "Get user approval for every commit, including documentation and code changes."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R157",
+   "rule": "Never delete a branch on your own initiative."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R158",
+   "rule": "Get approval before pushing to a remote, regardless of what changed."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R219",
+   "rule": "Only start the server when the user indicates they want it running, such as by saying \"start the server\", \"let's test it\", or \"fire it up\"."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R223",
+   "rule": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "rule": "Always run test tasks sequentially."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R387",
+   "rule": "Wait for one test task to complete before starting the next."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R393",
+   "rule": "Do not start tests proactively."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R394",
+   "rule": "Only run tests when the user explicitly asks."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R75",
+   "rule": "Do not write directly to MEMORY.md, which is auto-generated from topic files."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R167",
+   "rule": "Never start Verdaccio manually; Verdaccio is managed by systemd."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R173",
+   "rule": "Never proactively create documentation (.md) or README files unless the user explicitly requests them."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R179",
+   "rule": "Never commit secrets, credentials, or .env files."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R203",
+   "rule": "Never commit .env files or any file containing secrets."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R224",
+   "rule": "Never install a plugin without explicit user confirmation."
+  }
+ ]
+}

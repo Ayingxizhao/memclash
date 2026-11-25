@@ -1,0 +1,338 @@
+{
+ "T3a": {
+  "file": "feedback_push_policy.md",
+  "rule": "Push the task branch before reporting the work complete."
+ },
+ "T15b": {
+  "file": "feedback_tag_before_delete.md",
+  "rule": "Delete a branch only after its tip has been tagged."
+ },
+ "T11a": {
+  "file": "pull_request_handoff.md",
+  "rule": "Merge every approved pull request before closing its task."
+ },
+ "R13": {
+  "file": "decisions-read-as-discussion.md",
+  "rule": "In each DECISIONS.md entry, state what the user and AI agreed or did not agree on."
+ },
+ "T10b": {
+  "file": "feedback_build_scope.md",
+  "rule": "Run builds only when the user asks, except when validating generated-file cleanup."
+ },
+ "R81": {
+  "file": "CLAUDE.md",
+  "rule": "When a real test run changes, refresh the TESTING.md count and report."
+ },
+ "R21": {
+  "file": "never-commit-without-approval.md",
+  "rule": "Commit code changes only on a dedicated branch created for that work."
+ },
+ "R15": {
+  "file": "decisions-read-as-discussion.md",
+  "rule": "In each DECISIONS.md entry, include the reason for the decision."
+ },
+ "T14b": {
+  "file": "feedback_tagged_deploys.md",
+  "rule": "Deploy hotfixes only from tagged commits on `main`."
+ },
+ "T15a": {
+  "file": "branch_cleanup.md",
+  "rule": "Delete every merged task branch before the final handoff."
+ },
+ "T10a": {
+  "file": "generated_file_cleanup.md",
+  "rule": "You may delete obsolete generated files after a successful build."
+ },
+ "T1c": {
+  "file": "CLAUDE.md",
+  "rule": "Keep release metadata outside `docs/`, except for human-readable changelogs."
+ },
+ "T11b": {
+  "file": "feedback_no_merge_commits.md",
+  "rule": "Do not use merge commits when merging pull requests."
+ },
+ "R32": {
+  "file": "prefer-official-generators.md",
+  "rule": "Scaffold projects using official generators such as create-next-app instead of hand-writing the scaffolding."
+ },
+ "R122": {
+  "file": "CLAUDE.md",
+  "rule": "Lead a comment with the block's main purpose and mention how it runs only where non-obvious."
+ },
+ "R73": {
+  "file": "CLAUDE.md",
+  "rule": "Never delete a branch without an explicit user go."
+ },
+ "R64": {
+  "file": "CLAUDE.md",
+  "rule": "Keep DECISIONS.md entries concise."
+ },
+ "R3": {
+  "file": "communication-direct-concise.md",
+  "rule": "Write in active/direct voice."
+ },
+ "R74": {
+  "file": "CLAUDE.md",
+  "rule": "Put code on its own branch."
+ },
+ "T13a": {
+  "file": "release_notes.md",
+  "rule": "Add a Markdown changelog when preparing every release."
+ },
+ "R75": {
+  "file": "CLAUDE.md",
+  "rule": "Documentation and non-code changes may be committed on the current branch."
+ },
+ "R34": {
+  "file": "prefer-official-generators.md",
+  "rule": "Keep the files produced by the official generator."
+ },
+ "R80": {
+  "file": "CLAUDE.md",
+  "rule": "Update DECISIONS.md, docs/plan.md, docs/tasks.md, and TESTING.md as part of the change, not as an afterthought."
+ },
+ "R146": {
+  "file": "CLAUDE.md",
+  "rule": "Write tests first for backend pipeline logic."
+ },
+ "T6c": {
+  "file": "audit_history.md",
+  "rule": "Preserve every commit when merging a pull request labeled `audit`."
+ },
+ "T8b": {
+  "file": "release_branch_policy.md",
+  "rule": "Delete a merged release branch only after its tip has been tagged."
+ },
+ "T13b": {
+  "file": "feedback_docs_location.md",
+  "rule": "Place every new Markdown document under `docs/`."
+ },
+ "R102": {
+  "file": "CLAUDE.md",
+  "rule": "If the text yields no characters or chapters, fail the step with a delete-this-project or start-a-new-one message."
+ },
+ "R54": {
+  "file": "work-as-coworker-copilot.md",
+  "rule": "Push back when you disagree rather than silently complying."
+ },
+ "R27": {
+  "file": "never-commit-without-approval.md",
+  "rule": "Always wait for the user's approval before making any commit."
+ },
+ "R11": {
+  "file": "decisions-read-as-discussion.md",
+  "rule": "In each DECISIONS.md entry, state who proposed the decision (e.g., \"my call\" or \"Claude proposed\")."
+ },
+ "T3b": {
+  "file": "verification_before_push.md",
+  "rule": "Push changes only after the relevant tests pass."
+ },
+ "T9a": {
+  "file": "task_completion.md",
+  "rule": "Push the working branch at the end of every completed task."
+ },
+ "R47": {
+  "file": "track-project-decisions.md",
+  "rule": "When the user pushes back or makes their own call, record the user's reasoning."
+ },
+ "R20": {
+  "file": "never-commit-without-approval.md",
+  "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch."
+ },
+ "T12b": {
+  "file": "test_order.md",
+  "rule": "Run lint only after the unit tests pass."
+ },
+ "T5c": {
+  "file": "CLAUDE.md",
+  "rule": "Do not run the build unless the user explicitly asks for it."
+ },
+ "T6b": {
+  "file": "feedback_merge_strategy.md",
+  "rule": "Use squash merging for pull requests and do not create merge commits."
+ },
+ "T3c": {
+  "file": "CLAUDE.md",
+  "rule": "Do not run the full regression suite unless the user asks, but targeted tests may be run before a push."
+ },
+ "T15c": {
+  "file": "maintenance_tags.md",
+  "rule": "Never create tags for maintenance-only changes."
+ },
+ "T7a": {
+  "file": "lint_before_commit.md",
+  "rule": "Before committing any source change, run lint and require it to pass."
+ },
+ "R10": {
+  "file": "decisions-read-as-discussion.md",
+  "rule": "Write each DECISIONS.md entry concisely and in the user's first-person voice."
+ },
+ "T4b": {
+  "file": "feedback_commit_scope.md",
+  "rule": "Never create a commit containing only documentation files."
+ },
+ "T5b": {
+  "file": "feedback_verify_deletions.md",
+  "rule": "Delete generated files only after a successful build."
+ },
+ "T2b": {
+  "file": "feedback_tagged_deploys.md",
+  "rule": "Deploy only commits that already have a release tag."
+ },
+ "T8c": {
+  "file": "feedback_no_maintenance_tags.md",
+  "rule": "Never create release tags for maintenance-only branches."
+ },
+ "T7c": {
+  "file": "feedback_commit_first.md",
+  "rule": "Run unit tests for a change only after that change has been committed."
+ },
+ "T11c": {
+  "file": "preserve_pr_history.md",
+  "rule": "Never squash or rebase an approved pull request."
+ },
+ "R62": {
+  "file": "CLAUDE.md",
+  "rule": "Write one or two paragraphs per decision covering who proposed it, the push-back, where it landed, and the trade-off."
+ },
+ "T10c": {
+  "file": "CLAUDE.md",
+  "rule": "Run a successful build immediately before deleting generated files."
+ },
+ "T1b": {
+  "file": "feedback_docs_location.md",
+  "rule": "Place all new Markdown documentation under `docs/`."
+ },
+ "T2a": {
+  "file": "hotfix_handoff.md",
+  "rule": "Deploy every completed hotfix before handing the task back."
+ },
+ "R65": {
+  "file": "CLAUDE.md",
+  "rule": "Split the frontend into focused component files."
+ },
+ "R77": {
+  "file": "CLAUDE.md",
+  "rule": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps."
+ },
+ "T9b": {
+  "file": "feedback_tests_before_push.md",
+  "rule": "Push a branch only after the full test suite passes for its current changes."
+ },
+ "T12c": {
+  "file": "feedback_precommit_tests.md",
+  "rule": "Run unit tests before committing source changes."
+ },
+ "T16b": {
+  "file": "feedback_commit_scope.md",
+  "rule": "Avoid documentation-only commits unless the task itself is documentation-only."
+ },
+ "T1a": {
+  "file": "release_notes.md",
+  "rule": "Add a Markdown changelog for every release."
+ },
+ "T14a": {
+  "file": "hotfix_handoff.md",
+  "rule": "Deploy every completed hotfix before handing the task back."
+ },
+ "T6a": {
+  "file": "pull_request_handoff.md",
+  "rule": "Merge an approved pull request before closing its task."
+ },
+ "T14c": {
+  "file": "release_tag_policy.md",
+  "rule": "After hotfix CI passes on `main`, create the release tag before deployment."
+ },
+ "R24": {
+  "file": "never-commit-without-approval.md",
+  "rule": "Never delete git branches."
+ },
+ "T5a": {
+  "file": "generated_file_cleanup.md",
+  "rule": "You may delete obsolete generated files once nothing references them."
+ },
+ "R121": {
+  "file": "CLAUDE.md",
+  "rule": "Write concise and direct comments."
+ },
+ "R156": {
+  "file": "CLAUDE.md",
+  "rule": "You may delete merged branches only after the user asks."
+ },
+ "T13c": {
+  "file": "release_metadata.md",
+  "rule": "Keep all release metadata outside `docs/`."
+ },
+ "R18": {
+  "file": "never-commit-without-approval.md",
+  "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+ },
+ "R17": {
+  "file": "decisions-read-as-discussion.md",
+  "rule": "Keep each DECISIONS.md entry concise."
+ },
+ "R50": {
+  "file": "work-as-coworker-copilot.md",
+  "rule": "On this project, act as a coworker/copilot who collaborates, not as an order-taker."
+ },
+ "T8a": {
+  "file": "branch_cleanup.md",
+  "rule": "Delete merged task branches before the final handoff."
+ },
+ "R120": {
+  "file": "CLAUDE.md",
+  "rule": "Put implementation mechanics such as locking and temp-file swapping inside the function and explain them with a short comment."
+ },
+ "T16a": {
+  "file": "documentation_handoff.md",
+  "rule": "Commit every completed documentation fix before handing the task back."
+ },
+ "R78": {
+  "file": "CLAUDE.md",
+  "rule": "Do not read or edit the user's .env file."
+ },
+ "T4c": {
+  "file": "CLAUDE.md",
+  "rule": "Never mix documentation changes with any other file type in one commit."
+ },
+ "R133": {
+  "file": "CLAUDE.md",
+  "rule": "Do not write E2E tests."
+ },
+ "T9c": {
+  "file": "CLAUDE.md",
+  "rule": "Run the full test suite only when the user explicitly requests it."
+ },
+ "T4a": {
+  "file": "documentation_handoff.md",
+  "rule": "Commit every completed documentation fix before handing the task back."
+ },
+ "R139": {
+  "file": "CLAUDE.md",
+  "rule": "Write a backend integration test for the happy path through all 5 steps using a mocked Gemini."
+ },
+ "T2c": {
+  "file": "release_tag_policy.md",
+  "rule": "Create a release tag only after the deployment succeeds."
+ },
+ "T16c": {
+  "file": "CLAUDE.md",
+  "rule": "Keep documentation changes separate from source code unless both are required by the same task."
+ },
+ "R147": {
+  "file": "CLAUDE.md",
+  "rule": "Write tests after the implementation for frontend states."
+ },
+ "R31": {
+  "file": "never-touch-user-env.md",
+  "rule": "For any env/config fix, update `.env.example` or describe the change in chat, and never touch the real `.env`."
+ },
+ "T7b": {
+  "file": "test_order.md",
+  "rule": "Run lint only after the unit tests pass."
+ },
+ "T12a": {
+  "file": "lint_before_commit.md",
+  "rule": "Commit source changes only after lint passes."
+ }
+}

@@ -1,0 +1,45 @@
+```json
+[
+  {"folder":"QuagKhai003__assessment","a":"R24","b":"R156","verdict":"exception","confidence":"high","situation":"The user asks to delete a merged branch: R156 permits it, while R24 forbids deleting any branch."},
+  {"folder":"QuagKhai003__assessment","a":"R25","b":"R156","verdict":"exception","confidence":"high","situation":"The user asks to delete a merged branch: R156 permits deletion, while R25 requires leaving merged branches in place."},
+
+  {"folder":"jamieleecho__space-bandits","a":"R6","b":"R93","verdict":"clash","confidence":"high","situation":"A nonzero CoCo 3 RGB palette channel must use both the 0/85/170/255 scale and the incompatible 0/1/2/3 scale."},
+  {"folder":"jamieleecho__space-bandits","a":"R21","b":"R73","verdict":"clash","confidence":"high","situation":"An object starts off-screen: its level JSON Active value must be 0 or 3 under R21 but exactly 1 under R73."},
+  {"folder":"jamieleecho__space-bandits","a":"R22","b":"R73","verdict":"clash","confidence":"high","situation":"An object starts off-screen: R73 requires Active=1 in level JSON, which R22 expressly forbids."},
+  {"folder":"jamieleecho__space-bandits","a":"R28","b":"R81","verdict":"clash","confidence":"high","situation":"A new C object is added with a complete level: R28 places its .c/.h files directly under game/objects, while R81 places its source inside game/objects/XX-name/."},
+  {"folder":"jamieleecho__space-bandits","a":"R77","b":"R78","verdict":"exception","confidence":"low","situation":"Performance-critical object logic is written in CMOC C under R78's permission, despite R77 limiting hot paths to a preference for assembly."},
+  {"folder":"jamieleecho__space-bandits","a":"R81","b":"R103","verdict":"clash","confidence":"high","situation":"A new object uses C source: R81 locates it inside game/objects/XX-name/, while R103 requires the Xcode source path ../game/objects/XX-name.c."},
+
+  {"folder":"martinambrus__RDForward","a":"R9","b":"R28","verdict":"clash","confidence":"high","situation":"A Beta 1.8 BlockPlacement packet's damage field must remain a byte under R9 but must be a short, not a byte, under R28."},
+  {"folder":"martinambrus__RDForward","a":"R320","b":"R324","verdict":"clash","confidence":"high","situation":"A task loads client mods through the actual Fabric Loader: R320 requires that work, while R324 requires skipping any task touching a client mod loader."},
+  {"folder":"martinambrus__RDForward","a":"R324","b":"R325","verdict":"clash","confidence":"high","situation":"A client-mod implementation task uses real Fabric: R325 requires implementing it, while R324 requires skipping the client-mod-loader task."},
+  {"folder":"martinambrus__RDForward","a":"R380","b":"R383","verdict":"exception","confidence":"low","situation":"A feature genuinely cannot be tested at one level: R383 permits reporting that omission, while R380 requires both unit and integration tests."},
+
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R65","b":"R138","verdict":"clash","confidence":"high","situation":"The prescribed pre-commit Node server is started with the exact background command in R138, which does not redirect its output to NUL as R65 requires."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R68","b":"R305","verdict":"clash","confidence":"high","situation":"A PHP/Laravel development server is started on Windows: R68 requires PowerShell Start-Process, while R305 requires Git Bash nohup or desktop-commander_start_process."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R69","b":"R138","verdict":"clash","confidence":"high","situation":"The Node/Express server used for pre-commit validation must use Start-Process under R69 but the POSIX background command under R138."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R69","b":"R305","verdict":"clash","confidence":"high","situation":"A Node development server is started on Windows: R69 requires Start-Process, while R305 requires Git Bash nohup or desktop-commander_start_process."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R71","b":"R138","verdict":"clash","confidence":"high","situation":"The exact background-server command required by R138 leaves output unredirected, while R71 requires both streams redirected to NUL."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R72","b":"R138","verdict":"clash","confidence":"high","situation":"The exact server-start command in R138 lacks the two Start-Process NUL-redirection arguments that R72 requires before every background start."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R73","b":"R138","verdict":"clash","confidence":"high","situation":"The coordinator performs R138's direct POSIX Node background start instead of the mandatory Start-Process background-server pattern required by R73."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R74","b":"R237","verdict":"clash","confidence":"high","situation":"After starting a background server, R74 requires a fixed three-second readiness wait, while R237 forbids fixed timeouts for external-service readiness."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R77","b":"R138","verdict":"clash","confidence":"high","situation":"The coordinator starts the Node server with R138's POSIX command even though R77 requires enforcing the Start-Process command."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R138","b":"R278","verdict":"clash","confidence":"high","situation":"R138's exact background Node command does not use the NUL stdout/stderr redirection required by R278."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R138","b":"R279","verdict":"clash","confidence":"high","situation":"The coordinator performs R138's unredirected Node background start while R279 requires enforcing NUL redirection for every such start."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R138","b":"R361","verdict":"clash","confidence":"high","situation":"Pre-commit validation on Windows directly runs the Node backend under R138, which R361 forbids."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R196","b":"R283","verdict":"clash","confidence":"high","situation":"PHP code is embedded in a PowerShell here-string: R196 requires a double-quoted here-string, while R283 requires a single-quoted one."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R209","b":"R212","verdict":"clash","confidence":"high","situation":"PowerShell code is invoked inline from Bash: R209 requires moving it into script.ps1, while R212 requires passing it inline through a quoted -Command argument."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R210","b":"R212","verdict":"clash","confidence":"high","situation":"An inline Bash-to-PowerShell invocation must use -File script.ps1 under R210 but a single-quoted -Command argument under R212."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R305","b":"R361","verdict":"clash","confidence":"high","situation":"A backend or frontend development server is needed on Windows: R305 requires launching the process through Git Bash or desktop-commander, while R361 forbids running it directly on Windows."},
+  {"folder":"ruddyribera-ops__CRUDDY-OPENCODE","a":"R326","b":"R335","verdict":"clash","confidence":"low","situation":"Continuation reaches the Sprint 5 mail-delivery action: R326 requires executing the listed sprint actions, while R335 requires skipping that action entirely."},
+
+  {"folder":"sparkling__ruflo-patch","a":"R1","b":"R184","verdict":"clash","confidence":"high","situation":"Project configuration is generated: R1 requires .claude-flow/config.json, while R184 requires configuration files to be placed in /config."},
+  {"folder":"sparkling__ruflo-patch","a":"R10","b":"R188","verdict":"clash","confidence":"low","situation":"The required full intelligence.cjs implementation is present as a 916-line file under R10, violating R188's 500-line maximum for every file."},
+  {"folder":"sparkling__ruflo-patch","a":"R64","b":"R65","verdict":"exception","confidence":"high","situation":"The user asks to test the pipeline with no new merges: R65 permits scripts/sync-and-build.sh --force, while R64 requires npm run deploy."},
+  {"folder":"sparkling__ruflo-patch","a":"R84","b":"R89","verdict":"exception","confidence":"high","situation":"CLI output and memory do not answer a claude-flow question: R89 permits falling back to source code, while R84 forbids reading source code to answer it."},
+  {"folder":"sparkling__ruflo-patch","a":"R118","b":"R131","verdict":"clash","confidence":"high","situation":"A clean-slate fork reset is pushed: R131 requires force-pushing the fork's main branch, which R118 forbids."},
+  {"folder":"sparkling__ruflo-patch","a":"R158","b":"R181","verdict":"clash","confidence":"high","situation":"The shared pipeline Node.js source module must be created at lib/pipeline-node.mjs under R158 but placed under /src under R181."}
+]
+```
+
+Counts: QuagKhai003__assessment=2, jamieleecho__space-bandits=6, martinambrus__RDForward=4, ruddyribera-ops__CRUDDY-OPENCODE=17, sparkling__ruflo-patch=6.

@@ -1,0 +1,434 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R19",
+   "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "rule": "Commit docs, decisions, planning, and other non-code changes on the current branch without checking out a new branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "rule": "Commit code changes only on a dedicated branch created for that work."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "rule": "Never delete git branches."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R25",
+   "rule": "Leave merged branches in place rather than removing them."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R26",
+   "rule": "Obtain approval before pushing to a remote, regardless of what changed."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "rule": "Always wait for the user's approval before making any commit."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R28",
+   "rule": "Never read, open, `cat`, or `sed` the user's `.env` file."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R29",
+   "rule": "Never edit the user's `.env` file."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R71",
+   "rule": "Never commit without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R72",
+   "rule": "Never push without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "rule": "Never delete a branch without an explicit user go."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "rule": "Documentation and non-code changes may be committed on the current branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R94",
+   "rule": "Never commit the Gemini key."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R105",
+   "rule": "Start the app with npm run dev after running npm install."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R149",
+   "rule": "Get user approval for every commit, including documentation and code changes."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R150",
+   "rule": "Stage or prepare changes, then wait for the user's go before committing."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R151",
+   "rule": "Commit documentation and non-code changes on the current branch without creating a new branch."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R155",
+   "rule": "Get explicit approval before deleting a branch, as with committing or pushing."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R156",
+   "rule": "You may delete merged branches only after the user asks."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R157",
+   "rule": "Never delete a branch on your own initiative."
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R158",
+   "rule": "Get approval before pushing to a remote, regardless of what changed."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R5",
+   "rule": "Creating a separate small PNG per sprite group is allowed."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R47",
+   "rule": "Do not regenerate PluginEvent, PluginEnableEvent, or PluginDisableEvent from the auto-stub template."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R51",
+   "rule": "When a test fails during a full suite run, do not re-run the entire test suite to debug it."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R52",
+   "rule": "When debugging a failing test, run only the specific failing test class or method rather than the whole suite."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R57",
+   "rule": "In the cross-test scenario, call setLookDirection to make the player face the other player before taking the screenshot."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R59",
+   "rule": "Stop the server before starting the test setup."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R177",
+   "rule": "Never run two concurrent Gradle test runs."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R182",
+   "rule": "Extract individual `.class` files before running CFR on them, because CFR otherwise decompiles the entire JAR."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R186",
+   "rule": "To decompile a class with CFR, extract the individual `.class` file from the client JAR and run CFR on that file."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R216",
+   "rule": "If you need a clean world for testing, ask the user to confirm before deleting."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R218",
+   "rule": "After building, do not automatically start the server."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R219",
+   "rule": "Only start the server when the user indicates they want it running, such as by saying \"start the server\", \"let's test it\", or \"fire it up\"."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R220",
+   "rule": "Do not restart the server after rebuilds unless the user indicates they want it running."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R222",
+   "rule": "After building, do not automatically start the server."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R223",
+   "rule": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R224",
+   "rule": "Do not automatically restart the server after rebuilds unless the user permits it."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R231",
+   "rule": "When waiting for the user to test something, wait for the user to explicitly confirm they have tried it before analyzing results."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R232",
+   "rule": "After asking the user to test something, wait for their explicit \"I tried\" or result message before checking logs."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R348",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R376",
+   "rule": "Do not re-install the in-game broadcast sink without explicit instruction."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R384",
+   "rule": "Run the relevant test tasks to confirm the new tests pass before committing."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R385",
+   "rule": "Never run two Gradle test suites in parallel."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "rule": "Always run test tasks sequentially."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R387",
+   "rule": "Wait for one test task to complete before starting the next."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R388",
+   "rule": "Before launching any Gradle test, always check with `ps aux | grep -E \"testCrossVersion|testLWJGL3|testModern|e2e-xv-|GradleWorker\" | grep -v grep` to verify no other test is already running."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R393",
+   "rule": "Do not start tests proactively."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R394",
+   "rule": "Only run tests when the user explicitly asks."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R23",
+   "rule": "If the tests fail, stop the deployment and notify."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R40",
+   "rule": "If a deploy breaks production, you may instead manually rollback via the Railway dashboard."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R42",
+   "rule": "If a deploy breaks production, you may run `railway rollback --to <deployment-id>` as a manual CLI rollback."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R109",
+   "rule": "If `git push` is rejected with \"remote contains work you don't have\", do not immediately run `git pull`."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R110",
+   "rule": "If `git push` is rejected with \"remote contains work you don't have\", do not immediately run `git rebase origin/BRANCH`."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R113",
+   "rule": "When handling a divergent remote, fetch instead of pulling."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R121",
+   "rule": "If you reject the remote shape and choose to force-push your history, confirm with the user first because it is destructive to shared state."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R140",
+   "rule": "Run `npm run lint` before every commit."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R154",
+   "rule": "Always sync local code with the remote before auditing code."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R176",
+   "rule": "Before changing any file, run `git fetch origin`."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R177",
+   "rule": "Before changing any file, read the actual file from the remote branch."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R322",
+   "rule": "In this session, perform planning only; do not execute sprint work in it."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R338",
+   "rule": "Before running any `docker compose` command, verify the Docker daemon is up."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R343",
+   "rule": "Before running migrations, wait for the Postgres log message \"database system is ready to accept connections\"."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R344",
+   "rule": "Review the generated Alembic migration file in alembic/versions before applying it."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R345",
+   "rule": "For a breaking migration such as a column rename or type change, always back up the database first."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R362",
+   "rule": "For schema changes, back up the database first."
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R363",
+   "rule": "For schema changes, run migrations after backing up."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R74",
+   "rule": "Never create a patch branch unless a corresponding GitHub issue exists."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R75",
+   "rule": "Do not write directly to MEMORY.md, which is auto-generated from topic files."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R81",
+   "rule": "Do not use check-patches.sh to verify patches, because it auto-reapplies patches."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R118",
+   "rule": "Never force push the fork main branch to fix version state."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R124",
+   "rule": "Never run npm unpublish to make room for new versions."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R128",
+   "rule": "For each fork, fetch upstream main before resetting it."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R129",
+   "rule": "When resetting a fork, check out the main branch first, since the repo may currently be on a sync/* branch."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R167",
+   "rule": "Never start Verdaccio manually; Verdaccio is managed by systemd."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R173",
+   "rule": "Never proactively create documentation (.md) or README files unless the user explicitly requests them."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R178",
+   "rule": "Always read a file before editing it."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R179",
+   "rule": "Never commit secrets, credentials, or .env files."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "rule": "Always verify the build succeeds before committing."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R203",
+   "rule": "Never commit .env files or any file containing secrets."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R217",
+   "rule": "Do not poll agent status after spawning agents."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R224",
+   "rule": "Never install a plugin without explicit user confirmation."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R226",
+   "rule": "Never install from the upstream `@ruflo` marketplace; use the `sparkleideas` marketplace for plugins."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R235",
+   "rule": "Never run the one-time bootstrap `claude mcp add claude-flow -- npx -y @sparkleideas/ruflo@latest`; only the user runs it, once."
+  }
+ ]
+}

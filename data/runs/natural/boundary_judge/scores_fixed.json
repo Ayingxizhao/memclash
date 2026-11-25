@@ -1,0 +1,92 @@
+{
+ "n": 143,
+ "ambiguous": [
+  "C025",
+  "C036",
+  "C045",
+  "C075",
+  "C100",
+  "C101",
+  "C122"
+ ],
+ "table": {
+  "Z3": {
+   "P": 1.0,
+   "R": 1.0,
+   "F1": 1.0,
+   "exact_set": 1.0,
+   "acc_by_category": {
+    "boundary_allowed": 1.0,
+    "boundary_violation": 1.0,
+    "history_allowed": 1.0,
+    "history_violation": 1.0,
+    "near_identical": 1.0,
+    "path_pair": 1.0
+   }
+  },
+  "deepseek": {
+   "P": 1.0,
+   "R": 1.0,
+   "F1": 1.0,
+   "exact_set": 1.0,
+   "acc_by_category": {
+    "boundary_allowed": 1.0,
+    "boundary_violation": 1.0,
+    "history_allowed": 1.0,
+    "history_violation": 1.0,
+    "near_identical": 1.0,
+    "path_pair": 1.0
+   }
+  },
+  "codex1": {
+   "P": 1.0,
+   "R": 1.0,
+   "F1": 1.0,
+   "exact_set": 1.0,
+   "acc_by_category": {
+    "boundary_allowed": 1.0,
+    "boundary_violation": 1.0,
+    "history_allowed": 1.0,
+    "history_violation": 1.0,
+    "near_identical": 1.0,
+    "path_pair": 1.0
+   }
+  },
+  "codex2": {
+   "P": 0.973,
+   "R": 1.0,
+   "F1": 0.986,
+   "exact_set": 0.986,
+   "acc_by_category": {
+    "boundary_allowed": 1.0,
+    "boundary_violation": 1.0,
+    "history_allowed": 1.0,
+    "history_violation": 1.0,
+    "near_identical": 0.917,
+    "path_pair": 1.0
+   }
+  },
+  "codex3": {
+   "P": 1.0,
+   "R": 1.0,
+   "F1": 1.0,
+   "exact_set": 1.0,
+   "acc_by_category": {
+    "boundary_allowed": 1.0,
+    "boundary_violation": 1.0,
+    "history_allowed": 1.0,
+    "history_violation": 1.0,
+    "near_identical": 1.0,
+    "path_pair": 1.0
+   }
+  },
+  "_bootstrap": {
+   "vs": "deepseek",
+   "diff_F1": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  }
+ }
+}

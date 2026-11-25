@@ -1,0 +1,434 @@
+{
+ "items": [
+  {
+   "item": "U1",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R138",
+   "file_a": "feedback_learning.md",
+   "rule_a": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server.",
+   "b": "R278",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Use `-RedirectStandardOutput NUL -RedirectStandardError NUL` to truly background servers in PowerShell."
+  },
+  {
+   "item": "U2",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R28",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "When adding a complete new level and adding new objects, create or modify the object code files game/objects/XX-name.c and .h.",
+   "b": "R81",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When adding a new object, create `game/objects/XX-name/` with a JSON descriptor and C or ASM source."
+  },
+  {
+   "item": "U3",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R118",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Never force push the fork main branch to fix version state.",
+   "b": "R131",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "Force-push the reset main branch to origin for each fork."
+  },
+  {
+   "item": "U4",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R210",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "When invoking PowerShell inline from Bash, call `powershell -File script.ps1`.",
+   "b": "R212",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "When invoking PowerShell inline from Bash, use single quotes around the whole `-Command` argument."
+  },
+  {
+   "item": "U5",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R78",
+   "file_a": "gene-debugging.md",
+   "rule_a": "After applying file patches, restart the MCP server by removing and re-adding it and starting a new session.",
+   "b": "R235",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Never run the one-time bootstrap `claude mcp add claude-flow -- npx -y @sparkleideas/ruflo@latest`; only the user runs it, once."
+  },
+  {
+   "item": "U6",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R138",
+   "file_a": "feedback_learning.md",
+   "rule_a": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server.",
+   "b": "R361",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Never run the backend or frontend directly on Windows."
+  },
+  {
+   "item": "U7",
+   "folder": "martinambrus__RDForward",
+   "a": "R324",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Skip any task that touches a client mod loader or a client-side bridge.",
+   "b": "R325",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Implement client mods through real Fabric."
+  },
+  {
+   "item": "U8",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R138",
+   "file_a": "feedback_learning.md",
+   "rule_a": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server.",
+   "b": "R279",
+   "file_b": "lessons_learned.md",
+   "rule_b": "The coordinator must enforce the NUL redirection pattern for any background server start."
+  },
+  {
+   "item": "U9",
+   "folder": "martinambrus__RDForward",
+   "a": "R380",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Both unit tests and integration tests are required.",
+   "b": "R383",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If a feature genuinely cannot be tested at one of the two levels, state that explicitly to the user when reporting completion rather than skipping silently."
+  },
+  {
+   "item": "U10",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R126",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Move forward only; do not attempt to reset or rewind published state.",
+   "b": "R144",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "Delete scripts/.last-promoted-version and scripts/.last-build-state."
+  },
+  {
+   "item": "U11",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R158",
+   "file_a": "project-bash-vs-nodejs.md",
+   "rule_a": "When the conversion is scheduled, create lib/pipeline-node.mjs containing shared Node.js pipeline utilities (logging, timing, state, git helpers, retry).",
+   "b": "R181",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Place source code files in `/src`."
+  },
+  {
+   "item": "U12",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R64",
+   "file_a": "feedback-no-dry-run.md",
+   "rule_a": "Always run `npm run deploy` to execute the full deploy pipeline.",
+   "b": "R65",
+   "file_b": "feedback-no-dry-run.md",
+   "rule_b": "When asked to test the pipeline, use `npm run deploy`, or use `bash scripts/sync-and-build.sh --force` to force a build even when there are no new merges."
+  },
+  {
+   "item": "U13",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R81",
+   "file_a": "CLAUDE.md",
+   "rule_a": "When adding a new object, create `game/objects/XX-name/` with a JSON descriptor and C or ASM source.",
+   "b": "R103",
+   "file_b": "CLAUDE.md",
+   "rule_b": "For a new `.c` source file in the Xcode project, set `explicitFileType = sourcecode.cpp.objcpp`, `fileEncoding = 4`, `path = \"../game/objects/XX-name.c\"`, and `sourceTree = SOURCE_ROOT`."
+  },
+  {
+   "item": "U14",
+   "folder": "QuagKhai003__assessment",
+   "a": "R24",
+   "file_a": "never-commit-without-approval.md",
+   "rule_a": "Never delete git branches.",
+   "b": "R156",
+   "file_b": "CLAUDE.md",
+   "rule_b": "You may delete merged branches only after the user asks."
+  },
+  {
+   "item": "U15",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R84",
+   "file_a": "gene-preferences.md",
+   "rule_a": "Do not guess, read source code, or check GitHub to answer questions about claude-flow.",
+   "b": "R89",
+   "file_b": "gene-preferences.md",
+   "rule_b": "Only after running the matching CLI command(s) and checking memory may you fall back to reading source code or docs."
+  },
+  {
+   "item": "U16",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R69",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "When starting Node/Express servers, use Start-Process with -NoNewWindow, -WindowStyle Hidden, and stdout/stderr redirected to NUL.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U17",
+   "folder": "martinambrus__RDForward",
+   "a": "R60",
+   "file_a": "e2e-test-plan.md",
+   "rule_a": "Delete all map and player data as part of pre-test setup.",
+   "b": "R213",
+   "file_b": "feedback_no_delete_world.md",
+   "rule_b": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission."
+  },
+  {
+   "item": "U18",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R65",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "Redirect a background server's output to NUL to detach the process from the shell.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U19",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R326",
+   "file_a": "master-plan.md",
+   "rule_a": "When continuing work, execute the \"Sprint Actions\" listed in the relevant sprint section.",
+   "b": "R335",
+   "file_b": "master-plan.md",
+   "rule_b": "For now, skip the Sprint 5 mail delivery guarantee and take no action on it."
+  },
+  {
+   "item": "U20",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R71",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "Always redirect both stdout and stderr to NUL when starting background servers.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U21",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R127",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Never save pipeline state before the publish succeeds.",
+   "b": "R147",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "Commit the reconciled state with the message \"Reconcile published-versions + clear state for clean-slate release\"."
+  },
+  {
+   "item": "U22",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R209",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "When invoking PowerShell inline from Bash, write the code to `script.ps1`.",
+   "b": "R212",
+   "file_b": "feedback_windows_shell.md",
+   "rule_b": "When invoking PowerShell inline from Bash, use single quotes around the whole `-Command` argument."
+  },
+  {
+   "item": "U23",
+   "folder": "QuagKhai003__assessment",
+   "a": "R25",
+   "file_a": "never-commit-without-approval.md",
+   "rule_a": "Leave merged branches in place rather than removing them.",
+   "b": "R156",
+   "file_b": "CLAUDE.md",
+   "rule_b": "You may delete merged branches only after the user asks."
+  },
+  {
+   "item": "U24",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R73",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "For the OpenCode coordinator and all agents, automatically use this background-server pattern when starting servers.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U25",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R196",
+   "file_a": "feedback_windows_shell.md",
+   "rule_a": "In PowerShell, use `@\"...\"@` here-strings instead of heredocs.",
+   "b": "R283",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Use single-quoted PowerShell here-strings for PHP code."
+  },
+  {
+   "item": "U26",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R72",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "Before starting any background server, always add `-RedirectStandardOutput NUL` and `-RedirectStandardError NUL` to the start command.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U27",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R77",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Prefer assembly for performance-critical hot paths.",
+   "b": "R78",
+   "file_b": "CLAUDE.md",
+   "rule_b": "C via CMOC is acceptable for object logic."
+  },
+  {
+   "item": "U28",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R77",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "When any agent needs to start a server, the coordinator should enforce use of the correct Start-Process command with output redirected to NUL.",
+   "b": "R138",
+   "file_b": "feedback_learning.md",
+   "rule_b": "Before committing/pushing, start the server with `PORT=3457 node server.js &`, curl `localhost:3457/` and `localhost:3457/api/version`, confirm the expected body and status, then stop the server."
+  },
+  {
+   "item": "U29",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R74",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "After starting a background server, wait 3 seconds before proceeding.",
+   "b": "R237",
+   "file_b": "lessons_learned.md",
+   "rule_b": "Never use fixed timeouts to wait for external service readiness."
+  },
+  {
+   "item": "U30",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R116",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Do not manually hack or modify pipeline state.",
+   "b": "R144",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "Delete scripts/.last-promoted-version and scripts/.last-build-state."
+  },
+  {
+   "item": "U31",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R1",
+   "file_a": "agentdb-upgrade-CLAUDE_FLOW_MEMORY_MAP.md",
+   "rule_a": "When generating project configuration, generate `.claude-flow/config.json` rather than `config.yaml`.",
+   "b": "R184",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Place configuration files in `/config`."
+  },
+  {
+   "item": "U32",
+   "folder": "QuagKhai003__assessment",
+   "a": "R77",
+   "file_a": "CLAUDE.md",
+   "rule_a": "Do not add shared constants, config, or indirection for values that are fixed requirements, such as the 2/1 image caps.",
+   "b": "R99",
+   "file_b": "CLAUDE.md",
+   "rule_b": "In both modes, cap drawn images in the backend by having resolveSelection slice to MAX_CHARACTERS or MAX_CHAPTERS."
+  },
+  {
+   "item": "U33",
+   "folder": "martinambrus__RDForward",
+   "a": "R9",
+   "file_a": "beta-protocol.md",
+   "rule_a": "For Beta BlockPlacement C2S, keep the damage field as a `byte` to preserve phantom KeepAlive compatibility.",
+   "b": "R28",
+   "file_b": "beta-protocol.md",
+   "rule_b": "For Beta 1.8 (v17) BlockPlacement, use `short damage` in `PlayerBlockPlacementPacketV17`, not `byte`."
+  },
+  {
+   "item": "U34",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R10",
+   "file_a": "agentdb-upgrade-CLAUDE_FLOW_MEMORY_MAP.md",
+   "rule_a": "When learning is not persisting, check that the full 916-line version of `intelligence.cjs` is loaded rather than the stub.",
+   "b": "R188",
+   "file_b": "CLAUDE.md",
+   "rule_b": "Keep every file under 500 lines."
+  },
+  {
+   "item": "U35",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R212",
+   "file_a": "CLAUDE.md",
+   "rule_a": "For work touching 3+ files, a new feature, or cross-module refactoring, spawn agents.",
+   "b": "R213",
+   "file_b": "CLAUDE.md",
+   "rule_b": "When in doubt about task complexity, start working directly and escalate to agents only if the scope grows."
+  },
+  {
+   "item": "U36",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R68",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "When starting PHP/Laravel servers, always use Start-Process with -NoNewWindow, -WindowStyle Hidden, and stdout/stderr redirected to NUL.",
+   "b": "R305",
+   "file_b": "lessons_learned.md",
+   "rule_b": "For dev servers on Windows, use Git Bash `nohup process &` with stdout/stderr redirected to a file, or use `desktop-commander_start_process` to manage the process lifecycle."
+  },
+  {
+   "item": "U37",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R6",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "For CoCo 3 palette channels, use only 0, 85, 170, or 255.",
+   "b": "R93",
+   "file_b": "CLAUDE.md",
+   "rule_b": "RGB channel values must be 0, 1, 2, or 3."
+  },
+  {
+   "item": "U38",
+   "folder": "sparkling__ruflo-patch",
+   "a": "R117",
+   "file_a": "pipeline-failures.md",
+   "rule_a": "Fix the pipeline code instead of manually hacking state.",
+   "b": "R144",
+   "file_b": "plan-template-clean-slate-release.md",
+   "rule_b": "Delete scripts/.last-promoted-version and scripts/.last-build-state."
+  },
+  {
+   "item": "U39",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R22",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "Do not use 1 or true for the level JSON active field.",
+   "b": "R73",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If an object starts off-screen based on `BkgrndStartX`/`BkgrndStartY`, set its `Active` value to `1` (`OBJECT_UPDATE_ACTIVE`) in the level JSON, not `3`."
+  },
+  {
+   "item": "U40",
+   "folder": "jamieleecho__space-bandits",
+   "a": "R21",
+   "file_a": "feedback_project_structure.md",
+   "rule_a": "In level JSON, set the active field to 3 for active and 0 for inactive.",
+   "b": "R73",
+   "file_b": "CLAUDE.md",
+   "rule_b": "If an object starts off-screen based on `BkgrndStartX`/`BkgrndStartY`, set its `Active` value to `1` (`OBJECT_UPDATE_ACTIVE`) in the level JSON, not `3`."
+  },
+  {
+   "item": "U41",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R69",
+   "file_a": "feedback_background_servers.md",
+   "rule_a": "When starting Node/Express servers, use Start-Process with -NoNewWindow, -WindowStyle Hidden, and stdout/stderr redirected to NUL.",
+   "b": "R305",
+   "file_b": "lessons_learned.md",
+   "rule_b": "For dev servers on Windows, use Git Bash `nohup process &` with stdout/stderr redirected to a file, or use `desktop-commander_start_process` to manage the process lifecycle."
+  },
+  {
+   "item": "U42",
+   "folder": "martinambrus__RDForward",
+   "a": "R320",
+   "file_a": "server-api-decisions.md",
+   "rule_a": "Load client mods as Fabric mods via the actual Fabric Loader, not RDForward's ModLoader.",
+   "b": "R324",
+   "file_b": "server-api-decisions.md",
+   "rule_b": "Skip any task that touches a client mod loader or a client-side bridge."
+  },
+  {
+   "item": "U43",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "a": "R305",
+   "file_a": "lessons_learned.md",
+   "rule_a": "For dev servers on Windows, use Git Bash `nohup process &` with stdout/stderr redirected to a file, or use `desktop-commander_start_process` to manage the process lifecycle.",
+   "b": "R361",
+   "file_b": "skill_docker_localdev.md",
+   "rule_b": "Never run the backend or frontend directly on Windows."
+  }
+ ]
+}

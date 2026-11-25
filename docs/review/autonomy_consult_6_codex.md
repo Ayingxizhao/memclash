@@ -1,0 +1,7 @@
+**AGREE**, with one wording tweak: use “a requirement” rather than “a rule,” since classification occurs per extracted requirement.
+
+The correction is general, mutually exclusive, and aligned with fields such as `user_confirmed`. It properly treats approval, test-passing, and similar prerequisites as limits on git/file/task actions—not merely communication.
+
+One remaining vocabulary conflict: the extraction instruction says **“Before X, do Y” is one requirement**, while `applies_when` is defined as a trigger or scope. “Before push, confirm” expresses an ordering prerequisite, not necessarily the circumstances under which confirmation applies. Clarify that prerequisites/order constraints governing an in-vocabulary action remain `translate`; copying “before push” into `applies_when` should not cause the confirmation action to become outside-vocabulary. Also consider replacing “what to say to the user” everywhere—it can wrongly exclude required notifications tied to actions, not only approvals.
+
+Recommendation: **first re-check the pilot exactly once (~$0.07), then refresh the preregistration fingerprint and run frozen evaluation once**. This is a material classification change, and the cheap pilot provides a clean pipeline sanity check before consuming the frozen evaluation. Precommit now that pilot results will not prompt further development, except correcting an unmistakable execution/formatting failure.

@@ -1,0 +1,8 @@
+{"note": "Natural 951-pair set. Adjudicated by Claude (non-blind screen of all 84 rules) against the blind Codex screen and the survey's known-clash list. Pairs not listed are compatible. Ambiguous pairs are excluded from both found and false-alarm counts.",
+ "pairs": [
+  {"folder": "QuagKhai003__assessment", "a": "R24", "b": "R156", "label": "clash", "why": "never delete branches vs may delete merged branches after the user asks (exception)"},
+  {"folder": "martinambrus__RDForward", "a": "R60", "b": "R213", "label": "clash", "why": "pre-test setup deletes map/player data vs never delete world save files without permission"},
+  {"folder": "sparkling__ruflo-patch", "a": "R118", "b": "R131", "label": "clash", "why": "never force push fork main vs force-push reset main for each fork"},
+  {"folder": "jamieleecho__space-bandits", "a": "R28", "b": "R81", "label": "ambiguous", "why": "flat object .c/.h files vs an object folder; both can be created, but they describe different layouts"},
+  {"folder": "QuagKhai003__assessment", "a": "R133", "b": "R139", "label": "ambiguous", "why": "no E2E tests vs a backend integration test through all 5 steps (is that E2E?)"}
+ ]}

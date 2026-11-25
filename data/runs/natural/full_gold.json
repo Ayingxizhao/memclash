@@ -1,0 +1,439 @@
+{
+ "note": "Final label: agreed label of blind Codex and non-blind Claude; disagreement -> ambiguous. in_vocab: both say true. type / z3_expressible: Claude's coding (one primary type; expressible = the current git/file/task vocabulary could state both rules).",
+ "pairs": [
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R138|R278",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "jamieleecho__space-bandits|R28|R81",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "file_layout",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R118|R131",
+   "label": "clash",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex",
+    "deepseek"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": true
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R210|R212",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R78|R235",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R138|R361",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "martinambrus__RDForward|R324|R325",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R138|R279",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "martinambrus__RDForward|R380|R383",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "scope_refinement",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R126|R144",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": true
+  },
+  {
+   "key": "sparkling__ruflo-patch|R158|R181",
+   "label": "clash",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "file_layout",
+   "z3_expressible": true
+  },
+  {
+   "key": "sparkling__ruflo-patch|R64|R65",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "permission_vs_prohibition",
+   "z3_expressible": true
+  },
+  {
+   "key": "jamieleecho__space-bandits|R81|R103",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "file_layout",
+   "z3_expressible": false
+  },
+  {
+   "key": "QuagKhai003__assessment|R24|R156",
+   "label": "clash",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex",
+    "deepseek"
+   ],
+   "type": "permission_vs_prohibition",
+   "z3_expressible": true
+  },
+  {
+   "key": "sparkling__ruflo-patch|R84|R89",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex",
+    "deepseek"
+   ],
+   "type": "permission_vs_prohibition",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R69|R138",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "martinambrus__RDForward|R60|R213",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "known"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R65|R138",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R326|R335",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R71|R138",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R127|R147",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": true
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R209|R212",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "QuagKhai003__assessment|R25|R156",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex",
+    "deepseek"
+   ],
+   "type": "permission_vs_prohibition",
+   "z3_expressible": true
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R73|R138",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R196|R283",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R72|R138",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "jamieleecho__space-bandits|R77|R78",
+   "label": "compatible",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "code_style",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R77|R138",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R74|R237",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R116|R144",
+   "label": "clash",
+   "in_vocab": true,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": true
+  },
+  {
+   "key": "sparkling__ruflo-patch|R1|R184",
+   "label": "clash",
+   "in_vocab": true,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "file_layout",
+   "z3_expressible": true
+  },
+  {
+   "key": "QuagKhai003__assessment|R77|R99",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "code_style",
+   "z3_expressible": false
+  },
+  {
+   "key": "martinambrus__RDForward|R9|R28",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "value",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R10|R188",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "value",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R212|R213",
+   "label": "compatible",
+   "in_vocab": false,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "scope_refinement",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R68|R305",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "jamieleecho__space-bandits|R6|R93",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "value",
+   "z3_expressible": false
+  },
+  {
+   "key": "sparkling__ruflo-patch|R117|R144",
+   "label": "ambiguous",
+   "in_vocab": true,
+   "flagged_by": [
+    "deepseek"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": true
+  },
+  {
+   "key": "jamieleecho__space-bandits|R22|R73",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "value",
+   "z3_expressible": false
+  },
+  {
+   "key": "jamieleecho__space-bandits|R21|R73",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "value",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R69|R305",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  },
+  {
+   "key": "martinambrus__RDForward|R320|R324",
+   "label": "clash",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "plan_vs_rule",
+   "z3_expressible": false
+  },
+  {
+   "key": "ruddyribera-ops__CRUDDY-OPENCODE|R305|R361",
+   "label": "ambiguous",
+   "in_vocab": false,
+   "flagged_by": [
+    "codex"
+   ],
+   "type": "tool_or_command",
+   "z3_expressible": false
+  }
+ ]
+}

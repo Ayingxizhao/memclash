@@ -1,0 +1,10425 @@
+{
+ "how": "Pull real situation shapes out of local Claude Code session logs (no contents kept).",
+ "n_calls": 1156,
+ "situations": [
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 16
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 15
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 15
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 14
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 12
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 10
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 10
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 8
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 8
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "branch_create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 8
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "push:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 8
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 7
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 6
+  },
+  {
+   "action": "read",
+   "earlier": [],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 6
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 6
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 5
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 5
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 5
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 5
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": false,
+   "count": 5
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 5
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 5
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 5
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 5
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "data",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 4
+  },
+  {
+   "action": "create",
+   "earlier": [],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "start_server:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "checkout:ok",
+    "branch_create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "commit:ok",
+    "commit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 3
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 3
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "create:failed"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": false,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "checkout:ok",
+    "checkout:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "install:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:failed"
+   ],
+   "ok": false,
+   "path_kind": "docs",
+   "rejected": true,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "delete",
+   "earlier": [],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "branch_create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "checkout:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "push:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "edit:ok",
+    "commit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "commit:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "commit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 2
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "install:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "start_server",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "start_server:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "start_server:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "start_server:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": false,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:failed",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "start_server",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "start_server:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:ok",
+    "start_server:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "start_server:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "start_server:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "data",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "deploy",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "deploy:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "deploy:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "deploy:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "edit:ok"
+   ],
+   "ok": false,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "edit:ok",
+    "create:failed"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "create:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "deploy",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "deploy:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "deploy:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "deploy:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "deploy",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "deploy:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:ok",
+    "stage:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "stage:ok",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "commit:ok",
+    "push:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "push:ok",
+    "install:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "push:ok",
+    "install:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "push:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "push:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "restart:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "restart:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "stash:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "stash:ok",
+    "stash:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "stash:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "merge",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "merge:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "merge:failed",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "merge:failed",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "force_push",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "commit:ok",
+    "push:ok",
+    "force_push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "push:ok",
+    "force_push:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "force_push:ok",
+    "restart:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:ok",
+    "checkout:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "checkout:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "install:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "push:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "push:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "checkout:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "test:ok",
+    "checkout:failed",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "checkout:failed",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "commit:ok",
+    "push:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "push:ok",
+    "checkout:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "checkout:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "commit:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": false,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "read:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "read:failed",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:failed",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "read:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "lint",
+   "earlier": [
+    "commit:ok",
+    "push:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "push:ok",
+    "checkout:ok",
+    "lint:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "checkout:ok",
+    "lint:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "lint:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "build:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "commit:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:failed"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "build:failed",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:failed",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "commit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "commit:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "commit:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "commit:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "read:failed",
+    "read:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:failed",
+    "read:failed",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:failed",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "read:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "start_server",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "start_server:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "start_server:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "commit:ok",
+    "restart:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "restart:ok",
+    "checkout:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "checkout:ok",
+    "checkout:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "checkout:ok",
+    "checkout:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "checkout:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "format",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "delete:ok",
+    "format:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "format:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "format",
+   "earlier": [
+    "format:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "format:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "format:ok",
+    "test:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "format:ok",
+    "test:failed",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:failed",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "stash:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "stash:ok",
+    "stash:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "stash:ok",
+    "commit:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "commit:ok",
+    "stash:ok",
+    "build:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "format",
+   "earlier": [
+    "stash:ok",
+    "build:ok",
+    "restart:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "restart:failed",
+    "format:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:failed",
+    "format:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "format:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "edit:ok",
+    "checkout:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "checkout:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:ok",
+    "checkout:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "checkout:ok",
+    "delete:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "delete:ok",
+    "commit:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "commit:ok",
+    "checkout:ok",
+    "restart:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "checkout:ok",
+    "restart:ok",
+    "restart:failed"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "test:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "delete:ok",
+    "test:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "stage:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "stage:ok",
+    "push:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "push:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "restart:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "restart:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "data",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "data",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:failed"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": true,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "delete:failed",
+    "delete:failed"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:failed",
+    "delete:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:failed",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "delete:ok",
+    "install:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "install:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "read:ok"
+   ],
+   "ok": false,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:ok",
+    "build:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "stage:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "stage:ok",
+    "stage:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "stage:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "edit:ok",
+    "stage:ok",
+    "stage:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:ok",
+    "stage:failed",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:failed",
+    "stage:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "stage:ok",
+    "stage:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "stage:ok",
+    "stage:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "stage:ok",
+    "edit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "edit:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "merge",
+   "earlier": [
+    "delete:ok",
+    "stage:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "stage:ok",
+    "stage:ok",
+    "merge:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "stage:ok",
+    "merge:ok",
+    "commit:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "merge:ok",
+    "commit:ok",
+    "checkout:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "commit:ok",
+    "checkout:failed",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "checkout:failed",
+    "checkout:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "merge",
+   "earlier": [
+    "checkout:ok",
+    "stage:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "stage:ok",
+    "stage:ok",
+    "merge:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "stage:ok",
+    "merge:ok",
+    "read:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "merge:ok",
+    "read:ok",
+    "stage:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "branch_create",
+   "earlier": [
+    "read:ok",
+    "stage:failed",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "stage:failed",
+    "checkout:ok",
+    "branch_create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "merge",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "merge:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "merge:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "merge:ok",
+    "push:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "push:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "checkout:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "checkout:ok",
+    "build:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "checkout:ok",
+    "build:failed",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:failed",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "checkout:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "checkout:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "branch_create",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "push:ok",
+    "branch_create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "branch_create:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": false,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:failed"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "edit:ok",
+    "edit:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "branch_delete",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "branch_create",
+   "earlier": [
+    "edit:ok",
+    "push:ok",
+    "branch_delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "push:ok",
+    "branch_delete:ok",
+    "branch_create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "branch_delete:ok",
+    "branch_create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "create:ok",
+    "checkout:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "branch_create",
+   "earlier": [
+    "checkout:ok",
+    "commit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "checkout",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "checkout:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "checkout:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "checkout:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "stage:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "stage:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "edit:ok",
+    "stage:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "install:failed"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "install:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "delete:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "install:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "install:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "install:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "install:ok",
+    "delete:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "push:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "format",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "format:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "format:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "format:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "read:ok",
+    "build:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "build:ok",
+    "edit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "commit:ok",
+    "delete:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "delete:ok",
+    "commit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "commit:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "commit:ok",
+    "build:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "commit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "commit:ok",
+    "commit:ok",
+    "test:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "test:ok",
+    "test:failed"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "test:ok",
+    "test:failed"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "test:failed",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "stash",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "stash:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "restart:ok",
+    "stash:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "stash:ok",
+    "commit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "commit:ok",
+    "commit:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "restart:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "commit:ok",
+    "restart:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "restart:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "commit:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "commit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": false,
+   "path_kind": "docs",
+   "rejected": true,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "read:failed"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "read:failed",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:failed",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "commit",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "commit:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "stage:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "stage:ok",
+    "restart:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "restart:ok",
+    "read:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "stage",
+   "earlier": [
+    "read:ok",
+    "restart:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "restart:ok",
+    "read:ok",
+    "stage:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "stage:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "stage:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "config",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "format",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "format:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "format:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "format:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "test:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "push",
+   "earlier": [
+    "create:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "push:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "push:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "push:ok",
+    "build:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "build:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "delete:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "delete:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "create:ok",
+    "test:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "test:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "restart:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "restart:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "edit:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "build:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "test:ok",
+    "read:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "test:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "edit:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "test",
+   "earlier": [
+    "read:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "edit:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "edit:ok",
+    "test:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "test:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "edit",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "edit:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "restart",
+   "earlier": [
+    "edit:ok",
+    "create:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "create:ok",
+    "restart:ok",
+    "restart:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "restart:ok",
+    "restart:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "build",
+   "earlier": [
+    "restart:ok",
+    "build:ok",
+    "build:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "build:ok",
+    "build:ok",
+    "create:ok"
+   ],
+   "ok": true,
+   "path_kind": "test",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "create",
+   "earlier": [
+    "create:ok",
+    "create:ok",
+    "test:ok"
+   ],
+   "ok": true,
+   "path_kind": "code",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "install",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "delete:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": false,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "delete:ok",
+    "install:ok"
+   ],
+   "ok": true,
+   "path_kind": "docs",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:ok",
+    "install:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "install:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "create:ok"
+   ],
+   "ok": false,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "read:ok",
+    "create:ok",
+    "delete:failed"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "create:ok",
+    "delete:failed",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "read",
+   "earlier": [
+    "delete:failed",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": "other",
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  },
+  {
+   "action": "delete",
+   "earlier": [
+    "read:ok",
+    "read:ok",
+    "read:ok"
+   ],
+   "ok": true,
+   "path_kind": null,
+   "rejected": false,
+   "user_asked": true,
+   "count": 1
+  }
+ ]
+}

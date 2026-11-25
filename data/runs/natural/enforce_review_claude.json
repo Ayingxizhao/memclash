@@ -1,0 +1,206 @@
+{
+ "rules": [
+  {
+   "id": "R18",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "commit needs user confirmation"
+  },
+  {
+   "id": "R20",
+   "translation_ok": false,
+   "fixed": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "clarified_rule": "",
+   "note": "never branch_create is unconditional; docs vs code is a file group the vocabulary lacks"
+  },
+  {
+   "id": "R21",
+   "translation_ok": false,
+   "fixed": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "clarified_rule": "",
+   "note": "'code changes' has no pattern; clause would also gate doc commits"
+  },
+  {
+   "id": "R24",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "never delete any branch"
+  },
+  {
+   "id": "R27",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "same as R18"
+  },
+  {
+   "id": "R73",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "branch delete needs confirmation"
+  },
+  {
+   "id": "R74",
+   "translation_ok": false,
+   "fixed": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": null
+   },
+   "clarified_rule": "",
+   "note": "unconditional must branch_create; 'code' has no pattern"
+  },
+  {
+   "id": "R75",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "permission only; blocks nothing"
+  },
+  {
+   "id": "R78",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": ".env read and edit forbidden"
+  },
+  {
+   "id": "R146",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "test-first order of writing is not one action"
+  },
+  {
+   "id": "R147",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "same; unclear/not in scope either way"
+  },
+  {
+   "id": "R224",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "restart after build needs confirmation"
+  },
+  {
+   "id": "R386",
+   "translation_ok": false,
+   "fixed": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "clarified_rule": "",
+   "note": "sequential = never start tests while tests run (running field)"
+  },
+  {
+   "id": "R213",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "'or similar' unknown files cannot be listed; named files are right"
+  },
+  {
+   "id": "R217",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "start and restart need permission"
+  },
+  {
+   "id": "R363",
+   "translation_ok": false,
+   "fixed": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "migrate"
+      },
+      "needs": {
+       "after": [
+        "run"
+       ],
+       "after_task": "other:back up the database"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "clarified_rule": "",
+   "note": "invalid output; migrations need an earlier database backup"
+  },
+  {
+   "id": "R273",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "Excel header detection not a vocabulary action"
+  },
+  {
+   "id": "R362",
+   "translation_ok": false,
+   "fixed": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "run"
+       ],
+       "task": "migrate"
+      },
+      "needs": {
+       "after": [
+        "run"
+       ],
+       "after_task": "other:back up the database"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "clarified_rule": "",
+   "note": "must_do cannot judge an action; migrating without backup breaks it"
+  },
+  {
+   "id": "R194",
+   "translation_ok": true,
+   "fixed": null,
+   "clarified_rule": "",
+   "note": "commit needs an earlier successful build"
+  }
+ ]
+}

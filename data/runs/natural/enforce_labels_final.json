@@ -1,0 +1,416 @@
+{
+ "how": "Claude and Codex labelled independently (prompt prompts/review/enforce_label.md); agreed on all 76; user approved 2026-11-24.",
+ "borderline": {
+  "ids": [
+   "A02",
+   "A19",
+   "A36",
+   "A41",
+   "A58",
+   "A71"
+  ],
+  "why": "Claude marked unsure; Codex sure with the same answer"
+ },
+ "labels": [
+  {
+   "id": "A01",
+   "breaks": []
+  },
+  {
+   "id": "A02",
+   "breaks": []
+  },
+  {
+   "id": "A03",
+   "breaks": [
+    "R18",
+    "R27"
+   ]
+  },
+  {
+   "id": "A04",
+   "breaks": []
+  },
+  {
+   "id": "A05",
+   "breaks": [
+    "R20"
+   ]
+  },
+  {
+   "id": "A06",
+   "breaks": [
+    "R273"
+   ]
+  },
+  {
+   "id": "A07",
+   "breaks": [
+    "R21",
+    "R74"
+   ]
+  },
+  {
+   "id": "A08",
+   "breaks": []
+  },
+  {
+   "id": "A09",
+   "breaks": []
+  },
+  {
+   "id": "A10",
+   "breaks": [
+    "R18",
+    "R27"
+   ]
+  },
+  {
+   "id": "A11",
+   "breaks": []
+  },
+  {
+   "id": "A12",
+   "breaks": [
+    "R273"
+   ]
+  },
+  {
+   "id": "A13",
+   "breaks": []
+  },
+  {
+   "id": "A14",
+   "breaks": [
+    "R21",
+    "R74"
+   ]
+  },
+  {
+   "id": "A15",
+   "breaks": [
+    "R20"
+   ]
+  },
+  {
+   "id": "A16",
+   "breaks": []
+  },
+  {
+   "id": "A17",
+   "breaks": []
+  },
+  {
+   "id": "A18",
+   "breaks": [
+    "R224",
+    "R217"
+   ]
+  },
+  {
+   "id": "A19",
+   "breaks": []
+  },
+  {
+   "id": "A20",
+   "breaks": []
+  },
+  {
+   "id": "A21",
+   "breaks": [
+    "R213"
+   ]
+  },
+  {
+   "id": "A22",
+   "breaks": []
+  },
+  {
+   "id": "A23",
+   "breaks": []
+  },
+  {
+   "id": "A24",
+   "breaks": []
+  },
+  {
+   "id": "A25",
+   "breaks": [
+    "R24",
+    "R73"
+   ]
+  },
+  {
+   "id": "A26",
+   "breaks": [
+    "R217"
+   ]
+  },
+  {
+   "id": "A27",
+   "breaks": []
+  },
+  {
+   "id": "A28",
+   "breaks": [
+    "R20"
+   ]
+  },
+  {
+   "id": "A29",
+   "breaks": []
+  },
+  {
+   "id": "A30",
+   "breaks": [
+    "R24"
+   ]
+  },
+  {
+   "id": "A31",
+   "breaks": [
+    "R18",
+    "R27",
+    "R21",
+    "R74"
+   ]
+  },
+  {
+   "id": "A32",
+   "breaks": [
+    "R78",
+    "R31"
+   ]
+  },
+  {
+   "id": "A33",
+   "breaks": []
+  },
+  {
+   "id": "A34",
+   "breaks": [
+    "R147"
+   ]
+  },
+  {
+   "id": "A35",
+   "breaks": [
+    "R24"
+   ]
+  },
+  {
+   "id": "A36",
+   "breaks": [
+    "R78"
+   ]
+  },
+  {
+   "id": "A37",
+   "breaks": []
+  },
+  {
+   "id": "A38",
+   "breaks": []
+  },
+  {
+   "id": "A39",
+   "breaks": []
+  },
+  {
+   "id": "A40",
+   "breaks": [
+    "R386"
+   ]
+  },
+  {
+   "id": "A41",
+   "breaks": []
+  },
+  {
+   "id": "A42",
+   "breaks": [
+    "R363",
+    "R362"
+   ]
+  },
+  {
+   "id": "A43",
+   "breaks": []
+  },
+  {
+   "id": "A44",
+   "breaks": [
+    "R21",
+    "R74"
+   ]
+  },
+  {
+   "id": "A45",
+   "breaks": []
+  },
+  {
+   "id": "A46",
+   "breaks": [
+    "R146"
+   ]
+  },
+  {
+   "id": "A47",
+   "breaks": []
+  },
+  {
+   "id": "A48",
+   "breaks": [
+    "R18",
+    "R27"
+   ]
+  },
+  {
+   "id": "A49",
+   "breaks": [
+    "R24",
+    "R73"
+   ]
+  },
+  {
+   "id": "A50",
+   "breaks": []
+  },
+  {
+   "id": "A51",
+   "breaks": [
+    "R386"
+   ]
+  },
+  {
+   "id": "A52",
+   "breaks": []
+  },
+  {
+   "id": "A53",
+   "breaks": []
+  },
+  {
+   "id": "A54",
+   "breaks": [
+    "R146"
+   ]
+  },
+  {
+   "id": "A55",
+   "breaks": []
+  },
+  {
+   "id": "A56",
+   "breaks": []
+  },
+  {
+   "id": "A57",
+   "breaks": [
+    "R194"
+   ]
+  },
+  {
+   "id": "A58",
+   "breaks": [
+    "R213"
+   ]
+  },
+  {
+   "id": "A59",
+   "breaks": []
+  },
+  {
+   "id": "A60",
+   "breaks": [
+    "R217"
+   ]
+  },
+  {
+   "id": "A61",
+   "breaks": [
+    "R362"
+   ]
+  },
+  {
+   "id": "A62",
+   "breaks": [
+    "R363",
+    "R362"
+   ]
+  },
+  {
+   "id": "A63",
+   "breaks": []
+  },
+  {
+   "id": "A64",
+   "breaks": [
+    "R194"
+   ]
+  },
+  {
+   "id": "A65",
+   "breaks": [
+    "R24",
+    "R73"
+   ]
+  },
+  {
+   "id": "A66",
+   "breaks": []
+  },
+  {
+   "id": "A67",
+   "breaks": [
+    "R21",
+    "R74"
+   ]
+  },
+  {
+   "id": "A68",
+   "breaks": []
+  },
+  {
+   "id": "A69",
+   "breaks": [
+    "R224",
+    "R217"
+   ]
+  },
+  {
+   "id": "A70",
+   "breaks": []
+  },
+  {
+   "id": "A71",
+   "breaks": [
+    "R147"
+   ]
+  },
+  {
+   "id": "A72",
+   "breaks": []
+  },
+  {
+   "id": "A73",
+   "breaks": [
+    "R20"
+   ]
+  },
+  {
+   "id": "A74",
+   "breaks": []
+  },
+  {
+   "id": "A75",
+   "breaks": []
+  },
+  {
+   "id": "A76",
+   "breaks": [
+    "R362"
+   ]
+  }
+ ]
+}

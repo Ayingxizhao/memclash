@@ -1,0 +1,38 @@
+{
+ "pairs": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "a": "R24",
+   "b": "R156",
+   "verdict": "exception",
+   "situation": "The user asks to delete a merged branch; R156 permits deleting it, while R24 forbids deleting any git branch."
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "a": "R60",
+   "b": "R213",
+   "verdict": "clash",
+   "situation": "During pre-test setup, deleting all map and player data includes world save files while the user has not given explicit permission to delete them."
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "a": "R28",
+   "b": "R81",
+   "verdict": "clash",
+   "situation": "Adding a new object as part of a complete new level: R28 requires flat game/objects/XX-name.c and .h files, while R81 requires a game/objects/XX-name/ directory with a JSON descriptor and C or ASM source."
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "a": "R118",
+   "b": "R131",
+   "verdict": "clash",
+   "situation": "When resetting a fork's main branch to fix version state, R118 forbids force-pushing fork main while R131 requires force-pushing the reset main branch to origin."
+  }
+ ],
+ "usage": {
+  "calls": 5,
+  "cached": 0,
+  "prompt_tokens": 3722,
+  "completion_tokens": 40730
+ }
+}

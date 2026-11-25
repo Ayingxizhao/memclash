@@ -1,0 +1,2476 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1a",
+   "file": "release_notes.md",
+   "rule": "Add a Markdown changelog for every release.",
+   "runs": [
+    {
+     "status": "unclear",
+     "word": "add",
+     "reason": "\"add\" could mean create a new changelog file or edit an existing one",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Add a Markdown changelog",
+       "applies_when": "for every release",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "release"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "unclear_word",
+        "word": "add"
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1b",
+   "file": "feedback_docs_location.md",
+   "rule": "Place all new Markdown documentation under `docs/`.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "new Markdown documentation must be created under docs/",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "create"
+        ],
+        "path": [
+         "docs/"
+        ],
+        "kind": "dir"
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Place all new Markdown documentation under `docs/`.",
+       "applies_when": "all new Markdown documentation",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1c",
+   "file": "CLAUDE.md",
+   "rule": "Keep release metadata outside `docs/`, except for human-readable changelogs.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: \"release metadata\" and \"human-readable changelogs\" are named groups, not paths",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep release metadata outside `docs/`",
+       "applies_when": "except for human-readable changelogs",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "except for human-readable changelogs",
+       "applies_when": "Keep release metadata outside `docs/`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       },
+       {
+        "req": "r2",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2a",
+   "file": "hotfix_handoff.md",
+   "rule": "Deploy every completed hotfix before handing the task back.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "deploy must happen before handoff; handoff has no action word",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "deploy"
+       },
+       "when_unmodeled": "before handing the task back"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "deploy-before-handoff",
+       "quote": "Deploy every completed hotfix before handing the task back.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "deploy-before-handoff"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2b",
+   "file": "feedback_tagged_deploys.md",
+   "rule": "Deploy only commits that already have a release tag.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "deploy is allowed only for commits that carry a release tag; tag condition cannot be modeled",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "deploy"
+       },
+       "needs": {
+        "after": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "the commit already has a release tag"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Deploy only commits that already have a release tag.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2c",
+   "file": "release_tag_policy.md",
+   "rule": "Create a release tag only after the deployment succeeds.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: creating a release tag has no word in the action vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Create a release tag only after the deployment succeeds.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3a",
+   "file": "feedback_push_policy.md",
+   "rule": "Push the task branch before reporting the work complete.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "push the task branch as part of finishing the work",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "push_branch"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "push-task-branch-before-complete",
+       "quote": "Push the task branch before reporting the work complete.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "push-task-branch-before-complete"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3b",
+   "file": "verification_before_push.md",
+   "rule": "Push changes only after the relevant tests pass.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "do X only after Y passes",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "push"
+        ]
+       },
+       "needs": {
+        "tests_passed": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Push changes only after the relevant tests pass.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3c",
+   "file": "CLAUDE.md",
+   "rule": "Do not run the full regression suite unless the user asks, but targeted tests may be run before a push.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "full suite only on user request; targeted tests allowed around pushes",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "test",
+        "suite": "all"
+       },
+       "needs": {
+        "user_asked": true
+       }
+      },
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "test"
+       },
+       "when_unmodeled": "before a push"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Do not run the full regression suite unless the user asks",
+       "applies_when": "unless the user asks",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "2",
+       "quote": "targeted tests may be run before a push",
+       "applies_when": "before a push",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "but"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1",
+       "2"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true,
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4a",
+   "file": "documentation_handoff.md",
+   "rule": "Commit every completed documentation fix before handing the task back.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit before handing the task back",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "before handing the task back"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit every completed documentation fix before handing the task back.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4b",
+   "file": "feedback_commit_scope.md",
+   "rule": "Never create a commit containing only documentation files.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "never create a commit limited to documentation files",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "the commit contains only documentation files"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never create a commit containing only documentation files.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4c",
+   "file": "CLAUDE.md",
+   "rule": "Never mix documentation changes with any other file type in one commit.",
+   "runs": [
+    {
+     "status": "unclear",
+     "word": "change",
+     "reason": "\"documentation changes\" and \"any other file type\" name no path, and \"change\" could mean edits or any file action",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never mix documentation changes with any other file type in one commit.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "unclear_word",
+        "word": "change"
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5a",
+   "file": "generated_file_cleanup.md",
+   "rule": "You may delete obsolete generated files once nothing references them.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "\"you may delete ... once nothing references them\" is one permission clause; the file group has no path.",
+     "clauses": [
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "delete"
+        ]
+       },
+       "when_unmodeled": "once nothing references them"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "delete-obsolete-generated-files",
+       "quote": "You may delete obsolete generated files once nothing references them",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "delete-obsolete-generated-files"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5b",
+   "file": "feedback_verify_deletions.md",
+   "rule": "Delete generated files only after a successful build.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "delete only if a build already succeeded",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "delete"
+        ]
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "build",
+        "after_ok": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Delete generated files only after a successful build.",
+       "applies_when": "only after a successful build",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5c",
+   "file": "CLAUDE.md",
+   "rule": "Do not run the build unless the user explicitly asks for it.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "running the build requires the user to ask explicitly",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "build"
+       },
+       "needs": {
+        "user_asked": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Do not run the build unless the user explicitly asks for it.",
+       "applies_when": "unless the user explicitly asks for it",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6a",
+   "file": "pull_request_handoff.md",
+   "rule": "Merge an approved pull request before closing its task.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "do merge on an approved pull request, before the task is closed",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "pr_merge"
+        ],
+        "user_confirmed": true
+       },
+       "when_unmodeled": "before closing its task"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "merge-before-close",
+       "quote": "Merge an approved pull request before closing its task.",
+       "applies_when": "an approved pull request",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "merge-before-close"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6b",
+   "file": "feedback_merge_strategy.md",
+   "rule": "Use squash merging for pull requests and do not create merge commits.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "squash-merge PRs and never create merge commits",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "pr_merge"
+        ]
+       },
+       "when_unmodeled": "squash merge (squash is the merge mode, not a separate action)"
+      },
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "merge"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Use squash merging for pull requests",
+       "applies_when": "for pull requests",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "2",
+       "quote": "do not create merge commits",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1",
+       "2"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true,
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6c",
+   "file": "audit_history.md",
+   "rule": "Preserve every commit when merging a pull request labeled `audit`.",
+   "runs": [
+    {
+     "status": "invalid_output",
+     "step": 2,
+     "errors": [
+      "clauses/0/needs: {'cmd': ['merge']} should not be valid under {'required': ['cmd']}"
+     ],
+     "answer": {
+      "status": "ok",
+      "word": "",
+      "reason": "merge a labeled PR only if the merge keeps every commit (no squash)",
+      "clauses": [
+       {
+        "req": "r1",
+        "scope_encoded": false,
+        "type": "only_if",
+        "where": {
+         "cmd": [
+          "pr_merge"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "needs": {
+         "cmd": [
+          "merge"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "when_unmodeled": "pull request labeled `audit`; every commit must be preserved rather than squashed"
+       }
+      ],
+      "left_out": []
+     },
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Preserve every commit when merging a pull request labeled `audit`.",
+       "applies_when": "when merging a pull request labeled `audit`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7a",
+   "file": "lint_before_commit.md",
+   "rule": "Before committing any source change, run lint and require it to pass.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit only after a passing lint run",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "lint",
+        "after_ok": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Before committing any source change, run lint and require it to pass.",
+       "applies_when": "Before committing any source change",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7b",
+   "file": "test_order.md",
+   "rule": "Run lint only after the unit tests pass.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "lint only after unit tests pass",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "lint"
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "test",
+        "after_ok": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run lint only after the unit tests pass.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7c",
+   "file": "feedback_commit_first.md",
+   "rule": "Run unit tests for a change only after that change has been committed.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "run tests only after the change is committed",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "test"
+       },
+       "needs": {
+        "after": [
+         "commit"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run unit tests for a change only after that change has been committed.",
+       "applies_when": "for a change",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8a",
+   "file": "branch_cleanup.md",
+   "rule": "Delete merged task branches before the final handoff.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "delete branches that are merged, before final handoff",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       },
+       "when_unmodeled": "branches are merged; before the final handoff"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Delete merged task branches before the final handoff.",
+       "applies_when": "merged",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8b",
+   "file": "release_branch_policy.md",
+   "rule": "Delete a merged release branch only after its tip has been tagged.",
+   "runs": [
+    {
+     "status": "invalid_output",
+     "step": 2,
+     "errors": [
+      "clauses/0/needs: {'cmd': ['run'], 'task': 'other:tag'} should not be valid under {'required': ['cmd']}"
+     ],
+     "answer": {
+      "status": "ok",
+      "word": "",
+      "reason": "delete a merged release branch only after its tip is tagged",
+      "clauses": [
+       {
+        "req": "r1",
+        "scope_encoded": false,
+        "type": "only_if",
+        "where": {
+         "cmd": [
+          "any_branch_delete"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "needs": {
+         "cmd": [
+          "run"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "other:tag",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "when_unmodeled": "the branch is a merged release branch and its tip has been tagged"
+       }
+      ],
+      "left_out": []
+     },
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Delete a merged release branch only after its tip has been tagged.",
+       "applies_when": "a merged release branch",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8c",
+   "file": "feedback_no_maintenance_tags.md",
+   "rule": "Never create release tags for maintenance-only branches.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: creating release tags has no word in the fixed vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never create release tags",
+       "applies_when": "for maintenance-only branches",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "maintenance-only",
+      "branches"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9a",
+   "file": "task_completion.md",
+   "rule": "Push the working branch at the end of every completed task.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "push the working branch after every completed task",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "push_branch"
+        ]
+       },
+       "when_unmodeled": "at the end of every completed task"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "push-branch",
+       "quote": "Push the working branch at the end of every completed task.",
+       "applies_when": "at the end of every completed task",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "push-branch"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9b",
+   "file": "feedback_tests_before_push.md",
+   "rule": "Push a branch only after the full test suite passes for its current changes.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "push a branch only after the full test suite passes",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "push_branch"
+        ]
+       },
+       "needs": {
+        "suite": "all",
+        "tests_passed": true
+       },
+       "when_unmodeled": "for its current changes"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Push a branch only after the full test suite passes",
+       "applies_when": "for its current changes",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "current",
+      "changes"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9c",
+   "file": "CLAUDE.md",
+   "rule": "Run the full test suite only when the user explicitly requests it.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "run tests only when the user explicitly asks",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "test",
+        "suite": "all"
+       },
+       "needs": {
+        "user_asked": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run the full test suite",
+       "applies_when": "only when the user explicitly requests it",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "user",
+      "explicitly",
+      "requests"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": [
+      "'admin_bypass' is a required property",
+      "'after' is a required property",
+      "'after_branch' is a required property",
+      "'after_ok' is a required property",
+      "'after_path' is a required property",
+      "'after_task' is a required property",
+      "'branch' is a required property",
+      "'cmd' is a required property",
+      "'dest_path' is a required property",
+      "'files_shown' is a required property",
+      "'has_secret' is a required property",
+      "'in_repo' is a required property",
+      "'in_worktree' is a required property",
+      "'kind' is a required property",
+      "'max_files' is a required property",
+      "'min_files' is a required property",
+      "'path' is a required property",
+      "'path_except' is a required property",
+      "'running' is a required property",
+      "'secrets_checked' is a required property",
+      "'suite' is a required property",
+      "'task' is a required property",
+      "'tests_passed' is a required property",
+      "'user_asked' is a required property",
+      "'user_confirmed' is a required property"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10a",
+   "file": "generated_file_cleanup.md",
+   "rule": "You may delete obsolete generated files after a successful build.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "permission to delete after a successful build",
+     "clauses": [
+      {
+       "type": "may_do",
+       "where": {
+        "cmd": [
+         "delete"
+        ],
+        "after": [
+         "run"
+        ],
+        "after_task": "build",
+        "after_ok": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "You may delete obsolete generated files after a successful build.",
+       "applies_when": "after a successful build",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10b",
+   "file": "feedback_build_scope.md",
+   "rule": "Run builds only when the user asks, except when validating generated-file cleanup.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "builds only when the user asks, with an unmodelable exception",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "build"
+       },
+       "needs": {
+        "user_asked": true
+       },
+       "when_unmodeled": "except when validating generated-file cleanup"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run builds only when the user asks",
+       "applies_when": "except when validating generated-file cleanup",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "except",
+      "validating",
+      "generated-file",
+      "cleanup"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10c",
+   "file": "CLAUDE.md",
+   "rule": "Run a successful build immediately before deleting generated files.",
+   "runs": [
+    {
+     "status": "invalid_output",
+     "step": 2,
+     "errors": [
+      "clauses/0/needs: {'cmd': ['run']} should not be valid under {'required': ['cmd']}"
+     ],
+     "answer": {
+      "status": "ok",
+      "word": "",
+      "reason": "before deleting, a successful build must have run",
+      "clauses": [
+       {
+        "req": "r1",
+        "scope_encoded": false,
+        "type": "only_if",
+        "where": {
+         "cmd": [
+          "delete"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "needs": {
+         "cmd": [
+          "run"
+         ]
+        },
+        "when_unmodeled": ""
+       }
+      ],
+      "left_out": []
+     },
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run a successful build immediately before deleting generated files.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11a",
+   "file": "pull_request_handoff.md",
+   "rule": "Merge every approved pull request before closing its task.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "merge the PR, limited to approved PRs and to before the task is closed",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "pr_merge"
+        ]
+       },
+       "when_unmodeled": "the pull request is approved, and before its task is closed"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Merge every approved pull request before closing its task.",
+       "applies_when": "approved",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11b",
+   "file": "feedback_no_merge_commits.md",
+   "rule": "Do not use merge commits when merging pull requests.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "prohibition on using merge commits when merging pull requests",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "pr_merge"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "no-merge-commits",
+       "quote": "Do not use merge commits when merging pull requests.",
+       "applies_when": "when merging pull requests",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "no-merge-commits"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11c",
+   "file": "preserve_pr_history.md",
+   "rule": "Never squash or rebase an approved pull request.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "never rebase an approved pull request; squash has no vocabulary action",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "rebase"
+        ]
+       },
+       "when_unmodeled": "an approved pull request"
+      }
+     ],
+     "left_out": "r1: outside_vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never squash",
+       "applies_when": "an approved pull request",
+       "keep": "translate",
+       "why": ""
+      },
+      {
+       "id": "r2",
+       "quote": "rebase an approved pull request",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step1"
+     ],
+     "trace": {
+      "clause_req": [
+       "r2"
+      ],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12a",
+   "file": "lint_before_commit.md",
+   "rule": "Commit source changes only after lint passes.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit only after lint passes",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "lint",
+        "after_ok": true
+       },
+       "when_unmodeled": "source changes"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit source changes only after lint passes.",
+       "applies_when": "source changes",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12b",
+   "file": "test_order.md",
+   "rule": "Run lint only after the unit tests pass.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "lint only after unit tests pass",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "lint"
+       },
+       "needs": {
+        "after": [
+         "run"
+        ],
+        "after_task": "test",
+        "after_ok": true
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run lint only after the unit tests pass.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12c",
+   "file": "feedback_precommit_tests.md",
+   "rule": "Run unit tests before committing source changes.",
+   "runs": [
+    {
+     "status": "invalid_output",
+     "step": 2,
+     "errors": [
+      "clauses/0/needs: {'cmd': ['run']} should not be valid under {'required': ['cmd']}"
+     ],
+     "answer": {
+      "status": "ok",
+      "word": "",
+      "reason": "run tests only before a commit",
+      "clauses": [
+       {
+        "req": "r1",
+        "scope_encoded": true,
+        "type": "only_if",
+        "where": {
+         "cmd": [
+          "commit"
+         ],
+         "after": [],
+         "path": [],
+         "dest_path": [],
+         "path_except": [],
+         "in_repo": [],
+         "running": [],
+         "after_path": [],
+         "branch": "",
+         "after_branch": "",
+         "kind": "",
+         "task": "",
+         "after_task": "",
+         "after_ok": "unstated",
+         "suite": "",
+         "has_secret": "unstated",
+         "user_confirmed": "unstated",
+         "files_shown": "unstated",
+         "secrets_checked": "unstated",
+         "admin_bypass": "unstated",
+         "in_worktree": "unstated",
+         "user_asked": "unstated",
+         "tests_passed": "unstated",
+         "min_files": -1,
+         "max_files": -1
+        },
+        "needs": {
+         "cmd": [
+          "run"
+         ]
+        },
+        "when_unmodeled": ""
+       }
+      ],
+      "left_out": []
+     },
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Run unit tests before committing source changes.",
+       "applies_when": "before committing source changes",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13a",
+   "file": "release_notes.md",
+   "rule": "Add a Markdown changelog when preparing every release.",
+   "runs": [
+    {
+     "status": "unclear",
+     "word": "add",
+     "reason": "\"add\" could mean create a new changelog file or edit an existing one",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Add a Markdown changelog",
+       "applies_when": "when preparing every release",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "preparing",
+      "release"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "unclear_word",
+        "word": "add"
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13b",
+   "file": "feedback_docs_location.md",
+   "rule": "Place every new Markdown document under `docs/`.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "must place new documents under docs/",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "create"
+        ],
+        "path": [
+         "docs/"
+        ]
+       }
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Place every new Markdown document under `docs/`.",
+       "applies_when": "every new Markdown document",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": [
+      "'after' is a required property"
+     ]
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13c",
+   "file": "release_metadata.md",
+   "rule": "Keep all release metadata outside `docs/`.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: \"release metadata\" is a named group with no path, which the format cannot express",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Keep all release metadata outside `docs/`.",
+       "applies_when": "all release metadata",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14a",
+   "file": "hotfix_handoff.md",
+   "rule": "Deploy every completed hotfix before handing the task back.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "deploy must happen before handoff; handoff has no action word",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "deploy"
+       },
+       "when_unmodeled": "before handing the task back"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "deploy-before-handoff",
+       "quote": "Deploy every completed hotfix before handing the task back.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "deploy-before-handoff"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14b",
+   "file": "feedback_tagged_deploys.md",
+   "rule": "Deploy hotfixes only from tagged commits on `main`.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "deploy only from main -> only_if; \"hotfixes\" and \"tagged commits\" kept as unmodeled condition",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "task": "deploy"
+       },
+       "needs": {
+        "branch": "main"
+       },
+       "when_unmodeled": "hotfixes, and only from tagged commits"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Deploy hotfixes only from tagged commits on `main`",
+       "applies_when": "hotfixes",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14c",
+   "file": "release_tag_policy.md",
+   "rule": "After hotfix CI passes on `main`, create the release tag before deployment.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "deploy only after a successful CI run on main and the release tag is created",
+     "clauses": [
+      {
+       "type": "only_if",
+       "where": {
+        "cmd": [
+         "run"
+        ],
+        "after": [
+         "run"
+        ],
+        "after_branch": "main",
+        "task": "deploy",
+        "after_task": "test",
+        "after_ok": true
+       },
+       "needs": {
+        "after": [
+         "create"
+        ]
+       },
+       "when_unmodeled": "hotfix"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "create-release-tag",
+       "quote": "create the release tag before deployment",
+       "applies_when": "After hotfix CI passes on `main`",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "after",
+      "hotfix",
+      "passes",
+      "main"
+     ],
+     "retried_steps": [
+      "step2"
+     ],
+     "trace": {
+      "clause_req": [
+       "create-release-tag"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       true
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15a",
+   "file": "branch_cleanup.md",
+   "rule": "Delete every merged task branch before the final handoff.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "delete merged task branches before final handoff",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "any_branch_delete"
+        ]
+       },
+       "when_unmodeled": "branches that are merged, before the final handoff"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "1",
+       "quote": "Delete every merged task branch before the final handoff.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15b",
+   "file": "feedback_tag_before_delete.md",
+   "rule": "Delete a branch only after its tip has been tagged.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: tagging a branch tip is not in the action vocabulary, so the condition cannot be expressed",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Delete a branch only after its tip has been tagged.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [
+      "step2"
+     ],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15c",
+   "file": "maintenance_tags.md",
+   "rule": "Never create tags for maintenance-only changes.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: creating a tag has no action word in the vocabulary",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Never create tags",
+       "applies_when": "for maintenance-only changes",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "maintenance-only",
+      "changes"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16a",
+   "file": "documentation_handoff.md",
+   "rule": "Commit every completed documentation fix before handing the task back.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "commit before handing the task back",
+     "clauses": [
+      {
+       "type": "must_do",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "before handing the task back"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Commit every completed documentation fix before handing the task back.",
+       "applies_when": "",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16b",
+   "file": "feedback_commit_scope.md",
+   "rule": "Avoid documentation-only commits unless the task itself is documentation-only.",
+   "runs": [
+    {
+     "status": "ok",
+     "reason": "avoid commits that only touch documentation, except when the task itself is documentation-only",
+     "clauses": [
+      {
+       "type": "never",
+       "where": {
+        "cmd": [
+         "commit"
+        ]
+       },
+       "when_unmodeled": "unless the task itself is documentation-only"
+      }
+     ],
+     "left_out": "",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Avoid documentation-only commits",
+       "applies_when": "unless the task itself is documentation-only",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "unless",
+      "task",
+      "itself"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [
+       "r1"
+      ],
+      "left_out": [],
+      "scope_encoded": [
+       false
+      ]
+     },
+     "template_errors": []
+    }
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16c",
+   "file": "CLAUDE.md",
+   "rule": "Keep documentation changes separate from source code unless both are required by the same task.",
+   "runs": [
+    {
+     "status": "not_in_scope",
+     "reason": "nothing left: the groups are named without paths",
+     "requirements": [
+      {
+       "id": "r1",
+       "quote": "Keep documentation changes separate from source code",
+       "applies_when": "unless both are required by the same task",
+       "keep": "translate",
+       "why": ""
+      }
+     ],
+     "uncovered_words": [
+      "unless",
+      "both",
+      "required",
+      "same",
+      "task"
+     ],
+     "retried_steps": [],
+     "trace": {
+      "clause_req": [],
+      "left_out": [
+       {
+        "req": "r1",
+        "reason": "outside_vocabulary",
+        "word": ""
+       }
+      ],
+      "scope_encoded": []
+     },
+     "template_errors": []
+    }
+   ]
+  }
+ ],
+ "mode": "two_step",
+ "usage": {
+  "calls": 99,
+  "cached": 0,
+  "prompt_tokens": 296301,
+  "completion_tokens": 65424
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "Z3 run 1": {
+  "found": 1,
+  "of": 3,
+  "false_alarms": 1,
+  "ambiguous_flagged": 0,
+  "flagged": [
+   "QuagKhai003__assessment|R20|R74",
+   "sparkling__ruflo-patch|R118|R131"
+  ]
+ },
+ "Z3 >=2 of 3": {
+  "found": 1,
+  "of": 3,
+  "false_alarms": 1,
+  "ambiguous_flagged": 0,
+  "flagged": [
+   "QuagKhai003__assessment|R20|R74",
+   "sparkling__ruflo-patch|R118|R131"
+  ]
+ },
+ "Z3 any of 3": {
+  "found": 1,
+  "of": 3,
+  "false_alarms": 1,
+  "ambiguous_flagged": 0,
+  "flagged": [
+   "QuagKhai003__assessment|R20|R74",
+   "sparkling__ruflo-patch|R118|R131"
+  ]
+ },
+ "Codex whole-folder": {
+  "found": 3,
+  "of": 3,
+  "false_alarms": 0,
+  "ambiguous_flagged": 0,
+  "flagged": [
+   "QuagKhai003__assessment|R156|R24",
+   "martinambrus__RDForward|R213|R60",
+   "sparkling__ruflo-patch|R118|R131"
+  ]
+ },
+ "DeepSeek whole-folder": {
+  "found": 3,
+  "of": 3,
+  "false_alarms": 0,
+  "ambiguous_flagged": 1,
+  "flagged": [
+   "QuagKhai003__assessment|R156|R24",
+   "jamieleecho__space-bandits|R28|R81",
+   "martinambrus__RDForward|R213|R60",
+   "sparkling__ruflo-patch|R118|R131"
+  ]
+ }
+}

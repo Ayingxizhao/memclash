@@ -1,0 +1,902 @@
+{
+ "C001": {
+  "aid": "QK-R157-5",
+  "rule_id": "R157",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C002": {
+  "aid": "QK-R149-5",
+  "rule_id": "R149",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C003": {
+  "aid": "RDF-R394-2",
+  "rule_id": "R394",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C004": {
+  "aid": "QK-R27-6",
+  "rule_id": "R27",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C005": {
+  "aid": "RDF-R387-6",
+  "rule_id": "R387",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C006": {
+  "aid": "QK-R157-1",
+  "rule_id": "R157",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C007": {
+  "aid": "QK-R29-5",
+  "rule_id": "R29",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C008": {
+  "aid": "RUF-R167-4",
+  "rule_id": "R167",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C009": {
+  "aid": "RDF-R393-2",
+  "rule_id": "R393",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C010": {
+  "aid": "RDF-R393-6",
+  "rule_id": "R393",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C011": {
+  "aid": "RDF-R394-3",
+  "rule_id": "R394",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C012": {
+  "aid": "QK-R27-5",
+  "rule_id": "R27",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C013": {
+  "aid": "RUF-R224-1",
+  "rule_id": "R224",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C014": {
+  "aid": "RDF-R223-4",
+  "rule_id": "R223",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C015": {
+  "aid": "RUF-R75-4",
+  "rule_id": "R75",
+  "category": "near_identical",
+  "intended": "violation"
+ },
+ "C016": {
+  "aid": "QK-R72-3",
+  "rule_id": "R72",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C017": {
+  "aid": "QK-R158-2",
+  "rule_id": "R158",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C018": {
+  "aid": "RDF-R393-4",
+  "rule_id": "R393",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C019": {
+  "aid": "RUF-R203-2",
+  "rule_id": "R203",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C020": {
+  "aid": "QK-R157-3",
+  "rule_id": "R157",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C021": {
+  "aid": "RDF-R393-5",
+  "rule_id": "R393",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C022": {
+  "aid": "RUF-R224-5",
+  "rule_id": "R224",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C023": {
+  "aid": "RUF-R167-3",
+  "rule_id": "R167",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C024": {
+  "aid": "RUF-R203-4",
+  "rule_id": "R203",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C025": {
+  "aid": "QK-R71-2",
+  "rule_id": "R71",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C026": {
+  "aid": "RUF-R167-2",
+  "rule_id": "R167",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C027": {
+  "aid": "RUF-R179-3",
+  "rule_id": "R179",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C028": {
+  "aid": "RUF-R173-2",
+  "rule_id": "R173",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C029": {
+  "aid": "QK-R72-6",
+  "rule_id": "R72",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C030": {
+  "aid": "QK-R24-4",
+  "rule_id": "R24",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C031": {
+  "aid": "RDF-R387-3",
+  "rule_id": "R387",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C032": {
+  "aid": "RDF-R387-4",
+  "rule_id": "R387",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C033": {
+  "aid": "RDF-R386-2",
+  "rule_id": "R386",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C034": {
+  "aid": "QK-R26-1",
+  "rule_id": "R26",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C035": {
+  "aid": "QK-R29-3",
+  "rule_id": "R29",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C036": {
+  "aid": "QK-R24-3",
+  "rule_id": "R24",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C037": {
+  "aid": "QK-R73-5",
+  "rule_id": "R73",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C038": {
+  "aid": "QK-R27-2",
+  "rule_id": "R27",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C039": {
+  "aid": "QK-R158-1",
+  "rule_id": "R158",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C040": {
+  "aid": "QK-R18-4",
+  "rule_id": "R18",
+  "category": "near_identical",
+  "intended": "violation"
+ },
+ "C041": {
+  "aid": "QK-R29-1",
+  "rule_id": "R29",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C042": {
+  "aid": "RDF-R386-3",
+  "rule_id": "R386",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C043": {
+  "aid": "QK-R26-2",
+  "rule_id": "R26",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C044": {
+  "aid": "QK-R28-4",
+  "rule_id": "R28",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C045": {
+  "aid": "QK-R73-4",
+  "rule_id": "R73",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C046": {
+  "aid": "RDF-R387-5",
+  "rule_id": "R387",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C047": {
+  "aid": "QK-R71-5",
+  "rule_id": "R71",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C048": {
+  "aid": "QK-R149-1",
+  "rule_id": "R149",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C049": {
+  "aid": "RUF-R179-2",
+  "rule_id": "R179",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C050": {
+  "aid": "QK-R24-6",
+  "rule_id": "R24",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C051": {
+  "aid": "RDF-R219-2",
+  "rule_id": "R219",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C052": {
+  "aid": "QK-R71-6",
+  "rule_id": "R71",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C053": {
+  "aid": "RUF-R203-1",
+  "rule_id": "R203",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C054": {
+  "aid": "RUF-R203-3",
+  "rule_id": "R203",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C055": {
+  "aid": "RUF-R173-4",
+  "rule_id": "R173",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C056": {
+  "aid": "RUF-R224-3",
+  "rule_id": "R224",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C057": {
+  "aid": "QK-R28-3",
+  "rule_id": "R28",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C058": {
+  "aid": "QK-R26-3",
+  "rule_id": "R26",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C059": {
+  "aid": "QK-R149-6",
+  "rule_id": "R149",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C060": {
+  "aid": "RUF-R173-5",
+  "rule_id": "R173",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C061": {
+  "aid": "QK-R24-1",
+  "rule_id": "R24",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C062": {
+  "aid": "QK-R71-1",
+  "rule_id": "R71",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C063": {
+  "aid": "QK-R27-1",
+  "rule_id": "R27",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C064": {
+  "aid": "QK-R26-5",
+  "rule_id": "R26",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C065": {
+  "aid": "RDF-R394-4",
+  "rule_id": "R394",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C066": {
+  "aid": "QK-R28-5",
+  "rule_id": "R28",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C067": {
+  "aid": "RUF-R167-1",
+  "rule_id": "R167",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C068": {
+  "aid": "QK-R158-5",
+  "rule_id": "R158",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C069": {
+  "aid": "QK-R29-6",
+  "rule_id": "R29",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C070": {
+  "aid": "RUF-R75-6",
+  "rule_id": "R75",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C071": {
+  "aid": "QK-R19-4",
+  "rule_id": "R19",
+  "category": "near_identical",
+  "intended": "violation"
+ },
+ "C072": {
+  "aid": "RDF-R387-1",
+  "rule_id": "R387",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C073": {
+  "aid": "RUF-R203-6",
+  "rule_id": "R203",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C074": {
+  "aid": "QK-R18-3",
+  "rule_id": "R18",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C075": {
+  "aid": "QK-R73-6",
+  "rule_id": "R73",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C076": {
+  "aid": "RUF-R75-2",
+  "rule_id": "R75",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C077": {
+  "aid": "QK-R72-5",
+  "rule_id": "R72",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C078": {
+  "aid": "RDF-R386-6",
+  "rule_id": "R386",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C079": {
+  "aid": "QK-R72-2",
+  "rule_id": "R72",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C080": {
+  "aid": "QK-R24-5",
+  "rule_id": "R24",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C081": {
+  "aid": "RDF-R394-1",
+  "rule_id": "R394",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C082": {
+  "aid": "RDF-R394-5",
+  "rule_id": "R394",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C083": {
+  "aid": "RDF-R223-6",
+  "rule_id": "R223",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C084": {
+  "aid": "QK-R158-6",
+  "rule_id": "R158",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C085": {
+  "aid": "RDF-R386-4",
+  "rule_id": "R386",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C086": {
+  "aid": "RUF-R167-5",
+  "rule_id": "R167",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C087": {
+  "aid": "QK-R72-4",
+  "rule_id": "R72",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C088": {
+  "aid": "QK-R18-1",
+  "rule_id": "R18",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C089": {
+  "aid": "RDF-R386-5",
+  "rule_id": "R386",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C090": {
+  "aid": "RUF-R173-3",
+  "rule_id": "R173",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C091": {
+  "aid": "RDF-R393-1",
+  "rule_id": "R393",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C092": {
+  "aid": "QK-R29-4",
+  "rule_id": "R29",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C093": {
+  "aid": "QK-R157-4",
+  "rule_id": "R157",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C094": {
+  "aid": "RUF-R179-6",
+  "rule_id": "R179",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C095": {
+  "aid": "RUF-R224-6",
+  "rule_id": "R224",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C096": {
+  "aid": "RUF-R224-4",
+  "rule_id": "R224",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C097": {
+  "aid": "QK-R71-3",
+  "rule_id": "R71",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C098": {
+  "aid": "RDF-R219-5",
+  "rule_id": "R219",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C099": {
+  "aid": "QK-R28-6",
+  "rule_id": "R28",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C100": {
+  "aid": "QK-R18-2",
+  "rule_id": "R18",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C101": {
+  "aid": "QK-R149-2",
+  "rule_id": "R149",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C102": {
+  "aid": "RUF-R179-1",
+  "rule_id": "R179",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C103": {
+  "aid": "QK-R157-2",
+  "rule_id": "R157",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C104": {
+  "aid": "QK-R72-1",
+  "rule_id": "R72",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C105": {
+  "aid": "RDF-R387-2",
+  "rule_id": "R387",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C106": {
+  "aid": "QK-R28-1",
+  "rule_id": "R28",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C107": {
+  "aid": "QK-R158-3",
+  "rule_id": "R158",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C108": {
+  "aid": "RDF-R219-3",
+  "rule_id": "R219",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C109": {
+  "aid": "RDF-R223-1",
+  "rule_id": "R223",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C110": {
+  "aid": "QK-R71-4",
+  "rule_id": "R71",
+  "category": "near_identical",
+  "intended": "violation"
+ },
+ "C111": {
+  "aid": "RUF-R179-4",
+  "rule_id": "R179",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C112": {
+  "aid": "RUF-R224-2",
+  "rule_id": "R224",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C113": {
+  "aid": "QK-R19-3",
+  "rule_id": "R19",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C114": {
+  "aid": "QK-R19-6",
+  "rule_id": "R19",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C115": {
+  "aid": "QK-R19-5",
+  "rule_id": "R19",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C116": {
+  "aid": "RDF-R219-6",
+  "rule_id": "R219",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C117": {
+  "aid": "RDF-R223-2",
+  "rule_id": "R223",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C118": {
+  "aid": "QK-R19-1",
+  "rule_id": "R19",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C119": {
+  "aid": "RUF-R75-3",
+  "rule_id": "R75",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C120": {
+  "aid": "QK-R149-3",
+  "rule_id": "R149",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C121": {
+  "aid": "RDF-R219-1",
+  "rule_id": "R219",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C122": {
+  "aid": "QK-R73-2",
+  "rule_id": "R73",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C123": {
+  "aid": "RDF-R223-5",
+  "rule_id": "R223",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C124": {
+  "aid": "QK-R18-5",
+  "rule_id": "R18",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C125": {
+  "aid": "RUF-R203-5",
+  "rule_id": "R203",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C126": {
+  "aid": "QK-R73-3",
+  "rule_id": "R73",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C127": {
+  "aid": "RDF-R394-6",
+  "rule_id": "R394",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C128": {
+  "aid": "QK-R28-2",
+  "rule_id": "R28",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C129": {
+  "aid": "RUF-R173-1",
+  "rule_id": "R173",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C130": {
+  "aid": "QK-R18-6",
+  "rule_id": "R18",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C131": {
+  "aid": "QK-R26-4",
+  "rule_id": "R26",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C132": {
+  "aid": "RDF-R219-4",
+  "rule_id": "R219",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C133": {
+  "aid": "RUF-R173-6",
+  "rule_id": "R173",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C134": {
+  "aid": "QK-R29-2",
+  "rule_id": "R29",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C135": {
+  "aid": "QK-R149-4",
+  "rule_id": "R149",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C136": {
+  "aid": "QK-R24-2",
+  "rule_id": "R24",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C137": {
+  "aid": "RUF-R179-5",
+  "rule_id": "R179",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C138": {
+  "aid": "QK-R27-4",
+  "rule_id": "R27",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C139": {
+  "aid": "QK-R157-6",
+  "rule_id": "R157",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C140": {
+  "aid": "RDF-R386-1",
+  "rule_id": "R386",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C141": {
+  "aid": "RUF-R75-5",
+  "rule_id": "R75",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "C142": {
+  "aid": "RUF-R75-1",
+  "rule_id": "R75",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C143": {
+  "aid": "QK-R158-4",
+  "rule_id": "R158",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "C144": {
+  "aid": "RUF-R167-6",
+  "rule_id": "R167",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C145": {
+  "aid": "QK-R27-3",
+  "rule_id": "R27",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "C146": {
+  "aid": "QK-R26-6",
+  "rule_id": "R26",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "C147": {
+  "aid": "QK-R73-1",
+  "rule_id": "R73",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "C148": {
+  "aid": "RDF-R393-3",
+  "rule_id": "R393",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "C149": {
+  "aid": "QK-R19-2",
+  "rule_id": "R19",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "C150": {
+  "aid": "RDF-R223-3",
+  "rule_id": "R223",
+  "category": "path_pair",
+  "intended": "allowed"
+ }
+}

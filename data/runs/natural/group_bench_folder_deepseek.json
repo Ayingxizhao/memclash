@@ -1,0 +1,158 @@
+{
+ "clashes": [
+  {
+   "rules": [
+    "T15a",
+    "R24"
+   ],
+   "situation": "A merged task branch exists before final handoff: T15a requires deleting it, while R24 forbids deleting any git branch."
+  },
+  {
+   "rules": [
+    "R24",
+    "R156"
+   ],
+   "situation": "The user asks to delete a merged branch: R156 permits that deletion, while R24 forbids deleting any git branch."
+  },
+  {
+   "rules": [
+    "T15a",
+    "T15b",
+    "T15c"
+   ],
+   "situation": "A merged task branch contains maintenance-only changes and its tip is untagged: T15a requires deleting it before handoff, T15b requires tagging its tip first, and T15c forbids creating that tag."
+  },
+  {
+   "rules": [
+    "T6b",
+    "T11c"
+   ],
+   "situation": "An approved pull request must be merged: T6b requires squash merging, while T11c forbids squashing or rebasing an approved pull request."
+  },
+  {
+   "rules": [
+    "T6b",
+    "T6c"
+   ],
+   "situation": "A pull request labeled audit must be merged: T6b requires squash merging, while T6c requires preserving every commit."
+  },
+  {
+   "rules": [
+    "T11a",
+    "T11b",
+    "T11c"
+   ],
+   "situation": "An approved pull request is not fast-forwardable: T11a requires merging it, T11b forbids merge commits, and T11c forbids squash or rebase."
+  },
+  {
+   "rules": [
+    "T12c",
+    "T7c"
+   ],
+   "situation": "A source change is to be committed: T12c requires unit tests before the commit, while T7c allows unit tests only after the commit."
+  },
+  {
+   "rules": [
+    "T12a",
+    "T12b",
+    "T7c"
+   ],
+   "situation": "A source change is to be committed: T12a requires lint before the commit, T12b requires lint only after unit tests pass, and T7c requires unit tests only after the commit."
+  },
+  {
+   "rules": [
+    "T4a",
+    "T4b"
+   ],
+   "situation": "A completed documentation fix consists only of documentation files: T4a requires committing it before handoff, while T4b forbids a commit containing only documentation files."
+  },
+  {
+   "rules": [
+    "T4b",
+    "T16b"
+   ],
+   "situation": "The task itself is documentation-only: T16b permits a documentation-only commit in that case, while T4b forbids any documentation-only commit."
+  },
+  {
+   "rules": [
+    "T4c",
+    "T16c"
+   ],
+   "situation": "A single task requires both documentation and source changes: T16c allows them not to be separated because both are required, while T4c forbids mixing documentation with any other file type in one commit."
+  },
+  {
+   "rules": [
+    "T10b",
+    "T5c"
+   ],
+   "situation": "Generated-file cleanup needs a build but the user has not asked for one: T10b permits a build when validating generated-file cleanup, while T5c forbids any build without an explicit user request."
+  },
+  {
+   "rules": [
+    "T10a",
+    "T10c",
+    "T5c"
+   ],
+   "situation": "Obsolete generated files are to be deleted after a successful build but the user has not asked for a build: T10a permits deletion after a build, T10c requires a successful build immediately before deletion, and T5c forbids running that build without an explicit request."
+  },
+  {
+   "rules": [
+    "T14c",
+    "T2c"
+   ],
+   "situation": "Hotfix CI has passed on main: T14c requires creating the release tag before deployment, while T2c allows creating a release tag only after deployment succeeds."
+  },
+  {
+   "rules": [
+    "T14c",
+    "T15c"
+   ],
+   "situation": "A maintenance-only hotfix passes CI on main: T14c requires creating the release tag, while T15c forbids creating tags for maintenance-only changes."
+  },
+  {
+   "rules": [
+    "T2a",
+    "T2b",
+    "T2c"
+   ],
+   "situation": "A completed hotfix has no existing release tag: T2a requires deploying it before handoff, T2b allows deployment only of commits that already have a release tag, and T2c allows creating the tag only after deployment succeeds."
+  },
+  {
+   "rules": [
+    "T14a",
+    "T14b",
+    "T15c"
+   ],
+   "situation": "A completed maintenance-only hotfix on main has no existing tag: T14a requires deploying it before handoff, T14b allows deploying hotfixes only from tagged commits, and T15c forbids creating the needed tag."
+  },
+  {
+   "rules": [
+    "T13a",
+    "T13b",
+    "T13c"
+   ],
+   "situation": "A release is being prepared with the required new Markdown changelog: T13a requires the changelog, T13b requires new Markdown under docs/, and T13c requires all release metadata to stay outside docs/."
+  },
+  {
+   "rules": [
+    "T1c",
+    "T13c"
+   ],
+   "situation": "A human-readable changelog is kept under docs/: T1c permits that exception for changelogs, while T13c requires all release metadata outside docs/."
+  },
+  {
+   "rules": [
+    "T9a",
+    "T9b",
+    "T9c"
+   ],
+   "situation": "A task is complete but the user has not explicitly requested the full test suite: T9a requires pushing the branch, T9b requires the full suite to pass before pushing, and T9c forbids running the full suite without an explicit request."
+  }
+ ],
+ "usage": {
+  "calls": 1,
+  "cached": 0,
+  "prompt_tokens": 2291,
+  "completion_tokens": 47175
+ }
+}

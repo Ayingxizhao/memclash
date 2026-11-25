@@ -1,0 +1,1832 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R19",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "stage",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R20",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "commit"
+      },
+      "when_unmodeled": "the changes are documentation, planning, decisions, or other non-code changes"
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the commit remain on the current branch or relate a checkout or branch creation to these same changes."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R21",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "branch_create"
+      },
+      "when_unmodeled": "the commit contains code changes"
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the earlier branch was dedicated to this work."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R25",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "when_unmodeled": "the branch has been merged"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R26",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R28",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "read",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R29",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "edit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R71",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R72",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R75",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": "commit"
+      },
+      "when_unmodeled": "the changes are documentation or other non-code changes"
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the commit use the already-current branch."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R94",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": "The secret field cannot distinguish the Gemini key from other secrets."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R105",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "run",
+       "task": "other:npm run dev",
+       "after": "run",
+       "after_task": "other:npm install"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:npm run dev",
+    "other:npm install"
+   ]
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R149",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R150",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "stage",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R151",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "commit"
+      },
+      "when_unmodeled": "the changes are documentation or other non-code changes"
+     }
+    ],
+    "left_out": "The vocabulary cannot require use of the current branch or express that no new branch is created for these changes."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R155",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R156",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": "any_branch_delete",
+       "user_asked": true
+      },
+      "when_unmodeled": "the branch has been merged"
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_asked": true
+      },
+      "when_unmodeled": "the branch has been merged"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R157",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R158",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "jamieleecho__space-bandits",
+   "id": "R5",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": "create",
+       "path": "*.png"
+      },
+      "when_unmodeled": "the file is a separate PNG for a sprite group"
+     }
+    ],
+    "left_out": "The vocabulary cannot express the image's small size or the one-file-per-group relationship."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R47",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:regenerate plugin events from auto-stub template"
+      }
+     }
+    ],
+    "left_out": "The task name collectively represents PluginEvent, PluginEnableEvent, and PluginDisableEvent."
+   },
+   "new_names": [
+    "other:regenerate plugin events from auto-stub template"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R51",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "suite": "all",
+       "after": "run",
+       "after_task": "test",
+       "after_ok": false
+      },
+      "when_unmodeled": "the earlier failure occurred during a full-suite run and the rerun is for debugging that failure"
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier failed run was the full suite or express an immediate rerun."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R52",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "suite": "all"
+      },
+      "when_unmodeled": "debugging a failing test"
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "when_unmodeled": "debugging a failing test"
+     }
+    ],
+    "left_out": "The vocabulary cannot identify the particular failing class or method or require that exact subset."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R57",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:take screenshot"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:setlookdirection"
+      },
+      "when_unmodeled": "performing the cross-test scenario"
+     }
+    ],
+    "left_out": "The vocabulary cannot express that setLookDirection makes the player face the other player."
+   },
+   "new_names": [
+    "other:take screenshot",
+    "other:setlookdirection"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R59",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start test setup"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:stop rdforward server"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:start test setup",
+    "other:stop rdforward server"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R177",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      },
+      "when_unmodeled": "both test runs are Gradle test runs"
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish Gradle tests from other test implementations."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R182",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:cfr"
+      },
+      "needs": {
+       "after": "create",
+       "after_path": "*.class"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot relate the extracted class file to the exact class passed to CFR or express CFR's behavior on the whole JAR."
+   },
+   "new_names": [
+    "other:cfr"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R186",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:cfr"
+      },
+      "needs": {
+       "after": "create",
+       "after_path": "*.class"
+      },
+      "when_unmodeled": "decompiling a class from the client JAR"
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the extracted file came from the client JAR or is the same file passed to CFR."
+   },
+   "new_names": [
+    "other:cfr"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "Other similar world-save filenames are not named precisely enough to form a path pattern."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R216",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      },
+      "when_unmodeled": "the deletion is intended to obtain a clean world for testing"
+     }
+    ],
+    "left_out": "No world-save path is named in this rule."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R218",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server",
+       "after": "run",
+       "after_task": "build",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R219",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R220",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "restart",
+       "after": "run",
+       "after_task": "build"
+      },
+      "needs": {
+       "user_asked": true
+      },
+      "when_unmodeled": "the restart is of the RDForward server"
+     }
+    ],
+    "left_out": "The fixed restart task cannot distinguish which service is restarted."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R222",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server",
+       "after": "run",
+       "after_task": "build",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R223",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R224",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "restart",
+       "after": "run",
+       "after_task": "build"
+      },
+      "needs": {
+       "user_confirmed": true
+      },
+      "when_unmodeled": "the restart is of the RDForward server"
+     }
+    ],
+    "left_out": "The fixed restart task cannot distinguish which service is restarted."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R231",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:analyze test results"
+      },
+      "when_unmodeled": "the user has not explicitly confirmed that they tried the test"
+     }
+    ],
+    "left_out": "The vocabulary cannot directly check receipt of the user's test-result message."
+   },
+   "new_names": [
+    "other:analyze test results"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R232",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:check logs"
+      },
+      "when_unmodeled": "the user has not yet sent an explicit tried-or-result message after being asked to test"
+     }
+    ],
+    "left_out": "The vocabulary cannot directly check the user's message or relate it to the earlier request."
+   },
+   "new_names": [
+    "other:check logs"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R348",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "Other similar world-save filenames are not named precisely enough to form a path pattern."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R376",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:install in-game broadcast sink"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:install in-game broadcast sink"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R384",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "test",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot determine whether the successful test tasks were the ones relevant to the new tests."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R385",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      },
+      "when_unmodeled": "both test suites are Gradle test suites"
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish Gradle suites from other test suites."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R387",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R388",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:check for running gradle tests"
+      },
+      "when_unmodeled": "the test being launched is a Gradle test"
+     }
+    ],
+    "left_out": "The vocabulary cannot preserve the exact ps/grep command or verify that its result showed no running test."
+   },
+   "new_names": [
+    "other:check for running gradle tests"
+   ]
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R393",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R394",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R23",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "run",
+       "task": "other:stop deployment",
+       "after": "run",
+       "after_task": "test",
+       "after_ok": false
+      }
+     },
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "run",
+       "task": "other:notify",
+       "after": "run",
+       "after_task": "test",
+       "after_ok": false
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify the notification recipient or contents."
+   },
+   "new_names": [
+    "other:stop deployment",
+    "other:notify"
+   ]
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R40",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": "run",
+       "task": "other:rollback deployment"
+      },
+      "when_unmodeled": "a deployment has broken production"
+     }
+    ],
+    "left_out": "The vocabulary cannot require use of the Railway dashboard."
+   },
+   "new_names": [
+    "other:rollback deployment"
+   ]
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R42",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "may_do",
+      "where": {
+       "cmd": "run",
+       "task": "other:rollback deployment"
+      },
+      "when_unmodeled": "a deployment has broken production"
+     }
+    ],
+    "left_out": "The vocabulary cannot preserve the Railway CLI invocation or deployment-id argument."
+   },
+   "new_names": [
+    "other:rollback deployment"
+   ]
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R109",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pull",
+       "after": "push_branch"
+      },
+      "when_unmodeled": "the preceding push was rejected with remote contains work you do not have and the pull would be immediate"
+     }
+    ],
+    "left_out": "Push rejection details and immediacy are not expressible fields."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R110",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "rebase",
+       "after": "push_branch"
+      },
+      "when_unmodeled": "the preceding push was rejected with remote contains work you do not have and the rebase would be immediate"
+     }
+    ],
+    "left_out": "Push rejection details, immediacy, and the exact origin/BRANCH argument are not expressible fields."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R113",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "fetch"
+      },
+      "when_unmodeled": "handling a divergent remote"
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pull"
+      },
+      "when_unmodeled": "handling a divergent remote"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R121",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "force_push"
+      },
+      "needs": {
+       "user_confirmed": true
+      },
+      "when_unmodeled": "the remote shape was rejected and force-pushing local history was chosen"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R140",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "lint"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R154",
+   "translation": {
+    "status": "unclear",
+    "clauses": null,
+    "left_out": "\u201cSync local code with the remote\u201d does not identify whether the required action is fetch, pull, rebase, reset, or another operation; \u201cauditing code\u201d also does not name a precise modeled action."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R176",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ]
+      },
+      "needs": {
+       "after": "fetch",
+       "after_branch": "origin"
+      }
+     }
+    ],
+    "left_out": "The branch field can retain \u201corigin\u201d only as a branch-like value; it cannot distinguish a remote name from a branch name."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R177",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier read was of the same file being edited or that its contents came from the remote branch."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R322",
+   "translation": {
+    "status": "not_in_scope",
+    "clauses": null,
+    "left_out": "Planning-only session scope and the broad category \u201csprint work\u201d do not correspond to a fixed action, file operation, Git command, or single runnable task."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R338",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:docker compose"
+      },
+      "needs": {
+       "running": [
+        "other:docker daemon"
+       ]
+      }
+     }
+    ],
+    "left_out": "The vocabulary checks that the daemon is running but cannot require a distinct verification command."
+   },
+   "new_names": [
+    "other:docker compose",
+    "other:docker daemon"
+   ]
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R343",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:wait for postgres readiness"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot preserve the exact Postgres log-message text."
+   },
+   "new_names": [
+    "other:wait for postgres readiness"
+   ]
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R344",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "alembic/versions/"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify which generated migration file is being applied or require that the same file was reviewed."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R345",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:back up the database"
+      },
+      "when_unmodeled": "the migration is breaking, such as a column rename or type change"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R362",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit"
+       ]
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:back up the database"
+      },
+      "when_unmodeled": "the file action makes a schema change"
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:back up the database"
+      },
+      "when_unmodeled": "the migration makes a schema change"
+     }
+    ],
+    "left_out": "Other ways of making schema changes are not named by the fixed actions."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R363",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "must_do",
+      "where": {
+       "cmd": "run",
+       "task": "migrate",
+       "after": "run",
+       "after_task": "other:back up the database"
+      },
+      "when_unmodeled": "schema changes are being made"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R74",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "branch_create"
+      },
+      "when_unmodeled": "the branch is a patch branch and no corresponding GitHub issue exists"
+     }
+    ],
+    "left_out": "The vocabulary cannot inspect GitHub issue existence or relate an issue to a branch."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R75",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit"
+       ],
+       "path": "MEMORY.md"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R81",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:check-patches.sh"
+      },
+      "when_unmodeled": "the script would be used to verify patches"
+     }
+    ],
+    "left_out": "The vocabulary cannot express the script's patch-reapplication side effect."
+   },
+   "new_names": [
+    "other:check-patches.sh"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R118",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "force_push",
+       "branch": "main"
+      },
+      "when_unmodeled": "the main branch belongs to the fork and the push is intended to fix version state"
+     }
+    ],
+    "left_out": "Fork identity and purpose are not expressible fields."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R124",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:npm unpublish"
+      },
+      "when_unmodeled": "the unpublish would make room for new versions"
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:npm unpublish"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R128",
+   "translation": {
+    "status": "unclear",
+    "clauses": null,
+    "left_out": "\u201cResetting\u201d does not say whether this is the vocabulary's destructive reset_hard action or another kind of reset; the rule also does not name a branch pattern for each fork."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R129",
+   "translation": {
+    "status": "unclear",
+    "clauses": null,
+    "left_out": "\u201cResetting a fork\u201d does not say whether this is reset_hard or another reset operation, so mapping it to the sole reset action would decide an ambiguity silently."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R167",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:start verdaccio"
+      }
+     }
+    ],
+    "left_out": "The vocabulary does not represent systemd ownership; it is the stated reason for the prohibition."
+   },
+   "new_names": [
+    "other:start verdaccio"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R173",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": [
+        "*.md",
+        "README*"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The path patterns approximate the rule's documentation and README categories."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R178",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier read and current edit target the same dynamically named file."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R179",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": "The secret field collectively represents secrets and credentials."
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "build",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R203",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": []
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R217",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:poll agent status",
+       "after": "run",
+       "after_task": "other:spawn agents"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:poll agent status",
+    "other:spawn agents"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R224",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:install plugin"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:install plugin"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R226",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:install plugin"
+      },
+      "when_unmodeled": "the plugin installation uses a marketplace other than sparkleideas, including the upstream @ruflo marketplace"
+     }
+    ],
+    "left_out": "Marketplace source is not a fixed field and therefore remains an unmodeled condition."
+   },
+   "new_names": [
+    "other:install plugin"
+   ]
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R235",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:claude-flow bootstrap"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot express that the bootstrap is one-time or preserve the exact command-line invocation; the prohibition captures that only the user performs it."
+   },
+   "new_names": [
+    "other:claude-flow bootstrap"
+   ]
+  }
+ ]
+}

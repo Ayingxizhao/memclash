@@ -1,0 +1,340 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1a",
+   "file": "release_notes.md",
+   "rule": "Add a Markdown changelog for every release.",
+   "group": "G1"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1b",
+   "file": "feedback_docs_location.md",
+   "rule": "Place all new Markdown documentation under `docs/`.",
+   "group": "G1"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T1c",
+   "file": "CLAUDE.md",
+   "rule": "Keep release metadata outside `docs/`, except for human-readable changelogs.",
+   "group": "G1"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2a",
+   "file": "hotfix_handoff.md",
+   "rule": "Deploy every completed hotfix before handing the task back.",
+   "group": "G2"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2b",
+   "file": "feedback_tagged_deploys.md",
+   "rule": "Deploy only commits that already have a release tag.",
+   "group": "G2"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T2c",
+   "file": "release_tag_policy.md",
+   "rule": "Create a release tag only after the deployment succeeds.",
+   "group": "G2"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3a",
+   "file": "feedback_push_policy.md",
+   "rule": "Push the task branch before reporting the work complete.",
+   "group": "G3"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3b",
+   "file": "verification_before_push.md",
+   "rule": "Push changes only after the relevant tests pass.",
+   "group": "G3"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T3c",
+   "file": "CLAUDE.md",
+   "rule": "Do not run the full regression suite unless the user asks, but targeted tests may be run before a push.",
+   "group": "G3"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4a",
+   "file": "documentation_handoff.md",
+   "rule": "Commit every completed documentation fix before handing the task back.",
+   "group": "G4"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4b",
+   "file": "feedback_commit_scope.md",
+   "rule": "Never create a commit containing only documentation files.",
+   "group": "G4"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T4c",
+   "file": "CLAUDE.md",
+   "rule": "Never mix documentation changes with any other file type in one commit.",
+   "group": "G4"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5a",
+   "file": "generated_file_cleanup.md",
+   "rule": "You may delete obsolete generated files once nothing references them.",
+   "group": "G5"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5b",
+   "file": "feedback_verify_deletions.md",
+   "rule": "Delete generated files only after a successful build.",
+   "group": "G5"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T5c",
+   "file": "CLAUDE.md",
+   "rule": "Do not run the build unless the user explicitly asks for it.",
+   "group": "G5"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6a",
+   "file": "pull_request_handoff.md",
+   "rule": "Merge an approved pull request before closing its task.",
+   "group": "G6"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6b",
+   "file": "feedback_merge_strategy.md",
+   "rule": "Use squash merging for pull requests and do not create merge commits.",
+   "group": "G6"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T6c",
+   "file": "audit_history.md",
+   "rule": "Preserve every commit when merging a pull request labeled `audit`.",
+   "group": "G6"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7a",
+   "file": "lint_before_commit.md",
+   "rule": "Before committing any source change, run lint and require it to pass.",
+   "group": "G7"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7b",
+   "file": "test_order.md",
+   "rule": "Run lint only after the unit tests pass.",
+   "group": "G7"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T7c",
+   "file": "feedback_commit_first.md",
+   "rule": "Run unit tests for a change only after that change has been committed.",
+   "group": "G7"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8a",
+   "file": "branch_cleanup.md",
+   "rule": "Delete merged task branches before the final handoff.",
+   "group": "G8"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8b",
+   "file": "release_branch_policy.md",
+   "rule": "Delete a merged release branch only after its tip has been tagged.",
+   "group": "G8"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T8c",
+   "file": "feedback_no_maintenance_tags.md",
+   "rule": "Never create release tags for maintenance-only branches.",
+   "group": "G8"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9a",
+   "file": "task_completion.md",
+   "rule": "Push the working branch at the end of every completed task.",
+   "group": "G9"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9b",
+   "file": "feedback_tests_before_push.md",
+   "rule": "Push a branch only after the full test suite passes for its current changes.",
+   "group": "G9"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T9c",
+   "file": "CLAUDE.md",
+   "rule": "Run the full test suite only when the user explicitly requests it.",
+   "group": "G9"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10a",
+   "file": "generated_file_cleanup.md",
+   "rule": "You may delete obsolete generated files after a successful build.",
+   "group": "G10"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10b",
+   "file": "feedback_build_scope.md",
+   "rule": "Run builds only when the user asks, except when validating generated-file cleanup.",
+   "group": "G10"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T10c",
+   "file": "CLAUDE.md",
+   "rule": "Run a successful build immediately before deleting generated files.",
+   "group": "G10"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11a",
+   "file": "pull_request_handoff.md",
+   "rule": "Merge every approved pull request before closing its task.",
+   "group": "G11"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11b",
+   "file": "feedback_no_merge_commits.md",
+   "rule": "Do not use merge commits when merging pull requests.",
+   "group": "G11"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T11c",
+   "file": "preserve_pr_history.md",
+   "rule": "Never squash or rebase an approved pull request.",
+   "group": "G11"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12a",
+   "file": "lint_before_commit.md",
+   "rule": "Commit source changes only after lint passes.",
+   "group": "G12"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12b",
+   "file": "test_order.md",
+   "rule": "Run lint only after the unit tests pass.",
+   "group": "G12"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T12c",
+   "file": "feedback_precommit_tests.md",
+   "rule": "Run unit tests before committing source changes.",
+   "group": "G12"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13a",
+   "file": "release_notes.md",
+   "rule": "Add a Markdown changelog when preparing every release.",
+   "group": "G13"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13b",
+   "file": "feedback_docs_location.md",
+   "rule": "Place every new Markdown document under `docs/`.",
+   "group": "G13"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T13c",
+   "file": "release_metadata.md",
+   "rule": "Keep all release metadata outside `docs/`.",
+   "group": "G13"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14a",
+   "file": "hotfix_handoff.md",
+   "rule": "Deploy every completed hotfix before handing the task back.",
+   "group": "G14"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14b",
+   "file": "feedback_tagged_deploys.md",
+   "rule": "Deploy hotfixes only from tagged commits on `main`.",
+   "group": "G14"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T14c",
+   "file": "release_tag_policy.md",
+   "rule": "After hotfix CI passes on `main`, create the release tag before deployment.",
+   "group": "G14"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15a",
+   "file": "branch_cleanup.md",
+   "rule": "Delete every merged task branch before the final handoff.",
+   "group": "G15"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15b",
+   "file": "feedback_tag_before_delete.md",
+   "rule": "Delete a branch only after its tip has been tagged.",
+   "group": "G15"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T15c",
+   "file": "maintenance_tags.md",
+   "rule": "Never create tags for maintenance-only changes.",
+   "group": "G15"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16a",
+   "file": "documentation_handoff.md",
+   "rule": "Commit every completed documentation fix before handing the task back.",
+   "group": "G16"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16b",
+   "file": "feedback_commit_scope.md",
+   "rule": "Avoid documentation-only commits unless the task itself is documentation-only.",
+   "group": "G16"
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "T16c",
+   "file": "CLAUDE.md",
+   "rule": "Keep documentation changes separate from source code unless both are required by the same task.",
+   "group": "G16"
+  }
+ ]
+}

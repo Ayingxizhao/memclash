@@ -1,0 +1,982 @@
+{
+ "rules": [
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R18",
+   "rule": "Obtain the user's explicit approval before making any commit, whether it contains docs or code.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R19",
+   "rule": "Stage and prepare changes, then wait for the user's go-ahead before committing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "stage",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R24",
+   "rule": "Never delete git branches.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R26",
+   "rule": "Obtain approval before pushing to a remote, regardless of what changed.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R27",
+   "rule": "Always wait for the user's approval before making any commit.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R28",
+   "rule": "Never read, open, `cat`, or `sed` the user's `.env` file.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "read",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R29",
+   "rule": "Never edit the user's `.env` file.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "edit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R71",
+   "rule": "Never commit without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R72",
+   "rule": "Never push without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R73",
+   "rule": "Never delete a branch without an explicit user go.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R94",
+   "rule": "Never commit the Gemini key.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": "The secret field cannot distinguish the Gemini key from other secrets."
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R149",
+   "rule": "Get user approval for every commit, including documentation and code changes.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R150",
+   "rule": "Stage or prepare changes, then wait for the user's go before committing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "stage",
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R155",
+   "rule": "Get explicit approval before deleting a branch, as with committing or pushing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "any_branch_delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R157",
+   "rule": "Never delete a branch on your own initiative.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "any_branch_delete",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "QuagKhai003__assessment",
+   "id": "R158",
+   "rule": "Get approval before pushing to a remote, regardless of what changed.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R47",
+   "rule": "Do not regenerate PluginEvent, PluginEnableEvent, or PluginDisableEvent from the auto-stub template.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:regenerate plugin events from auto-stub template"
+      }
+     }
+    ],
+    "left_out": "The task name collectively represents PluginEvent, PluginEnableEvent, and PluginDisableEvent."
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R59",
+   "rule": "Stop the server before starting the test setup.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start test setup"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:stop rdforward server"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R182",
+   "rule": "Extract individual `.class` files before running CFR on them, because CFR otherwise decompiles the entire JAR.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:cfr"
+      },
+      "needs": {
+       "after": "create",
+       "after_path": "*.class"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot relate the extracted class file to the exact class passed to CFR or express CFR's behavior on the whole JAR."
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R213",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "Other similar world-save filenames are not named precisely enough to form a path pattern."
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R218",
+   "rule": "After building, do not automatically start the server.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server",
+       "after": "run",
+       "after_task": "build",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R219",
+   "rule": "Only start the server when the user indicates they want it running, such as by saying \"start the server\", \"let's test it\", or \"fire it up\".",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R222",
+   "rule": "After building, do not automatically start the server.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server",
+       "after": "run",
+       "after_task": "build",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R223",
+   "rule": "Start the RDForward server only when the user asks for it to run, such as by saying \"start the server\", \"let's test it\", or \"fire it up\", or otherwise indicates they want it running.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rdforward server"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R348",
+   "rule": "Never delete world save files such as server-world.dat, server-players.dat, or similar without explicit user permission.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": [
+        "server-world.dat",
+        "server-players.dat"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "Other similar world-save filenames are not named precisely enough to form a path pattern."
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R376",
+   "rule": "Do not re-install the in-game broadcast sink without explicit instruction.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:install in-game broadcast sink"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R384",
+   "rule": "Run the relevant test tasks to confirm the new tests pass before committing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "test",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot determine whether the successful test tasks were the ones relevant to the new tests."
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R386",
+   "rule": "Always run test tasks sequentially.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R387",
+   "rule": "Wait for one test task to complete before starting the next.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "running": [
+        "test"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R393",
+   "rule": "Do not start tests proactively.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "test",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "martinambrus__RDForward",
+   "id": "R394",
+   "rule": "Only run tests when the user explicitly asks.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R140",
+   "rule": "Run `npm run lint` before every commit.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "lint"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R176",
+   "rule": "Before changing any file, run `git fetch origin`.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ]
+      },
+      "needs": {
+       "after": "fetch",
+       "after_branch": "origin"
+      }
+     }
+    ],
+    "left_out": "The branch field can retain \u201corigin\u201d only as a branch-like value; it cannot distinguish a remote name from a branch name."
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R177",
+   "rule": "Before changing any file, read the actual file from the remote branch.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier read was of the same file being edited or that its contents came from the remote branch."
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R338",
+   "rule": "Before running any `docker compose` command, verify the Docker daemon is up.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:docker compose"
+      },
+      "needs": {
+       "running": [
+        "other:docker daemon"
+       ]
+      }
+     }
+    ],
+    "left_out": "The vocabulary checks that the daemon is running but cannot require a distinct verification command."
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R343",
+   "rule": "Before running migrations, wait for the Postgres log message \"database system is ready to accept connections\".",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:wait for postgres readiness"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot preserve the exact Postgres log-message text."
+   }
+  },
+  {
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "id": "R344",
+   "rule": "Review the generated Alembic migration file in alembic/versions before applying it.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "migrate"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "alembic/versions/"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify which generated migration file is being applied or require that the same file was reviewed."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R75",
+   "rule": "Do not write directly to MEMORY.md, which is auto-generated from topic files.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit"
+       ],
+       "path": "MEMORY.md"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R167",
+   "rule": "Never start Verdaccio manually; Verdaccio is managed by systemd.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:start verdaccio"
+      }
+     }
+    ],
+    "left_out": "The vocabulary does not represent systemd ownership; it is the stated reason for the prohibition."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R173",
+   "rule": "Never proactively create documentation (.md) or README files unless the user explicitly requests them.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": [
+        "*.md",
+        "README*"
+       ]
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The path patterns approximate the rule's documentation and README categories."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R178",
+   "rule": "Always read a file before editing it.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier read and current edit target the same dynamically named file."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R179",
+   "rule": "Never commit secrets, credentials, or .env files.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     }
+    ],
+    "left_out": "The secret field collectively represents secrets and credentials."
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R194",
+   "rule": "Always verify the build succeeds before committing.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "build",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R203",
+   "rule": "Never commit .env files or any file containing secrets.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "path": ".env"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R217",
+   "rule": "Do not poll agent status after spawning agents.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:poll agent status",
+       "after": "run",
+       "after_task": "other:spawn agents"
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R224",
+   "rule": "Never install a plugin without explicit user confirmation.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:install plugin"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   }
+  },
+  {
+   "folder": "sparkling__ruflo-patch",
+   "id": "R235",
+   "rule": "Never run the one-time bootstrap `claude mcp add claude-flow -- npx -y @sparkleideas/ruflo@latest`; only the user runs it, once.",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:claude-flow bootstrap"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot express that the bootstrap is one-time or preserve the exact command-line invocation; the prohibition captures that only the user performs it."
+   }
+  }
+ ]
+}

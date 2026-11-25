@@ -1,0 +1,2118 @@
+{
+ "actions": [
+  {
+   "id": "A01",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create frontend/PipelineStatus.test.tsx after successfully implementing the frontend state.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/pipeline-status",
+    "path": "frontend/PipelineStatus.test.tsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "edit",
+      "task": null,
+      "branch": "feature/pipeline-status",
+      "path": "frontend/PipelineStatus.tsx",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A02",
+   "folder": "martinambrus__RDForward",
+   "description": "Start the RDForward server because the user asked to see it running.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:rdforward server",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A03",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit README.md before receiving any response from the user.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "README.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A04",
+   "folder": "QuagKhai003__assessment",
+   "description": "Read the template file .env.example.",
+   "event": {
+    "cmd": "read",
+    "branch": "main",
+    "path": ".env.example",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": true,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A05",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit notes/decision.md from a newly created documentation worktree branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "docs/worktree-notes",
+    "path": "notes/decision.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": true,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "worktree_add",
+      "task": null,
+      "branch": "docs/worktree-notes",
+      "path": "../docs-worktree",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A06",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Import uploads/clients.xlsx through ETL without first scanning its headers.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "uploads/clients.xlsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:etl import",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A07",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/parser.py directly on main without creating a work branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "src/parser.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A08",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit planning/roadmap.md on the current main branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "planning/roadmap.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A09",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit README.md after the user explicitly approved that commit.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "README.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A10",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit docs/plan.md after the user requested a commit plan but did not approve the commit.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "docs/plan.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A11",
+   "folder": "martinambrus__RDForward",
+   "description": "Restart the server after a successful build with explicit user permission.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "restart",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "build",
+      "branch": "main",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A12",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Import uploads/clients.xlsx after reading the workbook but without dynamically scanning for EMAIL and APELLIDO headers.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "uploads/clients.xlsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:etl import",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "read",
+      "task": null,
+      "branch": "main",
+      "path": "uploads/clients.xlsx",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A13",
+   "folder": "sparkling__ruflo-patch",
+   "description": "Commit src/router.ts after the build completed successfully.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/router",
+    "path": "src/router.ts",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "build",
+      "branch": "feature/router",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A14",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/payment.py directly on main.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "src/payment.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A15",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit planning/roadmap.md from a separate planning worktree branch instead of the current main branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "planning/roadmap",
+    "path": "planning/roadmap.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": true,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "worktree_add",
+      "task": null,
+      "branch": "planning/roadmap",
+      "path": "../roadmap-worktree",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A16",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create feature/parser for the parser work and commit src/parser.py on it.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/parser",
+    "path": "src/parser.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "feature/parser",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A17",
+   "folder": "martinambrus__RDForward",
+   "description": "Delete server-world.dat after the user explicitly permitted its deletion.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "server-world.dat",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A18",
+   "folder": "martinambrus__RDForward",
+   "description": "Restart the server immediately after a successful build without user permission.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "restart",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "build",
+      "branch": "main",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A19",
+   "folder": "QuagKhai003__assessment",
+   "description": "Stage .env without reading or editing it.",
+   "event": {
+    "cmd": "stage",
+    "branch": "main",
+    "path": ".env",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": true,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A20",
+   "folder": "martinambrus__RDForward",
+   "description": "Build RDForward without starting its server process.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": "build",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A21",
+   "folder": "martinambrus__RDForward",
+   "description": "Delete server-world.dat without user permission.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "server-world.dat",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A22",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/roadmap.py on feature/roadmap.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/roadmap",
+    "path": "src/roadmap.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "feature/roadmap",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A23",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete docs/abandoned-branch-plan.md without user approval.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "docs/abandoned-branch-plan.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A24",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/parser.py on a dedicated feature branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/parser",
+    "path": "src/parser.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "feature/parser",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A25",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete origin/feature/abandoned after the user asked which branches were stale but did not authorize deletion.",
+   "event": {
+    "cmd": "push_delete",
+    "branch": "origin/feature/abandoned",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A26",
+   "folder": "martinambrus__RDForward",
+   "description": "Start the RDForward server without any user request or confirmation.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:rdforward server",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A27",
+   "folder": "QuagKhai003__assessment",
+   "description": "Push feature/old-parser to the remote without deleting either copy.",
+   "event": {
+    "cmd": "push_branch",
+    "branch": "feature/old-parser",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A28",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create docs/rewrite and commit docs/architecture.md there instead of on main.",
+   "event": {
+    "cmd": "commit",
+    "branch": "docs/rewrite",
+    "path": "docs/architecture.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "docs/rewrite",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A29",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit docs/payment-flow.md on main.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "docs/payment-flow.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A30",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete feature/abandoned after the user explicitly approved its deletion.",
+   "event": {
+    "cmd": "branch_delete",
+    "branch": "feature/abandoned",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A31",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/auth.py on main without asking the user.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "src/auth.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A32",
+   "folder": "QuagKhai003__assessment",
+   "description": "Edit .env only to normalize its trailing newline.",
+   "event": {
+    "cmd": "edit",
+    "branch": "main",
+    "path": ".env",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": true,
+     "user_confirmed": true,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A33",
+   "folder": "martinambrus__RDForward",
+   "description": "Start linting while a test task is still running.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": "lint",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [
+     "test"
+    ],
+    "prior": []
+   }
+  },
+  {
+   "id": "A34",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create frontend/PipelineStatus.test.tsx before implementing the frontend state.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/pipeline-status",
+    "path": "frontend/PipelineStatus.test.tsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A35",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete the remote branch origin/feature/old-parser while retaining its local copy.",
+   "event": {
+    "cmd": "push_delete",
+    "branch": "origin/feature/old-parser",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A36",
+   "folder": "QuagKhai003__assessment",
+   "description": "Read the user's .env file.",
+   "event": {
+    "cmd": "read",
+    "branch": "main",
+    "path": ".env",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": true,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A37",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Import uploads/clients.xlsx after dynamically scanning it for EMAIL and APELLIDO headers.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "uploads/clients.xlsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:etl import",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "other:scan email and apellido headers",
+      "branch": "main",
+      "path": "uploads/clients.xlsx",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A38",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete the file notes/old-branches.md.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "notes/old-branches.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A39",
+   "folder": "QuagKhai003__assessment",
+   "description": "Show readiness by staging README.md while waiting for approval to commit.",
+   "event": {
+    "cmd": "stage",
+    "branch": "main",
+    "path": "README.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A40",
+   "folder": "martinambrus__RDForward",
+   "description": "Start tests in a separate worktree while the main worktree's tests are still running.",
+   "event": {
+    "cmd": "run",
+    "branch": "feature/networking",
+    "path": "tests/networking",
+    "dest_path": null,
+    "kind": "dir",
+    "task": "test",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": true,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [
+     "test"
+    ],
+    "prior": []
+   }
+  },
+  {
+   "id": "A41",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Import uploads/clients.csv through ETL without scanning for Excel headers.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "uploads/clients.csv",
+    "dest_path": null,
+    "kind": "file",
+    "task": "other:etl import",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A42",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Run the users schema migration without first backing up the database.",
+   "event": {
+    "cmd": "run",
+    "branch": "feature/users-schema",
+    "path": "db/migrations/042_users_schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": "migrate",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A43",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Edit db/queries/list_orders.sql without changing the schema or making a backup.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/order-query",
+    "path": "db/queries/list_orders.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A44",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/parser.py on an existing branch dedicated to an unrelated login change.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/login",
+    "path": "src/parser.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A45",
+   "folder": "martinambrus__RDForward",
+   "description": "Start the integration tests after the earlier unit tests finished successfully.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "tests/integration",
+    "dest_path": null,
+    "kind": "dir",
+    "task": "test",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "test",
+      "branch": "main",
+      "path": "tests/unit",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A46",
+   "folder": "QuagKhai003__assessment",
+   "description": "Edit backend/pipeline/transform.py before creating any test for the change.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/transform",
+    "path": "backend/pipeline/transform.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A47",
+   "folder": "QuagKhai003__assessment",
+   "description": "Edit frontend/components/PipelineStatus.tsx before writing its frontend test.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/pipeline-status",
+    "path": "frontend/components/PipelineStatus.tsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A48",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/cache.py using approval that applied only to showing the changed files.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/cache",
+    "path": "src/cache.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A49",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete the local branch feature/old-parser.",
+   "event": {
+    "cmd": "branch_delete",
+    "branch": "feature/old-parser",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A50",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create tests/backend/test_transform.py before implementing backend pipeline logic.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/transform",
+    "path": "tests/backend/test_transform.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A51",
+   "folder": "martinambrus__RDForward",
+   "description": "Start another test task while a test task is still running.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "tests/integration",
+    "dest_path": null,
+    "kind": "dir",
+    "task": "test",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [
+     "test"
+    ],
+    "prior": []
+   }
+  },
+  {
+   "id": "A52",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Edit db/schema.sql after successfully backing up the database.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/orders-schema",
+    "path": "db/schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "other:back up the database",
+      "branch": "feature/orders-schema",
+      "path": "backups/pre-orders.dump",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A53",
+   "folder": "QuagKhai003__assessment",
+   "description": "Stage src/auth.py without asking the user.",
+   "event": {
+    "cmd": "stage",
+    "branch": "feature/auth",
+    "path": "src/auth.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A54",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create tests/backend/test_transform.py only after editing the backend pipeline implementation.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/transform",
+    "path": "tests/backend/test_transform.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "edit",
+      "task": null,
+      "branch": "feature/transform",
+      "path": "backend/pipeline/transform.py",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A55",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/auth.py after the user explicitly approved the commit.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/auth",
+    "path": "src/auth.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A56",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit docs/architecture.md directly on the current main branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "docs/architecture.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A57",
+   "folder": "sparkling__ruflo-patch",
+   "description": "Commit src/router.ts without running a build first.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/router",
+    "path": "src/router.ts",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A58",
+   "folder": "martinambrus__RDForward",
+   "description": "Delete backups/server-players-old.dat without permission because it is an older world save.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "backups/server-players-old.dat",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A59",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create tests/backend/test_transform.py before editing the backend pipeline implementation.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/transform",
+    "path": "tests/backend/test_transform.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A60",
+   "folder": "martinambrus__RDForward",
+   "description": "Restart RDForward after diagnosing a crash even though the user did not request a restart.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "restart",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "read",
+      "task": null,
+      "branch": "main",
+      "path": "logs/server.log",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A61",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Edit db/schema.sql without first backing up the database.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/orders-schema",
+    "path": "db/schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A62",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Run the users schema migration after the database backup failed.",
+   "event": {
+    "cmd": "run",
+    "branch": "feature/users-schema",
+    "path": "db/migrations/042_users_schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": "migrate",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "other:back up the database",
+      "branch": "feature/users-schema",
+      "path": "backups/pre-users.dump",
+      "ok": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "A63",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Run a seed-data migration without changing the schema or creating a backup.",
+   "event": {
+    "cmd": "run",
+    "branch": "feature/default-roles",
+    "path": "db/seeds/default_roles.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": "migrate",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A64",
+   "folder": "sparkling__ruflo-patch",
+   "description": "Commit src/router.ts after the preceding build failed.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/router",
+    "path": "src/router.ts",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "build",
+      "branch": "feature/router",
+      "path": null,
+      "ok": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "A65",
+   "folder": "QuagKhai003__assessment",
+   "description": "Delete feature/abandoned without any user go-ahead.",
+   "event": {
+    "cmd": "branch_delete",
+    "branch": "feature/abandoned",
+    "path": null,
+    "dest_path": null,
+    "kind": null,
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A66",
+   "folder": "martinambrus__RDForward",
+   "description": "Restart Redis after running the test suite without rebuilding RDForward.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "redis.conf",
+    "dest_path": null,
+    "kind": "file",
+    "task": "restart",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "test",
+      "branch": "main",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A67",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit src/payment.py on the documentation branch docs/api-refresh.",
+   "event": {
+    "cmd": "commit",
+    "branch": "docs/api-refresh",
+    "path": "src/payment.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "docs/api-refresh",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A68",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Run the users schema migration after successfully backing up the database.",
+   "event": {
+    "cmd": "run",
+    "branch": "feature/users-schema",
+    "path": "db/migrations/042_users_schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": "migrate",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "other:back up the database",
+      "branch": "feature/users-schema",
+      "path": "backups/pre-users.dump",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A69",
+   "folder": "martinambrus__RDForward",
+   "description": "Restart the server after an unsuccessful rebuild without asking the user.",
+   "event": {
+    "cmd": "run",
+    "branch": "main",
+    "path": "RDForward.jar",
+    "dest_path": null,
+    "kind": "file",
+    "task": "restart",
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "build",
+      "branch": "main",
+      "path": null,
+      "ok": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "A70",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create feature/payment and commit src/payment.py there.",
+   "event": {
+    "cmd": "commit",
+    "branch": "feature/payment",
+    "path": "src/payment.py",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": true
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "feature/payment",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A71",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create frontend/PipelineStatus.test.tsx after an unsuccessful edit of the frontend state implementation.",
+   "event": {
+    "cmd": "create",
+    "branch": "feature/pipeline-status",
+    "path": "frontend/PipelineStatus.test.tsx",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "edit",
+      "task": null,
+      "branch": "feature/pipeline-status",
+      "path": "frontend/PipelineStatus.tsx",
+      "ok": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "A72",
+   "folder": "sparkling__ruflo-patch",
+   "description": "Stage src/router.ts without running a build or creating a commit.",
+   "event": {
+    "cmd": "stage",
+    "branch": "feature/router",
+    "path": "src/router.ts",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A73",
+   "folder": "QuagKhai003__assessment",
+   "description": "Create docs/release-notes solely to commit docs/release.md away from the current main branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "docs/release-notes",
+    "path": "docs/release.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "branch_create",
+      "task": null,
+      "branch": "docs/release-notes",
+      "path": null,
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "A74",
+   "folder": "QuagKhai003__assessment",
+   "description": "Commit docs/parser-design.md on the current main branch.",
+   "event": {
+    "cmd": "commit",
+    "branch": "main",
+    "path": "docs/parser-design.md",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": true,
+     "files_shown": true,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": true,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A75",
+   "folder": "martinambrus__RDForward",
+   "description": "Delete logs/world-debug.log without user permission.",
+   "event": {
+    "cmd": "delete",
+    "branch": "main",
+    "path": "logs/world-debug.log",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": []
+   }
+  },
+  {
+   "id": "A76",
+   "folder": "ruddyribera-ops__CRUDDY-OPENCODE",
+   "description": "Edit db/migrations/043_orders_schema.sql after the attempted database backup failed.",
+   "event": {
+    "cmd": "edit",
+    "branch": "feature/orders-schema",
+    "path": "db/migrations/043_orders_schema.sql",
+    "dest_path": null,
+    "kind": "file",
+    "task": null,
+    "flags": {
+     "has_secret": false,
+     "user_confirmed": false,
+     "files_shown": false,
+     "secrets_checked": false,
+     "admin_bypass": false,
+     "in_worktree": false,
+     "user_asked": false,
+     "tests_passed": false
+    },
+    "running": [],
+    "prior": [
+     {
+      "cmd": "run",
+      "task": "other:back up the database",
+      "branch": "feature/orders-schema",
+      "path": "backups/pre-orders.dump",
+      "ok": false
+     }
+    ]
+   }
+  }
+ ]
+}
