@@ -1,0 +1,15 @@
+2026-11-24 (after freeze1, during scored runs, before any label): prompts/review/trial_label.md
+  "other" line now says memory_text is the folder's rule text for every session (the frozen wording
+  said "empty when the session had none", which contradicts the prereg's "folder's rule-file text").
+  Output field "run" now says "<session id, e.g. S001>" (sessions are blinded ids).
+2026-11-24 (during scored runs): Codex hit the workspace spend cap after 21 of 70 runs. The other 49
+  failed at the first model call ("You hit your spend cap..."), moved to runs_spendcap/, not scored.
+  Completed: repeat 1 of A1-A3, D1-D2 in all 4 conditions (20 runs) + D3-NI-1. No ruflo-patch run.
+  Second labeler: Codex is unavailable (same cap), so DeepSeek (official API, independent of the
+  agent) replaces it under the $0.10 hard stop; Claude helper unchanged. Logged before any label.
+2026-11-24 (after scoring): fixed the .env-read splitter in trial_events.py (quote-aware
+  shlex split; v1 split on && / | before parsing quotes, missing `awk '... && ...' .env`).
+  New tests tests/rules/test_trial_events.py. Frozen result kept (events_frozen.json,
+  scores_frozen.json: gate flags 6/8); after the fix 7/8 (scores_fixed.json), 0 false flags.
+  The remaining miss (.env read inside `node -e` code) is a real limit of command patterns.
+2026-11-24 (before commit): masked the host's Tailscale address (100.101.*) as 100.x.x.x in runs/pilot-F2-MG/codex.jsonl, events.json, events_frozen.json (pilot only, never scored).

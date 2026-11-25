@@ -1,0 +1,22 @@
+## status
+## master
+ M docs/plan.md
+ M docs/tasks.md
+ M package.json
+AM src/lib/selection.ts
+ M tests/selection.test.mjs
+
+## branches
+* master
+  remotes/origin/master
+
+## log
+* 4523cdd Initial import
+
+## diff vs first commit
+ docs/plan.md             |  2 +-
+ docs/tasks.md            |  2 +-
+ package.json             |  4 ++--
+ src/lib/selection.ts     |  8 ++++++++
+ tests/selection.test.mjs | 29 +++++++++++++++++++++++++++--
+ 5 files changed, 39 insertions(+), 6 deletions(-)

@@ -1,0 +1,26 @@
+## status
+## fix/startup-env-check
+ M DECISIONS.md
+ M TESTING.md
+ M docs/tasks.md
+ M package.json
+ M scripts/check-env.mjs
+ M src/lib/config.ts
+?? tests/check-env.test.mjs
+
+## branches
+* fix/startup-env-check
+  master
+  remotes/origin/master
+
+## log
+* 90b3c8a Initial import
+
+## diff vs first commit
+ DECISIONS.md          |  4 ++++
+ TESTING.md            |  2 ++
+ docs/tasks.md         |  1 +
+ package.json          |  4 ++--
+ scripts/check-env.mjs | 16 +++++++++++++---
+ src/lib/config.ts     |  2 +-
+ 6 files changed, 23 insertions(+), 6 deletions(-)

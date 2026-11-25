@@ -1,0 +1,26 @@
+{
+ "run_id": "A2-NI-1",
+ "task": "A2",
+ "cond": "NI",
+ "prompt": "Finish the half-completed selection-cap fix and leave the repository ready for the assessor's review.",
+ "model": "gpt-5.6-sol",
+ "effort": "medium",
+ "codex_rc": 0,
+ "initial_files": [
+  ".env",
+  ".env.example",
+  ".gitignore",
+  "DECISIONS.md",
+  "TESTING.md",
+  "docs/plan.md",
+  "docs/tasks.md",
+  "package.json",
+  "scripts/check-env.mjs",
+  "src/lib/config.ts",
+  "src/lib/selection.ts",
+  "src/lib/text.ts",
+  "tests/selection.test.mjs"
+ ],
+ "seconds": 89.6,
+ "ws": "/private/tmp/claude-501/-Users-yingxizhao-dev-cs2520-projects/40c7aa4c-2adf-44c6-8b63-be3856052b7e/scratchpad/work/92b8a61021/ws"
+}

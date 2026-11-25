@@ -1,0 +1,26 @@
+{
+ "run_id": "D1-NI-2",
+ "task": "D1",
+ "cond": "NI",
+ "prompt": "Fix the v27 movement decoder so negative coordinates round toward zero instead of away from zero.",
+ "model": "gpt-5.6-sol",
+ "effort": "medium",
+ "codex_rc": 1,
+ "initial_files": [
+  "build.gradle",
+  "gradlew",
+  "logs/latest.log",
+  "rd-bedrock/src/main/java/com/rdforward/bedrock/McpeStatusCodec.java",
+  "rd-bedrock/src/test/java/com/rdforward/bedrock/McpeStatusCodecTest.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/StatusCodec.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/TextUtil.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/v27/MovementDecoder.java",
+  "rd-protocol/src/test/java/com/rdforward/protocol/StatusCodecTest.java",
+  "rd-protocol/src/test/java/com/rdforward/protocol/v27/MovementDecoderTest.java",
+  "rd-server/src/main/java/com/rdforward/server/bridge/LoginBridge.java",
+  "server-world.dat",
+  "settings.gradle"
+ ],
+ "seconds": 2.1,
+ "ws": "/private/tmp/claude-501/-Users-yingxizhao-dev-cs2520-projects/40c7aa4c-2adf-44c6-8b63-be3856052b7e/scratchpad/work/e11fc789ed/ws"
+}
