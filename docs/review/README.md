@@ -10,6 +10,7 @@ changed after its runs; later fixes are logged in the results file or the study'
 | Full-folder arm (119-394 rules) | `enforce_prereg.md` (secondary arm) | `enforce_results.md`, last section | Bigger folders did not hurt the LLM; 19 extra flags were real breaks outside the sample |
 | Boundary stress test (25 Z3-exact rules, 150 edge actions) | `boundary_prereg.md` | `boundary_results.md` | Tie at F1 1.00 after a logged format fix (frozen Z3 0.91); only 1.9% of rules qualify |
 | Agent trial (Codex as a real agent, 21 of 70 runs) | `agent_trial_prereg.md` | `agent_trial_results.md` | Rule files cut breaks from 5/6 runs to 2/10; no forgetting seen in short tasks; gate flags 6/8 (7/8 after fix), never fired live |
+| Hidden-rules trial (Claude Code Sonnet, 50 runs) | `hidden_rules_prereg.md` | `hidden_rules_results.md` | Gate flagged 21/21 breaks, 0 false, blocked 4/4 live; hiding rules raised breaks only 2/10 -> 3/10 (hypothesis not supported as stated); Sonnet broke visible rules too |
 
 Design notes for Part 2: `enforce_next_codex.md` (follow-up design after the main test),
 `data/runs/agent_trial/review_codex.md` (Codex's review of the agent trial).

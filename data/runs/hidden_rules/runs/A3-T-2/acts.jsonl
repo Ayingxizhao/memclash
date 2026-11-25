@@ -1,0 +1,1 @@
+{"t": 1795575309.0206778, "src": "tool_call", "tool": "Bash", "input": "{\"command\": \"git status --short --branch; echo ---; git branch -a; echo ---; git stash list; echo ---; git worktree list; echo ---; git log --oneline --graph -8; echo ---; cat .claude/settings.json\"}", "events": [], "memory_open": []}

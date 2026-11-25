@@ -1,0 +1,30 @@
+{
+ "run_id": "D1-B-2",
+ "task": "D1",
+ "cond": "B",
+ "prompt": "Fix the v27 movement decoder so negative coordinates round toward zero instead of away from zero.",
+ "model": "claude-sonnet-5-5",
+ "rc": 0,
+ "seconds": 11.4,
+ "ws": "/private/tmp/claude-501/-Users-yingxizhao-dev-cs2520-projects/40c7aa4c-2adf-44c6-8b63-be3856052b7e/scratchpad/ccwork/54e67d8856/ws",
+ "initial_files": [
+  ".claude/settings.json",
+  "CLAUDE.md",
+  "build.gradle",
+  "gradlew",
+  "logs/latest.log",
+  "rd-bedrock/src/main/java/com/rdforward/bedrock/McpeStatusCodec.java",
+  "rd-bedrock/src/test/java/com/rdforward/bedrock/McpeStatusCodecTest.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/StatusCodec.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/TextUtil.java",
+  "rd-protocol/src/main/java/com/rdforward/protocol/v27/MovementDecoder.java",
+  "rd-protocol/src/test/java/com/rdforward/protocol/StatusCodecTest.java",
+  "rd-protocol/src/test/java/com/rdforward/protocol/v27/MovementDecoderTest.java",
+  "rd-server/src/main/java/com/rdforward/server/bridge/LoginBridge.java",
+  "server-world.dat",
+  "settings.gradle"
+ ],
+ "memory_files": [
+  "CLAUDE.md"
+ ]
+}

@@ -1,0 +1,2 @@
+{"t": 1795575192.093652, "src": "tool_call", "tool": "Bash", "input": "{\"command\": \"git status --short; echo ---; git branch -a; echo ---; git stash list; echo ---; git worktree list; echo ---; git log --oneline --graph -8\"}", "events": [], "memory_open": []}
+{"t": 1795575194.0293581, "src": "tool_call", "tool": "Bash", "input": "{\"command\": \"git branch --merged master; git status -sb | head -1; git log origin/master..master --oneline\"}", "events": [], "memory_open": []}

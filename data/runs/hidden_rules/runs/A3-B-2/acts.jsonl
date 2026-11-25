@@ -1,0 +1,2 @@
+{"t": 1795575310.062409, "src": "tool_call", "tool": "Bash", "input": "{\"command\": \"git status --short; git branch -a; git stash list; git log --oneline -5; ls -a .claude\"}", "events": [], "memory_open": []}
+{"t": 1795575312.6307368, "src": "tool_call", "tool": "Bash", "input": "{\"command\": \"git branch --merged master 2>/dev/null; git status -sb 2>/dev/null | head -1\"}", "events": [], "memory_open": []}
