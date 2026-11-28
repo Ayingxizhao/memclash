@@ -26,7 +26,7 @@ cannot guarantee the translation means the same as the English rule.
 | Stopping rule breaks, all rules: the LLM wins | F1 on 334 actions: Z3 0.78, DeepSeek 0.87, Haiku 0.85. Every Z3 miss is a rule it cannot express or a translation gap | `docs/review/enforce_results.md` |
 | Stopping rule breaks, rules Z3 can express: Z3 wins | F1 on 101 actions: Z3 0.97, DeepSeek 0.90, Haiku 0.89 | `docs/review/boundary2_results.md` |
 | In real agent runs the Z3 gate works as a live check | 40 runs with rules loaded: 8 of 8 runs with a break flagged, 4 of 4 blocked live, 0 false flags | `docs/review/hidden_rules_results.md` |
-| Z3 is faster and cheaper per check | Finding clashes on the same 51 rules: adding one rule takes Z3 ~14 s and ~$0.001; an LLM re-reads every rule, ~3 min and ~$0.02 (estimate). A first full check takes Z3 ~1 min and ~$0.04. Stopping rule breaks, per 100 actions: Z3 0.5 s and $0; Haiku 16 s; DeepSeek 150 s and ~$0.01 | `data/runs/boundary2/group_timing.json`, `clash_timing.json`, `docs/review/enforce_results.md` |
+| Z3 is faster and cheaper per check | Finding clashes on the same 51 rules: adding one rule takes Z3 ~14 s and ~$0.001; DeepSeek re-reads every rule, ~3 min and ~$0.02 (estimate). A first full check takes Z3 ~1 min and ~$0.04. Stopping rule breaks, per action (estimate): Z3 ~5 ms and $0; Haiku ~1.5 s and ~$0.0002; DeepSeek ~3 s and ~$0.0004 | `data/runs/boundary2/group_timing.json`, `clash_timing.json`, `docs/review/enforce_results.md` |
 
 **Conclusion.** Formal verification is useful as a fast, deterministic gate for simple action
 rules, not as a general rule reader. Use both: an LLM reads the whole memory, and Z3 gates the

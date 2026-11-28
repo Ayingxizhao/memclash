@@ -31,12 +31,15 @@ judges the action directly, with no translation.
 - A partial translation keeps a rule's core action, which most breaking actions hit; breaks that
   hinge on a dropped condition slip through. This is why Z3 still scores well above zero.
 
-## Speed and cost per 100 actions
+## Speed and cost per action (estimate, 51-rule memory)
 | | Time | Money |
 |---|---|---|
-| Z3 | 0.5 s | $0, same answer every run |
-| Claude Haiku 5.5 | 16 s | subscription, not billed |
-| DeepSeek | 150 s | about $0.01 |
+| Z3 | ~5 ms | $0, same answer every run |
+| Claude Haiku 5.5 | ~1.5 s | ~$0.0002 |
+| DeepSeek 4.1 Flash | ~3 s | ~$0.0004 |
+A live gate makes one LLM call per action that resends the rules, so the LLM cost grows with the
+number of rules. Estimates from measured token counts, output speed and API prices
+(`experiment_log.md`, cost measurements).
 Z3's one-time cost is translating the rules (see `natural_findings.md`, speed and cost).
 
 ## Limits

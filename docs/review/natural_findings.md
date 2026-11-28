@@ -36,7 +36,7 @@ translated rules; the baseline is one LLM call that reads the whole folder in En
 |---|---|---|
 | Z3, add 1 rule (translate it, then check all rules together) | ~14 s | ~$0.001 |
 | Z3, first check (translate every rule, then check) | ~1 min | ~$0.04 |
-| LLM, every check (re-read every rule) | ~3 min | ~$0.02 |
+| DeepSeek 4.1 Flash, every check (re-read every rule) | ~3 min | ~$0.02 |
 
 The Z3 check of all 51 rules together took 6.3 s (`group_timing.json`); it covers clashes among
 three or more rules, not only pairs (`pipeline/rules/group.py`). Pair checks: median 5 ms over

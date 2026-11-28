@@ -30,3 +30,10 @@ Summary of results: `natural_findings.md`. Code: `pipeline/rules/natural_test.py
 - Z3 timing on round-2 translations, one laptop: all same-folder pairs (4,139) median 5.1 ms
   (`data/runs/boundary2/clash_timing.json`); whole-folder check of 2-51 rules, 51 rules in
   6.3 s (`data/runs/boundary2/group_timing.json`).
+- Gate per action (estimate for a live gate: one call per action, resending the rules). Rules and
+  instructions about 1,500 input tokens for the 51-rule memory. Output per action from the logs:
+  Haiku ~96 tokens (10,009 for 104 actions), DeepSeek ~270 (24,801 and 37,335 for 114 actions, two
+  runs, reasoning included). API prices per 1M tokens: Haiku 5.5 $0.10 in / $0.50 out; DeepSeek 4.1
+  Flash off-peak $0.15 in (cache miss) / $0.60 out (api-docs.deepseek.com pricing page, 2026-11-28).
+  Time: output tokens at ~200 tok/s (Haiku) and 145-169 tok/s (DeepSeek) plus ~1 s to start a call.
+  Result: Haiku ~1.5 s and ~$0.0002, DeepSeek ~3 s and ~$0.0004, Z3 ~5 ms (0.5 s per 100) and $0.

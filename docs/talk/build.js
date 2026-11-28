@@ -342,8 +342,10 @@ pres.defineSlideMaster({
   // rule at ~160 tok/s) + joint check 6.3 s = ~14 s; pair check 5 ms median (clash_timing.json); ~$0.001 (bench: $0.04 / 48
   // rules). LLM: one whole-folder call ~47k output tokens (experiment_log N3) at ~160 tok/s (DeepSeek, measured in the
   // action tests: 145-169 tok/s) = ~300 s est.; ~$0.03 per folder (billed).
-  // Task 2 (per 100 actions, measured): Z3 0.5 s; Haiku 16 s; DeepSeek 150 s (171 s / 114); DeepSeek ~$0.01.
-  // Layout: columns = task, rows = time and cost. Haiku ran on a subscription: no billed cost, so not in the cost row.
+  // Task 2 (per action, estimate for a live gate on the 51-rule memory): Z3 ~5 ms (0.5 s / 100 actions), $0.
+  // LLM: one call per action resending the rules (~1,500 input tokens). Haiku ~96 output tokens at ~200 tok/s + ~1 s
+  // start = ~1.5 s; $0.10/$0.50 per 1M -> ~$0.0002. DeepSeek ~270 output tokens at 145-169 tok/s + ~1 s = ~3 s;
+  // off-peak $0.15/$0.60 per 1M -> ~$0.0004. Layout: columns = task, rows = time and cost.
   const head = (x, t, sub, name) => s.addText([{ text: t, options: { bold: true, fontSize: 16, color: C.text2, breakLine: true } },
       { text: sub, options: { fontSize: 12, color: C.text1 } }],
     { x, y: 1.3, w: 4.3, h: 0.55, valign: "top", margin: 0, isTextBox: true, objectName: name + " head" });
@@ -363,21 +365,22 @@ pres.defineSlideMaster({
   };
   head(M, "1  Finding clashes", "Same memory for both: 51 rules", "task 1");
   bars(M, 1.95, "Time", [["Z3, add 1 rule", 14, "~14 s", true], ["Z3, first check", 66, "~1 min", true],
-                         ["LLM, every check", 180, "~3 min", false]], "task 1");
+                         ["DeepSeek, every check", 180, "~3 min", false]], "task 1");
   bars(M, 3.3, "Cost", [["Z3, add 1 rule", 0.001, "~$0.001", true], ["Z3, first check", 0.04, "~$0.04", true],
-                        ["LLM, every check", 0.02, "~$0.02", false]], "task 1");
+                        ["DeepSeek, every check", 0.02, "~$0.02", false]], "task 1");
   s.addShape(pres.shapes.LINE, { x: 4.95, y: 1.4, w: 0, h: 3.3, line: { color: C.accent5, width: 1 }, objectName: "divider" });
-  head(5.2, "2  Stopping rule breaks", "Per 100 agent actions", "task 2");
-  bars(5.2, 1.95, "Time", [["Z3", 0.5, "0.5 s", true], ["Haiku", 16, "16 s", false], ["DeepSeek", 150, "150 s", false]], "task 2");
-  bars(5.2, 3.3, "Cost", [["Z3", 0, "$0", true], ["DeepSeek", 0.01, "~$0.01", false]], "task 2");
-  s.addText("~ = estimate: LLM output scaled from an 84-rule call (47k tokens) at ~160 tokens/s; Z3 check (6 s) and translation speed measured.",
+  head(5.2, "2  Stopping rule breaks", "Per agent action (estimate)", "task 2");
+  bars(5.2, 1.95, "Time", [["Z3", 0.005, "~5 ms", true], ["Haiku", 1.5, "~1.5 s", false], ["DeepSeek", 3, "~3 s", false]], "task 2");
+  bars(5.2, 3.3, "Cost", [["Z3", 0, "$0", true], ["Haiku", 0.0002, "~$0.0002", false], ["DeepSeek", 0.0004, "~$0.0004", false]], "task 2");
+  s.addText("~ = estimate from measured token counts, output speed and API prices.",
             { x: M, y: 4.98, w: 9.0, h: 0.3, fontSize: 11, color: C.accent3, margin: 0, isTextBox: true, objectName: "source" });
   s.addNotes(
     "Speed and cost, compared on the same memory: 51 rules, our largest translated folder. Finding clashes: when you add a rule, Z3 only " +
     "translates that one rule, then checks all the rules together, so clashes among three or more rules are caught too: about 14 seconds and a tenth of a cent. " +
     "An LLM has to re-read all 51 rules every time, about 3 minutes and 2 cents by our estimate. The very first check is different: Z3 must translate every rule, about a minute and 4 cents, so Z3 pays off as memory grows rule by rule. " +
-    "Stopping rule breaks: Z3 checks 100 actions in half a second, free, and gives the same answer every run; an LLM takes " +
-    "16 to 150 seconds and bills every check; Codex even changed 6 of 114 verdicts between runs. Haiku ran on a subscription, so it has no billed cost. The tilde numbers are estimates from measured token speed and billing.");
+    "Stopping rule breaks: as a live gate, Z3 checks an action in about 5 milliseconds, free, and gives the same answer every run; " +
+    "an LLM needs one call per action, about 1.5 to 3 seconds and a few hundredths of a cent, and that cost grows with the number of rules it must read. " +
+    "The tilde numbers are estimates from measured token counts, output speed and API prices.");
 }
 
 // ---------------------------------------------------------------- slide 7: conclusion
