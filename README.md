@@ -1,114 +1,103 @@
-# Finding conflicting rules in coding-agent memory
+# memclash: formal verification for coding-agent memory rules
 
-CS2520 class project. A coding agent's memory folder holds rules written on different days.
-Some pairs of rules cannot both be followed. This repo finds those pairs.
+CS2520 class project. Coding agents such as Claude Code keep project rules in memory files
+(`CLAUDE.md`, `.claude/memory/`). Agents still break these rules, and rules written on
+different days can clash.
 
-Research question: for rules in agent memory, does a solver-assisted check leave fewer
-conflicting rule pairs than keeping every rule or asking an LLM, and how much of its error
-comes from translating rules into logic?
+**Research question.** Is formal verification (the Z3 solver) useful for agent memory? We test
+it at two points, against an LLM that reads the same rules in English:
 
-## Contributions and where they live
+1. **Memory update:** when a rule is added, does it clash with the rules already there?
+2. **Agent action:** does the step the agent is about to take break a rule? If so, block it.
 
-| # | Contribution | Code | Prompts | Runs |
-|---|---|---|---|---|
-| 1 | Dataset: real memory folders from GitHub, split into rules, with labelled rule pairs | `prep/` | `prompts/data_prep/` | `data/dev`, `data/gold` |
-| 2 | Negative result: one fixed format for every rule, checked by Z3, finds 0 of 10 labelled conflicts | `gate_v1/` | `prompts/gate_v1/` | `data/runs/gate_v1/` |
-| 3 | General method: LLM lists related pairs, LLM judges each pair, Z3 confirms | `pipeline/general/` | `prompts/general/` | `data/runs/general/` |
-| 4 | Exact method for git rules: each rule translated alone into a fixed git model, Z3 checks every pair | `pipeline/git/` | `prompts/git/` | `data/runs/git/` |
-| 5 | Test with planted rules: a second model writes a conflicting rule and a rewording for a real rule | `pipeline/eval/` | `prompts/eval/` | `data/inject/` |
+**Method.** We borrow the policy-as-code idea (cf. Open Policy Agent, AWS Cedar). An LLM
+translates each English rule once into code over a fixed schema of git commands, file actions,
+tasks and a few yes/no facts (`pipeline/rules/vocab.py`). Output that names anything outside the
+schema, or does not compile, is rejected. Z3 then checks the translated rules: all together for
+clashes, or one proposed action at a time as a gate. The schema forces a checkable form; it
+cannot guarantee the translation means the same as the English rule.
 
-`pipeline/llm.py` is the shared LLM client. Every call is cached in `data/llm_cache.jsonl`,
-so a rerun is free.
+## Findings
 
-### 3. General method (`pipeline/general/`)
+| Claim | Result | Evidence |
+|---|---|---|
+| Agents break memory rules even with the rule files loaded | 8 of 30 runs broke a rule (Claude Code, Sonnet 5.5) | `docs/review/hidden_rules_results.md` |
+| Finding clashes: an LLM reading the whole folder finds more than Z3 | 56 repos checked, 12 had a clash, 42 clashes. Of the 22 labelled in detail, 5 fit Z3's logic; the rest are about which tool to use, plan steps, file layout or values. Z3's misses come from translation: a dropped "may", a target with no file path, a narrowed scope | `docs/review/natural_findings.md`, `docs/review/experiment_log.md` |
+| Stopping rule breaks, all rules: the LLM wins | F1 on 334 actions: Z3 0.78, DeepSeek 0.96, Haiku 0.94. Every Z3 miss is a rule it cannot express or a translation gap | `docs/review/enforce_results.md` |
+| Stopping rule breaks, rules Z3 can express: Z3 wins | F1 on 101 actions: Z3 0.97, DeepSeek 0.90, Haiku 0.89 | `docs/review/boundary2_results.md` |
+| In real agent runs the Z3 gate works as a live check | 40 runs with rules loaded: 8 of 8 runs with a break flagged, 4 of 4 blocked live, 0 false flags | `docs/review/hidden_rules_results.md` |
+| Z3 is faster and cheaper per check | Finding clashes on the same 51 rules: adding one rule takes Z3 ~14 s and ~$0.001; an LLM re-reads every rule, ~3 min and ~$0.02 (estimate). A first full check takes Z3 ~1 min and ~$0.04. Stopping rule breaks, per 100 actions: Z3 0.5 s and $0; Haiku 16 s; DeepSeek 150 s and ~$0.01 | `data/runs/boundary2/group_timing.json`, `clash_timing.json`, `docs/review/enforce_results.md` |
 
-1. `filter_folder.py`: one LLM call per folder lists the pairs that look related. Repeated with
-   shuffled rule order (default 4 times) and the pairs are pooled, because one call is unstable.
-2. `judge_pair.py`: one LLM call per listed pair labels it (duplicate, contradiction, override,
-   stale, tension, none). Without `--candidates` it judges every pair (the LLM baseline).
-3. `verify_pair.py`: for each pair the judge calls a conflict, one LLM call writes both rules
-   as logic formulas with shared names, and Z3 decides whether some situation makes both rules
-   apply with no way to follow both. If Z3 says "no conflict" only because the two actions were
-   never related, one more call asks how they relate, and Z3 decides again.
-4. `run_pipeline.py`: runs the three steps into one run folder.
+**Conclusion.** Formal verification is useful as a fast, deterministic gate for simple action
+rules, not as a general rule reader. Use both: an LLM reads the whole memory, and Z3 gates the
+rules it can express exactly, such as "never read `.env`".
 
-A pair is reported when the judge calls it a conflict and Z3 confirms it.
+**Limits.** Small samples; labels come from two AI reviewers and the author; values marked `~`
+are estimates from measured token speed and billed cost.
 
-### 4. Exact git method (`pipeline/git/git_check.py`)
+## Artifact: memclash for Pi
 
-Each rule is translated alone into clauses over git operations (`never`, `only_if`,
-`must_do`, `may_do`); non-git rules are marked `fits: false`. What git means is written in
-the code, not guessed by the LLM: every kind of push is a push, every kind of merge is a merge,
-and file patterns such as `.env*` are matched exactly. Z3 then checks every pair of git rules.
-`selftest` checks the logic on hand-written translations without any LLM call.
+A [Pi](https://pi.dev) extension that applies both checks to a live coding agent that reads its
+rules from `MEMORY.md`. It demonstrates the method; it is not evidence for the findings above.
+Set-up, the demo memory file and limits: `integrations/pi/README.md`.
 
-### 5. Planted-rule test (`pipeline/eval/`)
+### Agent action: the gate blocks a rule break
 
-`inject.py` asks a second model to write, for a chosen real rule, a conflicting rule in the
-same words, a conflicting rule in other words, and a rewording that must not be flagged. Every
-planted rule is reviewed by hand. `inject_eval.py build` makes one folder copy per kind;
-`inject_eval.py score` scores each step. `score.py` scores a run against labelled pairs and
-appends a row to `data/results.jsonl`.
+The agent tries to push before the tests have run; the gate blocks it with the rule's own text.
 
-## Commands
+![Gate blocks a push](integrations/pi/screenshots/1-gate-blocks-push.png)
 
-```
-# general method
-uv run python pipeline/general/run_pipeline.py --run general/<run> --rules data/dev/rules.json --repeats 4
-uv run python pipeline/eval/score.py --name <name> --pred data/runs/general/<run>/reported.json \
-    --labels data/open_coding/agent_a.json
-uv run python pipeline/general/judge_pair.py --run general/<run> --rules data/dev/rules.json   # LLM baseline
+After the user asks for tests, the tests run first and the same push is allowed.
 
-# exact git method
-uv run python pipeline/git/git_check.py selftest
-uv run python pipeline/git/git_check.py translate --rules <rules.json> --out data/runs/git/<run>/translate.json
-uv run python pipeline/git/git_check.py check --translations data/runs/git/<run>/translate.json \
-    --out data/runs/git/<run>/check.json
+![Allowed after the user asks](integrations/pi/screenshots/2-allowed-after-user-asks.png)
 
-# planted-rule test
-uv run python pipeline/eval/inject.py --rules data/dev/rules.json --folder setflow \
-    --hosts R1:opposite,R12:value --out data/inject/dev_pilot.json
-uv run python pipeline/eval/inject_eval.py build --inject data/inject/dev_pilot.json --rules data/dev/rules.json
-uv run python pipeline/general/run_pipeline.py --run general/<run> --rules data/inject/dev_pilot_rules.json
-uv run python pipeline/eval/inject_eval.py score --inject data/inject/dev_pilot.json --run general/<run>
-```
+### Memory update: a conflicting rule is caught before saving
 
-The endpoint and key are read from `../.env`. `LLM_PROVIDER=2` selects the second endpoint
-(`DEEPSEEK_API_KEY2`, `Base_URL2`).
+Asked to save "commit small fixes directly to main", the agent silently replaces "Never commit
+directly to `main`". memclash checks the edit before it is saved and asks the user, who keeps the old
+rule. The first item in the list is a false flag (a reworded branch note).
 
-## Data
+![Memory edit checked before saving](integrations/pi/screenshots/3-memory-edit-checked.png)
+
+## Layout
 
 ```
-data/own/          the author's own memory folders (smoke test)
-data/dev/          5 folders (125 rules) used for development; labels in data/open_coding/agent_a.json
-data/gold/         10 held-out folders (389 rules) and 4 large folders (677 rules)
-data/inject/       planted rules and the folder copies built from them
-data/runs/         one folder per run, grouped by method (gate_v1, general, git)
-data/results.jsonl one row per scored run
+prep/                 scrape public memory folders from GitHub, keep English ones, split into rules
+pipeline/llm.py       LLM client with an on-disk cache
+pipeline/rules/       the schema (vocab.py), Z3 model (model.py, patterns.py, state.py),
+                      translation (translate.py, template.py, coverage.py),
+                      clash checks (pair.py: two rules; group.py: all rules together),
+                      the action gate (enforce.py) and one runner per study (below)
+pipeline/rules/memclash.py  compile / gate / check / clash for use from a coding agent
+integrations/pi/      the Pi extension (artifact), demo repo setup, demo memory file, screenshots
+prompts/rules/        translation and LLM-judge prompts
+prompts/review/       prompts for selecting rules, writing test actions, labelling and reviewing
+docs/review/          one plan (prereg) and one results file per study; index in README.md
+docs/adr/             design decisions (clash definition, schema, unexpressible conditions)
+docs/talk/            the talk slides (build.js -> talk.pptx)
+data/github/          scraped public memory folders and extracted rules
+data/own/             the author's own memory folders
+data/runs/            one folder per study
+tests/rules/          unit tests for the schema, Z3 model, clash checks and gate
 ```
 
-| Run | What it is |
-|---|---|
-| `gate_v1/own_v1..v3`, `gate_v1/dev_v1`, `gate_v1/dev_v2` | the fixed-format attempt |
-| `general/dev_judge` | LLM judge on every dev pair (baseline) |
-| `general/dev_folder`, `general/dev_folder_x5` | the folder-level listing, once and five times |
-| `general/dev_confirm`, `general/dev_verify2` | Z3 check on the judge's dev conflicts (without / with the follow-up question) |
-| `general/inj_pilot`, `general/inj_pilot_v2` | general method on the planted-rule pilot (without / with the follow-up question) |
-| `git/git_pilot` | git method on the planted-rule pilot (`check.json` before the fixes, `check_v2.json` after) |
+| Study | Runner | Data |
+|---|---|---|
+| Clashes in real folders | `pipeline/rules/natural_test.py`, `group.py`, `lexical.py` | `data/runs/natural/` |
+| Stopping rule breaks, all rules | `pipeline/rules/enforce_run.py`, `enforce_score.py` | `data/runs/natural/enforce_*` |
+| Stopping rule breaks, rules Z3 can express | `pipeline/rules/boundary_run.py`, `boundary2.py` | `data/runs/natural/boundary_*`, `data/runs/boundary2/` |
+| Live gate with Claude Code | `pipeline/rules/trial_cc.py`, `trial_cc_score.py`, `trial_gate.py` | `data/runs/hidden_rules/` |
 
-## Status (development results only)
+## Running
 
-- General method: on dev, Z3 kept 8 of the judge's 21 conflict flags, all real by the author's
-  reading; the judge misses about half of the labelled conflicts. On the planted-rule pilot it
-  caught 10 of 11 planted conflicts and flagged 0 of 5 rewordings.
-- Git method: on the pilot, 6 of 6 planted git conflicts caught, 0 of 3 rewordings flagged, no
-  false conflicts. Two checker errors were fixed on this same folder, so a fair test on new
-  folders is still needed.
-- Git method, large folders (212 git rules, tuning data): the checker reports 0 clashes, but the
-  reference built from two readers and the author's labels has 11 clashes (2 more depend on a
-  word's meaning). The checker misses all 11 because they involve things the git model cannot
-  express (9 tool choice, 1 dev-bot testing, 1 "backlog sweep"). Definition of a clash and the
-  other decisions: `docs/adr/`.
-- Missing: fair git test on the large folders; full general run on dev in `results.jsonl`; the
-  single run on the held-out folders (needs both labellers finished); novelty and citation checks.
-- Dev labels come from one annotator and are incomplete. The held-out labels have not been used.
+```
+uv sync
+uv run pytest tests                                   # schema, Z3 model, clash checks, gate
+PYTHONPATH=pipeline uv run python -m rules.enforce_run z3   # example: the Z3 arm of one study
+```
+
+Each runner lists its steps in its docstring (top of the file). To try the artifact, see
+`integrations/pi/README.md`.
+
+LLM keys are read from `../.env`. Every LLM call is cached in `data/llm_cache.jsonl`, so a
+rerun of a finished step is free.

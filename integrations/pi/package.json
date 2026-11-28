@@ -1,0 +1,14 @@
+{
+  "name": "pi-memclash",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Test-only Pi extension: a Z3 gate over the agent's memory rules (memclash).",
+  "type": "module",
+  "keywords": ["pi-package"],
+  "pi": {
+    "extensions": ["./extensions/memclash.ts"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}
