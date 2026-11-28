@@ -1,6 +1,6 @@
 # memclash: formal verification for coding-agent memory rules
 
-CS2520 class project. Coding agents such as Claude Code keep project rules in memory files
+Coding agents such as Claude Code keep project rules in memory files
 (`CLAUDE.md`, `.claude/memory/`). Agents still break these rules, and rules written on
 different days can clash.
 
@@ -23,7 +23,7 @@ cannot guarantee the translation means the same as the English rule.
 |---|---|---|
 | Agents break memory rules even with the rule files loaded | 8 of 30 runs broke a rule (Claude Code, Sonnet 5.5) | `docs/review/hidden_rules_results.md` |
 | Finding clashes: an LLM reading the whole folder finds more than Z3 | 56 repos checked, 12 had a clash, 42 clashes. Of the 22 labelled in detail, 5 fit Z3's logic; the rest are about which tool to use, plan steps, file layout or values. Z3's misses come from translation: a dropped "may", a target with no file path, a narrowed scope | `docs/review/natural_findings.md`, `docs/review/experiment_log.md` |
-| Stopping rule breaks, all rules: the LLM wins | F1 on 334 actions: Z3 0.78, DeepSeek 0.96, Haiku 0.94. Every Z3 miss is a rule it cannot express or a translation gap | `docs/review/enforce_results.md` |
+| Stopping rule breaks, all rules: the LLM wins | F1 on 334 actions: Z3 0.78, DeepSeek 0.87, Haiku 0.85. Every Z3 miss is a rule it cannot express or a translation gap | `docs/review/enforce_results.md` |
 | Stopping rule breaks, rules Z3 can express: Z3 wins | F1 on 101 actions: Z3 0.97, DeepSeek 0.90, Haiku 0.89 | `docs/review/boundary2_results.md` |
 | In real agent runs the Z3 gate works as a live check | 40 runs with rules loaded: 8 of 8 runs with a break flagged, 4 of 4 blocked live, 0 false flags | `docs/review/hidden_rules_results.md` |
 | Z3 is faster and cheaper per check | Finding clashes on the same 51 rules: adding one rule takes Z3 ~14 s and ~$0.001; an LLM re-reads every rule, ~3 min and ~$0.02 (estimate). A first full check takes Z3 ~1 min and ~$0.04. Stopping rule breaks, per 100 actions: Z3 0.5 s and $0; Haiku 16 s; DeepSeek 150 s and ~$0.01 | `data/runs/boundary2/group_timing.json`, `clash_timing.json`, `docs/review/enforce_results.md` |

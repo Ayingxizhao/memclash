@@ -18,8 +18,8 @@ judges the action directly, with no translation.
 | | F1 |
 |---|---|
 | Z3 | 0.78 |
-| DeepSeek | 0.96 |
-| Claude Haiku 5.5 | 0.94 |
+| DeepSeek | 0.87 |
+| Claude Haiku 5.5 | 0.85 |
 
 **The LLM wins on all action rules.**
 

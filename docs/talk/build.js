@@ -226,12 +226,12 @@ pres.defineSlideMaster({
     s.addText(label, { x: x + 0.25, y: 1.36, w: 1.4, h: 0.34, fontSize: 13, color: C.text1, margin: 0, isTextBox: true,
       objectName: "legend text " + label });
   };
-  // Updated F1 (user's runs on another device): all rules n=334 (114 + 200 new actions): Z3 0.78, DeepSeek 0.96,
-  // Haiku 0.94. Rules Z3 can express, 104 actions (boundary2 stage 1): Z3 0.94, DeepSeek 0.87, Haiku 0.86. Round 1 dropped.
+  // Updated F1 (user's runs on another device): all rules n=334 (114 + 200 new actions): Z3 0.78, DeepSeek 0.87,
+  // Haiku 0.85. Rules Z3 can express, 101 actions (boundary2 stage 1): Z3 0.97, DeepSeek 0.90, Haiku 0.89. Round 1 dropped.
   const COLS = [C.text2, C.accent5, "999999"], NAMES = ["Z3", "DeepSeek", "Haiku"];
   key(3.1, COLS[0], "Z3"); key(3.75, COLS[1], "DeepSeek"); key(4.95, COLS[2], "Haiku");
   const groups = [
-    { name: "All rules\n334 actions", v: [0.78, 0.96, 0.94], x: 0.8 },
+    { name: "All rules\n334 actions", v: [0.78, 0.87, 0.85], x: 0.8 },
     // 101 actions: boundary2 stage 1 minus S1-009/049/103 (no folder contents stated; undecidable for every arm).
     // Z3 0.967 and Haiku 0.894 recomputed from judge_s1/; DeepSeek 0.90 from the user's run.
     { name: "Rules Z3 can express\n101 actions", v: [0.97, 0.90, 0.89], x: 3.65 },
@@ -260,12 +260,10 @@ pres.defineSlideMaster({
   s.addText("Frozen, preregistered runs. After logged fixes Z3 scores 1.00 and 0.97 on the two expressible-rule tests. Codex left out: it helped build the tests.",
             { x: M, y: 4.98, w: 9.0, h: 0.3, fontSize: 10, color: C.accent3, margin: 0, isTextBox: true, objectName: "source" });
   s.addNotes(
-    "Checkpoint two: the agent is about to act; does the action break a rule? On all real rules, Z3 reaches F1 0.72 against " +
-    "0.98 for an LLM reading the same rules, because many rules cannot be written in its logic. On rules that can be, " +
-    "Z3 is close or better: 0.91 against 1.00 in the first round, where its misses were a format bug we later fixed, and " +
-    "0.94 against 0.86 for a smaller LLM, Haiku, on harder actions. Every Z3 miss came from a rule it could not express " +
-    "or a translation gap, never the solver. The catch: only 1 to 2 percent of about 8,000 real rules can be written " +
-    "exactly in its logic. Where it applies, it is instant, free and deterministic.");
+    "Checkpoint two: the agent is about to act; does the action break a rule? On all real rules (334 actions), Z3 reaches " +
+    "F1 0.78 against 0.87 for DeepSeek and 0.85 for Haiku reading the same rules, because some rules cannot be written in " +
+    "its logic. On rules that can be (101 actions), Z3 wins: 0.97 against 0.90 and 0.89. Every Z3 miss came from a rule " +
+    "it could not express or a translation gap, never the solver. Where it applies, it is instant, free and deterministic.");
 }
 
 // ---------------------------------------------------------------- slide 5: live gate in real agent runs
