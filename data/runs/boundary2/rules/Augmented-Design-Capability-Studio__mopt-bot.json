@@ -1,0 +1,1618 @@
+{
+  "repo": "Augmented-Design-Capability-Studio/mopt-bot",
+  "dir": ".claude/memory",
+  "n_files": 34,
+  "n_rules": 268,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "Add the assumption rows to `problem_brief_patch` **in the same turn** it",
+      "rule": "In agile workflow, when run feedback or stated objectives motivate a new goal-term assumption, add the assumption rows to problem_brief_patch in the same turn the idea is surfaced."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "framed in past tense",
+      "rule": "In agile workflow, frame assumption additions in past tense (e.g., \"I've added X (weight N)…\")."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "Tell the user they can approve, reject, retune in Definition, or just hit Run",
+      "rule": "In agile workflow, after adding assumptions, tell the user they can approve, reject, retune in Definition, or just hit Run."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "\"I suggest we add a lateness penalty… shall I?\"",
+      "rule": "In agile workflow, never propose adding an assumption and ask permission before adding it (e.g., \"shall I?\")."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "\"If you agree, I'll add Y next.\"",
+      "rule": "In agile workflow, never say \"If you agree, I'll add Y next.\" or otherwise defer adding an assumption until the user confirms."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "A \"sure!\" turn from the user followed by a turn that finally adds the assumption.",
+      "rule": "In agile workflow, never add an assumption only in a later turn after the user replies with confirmation such as \"sure!\"."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "keep the language strong: \"SHOULD\" not \"MAY\"",
+      "rule": "When editing agile prompt sections, use strong language such as \"SHOULD\" rather than \"MAY\"."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "explicit anti-patterns called out",
+      "rule": "When editing agile prompt sections, explicitly call out anti-patterns."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "fait accompli phrasing in the example\n  visible-reply lines",
+      "rule": "When editing agile prompt sections, use fait accompli phrasing in the example visible-reply lines."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "there, asking before adding is correct",
+      "rule": "In waterfall workflow, ask the user before adding assumptions."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "`kind: \"assumption\"`, `source: \"agent\"`",
+      "rule": "Set a brief row's kind to \"assumption\" and source to \"agent\" when the agent originated the requirement on its own (proactive additions with no user prompt)."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "`source: \"user\"` (or `upload`)",
+      "rule": "Set a brief row's source to \"user\" (or \"upload\") when the user originated the requirement, including uploaded data."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "Still gathered even if\n  the agent fills in a default weight, threshold, or sub-property.",
+      "rule": "Keep a user-originated brief row as kind \"gathered\" even when the agent fills in a default weight, threshold, or sub-property."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "*Verbatim* phrasing of the request is **not** the test.",
+      "rule": "Do not use the verbatim phrasing of the user's request as the test for a brief row's kind or source."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "keep the explicit \"ORIGIN\n  not phrasing\" framing",
+      "rule": "When editing those prompts, keep the explicit \"ORIGIN not phrasing\" framing."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_agile_proactive_assumptions.md",
+      "quote": "Don't introduce per-keyword tests on the user's\n  text",
+      "rule": "When editing those prompts, do not introduce per-keyword tests on the user's text; decide provenance by who initiated the requirement."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "default to the docs knowledge base, not the system prompt.",
+      "rule": "When asked to extend what the participant chatbot can discuss, put the new knowledge in the docs knowledge base rather than the system prompt by default."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "`docs/user/*.md` for **domain-neutral** content",
+      "rule": "Write domain-neutral chatbot knowledge as H2/H3 sections in docs/user/*.md."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "`{problem_id}_problem/docs/user/*.md` for **per-benchmark** content",
+      "rule": "Write per-benchmark chatbot knowledge as H2/H3 sections in {problem_id}_problem/docs/user/*.md."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "**≤100 body words per section**",
+      "rule": "Keep each docs section to at most 100 body words, since longer excerpts are truncated mid-thought."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "**Avoid the denylist**",
+      "rule": "Avoid denylist terms (w1–w7, \"weight aliases\") in docs sections, because sections containing them are silently dropped from the index."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "**Use the participant's vocabulary too** for retrieval",
+      "rule": "Use the participant's own vocabulary in docs sections so retrieval finds them."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "also include the word \"weight(s)\" once or twice",
+      "rule": "When a docs section uses the term \"importance levels\", also include the participant's word \"weight(s)\" once or twice."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "leave only a short pointer (≤6 lines)",
+      "rule": "In study_chat.py, keep only a pointer of at most 6 lines telling the LLM to consult the matching reference excerpts for the relevant query."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "pretends to be an optimization programmer who programs the problem modules on the fly for the user's specific problem.",
+      "rule": "Have the chatbot present itself as an optimization programmer who programs the problem modules on the fly for the user's specific problem."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "don't break it",
+      "rule": "Do not break the optimization-programmer persona framing."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "It is **not** a license to talk like a developer with unexplained technical jargon.",
+      "rule": "Do not talk like a developer using unexplained technical jargon, even though the persona is a programmer."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "Explain any technical term in line.",
+      "rule": "Explain any technical term inline when it is used."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "\"importance levels\" not just \"weights\"",
+      "rule": "Say \"importance levels\" instead of \"weights\" when speaking to the participant."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "\"rules or limits\" not \"constraints\"",
+      "rule": "Say \"rules or limits\" instead of \"constraints\" when speaking to the participant."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "\"search approach\" not \"algorithm\"",
+      "rule": "Say \"search approach\" instead of \"algorithm\" when speaking to the participant."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "must not surface internal keys",
+      "rule": "Do not surface internal keys to the participant."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "benchmark identity",
+      "rule": "Do not surface benchmark identity to the participant."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "numeric defaults the participant hasn't seen yet",
+      "rule": "Do not surface numeric defaults the participant has not seen yet."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "don't bypass it",
+      "rule": "Do not bypass cold-state masking (surface_problem_brief_for_chat_prompt and the temperature gate on per-module docs)."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "Describing those rules to a participant is honest, not fabrication.",
+      "rule": "Describing codified heuristics as rules to a participant is allowed, since it is honest and not fabrication."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "Don't conflate \"no Python formula\" with \"no mechanism\".",
+      "rule": "Do not treat the absence of a Python formula as the absence of a mechanism when the LLM is meant to be the rule."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "never invent mechanics that contradict actual code",
+      "rule": "Never invent mechanics that contradict the actual code."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_chatbot_knowledge_base.md",
+      "quote": "instead, describe the real implementation in plain language",
+      "rule": "When the real mechanics are not what a participant might expect, describe the actual implementation in plain language."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "a port opts in with `gate_conditional_companions() ->",
+      "rule": "To opt a port into companion goal term handling, implement gate_conditional_companions() returning a mapping from parent key to companion field."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "vague mention → agent asks, no empty term",
+      "rule": "When the user vaguely mentions a companion rule, ask a clarifying question instead of creating an empty companion goal term."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "if the LLM fumbles the carrier the term is KEPT (claim turn) with an OQ, never silently lost.",
+      "rule": "When a concrete child rule was given but the LLM fails to populate the carrier on a claim turn, keep the parent term with an open question and never silently drop it."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "type a rule in plain language → LLM structures it, NOT regex",
+      "rule": "Structure plain-language companion rules typed in chat or the definition panel with the LLM, not with regex."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "graceful deferral to the OQ floor (never pauses)",
+      "rule": "When a companion over-claim check fails after retries, defer gracefully to the open-question floor and never pause the run."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "Don't rely on prompt nudges to make the agent populate",
+      "rule": "Do not rely on prompt nudges to make the agent populate list companion carriers; use the deterministic extractor instead."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "Don't rely on the follow-up chat turn for this.",
+      "rule": "Structure definition-edit companion rules deterministically at save time, not in a follow-up chat turn."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "the port's `goal_term_rationales` (not the agent's `ambiguity_note` narration)",
+      "rule": "Use the port's goal_term_rationales as the text of synthesized companion rows, not the agent's ambiguity_note narration."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "child MUST be dropped, universally",
+      "rule": "When a parent goal term is removed, drop its companion child carrier."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "all keyed on the SAME `gate_conditional_companions`",
+      "rule": "Key all companion pruning layers to the same gate_conditional_companions map, without per-term special cases."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "empty parent shows ONLY when a child was actually given",
+      "rule": "Show an empty parent companion term only when a child rule was actually given."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_companion_goal_term_pattern.md",
+      "quote": "None leaves the brief untouched",
+      "rule": "If the companion extraction call returns None, leave the brief untouched."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "must score **only the briefed canonical terms**",
+      "rule": "The analyzer's formulation-quality score must count only the briefed canonical terms, not every active goal term."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "keeps `coverage` = active canonical terms only (7)",
+      "rule": "Compute `coverage` as the number of active canonical terms only."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "`formulation_score` = coverage + hard_bonus + objective_bonus (0-11)",
+      "rule": "Compute `formulation_score` as coverage + hard_bonus + objective_bonus."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "`captured_terms` stays the full active superset",
+      "rule": "Keep `captured_terms` as the full set of active terms, including un-briefed terms."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "drives the per-term timing chart, NOT the score.",
+      "rule": "Use `captured_terms` to drive the per-term timing chart, not the formulation score."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "No idle-wait scoring fields on the port.",
+      "rule": "Do not add idle-wait scoring fields to the port."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "Notebook source of truth = `backend/analysis/notebooks/browser_cells.py`",
+      "rule": "Treat backend/analysis/notebooks/browser_cells.py as the source of truth for the notebook."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_coverage_canonical_only.md",
+      "quote": "keep the `PyodideNotebook.tsx` seed cells roughly in sync",
+      "rule": "Keep the seed cells in PyodideNotebook.tsx roughly in sync with browser_cells.py."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_cursor_rules.md",
+      "quote": "When a change affects **app workflow, architecture, or repository layout**, update **`AI_INSTRUCTIONS.md`** and **`README.md`** in the same task.",
+      "rule": "When a change affects app workflow, architecture, or repository layout, update AI_INSTRUCTIONS.md and README.md in the same task."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Keep edits short and scoped.",
+      "rule": "Keep documentation edits short and scoped."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Pure typo/comment fixes can skip this.",
+      "rule": "Pure typo or comment fixes may skip the documentation sync."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Import as: `from google import genai`, use `genai.Client`, `client.chats`, etc.",
+      "rule": "Import the Gemini SDK as `from google import genai` and use `genai.Client` in Gemini/LLM code."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Prefer the **Chat API** (`client.chats.create` + `chat.send_message` with `history` and `system_instruction` / `GenerateContentConfig`) for conversational flows.",
+      "rule": "For conversational Gemini flows, prefer the Chat API (client.chats.create and chat.send_message)."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Any Gemini/LLM code must use `google-genai` package.",
+      "rule": "Any Gemini/LLM code must use the google-genai package."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Never add `google-generativeai` as a dep.",
+      "rule": "Never add google-generativeai as a dependency."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_cursor_rules.md",
+      "quote": "New or changed LLM system prompts, instruction blocks, or reusable agent text must go in `backend/app/prompts/`",
+      "rule": "Put new or changed LLM system prompts, instruction blocks, and reusable agent text in backend/app/prompts/."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_cursor_rules.md",
+      "quote": "No long prompt strings in routers or service files; always import from `app.prompts`.",
+      "rule": "Do not place long prompt strings in router or service files; import prompts from app.prompts instead."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_cursor_rules.md",
+      "quote": "All Python commands (run, test, install) use venv.",
+      "rule": "Run all Python commands (run, test, install) using the repo venv at venv/."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_cursor_rules.md",
+      "quote": "Do NOT use system/global `python` or `pip` when working in this repo.",
+      "rule": "Do not use system or global python or pip when working in this repo."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_cursor_rules.md",
+      "quote": "- **Windows**: `.\\venv\\Scripts\\python.exe`, `.\\venv\\Scripts\\pip.exe`, `.\\venv\\Scripts\\pytest.exe`",
+      "rule": "On Windows, invoke Python, pip, and pytest via .\\venv\\Scripts\\python.exe, .\\venv\\Scripts\\pip.exe, and .\\venv\\Scripts\\pytest.exe."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_cursor_rules.md",
+      "quote": "- **Unix**: `venv/bin/python`, `venv/bin/pip`",
+      "rule": "On Unix, invoke Python and pip via venv/bin/python and venv/bin/pip."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_cursor_rules.md",
+      "quote": "If venv/ missing, tell user to create it first.",
+      "rule": "If venv/ is missing, tell the user to create it before running Python commands."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_cursor_rules.md",
+      "quote": "keep `session.workflow_mode` a first-class input",
+      "rule": "Keep session.workflow_mode a first-class input rather than ignoring or hardcoding it."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_cursor_rules.md",
+      "quote": "never collapse the two modes into one generic behavior (unless the user explicitly asks).",
+      "rule": "Never collapse the agile and waterfall workflow modes into one generic behavior unless the user explicitly asks."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_cursor_rules.md",
+      "quote": "If a change affects workflow semantics, update `README.md` and `AI_INSTRUCTIONS.md`.",
+      "rule": "If a change affects workflow semantics, update README.md and AI_INSTRUCTIONS.md."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "algorithms via the active port's `supported_algorithm_names()` hook,",
+      "rule": "When rendering the canonical search-strategy OQ (`oq-monitor-algorithm`) or the agile/demo assumption row (`item-monitor-algorithm-default`), list algorithms via the active port's `supported_algorithm_names()` hook."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "rendered through `app.algorithm_catalog.format_algorithm_choices_phrase()`.",
+      "rule": "Render the algorithm list in the search-strategy OQ and the agile/demo assumption row through `app.algorithm_catalog.format_algorithm_choices_phrase()`."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "The first-supported algorithm is the agile default that the assumption row",
+      "rule": "Treat the first algorithm returned by the port's `supported_algorithm_names()` as the agile default that the assumption row names."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "Don't hardcode algorithm acronyms or nicknames in monitor-row text, system",
+      "rule": "Do not hardcode algorithm acronyms or nicknames in monitor-row text, system prompts, or schemas."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "Pull from `algorithm_catalog.ALGORITHM_PARTICIPANT_NICKNAMES_MAP`",
+      "rule": "Take algorithm nicknames from `algorithm_catalog.ALGORITHM_PARTICIPANT_NICKNAMES_MAP`."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "Call port hooks through a `getattr(port, \"...\", None)`",
+      "rule": "Call optional port hooks through a `getattr(port, \"...\", None)` fallback, because concrete ports do not inherit default methods from `StudyProblemPort`."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "`supported_algorithm_names()` to return a subset of",
+      "rule": "When a port wants to restrict algorithm choices, override `supported_algorithm_names()` to return a subset of `CANONICAL_ALGORITHM_NAMES`."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_dynamic_algorithm_oq.md",
+      "quote": "put the agile default **first**.",
+      "rule": "When overriding `supported_algorithm_names()`, put the agile default algorithm first in the returned list."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_lock_two_stores_reconcile.md",
+      "quote": "the fix is the missing *aligner*, not weakening the check",
+      "rule": "When the brief-vs-panel lock drift check flags a mismatch, fix the missing aligner rather than weakening or disabling the drift check."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_lock_two_stores_reconcile.md",
+      "quote": "called in the S5 `derive_config` block next to `realign_panel_scalars_from_brief`",
+      "rule": "Call `sync.realign_brief_locks_from_panel` in the S5 `derive_config` block, next to `realign_panel_scalars_from_brief`."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_lock_two_stores_reconcile.md",
+      "quote": "True for locked keys, drop the key otherwise",
+      "rule": "When realigning brief locks from the panel, set `goal_terms[key].locked` to True for keys in the panel's locked set and remove the key for all other terms."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_lock_two_stores_reconcile.md",
+      "quote": "**Authoritative.**",
+      "rule": "When the panel `problem.locked_goal_terms` list and the brief `goal_terms[key].locked` flag disagree about a goal term's lock, treat the panel list as the source of truth."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "treat that as evidence the architecture is wrong",
+      "rule": "When the same kind of bug reappears after a prompt-only fix, treat it as evidence the architecture is wrong rather than adding more prompt text."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "Remove a writer.",
+      "rule": "When multiple components can write the same state, decide which component owns it and make the others structurally unable to write it (via schema constraint, pre-merge strip, or deterministic-only flow)."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "Add a structural gate.",
+      "rule": "Fix state-consistency problems by adding a structural gate (a required enum field, typed channel, transactional read snapshot, or similar) rather than relying on prompt instructions."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "Make optional discriminators required",
+      "rule": "Make optional discriminator fields required (e.g. an enum that includes an \"other\" value) so the LLM cannot abstain and let untagged content slip past dedup."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "Strip / coerce LLM-emitted state at the merge boundary when an\n  authoritative server-side path owns the same field.",
+      "rule": "Strip or coerce LLM-emitted state at the merge boundary when an authoritative server-side path owns the same field."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "Skip diagnostics during in-flight pipeline windows",
+      "rule": "Skip diagnostics during in-flight pipeline windows (e.g. when `processing.*_status == \"pending\"`) instead of teaching the LLM to fix phantom-state-induced false positives."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "before adding any new prompt block, ask:",
+      "rule": "Before adding any new prompt block, ask whether a state-ownership problem could be solved more reliably by a schema constraint or server strip, and if so, do that instead."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "The prompt should be shorter after most bug fixes,\nnot longer.",
+      "rule": "Aim to make the prompt shorter after most bug fixes rather than longer."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_no_prompt_bandages.md",
+      "quote": "trust structure, not free-form text rules.",
+      "rule": "Trust structure over free-form text rules when designing agent behavior for participant input."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Do not use regex or keyword/substring matching to parse, classify, or route natural-language interaction (chat input, brief prose, free-form rationale).",
+      "rule": "Do not use regex or keyword/substring matching to parse, classify, or route natural-language interaction input (chat input, brief prose, free-form rationale)."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Prefer structured LLM output: extend the response JSON schema or the prompt contract so the model emits typed JSON, then operate on that JSON in code.",
+      "rule": "When parsing natural-language input, prefer structured LLM output: extend the response JSON schema or prompt contract so the model emits typed JSON, then operate on that JSON in code."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Adding a new field that travels via chat → backend? Add it to the LLM response schema, not to a parser.",
+      "rule": "When adding a new field that travels from chat to the backend, add it to the LLM response schema rather than to a parser."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Need to map prose to structured fields? Extend the prompt with a worked example and the schema; do not write a regex.",
+      "rule": "When mapping prose to structured fields, extend the prompt with a worked example and the schema; do not write a regex."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Keyword/substring detection of intent (e.g. \"did the user mention X?\") is also off-limits unless the input is known-structured",
+      "rule": "Do not use keyword/substring detection of user intent unless the input is known-structured (such as a stable id or system-emitted sentinel)."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "For id-based dispatch, use `str.split` / equality / `str.startswith` — never `re.compile`.",
+      "rule": "For id-based dispatch, use str.split, equality, or str.startswith; never use re.compile."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Acceptable regex use: tokenizing known-machine-formatted strings (timestamps, version strings, structured ids that we ourselves emit).",
+      "rule": "Use regex only for tokenizing known-machine-formatted strings such as timestamps, version strings, or structured ids the system itself emits."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "Anything that came from a human typing free text → structured LLM output instead.",
+      "rule": "For any input that came from a human typing free text, use structured LLM output instead of regex."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_no_regex_for_nl.md",
+      "quote": "When refactoring, prefer deleting regex/keyword matchers over patching them.",
+      "rule": "When refactoring, prefer deleting regex or keyword matchers over patching them."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_oq_answer_anchors_goal_term.md",
+      "quote": "that key must be treated as **anchored** in `filter_unanchored_new_goal_terms` (`answered_oq_keys`), NOT premature-dropped via `pending_oq_keys`.",
+      "rule": "When a participant answers an OQ in a turn and the same patch commits that OQ's goal_key, treat that key as anchored in filter_unanchored_new_goal_terms (answered_oq_keys) rather than premature-dropping it via pending_oq_keys."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_oq_answer_anchors_goal_term.md",
+      "quote": "The discriminator between a *premature ask* and an *answer+commit* is whether THIS turn's `oq_actions` resolve the OQ.",
+      "rule": "To distinguish a premature ask from an answer-and-commit, check whether the current turn's oq_actions resolve the OQ."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_oq_answer_anchors_goal_term.md",
+      "quote": "Plumb the turn's `oq_actions` into `apply_brief_patch_with_cleanup` → compute `answered_oq_keys` from resolved-OQ `goal_key`s → pass to the filter, where it takes precedence over `pending_oq_keys`.",
+      "rule": "Pass the turn's oq_actions into apply_brief_patch_with_cleanup, compute answered_oq_keys from resolved OQs' goal_keys, and pass them to the filter so they take precedence over pending_oq_keys."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_oq_answer_anchors_goal_term.md",
+      "quote": "OQ-lifecycle and goal-term-anchoring decisions within one turn must agree.",
+      "rule": "Ensure OQ-lifecycle decisions and goal-term-anchoring decisions within one turn are consistent with each other."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_panel_authoritative_for_algorithm.md",
+      "quote": "Never make one global \"X always wins\"; the winner is the surface the user edited, enforced by which sync function that endpoint calls.",
+      "rule": "Never apply a single global \"X always wins\" rule to algorithm conflicts; the winning source is the surface the user edited, enforced by whichever sync function that endpoint calls."
+    },
+    {
+      "id": "R112",
+      "file": "feedback_panel_authoritative_for_algorithm.md",
+      "quote": "Only UPDATE an existing carrier from the panel",
+      "rule": "When syncing from the config panel, only update an existing brief carrier; never create a new carrier from a panel default."
+    },
+    {
+      "id": "R113",
+      "file": "feedback_panel_authoritative_for_algorithm.md",
+      "quote": "don't fabricate one from a panel default",
+      "rule": "Do not fabricate a search-strategy carrier from a panel default value."
+    },
+    {
+      "id": "R114",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "lead with\n**plain natural language** — describe behavior in everyday terms",
+      "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, lead with plain natural language that describes behavior in everyday terms rather than code identifiers."
+    },
+    {
+      "id": "R115",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "not a wall of code identifiers\n(`config-weight-<key>`, `_apply_assumption_actions`, `goal_terms`)",
+      "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, do not present a dense wall of code identifiers."
+    },
+    {
+      "id": "R116",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "put the plain-English account first",
+      "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, put the plain-English account first."
+    },
+    {
+      "id": "R117",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "Keep exact function/variable names\nfor the plan's implementation sections and code, where precision is required",
+      "rule": "Keep exact function and variable names in plan implementation sections and code, where precision is required."
+    },
+    {
+      "id": "R118",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "or\nin a clearly separate \"technical detail\" follow-up",
+      "rule": "Place exact technical identifiers in a clearly separate \"technical detail\" follow-up rather than in the main explanation."
+    },
+    {
+      "id": "R119",
+      "file": "feedback_plain_language_explanations.md",
+      "quote": "One representative identifier\ninline is fine; a paragraph of them is not.",
+      "rule": "When explaining to the user in plain language, include at most one representative code identifier inline; do not include a paragraph of identifiers."
+    },
+    {
+      "id": "R120",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "The main backend (`backend/app/...`) MUST stay problem-agnostic.",
+      "rule": "Keep the main backend (backend/app/...) problem-agnostic; do not add problem-specific code there."
+    },
+    {
+      "id": "R121",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Anything that\nmentions or hardcodes VRPTW / knapsack / template specifics belongs in the\nmatching `*_problem/` package, surfaced through `StudyProblemPort` hooks.",
+      "rule": "Place anything that mentions or hardcodes problem-specific details in the matching *_problem/ package, surfaced through StudyProblemPort hooks, not in the main backend."
+    },
+    {
+      "id": "R122",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Prompt text or examples that name `driver_preferences`, `worker_preference`,\n  `lateness_penalty`, `time_windows`, `value_emphasis`, `capacity_overflow`,\n  `selection_sparsity`, etc. → `study_prompts.py` per port, surfaced via\n  `StudyProblemPort.study_prompt_appendix()` / domain-specific addenda.",
+      "rule": "Put prompt text or examples that name problem-specific terms in the port's study_prompts.py, surfaced via StudyProblemPort.study_prompt_appendix() or domain-specific addenda, not in the main backend."
+    },
+    {
+      "id": "R123",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Self-anchor or evidence checks keyed on problem-specific properties",
+      "rule": "Do not put self-anchor or evidence checks keyed on problem-specific properties in the main backend; route them through a port hook."
+    },
+    {
+      "id": "R124",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Field-mirroring rules between `goal_terms[key].properties` and top-level\n  panel fields",
+      "rule": "Do not put field-mirroring rules between goal_terms properties and top-level panel fields in the main backend; implement them as a port hook returning the mapping."
+    },
+    {
+      "id": "R125",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Managed-field lists, locked-companion fields, brief-item-slot keying\n  (`weight:shift_limit`, `driver_pref:*`, `lateness_penalty`) → port hooks.",
+      "rule": "Define managed-field lists, locked-companion fields, and brief-item-slot keying through port hooks, not in the main backend."
+    },
+    {
+      "id": "R126",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Validators, normalizers, sanitizers for problem-specific data shapes\n  (driver-preference rule schema, condition enums, aggregation enums) →\n  helper module inside the port package, called via a port method.",
+      "rule": "Put validators, normalizers, and sanitizers for problem-specific data shapes in a helper module inside the port package, called via a port method."
+    },
+    {
+      "id": "R127",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Run-context formatting that names violations like `time_window_stop_count`\n  or `capacity_units_over` → port method (already exists for run summaries;\n  extend it).",
+      "rule": "Format run-context violation names through a port method, not in the main backend."
+    },
+    {
+      "id": "R128",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "Tests that exercise problem-specific paths → live in `*_problem/tests/`.\n  `backend/tests/` is for backend-pipeline coverage that uses neutral fixtures.",
+      "rule": "Place tests that exercise problem-specific paths in the *_problem/tests/ directory; reserve backend/tests/ for backend-pipeline coverage using neutral fixtures."
+    },
+    {
+      "id": "R129",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "LLM-based safety nets / extractors that re-fill problem-specific structured\n  carriers",
+      "rule": "Do not place LLM-based safety nets or extractors that refill problem-specific structured carriers in the main backend; keep the entire LLM call in the port package."
+    },
+    {
+      "id": "R130",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "The main backend only orchestrates: call the\n  hook, merge the returned brief, log on exceptions.",
+      "rule": "In the main backend, only orchestrate port safety-net hooks: call the hook, merge the returned brief, and log on exceptions."
+    },
+    {
+      "id": "R131",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "when editing or reviewing code in `backend/app/`, grep for\nproblem-specific tokens. If any exist, move them behind a port hook before\nmaking the change.",
+      "rule": "When editing or reviewing code in backend/app/, grep for problem-specific tokens; if any exist, move them behind a port hook before making the change."
+    },
+    {
+      "id": "R132",
+      "file": "feedback_problem_module_isolation.md",
+      "quote": "When adding a new check or validator that *seems* generic\nbut references one problem's vocabulary, route it through a port hook from\nthe start.",
+      "rule": "When adding a new check or validator that references one problem's vocabulary, route it through a port hook from the start, even if it seems generic."
+    },
+    {
+      "id": "R133",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Load guidance by the turn-state the server already knows",
+      "rule": "Load chat prompt guidance based on the turn state the server already tracks (the is_* flags, cold/warm/hot, and workflow_mode)."
+    },
+    {
+      "id": "R134",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "NOT by parsing user_text",
+      "rule": "Do not select chat prompt guidance by parsing user_text."
+    },
+    {
+      "id": "R135",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Use both, for their separate purposes.",
+      "rule": "Use both prompt compression (for accuracy) and context caching of static blocks (for cost and latency)."
+    },
+    {
+      "id": "R136",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Don't duplicate brief facts into static prose.",
+      "rule": "Do not duplicate brief facts into static prompt prose."
+    },
+    {
+      "id": "R137",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "keep/strengthen deterministic verification + structural gates for ownership/precedence/invariants",
+      "rule": "Keep or strengthen deterministic verification and structural gates for ownership, precedence, and invariants instead of relying on the LLM for logic."
+    },
+    {
+      "id": "R138",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "lean on it for the visible reply and prose synthesis",
+      "rule": "Rely on the LLM for the visible reply and prose synthesis."
+    },
+    {
+      "id": "R139",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Preserve all behavioral rules when compressing (no rule deleted unless a gate now owns it).",
+      "rule": "Preserve every behavioral rule when compressing the prompt, unless a deterministic gate now owns that rule."
+    },
+    {
+      "id": "R140",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Keep agile/waterfall symmetric except the 4 canonical axes.",
+      "rule": "Keep agile and waterfall handling symmetric, except for the 4 canonical axes."
+    },
+    {
+      "id": "R141",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Don't damage the tutorial",
+      "rule": "Do not damage the tutorial flow when reducing the prompt."
+    },
+    {
+      "id": "R142",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "tutorial guardrails stay loaded on tutorial turns",
+      "rule": "Keep tutorial guardrails loaded on every tutorial turn."
+    },
+    {
+      "id": "R143",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Keep the flow predictable in both modes.",
+      "rule": "Keep the chat flow predictable in both agile and waterfall modes."
+    },
+    {
+      "id": "R144",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "Keep the single main-turn call (reply+patch together)",
+      "rule": "Keep the reply and the patch in a single main-turn call; do not split reply-first."
+    },
+    {
+      "id": "R145",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "compress a block in place, keep every rule",
+      "rule": "Compress prompt blocks in place, keeping every rule."
+    },
+    {
+      "id": "R146",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "update the `test_main_turn_prompt_assembly.py` word-budget snapshot",
+      "rule": "Update the word-budget snapshot in test_main_turn_prompt_assembly.py after reducing the prompt."
+    },
+    {
+      "id": "R147",
+      "file": "feedback_prompt_reduction_principles.md",
+      "quote": "run the `live_gemini` tests to confirm behavior held",
+      "rule": "Run the live_gemini tests after reducing the prompt to confirm behavior held."
+    },
+    {
+      "id": "R148",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "must be applied by the agent **once**\nin the upcoming reply, then stop being re-raised unless the researcher sends\nthem again.",
+      "rule": "Apply a researcher steer once, in the upcoming agent reply, and do not re-raise it in later replies unless the researcher sends it again."
+    },
+    {
+      "id": "R149",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "surface only steers newer than the\nagent's last real reply (`ChatMessage.id > last_reply_id`)",
+      "rule": "When loading researcher steers into turn context, surface only steers whose message id is newer than the agent's last real reply."
+    },
+    {
+      "id": "R150",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "**Anchor on `kind == \"chat\"`, NOT any assistant row.**",
+      "rule": "When determining the agent's last real reply for steer filtering, anchor only on assistant rows with kind == \"chat\", not on any assistant row."
+    },
+    {
+      "id": "R151",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "The steer wording lost to\nstrongly-repeated waterfall guardrails",
+      "rule": "Do not let conservative standing defaults override a researcher steer."
+    },
+    {
+      "id": "R152",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "the steer block explicitly states it outranks the agent's\nproactivity defaults",
+      "rule": "The researcher steer block must explicitly state that the steer outranks the agent's proactivity defaults, including topics treated as \"handled for you\", while still forbidding fact-invention."
+    },
+    {
+      "id": "R153",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "append it as the FINAL part\nof `build_main_turn_system_instruction`",
+      "rule": "Place the researcher steer block as the final block of the full main-turn system prompt."
+    },
+    {
+      "id": "R154",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "Block is workflow-agnostic (no mode arg)",
+      "rule": "The researcher steer block must not take a workflow mode argument; it must remain workflow-agnostic."
+    },
+    {
+      "id": "R155",
+      "file": "feedback_researcher_steer_one_shot.md",
+      "quote": "anchored on\nthe triggering user message, so the paused turn's placeholder reply doesn't count\nas applied",
+      "rule": "When reconstructing researcher steers on resume-from-pause, anchor on the triggering user message so the paused turn's placeholder reply does not count as applied."
+    },
+    {
+      "id": "R156",
+      "file": "feedback_reuse_existing_shapes.md",
+      "quote": "prefer reusing the existing nested shape — including `goal_terms[key].properties` — over inventing a new parallel container",
+      "rule": "When extending a data layer, prefer reusing the existing nested shape (such as `goal_terms[key].properties`) over inventing a new parallel container."
+    },
+    {
+      "id": "R157",
+      "file": "feedback_reuse_existing_shapes.md",
+      "quote": "search for the canonical shape on the side that already stores it",
+      "rule": "Before introducing a new top-level field or wrapper for cross-layer data, search for the canonical shape on the side of the system that already stores it."
+    },
+    {
+      "id": "R158",
+      "file": "feedback_reuse_existing_shapes.md",
+      "quote": "extend the brief or LLM patch schema to carry that same nested shape",
+      "rule": "When a nested location already exists and round-trip helpers operate on it, extend the brief or LLM patch schema to carry that same nested shape."
+    },
+    {
+      "id": "R159",
+      "file": "feedback_reuse_existing_shapes.md",
+      "quote": "New top-level wrappers are warranted only when the existing shape genuinely doesn't fit",
+      "rule": "Introduce a new top-level wrapper only when the existing shape genuinely doesn't fit the data."
+    },
+    {
+      "id": "R160",
+      "file": "feedback_reuse_existing_shapes.md",
+      "quote": "not for ergonomics or naming preferences",
+      "rule": "Do not introduce a new top-level wrapper for ergonomics or naming preferences."
+    },
+    {
+      "id": "R161",
+      "file": "feedback_run_error_detail_split.md",
+      "quote": "Never leak `error_detail` to\nparticipants.",
+      "rule": "Never expose the researcher-only `error_detail` field to participants."
+    },
+    {
+      "id": "R162",
+      "file": "feedback_run_error_detail_split.md",
+      "quote": "keep `error_message` participant-safe.",
+      "rule": "When adding a failure path, keep `error_message` participant-safe (clean and generic)."
+    },
+    {
+      "id": "R163",
+      "file": "feedback_run_error_detail_split.md",
+      "quote": "when adding a failure path, set `error_detail` with the real\ncause",
+      "rule": "When adding a failure path, set `error_detail` to the real cause of the failure."
+    },
+    {
+      "id": "R164",
+      "file": "feedback_run_error_detail_split.md",
+      "quote": "Coerce with an explicit None check: `x = default if raw.get(k) is None else raw.get(k)`.",
+      "rule": "When reading a nullable config field from a parser, coerce it with an explicit None check (use the default if the value is None) instead of relying on `.get(k, default)`."
+    },
+    {
+      "id": "R165",
+      "file": "feedback_run_never_crashes_on_tuning_knob.md",
+      "quote": "must NOT `raise` on out-of-range `early_stop_patience`/`early_stop_epsilon` — clamp into range / fall back to default instead",
+      "rule": "In `parse_problem_config` (in both the vrptw and knapsack study_bridge.py files), do not raise an error on out-of-range `early_stop_patience` or `early_stop_epsilon`; clamp the value into range or fall back to the default instead."
+    },
+    {
+      "id": "R166",
+      "file": "feedback_run_never_crashes_on_tuning_knob.md",
+      "quote": "The Config UI already clamps identically (`SearchStrategySection.tsx` `Math.max(1, Math.min(5000, …))`) — the backend must match, not be stricter.",
+      "rule": "The backend validation of `early_stop_patience` must clamp values identically to the Config UI, not be stricter than it."
+    },
+    {
+      "id": "R167",
+      "file": "feedback_run_never_crashes_on_tuning_knob.md",
+      "quote": "Fix both ports symmetrically",
+      "rule": "Apply knob-validation fixes to both the vrptw and knapsack ports symmetrically, so both behave the same way."
+    },
+    {
+      "id": "R168",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "For a search-strategy/solver knob to be changeable from chat it must be in ALL of:",
+      "rule": "For a search-strategy or solver knob to be changeable from chat, it must be present in the carrier schema, the forward carrier-to-panel mirror, the reverse panel-to-carrier mirror, and the prompt."
+    },
+    {
+      "id": "R169",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "the carrier schema (`VRPTW_GOAL_TERM_PROPERTIES_SCHEMA`",
+      "rule": "Include a search-strategy or solver knob in the carrier schema VRPTW_GOAL_TERM_PROPERTIES_SCHEMA."
+    },
+    {
+      "id": "R170",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "the forward carrier→panel mirror (`sync.py` `sync_panel_from_problem_brief`)",
+      "rule": "Include a search-strategy or solver knob in the forward carrier-to-panel mirror, sync.py sync_panel_from_problem_brief."
+    },
+    {
+      "id": "R171",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "the reverse panel→carrier mirror (`problem_brief.py` `sync_problem_brief_from_panel`",
+      "rule": "Include a search-strategy or solver knob in the reverse panel-to-carrier mirror, problem_brief.py sync_problem_brief_from_panel."
+    },
+    {
+      "id": "R172",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "the prompt (`STUDY_CHAT_SEARCH_STRATEGY_ANCHORING`)",
+      "rule": "Include a search-strategy or solver knob in the prompt STUDY_CHAT_SEARCH_STRATEGY_ANCHORING."
+    },
+    {
+      "id": "R173",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "Boolean knobs need `isinstance(x, bool)` gating in the forward mirror, NOT truthiness",
+      "rule": "When gating a boolean knob in the forward mirror, check isinstance(x, bool) rather than truthiness, so that false is preserved as a meaningful value."
+    },
+    {
+      "id": "R174",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "Both mirrors are required",
+      "rule": "Implement both the forward and the reverse mirror for a knob, never only one."
+    },
+    {
+      "id": "R175",
+      "file": "feedback_solver_knob_carrier_gap.md",
+      "quote": "(structural writer, not a prompt bandage)",
+      "rule": "Fix a knob that is unreachable from chat with a structural writer, not with a prompt bandage."
+    },
+    {
+      "id": "R176",
+      "file": "feedback_structured_carrier_same_turn.md",
+      "quote": "must populate the structured carrier in the **same turn** the rule is introduced",
+      "rule": "When a visible reply introduces a rule whose goal_terms entry has a properties sub-schema, populate the structured carrier in that same turn, not in a later one."
+    },
+    {
+      "id": "R177",
+      "file": "feedback_structured_carrier_same_turn.md",
+      "quote": "Don't rely solely on the prose `items[]` row",
+      "rule": "Do not rely solely on a prose items[] row to represent a rule whose goal_terms entry has a properties sub-schema."
+    },
+    {
+      "id": "R178",
+      "file": "feedback_structured_carrier_same_turn.md",
+      "quote": "never a substitute for it",
+      "rule": "Never treat a prose items[] row as a substitute for the structured goal-term carrier."
+    },
+    {
+      "id": "R179",
+      "file": "feedback_structured_carrier_same_turn.md",
+      "quote": "document the carrier path in that port's `study_prompts.py`",
+      "rule": "When adding a new goal-term key with a properties sub-schema for a port, document the carrier path in that port's study_prompts.py."
+    },
+    {
+      "id": "R180",
+      "file": "feedback_structured_carrier_same_turn.md",
+      "quote": "reinforce same-turn emission",
+      "rule": "When adding a new goal-term key with a properties sub-schema for a port, reinforce same-turn emission of the structured carrier."
+    },
+    {
+      "id": "R181",
+      "file": "feedback_test_minimalism.md",
+      "quote": "Don't add many trivial tests.",
+      "rule": "Do not add many trivial tests."
+    },
+    {
+      "id": "R182",
+      "file": "feedback_test_minimalism.md",
+      "quote": "One focused test per behavior is enough; cover the surprising cases, skip the obvious ones.",
+      "rule": "Write one focused test per behavior, covering surprising cases and skipping obvious ones."
+    },
+    {
+      "id": "R183",
+      "file": "feedback_test_minimalism.md",
+      "quote": "prefer **deleting redundant tests** over keeping them around \"just in case.\"",
+      "rule": "When refactoring, prefer deleting redundant tests over keeping them around just in case."
+    },
+    {
+      "id": "R184",
+      "file": "feedback_test_minimalism.md",
+      "quote": "Before adding a test, ask \"is this behavior already pinned by another test?\" — if yes, skip.",
+      "rule": "Before adding a test, check whether another test already pins that behavior; if so, do not add it."
+    },
+    {
+      "id": "R185",
+      "file": "feedback_test_minimalism.md",
+      "quote": "When refactoring, audit existing tests for ones that are now redundant or that test deleted behavior. Delete them in the same change.",
+      "rule": "When refactoring, audit existing tests for ones that are now redundant or test deleted behavior, and delete them in the same change."
+    },
+    {
+      "id": "R186",
+      "file": "feedback_test_minimalism.md",
+      "quote": "Skip tests that are pure tautologies of the implementation (e.g. asserting a TypedDict's keys are present).",
+      "rule": "Skip tests that are pure tautologies of the implementation."
+    },
+    {
+      "id": "R187",
+      "file": "feedback_test_minimalism.md",
+      "quote": "Prefer one end-to-end test that exercises the integration over many tiny mocked-out unit tests for the same path.",
+      "rule": "Prefer one end-to-end test that exercises the integration over many tiny mocked-out unit tests for the same path."
+    },
+    {
+      "id": "R188",
+      "file": "feedback_test_minimalism.md",
+      "quote": "merge similar cases via parametrize when they share scaffolding.",
+      "rule": "Merge similar test cases via parametrize when they share scaffolding."
+    },
+    {
+      "id": "R189",
+      "file": "feedback_weight_defaults_displaceable.md",
+      "quote": "never write \"keep X ≥ N× Y\" or \"X stronger than Y\" style ratios",
+      "rule": "When editing weight guidance in `*/study_prompts.py`, never write relational ratio priors such as \"keep X ≥ N× Y\" or \"X stronger than Y\"."
+    },
+    {
+      "id": "R190",
+      "file": "feedback_weight_defaults_displaceable.md",
+      "quote": "If two terms co-exist with no stated relative emphasis, seed comparable weights and let the loop set the balance.",
+      "rule": "When two goal terms co-exist with no relative emphasis stated by the user, seed comparable weights and let the run-feedback loop set their balance."
+    },
+    {
+      "id": "R191",
+      "file": "feedback_weight_defaults_displaceable.md",
+      "quote": "Single-value cold-start seeds stay.",
+      "rule": "Keep single-value cold-start weight seeds (for a named but unquantified concept) in prompt defaults."
+    },
+    {
+      "id": "R192",
+      "file": "feedback_weight_defaults_displaceable.md",
+      "quote": "don't quote a starting weight number for a new term; name its role",
+      "rule": "When introducing a new goal term, don't quote a starting weight number for it; name its role instead."
+    },
+    {
+      "id": "R193",
+      "file": "feedback_weight_defaults_displaceable.md",
+      "quote": "REMOVE / DEMOTE",
+      "rule": "Remove or demote cross-term relational priors (trade-off rates the user never stated) from prompt weight guidance."
+    },
+    {
+      "id": "R194",
+      "file": "project_architecture.md",
+      "quote": "Participants can edit, add, remove, promote, and clean up entries directly.",
+      "rule": "Treat participant edits, additions, removals, promotions, and clean-up of Definition-tab brief entries as valid direct changes to the problem brief."
+    },
+    {
+      "id": "R195",
+      "file": "project_architecture.md",
+      "quote": "Domain packages are **black boxes** — backend should not import internals directly",
+      "rule": "Do not import the internals of domain packages from the backend; interact with them only through the port interface."
+    },
+    {
+      "id": "R196",
+      "file": "project_architecture.md",
+      "quote": "Never import `*_problem/` internals from backend or generic frontend — go through `get_study_port()` / `getProblemModule(id)`.",
+      "rule": "Never import `*_problem/` package internals from the backend or generic frontend; access domain code only via `get_study_port()` or `getProblemModule(id)`."
+    },
+    {
+      "id": "R197",
+      "file": "project_architecture.md",
+      "quote": "The one exception is `frontend/src/client/problemRegistry.ts`, which is the explicit registry.",
+      "rule": "The only permitted exception to the rule against importing problem internals from the frontend is `frontend/src/client/problemRegistry.ts`."
+    },
+    {
+      "id": "R198",
+      "file": "project_architecture.md",
+      "quote": "Modularity changes *within* a problem package (prompts, panel schema, frontend module, weights) are encouraged.",
+      "rule": "Make modularity changes within a problem package (prompts, panel schema, frontend module, weights) freely."
+    },
+    {
+      "id": "R199",
+      "file": "project_architecture.md",
+      "quote": "Solver/evaluator/instance-data changes need maintainer approval.",
+      "rule": "Do not change a problem package's solver, evaluator, or instance data without maintainer approval."
+    },
+    {
+      "id": "R200",
+      "file": "project_architecture.md",
+      "quote": "Chat fast-path = visible reply first, derivation in background (preserve this latency optimization)",
+      "rule": "Preserve the chat fast path: send the visible reply first and run brief/config derivation in the background."
+    },
+    {
+      "id": "R201",
+      "file": "project_architecture.md",
+      "quote": "Brief is authoritative; config is always derived from brief (don't write config directly)",
+      "rule": "Do not write config directly; always derive config from the problem brief."
+    },
+    {
+      "id": "R202",
+      "file": "project_architecture.md",
+      "quote": "Workflow mode must remain a first-class session variable (not collapsed to one behavior)",
+      "rule": "Keep workflow mode as a first-class session variable and do not collapse it into a single behavior."
+    },
+    {
+      "id": "R203",
+      "file": "project_architecture.md",
+      "quote": "Fallback: brief→config derivation reads `goal_terms` verbatim and structurally-tagged `config-*` items only — no regex/keyword text parsing",
+      "rule": "When deriving config from the brief, read only goal_terms verbatim and structurally-tagged config-* items; do not use regex or keyword parsing of text."
+    },
+    {
+      "id": "R204",
+      "file": "project_coding_backups.md",
+      "quote": "never raises — a backup failure must not block the action",
+      "rule": "auto_backup must never raise an exception, so that a backup failure does not block the destructive action it guards."
+    },
+    {
+      "id": "R205",
+      "file": "project_irb_constraints.md",
+      "quote": "Do not propose adding one back.",
+      "rule": "Do not propose adding a post-session debrief step back to the study design."
+    },
+    {
+      "id": "R206",
+      "file": "project_irb_constraints.md",
+      "quote": "When editing `docs/.study_plan/*.md`, do not add deception/disclosure-trace language or propose a post-session debrief.",
+      "rule": "When editing docs/.study_plan/*.md, do not add deception or disclosure-trace language to the document."
+    },
+    {
+      "id": "R207",
+      "file": "project_irb_constraints.md",
+      "quote": "do not add deception/disclosure-trace language or propose a post-session debrief.",
+      "rule": "When editing docs/.study_plan/*.md, do not propose a post-session debrief."
+    },
+    {
+      "id": "R208",
+      "file": "project_irb_constraints.md",
+      "quote": "default voice can claim authorship (\"I set up…\") but the agent must remain candid about template constraints when asked directly.",
+      "rule": "When updating agent prompts, the agent may use first-person authorship claims (e.g., \"I set up…\") in its default voice, but must remain candid about template constraints when asked directly."
+    },
+    {
+      "id": "R209",
+      "file": "project_irb_constraints.md",
+      "quote": "the agent must remain candid about template constraints when asked directly",
+      "rule": "When a participant asks directly about template constraints, the agent must be candid about them."
+    },
+    {
+      "id": "R210",
+      "file": "project_irb_constraints.md",
+      "quote": "the agent is candid that the visual layer is built from a template configured for the scenario",
+      "rule": "When a participant probes further (e.g., asks to change a visualization), the agent must state candidly that the visual layer is built from a template configured for the scenario."
+    },
+    {
+      "id": "R211",
+      "file": "project_irb_constraints.md",
+      "quote": "\"template\" (only when asked, not in default voice)",
+      "rule": "In participant-facing default voice, do not use the word \"template\"; use it only when a participant asks."
+    },
+    {
+      "id": "R212",
+      "file": "project_overview.md",
+      "quote": "When suggesting changes, always consider the study integrity",
+      "rule": "When suggesting changes to the MOPT project, always consider study integrity."
+    },
+    {
+      "id": "R213",
+      "file": "project_overview.md",
+      "quote": "don't accidentally collapse workflow mode differences",
+      "rule": "When suggesting changes to the MOPT project, do not accidentally collapse the differences between Agile and Waterfall workflow modes."
+    },
+    {
+      "id": "R214",
+      "file": "project_overview.md",
+      "quote": "don't expose domain identity to the participant side",
+      "rule": "When suggesting changes to the MOPT project, do not expose the underlying problem domain (VRPTW or knapsack) to the participant-facing side."
+    },
+    {
+      "id": "R215",
+      "file": "project_overview.md",
+      "quote": "NOT the deprecated `google-generativeai`",
+      "rule": "Do not use the deprecated google-generativeai SDK for Gemini calls; use the google-genai SDK instead."
+    },
+    {
+      "id": "R216",
+      "file": "project_pretask_predictors.md",
+      "quote": "always control for mode",
+      "rule": "When analyzing the warm-up quiz's relationship to study outcomes, always control for workflow mode."
+    },
+    {
+      "id": "R217",
+      "file": "project_pretask_predictors.md",
+      "quote": "quiz alone",
+      "rule": "When reporting pre-task predictors of formulation quality, report the warm-up quiz score alone, not as a composite combined with goal-description tags."
+    },
+    {
+      "id": "R218",
+      "file": "project_pretask_predictors.md",
+      "quote": "keep goal tags descriptive",
+      "rule": "Keep the goal-description tags descriptive only; do not use them as predictors of outcomes."
+    },
+    {
+      "id": "R219",
+      "file": "project_ranking_asymmetry.md",
+      "quote": "use as the paper's definition",
+      "rule": "Use the structural check (relative order of common goal terms changed between consecutive panel snapshots, excluding add/remove renumbering) as the paper's definition of a ranking reorder, rather than the manual coding tag check."
+    },
+    {
+      "id": "R220",
+      "file": "project_session_coding_scheme.md",
+      "quote": "any NEW edit path must touch both",
+      "rule": "When adding a new coding mutation edit path, update both the front-end blockedByLock() chokepoint in useAnalysisController and the backend _require_unlocked(loaded) backstop."
+    },
+    {
+      "id": "R221",
+      "file": "project_session_coding_scheme.md",
+      "quote": "do NOT merge origin/transparency into effect",
+      "rule": "Do not merge origin or transparency into the effect facet of the coding taxonomy, because that would duplicate origin and multiply combinations."
+    },
+    {
+      "id": "R222",
+      "file": "project_session_coding_scheme.md",
+      "quote": "NOT a new origin value",
+      "rule": "Do not add a new origin value for ask-vs-assume; read ask-vs-assume from the trajectory of mentioned/open-question and applied tags."
+    },
+    {
+      "id": "R223",
+      "file": "project_session_coding_scheme.md",
+      "quote": "use at least flash.",
+      "rule": "When running the LLM tagging pass, use at least a Flash-tier model; do not use flash-lite, which under-tags badly."
+    },
+    {
+      "id": "R224",
+      "file": "project_session_coding_scheme.md",
+      "quote": "that's the display source (never a snapshot; user's rule)",
+      "rule": "Take the displayed verified config from the next turn's pre_turn_state, never from a v2_turn_snapshot."
+    },
+    {
+      "id": "R225",
+      "file": "project_session_coding_scheme.md",
+      "quote": "NO legacy alias",
+      "rule": "When renaming a stored annotation value, do not keep a legacy alias; add an idempotent startup migration that rewrites stored annotation JSON and caches instead."
+    },
+    {
+      "id": "R226",
+      "file": "project_session_coding_scheme.md",
+      "quote": "feasibility-fix = OUTCOME QUALIFIER, never alone",
+      "rule": "Never assign the feasibility-fix reason on its own; only append it as a qualifier to a causal reason."
+    },
+    {
+      "id": "R227",
+      "file": "project_session_coding_scheme.md",
+      "quote": "NOT a semantic type change",
+      "rule": "Do not treat a soft-to-custom or custom-to-soft type change as a semantic term-type-change reason; attribute it to weight-rebalance."
+    },
+    {
+      "id": "R228",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "gated on `is_tutorial_active`",
+      "rule": "Gate the tutorial suppression logic on `is_tutorial_active`, and enforce it deterministically in code rather than through prompt instructions."
+    },
+    {
+      "id": "R229",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "Keep ONLY server-owned OQs:",
+      "rule": "While the tutorial is active, keep only server-owned open questions: canonical monitors (`oq-monitor-*`) and structural companion asks (`auto-oq-companion-*`)."
+    },
+    {
+      "id": "R230",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "Freeform LLM clarification OQs stripped.",
+      "rule": "While the tutorial is active, strip freeform LLM clarification open questions on every pass."
+    },
+    {
+      "id": "R231",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "**Plateau intervention suppressed entirely** (Monitor 4)",
+      "rule": "While the tutorial is active, do not emit the plateau intervention (`oq-monitor-plateau`) in either mode."
+    },
+    {
+      "id": "R232",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "**Run-ack invariant relaxed** for tutorial Runs 1+2",
+      "rule": "For tutorial Runs 1 and 2, relax the run-ack invariant so the bubble flow is not blocked by a freshly raised open question or assumption."
+    },
+    {
+      "id": "R233",
+      "file": "project_tutorial_cleanliness.md",
+      "quote": "Foundational monitor OQs (upload / primary_goal / search_strategy) are KEPT",
+      "rule": "While the tutorial is active, keep the foundational monitor open questions (upload, primary_goal, search_strategy)."
+    },
+    {
+      "id": "R234",
+      "file": "project_workflow_axes.md",
+      "quote": "Every other behaviour, rule, or code path MUST be",
+      "rule": "Keep every behavior, rule, or code path that is not one of the four workflow axes symmetric between agile and waterfall modes."
+    },
+    {
+      "id": "R235",
+      "file": "project_workflow_axes.md",
+      "quote": "is asymmetric drift — move it to a shared block.",
+      "rule": "When auditing prompts or code, move a mode-specific rule that is not one of the four axes into a shared block."
+    },
+    {
+      "id": "R236",
+      "file": "project_workflow_axes.md",
+      "quote": "is redundant — extract it to",
+      "rule": "When auditing prompts or code, extract a rule that is identical in both modes into the shared layer."
+    },
+    {
+      "id": "R237",
+      "file": "project_workflow_axes.md",
+      "quote": "Primary elicitation mechanism.",
+      "rule": "In waterfall mode, use open questions as the primary elicitation mechanism."
+    },
+    {
+      "id": "R238",
+      "file": "project_workflow_axes.md",
+      "quote": "Cap 3 active.",
+      "rule": "In waterfall mode, keep at most 3 active open questions."
+    },
+    {
+      "id": "R239",
+      "file": "project_workflow_axes.md",
+      "quote": "Phase order: scope → trade-offs → algorithm.",
+      "rule": "In waterfall mode, ask open questions in the phase order: scope, then trade-offs, then algorithm."
+    },
+    {
+      "id": "R240",
+      "file": "project_workflow_axes.md",
+      "quote": "Add ≤1/turn.",
+      "rule": "In waterfall mode, add at most one open question per turn."
+    },
+    {
+      "id": "R241",
+      "file": "project_workflow_axes.md",
+      "quote": "Sparingly — uploads or true must-choose forks only.",
+      "rule": "In agile mode, ask open questions sparingly, only for uploads or true must-choose forks."
+    },
+    {
+      "id": "R242",
+      "file": "project_workflow_axes.md",
+      "quote": "Zero OQs is fine.",
+      "rule": "In agile mode, it is acceptable to have zero open questions."
+    },
+    {
+      "id": "R243",
+      "file": "project_workflow_axes.md",
+      "quote": "No `kind: \"assumption\"` rows.",
+      "rule": "In waterfall mode, do not create brief rows with kind \"assumption\"."
+    },
+    {
+      "id": "R244",
+      "file": "project_workflow_axes.md",
+      "quote": "Provisional content goes in `open_questions`",
+      "rule": "In waterfall mode, place provisional content in open_questions."
+    },
+    {
+      "id": "R245",
+      "file": "project_workflow_axes.md",
+      "quote": "add to `gathered` only after explicit confirmation",
+      "rule": "In waterfall mode, add provisional content to gathered only after explicit user confirmation."
+    },
+    {
+      "id": "R246",
+      "file": "project_workflow_axes.md",
+      "quote": "Default for filling gaps.",
+      "rule": "In agile mode, use assumptions as the default way to fill gaps."
+    },
+    {
+      "id": "R247",
+      "file": "project_workflow_axes.md",
+      "quote": "Commit same-turn with `evidence_item_ids` cite.",
+      "rule": "In agile mode, commit an assumption in the same turn, citing evidence_item_ids."
+    },
+    {
+      "id": "R248",
+      "file": "project_workflow_axes.md",
+      "quote": "Cap 1 new/turn, ~3–5 active.",
+      "rule": "In agile mode, add at most one new assumption per turn and keep roughly 3–5 active."
+    },
+    {
+      "id": "R249",
+      "file": "project_workflow_axes.md",
+      "quote": "Promote to gathered only on explicit user confirm.",
+      "rule": "In agile mode, promote an assumption to gathered only on explicit user confirmation."
+    },
+    {
+      "id": "R250",
+      "file": "project_workflow_axes.md",
+      "quote": "Ask via OQ; never silently set.",
+      "rule": "In waterfall mode, ask about the search strategy via an open question and never set it silently."
+    },
+    {
+      "id": "R251",
+      "file": "project_workflow_axes.md",
+      "quote": "Commit `algorithm: \"GA\"` same turn as a `kind: \"assumption\"` items[] row that NAMES the algorithm.",
+      "rule": "In agile mode, commit the algorithm in the same turn as an assumption items row that names the algorithm."
+    },
+    {
+      "id": "R252",
+      "file": "project_workflow_axes.md",
+      "quote": "is `gathered` in BOTH modes and must commit SAME turn",
+      "rule": "Record a user-stated fact as gathered in both modes, committing it in the same turn."
+    },
+    {
+      "id": "R253",
+      "file": "project_workflow_axes.md",
+      "quote": "gate is ONLY for AGENT-proposed content",
+      "rule": "Apply the confirm-before-gathered gate only to agent-proposed content, never to user-stated facts."
+    },
+    {
+      "id": "R254",
+      "file": "project_workflow_axes.md",
+      "quote": "deferring a user-stated goal into an OQ strands the brief",
+      "rule": "Do not defer a user-stated goal into an open question."
+    },
+    {
+      "id": "R255",
+      "file": "project_workflow_axes.md",
+      "quote": "Concept-only turns emit `null` problem_brief_patch",
+      "rule": "On concept-only turns, emit a null problem_brief_patch."
+    },
+    {
+      "id": "R256",
+      "file": "project_workflow_axes.md",
+      "quote": "No brief items describing the agent's role / capabilities",
+      "rule": "Do not add brief items that describe the agent's role or capabilities."
+    },
+    {
+      "id": "R257",
+      "file": "project_workflow_axes.md",
+      "quote": "mode dispatches the action (waterfall asks, agile commits)",
+      "rule": "When acting on the run-gate status block, ask in waterfall mode and commit in agile mode."
+    },
+    {
+      "id": "R258",
+      "file": "project_workflow_axes.md",
+      "quote": "waterfall must add an OQ",
+      "rule": "After a run in waterfall mode, add an open question on the run-ack turn."
+    },
+    {
+      "id": "R259",
+      "file": "project_workflow_axes.md",
+      "quote": "agile must ADD OR UPDATE an assumption row",
+      "rule": "After a run in agile mode, add or update an assumption row on the run-ack turn."
+    },
+    {
+      "id": "R260",
+      "file": "project_workflow_axes.md",
+      "quote": "After-run: relate to stated goals",
+      "rule": "In after-run replies, relate the results to the user's stated goals."
+    },
+    {
+      "id": "R261",
+      "file": "project_workflow_axes.md",
+      "quote": "≤2 config-linked refinements",
+      "rule": "In after-run replies, offer at most 2 config-linked refinements."
+    },
+    {
+      "id": "R262",
+      "file": "project_workflow_axes.md",
+      "quote": "lead with operational impact",
+      "rule": "In after-run replies, lead with operational impact."
+    },
+    {
+      "id": "R263",
+      "file": "project_workflow_axes.md",
+      "quote": "Provenance follows origin, not phrasing",
+      "rule": "Determine provenance by where content originated, not by how it is phrased."
+    },
+    {
+      "id": "R264",
+      "file": "project_workflow_axes.md",
+      "quote": "never explain \"agile vs waterfall\" to demo participants.",
+      "rule": "In demo mode, never explain agile vs waterfall to participants."
+    },
+    {
+      "id": "R265",
+      "file": "project_workflow_axes.md",
+      "quote": "behaves like waterfall on OQs (no cap)",
+      "rule": "In demo mode, handle open questions like waterfall mode without a cap."
+    },
+    {
+      "id": "R266",
+      "file": "project_workflow_axes.md",
+      "quote": "keep it symmetric.",
+      "rule": "Keep the plateau intervention symmetric across agile and waterfall modes."
+    },
+    {
+      "id": "R267",
+      "file": "project_workflow_axes.md",
+      "quote": "Don't add mode-specific code paths or prompt rules for anything other than these four",
+      "rule": "Do not add mode-specific code paths or prompt rules for anything other than the four workflow axes."
+    },
+    {
+      "id": "R268",
+      "file": "project_workflow_axes.md",
+      "quote": "document which axis you're implementing",
+      "rule": "When adding a mode-specific code path or prompt rule for one of the four axes, document which axis it implements."
+    }
+  ],
+  "dropped": []
+}

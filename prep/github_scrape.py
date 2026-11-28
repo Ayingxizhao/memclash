@@ -233,6 +233,9 @@ def cmd_fetch(args):
         kept_repos = {c["repo"] for c in map(json.loads, out_cands.open()) if c.get("kept")} \
             if out_cands.exists() else set()
         kept_owners |= {r.split("/")[0] for r in excluded}
+    if args.exclude:  # owners listed after "# owners" in the file are never fetched
+        lines = Path(args.exclude).read_text().split("\n")
+        kept_owners |= {x for x in lines[lines.index("# owners") + 1:] if x}
     print(f"{len(repos)} candidate repos, {len(kept_repos)} already kept, target {args.max_repos}")
     with out_cands.open("a") as cand_out:
         for repo in repos:
@@ -304,6 +307,7 @@ def main():
     f.add_argument("--max-kb", type=float, default=None, help="skip folders whose .md files exceed this size (gold cap)")
     f.add_argument("--out-dir", default=None,
                    help="write a separate exploration set here (skips folders and owners already in the dataset)")
+    f.add_argument("--exclude", default=None, help="file listing owners to skip (after a '# owners' line)")
     args = ap.parse_args()
     {"search": cmd_search, "fetch": cmd_fetch}[args.cmd](args)
 

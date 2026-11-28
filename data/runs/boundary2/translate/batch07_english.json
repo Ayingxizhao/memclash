@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R7",
+   "rule": "Only `Development` may be used to open a pull request into `main`."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R76",
+   "rule": "Bump the MAJOR version only when the user explicitly asks, and use a breaking-change conventional commit when doing so."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R77",
+   "rule": "Never bump the major version on your own initiative under any circumstances."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R8",
+   "rule": "Do not create branch types other than phase work and bug fix branches (no `infra/`, `docs/`, `chore/` prefixes)."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R102",
+   "rule": "When the upstream repo lacks harness-required files, store those files in apps/<name>/files/."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R133",
+   "rule": "Do not run the Broadleaf DemoSite with `java -jar`."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R134",
+   "rule": "Do not run the Broadleaf DemoSite with `mvn spring-boot:run`."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R142",
+   "rule": "When rebuilding images, rebuild the base image before the language images."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R146",
+   "rule": "Do not rebuild the images after editing container.ts."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R161",
+   "rule": "In the agent-skill repo, commit to the current long-running feature branch, not to main."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R162",
+   "rule": "In the agent-skill repo, do not switch to or push main."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R163",
+   "rule": "Only commit or push changes when explicitly asked to do so."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R164",
+   "rule": "In the agent-skill repo, run git branch to confirm the current feature branch before committing."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R18",
+   "rule": "When a preamble change seems warranted, suggest it and ask the user for explicit permission before making it."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R2",
+   "rule": "For a test run, run all applications (`all`) rather than a single app."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R25",
+   "rule": "Make changes to harness config (config.sh) and evaluation files (evaluation.ts, EVALUATION.md) without asking for permission."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R80",
+   "rule": "Do not run the application, generate traffic, or stand up a collector or weaver while performing otel-verification."
+  },
+  {
+   "folder": "ferazfhansurie__ai-memory-faeez",
+   "id": "R132",
+   "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+  },
+  {
+   "folder": "ferazfhansurie__ai-memory-faeez",
+   "id": "R83",
+   "rule": "The autopost endpoint may be triggered from any external source by supplying the CRON_SECRET."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R1",
+   "rule": "Treat the case-studies/aeneas/ folder as read-only and user-owned."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R14",
+   "rule": "Treat case-studies/aeneas/ as read-only and do not modify it."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R2",
+   "rule": "Do not edit, add, delete, rename, format, generate files in, stage, or commit files in the case-studies/aeneas/ folder."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R26",
+   "rule": "Never recreate `docs/features.md`."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R27",
+   "rule": "Never recreate `docs/wrinkles.md`."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R31",
+   "rule": "Keep reports under `docs/`."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R4",
+   "rule": "Only override the case-studies/aeneas/ read-only restriction for a task when an explicit later instruction names work inside that folder."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R76",
+   "rule": "Write any new report, ledger, or measurement summary to the docs/reports/ directory."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R77",
+   "rule": "Never recreate a root-level reports/ directory."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R155",
+   "rule": "Before committing, ensure `./run_python_checks` passes, including jscpd and vulture."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R21",
+   "rule": "Before any deploy, reset, chart test, test run beyond smoke or single reruns, or disruptive step on minikube or kees00, run the ledger check command for that environment."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R33",
+   "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R65",
+   "rule": "Run ./run_python_checks right before each commit, after the last edit."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R71",
+   "rule": "Check git diff --cached before committing."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R1",
+   "rule": "Read the project memory from the memory directory in the repository (not from ~/.claude/projects/<project>/memory/) when working on this project."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R155",
+   "rule": "Never merge a PR; the user merges every PR himself."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R156",
+   "rule": "Do not run `gh pr merge`."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R159",
+   "rule": "Do not delete the branch after merging or pushing."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R2",
+   "rule": "Write new memory entries to the memory directory in the repository, not to ~/.claude/projects/<project>/memory/."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R23",
+   "rule": "Do not declare a fix pass done or commit it before the beginner-review re-run has been completed."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R291",
+   "rule": "For the Radiopedia repo, never invoke preview_start; use the mcp__Claude_in_Chrome__* tools to connect to the user's running dev server instead."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R328",
+   "rule": "Before adding a glossary key to glossary.ts, run `node scripts/check-glossary-coverage.mjs`."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R338",
+   "rule": "To translate a glossary entry, first run `node scripts/extract-glossary.mjs`, then run `gemini-translate.py glossary <term>`."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R416",
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R9",
+   "rule": "Before creating a new memory file, check whether an existing file already covers the same ground."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R13",
+   "rule": "Obtain applicable authorization before running any new paid test."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R136",
+   "rule": "A/B test image prompts before running a batch."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R137",
+   "rule": "A/B test image models before running a batch."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R148",
+   "rule": "Read bible/taste.md before any concept work."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R29",
+   "rule": "Never start the Seedance step on an episode without King's go-ahead."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R30",
+   "rule": "Never start the Seedance step on an episode without a cost estimate."
+  }
+ ]
+}

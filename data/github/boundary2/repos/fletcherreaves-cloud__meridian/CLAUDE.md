@@ -1,0 +1,833 @@
+# Meridian BI — Claude Code Project Context
+
+> Read at every session start. Dense by design — power-user reference, not an intro doc.
+
+---
+
+## What Is Meridian
+
+Meridian is a full-stack operations analytics platform for a McDonald's franchise owner (~27 stores in Florida and Oklahoma). It replaces disconnected spreadsheets by aggregating data from LifeLenz (labor/scheduling), QSRSoft (P&L/food cost), SMG VOICE (customer satisfaction), daily ops reports, and more into a unified dashboard.
+
+Long-term vision: a restaurant management **intelligence system** — not just a data viewer — that helps owners and operators manage performance, coach GMs, and run the business with data they currently can't access in one place.
+
+Built and used by the same person (Fletcher Reaves, owner + developer). Currently private; future plan is to deploy to a second trusted operator in beta.
+
+---
+
+## Stack & Deployment
+
+| Layer | Technology |
+|---|---|
+| Frontend | Vite + React 19 + vanilla JS (`// @ts-nocheck` throughout — no TypeScript in src/) |
+| Database / Auth | Supabase (PostgreSQL + magic-link auth + Deno Edge Functions) |
+| Hosting | Vercel → https://meridianbi.vercel.app |
+| Repo / CI | GitHub (fletcherreaves-cloud/meridian), Actions for daily LifeLenz + QSRSoft sync |
+| Client cache | Dexie.js (IndexedDB / OPFS) — fallback only, not source of truth |
+| PDF parsing | pdfjs-dist (lazy-loaded) |
+| Automation scripts | Node.js + Playwright (`scripts/lifelenz-pull.mjs`, `scripts/qsrsoft-ebos-pull.mjs`, `scripts/qsrsoft-dar-pull.mjs`) |
+
+**Dev commands:**
+- `npm run dev` — local dev server
+- `npm run build` — production build (must pass clean)
+- `npm test` — Vitest suite (33+ tests)
+- `npm run test:e2e` — Playwright E2E smoke tests (`e2e/`, added 2026-09-06). Only 2 tests today
+  (app-shell boots, real nav renders) — `AuthGate.js` bypasses auth on `localhost`, so no test
+  credentials are needed, but that also means no authenticated/RBAC-scoped flow is covered yet.
+  Not wired into CI — see `e2e/README.md` for scope and the exact reasoning. Uses
+  `/opt/pw-browsers/chromium` directly (do not run `playwright install`).
+
+---
+
+## Architecture (Cloud-First)
+
+**Goal:** any device, any user logs in and sees the same data. No re-uploading after device or URL switch.
+
+- Data saved to Supabase on upload → loaded from Supabase on login
+- OPFS still used for session caching, but Supabase is the source of truth
+- RLS on all tables via `accessible_locs` in the `profiles` table
+- Auth: Supabase magic-link email; RBAC roles set in `profiles.role`
+
+**Key files:**
+```
+src/meridian.js        — 37-line entry point
+src/app/App.js         — main App component, all imports
+src/app/shell.js       — AppShell, nav, top bar
+src/constants.js       — STORE_NAMES, DEFAULT_TARGETS, DEF_SETTINGS
+src/meridian.css       — all styles
+
+src/engine/            — forecast, backtest, pipeline, coaching, why
+src/features/          — morning-brief, calendar, session, projections,
+                         location-intel, lifelenz, smart-targets
+src/views/             — analytics, store-dash, store-analytics,
+                         management, inventory, labor-tools, sage, signals
+src/parsers/index.js   — all 27+ file parsers
+src/db/index.js        — Dexie wrapper
+src/utils/             — date, fmt, holidays, register-audit
+
+supabase/functions/    — Edge Functions (sage-chat, qsrsoft-ingest, etc.)
+scripts/               — lifelenz-pull.mjs, qsrsoft-ebos-pull.mjs, qsrsoft-dar-pull.mjs
+.github/workflows/     — lifelenz-pull.yml, qsrsoft-ebos-pull.yml, qsrsoft-dar-pull.yml
+                         (all run daily at 10:00 UTC = 5am CDT)
+```
+
+---
+
+## External Data Sources
+
+| Source | Status | How |
+|---|---|---|
+| LifeLenz (labor/scheduling) | ✅ Automated | GitHub Actions daily sync, REST API, X-Auth-Token secret → `lifelenz_schedule` |
+| QSRSoft eBOS Purchases | ✅ Automated | GitHub Actions daily 10:00 UTC, Playwright auth, all 27 stores → `qsr_ebos_daily` |
+| QSRSoft Daily Activity (DAR) | ✅ Automated | GitHub Actions daily 10:00 UTC, Playwright auth, all 27 stores/hour → `qsr_daily_activity` |
+| QSRSoft P&L / Food Cost | 🔄 Partial | Email pipeline: Apps Script → Edge Function; also manual CSV upload |
+| SMG VOICE (CSAT) | 📤 Manual | PDF drop (comments) + Excel drop (FullScale aggregate) |
+| Operations Report | 📤 Manual | Excel upload |
+| FOB / Food Cost | 📤 Manual | Excel upload → `ds.fobRows` |
+| Monthly Targets | 📤 Manual | Excel drop → auto-saved to Supabase `monthly_targets` |
+| DAR / Controls | 📤 Manual | Excel upload (separate from QSRSoft DAR above) |
+
+**Automation principle:** automate everything eventually; always keep manual upload as fallback.
+
+**Automated scripts:** all three pull scripts use a two-path auth: direct token (fast) → Playwright fallback if 401 (captures fresh session). Token secrets: `LIFELENZ_TOKEN`, `QSRSOFT_TOKEN`, `QSRSOFT_USERNAME`, `QSRSOFT_PASSWORD`.
+
+**LifeLenz token:** `LIFELENZ_TOKEN` GitHub Secret. Expires (roughly monthly). When sync fails with 401/403, refresh manually: DevTools → Network → any `us01-connect.lifelenz.com` request → copy `X-Auth-Token` header → update GitHub Secret. See `memory/lifelenz-session.md` for full runbook.
+
+**QSRSoft token:** ⚠️ **Do NOT rotate `QSRSOFT_TOKEN` — it cannot work as a stored secret.** It is a Cognito ID token with a **~1h TTL**, so a value held in a GitHub Secret is expired ~23 of every 24 hours *by construction, no matter how often it is rotated* (#312, 2026-08-15). Every pull reading one falls through to its Playwright fallback every time — expected, not degradation. The fix is `scripts/lib/qsrsoft-auth.mjs`'s `getFreshToken()`, which mints one in-process per run (expiry-aware + reactive re-mint). ✅ **The migration is DONE — do not re-dispatch it** (dispatch #82; re-measured 2026-08-24: **19 scripts call `getFreshToken()`, and exactly one live `process.env.QSRSOFT_TOKEN` read remains**, in `scripts/qsrsoft-explore.mjs`, an ad-hoc probe that is in no workflow). This line previously read "5 scripts use it, 11 still read the dead secret — converting those is the open work"; that was true on 2026-08-23 and #82 closed it the next day. Note when re-measuring that a plain grep for `process.env.QSRSOFT_TOKEN` **undercounts** — `qsrsoft-inventory-history-pull.mjs` was affected only indirectly, through `scripts/lib/ebos-auth.mjs`'s `resolveEbosToken()`, and never appeared in #82's own file count. The obsolete refresh process, kept only because the value is still occasionally useful for a one-off manual probe within the hour: DevTools → Network → any `api.reports.myqsrsoft.com` or `v3.myqsrsoft.com` request → copy `X-Auth-Token` header → update GitHub Secret.
+
+**⚠️ QSRSoft Operator Security Notice (2026-11-16) — standing compliance context, read before
+touching any `qsrsoft-*.mjs` script.** QSRSoft sent a formal letter stating they actively block
+AI-bot/credential-login scraping per their Subscriber Agreement (Section 1's "person"-only
+Service User definition, Section 2.1's internal-use-only license, no credential sharing).
+**All ~33 of Meridian's existing credential-login pull scripts use exactly that pattern and are
+DELIBERATELY RETAINED, untouched — owner decision, do not disable or migrate them wholesale**
+("I do not need to push this too hard and jeopardize losing access altogether"). What DID ship:
+a real OAuth2 connection to QSRSoft's new **Native MCP Server** (`https://mcp.myqsrsoft.com`),
+one of the letter's own sanctioned alternatives, pulling its only 2 exposed report types (Time
+Slice Summary, Service Time Statistics) into new parallel tables (`qsr_mcp_time_slice_summary`/
+`qsr_mcp_service_time_stats`) via `scripts/qsrsoft-mcp-pull.mjs` — **additive, not a
+replacement; nothing in the app reads these tables yet.** Auth is a rotating OAuth refresh
+token cached in Supabase (`qsr_mcp_token_cache`, service-role only — never a GitHub Secret,
+since the token invalidates itself on every use). Full audit, the MCP server's measured
+mechanics (its `structuredContent` carries no row data — only `content[0].text`'s CSV block
+does, in vendor display-label order, not the requested field order — a real trap this already
+caught once), the emailed-vs-MCP-vs-scraping-only gap analysis, and a draft (unsent) response
+letter to QSRSoft are all in `memory/finding-qsrsoft-security-notice-2026-11-16.md`. ✅ **RESOLVED same day — the pull is
+LIVE, do not re-raise either pending item.** The owner ran the schema SQL and a dedicated
+refresh token was seeded into `qsr_mcp_token_cache`; the real pull was then run end-to-end and
+measured against ground truth (store `0003708`/`2026-11-14` exact match to a live hand-run MCP
+query), and the refresh-token rotation itself was confirmed working (`updated_at` advanced
+after the run). Full verification detail in that memory file's "RESOLVED" section.
+
+---
+
+## RBAC Roles (most → least access)
+
+**⚠️ CORRECTED 2026-09-16 (RBAC audit) — this table used to document an 8-tier ladder
+(Developer/Admin/Owner/VP/DO/Supervisor/GM/Office Staff) that does not exist in the live app.**
+`profiles.role`'s DB CHECK constraint (`supabase/schema.sql`) allows **exactly** these 9 ids —
+`src/engine/permissions.js`'s `DEFAULT_ROLES` is the real source of truth, agrees with the DB:
+
+| Role id | Label | Level | Scope |
+|---|---|---|---|
+| `admin` | Admin | 1 | Full access, level-1 bypasses all permission checks |
+| `owner` | Owner / Developer | 1 | Same top tier as `admin` — **not** a separate "Developer" role; there is no `developer` id anywhere in the system |
+| `vp` | VP | 2 | Multi-district |
+| `do` | DO (District Ops) | 3 | District-level |
+| `om` | OM (Ops Manager) | 4 | — |
+| `area_supervisor` | AS (Area Supervisor) | 5 | Patch-level (subset of stores) |
+| `gm` | GM (General Manager) | 6 | Own store only |
+| `sm_am_dm` | SM / AM / DM | 7 | — |
+| `manager` | Manager | 3 | Pre-existing/default role — **new signups default here** (`profiles.role default 'manager'`), not to the top tier |
+
+**There is no `office_staff` id and no literal `'developer'` role value — code that checks either
+string is checking something that can never be true.** This was a real, live bug, not just doc
+drift: `management.js`'s "🛠 Dev" tab (`userRole==='developer'`) could never render for anyone,
+including the real owner's own account; `task-queue.js`'s `isDev` read a `settings.role` field
+that was never populated, silently disabling Feature-Request dev-notes editing for every user;
+`security-panel.js` and `sage-chat/index.ts` both checked the pre-dispatch-#148 string
+`'supervisor'` instead of the real `'area_supervisor'`. All fixed in the same pass that corrected
+this table — see `memory/finding-rbac-role-ladder-2026-09-16.md` for the full audit.
+
+Roles are enforced two ways, both real: (1) `src/engine/permissions.js`'s `hasPermission(roleId,
+permKey)` gates nav items and panels via `panel-registry.js`'s `perm:` field (fails closed — an
+unrecognized role id gets zero permissions, not "everything"); (2) Supabase RLS on the
+`accessible_locs` profile field (`public.my_locs()`, installed on 51 core tables via
+`schema-rls-phase2-loc.sql`) scopes which stores' data a query returns.
+
+✅ **CORRECTED 2026-10-16 — the RLS store-scoping mechanism HAS now been exercised end-to-end with
+a real restricted account, through real RLS (anon key + a signed-in user JWT, never service-role,
+which bypasses RLS entirely) — do not re-raise this as an open unknown.** Created a throwaway test
+user, set its profile's `accessible_locs` to a single real store, and measured against live
+production data: `lifelenz_schedule` returned exactly 666/16522 rows (all `loc='0003708'`),
+`qsr_daily_activity` returned exactly 28801/742196, `qsr_fob` returned exactly 1002/25965 — all
+matched to that one store only. An explicit query for a *different* real store's loc
+(`loc=eq.0005183`, which has 666 rows of its own) came back `content-range: */0` — actively
+blocked, not silently ignored. Resetting the same profile's `accessible_locs` to `null` and
+re-querying with the same already-issued JWT then returned the full unrestricted `16522` total,
+confirming the NULL/unrestricted branch also runs through real policy evaluation, not just
+service-role bypass. Test artifacts (auth user + profile) were deleted after. **This also corrects
+the old "the only profile that has ever existed has `accessible_locs = NULL`" claim — that was
+already false before this test**: profile `bd8ea9b8-f498-497b-9abe-6e3dd98000e8`
+(`freaves@gmail.com`, created 2026-08-26) has carried a non-null `accessible_locs` the whole time.
+Not yet covered: a real second-operator login exercising this scoping across more than one panel
+in the actual UI (this test was REST-API-direct) — that remains worth doing before a live beta
+onboarding, but the underlying RLS mechanism itself is no longer an open question.
+
+---
+
+## UI Conventions
+
+- **Theme:** **LIGHT is the shipped default; dark is a selectable mode.** `DEF_SETTINGS` is
+  `theme:'command'` + `colorMode:'light'` (`constants.js`), set in the 2026-06-20 Vite lift-and-shift
+  and unchanged since; `App.js` writes both to `<html>` on every settings change, and the built
+  `index.html` ships `data-mode="light"`. Owner-confirmed 2026-08-15 as intended product behaviour,
+  not a divergence. Fletcher and other long-standing users see dark because their `colorMode` is
+  persisted — **your own screenshot is not evidence of what a new user sees.**
+  4 theme families (`golden`/`command`/`dualbrand`/`refined`) × 2 modes = 8
+  `html[data-theme][data-mode]` blocks in `meridian.css`, each defining the full
+  `--bg/--surf/--surf2/--surf3/--bdr/--bdr2` ladder. Accent `#f5bc00` (McDonald's gold); the
+  dark-mode background is `#0f1117`.
+  **Never hardcode `rgba(255,255,255,X)` — use the tokens.** White-alpha over a light surface is
+  algebraically still that surface: at *every* alpha from .01 to .85 it composites to the identical
+  pixel on the two pure-white light themes. This is what made ~430 such sites read as a niche
+  dark-theme nicety for two months when they were in fact default-path bugs (#295, #296, #306), and
+  it is guarded by `src/__tests__/light-mode-white-alpha.test.js`'s ratcheting ceiling.
+- **Density:** power-user tool — dense, data-first layouts (not consumer-friendly)
+- **Voice by role — say the number AND the decision (standing rule, owner-stated 2026-08-17).**
+  *"The information needs to be able to be presented to an average user at a level to which they
+  will actually understand and act upon it"* — and, explicitly, **without giving up the analytical
+  depth**. These are not a trade-off to be split; both ends get preserved. An analyst needs a
+  number; an operator needs a decision. The owner is the outlier user (33 years, every position in
+  a restaurant short of owning one) and has the curse-of-knowledge problem that comes with it: a
+  panel that reads as obvious to him is not evidence a GM can act on it.
+  - **The default surface of any panel states what to do, in one line, in restaurant words.** The
+    supporting metric, its window, and its comparison basis stay visible next to it — never
+    replaced by the plain-language line, never hidden behind a click that an operator won't make.
+  - **The depth stays reachable and stays exact.** Drill-downs, model diagnostics, DiD tables,
+    backtest matrices, engineered models: preserved, not simplified. Same standing protection the
+    engineered forecast models already carry.
+  - **A number nobody acts on is not a shipped feature.** Before adding a metric, name the decision
+    it changes and who makes it. If neither has an answer, it belongs in a drill-down, not on a tile.
+  - Full rationale + the workstream that lands it: `memory/plan-normalization-2026-08-17.md` (F).
+- **`kind:` is lifecycle, `section:` is placement — and `section:` must be truthful even when
+  nothing renders it (standing rule, owner-stated 2026-08-21).** In `src/app/panel-registry.js`,
+  a panel's `section:` says where it *belongs*; its `kind:` says whether it is showing yet
+  (`nav`/`optional` render from their section; `test-kitchen`/`hub-tab`/`internal` do not).
+  Owner: *"assign them a category, but leave them in the test kitchen. That way if I decide to
+  promote them, they'll naturally fall into the right section."* So **every new panel gets its real
+  section from day one**, including Test Kitchen experiments, so the section half of promotion is
+  already decided when the moment comes.
+  **✅ Promotion IS a one-field flip — flip `kind:` in the registry, change nothing else (dispatch
+  #61, verified on `main` 2026-08-24).** `renderTestKitchen()` in `shell.js:234` derives its items
+  from `testKitchenPanels(can)` (i.e. `panel.kind === 'test-kitchen'` + the registry's `tkOrder`),
+  so a promoted panel leaves Test Kitchen automatically. **This paragraph used to say the opposite**
+  — that `⚗ TEST KITCHEN` was a hand-maintained list of literal `navPBeta('id')` calls and that
+  promotion took two edits or the panel double-rendered. That was true on 2026-08-21 and was fixed
+  by #61 days later; the doc was not updated, and on 2026-08-23 it sent dispatch #85 chasing two
+  non-existent bugs (a missing `navPBeta` line, a stale registry comment) that the engineer had to
+  measure false before writing any code. **A rule that describes code which no longer exists costs
+  more than no rule** — when a dispatch item turns out to rest on a CLAUDE.md claim, re-read the
+  code before writing the item, and fix the doc in the same pass.
+  **The catch: 25 of 82 panels have an inert `section:`, and a field nothing renders is a field
+  nothing checks.** `proj` claimed `section:'planning'` for months — false, and invisible because
+  it never rendered. Same rot as Job A's stale `'Proj Workflow'` label and #52's 15 schema-drift
+  columns. So the rule is guarded by a **promotion test** that simulates the `kind` flip and asserts
+  the panel *renders* under the right header — string equality on `section:` would pass with the
+  rendering path broken. Never hand-verify a section assignment; the test is the contract.
+- **Location selectors:** pill-style, All → State → Org/Patch → Store hierarchy on all filters
+- **Print/PDF:** export formatting should match existing workbook aesthetic
+- No emoji in UI unless already used for nav icons
+
+---
+
+## Panels & Modules
+
+| Panel | Status | Notes |
+|---|---|---|
+| Morning Brief | ✅ | Daily KPI summary |
+| Projections | ✅ | Monthly targets, Supabase-persisted |
+| Analytics | ✅ | District-wide rollup |
+| Store Dashboard / Analytics | ✅ | Per-store drill-down |
+| Labor Tools + LifeLenz | ✅ | Scheduling intelligence, synced daily |
+| Management | ✅ | Coaching, performance reviews |
+| Inventory | ✅ | |
+| SMG VOICE | ✅ | Comments tab + FullScale scorecard; thresholds set (OSAT ≥90%, Acc B2B ≥95%) |
+| Location Intel | ✅ | |
+| Calendar Manager | ✅ | Recurring rules |
+| Smart Targets | ✅ | |
+| Data Manager | ✅ | |
+| SAGE AI | ✅ | Claude Opus 5, live tool use (sales/DT/labor/forecast accuracy), streaming |
+| Signals | ✅ | LiveOps tab (qsr_daily_activity): Tracking-to-Plan **$ AND guest-count** (proj_sales_dollars + proj_total_transactions, with a traffic-vs-sales divergence flag), Baseline Anomalies (mean_sales), intraday labor-gap column; Speed of Service panel (all stations: DT/front-counter/kitchen-MFY/beverage); custom signal engine (Signal Lab); **🔎 Scanner** (v4.495): auto-correlation across all metric pairs — Pearson r + Spearman, effect-size floor + Benjamini–Hochberg FDR guardrails, "move together" framing, one-click promote to Signal Lab + predefined seed signals. **Metric registry** (`src/engine/signal-registry.js`) covers Controls loss-prevention (T-Reds Before/After %+count, cash/cashless refunds, promo, disc, POS-over $, cash O/S $) and reads **cloud streams** (glimpse/cash/salesLedger/qsrActSummary) as `(Cloud)` metric groups, not just manual uploads. **v4.533:** added **Weather** (auto `weatherRows` — high/low/avg temp, rain [allowZero], wind; temps concept-grouped) and **Calendar** (synthetic 0/1 day-of-week flags — Weekend/Friday/Monday, generated over the real-data day universe, daily-only, calendar×calendar suppressed) metric groups → weather↔sales & day-of-week correlations surface in Scanner + Signal Lab. See `memory/notes-28-queue.md` #3/#4 |
+| FOB / Food Cost | ✅ | FOBAnalysisPanel + FOBEOMPanel (per-store inventory troubleshooter) |
+| Feature Requests | ✅ | Supabase-backed, pre-seeded with roadmap history |
+| Visit Readiness | ✅ | **v4.501** — per-store PACE graded-visit readiness (CFV/RGRV/EcoSure) from daily ops metrics. Transparent weighted composite (Speed 35 / Accuracy 30 / Quality 20 / Leadership 15, each vs the store's own DEFAULT_TARGETS) + per-store top risk drivers + last actual visit. Engine `src/engine/visit-readiness.js`. Standards + metric-mapping in `memory/project-graded-visits-pace.md`. Cleanliness = acknowledged data gap. **✅ EcoSure replacement SHIPPED (2026-09-12, do not re-diagnose or re-propose) — the food-safety flag now uses the real EcoSure result, not the proxy, whenever one is CURRENT for a store** (within its own ~12mo overdue-threshold cadence; `overdueThresholdDays('EcoSure')`). `computeVisitReadiness` tracks each store's most recent EcoSure visit independently of its most-recent-visit-of-any-type (`lastEcoSureByLoc`, separate from `lastVisitByLoc`) and, when current, drives `fsFlag`/`fsScore` from its real `score`/`pass`/`criticalFailCount` — a real critical always wins even over a clean proxy reading, and a real clean pass always wins even over a bad proxy reading (the exact Ardmore-Broadway counterexample this was built to fix). New fields on each store: `fsSource` (`'ecosure'|'proxy'|'unknown'`), `fsAsOf`, `fsEcoSure` (the record itself, `null` only when no EcoSure visit of any age is on file). The waste/variance proxy is demoted to fallback-only for the gap BETWEEN visits — never removed, since dispatch #231's own leak-free backtest (r=0.07, n=240, `fsBacktest`) is exactly why it can no longer be trusted as the primary signal. UI: the badge reads "EcoSure: Pass/Watch/CRITICAL" (not "W&V …") whenever `fsSource==='ecosure'`, on-screen and in both printed reports; diagnostic depth (the proxy's own drivers) stays reachable underneath, labeled as background. 7 tests (`src/__tests__/dispatch-ecosure-real-signal-2026-09-12.test.js`), design notes in `memory/finding-ecosure-replaces-waste-proxy-2026-09-12.md`. Endpoint, payload shape and the ingest traps (trailing spaces in `questionCode`, `result` 0=pass/1=cited/-1=N/A, critical items scoring 0/0) that make manual EcoSure capture possible at all are in `memory/finding-ecosure-propel-api-2026-08-22.md` — unchanged, still the reference for how data gets INTO `graded_visits` in the first place (SSO+MFA rules out automation; on-demand upload only, already wired to the Graded Visits panel). |
+
+---
+
+## SAGE (Strategic Analytics & Guidance Engine)
+
+AI advisor built into Meridian. Fully deployed at v4.284.
+
+- **Architecture:** `supabase/functions/sage-chat/index.ts` (Deno Edge Function, proxies Claude API, verifies Supabase JWT) + `src/views/sage.js` (React panel, SSE streaming)
+- **Model:** `claude-opus-5` with `thinking: {type: "adaptive"}`, `max_tokens: 8000` (upgraded from the 4.8 generation 2026-08-13)
+- **Deploy command:** `supabase functions deploy sage-chat --no-verify-jwt` (`--no-verify-jwt` required for CORS)
+
+**Live tools (v4.373–v4.379, +v4.500, +v5.457; re-inventoried 2026-09-16 — the 2026-09-07 pass
+itself drifted, missing 3 real tools it never re-checked against `index.ts`'s actual `TOOLS`
+array; re-verify there again before trusting this list rather than assuming this correction
+stays current forever):** `query_daily_activity` (sales + DT), `query_lifelenz_labor` (VLH gap),
+`query_forecast_snapshots` (MAPE by model), `query_promo_roi` (matched-day promo/discount ROI —
+mirrors the Promo/Discount ROI panel, RBAC-scoped), `query_labor_summary` (exact-window OT $/hrs
++ Controls-basis Act-vs-Need staffing gap, from the SAME auto QSRSoft streams the Controls
+exports read — NOT LifeLenz; deliberately preferred over `query_lifelenz_labor` for OT/staffing
+questions since the two baselines can disagree sharply), `query_eom_recount_impact` (EOM
+recount-vs-FOB impact, same engine the EOM Dashboard's Change Monitor uses; explicitly scoped to
+FOB only — total food cost % isn't in Meridian's data model and the tool's own prompt says so
+rather than implying coverage), `query_smg` (SMG VOICE OSAT/Accuracy B2B/problem rates from the
+monthly FullScale upload, response-count-weighted district totals), `search_qsr_kb` (searches
+`qsrsoft_kb`, the vendor's own Help Center docs — how QSRSoft works/what a term means), and
+`search_project_memory` (searches `sage_memory_kb`, a curated slice of this repo's own `memory/`
+notes — why a metric/panel works the way it does). **New in v5.457, Task #74:**
+`query_data_health` — checks whether the ~21 automated data streams themselves are current, same
+thresholds as `stream-freshness.js`'s STREAMS/At-A-Glance checklist, never returns store-level
+figures. **This list itself had gone stale again by 2026-10-10 (re-measured against `index.ts`'s
+actual `TOOLS` array) — missing `query_forms`** (shipped v5.474, #1309: QSRSoft Forms/checklist
+completion, same rollup logic the in-app Forms dashboard uses) **and, as of this same pass,
+`web_search`** — Anthropic's server-side `web_search_20260209` tool, added so SAGE can ground
+answers needing live information (local news/weather/events, school calendars) outside
+Meridian's own data. ✅ **CORRECTED 2026-10-16 — the migration this paragraph used to describe as
+open is DONE (v5.516, 2026-10-11, confirmed directly against that changelog and against the 3
+files' own code comments this pass — do not re-raise it).** `why.js`'s `lookupMissEvent`,
+`calendar.js`'s `searchUpcomingEvents`, and `analytics.js`'s `AIBacktestScanner`'s shared
+`callClaudeWithSearch` (both its per-row "🔍 AI" lookup and its "🤖 AI Batch" scan) all call
+`callSageOnce` now instead of hand-rolling their own personal-key `tool_use` loop against
+`api.anthropic.com` directly — all 11 of the original personal-Anthropic-key call sites are on
+`sage-chat`, and no feature in the app still depends on a personal Anthropic API key.
+`memory/finding-remaining-ai-sites-sage-migration-2026-10-10.md` is now superseded by this
+correction, not an open item. Web search is a server-side tool: it resolves within the same streamed
+response (never a client-round-tripped `tool_use`), and can itself return `stop_reason:
+'pause_turn'` if its own internal search loop runs long — `sage-chat/index.ts`'s round loop
+resumes it by resending the conversation with the paused assistant turn appended, per
+Anthropic's documented resume pattern. **12 tools total now.** System prompt
+(`src/views/sage.js`'s `buildSystemPrompt`) documents all 12 explicitly so SAGE calls them
+proactively — that file had also drifted before (claimed "nine tools" but only wrote up 8,
+missing `search_project_memory` entirely); re-verify both lists against the real code before
+trusting either, same standing warning as the top of this paragraph.
+
+**Self-instrumenting + prompt library (v4.487):** every SAGE answer has a **🐞 Log** action → opens a modal that turns the response into a **Task Queue** ticket (data-pull failures) or **Feature Request** (capability gaps) — auto-suggested by failure-language + data-source detection (`query_daily_activity`/`query_lifelenz_labor`/`query_forecast_snapshots`), pre-filled with the Q+A context AND a ready-to-paste **troubleshooting prompt** for Claude Code. Header **📚 Prompts** = saved-prompt library (`sage_prompts` table): save the current input, Use/Run/Delete saved prompts, and **⏰ Schedule** each to auto-run (daily/weekly at a UTC hour). **Phase 2 shipped (v4.488):** `scripts/sage-run.mjs` (hourly GitHub Action `.github/workflows/sage-run.yml`) signs in the `SAGE_RUNNER` service account → mints a user JWT → calls `sage-chat` for each due prompt → writes `sage_prompt_runs`, surfaced by the **first At-A-Glance tile "SAGE Scheduled Runs"** (`SageRunsTile` in analytics.js; added as `DEF_SECS[0]` + first grid child). `send`→`sendMessage(text)` refactor enables the headless call.
+
+**Vision (future enhancements):**
+- Action plans, tables/charts in responses, copy/email output
+- Prompt catalog with thumbs-up/down rating
+- ✅ RBAC-aware (v4.494) — data tools hard-filtered by the caller's `accessible_locs`. ⚠️ **CORRECTED
+  2026-11-11 (task #132 Phase 1) — the "role tunes the advice" half of this line was FALSE from
+  v4.494 until this date, confirmed by reading `buildSystemPrompt`'s signature and its one call
+  site before fixing it: `SagePanel` already received `userRole` as a prop but never forwarded it
+  into the prompt.** Now real: `buildSystemPrompt`'s 5th parameter threads `userRole` through
+  `curated-home.js`'s `altitudeForRole` (the same store/patch/district collapse Curated Home and
+  the Huddle already use — gm/sm_am_dm/manager=store, area_supervisor/om/do=patch,
+  vp/owner/admin=district), appending a role-voice addendum to the prompt text client-side in
+  `src/views/sage.js`. **No `sage-chat` redeploy needed for this** — the client sends the full
+  `systemPrompt` string over the wire; the edge function only appends its own RBAC block
+  server-side (confirmed by reading `supabase/functions/sage-chat/index.ts`'s `effectiveSystem`
+  construction) and holds no system-prompt text of its own to redeploy.
+- ✅ **Cross-device session memory and conversation retention — already SHIPPED (dispatch #187),
+  re-measured live 2026-09-16, do not re-implement.** `src/views/sage.js`'s `SagePanel` wraps both
+  the active thread (`mf_sage_thread_v1` → `user_settings.sage_thread`) and the archived-session
+  list (`mf_sage_sessions_v1` → `sage_sessions`) in the same `{data,savedAt}`-guarded cloud mirror
+  `_stDialedIn`/Model Assignment already use (`src/lib/blob-sync.js`'s `pushBlob`/`hydrateBlob` —
+  cloud wins a hydration ONLY when strictly newer, so an in-progress conversation on one device
+  can't be clobbered by a stale cloud read from another). Pushed at natural settle points only
+  (turn-complete, archive, clear, session switch), never per stream chunk. Session archive is
+  additionally size-capped at 300 KB (measured a realistic 25-session archive at 428–646 KB,
+  genuinely over budget) by dropping the oldest sessions, not just count-capped. Zero new Supabase
+  schema — reuses the same `user_settings` table `model_assignments`/`mf_bt_summary`/`dialed_in`
+  already prove live. 26 tests (`src/__tests__/sage-cloud-persistence.test.js`), including a
+  direct test of the savedAt guard against a stale-cloud-arrives-after-newer-local-write
+  scenario. This line had gone stale — the feature shipped but was never checked off here or in
+  `memory/project-sage.md`, which is exactly the "verify against the actual code before assuming
+  a 'next up' item is undone" trap this file's own Dev Rules section warns about.
+
+---
+
+## Top Priorities (updated 2026-07-20, post v4.426 — Data-Refresh sprint)
+
+**Data-Refresh sprint shipped (v4.406–v4.426), all live in production:**
+- **Emailed QSRSoft reports now parse server-side into Supabase.** `scripts/qsrsoft-email-parse.mjs` (GitHub Action, `.github/workflows/qsrsoft-email-parse.yml`, 1pm+4pm CT) reads the CSVs the ingest pipeline drops in the `qsr-reports` bucket, parses them with the SAME `src/parsers` functions the client uses (zero drift), and upserts to new tables **`sales_ledger_daily` / `daily_glimpse_daily` / `cash_sheet_daily`**. Previously these parsed client-side on login into device-local IDB only. Now channel mix / 3PO / OEPE / KVS / controls are cloud-fresh on every device.
+- **At A Glance tiles use freshest-wins** (manual upload overrides same-day; auto fills the gap since last upload). Digital Sales ← Sales Ledger; Service (OEPE/KVS) ← Daily Glimpse; Controls ← Glimpse+Cash; Labor % ← Glimpse; **FOB ← qsr_fob, dollar-weighted** (Σ$/ΣprodSales, not straight avg) showing current MTD + last completed month.
+- **Freshness banner** re-anchored to the newest date across all auto streams (fixed the false "data X days old"). Root cause also fixed: `loadQsrActSummary` was truncating at Supabase's 1000-row cap (now paginated).
+- **Movers strip** on At A Glance (top sales-vs-LY movers, slowest DT, stores behind LY — cloud-fresh).
+- **In-app Sync buttons** (Data Manager) dispatch any pull workflow; **intraday DAR and Operations
+  Report pulls run every 15 min, ~7a-11p CT** (bumped from ~8a/10a/2p CT 2026-11-08, owner
+  request — see `memory/plan-shift-scoreboard-2026-11-07.md`'s freshness-track addendum).
+- **Ops Report guard**: refuses period-summary uploads (no daily dates) — daily rows are the source of truth.
+- **OK/FL market pills fixed**: were defaulting all stores to MCDOK (FL pill empty); now split by `INV_ORG_COORDS.state` (OK=20 Oklahoma, FL=7 Florida).
+
+⚠️ **CORRECTED 2026-08-24 (dispatch #89) — the true state is closer to the inverse of how this
+paragraph used to read.** Egress genuinely works and the credential genuinely reaches Supabase —
+that half is settled, **do not re-raise it**. But the agent environment can read essentially
+**nothing operational**: 10/10 measured tenant tables return zero rows to the standard
+`apikey`-only curl recipe below, and `qsrsoft_kb` (public-read) is the only thing confirmed
+readable. Measured 2026-08-24, `Prefer: count=exact` + `Range: 0-0`, reading `content-range`:
+
+| table | content-range |
+|---|---|
+| `qsr_fob` | `*/0` |
+| `lifelenz_schedule` | `*/0` |
+| `qsr_daily_activity_rollup` | `*/0` |
+| `labor_rows` | `*/0` |
+| `ops_rows` | `*/0` |
+| `qsr_ebos_daily` | `*/0` |
+| `cash_sheet_daily` | `*/0` |
+| `daily_glimpse_daily` | `*/0` |
+| `monthly_targets` | `*/0` |
+| `store_vlh_config` | `*/0` |
+
+Calibrated three ways, so this is not a broken probe: `qsrsoft_kb` returns real content through the
+identical call; a deliberately fake column returns `42703` (not `*/0`); `qsr_daily_activity` can
+return a `57014` statement timeout rather than `*/0` — a scan that finds nothing, not a denial.
+
+🔴 **SUPERSEDED 2026-08-24 by the key rotation — the whole block above describes DEAD KEYS.**
+The owner migrated to Supabase's new API key format and **disabled the legacy keys at
+`2026-08-24T14:53:50Z`** (confirmed live: the old key now returns `401 "Legacy API keys are
+disabled"`). The `*/0` table above was measured with the legacy anon key and is now history, not a
+current statement of access. **Re-measure before relying on any of it.**
+
+- `VITE_SUPABASE_ANON_KEY` now holds an **`sb_publishable_…`** key (opaque, not a JWT).
+- `SUPABASE_SERVICE_ROLE_KEY` now holds an **`sb_secret_…`** key. ⚠️ **The variable NAMES were
+  kept deliberately** so 36 workflows and 3 edge functions needed no edit — the names are now
+  inaccurate descriptions of their contents. Do not "fix" a name without tracing every consumer.
+
+⚠️ **A claim in the superseded block was WRONG, recorded so it is not repeated:** it stated that
+`VITE_SUPABASE_ANON_KEY` was *"byte-identical to `SUPABASE_SERVICE_ROLE_KEY`… both carry
+`role:service_role`."* **Measured false on 2026-08-24** — that variable decoded to `role: anon`,
+and sending it as `Authorization: Bearer` still returned `content-range: */0` on `qsr_fob`, i.e.
+no elevated privilege by claim *or* by behaviour. The same false claim reached
+`memory/dispatch-88.md` and `src/app/changelog/5.133.js`. It is moot post-rotation but was
+load-bearing when written, and it is a reminder that **decoding a credential is a measurement like
+any other — state the observation, not the conclusion.**
+
+The `curl` recipe stays correct and useful — for confirming egress, reading `qsrsoft_kb`, or once a
+real read-scoped credential exists (see `memory/dispatch-89.md` item 4, an open owner decision).
+It does not currently let the agent read tenant data. **Do not re-raise the egress question; do not
+claim tenant-table read access without a fresh, credential-and-observation-named measurement.**
+
+🟢 **SUPERSEDED 2026-08-25 (dispatch #133) — `SUPABASE_SERVICE_ROLE_KEY` now reads tenant data.**
+Independently measured twice (dispatch #133's engineer session, then re-confirmed directly by the
+PM session in this same conversation) via the identical `apikey`+`Authorization: Bearer` curl
+recipe above, against `lifelenz_schedule`: `content-range: 0-0/15172` (real rows, real count) and
+real row content returned (`loc`, `date`, `sales`, `labor_pct`, …). A deliberately wrong column
+name returned `42703`, not `*/0` or silence — the same three-way calibration this file's own
+2026-08-24 measurement used, so this isn't a fluke read. **This does not mean every agent session
+already has it** — CLAUDE.md's own "an agent session's environment is fixed at container start"
+rule (Dev Rules, below) means a session that started before the owner's key rotation/whatever
+changed access will still see the old (broken) behavior; a session started after will see this.
+**Always re-measure per-session before trusting either claim** — don't assume this note means
+*your* current session can read tenant data, and don't assume the 2026-08-24 `*/0` table above
+still describes the live key. State the observation your own session got, not this note's.
+
+⚠️ **Pending user action:**
+- ✅ **RESOLVED (2026-08-03):** `forecast_snapshots`, `smart_target_adjustments`, `sage_prompts`, `sage_prompt_runs` all confirmed to already exist in Supabase (verified via service-role read), already carry `tenant_id`, and are already tenant-scoped (anon key gets zero rows on all four). No SQL to run — do not re-raise. The 3 email-report tables are also already created.
+- ✅ **RESOLVED (verified 2026-08-06):** **SAGE RBAC redeploy** — confirmed LIVE via `supabase functions list`: `sage-chat` is at version 11, last deployed 2026-07-31 18:13 CDT, which postdates both the RBAC commit (v4.494, 07-23) and the promo-ROI tool commit (v4.500, 07-24) — both are in production. Do not re-raise.
+- ✅ **RESOLVED (verified 2026-08-06):** **SAGE auto-scheduling** — confirmed LIVE: `SAGE_RUNNER_EMAIL`/`SAGE_RUNNER_PASSWORD`/`VITE_SUPABASE_ANON_KEY` all present as GitHub secrets (since 07-23), and the "SAGE Scheduled Prompts" Action has been running successfully every ~2 hours continuously. Do not re-raise.
+
+**🎯 Smart Targets — sales-model verdict (v4.483, 2026-07-23):** a 27-store backtest proved the **simple trailing family (T3M/T6W/T3W · recent-3wk · 3-mo-avg) beats every engineered model** for monthly store sales (Composite/Momentum/Regression/Ensemble won **0 stores**; ~5% MAPE vs 8–14%). The three simple methods are **tied**, so the recommended **Smart number is now the MEDIAN of the three** (not "best-fit per store" — that chased n=2 noise; not the old unproven peer-blend, which is kept as a secondary "stretch"). Backtest **decoupled from the learning window** (`BT_DAYS=400`, `BT_FOLDS=6`). **Engineered models are PRESERVED intact, on demand** ("＋ Diagnostic models"), for diagnosis + potential longer-range use — standing owner directive: cautiously protect them. Details in `memory/vision-and-roadmap.md` (Workstream B, Layer 3).
+
+**⭐ North-star & roadmap (2026-07-21):** see `memory/vision-and-roadmap.md` — accuracy-integrity system (P0), Smart Targets Model v2 for all metrics (P1), Projections current-month actuals + DT weekly-trend (P1), UX coherence pass + panel scorecard (P2), Graded-Visit Predictor for CFV/RGR/Ecosure + novel composite indices (P3), multi-user then multi-tenant deployment (P4). Standing rules: correct math, never average averages, dollar-weight aggregates, self-audit every report.
+
+**✅ Simple Models propagated engine-wide (v4.532):** the T3M/T6W/T3W trailing family (the Smart-Targets winner) is now a first-class forecast model `'simple'` inside `forecastDay` — so it auto-flows to Monthly Projections / Forecast Accuracy / Proj-vs-Actuals / forecast table, competes in the Model Assignment backtest (`MODELS_TO_TEST`) for per-store re-validation, and appears as a Simple column in Forecast Accuracy + a per-store override. Day-level = robust trailing daily rate (reused `weightedRecencyProjection`) × same-DOW shape, strictly leak-free. Engineered models preserved. See `memory/simple-models-propagation.md`.
+
+**✅ Signals weather + day-of-week correlations shipped (v4.533)** — see Signals panel row + `memory/notes-28-queue.md` #3/#4.
+**✅ Phase-2 bugs fixed (DONE — do NOT resurface):** Projections weekly-view crash on location expand, Signals won't close on mobile, Market Intelligence weather stopped showing. All three resolved.
+
+**✅ Period-Total Scoreboard shipped (v4.534)** — Model Assignment panel → **📊 Period-Total Scoreboard** (read-only, `runPeriodTotalBacktest` in `backtest.js`). Re-validates the Simple-wins finding on the metric it was *discovered* on: grades simple/dow/ae/ewma/di on rolling 28-day **period totals** (not daily MAPE), strictly leak-free (Back Test mode; Simple already asOf=start). Per-store winner + district tally + median-Simple-vs-best-engineered verdict banner. **Why it matters:** the daily Model-Assignment/Forecast-Accuracy backtests grade *daily* MAPE (day-level noise + exact DOW placement dominate — the engineered models' home turf), whereas the v4.483 discovery graded *totals* where day errors cancel. This closes that gap so "does Simple still sweep?" is answered like-for-like. Simple's daily-level branch is unchanged: same `weightedRecencyProjection` reused verbatim + a same-DOW shape multiplier (required to forecast a single day; sums back to the winning monthly total). Also **v4.534:** Simple filter chip + distribution count in the Model Assignment top bar.
+
+**✅ RESOLVED (already shipped, confirmed 2026-08-09 — do NOT re-implement):** Model Assignment
+backtest results/overrides ARE cloud-persisted — this line had gone stale. `_pushModelAssignments()`
+(`src/views/labor-tools.js`) pushes the whole `MODEL_ASSIGNMENT_KEY` blob to Supabase `user_settings`
+(key `model_assignments`) after every backtest run, apply-winners, manual override, or reset
+(v4.544); the two backtest RESULT artifacts (daily summary + Period-Total Scoreboard matrix) round-
+trip the same way under `mf_bt_summary`/`mf_period_scoreboard` (v4.835). App.js hydrates from cloud
+on startup (`loadUserSetting('model_assignments')`, ~line 2426). localStorage stays the instant
+read path; cloud wins when newer. Before assuming a "next up" item is undone, verify against the
+actual code — this note nearly caused a duplicate reimplementation.
+
+**Next candidate areas:**
+- ✅ **FR: TPPH auto-target calc — already shipped (dispatch #167, re-measured 2026-09-02, do
+  not re-implement).** `src/features/smart-targets.js` has a "Scheduled" TPPH figure (reuses
+  `schedule-summary.js`'s `rollup()`/`schedHrsOf`, additive alongside the existing trailing-
+  average target) and `src/features/projections.js`'s `ScheduledTPPHRow` wires the same figure
+  into the Projection Workspace. Covered by `src/__tests__/dispatch-167-tpph-scheduled-target.test.js`
+  (42 tests, passing).
+- ✅ **"As of [date]" labels on tiles — also already substantially shipped (v4.837, re-measured
+  2026-09-02).** `at-a-glance.js`'s `_spanTag()` renders each tile's own real data SPAN (not just
+  the newest date, and not the toolbar's selected period — each tile states its timeframe from
+  its own source rows) plus a visible fallback-period warning when a tile has silently fallen
+  back to the 30-day default window; wired into 8 tiles as of this measurement. Not audited
+  against every one of At-A-Glance's tiles — if a specific tile is missing it, that's a small
+  follow-on, not a from-scratch build.
+- ✅ **Product Mix pull → Pricing Engine + Filet-O-Fish-Fridays correlation — both already
+  shipped (re-measured 2026-09-02, do not re-implement).** Pricing Engine: Rankings, Item
+  Lookup, recipe/BOM, Cross-Store Compare (v5.319), Price Impact simulator (v5.320), all reusing
+  live `qsr_product_mix` cost/volume data. Filet-O-Fish-Fridays specifically (Notes 25 #1 / 28
+  #5, dispatch #169): `src/engine/signal-registry.js` has a Friday-anchor pricing metric group
+  (`allowZero:true` — "0 Filet-O-Fish sold on a [day]" is a real, measured signal, not treated as
+  missing data) plus a dynamic `pmixItem:<code>` per-item metric resolver (bounded top-150 by
+  volume, `PMIX_SCANNER_TOP_N`) so any product-mix item, Filet-O-Fish included, correlates
+  against every other metric group through Signals' Scanner — no FOF-specific hardcoding needed.
+- SAGE conversation persistence; multi-tenant deployment.
+
+---
+
+## Dev Rules
+
+- **Self-maintenance sweeps + the release bar (owner-requested 2026-11-04, standing framework).**
+  A weekly scheduled task runs one rotating inconsistency sweep (`memory/sweep-dimensions.md` —
+  panel contract, data-sourcing standard, dead code, duplication, doc drift, settings hygiene, KB
+  accuracy) instead of relying only on opportunistic catches. Every finding routes through three
+  tiers: **Tier A** (low blast radius, reversible, matches an existing precedent) ships silently,
+  batched into one PR; **Tier B** (changes visible behavior/math) ships as its own flagged PR;
+  **Tier C** (schema/DDL, PII/credentials, a genuine product-judgment call, reversing a documented
+  decision) is NEVER applied unattended — it becomes a suggested task or a direct note to the
+  owner. Whatever ships, sweep-originated or not, clears `memory/release-bar.md`'s full checklist
+  (build clean, full suite, payload budget, panel contract, changelog, no DDL, self-reviewed)
+  before being called done. An unattended sweep never edits this file directly — a CLAUDE.md
+  change is proposed in the sweep's report for an interactive pass, never auto-applied, since
+  this is the single highest-blast-radius file in the repo.
+- **Regenerate the loader field map after touching a loader:** `node scripts/gen-loader-emits.mjs --write`.
+  `src/__tests__/metric-chains.test.js` asserts every metric chain names a field its loader
+  actually emits — it caught a real error on every round of the 2026-08-08 data-contract work
+  (four chains would otherwise have shipped as silent zeros). Its field list used to be typed by
+  hand and went stale four times in that one day.
+- **Touching a panel for any reason? Also check it against the panel contract (owner-stated
+  2026-08-25, standing rule).** `memory/panel-contract.md` — close button (`ModalShell`/
+  `RoutePanelShell`, never a hand-rolled backdrop), date picker mode, `LocationSelector`, wide
+  tables scrolling horizontally on mobile (`overflowX:'auto'`, not left `hidden`), and whether the
+  panel is a natural fit for `route:true` (`panel-registry.js`) — bring whichever of these the
+  panel is missing into line **as long as it doesn't meaningfully widen that dispatch's blast
+  radius**. Opportunistic, not a mandate to sweep all 94 panels (34 are `route:true` as of
+  2026-09-01 — the new Digital Checklists panel was built `route:true` from day one (same
+  treatment #123's `crew-schedule` got), and Pricing Engine was promoted out of Test Kitchen
+  the same day — that ratio is expected
+  to stay low for a long time, not a gap to close in one pass). See that file for current adoption
+  numbers and the live ratchets that guard the close-button and mobile-scroll conventions.
+- **An agent session's environment is fixed at container start (measured 2026-08-24).** A variable
+  added to the environment config *while a session is running* never reaches that session — the
+  container was provisioned before it existed. Checked directly: after the owner saved
+  `SUPABASE_SERVICE_ROLE_KEY`, `env` in the running session still showed only
+  `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY`, twice, minutes apart, and nothing had been written
+  to disk either. **A new session picks it up; the current one never will** — so do not re-check,
+  re-save, or debug it. Hand off instead (`memory/handoff-2026-08-24-service-role.md` is the
+  template: what is blocked, the exact queries, and the traps that would break them).
+- **Cite anchors, not line numbers (standing rule, five incidents in two days ending 2026-08-24).**
+  A `file.js:NNN` citation is a claim that rots the moment anyone edits above it, and this repo
+  carries **589 of them** (522 in `memory/`, 67 in `src/` comments). Measured: #627 corrected a
+  stale `:309-315` cite to `:349-355`, and **#628 invalidated the replacement within hours** by
+  adding ten lines above it. Correcting a line number produces a new number that the next PR
+  breaks — the sweep is the trap, not the cure.
+  **So cite something stable and greppable instead:** a symbol name (`rankPerformers`,
+  `METRIC_SOURCES`), or a quoted unique phrase from the comment itself (`metric-source.js`'s
+  `⚠️ ROLLUP CAVEAT`). Both survive edits, and a reader can `grep` straight to them.
+  A line number is acceptable only as a *transient* pointer inside a single session's working
+  notes — never in a `memory/` file, a code comment, a commit body, or a dispatch, all of which
+  are read later by someone who cannot tell a drifted cite from a correct one.
+  ⚠️ **Do not launch a sweep of the existing 589.** They are archive; fix one opportunistically
+  when you are already editing that line, and leave the rest. The rule earns its keep on new
+  writing, not on retrofitting.
+- **Measure it, don't reason about it (standing rule).** Reproduce a failure against the real
+  system *before* forming a theory, and read a command's OUTPUT before reporting what it did.
+  Be most suspicious when a cause feels obvious because it matches a past incident in this repo
+  — on 2026-08-07 that instinct produced two confidently wrong RLS diagnoses in a row, and an
+  owner-run `EXPLAIN ANALYZE` refuted the second one and prevented a pointless migration across
+  18 tables. `curl`-ing the actual failing request found the real cause in seconds. The same
+  rule sets thresholds: the swing alarm's -10% comes from 676 measured store-weeks, and the
+  count-completeness 75% from a measured bimodal distribution, not from numbers that felt right.
+  **No second guesses:** once a hypothesis is disproven, the next step is a MEASUREMENT, not
+  another hypothesis — and never tell the owner something is "probably fixed" without
+  verifying it. **Read the code at the exact LOCATION before writing there** (grep-and-inject
+  lands in the wrong function and still compiles), and **check whether an affordance already
+  exists** before adding one. A passing build is not verification.
+  **A live-data claim must name the credential and the observation (dispatch #89, 2026-08-24).**
+  "Queried live and it has rows" is not a measurement — it is indistinguishable from having read
+  `[]` as success, and that is exactly what produced a wrong, load-bearing claim in dispatch #88's
+  merged PR. `content-range: */0` (or a real row) is an observation; state which credential
+  produced it (anon-scoped `apikey`-only vs. a Bearer token — see the corrected Supabase-egress
+  paragraph above) alongside the result. An empty result is this environment's default outcome and
+  must be reported as "no rows visible," never as evidence about what a table contains.
+- **Would this verification still pass if the change were reverted? (sharpened, dispatch16,
+  2026-08-17)** When a fix has an ENGINE and a CALL SITE, the bar must touch the call site.
+  #366's tests exercised `stream-freshness.js` directly and would have passed unchanged with the
+  panel's wiring to it deleted — the engine was right and unused. A test that only imports the
+  engine can't tell "fixed" from "fixed but never wired in"; it has to render or call through the
+  actual consumer (the panel, the export, the report) for a revert of either half to register.
+- **When two panels disagree on one number, diff the two computations before debugging either
+  (dispatch16, 2026-08-17).** #348 cost a wrong theory and a screenshot to reach what one `grep`
+  of both formulas then answered in minutes — the two were never wrong in isolation, only
+  inconsistent with each other (Scheduling weighted by actual sales, Schedule Summary by
+  forecast). Comparing the two computations side by side finds a disagreement bug in one pass;
+  debugging either panel alone against "what should the number be" does not, because either
+  formula can look locally correct.
+- **Check whether a helper exists before writing one (dispatch16, 2026-08-17).** Four copies of
+  the org map, three of scheduled-hours, two of the week anchor — SUPERVISOR_PATCHES (#363),
+  the org-coords duplication, `weekStartOf()` reimplemented instead of imported. A grep for the
+  concept (org map, week start, scheduled hours) before writing a new one is cheaper than the
+  reconciliation bug the second copy inevitably drifts into.
+- **A reviewer's root cause is a hypothesis — reproduce it before fixing it (dispatch16,
+  2026-08-17).** Applies to anything handed to this agent, permanently, including the owner's own
+  diagnosis. Disproving the `autoItems` dependency-array theory in #366's review — rather than
+  implementing the fix as prescribed — surfaced #369, a real defect nobody had seen, that the
+  prescribed fix would have paved over. A wrong call reproduced and found wrong is worth more
+  than a plausible call implemented unverified.
+  Full evidence in `memory/feedback-measure-dont-reason.md`.
+- **Docs-only commits do not deploy, and NO preview branch builds — both deliberate, not a broken
+  pipeline.** `vercel.json`'s `ignoreCommand` is:
+  ```
+  if [ "$VERCEL_ENV" = "preview" ]; then exit 0; fi; git diff --quiet HEAD^ HEAD -- . ':(exclude)memory/*' ':(exclude)*.md'
+  ```
+  Two skips in one command: **any preview (branch) build**, and **any production commit touching
+  nothing outside `memory/` and `*.md`** (those produce a byte-identical site). Exit 0 skips,
+  non-zero builds — **do not invert that**, since backwards means real code silently never
+  deploying.
+  **⚠️ The preview test is `= "preview"`, NOT `!= "production"`. Do not "simplify" it.** Measured
+  2026-08-21: with `VERCEL_ENV` empty or unset, `!= "production"` skips a **code** commit — real
+  code silently never deploying, the exact failure this rule exists to prevent. `= "preview"` falls
+  through to the diff and builds. Verified across all six cases (production/preview/empty ×
+  code/docs) by executing the literal string from `vercel.json`.
+  It fails SAFE elsewhere too: a `.sql`, script, or `src/` change on main always builds, and if
+  `HEAD^` is unreachable in Vercel's shallow clone the command errors (exit 128) and builds anyway.
+  If you merge a docs PR and the site doesn't rebuild, that is this rule working.
+- **⚠️ The `ignoreCommand` optimizes BUILD TIME, and build time is NOT the constraint. Do not
+  reach for it again when a deploy cap bites (measured 2026-08-21).** It was added that morning in
+  response to the free-tier `api-deployments-free-per-day` cap, on the assumption it would relieve
+  it. **It did not — the cap was hit again the same evening, on a docs-only commit.** The owner's
+  usage charts settle why:
+  - **Build Time: 5 h of 100 h. Billable build minutes: 0 s.** The build-side quota is at **5%**
+    utilization and has never been close to binding.
+  - The cap that actually bites is a **count of deployments per day (limit 100)**, and **the limiter
+    runs at deployment CREATION, before the ignore step** — so an `ignoreCommand`-skipped commit
+    still consumes one. Established by observed ordering, not inference: docs-only commits whose
+    builds *would* have been skipped were nonetheless **refused** by the limiter (if the ignore ran
+    first and exempted them there would be nothing to refuse), and a later docs-only commit was seen
+    going **created → Building → Ignored under one deployment id**. So skipping a build never skips
+    the count.
+  - **"Retry in 24 hours" is misleading** — it is a rolling window. A deployment succeeded seven
+    minutes after a refusal on 2026-08-21. Capacity frees continuously; you are not locked out.
+  - This is the second platform-level deploy limit this project has hit, and both times the mental
+    model was wrong. `memory/project-hosting.md` records the Netlify→Vercel move as buying
+    "6,000 build minutes/month" — again a **build-time** framing for a **deployment-count** problem.
+    **When a deploy limit fires, read the error's resource name first** (`api-deployments-free-per-day`),
+    not the build charts.
+- **Preview deployments are OFF by design — main is the deploy path (owner-stated 2026-08-21).**
+  *"As long as we are pushing to main, no… not necessary."* Nobody opens the preview URL before
+  merging, so every `claude/**` push was spending a scarce daily deployment on an artifact no one
+  looked at. **Re-enable previews only for a specific, named need** — chiefly when someone outside
+  this workflow is reviewing — and turn them back off afterwards. Treat a preview deploy as
+  emergency/exception use, not the default.
+  **⚠️ Nothing in the repo or the dashboard actually stops preview DEPLOYMENTS on Hobby. Both known
+  levers were checked and neither works — do not re-litigate this (2026-08-21):**
+  - `vercel.json`'s **`git.deploymentEnabled`** takes either `false` (which also kills main's
+    auto-deploy) or a map of **exact branch names** (`{"gh-pages": false}`). No glob support is
+    documented, and this project's branches are `claude/<slug>-<random>`, new every session.
+  - The dashboard's **Ignored Build Step** (Settings → **Build and Deployment**, *not* Settings →
+    Git — Vercel moved it) offers "Only build production". But its own description says Vercel
+    *"skips **builds**"*, and per the creation-ordering evidence above a skipped build still spends
+    a deployment. It also risks conflicting with `vercel.json`'s `ignoreCommand`, and if the
+    dropdown won it would build **every** main commit including docs-only ones, undoing the
+    docs-skip. **Left on "Automatic" deliberately.**
+
+  **So the only real lever on deployment count is workflow: FEWER PUSHES.** See the next rule —
+  that is where the actual instruction lives, deliberately lifted out of this platform archaeology.
+- **How to push, so the deploy budget survives the day — `memory/standard-deploy-budget.md`.**
+  Every push to any branch creates a deployment, and the 100/day limiter counts at CREATION,
+  before `ignoreCommand`. **`git commit` is free; `git push` is not.**
+  1. **One push per PR.** Commit locally as often as you like; push once, when the branch is ready
+     to open.
+  2. **Never push WIP.** A debug dump, a widened measurement and the real fix belong in one push.
+  3. **Amend, don't append,** for fixes to your own unmerged branch (typo, changelog reword,
+     comment correction) — `--amend` plus one force-push, never a second commit and second push.
+  4. **Batch docs.** Several memory files in one work chunk = one commit, one push.
+  5. **Never push to trigger CI.** No empty commits, no close-and-reopen.
+  ⚠️ **This never outranks shipping a fix.** If CI is red or `main` is broken, push immediately —
+  a broken `main` costs far more than a deployment. These rules kill *needless* pushes only.
+  **This guidance already existed** (as the tail of the bullet above) and did not change behaviour:
+  measured 2026-08-23, **27 commits landed on `main` in 24 h against 102 live `claude/*` branches**,
+  and each merged PR costs ≥2 deployments (branch push + merge commit) before any intermediate
+  ones. It is a numbered rule of its own now because buried at the end of a "here is why the
+  platform is like this" block, it read as background rather than instruction.
+- **Merge without asking, once verified (owner-stated 2026-08-21: *"You don't have to ask me to
+  merge"*).** Do not stop and request permission for each PR. The standing bar is verification, not
+  approval: independently check the diff (never a relayed summary), confirm the gating check is
+  green, and for a code change run the suite and build **on the merged result** — a local merge does
+  this in a way the merge button cannot. Then merge and say what landed.
+  **⚠️ A green LOCAL run does not predict CI when the runtimes differ — check `ci.yml`'s
+  `node-version` against `node -v` before trusting it (learned the hard way, 2026-08-21).** CI runs
+  **Node 20**; this sandbox runs Node 22. Merging `1ca02ee` (Forms Slices 1-3) on a clean local
+  1952/1952 broke `main` for **seven consecutive commits**, two of them pushed by another session,
+  until hotfix #540. The bug was ICU-version-dependent: `hour12:false` alone leaves midnight
+  rendering (`00` vs `24`) to the runtime's default `hourCycle`, which differs by Node version.
+  **Anything touching `Intl`, `toLocaleString`, collation or timezone formatting is runtime-variant
+  by nature** — pin the behaviour explicitly (`hourCycle:'h23'`, not just `hour12:false`), and treat
+  a local pass on a different Node as unverified. When in doubt, wait for CI on the PR head rather
+  than merging on the local result alone.
+  **Still stop and ask for:** anything failing or with unresolved review findings; a change whose
+  scope, privacy posture, or product behaviour is a judgment call rather than an execution detail
+  (e.g. persisting new PII, reversing a documented decision); and anything the owner has an open
+  question on. Vercel's deploy-cap red on a docs-only PR is **not** a blocker — nothing deploys.
+  **After every merge, audit for stranding:** `git merge-base --is-ancestor <sha> origin/main` plus
+  `git show origin/main:<file>` on anything a dispatch cites. A clean working tree is NOT evidence
+  the work reached `main`. Two near-misses in one session: the `event_token` enumeration sat on an
+  unmerged branch, and a `checkout -B <branch> origin/main` run immediately after a commit silently
+  discarded it — **never `checkout -B` a branch you have just committed to.**
+- **Never break working features.** Every commit should leave the app fully functional.
+- `npm run build` must pass clean before commit.
+- No TypeScript — plain JS with `// @ts-nocheck`.
+- Every new persistent data type goes into Supabase (save on upload + load on startup). Ask "does this belong in Supabase?" for every new data model.
+- Automate data sources where possible; always keep manual upload as fallback.
+- **Adding a new automated pull — do all of these, in the same PR (standing rule).** A new pull that nobody watches fails silently; LifeLenz did exactly that for six days (2026-08-06 → 08-11) before anyone noticed, because 24 scheduled workflows had **zero** failure handling between them.
+  1. **Watch it.** Add the workflow's exact `name:` to the `workflows:` list in `.github/workflows/sync-failure-watch.yml`. `src/__tests__/sync-failure-watch.test.js` enforces this both ways — an unwatched scheduled workflow fails the suite, and so does a name matching no real workflow (a typo watches nothing and reports nothing).
+  2. **Make its staleness visible per-stream**, not pooled — a single `Math.max` across feeds is what let one dead stream hide behind a fresh sibling and go six days unnoticed (#171). **✅ #171 itself is FIXED (dispatch15, v5.034, re-verified by dispatch #163, 2026-08-27 — do not re-diagnose it).** `src/engine/stream-freshness.js`'s `STREAMS` array checks each named stream independently (`streamFreshness`/`worstStream`), wired into At-A-Glance's checklist alert (`worstAuto` in `src/views/at-a-glance.js`) and into a full per-stream table with its own last-updated date in the Data Manager panel (`src/views/analytics.js`'s `LaborAnalyticsPanel`/`staleDot`). So the per-pull-checklist item here is: **add the new stream's `dsField` to `STREAMS`** so it is covered by the same independent check, not "build per-stream freshness" from scratch.
+  3. **Supabase table with `tenant_id` + RLS**, like every other stream. Never device-local only.
+  4. **Keep a manual upload fallback**, per the auto-first rule below.
+  5. **Two-path auth** (direct token → Playwright fallback) matching the existing pull scripts — and note that as of 2026-08 the LifeLenz Playwright fallback is itself unreliable, so a token expiry is a full outage, not a soft one.
+- **API over email — email ingestion is forward-only (standing rule, owner-approved 2026-08-13).** When a report is available both by email and via the reporting API, **pull the API**. An emailed stream's history begins the day the report was configured to send and nothing recovers what was never emailed; an API pull takes a date range, so it can backfill history and re-pull to correct itself. This is not theoretical: `cash_sheet_daily` / `daily_glimpse_daily` / `sales_ledger_daily` have a hard floor at **2026-07-01** and the source emails for earlier periods do not exist, which cost fifteen months of cash and controls history. Use email ingestion only where no API endpoint exists. ✅ **#260 RESOLVED (dispatch #165, 2026-08-27)** — the suspected redundancy of the three emailed streams (`daily_glimpse_daily`/`sales_ledger_daily`/`cash_sheet_daily`) against their API-pulled siblings (`qsr_cash_sheet`/`qsr_service_stats`/`qsr_sales_mix`, all from `qsrsoft-ops-pull.mjs`) was audited with live service-role measurements. Verdict is per-metric, not per-stream: channel-mix and promo/POS-over fields reconcile essentially exactly (97-100% match) and are largely redundant; cash O/S and refund fields reconcile poorly (44-79%, one measured discrepancy at 1/135) and are a genuine open question, not a redundancy candidate; `laborPct` keeps Glimpse as load-bearing (its auto-derive alternative only matches 89.8% of the time, per #327). One chain (`dtMixPct`) had zero API fallback at all and was fixed in the same dispatch. Full findings + exact measurements: `memory/audit-emailed-stream-redundancy-2026-08-27.md`. Do not re-audit from scratch — re-measure specific numbers if acting on this, per the "measure it" standing rule.
+- **Data depth is never the limiter — backfill it (standing rule, owner-stated 2026-08-14).** *"We can access all historical data for the restaurants for many many years in the past, so don't let that be a limiter in any of our discussions now or in the future… the data is 1000% available and reachable."* A table's `min(dt)` describes **when the pull was first run**, not what exists. `qsr_cash_sheet` starting 2024-04-01 and `qsr_daily_activity_rollup` starting 2025-01-01 are backfill artifacts, **not data floors**. Never scope an analysis down, decline a question, or reject a data source because "our data doesn't reach that far" — ask whether a backfill run answers it. The ops-pull already proved a 27-month API backfill is routine (~6.6 s/day), and every pull script honours a `*_START_DATE`/`END_DATE` override. **Sharpened 2026-08-16, owner-stated — a missing-data gap is never a finding, it is a work item.** *"Any and all data assumed unavailable due to email streams not covering pre periods or manual uploads stopping needs to stop being an issue throughout. The reason we have all of these auto pulls is for that reason. We already have the data along with ample historical. If you detect anything missing, you may simply back pull the data needed to close the gap. Should not keep coming up as an issue."* **This is standing authorization to run a backfill** — do not file the gap, describe it as lost, or ask permission first. Close it, then report what you closed.
+  - **A dead emailed stream is not a data floor.** Confusing "this *stream* is forward-only" with "this *data* is unavailable" is the error, and it is easy to make because the API-over-email rule below is worded around the stream. The emailed streams are redundant with API sources that backfill: #347 measured `sales_ledger_daily` at **zero rows for Aug 12–16** while `qsr_sales_mix` held **135 for the same window**. The data was never missing. Reach for the API source instead of mourning the email (`memory/pm-handoff-2026-08-15.md`, corrections register).
+  - **A stalled manual upload is the same story.** Manual is last-resort fill by rule; if a window looks empty because someone stopped uploading, the fix is the auto stream that covers it, never a request for another spreadsheet.
+  - **What remains a real finding:** *why* a stream went silent, and (for a stream not yet in `stream-freshness.js`'s `STREAMS` array) that **nothing alarmed** — #171's pooled-`Math.max` blind spot is fixed for every stream already listed there (see the previous bullet), so this is now a per-stream coverage gap to close, not the pooling bug itself. Chase and file those. The rows themselves are a pull away.
+  - **The one genuine floor:** **LifeLenz for Oklahoma begins Oct 2025**, at the system transition — that data does not exist to be pulled. It is the only "we can't" left; everything else is a backfill away.
+- **Auto/emailed-first, freshest-wins (standing rule).** Every tile/column must be fed by an auto-pulled or emailed cloud stream (DAR `qsr_daily_activity`, `qsr_fob`, `qsr_ebos_daily`, `lifelenz_schedule`; emailed `daily_glimpse_daily`/`sales_ledger_daily`/`cash_sheet_daily`). Manual uploads (`laborRows`/`ctrlRows`/`opsRows`/FOB Excel) are **last-resort fill only** — they may fill a loc/date the cloud doesn't cover yet but must **never override** auto/emailed data or be a tile's primary source. Manual data is device-local IDB (blank on other devices, stale past the last upload). See `memory/project-data-redundancy.md`.
+- **Source data through the shared helpers — never filter raw rows for a metric or a vs-LY in a panel (standing rule).** Reading `ds.laborRows`/`ctrlRows`/`opsRows` directly for a metric value re-introduces the manual-only bug (recent windows show blank/"-100%"/"-32%"). Use **`src/engine/metric-source.js`** (`metricDaily`/`metricSeries`/`metricAvg`, auto-first per-day metric sourcing — add a metric = one line in `METRIC_SOURCES`) and **`src/engine/vs-ly.js`** (`matchedVsLY`/`autoFirstDaily`/`autoFirstTotal`, matched-day current-vs-LY). Full rationale, migration status, and the metrics/panels intentionally left alone are in `memory/data-sourcing-standard.md`.
+- Version bump with each significant feature: `v4.xxx` in commit message.
+- **Speed check on every change (standing rule).** Performance is a feature and a regression is a bug — "perceived or otherwise" (owner, Notes 61). Entry chunk budget **≤ 2.8 MB / ≤ 850 KB gzipped** (baseline v4.901: 2722.5 KB / 801.3 KB); new panels are **lazy by default** via `lazyPanel()`; measure before/after and put BOTH numbers in the commit body. A static import added to `App.js` costs every user on every load — that is how the chunk reached 3518 KB. See `memory/feedback-performance-budget.md`.
+- **Manual sourcing is always temporary (standing rule).** `MANUAL_ONLY_METRICS` must stay **empty** — it hit 0 on 2026-08-07 and that is the resting state, not an achievement. Ship a metric manually to prove it is worth having, then automate it; name its intended auto source in the same commit. Prefer **deriving from already-pulled atoms** over adding a new manual upload. Same memory file.
+- **Commit every `memory/` file you create or edit, in the same commit as the work that cites it (standing rule).** Sessions get archived — phone sessions especially — and a session's workspace filesystem does not survive it. An uncommitted memory file is lost the moment the session ends, and a commit message that references one (`see memory/foo.md`) becomes a dangling pointer that no future session can follow. This has already cost real context: `cleanup-backlog.md`, `finding-live-intraday-operations-report-data.md`, and `project-aag-tiles-reimagine.md` are all cited by v4.817–v4.838 commit bodies and were **never committed** — the backlogs and phase-plans they held are gone. If a commit body says "full findings in memory/X.md", `git show --stat` for that commit must list `memory/X.md`. Never end a session with an uncommitted memory file.
+- **A commit body is the durable handoff.** Since field-note queues (Notes NN) are pasted into a session and die with it, spell out in the commit body what was deferred, skipped, or left as a "first slice" — and *why*. That text is the only thing a future session can recover open items from. (This already works: v4.839's "does NOT run the two scripts, needs the owner's go-ahead" survived its session; the Notes 56 list it came from did not.)
+- Performance reviews: do not hard-code org names (remove "Murphy Family Restaurants" refs).
+- When adding LifeLenz API features: do NOT re-investigate GraphQL `GetPdfReportsBusinessOfficeLocations` (returns location IDs, not schedule IDs). See `memory/lifelenz-session.md` for dead ends.
+- **QSRSoft DAR API auth:** `api.reports.myqsrsoft.com` requires browser session cookies — server-side Node.js fetch with token alone returns 401. Must use Playwright in-browser fetch (`page.evaluate()`) with explicit `X-Auth-Token` header (no `credentials: 'include'`). Use one `page.evaluate()` per date, not one evaluate with an internal loop (the latter hangs with no output). See `memory/project-qsrsoft-daily-activity.md`.
+- **`qsr_daily_activity` table:** PK is `(loc, dt, hour_slot)`. `loc` = NSN zero-padded to 7 chars. `hour_slot` = `endQtrHourTime` (e.g., "06:00" = 5am–6am block). LY fields use `ly_` prefix in DB (mapped from `ly.*` dot-notation in API response).
+- **Any code reading `qsr_daily_activity` (or similar raw tables) rows directly must normalize `loc` before matching it against a UI-supplied loc list — this is a recurring, live-bug-causing trap (v5.830, 2026-11-18).** The DB row's `loc` is zero-padded ("0003708"); `STORE_NAMES`/`LocationSelector`-supplied locs are not ("3708"). A dozen+ panels already normalize this (`unpad()`/`padStart(7,'0')` locally in `eom-dashboard.js`, `one-pager.js`, `attention-now.js`, `analytics.js`, etc.) — use the canonical exported `unpadLoc` from `constants.js` instead of writing another local copy. The new "OEPE w/o Parked by Daypart" report shipped without this and rendered **every cell blank, with no error**, because rows were bucketed under the padded key and looked up under the short one — looked like a data problem, was a join-key mismatch. Most code that reads through `ds.*`/`metric-source.js` instead of raw rows never hits this (that layer already normalizes internally) — the trap is specifically for new code that bypasses it to query Supabase directly.
+- **PII / credential-handling standing rules (indexed here 2026-09-08 from `memory/pm-handoff-2026-08-15.md`
+  §8 and `memory/qsrsoft-report-catalog.md`'s two PII notes — previously scattered across memory files
+  and never consolidated into a checkable rule).**
+  - **Strip `X-Auth-Token` from every DevTools capture.** Never write one to a file or commit it. If a
+    token capture is ever needed again, sequence it behind a rotation, never alongside one — asking for
+    a fresh capture without rotating first re-exposes a token that's already been captured once.
+  - **Never pull or persist `ssn`, anywhere.** `geid` + `payrollID` identify a person adequately for
+    every analysis Meridian performs — there is no legitimate use for `ssn` in this app.
+    `/reports/mcd/people/storePeoplePunches`'s **default column list includes `ssn`** — never select
+    it. `/reports/mcd/people/employeeRoster`'s PII surface is much wider: `ssn`, `dateOfBirth`,
+    `birthday`, `minorAdult`, `address`, `streetAddress`, `aptNumber`, `city`, `state`, `zipCode`,
+    `homePhoneNumber`, `cellPhoneNumber`, `emailAddress`, `nationalOrigin`, `gender`,
+    `federalMaritalStatus`, `hourlyPayRate`, `terminationReason`, and four `emergencyContact*` fields.
+    **Never pull `employeeRoster` at all without an explicit field allow-list.** None of the above may
+    reach Supabase or a log line. (`rosterStatistics`'s `under16`/`under17`/`under18` counts are
+    aggregate, not per-person, and are safe.)
+  - **Roster workbooks (local files carrying SSNs/DOBs/addresses) are to be deleted** — this is a
+    local-filesystem action on the owner's own machine, not something in this repo: confirmed via
+    `git log --all --diff-filter=A` that no such workbook has ever been committed here, so there is
+    nothing to find or fix in the codebase. **Whether the deletion itself has happened is still an open
+    question only the owner can answer** — do not mark this done from repo-side evidence, and do not
+    re-investigate the repo for it again (already checked clean).
+  - `SUPABASE_SERVICE_ROLE_KEY` is exported into the owner's shell only — never written to a file,
+    never committed, never put in a `VITE_`-prefixed variable (those ship to the client bundle).
+  - Never disable TLS verification or unset `HTTPS_PROXY`.
+  - **Employee NAME visibility follows existing role/scope gates, not a separate stricter rule
+    (owner-stated 2026-11-11, resolved via an interactive Q&A before this was written — do not
+    re-litigate from first principles).** This bullet is about *names/identity*, not the raw
+    sensitive fields above (ssn/DOB/address/etc. stay exactly as restricted). Owner's resolved
+    view: show every party to a finding by name — not just an "upstream" authorizer, all parties —
+    to whatever role already has that access via the app's existing gates (`payroll.view`,
+    `accessible_locs`, RBAC role). A subject can see their own unmasked history (e.g. a GM's own
+    store). Reasoning, verbatim: *"Always show upstream, never self incriminate, everything else
+    is already freely visible beyond those parameters elsewhere based on role in the respective
+    app (QSRSoft or LifeLenz, primarily)"* — clarified in follow-up: "naming all parties... that
+    is how QSRSoft handles it. A GM... can see their own history, unmasked," and the
+    never-self-incriminate instinct (don't show a person their own flagged data) is "moot" once
+    that's true, since QSRSoft/LifeLenz already expose it by role and Meridian mirroring that
+    creates no new exposure. **So: no report (the Location Dossier, task #79, included) is held
+    to a MORE conservative identity-visibility standard than the interactive panels already are.**
+    First applied in `memory/finding-dossier-coaching-library-2026-11-11.md`.
+
+---
+
+## Organization Context
+
+- **~27 stores total:** ~6 Florida + ~20 Oklahoma
+- **FL stores (Emerald Arches):** Freeport, Mossy Head, Cottondale, Bonifay, DeFuniak Springs, Chipley-St.Rd.77, Ponce de Leon
+- **OK stores (MCDOK):** Tishomingo, Holdenville, Harrah, Tecumseh, Elgin, Marietta, Sulphur, Pauls Valley, Duncan, Ardmore, OKC-I-240/Sooner, Lindsay, Madill, Purcell, Seminole, Atoka, Ada, Durant, Chickasha, and others
+  - Canonical mapping (`getStoreOrg`, `constants.js`): **MCDOK = Oklahoma, Emerald Arches = Florida.** (An earlier draft of this doc — and an `orgOf` helper in analytics.js — had these swapped; fixed v4.497.)
+- **⏰ THE BUSINESS DAY RUNS 4:00am → 4:00am** (owner-stated 2026-08-16). A calendar day is **not**
+  a business day. The 00:00–04:00 block belongs to the **previous** business day — that is when
+  overnight close, clean-up and late-night volume land. Treat this as a first-class fact about the
+  data, not a scheduling detail: **any metric that divides one atom by another must have both legs
+  on the same boundary**, or the ratio silently mixes two different days.
+  - **The app-side helper already exists — do not rebuild it.** `businessDate(now)` and
+    `lastClosedBusinessDay(now)` in **`src/utils/date.js:101,117`** implement the 4am ABC cutover
+    (at 2am the business day is still yesterday's). Moved there from `engine/swing-feed.js` under
+    #131 and re-exported, so all 13 original importers still work; tested in `swing-feed.test.js`.
+    This recurred **five separate times** as "signature #4" (`memory/plan-data-integrity-sweep.md`)
+    before becoming one shared answer. Never re-derive the cutover inline.
+  - **The DAR is ALREADY business-day aligned — this was measured and is not an open question.**
+    `memory/dar-vs-ops-reconciliation.md` (2026-08-07): `hour_slot` runs `05:00 → 28:00`, 24 slots
+    covering 04:00→04:00, matching McDonald's ABC. Corroborated by
+    `memory/project-hourly-projection-accuracy.md`. So `compType:'trading'` ≈ the 4am business day.
+    **✅ RESOLVED 2026-08-27 (dispatch #164, #330) — `compType:'calendar'` on `labor-summary` is
+    ALSO 4am-business-day aligned, not midnight-to-midnight despite the name.** Measured by
+    re-bucketing raw clock punches (`qsr_punch_times`, ingested with no `compType` and no
+    day-boundary derivation at all) against `qsr_labor_summary`'s `crew_labor_hours`
+    (`compType:'calendar'`) two ways: a 4am-business-day cut matched to **0.000 mean abs diff
+    across 83 store-days / 5 stores** (81/83 within 0.1 hr); a plain midnight cut never won a
+    single store-day and was off by 2-3+ hrs typically. So `laborPct`'s derive
+    (`laborDollar ÷ sales`, `opsLaborRows`/`compType:'calendar'` ÷ DAR/`compType:'trading'`) has
+    BOTH legs on the same boundary — no live mismatch, nothing to fix. This also **refutes** (not
+    just leaves unconfirmed) the boundary-mismatch hypothesis `metric-source.js`'s `laborPct`
+    comment used to carry for the unexplained 10.2% Daily-Glimpse mismatch (#327) — that gap's real
+    cause is still open, but a boundary mismatch is now ruled out as the explanation. Full
+    measurement: `memory/finding-comptype-calendar-labor-summary-2026-08-27.md`. **Do not re-raise
+    #330 or re-derive this** — the other `compType:'calendar'` endpoints in `qsrsoft-ops-pull.mjs`
+    (`cash-sheet-extract`, `labor-detail`, `service/statistics`, `cash-sheet`) were NOT
+    independently re-measured and are suggestive only, per that file's own scope note.
+  - **Before adding any new derived metric, ask which boundary each input is on.** Both pull
+    scripts already use both `compType` values, so a mismatch is easy to introduce and invisible
+    once shipped — `laborPct` only got caught because it was reconciled against a known-good source.
+  - **Watch for incomplete DAR days, which are a separate trap that looks like a boundary bug.**
+    `dar-vs-ops-reconciliation.md`'s ~0.01% deltas hold only *"on days with a complete 24 slots"*.
+    A short day understates any sales denominator and silently inflates the ratio above it. Check
+    `count(hour_slot)` per `(loc, dt)` before trusting a DAR-denominated derivation.
+    **⚠️ `count(hour_slot)==24` does NOT detect an in-progress "today" (dispatch #153,
+    2026-08-27).** That check catches a genuinely SHORT day (a pull that failed partway through).
+    It does not catch a day that is still IN PROGRESS: `qsr_daily_activity_rollup` (fed by
+    `scripts/qsrsoft-dar-pull.mjs`) always carries the full 24-`hour_slot` shape, with hours that
+    haven't happened yet simply zero-filled, not absent — so an in-progress day passes the
+    `count==24` check while still being structurally incomplete. This is what let OEPE/R2P/TPPH
+    blend a 70%-of-plan in-progress day into a "current week" rate-metric average at full weight
+    (`metricAvg`'s mean-of-daily) and have it read as the fastest reading of the whole sampled
+    window — a completeness artifact, not a real result. The fix for a RATE metric with a real
+    numerator/denominator is `metricSumRatio` (`src/engine/metric-source.js`), which sums the raw
+    legs across the range so a low-volume in-progress day naturally contributes proportionally
+    less, rather than checking slot-count at all.
+- **LifeLenz Business ID:** `01979dbf-a166-759b-8702-aba9915c578e`
+- **Supabase URL:** from `VITE_SUPABASE_URL` env var
+- **User:** Fletcher Reaves (fletcher.reaves@mcreaves.com) — owner, developer, primary user. **Pronouns: he/him** (stated 2026-08-10 — use them; don't fall back to they/them)
+- **Communication style — standing rule, owner-stated 2026-10-19: be frank, direct, and blunt; sarcasm is welcome, not just tolerated.** Owner's own words: *"I like to think myself as a fun natured person and a little healthy back-and-forth is always good so be Frank be direct be blunt. Tell me what I need to hear when I need to hear it."* This applies generally, not just when he explicitly invites it in a given message — a straight "no, and here's why" beats a hedged one. Also owner-stated the same day: he's "a very overactive thinker" whose brain doesn't stop, and his default answer to a harebrained idea worth scoping is to jump in and try it — so meet a speculative/off-the-wall idea with genuine engagement and an honest technical verdict, not reflexive caution, and don't read enthusiasm for trying things as a request to skip the honest "this won't work" when that's the real answer.
+
+Org config (territory groupings, patch assignments, etc.) is configurable in Supabase `org_config` table — not hard-coded — to support future multi-org deployments.
+
+---
+
+## Memory Files (detailed context)
+
+Full index in `memory/MEMORY.md`. Key files:
+
+| File | What's in it |
+|---|---|
+| `memory/vision-and-roadmap.md` | ⭐ North-star vision, Smart Targets Model v2 design, accuracy-integrity system, UX-coherence scope, deployment paths, prioritized roadmap |
+| `memory/lifelenz-session.md` | LifeLenz API runbook, dead ends, token refresh steps |
+| `memory/project-backlog.md` | Feature backlog from field notes |
+| `memory/project-supabase-priority.md` | Supabase migration status — what's in, what's not |
+| `memory/project-sage.md` | SAGE deployment details, enhancement ideas |
+| `memory/project-qsrsoft-pipeline.md` | QSRSoft email pipeline, Apps Script, Edge Function |
+| `memory/project-qsrsoft-daily-activity.md` | DAR automation — confirmed endpoint, response schema, table SQL, auth pattern |
+| `memory/project-perf-reviews.md` | Performance review system details |
+| `memory/feedback-selector-ui-standard.md` | Location filter UI standard |

@@ -1,0 +1,1018 @@
+{
+  "repo": "ferazfhansurie/ai-memory-faeez",
+  "dir": "memory",
+  "n_files": 19,
+  "n_rules": 168,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "For branded / business short-form content (PUSH Life, ADletic client work, FatHopes, MotionBoards — NOT the @faeezree personal brand, which stays raw/unscripted per [[feedback_tiktok_unscripted]]), Firaz wants a default **Gen-Z \"funny but kinda serious\"** style.",
+      "rule": "For branded/business short-form content (PUSH Life, ADletic, FatHopes, MotionBoards), use the default Gen-Z \"funny but kinda serious\" style; do not apply it to the @faeezree personal brand."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "**Comedy → a real turn.** Start funny/absurd, then pivot to a small genuine point or heart beat",
+      "rule": "For branded short-form content, start with a funny or absurd setup, then pivot to a small genuine point or heart beat."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "Never preachy.",
+      "rule": "Never make branded short-form content preachy."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "**Recurring characters + 2 engineered catchphrases** (one per character) designed for comment-section quoting.",
+      "rule": "For branded short-form content, use recurring characters with two engineered catchphrases, one per character, designed for comment-section quoting."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "Run it as a numbered episodic SHOW, not one-offs.",
+      "rule": "Run branded short-form content as a numbered episodic show, not as one-off videos."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "**Funny-but-serious, not slapstick** — deadpan, ironic, recognition humor.",
+      "rule": "For branded short-form content, use deadpan, ironic, recognition humor rather than slapstick."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "Manglish + code-switching (boss heavy BM, Gen-Z drops English brainrot slang = the language gap is its own joke).",
+      "rule": "For branded short-form content, use Manglish and code-switching, with the boss character speaking heavy BM and the Gen-Z character dropping English brainrot slang."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "**Production:** lo-fi, phone-shot, real people;",
+      "rule": "Produce branded short-form content lo-fi, phone-shot, with real people."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "seamless loop end→hook;",
+      "rule": "Make branded short-form content loop seamlessly from the ending back to the hook."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "hook in <3s with on-frame text;",
+      "rule": "Open branded short-form content with a hook in under 3 seconds, using on-frame text."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "captions always on (centre 70%);",
+      "rule": "Always turn captions on for branded short-form content, keeping them within the centre 70% of the frame."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "ONE recipient-based CTA (\"tag your boss\") + \"follow for Ep 2\";",
+      "rule": "Use exactly one recipient-based call to action (such as \"tag your boss\") plus a \"follow for Ep 2\" prompt in branded short-form content."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "optimise completion/sends, not likes.",
+      "rule": "Optimise branded short-form content for completion rate and shares/sends, not likes."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "can't legally use trending commercial songs — use ORIGINAL audio (e.g. character VO; you own it if it trends) or Meta Sound Collection;",
+      "rule": "For business accounts, do not use trending commercial songs; use original audio such as character voiceover, or the Meta Sound Collection."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "recreate viral dance *moves* over a cleared track.",
+      "rule": "When using viral dance moves, recreate the moves over a cleared track rather than the original audio."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_content_genz_funny_serious.md",
+      "quote": "Use [[feedback_real_photos_for_characters]] when generating: real people for characters, AI for objects/environments only.",
+      "rule": "When generating images for branded short-form content, use real people for characters and AI only for objects and environments."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "Generate mouth movement only (prompt: \"moves mouth as if speaking, no audio\"), then dub.",
+      "rule": "For FatHopes/Malaysian video content, generate the video with mouth movement only and no audio, then add the voice in post by dubbing."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "For the hero pilot, use REAL Malaysian voices (even phone-quality WhatsApp voice notes)",
+      "rule": "For the hero pilot, use real Malaysian voices, even phone-quality WhatsApp voice notes, rather than synthetic voices."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "Reserve in-model TTS / ElevenLabs Malaysian voice for high-volume weekly shorts.",
+      "rule": "Reserve in-model TTS or ElevenLabs Malaysian voice for high-volume weekly shorts only."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "add accent directive: \"spoken in a natural casual Kuala Lumpur Malaysian accent — fast, relaxed, flat urban KL Manglish; final 'a' softened to schwa; NOT Indonesian, no Indonesian intonation or vocabulary.\"",
+      "rule": "When keeping dialogue generated in-model, include an accent directive requiring a natural casual Kuala Lumpur Malaysian accent (fast, relaxed, flat urban KL Manglish, final 'a' softened to schwa) and forbidding Indonesian accent, intonation, or vocabulary."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "Write lines with KL markers",
+      "rule": "Write Malaysian dialogue lines using KL markers so they do not sound Indonesian."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "tak (not tidak/nggak), nak (not mau), camne/macam mane (not gimana), tengok (not lihat), cakap (not ngomong), boleh (not bisa), pegi (not pergi), korang (not kalian)",
+      "rule": "In Malaysian dialogue, use KL words tak, nak, camne/macam mane, tengok, cakap, boleh, pegi, and korang instead of their Indonesian equivalents."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "particles la/weh/kot/je/dah/eh/oii",
+      "rule": "Use KL sentence particles la, weh, kot, je, dah, eh, and oii in Malaysian dialogue."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "KL slang gua/lu/bro/boss/abang",
+      "rule": "Use KL slang gua, lu, bro, boss, and abang in Malaysian dialogue."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "free English mixing (Manglish)",
+      "rule": "Mix English freely into Malaysian dialogue (Manglish)."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_kl_malay_voice.md",
+      "quote": "schwa spelling ape/kenape/mane/jumpe",
+      "rule": "Spell schwa endings as ape, kenape, mane, and jumpe in Malaysian dialogue."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "Write NB2 prompts at their natural length",
+      "rule": "Write Nano Banana 2 prompts at their natural length, as a full creative brief, without aggressive compression."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "No aggressive compression needed.",
+      "rule": "Do not aggressively compress Nano Banana 2 prompts."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "Only verify with `wc -c` if the prompt feels unusually long (approaching 13K).",
+      "rule": "For Nano Banana 2 prompts, run a `wc -c` character count only when the prompt feels unusually long, approaching 13K characters."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "Do NOT confuse with Seedance 2.0's 2000-char rule",
+      "rule": "Do not apply Seedance 2.0's 2000-character limit to Nano Banana 2 prompts."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "Seedance prompts still need wc -c verification + compression",
+      "rule": "For Seedance 2.0 prompts, verify length with `wc -c` and compress the prompt as needed."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_nano_banana_2k_chars.md",
+      "quote": "Earlier wrong values I tried (avoid):",
+      "rule": "Do not use 8000 or 2000 as the Nano Banana 2 prompt character limit."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "never use real-world automotive brand names",
+      "rule": "When writing video prompts, never use real-world automotive brand names (e.g., Honda Civic, Mazda 2, Mercedes-Benz, BMW, Tesla)."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "Use generic body-style words",
+      "rule": "When writing video prompts, describe cars with generic body-style words such as sedan, hatchback, SUV, compact, or two-door instead of brand or model names."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "Use color + position to disambiguate",
+      "rule": "When writing video prompts with multiple cars, use color and position to tell them apart (e.g., \"the emerald car on the left\")."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "Let the **reference image** (`@ImageN`) carry the visual identity",
+      "rule": "When writing video prompts, let the reference image (@ImageN) carry the car's visual identity, so the prompt does not need to name the make or model."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "No automotive brand names or badges visible. No real-world manufacturer logos.",
+      "rule": "End video prompts with the constraint: \"No automotive brand names or badges visible. No real-world manufacturer logos.\""
+    },
+    {
+      "id": "R38",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "If the NB2-generated staging backplate has visible branded badges/wheels that Seedance is reading, regenerate the backplate with",
+      "rule": "If the NB2-generated staging backplate shows branded badges or wheels that Seedance reads, regenerate the backplate with the prompt: \"No visible badges, emblems, or brand markings on any car — chrome trim only, blank grilles, generic wheel designs.\""
+    },
+    {
+      "id": "R39",
+      "file": "feedback_no_branded_cars_in_video_prompts.md",
+      "quote": "Default to generic descriptors + reference-image identity lock unless the user explicitly wants the brand visible",
+      "rule": "For other real-world brands (watches, fashion houses, tech products), default to generic descriptors and a reference-image identity lock in video prompts, unless the user explicitly wants the brand visible."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "**never use Nano Banana 2 (or any image model) to generate human characters from scratch.**",
+      "rule": "When producing ad spots/videos for Firaz, never use Nano Banana 2 or any other image model to generate human characters from scratch."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "All character identity — faces, wardrobe, age, ethnicity — comes from **real photos** that Firaz uploads as `@ImageN` references.",
+      "rule": "When producing ad spots/videos for Firaz, take all character identity (faces, wardrobe, age, ethnicity) from real photos Firaz uploads as @ImageN references."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "For any new ad spot brief: ask Firaz to source the cast photos *before* writing the Seedance prompt.",
+      "rule": "For any new ad spot brief for Firaz, ask Firaz to source the cast photos before writing the Seedance prompt."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "Don't generate placeholder character images.",
+      "rule": "When producing ad spots for Firaz, do not generate placeholder character images."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "NB2's job is **objects, environments, staging backplates**",
+      "rule": "Use Nano Banana 2 only for generating objects, environments, and staging backplates in ad spots for Firaz."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_real_photos_for_characters.md",
+      "quote": "If a needed character isn't already in his uploads, recommend he photograph someone matching the role rather than generating one",
+      "rule": "When a needed character is not among Firaz's uploads, recommend that he photograph someone matching the role instead of generating one."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "always produce **two versions**:",
+      "rule": "When writing Seedance 2.0 I2V / S2E / multi-reference prompts for Firaz, always produce two versions: the long-form treatment/brief and a paste-ready compressed version."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "A **paste-ready compressed version** that is **verifiably under 2000 characters**, ASCII-only",
+      "rule": "The paste-ready compressed version of a Seedance 2.0 prompt must be verifiably under 2000 characters and ASCII-only."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "Always **`wc -c` the compressed `.txt` file** before declaring it ready",
+      "rule": "Always run `wc -c` on the compressed .txt prompt file before declaring it ready."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "Strip em-dashes (—), smart quotes (\" \"), arrows (→)",
+      "rule": "Strip em-dashes, smart quotes, and arrows from compressed Seedance prompts."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "clean them with `tr -d '\\0'` or rewrite with `printf` if `wc -c` reads weirdly high",
+      "rule": "If wc -c reads unexpectedly high due to trailing null bytes, remove them with `tr -d '\\0'` or rewrite the file with printf."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_seedance_charlimit.md",
+      "quote": "Other models without a known limit can run uncapped.",
+      "rule": "For models without a known or user-hit character limit, the prompt may run uncapped."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "every content suggestion must frame as **when to press record**, never as **what to script/produce**",
+      "rule": "For the @faeezree personal TikTok brand, frame every content suggestion as when to press record, never as what to script or produce."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Frame advice as **triggers / instincts**",
+      "rule": "For the personal TikTok brand, frame advice as triggers or instincts (\"when X happens, press record\")."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "not formats or shot lists",
+      "rule": "For the personal TikTok brand, do not frame advice as formats or shot lists."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Default production guidance is to lean *down* — phone in pocket > phone on tripod > anything with lighting.",
+      "rule": "For the personal TikTok brand, default production guidance to lean down: phone in pocket is preferred over phone on tripod, which is preferred over anything involving lighting."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Preserve his natural speech: BM/English code-switch",
+      "rule": "For the personal TikTok brand, preserve the creator's natural speech, including BM/English code-switching."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "lowercase captions",
+      "rule": "For the personal TikTok brand, use lowercase captions."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "typos in captions are all on-brand and on-trend",
+      "rule": "For the personal TikTok brand, typos in captions are acceptable."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Voiceovers OK but only if recorded same-day in the car / on the walk back — not in a studio after.",
+      "rule": "For the personal TikTok brand, use voiceovers only if they are recorded the same day in the car or on the walk back, never in a studio afterward."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "if the moment is gone, don't restage. Move on.",
+      "rule": "For the personal TikTok brand, if the moment is gone, do not restage it; move on."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "This applies ONLY to the personal TikTok brand",
+      "rule": "Apply the unscripted, anti-polish content guidance only to the personal TikTok brand."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "for ADletic client ad work the polish bar stays high.",
+      "rule": "For ADletic client ad work, keep the polish bar high."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT name pillars, series, or challenges",
+      "rule": "For the personal TikTok brand, do not name content pillars, series, or challenges."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "never declare it.",
+      "rule": "For the personal TikTok brand, never declare a niche; let it emerge from repeatedly doing the same activity."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT script declarative talking-head openings",
+      "rule": "For the personal TikTok brand, do not script declarative talking-head openings."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT recommend stitches, duets, comment-reply videos, or hot-take content as growth strategy",
+      "rule": "For the personal TikTok brand, do not recommend stitches, duets, comment-reply videos, or hot-take content as a growth strategy."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT propose hashtag tiers / hashtag strategies",
+      "rule": "For the personal TikTok brand, do not propose hashtag tiers or hashtag strategies."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "minimal or no hashtags fits the voice",
+      "rule": "For the personal TikTok brand, use minimal or no hashtags."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT frame content as \"tips\", \"lessons\", \"tutorials\", \"form breakdowns\"",
+      "rule": "For the personal TikTok brand, do not frame content as tips, lessons, tutorials, or form breakdowns."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "no teaching unless asked.",
+      "rule": "For the personal TikTok brand, do not teach unless asked."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Do NOT use marketer language in advice",
+      "rule": "For the personal TikTok brand, do not use marketer language in advice."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Captions = factual or minimal",
+      "rule": "For the personal TikTok brand, keep captions factual or minimal."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Never engagement bait.",
+      "rule": "For the personal TikTok brand, never write engagement-bait captions."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Reference frame: documentary/diary aesthetic, NOT creator/influencer aesthetic.",
+      "rule": "For the personal TikTok brand, use a documentary/diary aesthetic as the reference frame, not a creator/influencer aesthetic."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Be honest about growth tradeoff",
+      "rule": "When discussing growth for the personal TikTok brand, be honest that the non-cringe path is slower."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_tiktok_unscripted.md",
+      "quote": "Don't oversell.",
+      "rule": "When discussing growth for the personal TikTok brand, do not oversell expected results."
+    },
+    {
+      "id": "R77",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "Never reference petrol, RON95, or filling a car.",
+      "rule": "Never reference petrol, RON95, or filling a car in FatHopes Threads posts; the product is used cooking oil recycling."
+    },
+    {
+      "id": "R78",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "days 1-2 statements only, NO questions",
+      "rule": "On campaign days 1-2, write only statements and never include questions in Threads posts."
+    },
+    {
+      "id": "R79",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "NO em-dashes",
+      "rule": "Never use em-dashes in Threads posts."
+    },
+    {
+      "id": "R80",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "KL Manglish, lowercase, Malay shorthand, occasional typo",
+      "rule": "Write Threads posts in KL Manglish, in lowercase, using Malay shorthand and occasionally including a typo."
+    },
+    {
+      "id": "R81",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "use `th_refresh_token` to reset the 60-day clock",
+      "rule": "To reset the 60-day Threads access token clock, use the th_refresh_token call instead of th_exchange_token."
+    },
+    {
+      "id": "R82",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "Refresh before expiry or ask to auto-refresh via Neon.",
+      "rule": "Refresh the Threads access token before it expires, or request an automatic refresh via Neon."
+    },
+    {
+      "id": "R83",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "can be fired from any external trigger with the secret",
+      "rule": "The autopost endpoint may be triggered from any external source by supplying the CRON_SECRET."
+    },
+    {
+      "id": "R84",
+      "file": "project_fathopes_threads_autopost.md",
+      "quote": "user wants REAL phone-photo references",
+      "rule": "For image prompts, use real phone-photo style references (such as greasy kuali, saved oil bottles, kitchen sink) rather than branded posters."
+    },
+    {
+      "id": "R85",
+      "file": "project_fathopes_video_content.md",
+      "quote": "Tone follows [[feedback_content_genz_funny_serious]] + [[feedback_kl_malay_voice]]",
+      "rule": "Follow the tone guidance in the feedback_content_genz_funny_serious and feedback_kl_malay_voice notes when writing FatHopes content."
+    },
+    {
+      "id": "R86",
+      "file": "project_fathopes_video_content.md",
+      "quote": "use real people, not @faeezree",
+      "rule": "Use real people in FatHopes content, not the @faeezree account."
+    },
+    {
+      "id": "R87",
+      "file": "project_fathopes_video_content.md",
+      "quote": "DM organisers via Instagram to collab",
+      "rule": "When collaborating on In The Field community series events, contact the event organisers by Instagram DM."
+    },
+    {
+      "id": "R88",
+      "file": "project_fathopes_video_content.md",
+      "quote": "Must NOT be a UCO competitor.",
+      "rule": "Do not feature in the In The Field community series any event whose organiser is a UCO competitor."
+    },
+    {
+      "id": "R89",
+      "file": "project_google_ads_audit.md",
+      "quote": "Next step is diagnosing the PUSH 0-conversions issue (pull conversion actions + the PMax goals/asset groups).",
+      "rule": "When working on the PUSH Recruitment Ads campaign's 0-conversions issue, diagnose it by pulling its conversion actions and its PMax goals/asset groups."
+    },
+    {
+      "id": "R90",
+      "file": "project_google_ads_audit.md",
+      "quote": "TOP PRIORITY to fix.",
+      "rule": "Treat fixing the PUSH Recruitment Ads campaign's 0-conversions problem as the top priority."
+    },
+    {
+      "id": "R91",
+      "file": "project_google_ads_audit.md",
+      "quote": "verify the conversion action",
+      "rule": "When a campaign's reported conversions exceed its clicks, verify that campaign's conversion action."
+    },
+    {
+      "id": "R92",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "D = car-licence-only bucket; GDL / E-FULL (incl. combos like \"D, GDL\") = the commercial bucket",
+      "rule": "When counting PUSH daily applications, classify leads whose licence is D as the car-licence-only bucket, and classify leads whose licence is GDL or E-FULL (including combinations like \"D, GDL\") as the commercial bucket."
+    },
+    {
+      "id": "R93",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "the two sum to total",
+      "rule": "Make sure the car-licence-only and commercial bucket counts add up to the total PUSH application count."
+    },
+    {
+      "id": "R94",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "Dedupe by phone (flag repeats).",
+      "rule": "When compiling PUSH lead data, deduplicate applicants by phone number and flag any repeated numbers."
+    },
+    {
+      "id": "R95",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "Parse with a script, don't hand-count.",
+      "rule": "Compute PUSH lead counts by parsing the lead data with a script, not by counting manually."
+    },
+    {
+      "id": "R96",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "DD Month — N applications for PUSH (X D, Y GDL & E-Full)",
+      "rule": "Format the daily PUSH lead log header as \"DD Month — N applications for PUSH (X D, Y GDL & E-Full)\", with the date, total, and bucket counts filled in."
+    },
+    {
+      "id": "R97",
+      "file": "project_push_recruitment_meta.md",
+      "quote": "Kelantan : .. Johor : .. Kedah : .. Melaka : .. Negeri Sembilan : .. Selangor : .. Terengganu : .. Sarawak : .. (Other : ..)",
+      "rule": "Report the daily PUSH lead counts by state in this order: Kelantan, Johor, Kedah, Melaka, Negeri Sembilan, Selangor, Terengganu, Sarawak, then Other."
+    },
+    {
+      "id": "R98",
+      "file": "project_pushlife_office_sitcom.md",
+      "quote": "The humour MUST be grounded in the real UCO world",
+      "rule": "When writing PUSH Life comedy content, ground the humour in the real UCO world (oil drums, restaurant routes, mini-tanker, Loyalty App leaderboard, tonnage KPIs, SAF, mamak pickups) rather than generic material."
+    },
+    {
+      "id": "R99",
+      "file": "project_pushlife_office_sitcom.md",
+      "quote": "NOT generic \"Gen-Z vs boss\" TikTok skits",
+      "rule": "Do not write generic \"Gen-Z vs boss\" TikTok-style skits for PUSH Life."
+    },
+    {
+      "id": "R100",
+      "file": "project_pushlife_office_sitcom.md",
+      "quote": "Follow [[feedback_content_genz_funny_serious]]",
+      "rule": "When writing PUSH Life content, follow the guidance in the feedback_content_genz_funny_serious memory file."
+    },
+    {
+      "id": "R101",
+      "file": "project_pushlife_office_sitcom.md",
+      "quote": "skew to Office-realism over trend-jacking",
+      "rule": "When writing PUSH Life content, favour Office-style realism over trend-jacking."
+    },
+    {
+      "id": "R102",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Treat content advice for this brand differently from ADletic client work",
+      "rule": "Treat content advice for the personal TikTok brand differently from ADletic client work."
+    },
+    {
+      "id": "R103",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "this is personal-brand voice, not paid-ad polish.",
+      "rule": "Frame advice for the personal TikTok brand as personal-brand voice, not paid-ad polish."
+    },
+    {
+      "id": "R104",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "push for niche tightness",
+      "rule": "When growth is flat below 2k followers, push for niche tightness."
+    },
+    {
+      "id": "R105",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "hook discipline",
+      "rule": "When growth is flat below 2k followers, push for hook discipline."
+    },
+    {
+      "id": "R106",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "\"why follow\" identity",
+      "rule": "When growth is flat below 2k followers, push for a clear \"why follow\" identity."
+    },
+    {
+      "id": "R107",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Lean into positioning, story, hook craft",
+      "rule": "Focus advice on positioning, story, and hook craft for the personal brand."
+    },
+    {
+      "id": "R108",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "not gear advice",
+      "rule": "Do not give gear advice for the personal brand."
+    },
+    {
+      "id": "R109",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Verify niche / handle / existing video performance before prescribing",
+      "rule": "Verify the niche, handle, and existing video performance before prescribing changes for the personal brand."
+    },
+    {
+      "id": "R110",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "don't generic-coach him",
+      "rule": "Do not give generic coaching to the user on the personal brand."
+    },
+    {
+      "id": "R111",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "NOT influencer/creator content.",
+      "rule": "Do not frame the personal TikTok brand's content as influencer or creator content."
+    },
+    {
+      "id": "R112",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Production toolkit is locked to iPhone only",
+      "rule": "Limit production recommendations for the personal brand to iPhone only."
+    },
+    {
+      "id": "R113",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "0.5x / 1x / zoom",
+      "rule": "Use only the iPhone 0.5x, 1x, and zoom lenses for the personal brand."
+    },
+    {
+      "id": "R114",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "No drone, no GoPro, no rack-cam rigs, no wrist mounts, no accessories.",
+      "rule": "Do not recommend drones, GoPros, rack-cam rigs, wrist mounts, or accessories for the personal brand."
+    },
+    {
+      "id": "R115",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "One lens decision per shot",
+      "rule": "Choose one lens per shot for the personal brand."
+    },
+    {
+      "id": "R116",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "don't switch mid-clip",
+      "rule": "Do not switch lenses mid-clip for the personal brand."
+    },
+    {
+      "id": "R117",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Reserved for sessions that earn it",
+      "rule": "Reserve the longer edit for sessions that earn it, such as a race, a real PR, or a scenic long run."
+    },
+    {
+      "id": "R118",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "skip the edit — don't manufacture one",
+      "rule": "If no session in the 3-week block earns a longer edit, skip the edit and do not manufacture one."
+    },
+    {
+      "id": "R119",
+      "file": "project_tiktok_personal_brand.md",
+      "quote": "Captions stay minimal/factual regardless of post size",
+      "rule": "Keep captions minimal and factual regardless of post size."
+    },
+    {
+      "id": "R120",
+      "file": "reference_google_ads_project.md",
+      "quote": "use as `login-customer-id`",
+      "rule": "When making Google Ads API requests, use manager (MCC) account 162-977-0601 as the login-customer-id."
+    },
+    {
+      "id": "R121",
+      "file": "reference_google_ads_project.md",
+      "quote": "should be **rotated**",
+      "rule": "Rotate the Google Ads developer token, OAuth client secret, and refresh token, because they were pasted into a chat."
+    },
+    {
+      "id": "R122",
+      "file": "reference_google_ads_project.md",
+      "quote": "clone/pull `ai-memory-faeez`",
+      "rule": "To reconnect the Google Ads API from a new device, clone or pull the ai-memory-faeez repo."
+    },
+    {
+      "id": "R123",
+      "file": "reference_google_ads_project.md",
+      "quote": "copy `google-ads/.env.example` → `.env`",
+      "rule": "To reconnect the Google Ads API, copy google-ads/.env.example to .env."
+    },
+    {
+      "id": "R124",
+      "file": "reference_google_ads_project.md",
+      "quote": "fill the 3 secrets",
+      "rule": "To reconnect the Google Ads API, fill the three secrets (developer token, OAuth client secret, refresh token) into the .env file."
+    },
+    {
+      "id": "R125",
+      "file": "reference_google_ads_project.md",
+      "quote": "run `node google-ads/query.mjs`",
+      "rule": "To reconnect the Google Ads API, run node google-ads/query.mjs."
+    },
+    {
+      "id": "R126",
+      "file": "reference_meta_ads.md",
+      "quote": "Prefer the token",
+      "rule": "When the Meta Ads MCP cannot do something, prefer the Graph API user token (META_APP_TOKEN) instead."
+    },
+    {
+      "id": "R127",
+      "file": "reference_meta_ads.md",
+      "quote": "use the Graph token instead",
+      "rule": "When the MCP cannot read ad-set targeting, cannot search geo or interests, or cannot create native click-to-WhatsApp creatives, use the Graph API token instead."
+    },
+    {
+      "id": "R128",
+      "file": "reference_meta_ads.md",
+      "quote": "must re-activate",
+      "rule": "After an MCP edit forces a Meta ad entity to PAUSED, re-activate it."
+    },
+    {
+      "id": "R129",
+      "file": "reference_meta_ads.md",
+      "quote": "Graph API (v23.0, via curl/Node using the token)",
+      "rule": "Call the Meta Graph API at version v23.0 using curl or Node with the token."
+    },
+    {
+      "id": "R130",
+      "file": "reference_meta_ads.md",
+      "quote": "POST the file to MotionBoards `https://motionboards.vercel.app/api/upload`",
+      "rule": "To host a local image for a Meta image_url, POST the file to https://motionboards.vercel.app/api/upload with an Authorization Bearer header using MB_KEY and an x-filename header, then use the returned /api/files/ URL."
+    },
+    {
+      "id": "R131",
+      "file": "reference_meta_ads.md",
+      "quote": "live only in `.env.local` (git-ignored)",
+      "rule": "Keep META_APP_TOKEN and MB_KEY only in the git-ignored .env.local file."
+    },
+    {
+      "id": "R132",
+      "file": "reference_meta_ads.md",
+      "quote": "never commit",
+      "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+    },
+    {
+      "id": "R133",
+      "file": "reference_meta_ads.md",
+      "quote": "rotate if exposed",
+      "rule": "Rotate META_APP_TOKEN and MB_KEY if they are exposed."
+    },
+    {
+      "id": "R134",
+      "file": "reference_yaroflasher.md",
+      "quote": "Up to 12 reference images per generation",
+      "rule": "Use up to 12 reference images per Seedance generation."
+    },
+    {
+      "id": "R135",
+      "file": "reference_yaroflasher.md",
+      "quote": "addressed inline as `@Image1` … `@ImageN`",
+      "rule": "Address reference images inline in the prompt as @Image1 through @ImageN."
+    },
+    {
+      "id": "R136",
+      "file": "reference_yaroflasher.md",
+      "quote": "The whole arc of a 10–12s spot lives in one prompt, not split across multiple S2E seams.",
+      "rule": "Keep the whole arc of a 10–12 second spot in a single prompt, not split across multiple S2E seams."
+    },
+    {
+      "id": "R137",
+      "file": "reference_yaroflasher.md",
+      "quote": "Faces, wardrobe, identity = uploaded real photos.",
+      "rule": "Use uploaded real photos as references for characters' faces, wardrobe, and identity."
+    },
+    {
+      "id": "R138",
+      "file": "reference_yaroflasher.md",
+      "quote": "Cars, environments, staging backplates = generated in Nano Banana 2 first, then attached as references.",
+      "rule": "Generate cars, environments, and staging backplates in Nano Banana 2 first, then attach them as references."
+    },
+    {
+      "id": "R139",
+      "file": "reference_yaroflasher.md",
+      "quote": "explicit identity lock language at the top, then the arc, then constraints at the bottom",
+      "rule": "Order the prompt with identity lock language at the top, the arc in the middle, and constraints at the bottom."
+    },
+    {
+      "id": "R140",
+      "file": "reference_yaroflasher.md",
+      "quote": "Use @Image1 as [character A's] face",
+      "rule": "Open the prompt with an identity lock stating that @Image1 is the character's face."
+    },
+    {
+      "id": "R141",
+      "file": "reference_yaroflasher.md",
+      "quote": "preserve [specific wardrobe]",
+      "rule": "Include a preserve-wardrobe instruction in the identity lock at the top of the prompt."
+    },
+    {
+      "id": "R142",
+      "file": "reference_yaroflasher.md",
+      "quote": "do not blend two characters' looks",
+      "rule": "Include a do-not-blend instruction in the identity lock when a prompt has two characters."
+    },
+    {
+      "id": "R143",
+      "file": "reference_yaroflasher.md",
+      "quote": "one cinematic sentence per beat",
+      "rule": "Write one cinematic sentence per beat in the arc section of the prompt."
+    },
+    {
+      "id": "R144",
+      "file": "reference_yaroflasher.md",
+      "quote": "one camera move per beat",
+      "rule": "Use one camera move per beat."
+    },
+    {
+      "id": "R145",
+      "file": "reference_yaroflasher.md",
+      "quote": "no hard cuts",
+      "rule": "Do not use hard cuts within the arc."
+    },
+    {
+      "id": "R146",
+      "file": "reference_yaroflasher.md",
+      "quote": "hard `do not` lines",
+      "rule": "End the prompt with hard \"do not\" constraint lines."
+    },
+    {
+      "id": "R147",
+      "file": "reference_yaroflasher.md",
+      "quote": "speaking mouths, drifting paint colors, added pedestrians, in-scene branding",
+      "rule": "Include do-not constraints against speaking mouths, drifting paint colors, added pedestrians, and in-scene branding."
+    },
+    {
+      "id": "R148",
+      "file": "reference_yaroflasher.md",
+      "quote": "a long-form `.md` brief for the human (no char limit)",
+      "rule": "Write a long-form .md brief for the human with no character limit."
+    },
+    {
+      "id": "R149",
+      "file": "reference_yaroflasher.md",
+      "quote": "a paste-ready compressed `.txt` under 2000 chars",
+      "rule": "Keep the paste-ready compressed .txt prompt under 2000 characters."
+    },
+    {
+      "id": "R150",
+      "file": "reference_yaroflasher.md",
+      "quote": "ASCII only",
+      "rule": "Use ASCII only in the paste-ready .txt prompt."
+    },
+    {
+      "id": "R151",
+      "file": "reference_yaroflasher.md",
+      "quote": "no em-dashes",
+      "rule": "Do not use em-dashes in the paste-ready .txt prompt."
+    },
+    {
+      "id": "R152",
+      "file": "reference_yaroflasher.md",
+      "quote": "no smart quotes",
+      "rule": "Do not use smart quotes in the paste-ready .txt prompt."
+    },
+    {
+      "id": "R153",
+      "file": "reference_yaroflasher.md",
+      "quote": "no arrows",
+      "rule": "Do not use arrows in the paste-ready .txt prompt."
+    },
+    {
+      "id": "R154",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "Don't use @-mentions in MotionBoards Seedance prompts.",
+      "rule": "Do not use @-mentions (such as @Image1) in MotionBoards Seedance prompts."
+    },
+    {
+      "id": "R155",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "use plain English referring to \"the person/object in the source image\"",
+      "rule": "For Seedance I2V prompts on MotionBoards, use plain English that refers to \"the person/object in the source image\" instead of @Image1 syntax."
+    },
+    {
+      "id": "R156",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "do NOT use `@Image1` syntax",
+      "rule": "For Seedance I2V prompts on MotionBoards, do not use @Image1 syntax."
+    },
+    {
+      "id": "R157",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "identity should reference \"the source image\"",
+      "rule": "For Seedance I2V prompts on MotionBoards, refer to the subject's identity as \"the source image\"."
+    },
+    {
+      "id": "R158",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "same plain English",
+      "rule": "For Seedance S2E prompts on MotionBoards, use plain English instead of @-mention syntax."
+    },
+    {
+      "id": "R159",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "Add a callout that on MotionBoards (Replicate), multi-reference is not available",
+      "rule": "Add a callout to .claude/commands/seedance-prompt.md stating that on MotionBoards (Replicate), multi-reference is not available."
+    },
+    {
+      "id": "R160",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "prompts should use single-image conventions",
+      "rule": "On MotionBoards (Replicate), write Seedance prompts using single-image conventions."
+    },
+    {
+      "id": "R161",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "it should be flagged that this only works on Volcengine-direct integrations, NOT Replicate",
+      "rule": "Flag in .claude/commands/seedance-prompt.md that the multi-reference pattern only works on Volcengine-direct integrations, not Replicate."
+    },
+    {
+      "id": "R162",
+      "file": "seedance_replicate_singleimage_only.md",
+      "quote": "Until then, single-image only.",
+      "rule": "Until MotionBoards adds a Volcengine/Ark provider integration, use only single-image references for Seedance prompts."
+    },
+    {
+      "id": "R163",
+      "file": "user_role.md",
+      "quote": "Treat him as a senior creative + senior engineer simultaneously — no need to over-explain either side",
+      "rule": "Treat the user as a senior creative and a senior engineer at the same time, and do not over-explain either side."
+    },
+    {
+      "id": "R164",
+      "file": "user_role.md",
+      "quote": "He prefers long-form treatments AND a paste-ready compressed version",
+      "rule": "When writing treatments, provide both a long-form version and a paste-ready compressed version."
+    },
+    {
+      "id": "R165",
+      "file": "user_role.md",
+      "quote": "he wants surgical edits",
+      "rule": "For MotionBoards code changes, make surgical edits."
+    },
+    {
+      "id": "R166",
+      "file": "user_role.md",
+      "quote": "with verified facts",
+      "rule": "For MotionBoards code changes, verify facts before relying on them."
+    },
+    {
+      "id": "R167",
+      "file": "user_role.md",
+      "quote": "cite source for any model character limit before shipping",
+      "rule": "Before shipping MotionBoards code, cite a source for any model character limit."
+    },
+    {
+      "id": "R168",
+      "file": "user_role.md",
+      "quote": "Bias toward shipping over planning",
+      "rule": "Bias toward shipping over planning."
+    }
+  ],
+  "dropped": []
+}

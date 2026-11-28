@@ -16,6 +16,4 @@ root `CLAUDE.md` (`prep/extract.py --claude-md`). Pairs are checked across both.
 its source file name, so results can be reported separately for memory-only pairs.
 
 ## Consequences
-- Earlier results (dev, large and held-out folders) used memory folders only; they are not
-  re-extracted, and results are reported as memory-only.
-- The held-out test stays memory-only unless a new decision changes it.
+- Earlier results used memory folders only; they are not re-extracted.

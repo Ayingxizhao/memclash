@@ -1,0 +1,1984 @@
+{
+ "Desgue__landscaper": {
+  "R1": {
+   "file": "feedback_blueprint_review_loop.md",
+   "rule": "After each implementation phase, run a parallel team of reviewers and iterate fixes until all reviewers return PASS before moving to the next phase."
+  },
+  "R2": {
+   "file": "feedback_blueprint_review_loop.md",
+   "rule": "After each phase, spawn the reviewers in parallel: security, docs alignment, plan alignment, code best practices (using the Opus model), architecture, and observability."
+  },
+  "R3": {
+   "file": "feedback_blueprint_review_loop.md",
+   "rule": "If any reviewer returns FAIL, spawn a fix agent, then re-run all reviewers."
+  },
+  "R4": {
+   "file": "feedback_blueprint_review_loop.md",
+   "rule": "Only proceed to the next phase when every reviewer returns PASS."
+  },
+  "R5": {
+   "file": "feedback_blueprint_review_loop.md",
+   "rule": "Treat LOW review findings as non-blocking, and treat HIGH and MEDIUM review findings as blocking the phase."
+  },
+  "R6": {
+   "file": "feedback_commit_claude_skills.md",
+   "rule": "When adding or updating Claude Code skills, write them to `.claude/skills/` inside the project repo and commit them alongside the code they support."
+  },
+  "R7": {
+   "file": "feedback_commit_claude_skills.md",
+   "rule": "After writing a skill to the global `~/.claude/skills/`, also copy it to `/Users/guedes/Code/planner-frontend/.claude/skills/` and include it in the next commit."
+  },
+  "R8": {
+   "file": "feedback_observability_reviewer.md",
+   "rule": "Include an Observability reviewer in every post-implementation review team, alongside the security, docs, plan alignment, code best practices, and architecture reviewers."
+  },
+  "R9": {
+   "file": "feedback_observability_reviewer.md",
+   "rule": "After each implementation phase, spawn a sixth Observability reviewer agent to run in parallel with the other reviewers."
+  },
+  "R10": {
+   "file": "feedback_observability_reviewer.md",
+   "rule": "When reviewing implemented code, check whether it has adequate logging and tracing for debugging purposes."
+  },
+  "R11": {
+   "file": "feedback_observability_reviewer.md",
+   "rule": "Give the Observability review a PASS when logging coverage is adequate or the code is simple enough that logging adds no value."
+  },
+  "R12": {
+   "file": "feedback_observability_reviewer.md",
+   "rule": "Give the Observability review a FAIL if errors are silently swallowed or if complex async paths have no observability."
+  },
+  "R13": {
+   "file": "feedback_use_write_tool.md",
+   "rule": "When creating or modifying files, use the Write or Edit tools."
+  },
+  "R14": {
+   "file": "feedback_use_write_tool.md",
+   "rule": "Never use `cat <<EOF >` or `echo >` redirects in Bash to create or modify files."
+  },
+  "R15": {
+   "file": "feedback_use_write_tool.md",
+   "rule": "Whenever a file needs to be created or edited, try the Write or Edit tool first."
+  },
+  "R16": {
+   "file": "feedback_use_write_tool.md",
+   "rule": "Use Bash only for commands that cannot be done with dedicated tools, such as running builds or git operations."
+  },
+  "R17": {
+   "file": "project_planb_status.md",
+   "rule": "Iterate the review loop until all six reviewers pass before moving to the next phase."
+  },
+  "R18": {
+   "file": "project_planb_status.md",
+   "rule": "Derive plant colors from PlantType.category; do not look for or use a color field on the plant schema."
+  },
+  "R19": {
+   "file": "project_planb_status.md",
+   "rule": "Attach terrain pointer handlers to a `<Rect fill=\"rgba(0,0,0,0.001)\">` element, not to the Layer."
+  },
+  "R20": {
+   "file": "project_planb_status.md",
+   "rule": "When recording history, call structuredClone(proj) before updateProject and push the history entry after it."
+  },
+  "R21": {
+   "file": "project_planb_status.md",
+   "rule": "Place OverflowDimLayer at slot 10, above all other content, rather than at the conceptual slot 2 from the spec."
+  },
+  "R22": {
+   "file": "project_planb_status.md",
+   "rule": "Render committed boundary edges with the dash pattern dash={[6/zoom, 4/zoom]}."
+  },
+  "R23": {
+   "file": "project_planb_status.md",
+   "rule": "Use stage.getRelativePointerPosition() as world coordinates directly without additional zoom conversion, since the Stage carries scaleX/scaleY for zoom."
+  }
+ },
+ "FarisHijazi__dotclaude": {
+  "R1": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Before adding a writer, listener, cache, or poller, find the responsible service or module in the code and the relevant repository instructions."
+  },
+  "R2": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Extend or fix the existing owner of shared behavior instead of adding a competing implementation."
+  },
+  "R3": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Reuse existing behavior when the variants differ only by data."
+  },
+  "R4": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Keep behaviors with distinct locking, invariants, or failure semantics separate rather than merging them."
+  },
+  "R5": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Apply the same authorization and safety gates across typed and raw entry points."
+  },
+  "R6": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Do not let passive config, health, or telemetry paths bypass the command path."
+  },
+  "R7": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Reject unsupported changes explicitly rather than silently skipping them."
+  },
+  "R8": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "When a fault is detected, identify who corrects it, and do not imply that a diagnostic fixed it."
+  },
+  "R9": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Resolve ownership conflicts explicitly rather than rewriting an invariant to hide a violation."
+  },
+  "R10": {
+   "file": "feedback_find_the_owner_first.md",
+   "rule": "Use the ownership check to guide ordinary work without stalling it."
+  },
+  "R11": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "Before acting on processes, read the matching processes first, then act only on an exact verified PID or the PID saved at launch."
+  },
+  "R12": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "Never kill processes by pattern matching."
+  },
+  "R13": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "On hypervisors, routers, NAS, or other shared hosts, use the owning platform's authorized actions instead of raw process signals."
+  },
+  "R14": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "Follow power-state restrictions when managing shared hosts such as hypervisors, routers, or NAS devices."
+  },
+  "R15": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "During test cleanup, remove only the exact processes, sessions, and files created by that test."
+  },
+  "R16": {
+   "file": "feedback_never_kill_by_pattern.md",
+   "rule": "Inspect and verify the explicit target list before performing any destructive batch action."
+  },
+  "R17": {
+   "file": "feedback_never_power_off.md",
+   "rule": "Never initiate a shutdown, reboot, reset, or power-cycle of a machine through any interface, including shell, APIs, KVM, GPIO, or others."
+  },
+  "R18": {
+   "file": "feedback_never_power_off.md",
+   "rule": "Perform a power-state action (shutdown, reboot, reset, or power-cycle) on a machine only if the user explicitly supersedes the no-power-action rule for that named action and machine; generic recovery approval is not sufficient."
+  },
+  "R19": {
+   "file": "feedback_never_power_off.md",
+   "rule": "Do not automatically power a machine back on after requesting physical hardware work."
+  },
+  "R20": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Show a visible loading state in the interface until the first request settles."
+  },
+  "R21": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Track loading completion with an explicit first-settle flag rather than relying solely on the `!loading` condition."
+  },
+  "R22": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Keep the first-settle flag set once it has been set, so it stays true during subsequent refreshes."
+  },
+  "R23": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Do not show a skeleton loading state again during refreshes once existing content has loaded."
+  },
+  "R24": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Disable controls while their underlying state is unknown."
+  },
+  "R25": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Do not display an unknown boolean value as false."
+  },
+  "R26": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Do not display an unknown count as zero."
+  },
+  "R27": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Distinguish unavailable or error responses from successful empty results in both APIs and the UI, using an explicit availability state and reason."
+  },
+  "R28": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Settle the loading state when a request results in an error."
+  },
+  "R29": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Settle the loading state when no request will be made, such as for a disabled feature or missing access."
+  },
+  "R30": {
+   "file": "feedback_never_render_absent_data.md",
+   "rule": "Verify that the loading indicator actually renders visibly."
+  },
+  "R31": {
+   "file": "feedback_never_touch_shared_system_state.md",
+   "rule": "Do not change shared routing, firewall rules, DNS, reverse proxies, or port bindings as a workaround for an application problem."
+  },
+  "R32": {
+   "file": "feedback_never_touch_shared_system_state.md",
+   "rule": "Inspect the owning configuration and logs to identify the actual fault before making changes."
+  },
+  "R33": {
+   "file": "feedback_never_touch_shared_system_state.md",
+   "rule": "Do not prescribe a blanket service restart as a fix."
+  },
+  "R34": {
+   "file": "feedback_never_touch_shared_system_state.md",
+   "rule": "Make a necessary shared-state change only with explicit authorization for that specific change and its affected services, explaining the impact beforehand."
+  },
+  "R35": {
+   "file": "feedback_no_pairing_codes.md",
+   "rule": "Do not recommend pairing codes, pairing links, or QR pairing as a sign-in solution once the user has stated this preference."
+  },
+  "R36": {
+   "file": "feedback_no_pairing_codes.md",
+   "rule": "For self-hosted applications, prefer sign-in through the existing Authentik identity using normal browser sign-in with automatic credential renewal across desktop, web, and mobile."
+  },
+  "R37": {
+   "file": "feedback_no_pairing_codes.md",
+   "rule": "Do not disable authentication or create permanent shared credentials when eliminating manual pairing codes for self-hosted applications."
+  },
+  "R38": {
+   "file": "feedback_no_pairing_codes.md",
+   "rule": "For T3 self-hosting work, reuse existing service owners and preserve running fleet sessions."
+  },
+  "R39": {
+   "file": "feedback_no_pairing_codes.md",
+   "rule": "For T3, prefer necessary authentication changes or maintained patches over a pairing-code workaround."
+  }
+ },
+ "FearCleevan__final-project-acme": {
+  "R1": {
+   "file": "daily-log-2026-06-19.md",
+   "rule": "Write the client-facing end-of-day report (EDR) in the third person, in a professional tone, without using \"you\" and without technical jargon."
+  },
+  "R2": {
+   "file": "daily-log-2026-06-19.md",
+   "rule": "Use the approved EDR format (Summary, Completed Today, Discovered, Pending carry-over table, Waiting on Scott table) for all future daily logs."
+  },
+  "R3": {
+   "file": "daily-log-2026-06-25.md",
+   "rule": "When configuring the Shopify new-order webhook, use the Vercel deployment URL, not the storefront domain."
+  },
+  "R4": {
+   "file": "daily-log-2026-06-25.md",
+   "rule": "When writing any Supabase API route, create the Supabase client inside a lazy function (e.g. getSupabase()), never at module level."
+  },
+  "R5": {
+   "file": "daily-log-2026-06-27.md",
+   "rule": "Do not reference the 6 homepage testimonials in any marketing campaign until they have been replaced, because they belong to the sign fabrication business rather than the oil lamp supply store."
+  },
+  "R6": {
+   "file": "daily-log-2026-07-07.md",
+   "rule": "Treat the Sanity-based `final-acmesign/acme-sign-redesign` branch as an abandoned branch, not as the current acmesign redesign."
+  },
+  "R7": {
+   "file": "daily-log-2026-07-09.md",
+   "rule": "Run migration 010_visitor_geo.sql in the Supabase Dashboard SQL Editor before or together with the next deploy."
+  },
+  "R8": {
+   "file": "daily-log-2026-07-09.md",
+   "rule": "Do not add a \"Co-Authored-By: Claude Sonnet 5\" trailer to commit messages."
+  },
+  "R9": {
+   "file": "daily-log-2026-07-09.md",
+   "rule": "When dispatching subagents, explicitly instruct them not to add the Co-Authored-By trailer to their commits."
+  },
+  "R10": {
+   "file": "daily-log-2026-07-09.md",
+   "rule": "If a Co-Authored-By trailer slips into a commit, remove it with `git commit --amend`, but only on local unpushed commits before merging."
+  },
+  "R11": {
+   "file": "daily-log-2026-07-10.md",
+   "rule": "When replying to Scott, frame the reply as confident delivery of what he asked for, not as an explanation of scope limitations."
+  },
+  "R12": {
+   "file": "daily-log-2026-07-10.md",
+   "rule": "Whenever the user says \"Acme Recap\", check and update the pending-tasks-acme memory."
+  },
+  "R13": {
+   "file": "daily-log-2026-07-11.md",
+   "rule": "Do not fix the CORS error in the exchange-rate fetch (api.frankfurter.app blocked in lib/currency.ts/store/currencyStore.ts) until the user says to."
+  },
+  "R14": {
+   "file": "daily-log-2026-07-11.md",
+   "rule": "Do not mention the Frankfurter/CORS exchange-rate issue to Scott, in the daily log or in any other communication."
+  },
+  "R15": {
+   "file": "daily-log-2026-07-11.md",
+   "rule": "Do not add the Frankfurter/CORS exchange-rate issue to the client-facing daily log unless the user explicitly approves it."
+  },
+  "R16": {
+   "file": "daily-log-2026-07-14.md",
+   "rule": "Do not build import or send tooling for the 51k lead list (Brisk CRM) unless its provenance question has been resolved differently than before."
+  },
+  "R17": {
+   "file": "feedback-51k-leads-recurring.md",
+   "rule": "If the 51k secondhand lead list resurfaces in a future session, apply the same CASL concerns without re-litigating the issue from scratch."
+  },
+  "R18": {
+   "file": "feedback-51k-leads-recurring.md",
+   "rule": "If the 51k secondhand lead list resurfaces in a future session, link back to the existing memory about it."
+  },
+  "R19": {
+   "file": "feedback-51k-leads-recurring.md",
+   "rule": "The Owner/Executive + Small-Mid targeting logic may be used for outreach; only the 51k list itself is off-limits."
+  },
+  "R20": {
+   "file": "feedback-51k-leads-recurring.md",
+   "rule": "When the 51k list comes up, suggest applying the same technical email infrastructure to a small, hand-picked, individually-researched, publicly-sourced list instead of the 51k list."
+  },
+  "R21": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When the user says \"Create Daily Log\", follow the daily log process every time."
+  },
+  "R22": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, check the MEMORY.md index first."
+  },
+  "R23": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, read every daily log and project memory relevant to today's date."
+  },
+  "R24": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, include everything done in the active conversation, including tool calls and results."
+  },
+  "R25": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, read any existing daily log files in the Client Requirements Checklist folder for context."
+  },
+  "R26": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, read the June 18 log in the Client Requirements Checklist folder as a format reference."
+  },
+  "R27": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Write the daily log to Client Requirements Checklist/DAILY_LOG_YYYY-MM-DD.md, using today's date."
+  },
+  "R28": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Never overwrite a previous day's daily log file."
+  },
+  "R29": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "When creating a daily log, append to or update memory/daily-log-YYYY-MM-DD.md so it reflects all sessions."
+  },
+  "R30": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Title the daily log \"# End of Day Report — [Date]\", with the actual date."
+  },
+  "R31": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Write the daily log in third person."
+  },
+  "R32": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Never address the reader as \"you\" in the daily log."
+  },
+  "R33": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Write the daily log as a professional business EDR, not a tutorial or walkthrough."
+  },
+  "R34": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Organize the daily log sections in this order: Summary, Completed Today, Discovered During Work, Pending Carry-Over, Waiting on Scott."
+  },
+  "R35": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Present the Completed Today section as a numbered list."
+  },
+  "R36": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Present the Pending Carry-Over section as a table."
+  },
+  "R37": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Present the Waiting on Scott section as a table."
+  },
+  "R38": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "Use no technical jargon in the daily log; use layman's terms throughout."
+  },
+  "R39": {
+   "file": "feedback-create-daily-log.md",
+   "rule": "If stock quantities or specific data were updated, include the full table in the daily log."
+  },
+  "R40": {
+   "file": "feedback-git-push.md",
+   "rule": "Never run git push, git commit, git add, or any destructive git command."
+  },
+  "R41": {
+   "file": "feedback-git-push.md",
+   "rule": "After making code changes, stop at the file edits and do not proceed to any git operations."
+  },
+  "R42": {
+   "file": "feedback-git-push.md",
+   "rule": "After making code changes, tell the user what was changed and let them commit and push themselves."
+  },
+  "R43": {
+   "file": "feedback-git-push.md",
+   "rule": "Do not stage, commit, or push changes even if it seems like a natural next step."
+  },
+  "R44": {
+   "file": "feedback-mock-data-sync.md",
+   "rule": "When a required field is added to a shared type (AdminOrderItem, AdminProduct, or Product), update every mock array for that type in the same edit, without waiting for a build error."
+  },
+  "R45": {
+   "file": "feedback-mock-data-sync.md",
+   "rule": "If mock data coverage for a new field on AdminOrderItem, AdminProduct, or Product is hard to guarantee, consider making that field optional (`field?: type`) in the type definition."
+  },
+  "R46": {
+   "file": "feedback-no-api-keys-in-plans.md",
+   "rule": "Never put API keys, bearer tokens, secrets, or credentials in plan docs, spec docs, code files, or any markdown/documentation file."
+  },
+  "R47": {
+   "file": "feedback-no-api-keys-in-plans.md",
+   "rule": "In code, read secrets from `process.env.VAR_NAME` and never hardcode them."
+  },
+  "R48": {
+   "file": "feedback-no-api-keys-in-plans.md",
+   "rule": "Store secrets only in `.env.local` and Vercel environment variables, never in committed files."
+  },
+  "R49": {
+   "file": "feedback-no-api-keys-in-plans.md",
+   "rule": "In plan verification steps that need a real token, reference the environment variable name (e.g. `$UPSTASH_REDIS_REST_TOKEN`) and never write the actual value."
+  },
+  "R50": {
+   "file": "feedback-no-api-keys-in-plans.md",
+   "rule": "If a plan step needs a real curl command to test, instruct the user to run it themselves using the token from `.env.local` and do not write the token into the plan."
+  },
+  "R51": {
+   "file": "feedback-no-coauthor-trailer.md",
+   "rule": "Never add a Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com> trailer to git commit messages."
+  },
+  "R52": {
+   "file": "feedback-no-coauthor-trailer.md",
+   "rule": "When constructing any git commit -m message for this user's repos, leave off the Co-Authored-By trailer entirely, with nothing appended after the commit subject/body."
+  },
+  "R53": {
+   "file": "feedback-no-coauthor-trailer.md",
+   "rule": "When dispatching implementer or fix subagents, the dispatch prompt should explicitly say \"do not add a Co-Authored-By trailer.\""
+  },
+  "R54": {
+   "file": "feedback-no-coauthor-trailer.md",
+   "rule": "If a subagent's commit contains a Co-Authored-By trailer, run git commit --amend to strip it before merging or finishing the branch."
+  },
+  "R55": {
+   "file": "feedback-no-frasco-in-acme-docs.md",
+   "rule": "Never reference Frasco Industrial or any other separate client's project in Acme Vintage Supply daily logs."
+  },
+  "R56": {
+   "file": "feedback-no-frasco-in-acme-docs.md",
+   "rule": "Never reference Frasco Industrial or any other separate client's project in EDRs, emails, or any other document that reaches Scott or the Acme client."
+  },
+  "R57": {
+   "file": "feedback-no-frasco-in-acme-docs.md",
+   "rule": "Never mention Frasco Industrial in Acme-facing materials, even as an incidental aside such as correcting an unrelated mix-up."
+  },
+  "R58": {
+   "file": "feedback-no-frasco-in-acme-docs.md",
+   "rule": "When writing anything under the Client Requirements Checklist/ directory or otherwise destined for Scott, keep the scope strictly to Acme Vintage Supply / Acme Sign work."
+  },
+  "R59": {
+   "file": "feedback-no-frasco-in-acme-docs.md",
+   "rule": "If Frasco Industrial needs to be mentioned for internal tracking, keep it only in memory files or session notes, never in client-facing output."
+  },
+  "R60": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "Never describe acmesign.ca or any client site as hacked, compromised, or having suffered a security incident, even when correcting an earlier claim that used that language."
+  },
+  "R61": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "When the acmesign.ca situation needs describing, describe it neutrally as an access/permissions/handover matter rather than with security-incident language."
+  },
+  "R62": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "In daily logs, client-facing docs, emails, or anything that could be forwarded or shared, describe the acmesign.ca situation purely as an access/permissions/handover matter with the prior developer."
+  },
+  "R63": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "In daily logs, client-facing docs, emails, or anything that could be forwarded or shared, do not use the words \"hack,\" \"compromised,\" \"breach,\" or similar terms about acmesign.ca, even to deny them."
+  },
+  "R64": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "In internal memory notes, keep historical corrections about acmesign.ca brief and factual, without repeating escalation-prone security wording even in a 'do not say X' context."
+  },
+  "R65": {
+   "file": "feedback-no-hack-language.md",
+   "rule": "When asked to summarize past work involving acmesign.ca, use the neutral access/handover phrasing rather than quoting older memory entries verbatim."
+  },
+  "R66": {
+   "file": "feedback-supabase-lazy-client.md",
+   "rule": "Never create a Supabase client at module level (top of file) in a Next.js API route file."
+  },
+  "R67": {
+   "file": "feedback-supabase-lazy-client.md",
+   "rule": "Always wrap the Supabase client in a lazy getter function in Next.js API routes."
+  },
+  "R68": {
+   "file": "feedback-supabase-lazy-client.md",
+   "rule": "Call the Supabase client getter (e.g. getSupabase()) inside handler functions rather than at module level."
+  },
+  "R69": {
+   "file": "feedback-supabase-lazy-client.md",
+   "rule": "Apply the lazy Supabase client getter pattern to all Next.js API routes, both admin and public."
+  },
+  "R70": {
+   "file": "pending-tasks-acme.md",
+   "rule": "When the user says \"Acme Recap,\" check the Acme Vintage Supply next-shift to-do list and surface its open items."
+  },
+  "R71": {
+   "file": "pending-tasks-acme.md",
+   "rule": "Remove an Acme to-do item from the list once the user confirms it is completed."
+  },
+  "R72": {
+   "file": "pending-tasks-acme.md",
+   "rule": "Add a task to the Acme to-do list whenever the user explicitly defers it to a future session."
+  },
+  "R73": {
+   "file": "pending-tasks-acme.md",
+   "rule": "If the 51k Brisk CRM lead list resurfaces, do not build import or send tooling for it without first re-confirming where the list came from."
+  },
+  "R74": {
+   "file": "plan-color-variants.md",
+   "rule": "When the user says \"Acme recap\", include the color variant support plan summary in the response."
+  },
+  "R75": {
+   "file": "plan-multicolour-cart.md",
+   "rule": "When resuming this multi-colour cart work, invoke the `superpowers:writing-plans` skill and reference this memory."
+  },
+  "R76": {
+   "file": "plan-multicolour-cart.md",
+   "rule": "Build the multi-colour cart changes in this order: first `crateStore.ts`, then `ProductInfo.tsx`, then the cart display components."
+  },
+  "R77": {
+   "file": "project-2026-07-15-security-incident-job-status.md",
+   "rule": "If Peter returns to the Acme Vintage Supply, Acme Sign, or Frasco project, check whether the account transfers listed in the handover doc have happened."
+  },
+  "R78": {
+   "file": "project-2026-07-15-security-incident-job-status.md",
+   "rule": "Do not propose \"next shift\" tasks for Peter unless he says he is picking the project back up in some other capacity."
+  },
+  "R79": {
+   "file": "project-2026-07-15-security-incident-job-status.md",
+   "rule": "Do not treat pending items in [[pending-tasks-acme]] as active work for Peter unless he says he is picking the project back up in some other capacity."
+  },
+  "R80": {
+   "file": "project-2026-07-15-security-incident-job-status.md",
+   "rule": "Do not assume prior daily-log-style project memories about deployment/hosting ownership are still accurate after July 15, 2026."
+  },
+  "R81": {
+   "file": "project-2026-07-15-security-incident-job-status.md",
+   "rule": "Verify current deployment/hosting ownership against the handover doc rather than older memories."
+  },
+  "R82": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "After completing a phase of the storefront build, ask the user \"Continue with the next phase?\""
+  },
+  "R83": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Do not start the next build phase until the user has explicitly replied \"Yes, Proceed.\""
+  },
+  "R84": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Define all design tokens in the `@theme {}` block in `app/globals.css`."
+  },
+  "R85": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Do not create a `tailwind.config.ts` file."
+  },
+  "R86": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "When a required field is added to `AdminOrderItem`, `AdminProduct`, or `Product`, also add it to the corresponding mock arrays in `lib/admin/mockData.ts` and `lib/mockData.ts`."
+  },
+  "R87": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Do not use the Customer Account API or decode JWTs in the profile route."
+  },
+  "R88": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Do not reconnect acmevintagesupply.com in Shopify → Domains, because it overwrites GoDaddy DNS records."
+  },
+  "R89": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "When updating stock quantities for existing Shopify products, use bulk edit rather than a CSV import, to avoid creating duplicates."
+  },
+  "R90": {
+   "file": "project-acme-lamp-sign.md",
+   "rule": "Wrap the bcrypt `ADMIN_PASSWORD_HASH` value in single quotes in `.env.local`."
+  },
+  "R91": {
+   "file": "project-acmesign-ca.md",
+   "rule": "Never store WordPress login credentials or passwords in memory files."
+  },
+  "R92": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When revising the acmesign.ca service categories, keep all existing categories."
+  },
+  "R93": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When building or redesigning acmesign.ca, use the confirmed service category list rather than any other list."
+  },
+  "R94": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When building or redesigning acmesign.ca, make LED Signs the hero/featured feature of the site."
+  },
+  "R95": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When building or redesigning acmesign.ca, use the 271 WebP images from the WordPress download as the real gallery/portfolio images."
+  },
+  "R96": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When Scott's approval or feedback on the acme-sign.vercel.app preview is unknown, ask Peter for an update rather than assuming a status."
+  },
+  "R97": {
+   "file": "project-acmesign-ca.md",
+   "rule": "When discussing the acmesign.ca access restriction by Evan Mugford, follow the phrasing guidance in the feedback-no-hack-language memory file."
+  },
+  "R98": {
+   "file": "project-acmesign-ca.md",
+   "rule": "Treat the Sanity-based final-acmesign/acme-sign-redesign project as abandoned and do not use it as the active project."
+  },
+  "R99": {
+   "file": "project-analytics-activity-logs.md",
+   "rule": "When the user says \"Acme Recap\" at the start of a session, surface the project-analytics-activity-logs memory immediately."
+  },
+  "R100": {
+   "file": "project-analytics-activity-logs.md",
+   "rule": "When the user says \"Acme Recap\" at the start of a session, open the plan file docs/superpowers/plans/2026-06-20-analytics-activity-logs.md."
+  },
+  "R101": {
+   "file": "project-analytics-activity-logs.md",
+   "rule": "When resuming the analytics & activity logs project, start implementation at Task 1 of the plan, since nothing has been implemented yet."
+  },
+  "R102": {
+   "file": "project-analytics-activity-logs.md",
+   "rule": "Execute the analytics & activity logs plan using subagent-driven development or inline execution, following the user's stated preference."
+  },
+  "R103": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "Do not build the cancel order flow or policy pages until Scott provides a clear written return policy."
+  },
+  "R104": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "Do not build a cancel/refund flow before the return policy is defined."
+  },
+  "R105": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "When building the Returns page, use an honest \"contact us\" approach and do not state a fake 30-day return policy."
+  },
+  "R106": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "Change the footer label from \"30-Day Returns\" to \"Returns & Refunds\"."
+  },
+  "R107": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "On the account orders tab and Track Order, link \"Need help with this order?\" to `/contact` prefilled with the order number, and do not add a cancel button."
+  },
+  "R108": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "Build the full cancel request flow (account, guest, admin flag, and email) only after Scott commits to a policy."
+  },
+  "R109": {
+   "file": "project-cancel-return-deferred.md",
+   "rule": "When Scott sends a clear written return or cancellation policy, resume the deferred cancel/return work."
+  },
+  "R110": {
+   "file": "project-cms-subproject-2.md",
+   "rule": "In the next session, resume work with Sub-project 3: Story & Heritage CMS, which covers the /admin/content/story page with Our Story and Heritage Timeline tabs and storefront wiring."
+  },
+  "R111": {
+   "file": "project-cms-subproject-4.md",
+   "rule": "When planning the next CMS sub-project, check with Peter or Scott to find out what content area to build next."
+  },
+  "R112": {
+   "file": "project-email-templates.md",
+   "rule": "When the user says \"Acme Recap\" at the start of a session, include \"Plan the Acme branded email templates feature (Option A — pre-built templates in admin marketing page)\" in the To Do list."
+  },
+  "R113": {
+   "file": "project-email-templates.md",
+   "rule": "If Robin has not replied about the Facebook Full Control access request, follow up with Robin or ask Scott to escalate it."
+  },
+  "R114": {
+   "file": "project-facebook-marketing.md",
+   "rule": "When working on social media or marketing tasks for Acme Vintage Supply, treat the 27 listed Facebook groups as the target groups for Scott to join and post product listings in."
+  },
+  "R115": {
+   "file": "project-frasco.md",
+   "rule": "Do not mention the Frasco site to Scott Fraser until Peter gives the go-ahead."
+  },
+  "R116": {
+   "file": "project-frasco.md",
+   "rule": "Treat the Frasco site as in-progress work being staged, not as a finished deliverable shown to the client."
+  },
+  "R117": {
+   "file": "project-freelance-paul-crm-outreach.md",
+   "rule": "When writing outreach templates for Peter's freelance work, do not open with the business pitch; use a self-introduction-first structure."
+  },
+  "R118": {
+   "file": "project-freelance-paul-crm-outreach.md",
+   "rule": "Do not use the 51k lead list for outreach; use the 8 individually-researched Ontario restaurant prospects instead."
+  },
+  "R119": {
+   "file": "project-freelance-paul-crm-outreach.md",
+   "rule": "Do not propose spending money on infrastructure polish such as a branded mailbox or paid tools while Peter has stated he is broke."
+  },
+  "R120": {
+   "file": "project-freelance-paul-crm-outreach.md",
+   "rule": "Before suggesting more CRM feature work, check whether the 8 Ontario restaurants have been contacted yet."
+  },
+  "R121": {
+   "file": "project-freelance-paul-crm-outreach.md",
+   "rule": "Do not add a Co-Authored-By trailer to Paul CRM commits."
+  },
+  "R122": {
+   "file": "project-order-logistics.md",
+   "rule": "When building the order detail page print features, use `window.print()` with a print-specific CSS class that hides admin chrome and shows only the document."
+  },
+  "R123": {
+   "file": "project-order-logistics.md",
+   "rule": "When building the order detail page print features, keep them customizable so that the logo, address format, and custom fields can be changed."
+  },
+  "R124": {
+   "file": "reference-env-vars.md",
+   "rule": "Never paste real secret token values into memory files or plan docs."
+  },
+  "R125": {
+   "file": "reference-env-vars.md",
+   "rule": "When writing ADMIN_PASSWORD_HASH in .env.local, wrap the value in single quotes."
+  },
+  "R126": {
+   "file": "reference-env-vars.md",
+   "rule": "Do not wrap ADMIN_PASSWORD_HASH in double quotes in .env.local."
+  },
+  "R127": {
+   "file": "reference-env-vars.md",
+   "rule": "If UPSTASH_REDIS_REST_TOKEN or BLOB_READ_WRITE_TOKEN is pasted into a plan doc or committed to git, rotate it immediately at upstash.com or vercel.com/storage."
+  },
+  "R128": {
+   "file": "reference-shopify-401-pixel-error.md",
+   "rule": "Do not attribute the Shopify private_access_tokens 401 error to the project's own code; treat it as Shopify's internal script failing, and look for no code fix on our end."
+  },
+  "R129": {
+   "file": "reference-shopify-401-pixel-error.md",
+   "rule": "Do not attempt a code fix for the Shopify private_access_tokens 401 error; it resolves on its own once the store goes live."
+  },
+  "R130": {
+   "file": "user-identity.md",
+   "rule": "Address the user as Peter, Paul, or FearCleevan."
+  },
+  "R131": {
+   "file": "user-identity.md",
+   "rule": "Never address the user as Jonathan."
+  }
+ },
+ "Firesofiso__mouse-platformer": {
+  "R1": {
+   "file": "feedback_debug_first.md",
+   "rule": "Before changing code in this project, diagnose the problem via debug instrumentation first."
+  },
+  "R2": {
+   "file": "feedback_debug_first.md",
+   "rule": "Before any fix to runtime behavior, add a targeted Debug.Log or use execute_code to inspect live state, answering one specific question."
+  },
+  "R3": {
+   "file": "feedback_debug_first.md",
+   "rule": "After adding diagnostics, read the console or execute_code result before writing any code."
+  },
+  "R4": {
+   "file": "feedback_debug_first.md",
+   "rule": "Only write fix code after the diagnostic results have been read."
+  },
+  "R5": {
+   "file": "feedback_debug_first.md",
+   "rule": "For Unity physics, never assume which collider is coll.collider versus coll.otherCollider; verify with logs first."
+  },
+  "R6": {
+   "file": "feedback_debug_first.md",
+   "rule": "For Unity physics, never assume which layer something is on; verify with logs first."
+  },
+  "R7": {
+   "file": "feedback_debug_first.md",
+   "rule": "For Unity physics, never assume whether a method is being called; verify with logs first."
+  },
+  "R8": {
+   "file": "feedback_debug_first.md",
+   "rule": "For Unity physics debugging, first check whether the code is running and what the actual values are."
+  },
+  "R9": {
+   "file": "feedback_debug_first.md",
+   "rule": "Never ask the user to perform in-game actions that the agent can trigger or observe itself."
+  },
+  "R10": {
+   "file": "feedback_debug_first.md",
+   "rule": "If Unity MCP is not connected, stop problem solving and escalate immediately."
+  },
+  "R11": {
+   "file": "feedback_debug_first.md",
+   "rule": "After adding any debug log or diagnostic code, verify it yourself using Unity MCP execute_code and read_console."
+  },
+  "R12": {
+   "file": "feedback_debug_first.md",
+   "rule": "After adding debug or diagnostic code, do not ask the user to throw or trigger things to verify it."
+  },
+  "R13": {
+   "file": "feedback_debug_first.md",
+   "rule": "If Unity MCP is disconnected, stop and say so immediately before attempting further problem solving."
+  },
+  "R14": {
+   "file": "feedback_prefab_over_code.md",
+   "rule": "Fix missing or wrong asset configuration (prefabs, ScriptableObjects, scene objects) directly in the asset instead of compensating with runtime code."
+  },
+  "R15": {
+   "file": "feedback_prefab_over_code.md",
+   "rule": "If a component shouldn't exist on a prefab, remove it from the prefab rather than working around it in code."
+  },
+  "R16": {
+   "file": "feedback_prefab_over_code.md",
+   "rule": "If a value is wrong in an asset, fix the value in that asset rather than in code."
+  },
+  "R17": {
+   "file": "feedback_prefab_over_code.md",
+   "rule": "Use runtime code to handle configuration only when the behavior genuinely needs to be dynamic."
+  },
+  "R18": {
+   "file": "feedback_surface_session_tasks.md",
+   "rule": "If a memory entry describes a specific pending task, call it out explicitly to the user at the start of the session before acting on it."
+  },
+  "R19": {
+   "file": "feedback_surface_session_tasks.md",
+   "rule": "After unity-session-start, scan memory for actionable task entries."
+  },
+  "R20": {
+   "file": "feedback_surface_session_tasks.md",
+   "rule": "When stating a pending memory task to the user, state it plainly in one sentence covering what needs doing and why."
+  },
+  "R21": {
+   "file": "feedback_unity_mcp.md",
+   "rule": "When working in a Unity project, perform editor-side tasks (creating prefabs, ScriptableObject assets, scene wiring, inspector references, layer/tag setup, etc.) yourself via the Unity MCP server rather than writing a checklist of editor steps for the user."
+  },
+  "R22": {
+   "file": "feedback_unity_mcp.md",
+   "rule": "By default, perform Unity editor work via Unity MCP."
+  },
+  "R23": {
+   "file": "feedback_unity_mcp.md",
+   "rule": "In Unity projects, surface editor work to the user only when it involves architectural/design decisions worth them seeing, steps demonstrating something non-obvious about the system built, or authoring choices (sprite art, particle tuning, copy) that need their taste."
+  },
+  "R24": {
+   "file": "feedback_unity_mcp.md",
+   "rule": "When unsure whether the user wants to be informed about Unity editor work, ask whether they want to be aware of anything or whether it is mostly tedium, and do not assume they want a writeup."
+  },
+  "R25": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "When you realize you don't know a fact needed for a diagnosis, your next action must be a tool call that answers it, not a code change, proposal, or guess."
+  },
+  "R26": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "If a fix requires knowing a fact, establish that fact before making the fix."
+  },
+  "R27": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "When diagnosing a runtime bug in Unity and unsure whether code is running, call read_console before changing anything."
+  },
+  "R28": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "When the sprite pivot direction is unknown in Unity, use execute_code to print sprite.pivot / sprite.rect.size rather than guessing."
+  },
+  "R29": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "When text bounds are larger than the visible content in Unity, use execute_code to print CharacterInfo.minY/maxY per glyph rather than inferring the cause."
+  },
+  "R30": {
+   "file": "feedback_unknowns_are_blockers.md",
+   "rule": "When the position of a child relative to its parent is unknown in Unity, use execute_code to print localPosition, localScale, and bounds.min/max rather than assuming."
+  }
+ },
+ "JD-2207__CSI-ISAC": {
+  "R1": {
+   "file": "38843-csi-alignment.md",
+   "rule": "Make the spec-alignment changes incrementally, one bit at a time, and have the user review each bit before moving on."
+  },
+  "R2": {
+   "file": "38843-csi-alignment.md",
+   "rule": "Do not launch the real CSI-representation training run until the user gives explicit go-ahead."
+  },
+  "R3": {
+   "file": "38843-csi-alignment.md",
+   "rule": "When running the CSI-representation experiment, run the 10k proxy first, then confirm the result on 100k data."
+  },
+  "R4": {
+   "file": "38843-csi-alignment.md",
+   "rule": "Do not interpret the invalid raw-MLP full-channel positioning result as showing that the codeword beats dedicated full-channel positioning."
+  },
+  "R5": {
+   "file": "38843-csi-alignment.md",
+   "rule": "Before using the dedicated-positioning (6c) comparison, rerun it with --loc_fourier_features 256 on both arms and/or build a conv-front-end arm B."
+  },
+  "R6": {
+   "file": "38843-csi-alignment.md",
+   "rule": "If a precoding multi-gNB run is wanted, add the csi_repr flag to build_multignb_feeds."
+  },
+  "R7": {
+   "file": "38843-csi-alignment.md",
+   "rule": "Hold the per-layer model retrain until the user picks which lever to pursue."
+  },
+  "R8": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "In the thesis, state that the >1 m NLOS errors in the dense-urban scene are consistent with 3GPP's own findings, where sub-meter accuracy at 90% is not achieved in NLOS-heavy scenarios, rather than presenting them as a weakness of the method."
+  },
+  "R9": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Do not claim that the DL-ISAC positioning method beats the 38.857 target of <1 m at 90%, since it is positioned from the comms feedback codeword."
+  },
+  "R10": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Claim the positioning-resource-efficiency advantage (zero dedicated PRS/SRS) as the win for the DL-ISAC method, instead of claiming superior accuracy against the 38.857 target."
+  },
+  "R11": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Report positioning accuracy at the 67th and 80th percentiles in addition to p50 and p90, to match the 38.857 CDF reporting for spec faithfulness."
+  },
+  "R12": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Cite TR 22.837 for the sensing KPI vocabulary (accuracy, latency, missed-detection, false-alarm, etc.)."
+  },
+  "R13": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Scope the thesis work to the device-based positioning branch using 38.857 metrics, not the device-free object-sensing branch that uses 22.837 metrics."
+  },
+  "R14": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Verify the specification version (e.g., Rel-19 j00 versus Rel-18 i00) before citing a 3GPP technical report."
+  },
+  "R15": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Do not attribute the point that NMSE does not map to sum-rate to TR 38.843; it comes from academic paper 2605.08628, and the 3GPP spec lists SGCS and NMSE as co-equal."
+  },
+  "R16": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Report the AI/ML positioning results as a CDF and reference the 38.857 targets only as context, not as targets that TR 38.843 imposes on AI/ML positioning."
+  },
+  "R17": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Cite TR 38.843 §8 as the authoritative source for both the CSI-compression conclusion and the positioning conclusion."
+  },
+  "R18": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Cite TS 22.137 for normative 5G sensing service requirements, since TS 22.261 only delegates to it."
+  },
+  "R19": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Add an NLOS-mitigated classical positioning baseline arm (e.g., BLADE-style) to the classical localization comparison, not only raw DL-TDOA."
+  },
+  "R20": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Frame the DL positioning method as angular/spatial fingerprinting, which sidesteps the synchronization and NLOS timing-bias problems that affect DL-TDOA."
+  },
+  "R21": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "If a faithful classical DL-TDOA baseline is added, mirror the 38.855 PRS configuration (comb-6, 8 symbols, 4 occasions, 19 sites)."
+  },
+  "R22": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "When citing a specification clause, read the actual clause body at citation time rather than relying on the table of contents."
+  },
+  "R23": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "For experiment #1, stop reading the specifications and proceed to build, since further spec reading has diminishing returns."
+  },
+  "R24": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Revisit the skimmed TR 38.843 protocol (§7.2) and test encoder/decoder (§7.3.2.4) sections only if a deployment or testability claim is needed."
+  },
+  "R25": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "In experiment #1, report the CsiNet+ parameter count and FLOPs for honesty about model complexity."
+  },
+  "R26": {
+   "file": "3gpp-kpi-targets.md",
+   "rule": "Pair the migration to the Option 1b precoding-based target with rank 2/4 experiments, not with rank-1 setups."
+  },
+  "R27": {
+   "file": "5g-system-primer.md",
+   "rule": "Show protocol frames as drawn figures rather than describing them in prose or label text."
+  },
+  "R28": {
+   "file": "5g-system-primer.md",
+   "rule": "Draw each control frame inside the row of the protocol layer that creates it."
+  },
+  "R29": {
+   "file": "5g-system-primer.md",
+   "rule": "Do not force structural figures into sequence diagrams, or flow diagrams into structural figures."
+  },
+  "R30": {
+   "file": "5g-system-primer.md",
+   "rule": "When replacing one artifact with another, diff the information content rather than eyeballing it."
+  },
+  "R31": {
+   "file": "5g-system-primer.md",
+   "rule": "When checking a replacement artifact, probe a list of spec terms and numbers in its extracted text."
+  },
+  "R32": {
+   "file": "5g-system-primer.md",
+   "rule": "After diffing artifacts, report what information was lost in the replacement."
+  },
+  "R33": {
+   "file": "5g-system-primer.md",
+   "rule": "Make hand-drawn SVG figures follow the house style of the existing figures/*.svg files."
+  },
+  "R34": {
+   "file": "5g-system-primer.md",
+   "rule": "Include <title> and <desc> elements in hand-drawn SVG figures."
+  },
+  "R35": {
+   "file": "5g-system-primer.md",
+   "rule": "Define colours in hand-drawn SVGs as CSS custom properties with prefers-color-scheme and [data-theme] dark variants."
+  },
+  "R36": {
+   "file": "5g-system-primer.md",
+   "rule": "Use system-ui for text and ui-monospace for code in hand-drawn SVG figures."
+  },
+  "R37": {
+   "file": "5g-system-primer.md",
+   "rule": "Include figures as SVG files referenced with ![]() in Markdown, never as inline <svg>."
+  },
+  "R38": {
+   "file": "5g-system-primer.md",
+   "rule": "From literature/explainers/, reference figures via the ../../figures/ path."
+  },
+  "R39": {
+   "file": "5g-system-primer.md",
+   "rule": "When writing an SVG generator, compute segment widths from measured text length and font size so labels do not overflow."
+  },
+  "R40": {
+   "file": "5g-system-primer.md",
+   "rule": "Do not use semicolons inside mermaid label text."
+  },
+  "R41": {
+   "file": "5g-system-primer.md",
+   "rule": "Use the syntax <-. \"label\" .-> for labelled bidirectional dotted arrows in mermaid, not <-. \"label\" .-."
+  },
+  "R42": {
+   "file": "5g-system-primer.md",
+   "rule": "Append a trailing <br/> to multi-line mermaid message labels so the arrow is not drawn through the last line."
+  },
+  "R43": {
+   "file": "5g-system-primer.md",
+   "rule": "Do not use &nbsp; in mermaid labels."
+  },
+  "R44": {
+   "file": "5g-system-primer.md",
+   "rule": "Keep each mermaid note line to about 45 characters or fewer."
+  },
+  "R45": {
+   "file": "5g-system-primer.md",
+   "rule": "Span mermaid notes over two participants where possible to halve the column-width cost."
+  },
+  "R46": {
+   "file": "5g-system-primer.md",
+   "rule": "Use rect rgba(128,128,128,0.10) to create theme-safe phase bands in mermaid sequence diagrams."
+  },
+  "R47": {
+   "file": "5g-system-primer.md",
+   "rule": "For stack figures in mermaid, use flowchart LR with direction TB inside subgraphs so peers align horizontally."
+  },
+  "R48": {
+   "file": "5g-system-primer.md",
+   "rule": "When render-checking, extract every fenced mermaid block from the document."
+  },
+  "R49": {
+   "file": "5g-system-primer.md",
+   "rule": "Render-check mermaid diagrams with mermaid.render(), not just parse."
+  },
+  "R50": {
+   "file": "5g-system-primer.md",
+   "rule": "After rendering mermaid diagrams, take a screenshot and read it to check the layout."
+  },
+  "R51": {
+   "file": "5g-system-primer.md",
+   "rule": "Extract mermaid blocks for render-checking from the document itself, not from a scratchpad copy."
+  },
+  "R52": {
+   "file": "5g-system-primer.md",
+   "rule": "Set dangerouslyDisableSandbox to true when running headless Chrome."
+  },
+  "R53": {
+   "file": "5g-system-primer.md",
+   "rule": "Pass an absolute path for Chrome's --user-data-dir."
+  },
+  "R54": {
+   "file": "5g-system-primer.md",
+   "rule": "Pass an absolute path for Chrome's --screenshot option."
+  },
+  "R55": {
+   "file": "5g-system-primer.md",
+   "rule": "Open local files in headless Chrome with a Windows-style file:///C:/ URL."
+  },
+  "R56": {
+   "file": "5g-system-primer.md",
+   "rule": "Use the venv environment for PIL image cropping, since PIL is not in base Python."
+  },
+  "R57": {
+   "file": "5g-system-primer.md",
+   "rule": "Keep the walkthrough companion doc theory-only, without practical or hardware subsections."
+  },
+  "R58": {
+   "file": "5g-system-primer.md",
+   "rule": "Extend the provenance section with new claims rather than re-verifying already-verified claims."
+  },
+  "R59": {
+   "file": "5g-system-primer.md",
+   "rule": "Keep newline=\"\\r\\n\" in svg_kit.write so regenerated SVGs match CRLF line endings."
+  },
+  "R60": {
+   "file": "5g-system-primer.md",
+   "rule": "Edit figures/5g_frame_waterfall.svg by hand, since its generator no longer exists."
+  },
+  "R61": {
+   "file": "5g-system-primer.md",
+   "rule": "When editing thesis_writing_guidelines.md, write in Spanish to match the file's language."
+  },
+  "R62": {
+   "file": "5g-system-primer.md",
+   "rule": "In thesis text, report goodput/throughput figures comparatively relative to perfect CSI, never as absolute values."
+  },
+  "R63": {
+   "file": "5g-system-primer.md",
+   "rule": "When structuring an explainer, start from the single most comprehensible artefact."
+  },
+  "R64": {
+   "file": "5g-system-primer.md",
+   "rule": "Make each level of an explainer zoom into one box of the previous level's figure."
+  },
+  "R65": {
+   "file": "5g-system-primer.md",
+   "rule": "End each explainer section with a \"What this raises\" list that forward-points to the level answering each question."
+  },
+  "R66": {
+   "file": "5g-system-primer.md",
+   "rule": "Number figures locally within each section."
+  },
+  "R67": {
+   "file": "5g-system-primer.md",
+   "rule": "Present the section's header, body, and footer as one integrated figure rather than separate sections."
+  },
+  "R68": {
+   "file": "5g-system-primer.md",
+   "rule": "Include the uplink mirror as a footer of the integrated figure."
+  },
+  "R69": {
+   "file": "5g-system-primer.md",
+   "rule": "Look up legal field combinations in the specification rather than deriving them from physics."
+  },
+  "R70": {
+   "file": "5g-system-primer.md",
+   "rule": "Prefer a self-contained derivation over an appeal to authority when justifying a thesis claim."
+  },
+  "R71": {
+   "file": "5g-system-primer.md",
+   "rule": "State the rank-1 channel claim as an empirical finding, not as an assumption."
+  },
+  "R72": {
+   "file": "backup-to-f-drive.md",
+   "rule": "Do not treat git as a backup of the thesis source; the F: file mirror is the authoritative copy of the source code."
+  },
+  "R73": {
+   "file": "backup-to-f-drive.md",
+   "rule": "Do not assume CSI\\memory is a regular directory; it is a junction into .claude\\projects\\<key>\\memory."
+  },
+  "R74": {
+   "file": "backup-to-f-drive.md",
+   "rule": "When interpreting robocopy results, treat exit codes 0–7 as success and only exit codes 8 or higher as failure."
+  },
+  "R75": {
+   "file": "backup-to-f-drive.md",
+   "rule": "Do not point the backup script's -Dest parameter at a drive root, since /MIR would delete data on the destination."
+  },
+  "R76": {
+   "file": "backup-to-f-drive.md",
+   "rule": "Do not delete F:\\Javier_old\\users-fernando until the new backup has been verified as trustworthy."
+  },
+  "R77": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Benchmark every deep-learning method against established reference methods, not only against its own ablation variants."
+  },
+  "R78": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Include the industry-standard baseline (the 3GPP Rel-16 enhanced Type-II codebook, spatial+delay) when benchmarking a DL method."
+  },
+  "R79": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Include the classical compressive-sensing baselines (LASSO, TVAL3, BM3D-AMP, OMP, as in CsiNet) when benchmarking a DL method."
+  },
+  "R80": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Evaluate all baselines and DL methods on the same held-out test split."
+  },
+  "R81": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Present results as rate–distortion curves of NMSE versus feedback bits."
+  },
+  "R82": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "When proposing or evaluating any DL method, proactively include an industry-standard baseline and a classical baseline on the shared test split."
+  },
+  "R83": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "Do not wait for the user to remind you to include the industry-standard and classical baselines."
+  },
+  "R84": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "In the thesis, use the RIP-based recoverable-K estimate (about 60 at M=256) as the operative recoverable-sparsity figure."
+  },
+  "R85": {
+   "file": "baselines-requirement-and-theory.md",
+   "rule": "In the thesis, label the mutual-coherence-based bound (K≈2) as worst-case."
+  },
+  "R86": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "When evaluating beamforming, derive the MRT/conjugate beamformer from each channel reconstruction Ĥ."
+  },
+  "R87": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "When evaluating beamforming, score the derived beamformer against the true channel, not the reconstructed channel."
+  },
+  "R88": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "When presenting beamforming results, plot beamforming gain or rate against compression ratio η and against SNR."
+  },
+  "R89": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "When reporting the eType-II baseline, report both the faithful and simplified variants, with the faithful variant as the primary result."
+  },
+  "R90": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "Label the simplified baseline as a \"simplified Type-II-style DFT-codebook baseline\", not as eType-II or Rel-16."
+  },
+  "R91": {
+   "file": "beamforming-eval-deliverable.md",
+   "rule": "Do not write any conclusion in the §4c overhead-matched comparison about which method wins until the confound is resolved."
+  },
+  "R92": {
+   "file": "canyon-toy-scene.md",
+   "rule": "Do not use the toy simple_street_canyon dataset as a replacement for the Munich experiment; use it only to visualize ray-tracing/simulator features."
+  },
+  "R93": {
+   "file": "canyon-toy-scene.md",
+   "rule": "When an NLOS demo is needed in the canyon scene, offset the gNB behind a building or sample UEs in the cross-streets, since the open corridor is almost all LOS."
+  },
+  "R94": {
+   "file": "canyon-toy-scene.md",
+   "rule": "For distinguishable ray-path figures in the canyon scene, use the down-canyon camera (canyon_axis_camera, looking along +x from behind the gNB)."
+  },
+  "R95": {
+   "file": "canyon-toy-scene.md",
+   "rule": "For distinguishable ray-path figures, use few UEs and a low max depth."
+  },
+  "R96": {
+   "file": "canyon-toy-scene.md",
+   "rule": "Render the final clean fig_ray_paths figure with n_ue=2 and max_depth=2."
+  },
+  "R97": {
+   "file": "classical-loc-baseline.md",
+   "rule": "When comparing an achieved localization error to a CRLB bound, compare the median (p50) of the LOS errors, not the MAE, because outliers corrupt the LOS mean."
+  },
+  "R98": {
+   "file": "classical-loc-baseline.md",
+   "rule": "When estimating sensor noise for a CRLB from measured errors, use a robust (MAD) scale rather than the standard deviation."
+  },
+  "R99": {
+   "file": "classical-loc-baseline.md",
+   "rule": "Report AoA+ToA fusion as the headline classical positioning method when presenting classical baseline results."
+  },
+  "R100": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "When sweeping a data-filtering threshold (such as min_norm_frac), keep the model's train/test split fixed so trained-on UEs do not leak into the test set."
+  },
+  "R101": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "Report median or norm-floored NMSE rather than mean NMSE, because mean NMSE is heavy-tailed."
+  },
+  "R102": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "Apply ifftshift to the CFR-to-delay output before citing absolute tap delays."
+  },
+  "R103": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "In the thesis, refer to the 97.66 kHz frequency samples as \"frequency samples / virtual subcarriers\" rather than NR subcarriers."
+  },
+  "R104": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "When evaluating the faithful charting re-test, judge success on label efficiency and local geometry (TW/CT, low-label MAE with anchors), not on beating full supervision on absolute MAE."
+  },
+  "R105": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "When claiming the Rel-16 eType-II implementation is faithful, state its single-polarization adaptation and (8,8)-array extrapolation caveats."
+  },
+  "R106": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "Document in the thesis that users are co-scheduled as random K-tuples (scheduler-agnostic assumption)."
+  },
+  "R107": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "State in the thesis that the scattering coefficient of 0.5 makes the NLOS channel richer than typical urban measurements."
+  },
+  "R108": {
+   "file": "code-vs-literature-audit.md",
+   "rule": "State in the thesis that the feedback SNR is domain-invariant, because the DFT/FFT transforms are unitary."
+  },
+  "R109": {
+   "file": "cross-scene-generalization.md",
+   "rule": "Do not use the checkpoint joint_los15_az170.pt for cross-scene evaluation, because it was trained with a random split and leaks test UEs in a geo-split test; use the geo-split source model results/geo_split/100k/geo_geographic.pt instead."
+  },
+  "R110": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Never push to the upstream git repo at `CSI\\csi_isac\\` (origin `jmoraispk/StochasticRTcomparison`); push only to the user's own repo, JD-2207/CSI-ISAC."
+  },
+  "R111": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "When preparing a commit for JD-2207/CSI-ISAC, only update files that are already tracked in that repo."
+  },
+  "R112": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "When preparing a commit for JD-2207/CSI-ISAC, add new files only under `src/exp/*.py`."
+  },
+  "R113": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+  },
+  "R114": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+  },
+  "R115": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+  },
+  "R116": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "After copying files into the JD-2207/CSI-ISAC clone, run `git diff --stat` to determine the actual set of changed files instead of relying on byte-compare results."
+  },
+  "R117": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Clone JD-2207/CSI-ISAC into a scratchpad directory before making changes for the user's repo."
+  },
+  "R118": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "When copying changed files into the cloned repo, place each file at its repo path according to the path mapping (e.g., `src/...` maps to `CSI\\csi_isac\\src\\...`)."
+  },
+  "R119": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "When a push credential dialog reports \"User cancelled\", verify whether the push succeeded by running `git ls-remote origin main` rather than assuming it failed."
+  },
+  "R120": {
+   "file": "csi-isac-github-repo.md",
+   "rule": "Do not add a co-author trailer to commit messages."
+  },
+  "R121": {
+   "file": "deepmimo-cross-simulator.md",
+   "rule": "Run any DeepMIMO entrypoint with the environment variable PYTHONUTF8=1 set, because dm.download's \"✓\" output crashes on Windows cp1252 stdout."
+  },
+  "R122": {
+   "file": "deepmimo-cross-simulator.md",
+   "rule": "In DeepMIMO v4.0.3, select active or uniform UE indices with ds.get_idxs(\"active\" or \"uniform\", ...) and apply them with ds.trim(idxs=...), instead of the removed subset, get_active_idxs, or get_uniform_idxs methods."
+  },
+  "R123": {
+   "file": "exp-folder-walkthrough.md",
+   "rule": "When asked to extend the src/exp/ code walkthrough in thesis_code_walkthrough_QA.md, continue topic numbering from Topic 76."
+  },
+  "R124": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Default experiments to the 10k dataset (data/rt_munich_64ant_10000ue_los15) rather than the 100k dataset."
+  },
+  "R125": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Only escalate to a 100k run to confirm a clear 10k signal that is worth confirming."
+  },
+  "R126": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Do not propose a 2h+ run as the first probe of an experiment."
+  },
+  "R127": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Do actual web research on established approaches to the specific problem (CSI feedback / NLOS localization / channel charting) before proposing or running experiments."
+  },
+  "R128": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Favor cheap, fast experiments and consolidation over multi-week new research pillars, given the thesis writing deadline."
+  },
+  "R129": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Any new research direction must fit alongside thesis writing, which starts the week of 2026-06-16."
+  },
+  "R130": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Re-scope effort estimates honestly against the thesis writing timeline."
+  },
+  "R131": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Follow the sequence: research candidate approaches, test the best candidate on 10k, and only then confirm on 100k."
+  },
+  "R132": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Quote fast runtimes (about 10–30 minutes) when proposing experiments."
+  },
+  "R133": {
+   "file": "fast-iteration-10k-preference.md",
+   "rule": "Consolidate the already-strong deliverables rather than starting new work."
+  },
+  "R134": {
+   "file": "identifiability-diagnostic.md",
+   "rule": "Use the Swin model only for channel reconstruction, not for localization."
+  },
+  "R135": {
+   "file": "identifiability-diagnostic.md",
+   "rule": "When describing multi-gNB in the roadmap, frame it as a coverage/robustness improvement, not as the headline localization fix."
+  },
+  "R136": {
+   "file": "localization-analysis.md",
+   "rule": "Prioritize reducing localization error (through model and data optimization) over building baselines or mutual-benefit work."
+  },
+  "R137": {
+   "file": "localization-analysis.md",
+   "rule": "Do not spend effort on denoising CSI for the localization task."
+  },
+  "R138": {
+   "file": "localization-analysis.md",
+   "rule": "Use CsiNet+ as the working backbone."
+  },
+  "R139": {
+   "file": "localization-analysis.md",
+   "rule": "Do not assume the timing-based bandwidth scaling from 38.857 applies to this method."
+  },
+  "R140": {
+   "file": "localization-analysis.md",
+   "rule": "When staged checkpoints become available, run the per-condition error breakdown diagnostic on them to compare against the current results."
+  },
+  "R141": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "For long-running RT dataset generation jobs (hours-long), always emit a progress bar that shows ETA."
+  },
+  "R142": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "For long-running RT dataset generation jobs, write a progress.json sidecar containing done, total, eta, rate, and updated fields so another process can poll it."
+  },
+  "R143": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "The generation runner (rt_localization_data_gen.py) prints a PROGRESS line in the format `PROGRESS [bar] % | done/total UE | rate | elapsed | ETA` for each shard."
+  },
+  "R144": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "The generation runner (rt_localization_data_gen.py) updates progress.json as it runs."
+  },
+  "R145": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "Compute the ETA for RT generation progress from the fraction of kept UEs."
+  },
+  "R146": {
+   "file": "long-job-progress-monitoring.md",
+   "rule": "When launching a multi-hour job in the background, arm a watcher that waits for the first progress line or error to confirm startup."
+  },
+  "R147": {
+   "file": "los-coverage-orientation.md",
+   "rule": "When choosing the gNB azimuth for a LOS/NLOS mix, calibrate it with the actual data-generation pipeline (quick 200-UE gens), not with the path-only coverage scan."
+  },
+  "R148": {
+   "file": "los-coverage-orientation.md",
+   "rule": "When reporting the LOS-vs-baseline A/B comparison in the thesis, state that the shoulder-pointing confound clusters LOS UEs spatially, so LOS partly marks a sub-region."
+  },
+  "R149": {
+   "file": "los-coverage-orientation.md",
+   "rule": "When a dataset directory name conflicts with its LOS percentage, treat meta.json as the source of truth rather than the directory name."
+  },
+  "R150": {
+   "file": "machine-migration-2026-08.md",
+   "rule": "Do not delete the Claude home backup at `C:\\Users\\javid\\Documents\\Javier\\.claude`, because it is the only copy of the pre-crash state."
+  },
+  "R151": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Keep the §4c thesis numbers and framing up to date as new results come in."
+  },
+  "R152": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Do not cite the direct-decoder result as evidence that the generative fix fails, because that result was retracted as an invalid test."
+  },
+  "R153": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Do not claim a matched-overhead reconstruction win over a faithful codebook in the §4c writeup."
+  },
+  "R154": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Frame the §4c writeup as showing that faithful Rel-16 eType-II matches or beats MSE-DL on matched-overhead MU-MIMO sum-rate, is robust across feedback SNR, and is not closed by a precoding-aware loss."
+  },
+  "R155": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "If the deterministic flow refiner shows no gain, try the direct decoder (Gaussian-prior generative sampling)."
+  },
+  "R156": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Run the generative flow decoder experiments at the 4-bit (~1024 b) operating point, where the posterior is broadest."
+  },
+  "R157": {
+   "file": "matched-overhead-classical-vs-dl.md",
+   "rule": "Do not reuse recon_best_100k.pt as the frozen front end for los15 experiments; train a fresh los15 front-end D0 instead."
+  },
+  "R158": {
+   "file": "no-coauthor-trailer.md",
+   "rule": "In this project, never add a Co-Authored-By: Claude trailer or any other AI-attribution trailer, footer, or \"Generated with\" line to git commits, PR bodies, or tags."
+  },
+  "R159": {
+   "file": "no-coauthor-trailer.md",
+   "rule": "When writing a commit message in this project, write only the commit body (summary and bullets) and add no trailer after it."
+  },
+  "R160": {
+   "file": "no-coauthor-trailer.md",
+   "rule": "If a commit in this project that already carries an AI-attribution trailer has been pushed, fix it with git commit --amend, verify the tree hash is unchanged, and then run git push --force-with-lease."
+  },
+  "R161": {
+   "file": "no-figure-generator-scripts.md",
+   "rule": "When a figure in literature/explainers/ needs changing, edit its .svg file by hand rather than through a generator script."
+  },
+  "R162": {
+   "file": "no-figure-generator-scripts.md",
+   "rule": "After editing a figure SVG, re-render it (headless Chrome screenshot into an <img> wrapper page) and check the result before claiming the change is correct."
+  },
+  "R163": {
+   "file": "no-figure-generator-scripts.md",
+   "rule": "Do not propose reintroducing a build step or generator script for the figures."
+  },
+  "R164": {
+   "file": "no-figure-generator-scripts.md",
+   "rule": "Before editing a figure SVG, read the region of the file being changed first."
+  },
+  "R165": {
+   "file": "realistic-impairments-scope.md",
+   "rule": "When the GPU is free, run `python exp/exp_linkbudget_snr.py --task loc --data_dir data/rt_munich_64ant_100000ue_los15` to compare uniform, link-budget, and cross SNR evaluations."
+  },
+  "R166": {
+   "file": "realistic-impairments-scope.md",
+   "rule": "After the GPU is free, run `python mu_mimo_eval.py --ckpt checkpoint/recon_best_100k.pt --code_bits none,4,2` to evaluate multi-user MU-MIMO performance."
+  },
+  "R167": {
+   "file": "realistic-impairments-scope.md",
+   "rule": "When comparing the physical link-budget SNR anchor in the compare script, add the `--tx_power_dbm` flag."
+  },
+  "R168": {
+   "file": "realistic-impairments-scope.md",
+   "rule": "Acknowledge the unaddressed realism gaps (Doppler/channel aging, channel-estimation error, hardware impairments, mutual coupling, single-pol, inter-cell interference, moving scatterers) as limitations or future work, not as modeled effects."
+  },
+  "R169": {
+   "file": "recon-nmse-zero-norm-bug.md",
+   "rule": "When generating a new RT dataset (especially one with a high indoor fraction), apply the zero-norm UE filter (min_norm_frac=1e-3 via build_multitask_feeds) before training."
+  },
+  "R170": {
+   "file": "recon-nmse-zero-norm-bug.md",
+   "rule": "After generating a new RT dataset, check the minimum per-channel Frobenius norm via np.linalg.norm(H.reshape(M,-1),axis=1).min() to detect zero-norm channels."
+  },
+  "R171": {
+   "file": "record-experiments-always.md",
+   "rule": "Always record to memory when a new experiment is run and a conclusion is drawn, without waiting to be asked each time."
+  },
+  "R172": {
+   "file": "record-experiments-always.md",
+   "rule": "After any experiment that produces a result or conclusion, update the relevant project memory with it."
+  },
+  "R173": {
+   "file": "record-experiments-always.md",
+   "rule": "When recording an experiment in memory, include the numbers, the conclusion, and the artifact path (results files and the experiment script)."
+  },
+  "R174": {
+   "file": "record-experiments-always.md",
+   "rule": "When recording an experiment in memory, add or refresh the corresponding MEMORY.md index line."
+  },
+  "R175": {
+   "file": "record-experiments-always.md",
+   "rule": "Record experiment results to memory proactively, not only when the user requests it."
+  },
+  "R176": {
+   "file": "record-experiments-always.md",
+   "rule": "Verify file:line claims before relying on point-in-time notes recorded in memory."
+  },
+  "R177": {
+   "file": "references-and-prior-art.md",
+   "rule": "Adopt the FLnet staged training recipe (3-step: AE alone, freeze encoder and train loc head, then low-LR joint fine-tune) as a must-run baseline in experiments."
+  },
+  "R178": {
+   "file": "references-and-prior-art.md",
+   "rule": "When addressing joint-training negative transfer, test staged training first and use PCGrad or ForkMerge only if a residual gap remains."
+  },
+  "R179": {
+   "file": "references-and-prior-art.md",
+   "rule": "Acknowledge in the beamforming evaluation deliverable that the MSE-trained decoder limits sum-rate, since lower NMSE does not imply higher MU-MIMO sum-rate."
+  },
+  "R180": {
+   "file": "references-and-prior-art.md",
+   "rule": "Re-run the external-prior reconstruction experiment at a low bit budget (code_bits 64 or 128) to test whether position helps reconstruction."
+  },
+  "R181": {
+   "file": "references-and-prior-art.md",
+   "rule": "Soften finding #3 (that position does not help reconstruction) to reflect the conflicting FLnet Table VIII evidence."
+  },
+  "R182": {
+   "file": "references-and-prior-art.md",
+   "rule": "Cite the FLnet TWC 2024 paper, not the ICC-2023 precursor, for any GPS-aided localization claim."
+  },
+  "R183": {
+   "file": "references-and-prior-art.md",
+   "rule": "Do not attribute the complexity caveat to the abstract of arXiv 2603.14317."
+  },
+  "R184": {
+   "file": "references-and-prior-art.md",
+   "rule": "Do not attribute the gain-insufficient caveat to arXiv 2506.21796, which is a positive interoperability result."
+  },
+  "R185": {
+   "file": "references-and-prior-art.md",
+   "rule": "Cite TR 38.843 §8 directly for the RAN1 no-consensus conclusion on AI/ML CSI compression."
+  },
+  "R186": {
+   "file": "references-and-prior-art.md",
+   "rule": "Cite arXiv 2506.21796 as evidence that two-sided ML CSI feedback is practically feasible."
+  },
+  "R187": {
+   "file": "references-and-prior-art.md",
+   "rule": "Trace the exact sentence in arXiv 2206.15132 before quoting it for the complexity caveat."
+  },
+  "R188": {
+   "file": "references-and-prior-art.md",
+   "rule": "Read the source of the unverified researchgate 366043969 / 2603.14317 caveat before quoting it."
+  },
+  "R189": {
+   "file": "references-and-prior-art.md",
+   "rule": "Cite the Rel-19 gain-insufficient and inter-vendor caveat as both roadmap motivation and an honest limitation."
+  },
+  "R190": {
+   "file": "references-and-prior-art.md",
+   "rule": "Do not treat indoor WiFi fingerprinting benchmark numbers as quantitative comparisons to our outdoor MU-MIMO RT results; use them only as SOTA-scale context."
+  },
+  "R191": {
+   "file": "references-and-prior-art.md",
+   "rule": "To improve joint localization, rebalance training toward localization (fixed-λ loc-weight sweep, CAGrad, or ForkMerge) rather than using staged training."
+  },
+  "R192": {
+   "file": "references-and-prior-art.md",
+   "rule": "In the RT data-generation config, orient the panel azimuth with about 10° downtilt and sample only the illuminated sector instead of a 360° box."
+  },
+  "R193": {
+   "file": "references-and-prior-art.md",
+   "rule": "Set the Sionna scattering coefficient to about 0.5 and supply a scattering pattern so the diffuse flag is active."
+  },
+  "R194": {
+   "file": "references-and-prior-art.md",
+   "rule": "Keep the deliberate configuration upgrades: 64-antenna 8×8 UPA, 27 m macro BS, Sionna RT with diffuse scattering, and indoor UEs."
+  },
+  "R195": {
+   "file": "references-and-prior-art.md",
+   "rule": "Cite the classical CS baselines (LASSO, TVAL3, BM3D-AMP, Cressie variogram) directly from their publications without a local PDF."
+  },
+  "R196": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Do not re-run convert_channel_angle_delay on the RT-generated CSI, because it is already in the delay domain; only the angular DFT should be applied."
+  },
+  "R197": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Use NMSE as the reconstruction loss L_rec in multitask training, not raw MSE."
+  },
+  "R198": {
+   "file": "rt-datagen-progress.md",
+   "rule": "When removing the global phase in normalize_csi, use the strongest CSI element as the phase reference, not element [0,0]."
+  },
+  "R199": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Standardize the log-Frobenius magnitude using statistics from the training split only, to avoid leakage."
+  },
+  "R200": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Obtain scene bounds via scene.mi_scene.bbox(), not via scene.center or scene.size attributes."
+  },
+  "R201": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Include indoor UEs in the generated dataset."
+  },
+  "R202": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Drop UEs with zero received power from the dataset."
+  },
+  "R203": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Set normalize_cfr=False when generating RT data so absolute path loss is kept as a localization distance cue."
+  },
+  "R204": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Apply the per-sample Frobenius norm at data load time, not during RT generation."
+  },
+  "R205": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Keep one subcarrier per PRB when subsampling the generated subcarriers."
+  },
+  "R206": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Use batch_size=25 for RT generation to stay under the Dr.Jit 2^32 limit."
+  },
+  "R207": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Test the pure-NLOS configuration first and defer the LOS/NLOS comparison that requires re-aiming the azimuth."
+  },
+  "R208": {
+   "file": "rt-datagen-progress.md",
+   "rule": "Use loc_source='decoder' only with the csinet backbone, not with the transformer backbone."
+  },
+  "R209": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Do not pursue single-snapshot self-aiding (a self-derived prior from one codeword) any further."
+  },
+  "R210": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Do not state that position does not help reconstruction as a universal claim; qualify it to the operating point (high feedback rate, dense-scattering scene)."
+  },
+  "R211": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "When comparing training runs, match their training budget (batch size and epochs) so they have the same number of gradient updates."
+  },
+  "R212": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Do not reduce the batch size to 512 for speed unless the learning rate is scaled accordingly."
+  },
+  "R213": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Prefer the nll_decoupled variant for the --loc_loss option."
+  },
+  "R214": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Keep the detached sigma NLL term outside the task uncertainty weighting (add it as a separate loss term), never folded into the localization loss before task weighting."
+  },
+  "R215": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "Run the sigma calibration diagnostic (exp/diag_sigma_calibration.py) on GPU."
+  },
+  "R216": {
+   "file": "self-aided-probabilistic-pareto.md",
+   "rule": "If the self_aided gate is revisited, set gate_scale to about 0.02 instead of 0.15."
+  },
+  "R217": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "When reporting sum-rate results from the unit-normalized channel setup, report only percent-of-perfect or relative values, not absolute bits/s/Hz."
+  },
+  "R218": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Frame sum-rate results as a measure of CSI-error sensitivity, not as system capacity."
+  },
+  "R219": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "When reporting localization and reconstruction results, use the geographic-split numbers as headline figures: reconstruction/beamforming is leakage-robust, and honest localization generalization is about 20 m MAE / 12.5 m p50 at 100k."
+  },
+  "R220": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Explicitly flag that the 4.7 m and 5.3 m localization figures from the random split are upper bounds."
+  },
+  "R221": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Explicitly list the static-snapshot scope limits (no inter-cell interference, pilot contamination, hardware impairments, or channel aging) when reporting results."
+  },
+  "R222": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "When describing the denoising result, claim that DL's win is overwhelmingly better CSI-subspace compression, with only a small denoising bonus versus CS at low SNR."
+  },
+  "R223": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Do not implement the TR 38.901 §8.4 map-based hybrid channel model; cite it instead."
+  },
+  "R224": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Cite TR 38.901 §8 and Table 8.4-1 to justify the ray-tracing EM-interaction principles that Sionna uses."
+  },
+  "R225": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Frame the pure-deterministic Sionna ray-tracing as a cleaner instance of the 3GPP map-based methodology, presenting the omitted stochastic overlay as a principled choice rather than a gap."
+  },
+  "R226": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Use an eval-time-only stochastic-cluster perturbation as a robustness probe only if a committee demands a diffuse-mismatch test."
+  },
+  "R227": {
+   "file": "simulation-audit-caveats.md",
+   "rule": "Never use stochastic-cluster perturbation during training."
+  },
+  "R228": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Do not assume the 38.857 bandwidth-scaling expectation (100 MHz ≈ 9 m vs 5 MHz ≈ 40 m at 90%) holds for the fingerprinting-based localization method; instead, measure the bandwidth dependence experimentally."
+  },
+  "R229": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Run the bandwidth sweep downward to 20 MHz (in addition to the existing upward sweep 100→200→400 MHz) to measure localization performance at lower bandwidths."
+  },
+  "R230": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "When describing the Munich scenario's geometry, cite the UMi-SC geometry and note the rooftop/UMa base-station height as a deviation."
+  },
+  "R231": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "When arguing for the FDD choice, treat duplexing as a hard requirement distinct from carrier/bandwidth, which is a soft requirement."
+  },
+  "R232": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "State the deviation of the Munich RT indoor/outdoor UE drop (~58% indoor) from the 100%-outdoor idealization explicitly in the thesis."
+  },
+  "R233": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Note in the thesis that the Sionna max_depth of 10 exceeds the 3GPP-recommended reflection/penetration orders."
+  },
+  "R234": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Frame the Sionna ray-tracing methodology in the thesis as a map-based deterministic instantiation of TR 38.901 clause 8, not as a departure from 3GPP."
+  },
+  "R235": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Cite TR 38.857 (3.5 GHz) as the carrier-frequency source rather than TR 38.855 (2/4 GHz)."
+  },
+  "R236": {
+   "file": "spec-scenario-grounding.md",
+   "rule": "Cite TR 38.901 §7.9 only to scope out the device-free ISAC branch, not as a channel model used by the project."
+  },
+  "R237": {
+   "file": "swin-backbone.md",
+   "rule": "Use CsiNet+ as the final backbone for the CSI feedback model rather than the Swin backbone."
+  },
+  "R238": {
+   "file": "swin-backbone.md",
+   "rule": "When reviving the Swin backbone, use fused F.scaled_dot_product_attention instead of eager manual windowed attention."
+  },
+  "R239": {
+   "file": "swin-backbone.md",
+   "rule": "When reviving the Swin backbone, compile the model with torch.compile for speed."
+  },
+  "R240": {
+   "file": "swin-backbone.md",
+   "rule": "When reviving the Swin backbone, use a stride-2 stem so training starts at 32x32 with 4x fewer tokens."
+  },
+  "R241": {
+   "file": "swin-backbone.md",
+   "rule": "When reviving the Swin backbone, train with learning rate 3e-4 and a warmup schedule."
+  },
+  "R242": {
+   "file": "thesis-project.md",
+   "rule": "When citing the thesis backbone, describe it as \"CsiNet+-based\", not as verbatim CsiNet+."
+  },
+  "R243": {
+   "file": "thesis-roadmap.md",
+   "rule": "When generating sequential or trajectory CSI data for temporal experiments, use trajectory sampling in the existing Sionna RT generator, not ns-3."
+  },
+  "R244": {
+   "file": "thesis-roadmap.md",
+   "rule": "Do not build an ns-3 + 5G-LENA + ns3-rt integration."
+  },
+  "R245": {
+   "file": "thesis-roadmap.md",
+   "rule": "Pursue an ns-3 / 5G-LENA integration only if the committee wants system-level KPIs such as throughput, latency, or handover."
+  },
+  "R246": {
+   "file": "thesis-roadmap.md",
+   "rule": "For end-to-end application-KPI evaluation, do not use ns-3; use a trace-driven, semi-analytic evaluation instead."
+  },
+  "R247": {
+   "file": "thesis-roadmap.md",
+   "rule": "Do not re-open the decision against adopting ns-3 / 5G-LENA / ns3-rt."
+  },
+  "R248": {
+   "file": "thesis-roadmap.md",
+   "rule": "Cite ns-3, 5G-LENA, and ns3-rt as the deployment/digital-twin future path, not as built work."
+  },
+  "R249": {
+   "file": "thesis-roadmap.md",
+   "rule": "Report the multi-gNB results as a diminishing-returns scaling curve: the 1→2 gNB step is the large win and the 3rd gNB is a smaller tail improvement."
+  },
+  "R250": {
+   "file": "viz-debug-tooling-progress.md",
+   "rule": "Store the sector_id label as metadata only; do not use it as a model input, because it would leak localization information."
+  },
+  "R251": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "When explaining code or concepts from thesis_code_walkthrough_QA.md, write the explanation directly into that doc using LaTeX math ($…$ inline, $$…$$ display), not only as a terminal reply."
+  },
+  "R252": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "For \"explain topic X\" or \"walk through this code\" requests tied to the walkthrough, edit the doc by adding a subsection under the relevant Topic as the primary deliverable."
+  },
+  "R253": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Keep the terminal reply short, limited to a pointer to the doc and an offer of a next step."
+  },
+  "R254": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Put line-by-line code walkthroughs in the doc as well."
+  },
+  "R255": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Integrate answers and corrections into the existing prose of the doc as if it had always been written that way."
+  },
+  "R256": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Never restate the question in the doc."
+  },
+  "R257": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Never add meta-notes about the edit to the doc, such as \"Notation warning\", \"As requested\", or \"renamed X to Y\"."
+  },
+  "R258": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Never leave changelog markers in the doc."
+  },
+  "R259": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Merge new material into the existing explanation rather than appending a second, overlapping one."
+  },
+  "R260": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Before writing, check the doc: if the answer is already there, say so in chat and leave the doc unchanged, or sharpen the existing passage."
+  },
+  "R261": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Add a new paragraph to the doc only when the information is genuinely new."
+  },
+  "R262": {
+   "file": "walkthrough-explanations-in-doc.md",
+   "rule": "Only add annotations to the doc if explicitly asked."
+  },
+  "R263": {
+   "file": "walkthrough-html-render.md",
+   "rule": "Run the walkthrough render script (`python tools/render_walkthrough.py`) from the repository root."
+  },
+  "R264": {
+   "file": "walkthrough-html-render.md",
+   "rule": "When republishing the walkthrough Artifact, use the same file path so the existing URL is kept."
+  },
+  "R265": {
+   "file": "walkthrough-html-render.md",
+   "rule": "Convert maths to MathML at build time in the walkthrough HTML render; do not use MathJax."
+  },
+  "R266": {
+   "file": "walkthrough-html-render.md",
+   "rule": "Do not regress the gotchas baked into the walkthrough render script."
+  },
+  "R267": {
+   "file": "walkthrough-html-render.md",
+   "rule": "Stash fenced code blocks before applying any `$` math rule in the walkthrough render script."
+  },
+  "R268": {
+   "file": "walkthrough-html-render.md",
+   "rule": "Stash inline `code` spans before applying any `$` math rule in the walkthrough render script."
+  },
+  "R269": {
+   "file": "walkthrough-html-render.md",
+   "rule": "The inline math pattern in the walkthrough render script must allow a newline within the expression but not a blank line."
+  },
+  "R270": {
+   "file": "walkthrough-html-render.md",
+   "rule": "The image regex in the walkthrough render script must tolerate balanced brackets in image alt text."
+  }
+ }
+}

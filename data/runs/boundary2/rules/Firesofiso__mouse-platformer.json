@@ -1,0 +1,190 @@
+{
+  "repo": "Firesofiso/mouse-platformer",
+  "dir": "memory",
+  "n_files": 5,
+  "n_rules": 30,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_debug_first.md",
+      "quote": "Always diagnose via debug before changing code in this project.",
+      "rule": "Before changing code in this project, diagnose the problem via debug instrumentation first."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_debug_first.md",
+      "quote": "Add a targeted Debug.Log (or use execute_code to inspect live state) to answer one specific question",
+      "rule": "Before any fix to runtime behavior, add a targeted Debug.Log or use execute_code to inspect live state, answering one specific question."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_debug_first.md",
+      "quote": "Read the console/result",
+      "rule": "After adding diagnostics, read the console or execute_code result before writing any code."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_debug_first.md",
+      "quote": "Only then write code",
+      "rule": "Only write fix code after the diagnostic results have been read."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_debug_first.md",
+      "quote": "never assume which collider is `coll.collider` vs `coll.otherCollider`",
+      "rule": "For Unity physics, never assume which collider is coll.collider versus coll.otherCollider; verify with logs first."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_debug_first.md",
+      "quote": "which layer something is on",
+      "rule": "For Unity physics, never assume which layer something is on; verify with logs first."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_debug_first.md",
+      "quote": "or whether a method is even being called",
+      "rule": "For Unity physics, never assume whether a method is being called; verify with logs first."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_debug_first.md",
+      "quote": "A good first question is always \"is this code even running?\" and \"what are the actual values?\"",
+      "rule": "For Unity physics debugging, first check whether the code is running and what the actual values are."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_debug_first.md",
+      "quote": "never ask the user to perform in-game actions I can trigger or observe myself",
+      "rule": "Never ask the user to perform in-game actions that the agent can trigger or observe itself."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_debug_first.md",
+      "quote": "If Unity MCP is not connected, stop problem solving and escalate immediately.",
+      "rule": "If Unity MCP is not connected, stop problem solving and escalate immediately."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_debug_first.md",
+      "quote": "use Unity MCP execute_code + read_console to verify it yourself",
+      "rule": "After adding any debug log or diagnostic code, verify it yourself using Unity MCP execute_code and read_console."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_debug_first.md",
+      "quote": "do NOT ask the user to throw/trigger things",
+      "rule": "After adding debug or diagnostic code, do not ask the user to throw or trigger things to verify it."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_debug_first.md",
+      "quote": "If Unity MCP is disconnected, stop and say so immediately before attempting any more problem solving.",
+      "rule": "If Unity MCP is disconnected, stop and say so immediately before attempting further problem solving."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_prefab_over_code.md",
+      "quote": "Fix assets (prefabs, ScriptableObjects, scene objects) directly rather than compensating in code at runtime.",
+      "rule": "Fix missing or wrong asset configuration (prefabs, ScriptableObjects, scene objects) directly in the asset instead of compensating with runtime code."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_prefab_over_code.md",
+      "quote": "If a component shouldn't exist on a prefab, remove it from the prefab.",
+      "rule": "If a component shouldn't exist on a prefab, remove it from the prefab rather than working around it in code."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_prefab_over_code.md",
+      "quote": "If a value is wrong in an asset, fix it there.",
+      "rule": "If a value is wrong in an asset, fix the value in that asset rather than in code."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_prefab_over_code.md",
+      "quote": "Only reach for runtime code when the behavior genuinely needs to be dynamic.",
+      "rule": "Use runtime code to handle configuration only when the behavior genuinely needs to be dynamic."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_surface_session_tasks.md",
+      "quote": "call it out explicitly to the user at the start of the session before acting on it.",
+      "rule": "If a memory entry describes a specific pending task, call it out explicitly to the user at the start of the session before acting on it."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_surface_session_tasks.md",
+      "quote": "After unity-session-start, scan memory for actionable task entries and state them plainly",
+      "rule": "After unity-session-start, scan memory for actionable task entries."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_surface_session_tasks.md",
+      "quote": "state them plainly — one sentence, what needs doing and why.",
+      "rule": "When stating a pending memory task to the user, state it plainly in one sentence covering what needs doing and why."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_unity_mcp.md",
+      "quote": "do editor-side tasks (creating prefabs, ScriptableObject assets, scene wiring, inspector references, layer/tag setup, etc.) yourself via the Unity MCP server rather than writing a \"here's what to do in the editor\" checklist.",
+      "rule": "When working in a Unity project, perform editor-side tasks (creating prefabs, ScriptableObject assets, scene wiring, inspector references, layer/tag setup, etc.) yourself via the Unity MCP server rather than writing a checklist of editor steps for the user."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_unity_mcp.md",
+      "quote": "Default: do it via Unity MCP.",
+      "rule": "By default, perform Unity editor work via Unity MCP."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_unity_mcp.md",
+      "quote": "Surface to the user only:",
+      "rule": "In Unity projects, surface editor work to the user only when it involves architectural/design decisions worth them seeing, steps demonstrating something non-obvious about the system built, or authoring choices (sprite art, particle tuning, copy) that need their taste."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_unity_mcp.md",
+      "quote": "Ask \"do you want to be aware of anything, or is it mostly tedium?\" when unsure — don't assume the user wants a writeup.",
+      "rule": "When unsure whether the user wants to be informed about Unity editor work, ask whether they want to be aware of anything or whether it is mostly tedium, and do not assume they want a writeup."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "The moment I write or think \"I don't know X,\" the next action must be a tool call that answers X — not a code change, not a proposal, not a guess.",
+      "rule": "When you realize you don't know a fact needed for a diagnosis, your next action must be a tool call that answers it, not a code change, proposal, or guess."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "**If the fix requires knowing a fact, know the fact first.**",
+      "rule": "If a fix requires knowing a fact, establish that fact before making the fix."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "Whether code is even running | `read_console` before touching anything",
+      "rule": "When diagnosing a runtime bug in Unity and unsure whether code is running, call read_console before changing anything."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "Sprite pivot direction | `execute_code` → print `sprite.pivot / sprite.rect.size`",
+      "rule": "When the sprite pivot direction is unknown in Unity, use execute_code to print sprite.pivot / sprite.rect.size rather than guessing."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "Why bounds are larger than visible content | `execute_code` → print `CharacterInfo.minY/maxY` per glyph",
+      "rule": "When text bounds are larger than the visible content in Unity, use execute_code to print CharacterInfo.minY/maxY per glyph rather than inferring the cause."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_unknowns_are_blockers.md",
+      "quote": "Where a child is relative to parent | `execute_code` → print `localPosition`, `localScale`, `bounds.min/max`",
+      "rule": "When the position of a child relative to its parent is unknown in Unity, use execute_code to print localPosition, localScale, and bounds.min/max rather than assuming."
+    }
+  ],
+  "dropped": []
+}

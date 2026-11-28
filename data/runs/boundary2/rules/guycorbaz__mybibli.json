@@ -1,0 +1,76 @@
+{
+  "repo": "guycorbaz/mybibli",
+  "dir": ".claude/projects/-home-gcorbaz-synology-devel-mybibli/memory",
+  "n_files": 5,
+  "n_rules": 11,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_communication.md",
+      "quote": "output it directly as text in the response message",
+      "rule": "When the user asks to see or display file content, output the file content directly as text in the response message rather than relying on the Read tool result, which the user cannot see."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_communication.md",
+      "quote": "Always copy file content into the response text when the user asks to see it.",
+      "rule": "Always copy file content into the response text when the user asks to see it."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_party_mode.md",
+      "quote": "proactively offer Party Mode and encourage thorough exploration",
+      "rule": "During planning phases (UX, architecture, epics), proactively offer Party Mode and encourage thorough exploration."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_party_mode.md",
+      "quote": "During implementation, the foundation should be solid enough to move faster.",
+      "rule": "During implementation, move faster, since the planning foundation should already be solid."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_thoroughness.md",
+      "quote": "encourage deep exploration, run Party Mode sessions, and don't rush through steps",
+      "rule": "During planning phases (brief, PRD, architecture), encourage deep exploration, run Party Mode sessions, and don't rush through steps."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_thoroughness.md",
+      "quote": "Ask \"anything else?\" repeatedly.",
+      "rule": "During planning phases (brief, PRD, architecture), ask \"anything else?\" repeatedly."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_thoroughness.md",
+      "quote": "During implementation, the foundation should be solid enough to move faster.",
+      "rule": "During implementation, make sure the foundation is solid enough that development can move faster."
+    },
+    {
+      "id": "R8",
+      "file": "project_mybibli.md",
+      "quote": "All design decisions should favor simplicity and ease of use for 3-4 concurrent non-technical users",
+      "rule": "When making design decisions for mybibli, favor simplicity and ease of use for 3-4 concurrent non-technical users."
+    },
+    {
+      "id": "R9",
+      "file": "project_mybibli.md",
+      "quote": "DRY (no duplicated code)",
+      "rule": "Do not duplicate code in mybibli; follow the DRY principle."
+    },
+    {
+      "id": "R10",
+      "file": "project_mybibli.md",
+      "quote": "unit tests on all functions",
+      "rule": "Write unit tests for all functions in mybibli."
+    },
+    {
+      "id": "R11",
+      "file": "project_mybibli.md",
+      "quote": "Playwright e2e tests on all features",
+      "rule": "Write Playwright e2e tests for all features in mybibli."
+    }
+  ],
+  "dropped": []
+}

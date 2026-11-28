@@ -1,0 +1,83 @@
+---
+name: renderer-entry-static-closure
+description: "One broad import from a renderer entry or boot.ts put document, screen and React-server code in every window's static closure; startup imports leaf helpers only (EN-37, fixed 2026-09-23)"
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: 53c6c8a1-b577-4c3d-99d2-d0efc98a350a
+  modified: 2026-11-10T13:25:12.335Z
+---
+
+# Renderer entry static closure — fixed by leaf startup helpers
+
+Date: 2026-09-23. EN-37.
+
+## The trap
+
+A tiny import can carry a feature graph. Before EN-37, every renderer reached a
+463 KB minified chunk containing both React DOM server builds, app-document
+rendering, the canvas and screen managers. The paths were not obvious from the
+entry files:
+
+- `boot -> settingHelpers -> fileHelpers -> FileSource -> ...`
+- `themeHelpers -> colorHelpers -> dragHelpers -> background/screen -> ...`
+- `fontHelpers -> appHelpers -> fileHelpers/FileSource -> ...`
+- `langHelpers -> SettingManager -> appLocalStorage -> fileHelpers -> ...`
+
+Rolldown shared the resulting graph across entries. A manual shared-chunk rule
+did not help: the static dependency paths were real, so the entries still had
+to load the code.
+
+## The boundary
+
+Startup code imports dependency-light leaves:
+
+- `storageFileHelpers.ts` — synchronous path, portable-text, marker and
+  storage primitives; `fileHelpers.ts` re-exports them.
+- `colorValueHelpers.ts` — color math only; dragging stays in
+  `colorHelpers.tsx`.
+- `electronSendHelpers.ts` — request/reply IPC only; `appHelpers.ts`
+  re-exports it.
+- `appFontSettingHelpers.ts` — startup font settings without the setting UI
+  module.
+- `AboutComp` loads DOCX/PPTX version helpers dynamically.
+
+`appLocalStorage.test.ts` asserts that importing startup storage does not load
+the broad `fileHelpers` module. Keep that boundary when adding storage calls;
+rare asynchronous listing/deletion imports `fileHelpers` inside the method.
+
+## Measured result
+
+Production static minified JavaScript closures, same Vite build and graph
+walker:
+
+| Renderer | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| About | 1,056 KB | 236 KB | -78% |
+| Finder | 1,058 KB | 237 KB | -78% |
+| AI Chat | 1,096 KB | 323 KB | -71% |
+| Settings | 1,139 KB | 605 KB | -47% |
+| Chatbot | 1,697 KB | 956 KB | -44% |
+
+Presenter stayed effectively flat (1,288 -> 1,300 KB), and Screen stayed near
+1.06 MB because those renderers actually use the document/screen graph. That is
+the intended distinction: auxiliary windows no longer pay for it.
+
+When changing a renderer entry, `boot.ts`, theme, settings or another helper
+used by all windows, build to the OS temp directory and compare the entry's
+recursive static JS imports. A chunk name is not evidence; inspect the source
+map and trace the source import path.
+
+## The windows that DO render: one server build, not two (EN-60)
+
+2026-11-10. `react-dom/server` is CommonJS that requires both of React's
+browser server builds, and CommonJS is not tree-shaken, so the six windows
+that call `renderToStaticMarkup` (Screen, Presenter, Reader, both editors,
+Bible Note) also carried the streaming build — 97.5 KB minified that nothing
+runs. `reactStaticMarkupOnlyPlugin` in `vite.config.ts` answers that import
+with the legacy build alone in the PRODUCTION build (dev and vitest resolve
+as before) and fails the build if React moves the file. Measured with the
+walker above: Screen 1,345 → 1,244 KB, Presenter 1,720 → 1,625 KB, each of
+the six −96 to −101 KB. A new `react-dom/server` export used anywhere
+(`renderToReadableStream`, `resume`) needs the plugin taken out first.
+

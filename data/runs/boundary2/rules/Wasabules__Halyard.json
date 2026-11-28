@@ -1,0 +1,2545 @@
+{
+  "repo": "Wasabules/Halyard",
+  "dir": "memory",
+  "n_files": 151,
+  "n_rules": 419,
+  "n_dropped": 4,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_automation_priority.md",
+      "quote": "for any testing, RE or measurement task, automate end to end with a",
+      "rule": "For any testing, reverse-engineering, or measurement task, automate it end to end with a script instead of asking the user to run commands by hand."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_automation_priority.md",
+      "quote": "To measure an effect while streaming, drive the headless runner rather than",
+      "rule": "When measuring an effect while streaming, drive the headless runner rather than the GUI."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_automation_priority.md",
+      "quote": "and analyse its dump offline.",
+      "rule": "When measuring an effect while streaming, analyse the headless runner's dump offline."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_automation_priority.md",
+      "quote": "To A/B a patch: `tools/client/bench_runner.py --treatment-patch X.patch --runs 3`.",
+      "rule": "To A/B test a patch, run `tools/client/bench_runner.py --treatment-patch X.patch --runs 3`."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_automation_priority.md",
+      "quote": "Always three runs or more",
+      "rule": "Always run three or more runs when A/B testing a patch, because single-run variance is large."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_automation_priority.md",
+      "quote": "To validate an RE hypothesis: instrument a dump (`SHADOW_DUMP_*`) and analyse",
+      "rule": "To validate a reverse-engineering hypothesis, instrument a dump with `SHADOW_DUMP_*`."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_automation_priority.md",
+      "quote": "it offline in python.",
+      "rule": "Analyse the instrumented dump offline in Python."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_automation_priority.md",
+      "quote": "the GUI OAuth login, once.",
+      "rule": "Leave the GUI OAuth login to the user to perform by hand, once; automate everything after it."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_automation_priority.md",
+      "quote": "\"Run this and paste me the output\" - no, run it.",
+      "rule": "Do not ask the user to run a command and paste the output; run it yourself."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_automation_priority.md",
+      "quote": "\"Try this flag and tell me what you see\" - no, test it and report the verdict.",
+      "rule": "Do not ask the user to try a flag and report what they see; test it yourself and report the verdict."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_automation_priority.md",
+      "quote": "\"Can you try X?\" to validate a hypothesis - no, try it.",
+      "rule": "Do not ask the user to try something to validate a hypothesis; try it yourself."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_automation_priority.md",
+      "quote": "must be pure memory access",
+      "rule": "Keep `info()` callbacks as pure memory access, since they run on the render thread at 60 Hz; never run system probes in them."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_libavcodec_switch_threading.md",
+      "quote": "always configure libavcodec H.264 as single-threaded",
+      "rule": "On the Switch, always configure the libavcodec H.264 decoder as single-threaded (thread_count = 1, thread_type = 0)."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_libavcodec_switch_threading.md",
+      "quote": "Do not waste time trying FF_THREAD_SLICE hoping for performance, it produces corrupt content.",
+      "rule": "On the Switch, do not try FF_THREAD_SLICE for H.264 decoding in hopes of better performance, because it produces corrupt content."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_libavcodec_switch_threading.md",
+      "quote": "`FF_THREAD_FRAME` (the other multi-threaded mode) adds ~100 ms of latency — not viable for interactive use.",
+      "rule": "Do not use FF_THREAD_FRAME for interactive H.264 decoding on the Switch, because it adds about 100 ms of latency."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_log_segment_per_launch.md",
+      "quote": "before any temporal analysis, split on the markers of a",
+      "rule": "Before any temporal analysis of the network log, split the log on the start markers (lines matching `^\\[0\\.000\\] reseau:`)."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_log_segment_per_launch.md",
+      "quote": "work on one launch only",
+      "rule": "When analyzing the segmented network log, work on one launch at a time, never across several launches."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_log_segment_per_launch.md",
+      "quote": "applies to cumulative counters (`nals_total`, the G44 summaries)",
+      "rule": "Do not use cumulative counters (such as `nals_total` or the G44 summaries) to draw conclusions about an isolated session, since they span multiple sessions."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_reproduce_on_desktop_first.md",
+      "quote": "Check that a defect reproduces on Linux BEFORE treating it as Switch-specific",
+      "rule": "Before treating a defect as specific to the Switch, check whether it reproduces on Linux."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_reproduce_on_desktop_first.md",
+      "quote": "before any campaign on the console, run\n`SHADOW_NATIVE=1 ./shadow-client` on Linux against the same VM.",
+      "rule": "Before running any debugging campaign on the console, run `SHADOW_NATIVE=1 ./shadow-client` on Linux against the same VM to try to reproduce the defect."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_reproduce_on_desktop_first.md",
+      "quote": "If the defect is\nthere, the whole diagnosis happens locally.",
+      "rule": "If the defect reproduces on Linux, carry out the whole diagnosis locally rather than on the console."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_reproduce_on_desktop_first.md",
+      "quote": "Only go back to the console for what est reellement propre a HOS (pile reseau, decodage materiel, threads).",
+      "rule": "Go back to the console only for issues that are actually specific to HOS, such as the network stack, hardware decoding, or threads."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_sctp_no_data_retransmit.md",
+      "quote": "keep the last N chunks sent, parse the gap blocks in SACK, retransmit the missing TSNs",
+      "rule": "For M15, implement SCTP DATA retransmission in sctp.c by keeping the last N sent chunks, parsing the SACK gap blocks, and retransmitting the missing TSNs."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_sctp_no_data_retransmit.md",
+      "quote": "implement sending a FORWARD-TSN chunk (type 0xc0) after a timeout on abandoned chunks",
+      "rule": "For M15, implement sending a FORWARD-TSN chunk (type 0xc0) after a timeout on abandoned chunks, as specified in RFC 3758 §3."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_sctp_no_data_retransmit.md",
+      "quote": "send each Shadow message 2-3 times back to back with different TSNs",
+      "rule": "As a quick test of the packet-loss hypothesis for M15, send each Shadow message 2-3 times back to back with different TSNs."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_sctp_no_data_retransmit.md",
+      "quote": "(1) is the clean solution",
+      "rule": "For M15, prefer the SACK-buffer-and-retransmit approach (option 1) as the clean fix over the other options."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_sctp_no_data_retransmit.md",
+      "quote": "(3) is a quick test to confirm the packet-loss hypothesis before investing in (1)",
+      "rule": "Run the duplicate-send test (option 3) to confirm the packet-loss hypothesis before investing in the SACK-buffer-and-retransmit implementation (option 1)."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "Do NOT use SUFP for video",
+      "rule": "Do not use the SUFP parser for video on the current wire; use the legacy per-packet chacha20 mode with PTS-based reassembly instead."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "to request RegisterSession with less_fragmentation=true",
+      "rule": "To fix the video visual quality, request RegisterSession with less_fragmentation=true, if the server supports it."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "Add to `on_video_packet` a dump of the first 32 bytes of the first 10 packets received",
+      "rule": "When investigating the video wire format, add a dump of the first 32 bytes of the first 10 received packets to `on_video_packet`."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "Launch shadow-client native + capture the first packets of OUR wire",
+      "rule": "When investigating the video wire format, launch the shadow-client native and capture the first packets of our wire."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "Compare byte by byte against",
+      "rule": "Compare the captured video packet bytes byte by byte against the `13 00 ...` format from the v1 log and against the content of the last byte."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "Test the chunk_idx against packet_idx hypotheses",
+      "rule": "Test chunk_idx against packet_idx hypotheses to determine the video fragment ordering."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_sufp_format_obsolete.md",
+      "quote": "implement correct reassembly with concatenated fragments",
+      "rule": "Once the video format is understood, implement reassembly by concatenating fragments into a single chacha20 wire, decrypting it, and producing a complete frame."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_switch_hos_degraded.md",
+      "quote": "ask for **a full reboot of the console** and retest",
+      "rule": "When a Switch homebrew app fails on system initialization (e.g., curl_global_init, nifm, or socket init) without a crash, ask for a full console reboot and retest before debugging code diffs or suspecting a newly linked library."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "Every long-running thread must poll an abort flag.",
+      "rule": "Every long-running background thread must poll an abort flag."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "Background threads that run on a long `nanosleep`/`select` must **poll an abort flag at a fine granularity** (~100 ms max)",
+      "rule": "Background threads that run a long nanosleep or select must poll an abort flag at a granularity of about 100 ms or finer."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "and break as soon as it is set",
+      "rule": "When the abort flag is set, a background thread must break out of its loop as soon as it sees the flag."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "The pattern to follow: `params.abort_flag` = a `volatile int *` polled by the loop.",
+      "rule": "Pass the abort flag as a `volatile int *` parameter (`params.abort_flag`) that the thread loop polls."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "The C++ owner stores a `std::shared_ptr<volatile int>` in the Activity",
+      "rule": "The C++ owner stores the abort flag as a `std::shared_ptr<volatile int>` in the Activity."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "sets it to 1 in the destructor",
+      "rule": "Set the abort flag to 1 in the Activity's destructor."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "captures it by value in the async thread's lambda",
+      "rule": "Capture the abort flag by value in the async thread's lambda."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "100 ms granularity at most",
+      "rule": "In any long nanosleep loop, poll at a granularity of 100 ms at most."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "check abort_flag on every round",
+      "rule": "In any long nanosleep loop, check the abort flag on every iteration."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "a short timeout + retry",
+      "rule": "For libraries not under our control (such as `wolfSSL_accept` or `juice_get_state`), use a short timeout with retry."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "never a blocking wait of several seconds",
+      "rule": "For libraries not under our control (such as `wolfSSL_accept` or `juice_get_state`), never use a blocking wait of several seconds."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_switch_thread_lifecycle.md",
+      "quote": "Never rely on `Application::exit()` to stop native threads cleanly",
+      "rule": "Never rely on `Application::exit()` to stop native threads cleanly."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_switch_thread_local_storage.md",
+      "quote": "**always stack-allocate**",
+      "rule": "For per-call buffers inside callbacks invoked from libjuice, libsrtp, wolfSSL, or similar ported libraries on Switch, always stack-allocate the buffer."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_switch_thread_local_storage.md",
+      "quote": "never `__thread`/`thread_local`",
+      "rule": "For per-call buffers inside callbacks invoked from libjuice, libsrtp, wolfSSL, or similar ported libraries on Switch, never use `__thread` or `thread_local`."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_switch_thread_local_storage.md",
+      "quote": "use `pthread_key_create` + `pthread_getspecific`/`setspecific`",
+      "rule": "When a persistent per-thread buffer is genuinely needed on Switch, use `pthread_key_create` with `pthread_getspecific`/`pthread_setspecific` instead of `__thread`."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "must be verified **before** it is reported or",
+      "rule": "Verify a count produced by a grep before reporting it or letting it steer a decision."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "a grep produces a **candidate list**, never a finding.",
+      "rule": "Treat grep output as a candidate list, never as a finding."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "means counting the construction of the entity, not the tokens that mention it.",
+      "rule": "When counting entities such as menu entries, fields, or calls, count the construction of each entity, not the tokens that mention it."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "Open each case",
+      "rule": "Open and check each grep candidate case before counting it as a finding."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "validate the pattern against a known example before running it at scale.",
+      "rule": "Validate a grep pattern against a known example before running it at scale."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "Report \"N candidates, M verified\" rather than a raw total.",
+      "rule": "Report grep results as \"N candidates, M verified\" rather than as a raw total."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_verify_grep_measurements.md",
+      "quote": "When a measurement will drive a deletion or a fix, verify all of it.",
+      "rule": "When a measurement will drive a deletion or a fix, verify all of it before acting."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_void_star_udata_sentinel.md",
+      "quote": "re-read EVERY `&variable`\nof the moved region",
+      "rule": "After any function extraction, re-read every `&variable` reference in the moved region to confirm it still passes the intended value or pointer."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_void_star_udata_sentinel.md",
+      "quote": "place a sentinel (`magic`) checked at the top of the callback",
+      "rule": "For any context passed as a `void *`, place a sentinel (such as `magic`) that is checked at the top of the callback."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_void_star_udata_sentinel.md",
+      "quote": "REBUILT identically to the binary that was running",
+      "rule": "When resolving a crash report against an `.elf`, use an `.elf` rebuilt identically to the binary that was running, since a different build shifts the offsets."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_void_star_udata_sentinel.md",
+      "quote": "when `addr2line` leaves any doubt, disassemble around the\nPC tranche",
+      "rule": "When `addr2line` leaves any doubt about a crash location, disassemble the code around the PC."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_wss_mutex_deadlock.md",
+      "quote": "NEVER** hold an application mutex across a blocking call (recv/read).",
+      "rule": "Never hold an application mutex across a blocking call such as recv or read."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_wss_mutex_deadlock.md",
+      "quote": "On any blocking transport (WSS, HTTP, a bare socket), TX and RX must have SEPARATE mutexes",
+      "rule": "On any blocking transport, use separate mutexes for TX and RX."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_wss_mutex_deadlock.md",
+      "quote": "OR the RX must happen without a lock (a single reader thread, no read race).",
+      "rule": "On any blocking transport, if TX and RX share no mutex, perform RX without a lock from a single reader thread."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_wss_mutex_deadlock.md",
+      "quote": "a mutex INTERNAL to the transport (`wss_session.write_mtx`) to synchronise PONG (from recv) and send_text (from main).",
+      "rule": "Synchronise concurrent writes to a wolfSSL-based transport with a mutex internal to the transport, such as wss_session.write_mtx, since wolfSSL is not thread-safe for concurrent writes."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_wss_mutex_deadlock.md",
+      "quote": "A healthy pattern, to be respected throughout this project for any blocking I/O.",
+      "rule": "Respect the pattern of not holding application mutexes across blocking I/O for any blocking I/O in this project."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_yuv_composite_idr_inject_dont_fix_bottom.md",
+      "quote": "Keep the mechanisms (= configurable through env vars) but default them OFF.",
+      "rule": "Keep the SHADOW_YUV_COMPOSITE and SHADOW_IDR_INJECT mechanisms configurable through environment variables, but default them to OFF."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_yuv_composite_idr_inject_dont_fix_bottom.md",
+      "quote": "Keep this file for the RE's historical traceability",
+      "rule": "Do not delete the obsolete memory file about YUV_COMPOSITE and IDR_INJECT; keep it for historical traceability of the reverse-engineering work."
+    },
+    {
+      "id": "R69",
+      "file": "project_A18_automation_infra_2026-05-18.md",
+      "quote": "`tools/auto-test.sh` = \"validate after any patch\" in one command",
+      "rule": "After applying any patch, run tools/auto-test.sh to build, test, and get a verdict in one command."
+    },
+    {
+      "id": "R70",
+      "file": "project_A18_automation_infra_2026-05-18.md",
+      "quote": "python3 tools/bench_runner.py",
+      "rule": "To A/B test a patch on the native path, run tools/bench_runner.py with --mode=native-stream and --treatment-patch set to the patch file."
+    },
+    {
+      "id": "R71",
+      "file": "project_B1_GUI_quality_panel_2026-05-18.md",
+      "quote": "Auto = use the desktop defaults (= the value 0).",
+      "rule": "Treat the \"Auto\" option of a quality setting as value 0, meaning use the desktop's hardcoded defaults without overriding them."
+    },
+    {
+      "id": "R72",
+      "file": "project_B1_GUI_quality_panel_2026-05-18.md",
+      "quote": "the env vars SHADOW_BITRATE_MBPS etc. keep",
+      "rule": "In shadow-test-cli (no GUI), read quality parameters from the SHADOW_BITRATE_MBPS environment variables directly, bypassing Settings."
+    },
+    {
+      "id": "R73",
+      "file": "project_CUR1_cursor_format_2026-05-18.md",
+      "quote": "capture a desktop session with the mouse actively moving",
+      "rule": "When reverse-engineering the cursor format, capture a desktop session while actively moving the mouse, then identify the X/Y offsets in the 8-byte position update and the bitmap format in the 271-byte initial payload."
+    },
+    {
+      "id": "R74",
+      "file": "project_CUR1_cursor_format_2026-05-18.md",
+      "quote": "Render it onto the YUV frame before pushing it to the screen",
+      "rule": "When rendering the cursor overlay in stream_view, draw the cursor onto the YUV frame before pushing the frame to the screen."
+    },
+    {
+      "id": "R75",
+      "file": "project_CUR1_cursor_format_2026-05-18.md",
+      "quote": "Hide system cursor sur Switch",
+      "rule": "On the Switch, hide the system cursor, since touch is the primary input."
+    },
+    {
+      "id": "R76",
+      "file": "project_F29_RaptorQ_lead.md",
+      "quote": "RE the RaptorQ encoder in the desktop binary",
+      "rule": "Reverse-engineer the RaptorQ encoder in the desktop binary as the first priority when working on the taskbar FEC issue."
+    },
+    {
+      "id": "R77",
+      "file": "project_F29_RaptorQ_lead.md",
+      "quote": "Extraire OTI scheme_specific bytes",
+      "rule": "Extract the OTI scheme_specific bytes from the desktop binary when investigating the RaptorQ encoder."
+    },
+    {
+      "id": "R78",
+      "file": "project_F29_RaptorQ_lead.md",
+      "quote": "implement a RaptorQ decoder with the OTI extracted from the binary",
+      "rule": "To fix the taskbar artefacts, implement a RaptorQ decoder that uses the OTI parameters extracted from the binary to reconstruct the missing data CTs."
+    },
+    {
+      "id": "R79",
+      "file": "project_G52_G53_gamepad_downstream.md",
+      "quote": "lecture **idempotente** obligatoire",
+      "rule": "When reading the kReply messages received on :base+13, make the reader idempotent, because each reply is sent three times."
+    },
+    {
+      "id": "R80",
+      "file": "project_G52_G53_gamepad_downstream.md",
+      "quote": "decryption **without replay protection**",
+      "rule": "Do not add replay protection when decrypting the :base+13 gamepad channel messages, since the cipher is shared with the video's separate nonce space."
+    },
+    {
+      "id": "R81",
+      "file": "project_G55_gamepad_timing.md",
+      "quote": "A reflex worth keeping: on this protocol, when a channel does not\nanswer, ask FIRST whether we spoke to it too soon.",
+      "rule": "When a channel on this protocol does not answer, first check whether the agent spoke to that channel too soon (before the channel was ready), before investigating other causes."
+    },
+    {
+      "id": "R82",
+      "file": "project_G55_gamepad_timing.md",
+      "quote": "**Do NOT lower `SHADOW_GAMEPAD_DELAY_MS`**: G50's 500 ms are right, the error was\nwhat PRECEDED them.",
+      "rule": "Do not lower SHADOW_GAMEPAD_DELAY_MS; keep the 500 ms value."
+    },
+    {
+      "id": "R83",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "Turn the software-only flags off under hwaccel",
+      "rule": "When hardware acceleration is active (`d->hwaccel_active`), do not enable the software-only libavcodec flags: set `error_concealment=0`, `err_recognition=0`, and do not set `OUTPUT_CORRUPT` or `SHOW_ALL`."
+    },
+    {
+      "id": "R84",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "Retry once** on a single failure",
+      "rule": "On a single `av_hwframe_transfer_data` failure, call `av_frame_unref(sw_frame)` and retry the transfer once before counting it as a failure."
+    },
+    {
+      "id": "R85",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "skip hwaccel from then on",
+      "rule": "After five failures, write a `hwaccel.disabled` marker in the data directory and, on later `h264_decoder_create()` calls, skip hwaccel while the marker exists."
+    },
+    {
+      "id": "R86",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "Remove the file, or set `SHADOW_HWACCEL=1`, to\nundo it.",
+      "rule": "To undo the sticky hwaccel disable, remove the `hwaccel.disabled` marker file or set `SHADOW_HWACCEL=1`."
+    },
+    {
+      "id": "R87",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "Skipping on `d->hwaccel_active` alone would send `frame->data[]` full of\ndevice pointers down the CPU path and crash the view. A separate `is_gpu_format`\ncheck drops the frame instead.",
+      "rule": "When hwaccel is disabled but the decoder still delivers GPU-format frames, check `is_gpu_format` and drop those frames rather than passing them down the CPU path."
+    },
+    {
+      "id": "R88",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "`SHADOW_HWACCEL=0` - no hwaccel at init (bypasses the marker)",
+      "rule": "When `SHADOW_HWACCEL=0` is set, do not initialize hwaccel at decoder init, regardless of the marker."
+    },
+    {
+      "id": "R89",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "`SHADOW_HWACCEL=1` - force it (overrides an existing marker)",
+      "rule": "When `SHADOW_HWACCEL=1` is set, force hwaccel on even if the `hwaccel.disabled` marker exists."
+    },
+    {
+      "id": "R90",
+      "file": "project_HW1_hwaccel_rc5_fix.md",
+      "quote": "`SHADOW_ERR_CONCEAL=N` - override concealment, CPU path only",
+      "rule": "When `SHADOW_ERR_CONCEAL=N` is set, use N as the error concealment value on the CPU path only."
+    },
+    {
+      "id": "R91",
+      "file": "project_L15_frame_ceiling_vm_mode.md",
+      "quote": "`[L15]` now compares requested against received every 5 s in the log.",
+      "rule": "When logging the L15 frame-rate measurements, compare requested frame rate against received frame rate every 5 seconds."
+    },
+    {
+      "id": "R92",
+      "file": "project_L15_frame_ceiling_vm_mode.md",
+      "quote": "three samples\nminimum, a single session's variance is enormous",
+      "rule": "Take at least three measurement samples before drawing conclusions about frame-rate delivery, because a single session's variance is very large."
+    },
+    {
+      "id": "R93",
+      "file": "project_N54_ffmpeg_nvdec_BUILT.md",
+      "quote": "**Patch needed**: `libavcodec/envideo_decode.c:86` — `dev_info.is_tegra` → `dev_info.tegra_layout`",
+      "rule": "When building the Averne FFmpeg envideo branch, patch libavcodec/envideo_decode.c line 86 to replace dev_info.is_tegra with dev_info.tegra_layout."
+    },
+    {
+      "id": "R94",
+      "file": "project_N54_ffmpeg_nvdec_BUILT.md",
+      "quote": "Installed (by a manual sudo cp; make install does not work):",
+      "rule": "Install the cross-compiled FFmpeg libraries into the devkitpro switch portlibs prefix by copying them manually with sudo cp, not with make install."
+    },
+    {
+      "id": "R95",
+      "file": "project_N54_ffmpeg_nvdec_BUILT.md",
+      "quote": "Push `shadow-client.nro` (13 MB, $REPO/05-shadow-client-borealis/build_switch/) to the Switch through `gio`",
+      "rule": "Push the shadow-client.nro build to the Switch through gio and test it live."
+    },
+    {
+      "id": "R96",
+      "file": "project_PARITY_RAW_FIX_2026-05-15.md",
+      "quote": "Toggle it off with `SHADOW_PARITY_RAW=0` for an A/B or for debugging.",
+      "rule": "To disable the PARITY_RAW behavior, set SHADOW_PARITY_RAW=0, for A/B comparison or debugging."
+    },
+    {
+      "id": "R97",
+      "file": "project_PARITY_RAW_FIX_2026-05-15.md",
+      "quote": "Dead code cleaned up (BOTTOM_INJECT, IDR_INJECT, YUV_COMPOSITE)",
+      "rule": "Remove the dead code BOTTOM_INJECT, IDR_INJECT, and YUV_COMPOSITE."
+    },
+    {
+      "id": "R98",
+      "file": "project_PARITY_RAW_FIX_2026-05-15.md",
+      "quote": "Port Switch + test live NVDEC + PARITY_RAW combo",
+      "rule": "Port Switch and test the live NVDEC plus PARITY_RAW combination."
+    },
+    {
+      "id": "R99",
+      "file": "project_PARITY_RAW_FIX_2026-05-15.md",
+      "quote": "ffprobe re-validate stream.h264 pour quantifier residual concealment",
+      "rule": "Re-validate stream.h264 with ffprobe to quantify residual concealment."
+    },
+    {
+      "id": "R100",
+      "file": "project_PERF1_latency_wins.md",
+      "quote": "do not touch",
+      "rule": "Do not modify the pacing queue depth of 4, since it is deliberate and absorbs decoder bursts."
+    },
+    {
+      "id": "R101",
+      "file": "project_PERF1_latency_wins.md",
+      "quote": "must be DERIVED from it, not retyped",
+      "rule": "When a socket is copied from another socket, derive it from the original rather than retyping its setup, so its setsockopt calls are not lost."
+    },
+    {
+      "id": "R102",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "Pour l'instant garder defaults false (= safe baseline V14).",
+      "rule": "Keep the CI_BODY_5 boolean defaults (cursor_merged, high_color_fidelity, hdr_enabled, vr_enabled) set to false, the V14 safe baseline, until their correct field numbers are known."
+    },
+    {
+      "id": "R103",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "À confirmer avec capture cursor non-blank.",
+      "rule": "Confirm the cursor bitmap pixel format and layout using a capture of a non-blank cursor."
+    },
+    {
+      "id": "R104",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "To be RE'd more precisely: the correct field numbers, through a decompilation of the desktop's serialiser.",
+      "rule": "Determine the correct CI_BODY_5 field numbers by decompiling the desktop's serialiser."
+    },
+    {
+      "id": "R105",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "Decompile the desktop's `Auth::Serialize` for the exact map(StreamType→set<ChannelType>) layout",
+      "rule": "Decompile the desktop's Auth::Serialize to determine the exact layout of the StreamType-to-ChannelType map."
+    },
+    {
+      "id": "R106",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "Encode the 9 entries into ctrl_build_authentication",
+      "rule": "Encode the 9 channel entries into the auth channels map in ctrl_build_authentication once the map layout is decoded."
+    },
+    {
+      "id": "R107",
+      "file": "project_RE1_RE4_static_RE_findings_2026-05-18.md",
+      "quote": "A/B test: measure whether the bottom NAL goes above 50%",
+      "rule": "A/B test whether the bottom NAL goes above 50% after changing the auth channels map."
+    },
+    {
+      "id": "R108",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "Keeping field 10 = false** is the stable strategy.",
+      "rule": "Keep the field 10 (vr_enabled) boolean set to false in RegisterSession_Video, since enabling it breaks the stream."
+    },
+    {
+      "id": "R109",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "Defaults all false → baseline V14 byte-exact preserved",
+      "rule": "Keep all RegisterSession_Video boolean defaults set to false so the baseline V14 behavior is preserved."
+    },
+    {
+      "id": "R110",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "No wire patch enabled by default",
+      "rule": "Do not enable any wire patch by default."
+    },
+    {
+      "id": "R111",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "Env vars SHADOW_REG_F4/F5/F6/F8/F10 disponibles pour future A/B test",
+      "rule": "Use the SHADOW_REG_F4/F5/F6/F8/F10 environment variables to toggle these fields for future A/B tests."
+    },
+    {
+      "id": "R112",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "VST branching = **the next concrete impactful action**",
+      "rule": "Prioritize VST branching as the next concrete action when no interactive desktop capture is available."
+    },
+    {
+      "id": "R113",
+      "file": "project_RE9_RE10_field_semantics_2026-05-18.md",
+      "quote": "**wire the VST callback to the\nh264_decoder**",
+      "rule": "Wire the VST callback to the h264_decoder to handle the 4142 B H.264 IDR retransmits."
+    },
+    {
+      "id": "R114",
+      "file": "project_S34_black_screen_3rd_session.md",
+      "quote": "in the session path, a function `static` is suspect by default",
+      "rule": "When reviewing or writing code in the session path, treat any function-local `static` variable as suspect by default, and check it especially if it is compared against a per-session counter."
+    },
+    {
+      "id": "R115",
+      "file": "project_S35_udp_buffer_hos.md",
+      "quote": "always check the value READ BACK",
+      "rule": "On HOS (Nintendo Switch), after calling setsockopt, always read back the socket option value to verify that it took effect."
+    },
+    {
+      "id": "R116",
+      "file": "project_S35_udp_buffer_hos.md",
+      "quote": "never assume the request",
+      "rule": "On HOS (Nintendo Switch), never assume that a setsockopt request took effect without verifying the value read back."
+    },
+    {
+      "id": "R117",
+      "file": "project_S35_udp_buffer_hos.md",
+      "quote": "treat the cause and not the symptom",
+      "rule": "When a real packet loss is measured, treat its underlying cause rather than its symptom (such as the resulting key frames)."
+    },
+    {
+      "id": "R118",
+      "file": "project_S36_sound_one_session_only.md",
+      "quote": "In the session path, a `static` is suspect\npar defaut.",
+      "rule": "In the session path, treat a C `static` variable as suspect by default when it holds per-session state."
+    },
+    {
+      "id": "R119",
+      "file": "project_S36_sound_one_session_only.md",
+      "quote": "an autotest on a silent desktop does NOT measure audio",
+      "rule": "Do not use an autotest run on a silent desktop to measure or verify audio; the absence of sound in that case proves nothing."
+    },
+    {
+      "id": "R120",
+      "file": "project_S46_server_announces_phantom_entity.md",
+      "quote": "identify entity `01` and delete it before starting.",
+      "rule": "Before starting a session, identify the registered server-side entity `01` (listed via `GET /clients`) and delete it using `proximus_delete()`."
+    },
+    {
+      "id": "R121",
+      "file": "project_S57_audio_solved_we_spoke_too_early.md",
+      "quote": "before looking for a server-side cause, check our own emission SCHEDULE",
+      "rule": "When investigating a problem that might have a server-side cause, first check the timing schedule of the messages we emit, not only their content."
+    },
+    {
+      "id": "R122",
+      "file": "project_S57_audio_solved_we_spoke_too_early.md",
+      "quote": "Check every `now - t >= delay` where `t` starts at zero.",
+      "rule": "When reviewing code, check every interval comparison of the form `now - t >= delay` where `t` is initialized to zero against a monotonic clock, since it fires immediately on the first iteration."
+    },
+    {
+      "id": "R123",
+      "file": "project_S57_audio_solved_we_spoke_too_early.md",
+      "quote": "Lie a [[project_S46_server_announces_phantom_entity]]",
+      "rule": "When writing this memory note, link it to the note project_S46_server_announces_phantom_entity."
+    },
+    {
+      "id": "R124",
+      "file": "project_V18_cleanup_baseline_2026-05-18.md",
+      "quote": "To be kept",
+      "rule": "Keep the ctrl_video_tcp module (ctrl_video_tcp.{c,h}) in the codebase, because the V16 wolfSSL plaintext-capture hook will reuse its infrastructure."
+    },
+    {
+      "id": "R125",
+      "file": "project_audio_FOUND_cursor_channel.md",
+      "quote": "Validate with `opus_packet_get_nb_samples` first.",
+      "rule": "Validate an Opus packet with opus_packet_get_nb_samples before passing it to opus_decode."
+    },
+    {
+      "id": "R126",
+      "file": "project_audio_FOUND_cursor_channel.md",
+      "quote": "Ring buffer plus a\n  dedicated thread.",
+      "rule": "Do not write audio to ALSA from the receive thread; write through a ring buffer consumed by a dedicated thread."
+    },
+    {
+      "id": "R127",
+      "file": "project_audio_FOUND_cursor_channel.md",
+      "quote": "A `0x70` ping every **7.5 s**",
+      "rule": "Send a 0x70 ping every 7.5 seconds to keep the audio channel subscription active."
+    },
+    {
+      "id": "R128",
+      "file": "project_audio_FOUND_cursor_channel.md",
+      "quote": "`kUnregisterSession` (oneof f9) on close",
+      "rule": "Send kUnregisterSession (oneof f9) when closing the session so the server drops the audio channel subscription."
+    },
+    {
+      "id": "R129",
+      "file": "project_audio_FOUND_cursor_channel.md",
+      "quote": "**Deduplicate**: every frame is sent twice. A sliding window of 64 sequence\n   numbers, not a comparison against the last one.",
+      "rule": "Deduplicate incoming audio frames using a sliding window of 64 sequence numbers, not by comparing against the last frame."
+    },
+    {
+      "id": "R130",
+      "file": "project_audio_channel_wire_RE.md",
+      "quote": "A runtime test on Linux with SHADOW_AUDIO_DTLS=1 to validate",
+      "rule": "Run a runtime test on Linux with SHADOW_AUDIO_DTLS=1 to verify that the audio DTLS handshake passes."
+    },
+    {
+      "id": "R131",
+      "file": "project_audio_channel_wire_RE.md",
+      "quote": "bump the timeout to 10 s",
+      "rule": "If err=-308 is still observed during the audio DTLS handshake, increase the timeout to 10 seconds."
+    },
+    {
+      "id": "R132",
+      "file": "project_audio_dtls_SOLVED_ipv6.md",
+      "quote": "`wolfSSL_set_dtls_fd_connected()` instead of `wolfSSL_set_fd()`",
+      "rule": "When the DTLS socket is already connect()-ed, call wolfSSL_set_dtls_fd_connected() instead of wolfSSL_set_fd()."
+    },
+    {
+      "id": "R133",
+      "file": "project_audio_dtls_SOLVED_ipv6.md",
+      "quote": "Fix: `wolfSSL_dtls_set_using_nonblock(ssl, 1)`.",
+      "rule": "For DTLS sessions whose read thread must exit promptly on shutdown, call wolfSSL_dtls_set_using_nonblock(ssl, 1), because a socket receive timeout alone makes wolfSSL_read block."
+    },
+    {
+      "id": "R134",
+      "file": "project_audio_dtls_SOLVED_ipv6.md",
+      "quote": "Toggle `SHADOW_AUDIO_DTLS_CONNECTED=0`.",
+      "rule": "To revert to the wolfSSL_set_fd() path, set SHADOW_AUDIO_DTLS_CONNECTED=0."
+    },
+    {
+      "id": "R135",
+      "file": "project_base15_silent_channel_RE.md",
+      "quote": "**do not implement**",
+      "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+    },
+    {
+      "id": "R136",
+      "file": "project_base15_silent_channel_RE.md",
+      "quote": "revisit if/when wanted",
+      "rule": "If a Switch feature to pull files from the VM is wanted, revisit porting the libssh-based SFTP channel and its UI."
+    },
+    {
+      "id": "R137",
+      "file": "project_capabilities_full_byte_exact_RE.md",
+      "quote": "No RE follow-up on this axis.",
+      "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+    },
+    {
+      "id": "R138",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "implement a parser for the channel-5 reply's `f4.f5`",
+      "rule": "Implement a parser that extracts field f4.f5 from the channel-5 reply."
+    },
+    {
+      "id": "R139",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "validate it against",
+      "rule": "Validate the parsed f4.f5 value against port_base+10."
+    },
+    {
+      "id": "R140",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "Log warning si mismatch.",
+      "rule": "Log a warning when the parsed f4.f5 value does not match port_base+10."
+    },
+    {
+      "id": "R141",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "test `f1.f2 = 124720` as an alternative nonce_extra",
+      "rule": "If the current chacha20 decryption fails, test f1.f2 = 124720 from the channel-5 reply as an alternative nonce_extra."
+    },
+    {
+      "id": "R142",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "check that it matches our request",
+      "rule": "Check that the negotiated fps in the channel reply (f2.f3) matches the fps we requested."
+    },
+    {
+      "id": "R143",
+      "file": "project_capabilities_reply_fields_RE.md",
+      "quote": "C70 : valider",
+      "rule": "Validate the negotiated max_bitrate (f2.f7) from the channel reply."
+    },
+    {
+      "id": "R144",
+      "file": "project_channel_map_proven.md",
+      "quote": "Read this before any hypothesis about a channel.",
+      "rule": "Read the Shadow channel map before forming any hypothesis about a channel."
+    },
+    {
+      "id": "R145",
+      "file": "project_channel_map_proven.md",
+      "quote": "Do not go looking for a port for it",
+      "rule": "Do not search for a port for ComChan, since it has no socket."
+    },
+    {
+      "id": "R146",
+      "file": "project_channel_map_proven.md",
+      "quote": "capture the official client one function at a time and look for the CONTENT in cleartext",
+      "rule": "When investigating the official client, capture it one function at a time and look for content in cleartext."
+    },
+    {
+      "id": "R147",
+      "file": "project_ctrl_oneof_enum_VERIFIED.md",
+      "quote": "For a 100 % picture: work on the **decoder** side",
+      "rule": "To get a 100% picture (eliminate the ~10% bottom slice), work on the decoder side, for example by caching the IDR's bottom macroblocks as a reference for subsequent P-frames."
+    },
+    {
+      "id": "R148",
+      "file": "project_ctrl_oneof_enum_VERIFIED.md",
+      "quote": "not on the ctrl side",
+      "rule": "When trying to fix the ~10% bottom slice problem, do not work on the ctrl-message side."
+    },
+    {
+      "id": "R149",
+      "file": "project_ctrl_oneof_unused_RE.md",
+      "quote": "Mark the \"ctrl oneof\" lead definitively **abandoned** for",
+      "rule": "Mark the \"ctrl oneof\" lead as definitively abandoned for the bottom-slice taskbar problem."
+    },
+    {
+      "id": "R150",
+      "file": "project_ctrl_oneof_unused_RE.md",
+      "quote": "**NEVER** send, client→server: `kUpdateSession`, `kStopUsingGpu`,",
+      "rule": "Never send kUpdateSession or kStopUsingGpu from client to server, because these are server-to-client messages and sending them may confuse the server."
+    },
+    {
+      "id": "R151",
+      "file": "project_ctrl_oneof_unused_RE.md",
+      "quote": "`kRestart`, `kActivate/DeactivateBanner`",
+      "rule": "Never send kRestart, kActivateBanner, or kDeactivateBanner from client to server, because these are server-to-client messages and sending them may confuse the server."
+    },
+    {
+      "id": "R152",
+      "file": "project_ctrl_oneof_unused_RE.md",
+      "quote": "`kInitVR` (sauf VR setup)",
+      "rule": "Send kInitVR from client to server only during VR setup."
+    },
+    {
+      "id": "R153",
+      "file": "project_ctrl_oneof_unused_RE.md",
+      "quote": "Keep investigating the **RegisterSession_Video** field map",
+      "rule": "Continue investigating the RegisterSession_Video field map to identify the bool that probably controls multi-NAL / chunk aggregation."
+    },
+    {
+      "id": "R154",
+      "file": "project_cursor_user_activity_RE.md",
+      "quote": "should **NOT** prioritize ComChan",
+      "rule": "When investigating the taskbar/bottom-NAL bug, do not prioritize implementing ComChan."
+    },
+    {
+      "id": "R155",
+      "file": "project_cursor_user_activity_RE.md",
+      "quote": "Pursue server-side H.264 picture-segment splitting RE",
+      "rule": "When investigating the taskbar/bottom-NAL bug, pursue reverse engineering of server-side H.264 picture-segment splitting."
+    },
+    {
+      "id": "R156",
+      "file": "project_cursor_user_activity_RE.md",
+      "quote": "cross-ref `H1_*` dumps",
+      "rule": "When pursuing server-side H.264 picture-segment splitting reverse engineering, cross-reference the H1_* dumps."
+    },
+    {
+      "id": "R157",
+      "file": "project_differential_captures_plan.md",
+      "quote": "stop making\nhypotheses about the unexplored channels",
+      "rule": "Do not make hypotheses about the unexplored Shadow channels."
+    },
+    {
+      "id": "R158",
+      "file": "project_differential_captures_plan.md",
+      "quote": "IDENTIFY them by contrast instead",
+      "rule": "Identify the unexplored Shadow channels by comparing captures, not by guessing."
+    },
+    {
+      "id": "R159",
+      "file": "project_differential_captures_plan.md",
+      "quote": "one single change at a time",
+      "rule": "Change only one setting or function at a time when running capture scenarios."
+    },
+    {
+      "id": "R160",
+      "file": "project_differential_captures_plan.md",
+      "quote": "`SHADOW_TLS_MAX_DUMP=65536`",
+      "rule": "Set SHADOW_TLS_MAX_DUMP=65536 when launching the official client for capture."
+    },
+    {
+      "id": "R161",
+      "file": "project_differential_captures_plan.md",
+      "quote": "Confounders to remove BEFORE any measurement",
+      "rule": "Remove the confounders before taking any measurement, including unplugging the physical gamepad."
+    },
+    {
+      "id": "R162",
+      "file": "project_differential_captures_plan.md",
+      "quote": "a single VM named and logged",
+      "rule": "Use a single VM for a capture, and name and log it."
+    },
+    {
+      "id": "R163",
+      "file": "project_differential_captures_plan.md",
+      "quote": "one process per session",
+      "rule": "Run one process per session during a capture."
+    },
+    {
+      "id": "R164",
+      "file": "project_differential_captures_plan.md",
+      "quote": "never to be logged",
+      "rule": "Never log the ed25519 key from the server's announcement reply."
+    },
+    {
+      "id": "R165",
+      "file": "project_freeze_GUI_only_t118s.md",
+      "quote": "do not replay",
+      "rule": "Do not replay the already-refuted hypotheses (session lease, malformed input events, heartbeat starvation) when investigating the GUI-only freeze."
+    },
+    {
+      "id": "R166",
+      "file": "project_freeze_t115s_SOLVED_switch_specific.md",
+      "quote": "DO NOT migrate to libdatachannel",
+      "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+    },
+    {
+      "id": "R167",
+      "file": "project_freeze_t115s_SOLVED_switch_specific.md",
+      "quote": "A Switch-HOS-specific audit: profile the ICE drainer, the libjuice thread, the DTLS retransmissions, libnx memory",
+      "rule": "Audit the Switch HOS-specific implementation by profiling the ICE drainer, the libjuice thread, the DTLS retransmissions, and libnx memory."
+    },
+    {
+      "id": "R168",
+      "file": "project_freeze_t115s_SOLVED_switch_specific.md",
+      "quote": "Test by isolating the threads (one at a time, disable audio, disable the DC…)",
+      "rule": "When debugging the Switch freeze, isolate the threads by testing them one at a time, such as disabling audio or the data channel."
+    },
+    {
+      "id": "R169",
+      "file": "project_freeze_t115s_SOLVED_switch_specific.md",
+      "quote": "Augmenter SO_RCVBUF/SO_SNDBUF UDP socket Switch",
+      "rule": "Increase the SO_RCVBUF and SO_SNDBUF buffer sizes on the Switch UDP socket."
+    },
+    {
+      "id": "R170",
+      "file": "project_freeze_t115s_SOLVED_switch_specific.md",
+      "quote": "A pcap capture from a PC ARP-spoofing the Switch, to see whether the server sends anything after t=120 s or not",
+      "rule": "Capture a pcap from a PC ARP-spoofing the Switch to determine whether the server sends anything after t=120 s."
+    },
+    {
+      "id": "R171",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "Recommended test order",
+      "rule": "Test the audit hypotheses in the listed order, prioritized by effort versus expected return."
+    },
+    {
+      "id": "R172",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "Test without rtcp-rsize",
+      "rule": "Test removing the a=rtcp-rsize attribute from the SDP first, before other fixes."
+    },
+    {
+      "id": "R173",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "Fix `cumul_lost` + `jitter` in the RR",
+      "rule": "Fix the cumul_lost and jitter values in the RTCP receiver report so they are computed per RFC 3550, not hardcoded to zero."
+    },
+    {
+      "id": "R174",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "Audit + fix the TWCC `reference_time` format",
+      "rule": "Audit and fix the TWCC reference_time format, ensuring it uses 64 ms ticks."
+    },
+    {
+      "id": "R175",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "Implem RTCP XR/RRTR",
+      "rule": "Implement RTCP XR/RRTR reporting to close the gap with libwebrtc."
+    },
+    {
+      "id": "R176",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "NACK handling",
+      "rule": "Implement handling of received NACK feedback packets, including retransmission."
+    },
+    {
+      "id": "R177",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "STUN reorder",
+      "rule": "Reorder the STUN attributes to match Chrome's attribute order."
+    },
+    {
+      "id": "R178",
+      "file": "project_freeze_t115s_bit_perfect_audit.md",
+      "quote": "dernier recours",
+      "rule": "Change the TLS fingerprint only as a last resort, after the other fixes have been tested."
+    },
+    {
+      "id": "R179",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "DO NOT retest these 14 hypotheses",
+      "rule": "Do not retest the 14 hypotheses listed as eliminated in this investigation."
+    },
+    {
+      "id": "R180",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Keep the beneficial changes: b=AS:45000, the audio-level + video extmaps, the WSS bitrate hint (+45% throughput)",
+      "rule": "Keep the SDP b=AS:45000 change."
+    },
+    {
+      "id": "R181",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Keep the beneficial changes: b=AS:45000, the audio-level + video extmaps, the WSS bitrate hint (+45% throughput)",
+      "rule": "Keep the audio-level and video extmap SDP changes."
+    },
+    {
+      "id": "R182",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Keep the beneficial changes: b=AS:45000, the audio-level + video extmaps, the WSS bitrate hint (+45% throughput)",
+      "rule": "Keep the WSS bitrate hint change."
+    },
+    {
+      "id": "R183",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Revert the changes with no effect: the Chrome UA, the proximus spoof, the WebRTC DTLS cert, the random CNAME, GOOG-NETWORK-INFO",
+      "rule": "Revert the Chrome User-Agent spoof change."
+    },
+    {
+      "id": "R184",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Revert the changes with no effect: the Chrome UA, the proximus spoof, the WebRTC DTLS cert, the random CNAME, GOOG-NETWORK-INFO",
+      "rule": "Revert the proximus opaque os-name/arch/platform spoof change."
+    },
+    {
+      "id": "R185",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Revert the changes with no effect: the Chrome UA, the proximus spoof, the WebRTC DTLS cert, the random CNAME, GOOG-NETWORK-INFO",
+      "rule": "Revert the WebRTC DTLS certificate CN/O rename change."
+    },
+    {
+      "id": "R186",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Revert the changes with no effect: the Chrome UA, the proximus spoof, the WebRTC DTLS cert, the random CNAME, GOOG-NETWORK-INFO",
+      "rule": "Revert the random RTCP CNAME change."
+    },
+    {
+      "id": "R187",
+      "file": "project_freeze_t115s_full_audit.md",
+      "quote": "Revert the changes with no effect: the Chrome UA, the proximus spoof, the WebRTC DTLS cert, the random CNAME, GOOG-NETWORK-INFO",
+      "rule": "Revert the STUN GOOG-NETWORK-INFO change."
+    },
+    {
+      "id": "R188",
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "Keep `DISABLE_CONSENT_FRESHNESS=OFF` in `library/libjuice/build_switch/CMakeCache.txt`",
+      "rule": "Keep DISABLE_CONSENT_FRESHNESS=OFF in library/libjuice/build_switch/CMakeCache.txt in the libjuice build configuration."
+    },
+    {
+      "id": "R189",
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "Do NOT re-test these hypotheses: RFC 7675 consent",
+      "rule": "Do not re-test the RFC 7675 consent freshness hypothesis for the t=115 s freeze."
+    },
+    {
+      "id": "R190",
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "capture a long browser session (>3 min idle) through the improved extension to see EVERY DC send between t=0-150 s, especially on shadow-controller",
+      "rule": "Capture a long browser session (more than 3 minutes idle) through the improved extension to record every DataChannel send between t=0-150 s, especially on the shadow-controller channel."
+    },
+    {
+      "id": "R191",
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "A periodic pattern → imitate it on the Switch side.",
+      "rule": "If the captured browser DataChannel sends show a periodic pattern, imitate that pattern on the Switch side."
+    },
+    {
+      "id": "R192",
+      "file": "project_freeze_t120s_root_cause_wss.md",
+      "quote": "If not → add RTX (more complex).",
+      "rule": "If the Switch does not receive video at about 18 Mbps like the browser after the SDP fix, add RTX (PT 104 retransmission) to the SDP offer."
+    },
+    {
+      "id": "R193",
+      "file": "project_freeze_t120s_unsolved.md",
+      "quote": "do not re-test these hypotheses",
+      "rule": "Do not re-test the hypotheses already eliminated in the WebRTC freeze investigation at t=120s."
+    },
+    {
+      "id": "R194",
+      "file": "project_freeze_t120s_unsolved.md",
+      "quote": "capture a pcap on the Shadow side",
+      "rule": "For future WebRTC freeze debugging, capture a pcap on the Shadow side."
+    },
+    {
+      "id": "R195",
+      "file": "project_freeze_t120s_unsolved.md",
+      "quote": "do a byte-perfect SDP diff between Chrome and us",
+      "rule": "For future WebRTC freeze debugging, do a byte-perfect SDP diff between Chrome's offer and ours."
+    },
+    {
+      "id": "R196",
+      "file": "project_freeze_t120s_unsolved.md",
+      "quote": "STAY at INFO.",
+      "rule": "Keep libjuice logging at INFO level; do not enable DEBUG logging."
+    },
+    {
+      "id": "R197",
+      "file": "project_gamepad_native_base13.md",
+      "quote": "correlate over the time series, not over the holds",
+      "rule": "When analyzing gamepad stick data, correlate over the movements in the time series, not over the periods where a stick is held still, since held positions produce no messages."
+    },
+    {
+      "id": "R198",
+      "file": "project_gpu_driver_advertisement_RE.md",
+      "quote": "Our Switch client must **NOT** try to send that field",
+      "rule": "The Switch client must not try to send GPU or driver information in the ctrl wire or the /1/clients opaque blob."
+    },
+    {
+      "id": "R199",
+      "file": "project_image_50pct_root_cause.md",
+      "quote": "The `1920×540` baseline (= the height/2 clamp) remains the accepted standard",
+      "rule": "When working on Shadow's image quality or resolution, treat the 1920×540 baseline (the height/2 clamp) as the accepted standard."
+    },
+    {
+      "id": "R200",
+      "file": "project_image_50pct_root_cause.md",
+      "quote": "Any regression must come back to 28 fps + 4 decode errors per 30 s + 100% decrypt",
+      "rule": "When a regression is suspected in Shadow's image quality or resolution, verify it against the baseline of 28 fps, 4 decode errors per 30 s, and 100% decrypt."
+    },
+    {
+      "id": "R201",
+      "file": "project_image_50pct_root_cause.md",
+      "quote": "capture a desktop session with activity at the bottom of the screen",
+      "rule": "To go beyond the 1920×540 baseline on Shadow's image quality, capture a desktop session with activity at the bottom of the screen."
+    },
+    {
+      "id": "R202",
+      "file": "project_image_50pct_state_2026-05-15.md",
+      "quote": "do not regress them",
+      "rule": "Do not regress the working streaming patches listed in the file (the V5 slot_seen refactor in ctrl_session.c::on_video_packet, the expect_sof orphan-chunk drop, the diagnostic counters, the strict chunk_idx >= max_chunks check, and the SHADOW_EDID_128B byte 126/127 fix)."
+    },
+    {
+      "id": "R203",
+      "file": "project_input_port_not_base14.md",
+      "quote": "you validate an input by its real effect, not by a proxy.",
+      "rule": "When validating an input sent to the remote VM, confirm it by its real effect on the remote screen, not by a proxy signal."
+    },
+    {
+      "id": "R204",
+      "file": "project_input_port_not_base14.md",
+      "quote": "aiming at a small button is a bad test",
+      "rule": "Do not use clicking a small button as the test for whether input reaches the VM; use an unambiguous check such as drag-select or F11 instead."
+    },
+    {
+      "id": "R205",
+      "file": "project_iter_2026-05-06_bandwidth_caps.md",
+      "quote": "Run >=3× per variant to reduce the variance — a single run is not a signal.",
+      "rule": "Run each benchmark variant at least 3 times before drawing conclusions from its results."
+    },
+    {
+      "id": "R206",
+      "file": "project_iter_2026-05-06_bandwidth_caps.md",
+      "quote": "PT 103 (H.264 baseline 42001f) must stay first",
+      "rule": "Keep payload type 103 (H.264 baseline 42001f) first in the m-line."
+    },
+    {
+      "id": "R207",
+      "file": "project_iter_2026-05-06_bandwidth_caps.md",
+      "quote": "TWCC is **REQUIRED**",
+      "rule": "Do not disable TWCC; keep it enabled."
+    },
+    {
+      "id": "R208",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "Audit the server→client DC traffic",
+      "rule": "Audit the server-to-client data-channel traffic for application messages the client currently ignores."
+    },
+    {
+      "id": "R209",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "audit our `webrtc.log` for server→client `dc: stream=N`, and see whether any of them require an application-level reply",
+      "rule": "Audit webrtc.log for server-to-client data-channel messages and check whether any of them require an application-level reply."
+    },
+    {
+      "id": "R210",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "check that we consume the body (not just the 200)",
+      "rule": "When polling /status, consume the response body and not just check for the 200 status."
+    },
+    {
+      "id": "R211",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "A usrsctp forced cleanup on reconnect",
+      "rule": "Implement a forced usrsctp cleanup on reconnect."
+    },
+    {
+      "id": "R212",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "TWCC v2 + GoogCC (~8 jours)",
+      "rule": "As plan B, implement TWCC v2 and GoogCC."
+    },
+    {
+      "id": "R213",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "migration libdatachannel",
+      "rule": "As plan C, migrate to libdatachannel."
+    },
+    {
+      "id": "R214",
+      "file": "project_libnxbox_re_insight.md",
+      "quote": "copying libnxbox",
+      "rule": "Do not copy libnxbox."
+    },
+    {
+      "id": "R215",
+      "file": "project_libwebrtc_tls_grease_plan.md",
+      "quote": "**DO NOT** do N5 unless it is a long-term milestone with a team.",
+      "rule": "Do not pursue N5 (the full libwebrtc port) unless it is a long-term milestone with a team behind it."
+    },
+    {
+      "id": "R216",
+      "file": "project_libwebrtc_tls_grease_plan.md",
+      "quote": "**Recommendation**: N1+N2 in parallel (~3 days)",
+      "rule": "Implement N1 (wolfSSL quick wins) and N2 (wolfSSL TLS GREASE patch) in parallel as the first step."
+    },
+    {
+      "id": "R217",
+      "file": "project_libwebrtc_tls_grease_plan.md",
+      "quote": "then test → if the freeze persists, N3 (~3 weeks)",
+      "rule": "After testing N1+N2, if the freeze persists, implement N3 (TWCC v2 and simplified GoogCC)."
+    },
+    {
+      "id": "R218",
+      "file": "project_libwebrtc_tls_grease_plan.md",
+      "quote": "or N4 (~2 weeks, if the whole stack is bypassed).",
+      "rule": "After testing N1+N2, if the freeze persists and the whole stack is bypassed, implement N4 (libdatachannel migration) instead of N3."
+    },
+    {
+      "id": "R219",
+      "file": "project_measurement_campaign_20260828.md",
+      "quote": "A revert toggle must RESTORE, not cut.",
+      "rule": "When implementing a revert toggle, make it restore the original behavior rather than cut or remove the feature."
+    },
+    {
+      "id": "R220",
+      "file": "project_measurement_campaign_20260828.md",
+      "quote": "To be settled by `tcpdump`, not by re-reading code.",
+      "rule": "Settle the G53 question (whether the connected socket filters out replies from another source port) with tcpdump, not by re-reading the code."
+    },
+    {
+      "id": "R221",
+      "file": "project_measurement_campaign_20260828.md",
+      "quote": "Analyse the logs with `awk`.",
+      "rule": "Analyse log files with awk, not grep."
+    },
+    {
+      "id": "R222",
+      "file": "project_native_GUI_integration.md",
+      "quote": "How to apply**: to enable the native path in the Linux GUI, run it with `SHADOW_NATIVE=1 ./shadow-client`.",
+      "rule": "To enable the native Shadow path in the Linux GUI, run the client with SHADOW_NATIVE=1 (e.g. `SHADOW_NATIVE=1 ./shadow-client`); otherwise the code stays on dc_session_run() (libdatachannel)."
+    },
+    {
+      "id": "R223",
+      "file": "project_native_GUI_integration.md",
+      "quote": "CLI test: `./shadow-test-cli --mode=native-stream --duration=30`.",
+      "rule": "To test the native stream without the GUI, run `./shadow-test-cli --mode=native-stream --duration=30`."
+    },
+    {
+      "id": "R224",
+      "file": "project_native_GUI_integration.md",
+      "quote": "NO hardcoded key: the 32 B chacha20 key and the 20 B hash identifier are parsed from the server's Reply protobufs",
+      "rule": "Do not hardcode the 32-byte chacha20 key or the 20-byte hash identifier; parse them from the server's Reply protobufs."
+    },
+    {
+      "id": "R225",
+      "file": "project_native_GUI_integration.md",
+      "quote": "abort_flag polled at a 5 ms granularity (the recv loop nanosleeps 5 ms when empty), honouring feedback_switch_thread_lifecycle.",
+      "rule": "Poll abort_flag at a 5 ms granularity in the ctrl_session recv loop, sleeping 5 ms when empty."
+    },
+    {
+      "id": "R226",
+      "file": "project_native_GUI_integration.md",
+      "quote": "`shadow_cipher_decrypt_unsafe` for UDP video (out-of-order allowed), replay left to the caller through the SUFP seq on the audio side.",
+      "rule": "Use shadow_cipher_decrypt_unsafe for UDP video decryption, allowing out-of-order packets."
+    },
+    {
+      "id": "R227",
+      "file": "project_native_GUI_integration.md",
+      "quote": "On a frame-buffer overflow (>8MiB), drop with a log instead of crashing.",
+      "rule": "On a frame-buffer overflow (over 8 MiB), drop the data and log it instead of crashing."
+    },
+    {
+      "id": "R228",
+      "file": "project_native_blocked_jwt_invalidation.md",
+      "quote": "reorder the sequence:",
+      "rule": "When fixing the native connection flow, reorder the sequence so that zombie-client cleanup for the device-id runs before creating the new main and launcher clients."
+    },
+    {
+      "id": "R229",
+      "file": "project_native_blocked_jwt_invalidation.md",
+      "quote": "A safer alternative: have `clean_my_zombies` skip our new client_id (= passed as a parameter).",
+      "rule": "Prefer having `clean_my_zombies` accept an exclude_client_id parameter so it skips deleting the newly created client, rather than deleting clients that were just created."
+    },
+    {
+      "id": "R230",
+      "file": "project_native_blocked_jwt_invalidation.md",
+      "quote": "do not hammer the connect retry, just 2-3 attempts at most",
+      "rule": "Limit connection retries to 2-3 attempts at most; do not hammer the connect retry loop."
+    },
+    {
+      "id": "R231",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "`demo/src/streaming/ctrl_msgs.c::ctrl_build_capabilities|authentication|encryption_request` byte-exact",
+      "rule": "Implement the capabilities, authentication, and encryption request builders in demo/src/streaming/ctrl_msgs.c so their output matches the captured wire format byte-for-byte."
+    },
+    {
+      "id": "R232",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "`demo/src/main_test.c` lance 2 `proximus_sse_start` (launcher + main jwt)",
+      "rule": "In demo/src/main_test.c, start two proximus_sse_start connections, one with the launcher JWT and one with the main JWT, so the server binds the control channel."
+    },
+    {
+      "id": "R233",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "`./shadow-test-cli --mode=native-smoke`",
+      "rule": "Run ./shadow-test-cli --mode=native-smoke to test the native Shadow runtime bootstrap and video stream."
+    },
+    {
+      "id": "R234",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "Implement the UDP register with the 20 B hash extracted from the Authentication reply (field 2 of the nested message)",
+      "rule": "Send the UDP register packet using the 20-byte hash extracted from field 2 of the nested Authentication reply."
+    },
+    {
+      "id": "R235",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "Feed libavcodec through `avcodec_send_packet` (not feed_rtp, which expects RTP-style input)",
+      "rule": "Feed reassembled Shadow H.264 data to libavcodec via avcodec_send_packet, not h264_decoder_feed_rtp, because the data is not RTP-style."
+    },
+    {
+      "id": "R236",
+      "file": "project_native_bootstrap_VALIDATED.md",
+      "quote": "Concatenate the chunks with the same timestamp → 1 complete frame",
+      "rule": "Concatenate decrypted video chunks that share the same timestamp into one complete frame before decoding."
+    },
+    {
+      "id": "R237",
+      "file": "project_native_port_base_discovery.md",
+      "quote": "**probe** the candidate `port_base + 11` ports for the known bases: `9000, 10000, 11000, 12000, 13000`",
+      "rule": "Before any SslCtrlChanV2 TCP connect, probe the candidate port_base + 11 ports for the known bases 9000, 10000, 11000, 12000, and 13000."
+    },
+    {
+      "id": "R238",
+      "file": "project_native_port_base_discovery.md",
+      "quote": "The first that accepts wins.",
+      "rule": "When probing candidate SslCtrlChanV2 TCP ports, use the first port that accepts the connection."
+    },
+    {
+      "id": "R239",
+      "file": "project_native_port_base_discovery.md",
+      "quote": "we must discover it dynamically",
+      "rule": "Discover the port_base dynamically for each VM instead of hardcoding port 13011."
+    },
+    {
+      "id": "R240",
+      "file": "project_native_port_base_discovery.md",
+      "quote": "failing that, implement a probe",
+      "rule": "If the source of port_base cannot be decoded, implement a port probe to find it."
+    },
+    {
+      "id": "R241",
+      "file": "project_native_port_base_discovery.md",
+      "quote": "Change `ctrl_session.c` to port-probe instead of hardcoding `:13011`",
+      "rule": "Change ctrl_session.c to use port probing instead of hardcoding port 13011."
+    },
+    {
+      "id": "R242",
+      "file": "project_nvdec_hardware_path.md",
+      "quote": "The Shadow application requires your machine to support hardware decoding for H.264 or H.265, **it will not work with software decoding**.",
+      "rule": "Do not rely on software decoding (e.g., software libavcodec) for the Shadow application; it requires hardware H.264/H.265 decoding to work."
+    },
+    {
+      "id": "R243",
+      "file": "project_nvdec_hardware_path.md",
+      "quote": "Modifier `h264_decoder.c` : utiliser `av_hwdevice_create(AV_HWDEVICE_TYPE_NVTEGRA)` + `av_hwframe_transfer_data`",
+      "rule": "When modifying h264_decoder.c for the Switch target, use av_hwdevice_create(AV_HWDEVICE_TYPE_NVTEGRA) and av_hwframe_transfer_data for hardware decoding."
+    },
+    {
+      "id": "R244",
+      "file": "project_nvdec_hardware_path.md",
+      "quote": "Replace our build_switch's FFmpeg libraries with that version",
+      "rule": "When building for the Switch, replace the build_switch FFmpeg libraries with Averne's FFmpeg fork build."
+    },
+    {
+      "id": "R245",
+      "file": "project_nvdec_hardware_path.md",
+      "quote": "**Not applicable on a Linux desktop** (= no Tegra X1). On Linux the path would be VAAPI, but that is for local testing only, not the Switch target.",
+      "rule": "Do not apply the nvtegra/NVDEC Averne fork path on a Linux desktop; use VAAPI only for local testing, never for the Switch target."
+    },
+    {
+      "id": "R246",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "Must be `clientType`",
+      "rule": "In the proximus-credentials request body in launcher.c, use the camelCase key `clientType` instead of `client_type`."
+    },
+    {
+      "id": "R247",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "Must include `ports:[\"controlchan\",\"video\",\"cursor\",\"input\"]`",
+      "rule": "In the proximus-credentials request body for the main client type, include `ports:[\"controlchan\",\"video\",\"cursor\",\"input\"]`."
+    },
+    {
+      "id": "R248",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "Must include the `usb` clientType",
+      "rule": "In the proximus-credentials request body for shadowusb, include the `usb` clientType."
+    },
+    {
+      "id": "R249",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "Must be `/5/...`",
+      "rule": "In streaming/ctrl_rest.c, use the `/5/...` path prefix instead of `/3/...`."
+    },
+    {
+      "id": "R250",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "it SHOULD be a uint32 protocol_version",
+      "rule": "In ctrl_build_authentication, encode field 3 as a uint32 protocol_version rather than the streamingtoken."
+    },
+    {
+      "id": "R251",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "it goes into the `Authorization: Bearer <token>` HTTP header",
+      "rule": "Send the streamingtoken in the `Authorization: Bearer <token>` HTTP header, not in the protobuf message."
+    },
+    {
+      "id": "R252",
+      "file": "project_overnight_re_2026-05-03.md",
+      "quote": "the push is to be done after a reboot",
+      "rule": "Push the Switch build only after the machine has been rebooted."
+    },
+    {
+      "id": "R253",
+      "file": "project_pivot_native_protocol.md",
+      "quote": "The WebRTC stack** (custom + libdatachannel) to be kept in the repo for the archive but **disabled** in the build",
+      "rule": "Keep the WebRTC stack (custom + libdatachannel) in the repo for archive purposes but disable it in the build."
+    },
+    {
+      "id": "R254",
+      "file": "project_pivot_native_protocol.md",
+      "quote": "A pivot to `demo/src/streaming/` (already ~70% written, see below)",
+      "rule": "Pivot the native port work to `demo/src/streaming/`."
+    },
+    {
+      "id": "R255",
+      "file": "project_pivot_native_protocol.md",
+      "quote": "The shadow-client GUI must use a new `ctrl_session_run()` instead of `dc_session_run()`",
+      "rule": "The shadow-client GUI must call the new `ctrl_session_run()` instead of `dc_session_run()`."
+    },
+    {
+      "id": "R256",
+      "file": "project_proximus_credentials_fields_RE.md",
+      "quote": "**Extraire `end_of_session`** depuis `last_clients_main.json`",
+      "rule": "Extract the `end_of_session` field from `last_clients_main.json` (the /clients response for the main client type)."
+    },
+    {
+      "id": "R257",
+      "file": "project_proximus_credentials_fields_RE.md",
+      "quote": "**Extraire `remote`** field",
+      "rule": "Extract the `remote` field from the /clients main client response and use it as an authoritative fallback for the `<vm-ip>:<port>` streaming endpoint."
+    },
+    {
+      "id": "R258",
+      "file": "project_proximus_credentials_fields_RE.md",
+      "quote": "**Extract `tlskey`** from `last_clients_usb.json`",
+      "rule": "Extract the `tlskey` field from `last_clients_usb.json` (the /clients response for the usb client type) for a future Spice path."
+    },
+    {
+      "id": "R259",
+      "file": "project_proximus_credentials_fields_RE.md",
+      "quote": "**BEFORE testing more variants**: do the LD_PRELOAD capture",
+      "rule": "Before testing more VST connect body variants, capture the plaintext `SSL_write` on the desktop side with an LD_PRELOAD hook to lock the body byte-exact."
+    },
+    {
+      "id": "R260",
+      "file": "project_quality_params_VALIDATED.md",
+      "quote": "Measure quality parameters on moving content\nor not at all.",
+      "rule": "When measuring quality parameters (bitrate, fps), use moving content as the test source; if moving content is not available, do not measure them at all."
+    },
+    {
+      "id": "R261",
+      "file": "project_quality_preset_wire_RE.md",
+      "quote": "**Not a new trigger to implement** for TIER 9.",
+      "rule": "Do not implement a new trigger for TIER 9 to expose the streaming-profile speed/reliability preset."
+    },
+    {
+      "id": "R262",
+      "file": "project_quality_preset_wire_RE.md",
+      "quote": "we can map it client-side onto\n(bitrate=50/codec=H264/chroma=420) for speed and",
+      "rule": "When exposing the speed/reliability preset in the Switch GUI, map it client-side onto bitrate=50, codec=H264, chroma=420 for speed, and onto bitrate=15, codec=H265, chroma=420 for reliability, without sending the preset name to the server."
+    },
+    {
+      "id": "R263",
+      "file": "project_raptorq_encoder_BYTE_EXACT.md",
+      "quote": "Trim _TRAILER_LEN bytes off the end of the parity payload if > 0.",
+      "rule": "If SHADOW_PARITY_TRAILER_LEN is greater than 0, trim that many bytes off the end of the parity payload."
+    },
+    {
+      "id": "R264",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "Do not emit it.",
+      "rule": "Do not emit field 8 (the dead field, vparams.re8_f8) in the video channel announcement."
+    },
+    {
+      "id": "R265",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "leave skipped",
+      "rule": "Leave the dead field 8 skipped when building the RegisterSession_Video message."
+    },
+    {
+      "id": "R266",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "`emit 2`",
+      "rule": "Emit video_codec_enum (field 3) with value 2 (H.264) in the RegisterSession_Video message."
+    },
+    {
+      "id": "R267",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "`emit 1`",
+      "rule": "Emit cursor_merged (field 4) as true (1) in the RegisterSession_Video message."
+    },
+    {
+      "id": "R268",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "`emit 1`",
+      "rule": "Emit high_color_fidelity (field 5) as true (1) in the RegisterSession_Video message."
+    },
+    {
+      "id": "R269",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "just flip les defaults",
+      "rule": "Change the default values of the RE8 video params (re8_f4=1, re8_f5=1, re8_f6=0, re8_f8=0, re8_f10=0) rather than modifying code."
+    },
+    {
+      "id": "R270",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "// DEAD, DO NOT emit",
+      "rule": "Keep vparams.re8_f8 set to 0 and never emit field 8."
+    },
+    {
+      "id": "R271",
+      "file": "project_registersession_video_bools_RE.md",
+      "quote": "must set the params before",
+      "rule": "Set the video params before calling ctrl_build_channel_announcement_ex."
+    },
+    {
+      "id": "R272",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "Implement `gE` in `streaming/ctrl_session.c` + `sufp.c`.",
+      "rule": "Implement the gE feedback packet emission in streaming/ctrl_session.c and sufp.c."
+    },
+    {
+      "id": "R273",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "Hook a 50 ms timer, or inline it in the SUFP chunk reception.",
+      "rule": "Emit gE either from a 50 ms timer or inline in the SUFP chunk reception path."
+    },
+    {
+      "id": "R274",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "`tcpdump` must see `67 45 01 ...` at 20 Hz on `:base+10`.",
+      "rule": "When testing on a live Switch, verify with tcpdump that gE packets (starting 67 45 01) are seen at 20 Hz on port :base+10."
+    },
+    {
+      "id": "R275",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "Measure the bottom NAL ratio after the fix",
+      "rule": "After the gE fix, measure the bottom NAL ratio."
+    },
+    {
+      "id": "R276",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "if it is > 5%, the hypothesis is confirmed.",
+      "rule": "If the bottom NAL ratio after the fix is above 5%, treat the server-gates-multi-NAL-on-RBE hypothesis as confirmed."
+    },
+    {
+      "id": "R277",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "If that does not fix it, add `rG` (= per-subchan tracking, more complex).",
+      "rule": "If implementing gE does not fix the bug, add rG (NACK) emission, which requires per-subchan tracking."
+    },
+    {
+      "id": "R278",
+      "file": "project_remote_bitrate_estimator_RE.md",
+      "quote": "To be validated by implementing §IMPL of `tools/ida/out/REMOTE_BITRATE_ESTIMATOR_RE.md`",
+      "rule": "Validate the RBE hypothesis by implementing the §IMPL section of tools/ida/out/REMOTE_BITRATE_ESTIMATOR_RE.md."
+    },
+    {
+      "id": "R279",
+      "file": "project_rg_nack_format_RE.md",
+      "quote": "Track the chunk_idx received per subchan",
+      "rule": "Track the chunk_idx values received for each subchan when sending rG NACK packets."
+    },
+    {
+      "id": "R280",
+      "file": "project_rg_nack_format_RE.md",
+      "quote": "Detect which chunks are actually missing (= gaps in the received sequence)",
+      "rule": "Detect which chunks are actually missing by finding gaps in the received chunk_idx sequence before sending an rG NACK."
+    },
+    {
+      "id": "R281",
+      "file": "project_rg_nack_format_RE.md",
+      "quote": "Envoyer rG avec ces vrais missing indices",
+      "rule": "Send rG NACK packets only with the chunk_idx values that were actually detected as missing."
+    },
+    {
+      "id": "R282",
+      "file": "project_rg_nack_format_RE.md",
+      "quote": "rG is NOT a way to ask for extra chunks such as the bottom slice.",
+      "rule": "Do not use rG to request extra chunks, such as the bottom slice, that were not actually lost."
+    },
+    {
+      "id": "R283",
+      "file": "project_rg_nack_format_RE.md",
+      "quote": "there is no UDP packet loss → no rG to send.",
+      "rule": "When no UDP packet loss is present, do not send any rG packet."
+    },
+    {
+      "id": "R284",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Keep rG disabled",
+      "rule": "Keep the rG NACK disabled; the existing 1 Hz flush is sufficient as a heartbeat."
+    },
+    {
+      "id": "R285",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "If lossy-link robustness is ever needed: implement the logic described",
+      "rule": "If lossy-link robustness is ever needed, implement the rG NACK conditions described in §4 of this note."
+    },
+    {
+      "id": "R286",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "rG is NOT a way to fix the bottom slice.",
+      "rule": "Do not use rG NACKs to try to fix the bottom slice."
+    },
+    {
+      "id": "R287",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Tracker `(subchan, last_chunk_idx)` per-subchan",
+      "rule": "Before sending rG NACKs, track the last chunk_idx per subchan as (subchan, last_chunk_idx)."
+    },
+    {
+      "id": "R288",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Detect `chunk_idx > last + 1` after a 100 ms deadline",
+      "rule": "Detect a chunk gap only when chunk_idx > last + 1 and the 100 ms deadline has passed."
+    },
+    {
+      "id": "R289",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Envoyer rG **uniquement** pour ces vrais gaps",
+      "rule": "Send rG NACKs only for real detected gaps."
+    },
+    {
+      "id": "R290",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Cap count ≤ 8",
+      "rule": "Cap the number of u16 entries in an rG NACK at 8."
+    },
+    {
+      "id": "R291",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "rate ≤ 5/s",
+      "rule": "Limit rG NACK emission to at most 5 per second."
+    },
+    {
+      "id": "R292",
+      "file": "project_rg_nack_format_v2_RE.md",
+      "quote": "Bug taskbar = chercher ailleurs",
+      "rule": "Look for the taskbar bug outside the rG NACK path, such as in the RegisterSession_Video field map or the opaque field of the VST connect."
+    },
+    {
+      "id": "R293",
+      "file": "project_server_push_messages_RE.md",
+      "quote": "Build `shadow-test-cli --mode=native-stream` baseline (= no auto-ack)",
+      "rule": "Build shadow-test-cli with --mode=native-stream as the baseline, with no auto-ack, before applying the patch."
+    },
+    {
+      "id": "R294",
+      "file": "project_server_push_messages_RE.md",
+      "quote": "Apply patch",
+      "rule": "Apply the kRequestFlush auto-ack patch to the ctrl session code."
+    },
+    {
+      "id": "R295",
+      "file": "project_server_push_messages_RE.md",
+      "quote": "build again",
+      "rule": "Rebuild shadow-test-cli after applying the patch."
+    },
+    {
+      "id": "R296",
+      "file": "project_server_push_messages_RE.md",
+      "quote": "Run `tools/auto-test.sh` 3× both modes, 60s each",
+      "rule": "Run tools/auto-test.sh 3 times in both modes, 60 seconds each, for the baseline and patched builds."
+    },
+    {
+      "id": "R297",
+      "file": "project_server_push_messages_RE.md",
+      "quote": "Compare NAL stats : parity/data ratio, bottom NAL %, IDR count",
+      "rule": "Compare the NAL stats (parity/data ratio, bottom NAL %, IDR count) between the baseline and patched runs."
+    },
+    {
+      "id": "R298",
+      "file": "project_session_id_propagation_RE.md",
+      "quote": "**No change needed** to the sessionUniqueId generation",
+      "rule": "Do not change how sessionUniqueId is generated on the client; it stays as the client-side gen_uuid_v4 mirror of the desktop."
+    },
+    {
+      "id": "R299",
+      "file": "project_session_id_propagation_RE.md",
+      "quote": "**strike them off the TODO**",
+      "rule": "If the variant-8c tests (sessionUniqueId as the VST connect body) are still planned, remove them from the TODO list instead of running them, because they are pointless."
+    },
+    {
+      "id": "R300",
+      "file": "project_session_id_propagation_RE.md",
+      "quote": "**Focus variant 9 = opaque**",
+      "rule": "Prioritize variant 9, where the VST connect body is the opaque server-echoed blob, as the next test to run."
+    },
+    {
+      "id": "R301",
+      "file": "project_settings_wire_mapping.md",
+      "quote": "Our message was malformed",
+      "rule": "Ignore the malformed bitrate message bug only as a historical note; no instruction is given here, so this should not be emitted as a rule."
+    },
+    {
+      "id": "R302",
+      "file": "project_shadow2switch.md",
+      "quote": "Always start by validating the ground (toolchain, hello-world, nxlink) before attacking Shadow.",
+      "rule": "Before working on the Shadow port, always first validate the environment by checking the toolchain, a hello-world build, and nxlink."
+    },
+    {
+      "id": "R303",
+      "file": "project_shadow2switch.md",
+      "quote": "When \"Shadow PC\" is said without context: it means the Shadow.tech service, **not** a Sega Shadow or anything else.",
+      "rule": "When \"Shadow PC\" is mentioned without other context, interpret it as the Shadow.tech cloud-gaming service, not any other thing called Shadow."
+    },
+    {
+      "id": "R304",
+      "file": "project_shadow2switch.md",
+      "quote": "import `arm64/lib/armeabi-v7a/libAwesomeClientProject.so`",
+      "rule": "For reverse engineering, import the file arm64/lib/armeabi-v7a/libAwesomeClientProject.so into Ghidra."
+    },
+    {
+      "id": "R305",
+      "file": "project_shadow2switch.md",
+      "quote": "`ControlProto::*::_InternalParse` for the field names",
+      "rule": "During reverse engineering, prioritize analyzing ControlProto::*::_InternalParse to recover the protobuf field names."
+    },
+    {
+      "id": "R306",
+      "file": "project_shadow2switch.md",
+      "quote": "`_InternalSerialize` for the tags",
+      "rule": "During reverse engineering, prioritize analyzing _InternalSerialize to recover the protobuf tags."
+    },
+    {
+      "id": "R307",
+      "file": "project_shadow2switch.md",
+      "quote": "`CtrlChanV2Manager::Authenticate` for the capabilities bitfield",
+      "rule": "During reverse engineering, prioritize analyzing CtrlChanV2Manager::Authenticate to recover the capabilities bitfield."
+    },
+    {
+      "id": "R308",
+      "file": "project_shadow2switch.md",
+      "quote": "`EnableEncryption` + `CryptoFactory` for the key derivation",
+      "rule": "During reverse engineering, prioritize analyzing EnableEncryption and CryptoFactory to recover the key derivation."
+    },
+    {
+      "id": "R309",
+      "file": "project_shadow_datachannel.md",
+      "quote": "Implement SCTP/DCEP to open the 4 channels",
+      "rule": "Implement SCTP/DCEP to open the four named Shadow data channels for M15."
+    },
+    {
+      "id": "R310",
+      "file": "project_shadow_datachannel.md",
+      "quote": "Decode the bytes captured in `dumpchrome/inputs/raw_dc/` to extract the FlatBuffer schema",
+      "rule": "Decode the bytes captured in dumpchrome/inputs/raw_dc/ to extract the FlatBuffer schema for the M15 input messages."
+    },
+    {
+      "id": "R311",
+      "file": "project_shadow_datachannel.md",
+      "quote": "use `flatc --binary --raw-binary` after extracting the schema from libavcodec/libcef or from a Ghidra pass on the Linux client",
+      "rule": "When extracting the FlatBuffer schema, you may use flatc --binary --raw-binary after extracting the schema from libavcodec/libcef or from a Ghidra pass on the Linux client."
+    },
+    {
+      "id": "R312",
+      "file": "project_shadow_datachannel.md",
+      "quote": "The 96 B SEND init format is probably reusable as is",
+      "rule": "Reuse the 96 B SEND init message format as is to validate the SCTP pipe before generating messages dynamically."
+    },
+    {
+      "id": "R313",
+      "file": "project_shadow_datachannel.md",
+      "quote": "look for the corresponding pattern",
+      "rule": "Look for the hid-sync message pattern on shadow-input in the web client's start-up traffic."
+    },
+    {
+      "id": "R314",
+      "file": "project_shadow_encryption_framing.md",
+      "quote": "when first writing a crypto/SUFP/CtrlChanV2 module on the Switch side, read the corresponding section of the full document",
+      "rule": "When first writing a crypto, SUFP, or CtrlChanV2 module on the Switch side, read the corresponding section of the full ENCRYPTION_AND_FRAMING.md document first."
+    },
+    {
+      "id": "R315",
+      "file": "project_shadow_encryption_framing.md",
+      "quote": "Reproduce the pseudo-C as is through wolfSSL+nanopb.",
+      "rule": "Reproduce the pseudo-C from the RE document as is when implementing on the Switch side, using wolfSSL and nanopb."
+    },
+    {
+      "id": "R316",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "MUST be `42001f`",
+      "rule": "Set the SDP profile-level-id to 42001f in the Shadow WebRTC offer."
+    },
+    {
+      "id": "R317",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "NOT `42e01f`",
+      "rule": "Never use profile-level-id 42e01f in the Shadow WebRTC SDP offer."
+    },
+    {
+      "id": "R318",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "every NAL of a given PTS must be aggregated into ONE packet",
+      "rule": "Aggregate all NAL units sharing the same PTS into a single packet before calling avcodec_send_packet."
+    },
+    {
+      "id": "R319",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "There is no need to send FIR",
+      "rule": "Do not send RTCP FIR to Shadow; rely on PLI to request keyframes."
+    },
+    {
+      "id": "R320",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "do not touch the profile-level-id",
+      "rule": "Do not modify the profile-level-id handling in h264_decoder.c during M13 or later polish work."
+    },
+    {
+      "id": "R321",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "or the AU aggregation strategy in `h264_decoder.c`",
+      "rule": "Do not modify the AU aggregation strategy in h264_decoder.c during M13 or later polish work."
+    },
+    {
+      "id": "R322",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "If you touch the SDP offer (`sdp.c`), keep `42001f`",
+      "rule": "When changing the SDP offer in sdp.c, keep the profile-level-id at 42001f."
+    },
+    {
+      "id": "R323",
+      "file": "project_shadow_h264_quirks.md",
+      "quote": "that is the lead to dig into",
+      "rule": "For M14/M15, if Shadow waits on the SCTP data channel to signal client ready and behaviour is odd, investigate the missing data channel connection."
+    },
+    {
+      "id": "R324",
+      "file": "project_shadow_input_echo_diff.md",
+      "quote": "Try sending a 144 B mouse-move DIRECTLY, with no Connect/Hello (the way session2 does).",
+      "rule": "For M15 stage C, try sending a 144 B mouse-move directly to Shadow with no Connect/Hello message first."
+    },
+    {
+      "id": "R325",
+      "file": "project_shadow_input_echo_diff.md",
+      "quote": "Check the DCEP_OPEN parameters (priority/maxRetx/protocol) byte by byte against what the browser sends",
+      "rule": "For M15 stage C, check the DCEP_OPEN parameters (priority, maxRetx, protocol) byte by byte against what the browser sends, using Wireshark and tools/extract_dtls_sctp.sh."
+    },
+    {
+      "id": "R326",
+      "file": "project_shadow_input_echo_diff.md",
+      "quote": "Check that the timestamp sent falls inside the window Shadow accepts",
+      "rule": "For M15 stage C, check that the timestamp sent falls inside the window Shadow accepts, since the Switch's RTC may be off."
+    },
+    {
+      "id": "R327",
+      "file": "project_shadow_input_echo_diff.md",
+      "quote": "Re-capture v2 with `capture_hook.js` (with ts_ms) to reconstruct the SEND/RECV timing and confirm whether it is synchronous.",
+      "rule": "For M15 stage C, re-capture v2 with capture_hook.js including ts_ms to reconstruct the SEND/RECV timing and confirm whether the exchange is synchronous."
+    },
+    {
+      "id": "R328",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "We must ALWAYS send `PointerDown 144 B` BEFORE the `MouseDown 152 B`.",
+      "rule": "When performing a left click, always send the PointerDown 144 B message before the MouseDown 152 B message."
+    },
+    {
+      "id": "R329",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "send **PointerDown 144 B** + **MouseDown 152 B** (press) then **MouseUp 144 B** (release). 3 distinct messages, no byte-identical pair.",
+      "rule": "For a left click, send PointerDown 144 B and MouseDown 152 B on press, then MouseUp 144 B on release, as three distinct messages with no byte-identical pair."
+    },
+    {
+      "id": "R330",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "For RIGHT, send `click_right_template` on press + `mouseup_left_template` on release",
+      "rule": "For a right click, send click_right_template on press and mouseup_left_template on release, not the same template at both moments."
+    },
+    {
+      "id": "R331",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "Patcher X/Y aux bons offsets selon event type",
+      "rule": "When patching X/Y coordinates, use the correct offsets for the event type: PointerDown at bytes 124/126, and MouseDown/MouseUp at bytes 132/134."
+    },
+    {
+      "id": "R332",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "For the keyboard: 1 press message + 1 release, key @142, press/release through bytes 114/116/128",
+      "rule": "For a keypress, send one press message and one release message, put the key code at offset 142, and distinguish press from release using bytes 114, 116, and 128."
+    },
+    {
+      "id": "R333",
+      "file": "project_shadow_input_protocol.md",
+      "quote": "Check the `b16-19` vtable when extracting a new template",
+      "rule": "When extracting a new message template, check the vtable at bytes 16-19 to identify the event type before using it."
+    },
+    {
+      "id": "R334",
+      "file": "project_shadow_pointer_enter_unlock.md",
+      "quote": "Without that 3rd message, Shadow acks the DCEP but ignores everything at the application level.",
+      "rule": "Do not omit the PointerEnter message from the init sequence; without it Shadow ignores application-level input after acking DCEP."
+    },
+    {
+      "id": "R335",
+      "file": "project_shadow_pointer_enter_unlock.md",
+      "quote": "Always send those 3 messages in the order Connect→Hello→PointerEnter as soon as the DCEP_OPEN on shadow-input is ACKed.",
+      "rule": "Always send Connect, then Hello, then PointerEnter, in that order, as soon as the DCEP_OPEN on shadow-input is ACKed."
+    },
+    {
+      "id": "R336",
+      "file": "project_shadow_pointer_enter_unlock.md",
+      "quote": "The timestamp patch + the ×3 redundancy + the seq counter are all still needed for subsequent mouse-moves to be processed.",
+      "rule": "Keep patching the timestamp, sending the messages three times for redundancy, and maintaining the sequence counter when sending mouse-moves so they are processed."
+    },
+    {
+      "id": "R337",
+      "file": "project_shadow_pointer_enter_unlock.md",
+      "quote": "For the final M15, to be regenerated according to the current stream resolution (the centre = w/2, h/2).",
+      "rule": "For the final M15, regenerate the PointerEnter cursor position (bytes 122-125, uint16 LE X,Y) according to the current stream resolution, centred at w/2, h/2."
+    },
+    {
+      "id": "R338",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "look at the HAR first before inventing the format",
+      "rule": "When tackling a new Shadow endpoint, look at the HAR capture first and do not invent the request format before checking it."
+    },
+    {
+      "id": "R339",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "the conventions are snake_case (not camelCase as some Java symbols suggested)",
+      "rule": "Use snake_case naming for Shadow API keys and formats, not camelCase."
+    },
+    {
+      "id": "R340",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "To be applied to EVERY new call to `api.eu.shadow.tech/v1/pu/virtual-desktop/...` that passes the vm_id as a header.",
+      "rule": "For every new call to api.eu.shadow.tech/v1/pu/virtual-desktop/... that passes the vm_id as a header, include the required Shadow headers (Origin, X-Shadow-Uuid, X-Shadow-Agent, and Referer)."
+    },
+    {
+      "id": "R341",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "THOSE are the JWTs to use for proximus_url, not the Ory bearer.",
+      "rule": "Use the launcher and main JWTs from proximus-credentials, not the Ory bearer token, to authenticate calls to proximus_url."
+    },
+    {
+      "id": "R342",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "To be treated as a retry, not a failure.",
+      "rule": "Treat an HTTP 470 response (\"resource not ready yet\") as a signal to retry, not as an error."
+    },
+    {
+      "id": "R343",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "So `/stream` has to be opened FIRST (in a parallel thread) and only then can the `/forward`s be sent.",
+      "rule": "Open the /stream SSE connection first, in a parallel thread, and only send /forward requests after it is open."
+    },
+    {
+      "id": "R344",
+      "file": "project_shadow_protocol_har.md",
+      "quote": "`streamer_up:true` is the go signal for starting the video stream (SPICE port 6000).",
+      "rule": "Start the video stream (SPICE port 6000) only after /status reports streamer_up:true."
+    },
+    {
+      "id": "R345",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "Don't pivot to ngtcp2/QUIC",
+      "rule": "Do not pivot to ngtcp2/QUIC on the Switch; do not port a QUIC stack there."
+    },
+    {
+      "id": "R346",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "Reuse wolfSSL (TLS 1.3 over TCP + chacha20)",
+      "rule": "Reuse wolfSSL (TLS 1.3 over TCP with chacha20) for TLS on the Switch port."
+    },
+    {
+      "id": "R347",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "libnx UDP sockets",
+      "rule": "Reuse libnx UDP sockets on the Switch port."
+    },
+    {
+      "id": "R348",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "skip every QUIC step",
+      "rule": "Skip every QUIC step in the M17→M26 plan in 06-shadow-recon-linux/PORT_PLAN.md when revising it."
+    },
+    {
+      "id": "R349",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "Reuse the existing `shadow/http.c` code",
+      "rule": "Reuse the existing shadow/http.c code (curl over wolfSSL) in the Switch port."
+    },
+    {
+      "id": "R350",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "delete the whole WebRTC stack",
+      "rule": "Delete the whole WebRTC stack (sdp/ice/dtls/srtp/sctp/wss) from the Switch port."
+    },
+    {
+      "id": "R351",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "Re-RE the gamepad format on UDP 10013",
+      "rule": "Re-reverse-engineer the gamepad input format on UDP port 10013."
+    },
+    {
+      "id": "R352",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "The existing h264_decoder (NVDEC) unchanged",
+      "rule": "Keep the existing h264_decoder (NVDEC) unchanged in the Switch port."
+    },
+    {
+      "id": "R353",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "The existing audio (Opus + audout) unchanged",
+      "rule": "Keep the existing audio (Opus + audout) pipeline unchanged in the Switch port."
+    },
+    {
+      "id": "R354",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "libcurl + wolfSSL for the **REST `/3/*` API**",
+      "rule": "Use libcurl + wolfSSL for the REST /3/* API (HTTP/2 over TCP/443) on the Switch."
+    },
+    {
+      "id": "R355",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "a libnx TCP socket + direct wolfSSL TLS",
+      "rule": "Use a libnx TCP socket with direct wolfSSL TLS for SslCtrlChanV2 on the Switch."
+    },
+    {
+      "id": "R356",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "sockets UDP libnx pour video/audio/inputs",
+      "rule": "Use libnx UDP sockets for video, audio, and input on the Switch."
+    },
+    {
+      "id": "R357",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "wolfSSL chacha20-poly1305 to decrypt every UDP frame",
+      "rule": "Use wolfSSL chacha20-poly1305 to decrypt every UDP frame on the Switch."
+    },
+    {
+      "id": "R358",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "For Switch homebrew = force IPv4",
+      "rule": "For Switch homebrew, force IPv4 resolution (getaddrinfo(AF_INET) + CURLOPT_IPRESOLVE_V4)."
+    },
+    {
+      "id": "R359",
+      "file": "project_shadow_real_protocol_confirmed.md",
+      "quote": "There is no need to consume the SSE `/3/forward` to discover a port",
+      "rule": "Do not consume the SSE /3/forward stream to discover a port."
+    },
+    {
+      "id": "R360",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "Keep UDP mode** = \"Prefer speed\"",
+      "rule": "For the Switch port, keep the streaming mode set to \"Prefer speed\" (UDP)."
+    },
+    {
+      "id": "R361",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "Skip QUIC** = dormant code, not reachable on the user's server side",
+      "rule": "For the Switch port, do not implement QUIC support."
+    },
+    {
+      "id": "R362",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "implement the native `GamepadChannel`",
+      "rule": "For the Switch gamepad (Plan B, M15+), implement the native GamepadChannel."
+    },
+    {
+      "id": "R363",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "test whether the server accepts it with a different account",
+      "rule": "For the Switch gamepad (Plan B), test whether the server accepts the native GamepadChannel using a different account."
+    },
+    {
+      "id": "R364",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "Plan C: Joy-Con → an emulated USB HID through the usb channel",
+      "rule": "For the Switch gamepad, if Plan B fails, consider emulating a USB HID device through the usb channel using the Joy-Con as the source."
+    },
+    {
+      "id": "R365",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "**H.264 + Opus are enough** for the initial port",
+      "rule": "For the initial Switch port, use H.264 video and Opus audio."
+    },
+    {
+      "id": "R366",
+      "file": "project_shadow_screenshots_findings.md",
+      "quote": "The Switch can hardcode 5-10 Mbps to stay sensible.",
+      "rule": "On the Switch, the bitrate may be hardcoded to 5-10 Mbps."
+    },
+    {
+      "id": "R367",
+      "file": "project_shadow_streaming_re.md",
+      "quote": "start from `SOCKET_AND_BOOTSTRAP.md §10`",
+      "rule": "When tackling M7 (real streaming on port 6000), start from SOCKET_AND_BOOTSTRAP.md §10 (\"Recap of what is left to do\"), which proposes a 5-phase plan."
+    },
+    {
+      "id": "R368",
+      "file": "project_shadow_streaming_re.md",
+      "quote": "mimic `[0,2,4,1]`",
+      "rule": "For M7, when sending the Encryption message to the server, mimic the supported_algorithms list [0,2,4,1]."
+    },
+    {
+      "id": "R369",
+      "file": "project_shadow_streaming_re.md",
+      "quote": "capture a real `ShadowPCDisplay` pcap with `SSLKEYLOGFILE=...`",
+      "rule": "To resolve the runtime unknowns listed in QUIC_STACK.md §8, capture a real ShadowPCDisplay pcap with SSLKEYLOGFILE set rather than continuing static reverse engineering."
+    },
+    {
+      "id": "R370",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "`shadowusb_register_device` doit parser `id` + `spice_url` + `spice_secret`.",
+      "rule": "When `shadowusb_register_device` receives the /devices response, parse the `id`, `spice_url`, and `spice_secret` fields from it."
+    },
+    {
+      "id": "R371",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "NOT `{\"protocol\":\"XHCI\"}`",
+      "rule": "Do not send `{\"protocol\":\"XHCI\"}` as the body of the POST to /devices."
+    },
+    {
+      "id": "R372",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "`{\"protocol\":\"spice\",\"type\":\"spice-html5\"}`",
+      "rule": "Send `{\"protocol\":\"spice\",\"type\":\"spice-html5\"}` as the body of the POST to /devices."
+    },
+    {
+      "id": "R373",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "`Authorization: Bearer <usb_token>`",
+      "rule": "Authenticate the POST to /devices with an `Authorization: Bearer <usb_token>` header, where the token is `tokens.usb` from proximus-credentials."
+    },
+    {
+      "id": "R374",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "Implementing a complete SPICE client is required",
+      "rule": "Implement a complete SPICE client to use the USB tunnel."
+    },
+    {
+      "id": "R375",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "For the tunnel: implement in this order:",
+      "rule": "When implementing the USB tunnel, implement its components in this order: WebSocket client, SpiceLink handshake, SpiceMainChannel acknowledgement and SpiceUsbRedirChannel opening, then standard usbredir frames."
+    },
+    {
+      "id": "R376",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "A WebSocket client (an HTTP/1.1 Upgrade + client-side frame masking)",
+      "rule": "Implement a WebSocket client that performs an HTTP/1.1 Upgrade and client-side frame masking."
+    },
+    {
+      "id": "R377",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "SpiceLink magic + cap negotiation + auth via spice_secret",
+      "rule": "Implement the SpiceLink handshake: send the magic, negotiate capabilities, and authenticate using `spice_secret` as the ticket."
+    },
+    {
+      "id": "R378",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "SpiceMainChannel ack + open SpiceUsbRedirChannel",
+      "rule": "Acknowledge SpiceMainChannel and then open SpiceUsbRedirChannel."
+    },
+    {
+      "id": "R379",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "usbredir frames standard (HELLO/DEVICE_CONNECT/INTERRUPT)",
+      "rule": "Implement standard usbredir frame handling for HELLO, DEVICE_CONNECT, and INTERRUPT frames."
+    },
+    {
+      "id": "R380",
+      "file": "project_shadow_usbredir_protocol.md",
+      "quote": "`apt install shadowusb`",
+      "rule": "On the Linux daemon, install shadowusb with `apt install shadowusb`."
+    },
+    {
+      "id": "R381",
+      "file": "project_sslctrlchanv2_wire_format_FOUND.md",
+      "quote": "always use `jwt_extract_instance` to generate it",
+      "rule": "When building the REST path for a session, always generate the path with `jwt_extract_instance` instead of hardcoding it, because the path varies per session."
+    },
+    {
+      "id": "R382",
+      "file": "project_switch_ffmpeg_nvtegra_pin.md",
+      "quote": "never re-pin the decoder from a README",
+      "rule": "Never re-pin the decoder version based on a README file."
+    },
+    {
+      "id": "R383",
+      "file": "project_switch_ffmpeg_nvtegra_pin.md",
+      "quote": "read what the binary links",
+      "rule": "Before re-pinning the decoder, read what the built binary links (e.g., run `nm halyard.elf | grep -c nvtegra` or check `ffversion.h`)."
+    },
+    {
+      "id": "R384",
+      "file": "project_switch_ffmpeg_nvtegra_pin.md",
+      "quote": "a console session on the CI-built `.nro`, not a green build",
+      "rule": "Verify any decoder change on a console session running the CI-built `.nro`, not merely by a passing (green) build."
+    },
+    {
+      "id": "R385",
+      "file": "project_tls_config_per_channel_RE.md",
+      "quote": "Try `wolfTLS_client_method()` instead of `wolfTLSv1_2_client_method()`",
+      "rule": "Consider using wolfTLS_client_method() instead of wolfTLSv1_2_client_method() for the Switch TLS client so that TLS 1.3 is allowed."
+    },
+    {
+      "id": "R386",
+      "file": "project_video_540_clamp_workaround.md",
+      "quote": "No point digging into `:11020` (= STFP stats/keepalive)",
+      "rule": "Do not investigate the :11020 port (STFP stats/keepalive) when working on Shadow image quality or resolution."
+    },
+    {
+      "id": "R387",
+      "file": "project_video_540_clamp_workaround.md",
+      "quote": "The 540 clamp is the acceptable visual baseline",
+      "rule": "When working on Shadow image quality or resolution, treat the 540 height clamp as the acceptable visual baseline."
+    },
+    {
+      "id": "R388",
+      "file": "project_video_540_clamp_workaround.md",
+      "quote": "Pour viser fullframe → tester d'abord ctrl_build_register_session(1920, 540)",
+      "rule": "When aiming for full-frame video on Shadow, first test ctrl_build_register_session(1920, 540)."
+    },
+    {
+      "id": "R389",
+      "file": "project_video_artifacts_solved.md",
+      "quote": "validate what is DISPLAYED (post-decode), not only the bitstream",
+      "rule": "When verifying video output, validate what is actually displayed after decoding, not only the bitstream."
+    },
+    {
+      "id": "R390",
+      "file": "project_video_decode_38pct_solved.md",
+      "quote": "use `libc.findExportByName(name)`",
+      "rule": "When writing Frida 17 scripts, look up exported functions with `libc.findExportByName(name)` instead of `Module.findExportByName(null, ...)`, which is obsolete."
+    },
+    {
+      "id": "R391",
+      "file": "project_vst_connect_msg_byte_exact.md",
+      "quote": "If all of them fail → patch LD_PRELOAD to hook the desktop's `SSL_write`/`SSL_read` (= 30 min) and capture the exact plaintext.",
+      "rule": "If all body-content hypotheses (variants 8a through 8e) fail to get server frames, patch LD_PRELOAD to hook the desktop's SSL_write and SSL_read and capture the exact plaintext."
+    },
+    {
+      "id": "R392",
+      "file": "project_vst_connect_msg_byte_exact.md",
+      "quote": "If it stays idle for 30 s → try 8c/8d, then pivot to an LD_PRELOAD plaintext capture.",
+      "rule": "If the server stays idle for 30 s after variant 8 (streamingtoken) is sent, try variants 8c and 8d, then pivot to an LD_PRELOAD plaintext capture."
+    },
+    {
+      "id": "R393",
+      "file": "reference_captures_kb.md",
+      "quote": "ALWAYS consult it BEFORE capturing / RE'ing / re-decrypting.",
+      "rule": "Always consult the Captures KB before capturing, reverse-engineering, or re-decrypting anything."
+    },
+    {
+      "id": "R394",
+      "file": "reference_captures_kb.md",
+      "quote": "Before ANY RE question:",
+      "rule": "Before answering any reverse-engineering question, run the Captures KB query tool for the relevant topic."
+    },
+    {
+      "id": "R395",
+      "file": "reference_captures_kb.md",
+      "quote": "If an answer exists → cite it",
+      "rule": "If the Captures KB already contains an answer to a reverse-engineering question, cite that answer."
+    },
+    {
+      "id": "R396",
+      "file": "reference_captures_kb.md",
+      "quote": "launch a Ghidra script or a new capture",
+      "rule": "If the Captures KB has no answer to a reverse-engineering question, launch a Ghidra script or a new capture."
+    },
+    {
+      "id": "R397",
+      "file": "reference_captures_kb.md",
+      "quote": "**ADD the findings to CAPTURES_KB.md**",
+      "rule": "After a new Ghidra script or capture produces findings, add those findings to CAPTURES_KB.md."
+    },
+    {
+      "id": "R398",
+      "file": "reference_captures_kb.md",
+      "quote": "The function's wire format is already in a dump",
+      "rule": "Do not re-capture when the function's wire format is already in a dump."
+    },
+    {
+      "id": "R399",
+      "file": "reference_captures_kb.md",
+      "quote": "The session's EncryptionReply is already saved",
+      "rule": "Do not re-capture when the session's EncryptionReply is already saved."
+    },
+    {
+      "id": "R400",
+      "file": "reference_captures_kb.md",
+      "quote": "The byte-exact bootstrap is already documented",
+      "rule": "Do not re-capture when the byte-exact bootstrap is already documented."
+    },
+    {
+      "id": "R401",
+      "file": "reference_captures_kb.md",
+      "quote": "A new hypothesis needs a runtime observation that the static dumps do not give",
+      "rule": "Re-capture when a new hypothesis needs a runtime observation that the static dumps do not provide."
+    },
+    {
+      "id": "R402",
+      "file": "reference_captures_kb.md",
+      "quote": "A different account/VM (= a JWT/tier change)",
+      "rule": "Re-capture when using a different account or VM (a JWT or tier change)."
+    },
+    {
+      "id": "R403",
+      "file": "reference_captures_kb.md",
+      "quote": "A specific user activity (= movement at the bottom of the screen, etc.)",
+      "rule": "Re-capture when a specific user activity is needed for the observation."
+    },
+    {
+      "id": "R404",
+      "file": "reference_captures_kb.md",
+      "quote": "A live Frida hook is needed for the dynamic state machine",
+      "rule": "Re-capture when a live Frida hook is needed to observe the dynamic state machine."
+    },
+    {
+      "id": "R405",
+      "file": "reference_switch_crash_workflow.md",
+      "quote": "Pull le `.log` via `gio copy \"mtp://Nintendo_Nintendo_Switch_XTJ10221245951/SD Card/atmosphere/crash_reports/<file>\" /tmp/crash.log`",
+      "rule": "To retrieve a Switch crash report, copy the .log file from the SD card's atmosphere/crash_reports folder over MTP to /tmp/crash.log using gio copy."
+    },
+    {
+      "id": "R406",
+      "file": "reference_switch_crash_workflow.md",
+      "quote": "Collect the PC + ReturnAddress[00..N] offsets",
+      "rule": "When resolving a Switch crash, collect the PC value and the ReturnAddress[00..N] offsets (the '+ 0xXXXXX' after each module name) from the crash report."
+    },
+    {
+      "id": "R407",
+      "file": "reference_switch_crash_workflow.md",
+      "quote": "/opt/devkitpro/devkitA64/bin/aarch64-none-elf-addr2line",
+      "rule": "Resolve the collected Switch crash addresses with aarch64-none-elf-addr2line, run with -e against build_switch/shadow-client.elf and the flags -f -C -i."
+    },
+    {
+      "id": "R408",
+      "file": "reference_switch_crash_workflow.md",
+      "quote": "→ suspect a freeze/deadlock or an HOS state leak (cf. feedback_switch_hos_degraded.md), not a Data Abort.",
+      "rule": "If the user says the Switch homebrew crashes but no new crash report appears, suspect a freeze/deadlock or an HOS state leak rather than a Data Abort."
+    },
+    {
+      "id": "R409",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "For EVERY code iteration on the Switch. **Do not try nxlink** (unreliable). Always USB MTP through `gio`.",
+      "rule": "For every code iteration on the Switch, do not try nxlink; always use USB MTP through gio."
+    },
+    {
+      "id": "R410",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "Authentication is MANDATORY (`tools/switch-ftp.env`, sourced by `switch-sync.sh`).",
+      "rule": "Always authenticate FTP to the Switch using credentials from tools/switch-ftp.env (sourced by switch-sync.sh)."
+    },
+    {
+      "id": "R411",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "if you see 430 while testing with a bare `curl`, it is YOUR call that lacks them.",
+      "rule": "When testing FTP with a bare curl and getting a 430 error, add the missing credentials to the curl call."
+    },
+    {
+      "id": "R412",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "Stop looking for the end of a 12 MB log: `webrtc.log` = the current session (~100 KB), `webrtc_prev.log` = the previous one.",
+      "rule": "Do not search to the end of the large webrtc.log; read webrtc.log as the current session and webrtc_prev.log as the previous session."
+    },
+    {
+      "id": "R413",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "cd $BUILD && make shadow-client.nro    # cible explicite (pas juste `make -j4`)",
+      "rule": "Build the Switch app by running make with the explicit target shadow-client.nro, not plain make -j4."
+    },
+    {
+      "id": "R414",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "gio remove \"$SWITCH_NRO\"                          # supprimer d'abord",
+      "rule": "Before pushing a new shadow-client.nro to the Switch, remove the existing file with gio remove."
+    },
+    {
+      "id": "R415",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "gio copy shadow-client.nro \"$SWITCH_NRO\"",
+      "rule": "Push the built shadow-client.nro to the Switch using gio copy, never a direct cp."
+    },
+    {
+      "id": "R416",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "1. Unplug\n2. Lance shadow-client dans hbmenu",
+      "rule": "Ask the user to unplug the Switch USB before a test run."
+    },
+    {
+      "id": "R417",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "4. Quitte proprement (B → hbmenu) — sinon webrtc.log pas flush",
+      "rule": "Ask the user to quit shadow-client cleanly (B to hbmenu) after a test so webrtc.log is flushed."
+    },
+    {
+      "id": "R418",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "gio copy \"$LOGS_DIR/borealis.log\" /tmp/borealis.log",
+      "rule": "Copy log files from the Switch using gio copy, not a shell cp."
+    },
+    {
+      "id": "R419",
+      "file": "reference_switch_dev_workflow.md",
+      "quote": "A direct shell `cp` of webrtc.log → \"Input/output error\". `gio copy` works.",
+      "rule": "Do not copy webrtc.log with a shell cp; use gio copy instead."
+    }
+  ],
+  "dropped": [
+    {
+      "file": "project_B1_GUI_quality_panel_2026-05-18.md",
+      "quote": "The settings save themselves on every change",
+      "rule": "Save quality settings automatically on every change, without adding a separate Save button."
+    },
+    {
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "Do NOT re-test these hypotheses: /status polling",
+      "rule": "Do not re-test the /status polling hypothesis for the t=115 s freeze."
+    },
+    {
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "Do NOT re-test these hypotheses: /stream SSE",
+      "rule": "Do not re-test the /stream SSE hypothesis for the t=115 s freeze."
+    },
+    {
+      "file": "project_freeze_t120s_consent_freshness.md",
+      "quote": "Do NOT re-test these hypotheses: /forward keepalive",
+      "rule": "Do not re-test the /forward keepalive hypothesis for the t=115 s freeze."
+    }
+  ]
+}

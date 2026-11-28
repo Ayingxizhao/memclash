@@ -1,0 +1,68 @@
+# ASCOM.Wise40
+
+Driver suite for the Wise Observatory 40-inch telescope.
+
+## Where Claude keeps its notes
+
+Both live in this repo and are git-tracked on purpose, so they version alongside the code they
+describe and survive a machine rebuild.
+
+- `.claude/memory/` — durable findings about this observatory: hardware facts, traps that cost
+  real time, and decisions with their reasoning. One fact per file.
+  `.claude/memory/MEMORY.md` is the index.
+- `.claude/plans/` — implementation plans.
+
+Create further subfolders under `.claude/` as suitable.
+
+**Read `.claude/memory/MEMORY.md` at the start of a session** and open whichever entries look
+relevant. They are point-in-time observations, not live state: if one cites a file, a line
+number or a flag, verify it still exists before relying on it.
+
+## Working on this repo
+
+**Changes go through pull requests — do not commit to `master`.** Branch with a short
+kebab-case name, keep one commit per concern, push the branch and open a PR with `gh pr
+create`. If `gh` is unavailable, hand over
+`https://github.com/blumzi/ASCOM.Wise40/compare/master...<branch>?expand=1` instead.
+
+## Memory index
+
+- [Work via pull requests](.claude/memory/work-via-pull-requests.md) — branch and open a PR; don't commit to master
+- [Notes live in the repo](.claude/memory/notes-live-in-the-repo.md) — memories and plans belong under `.claude/`, git-tracked
+- [Stop tracking after tests](.claude/memory/stop-tracking-after-tests.md) — switch tracking off when a test or session ends, and verify the motor pins are actually clear
+- [Park position](.claude/memory/park-position.md) — Dec +66° on the meridian; `Park()` lands ~15′ west of it, and the fix is to lead the target by the slew duration
+- [Soft limits are not conservative](.claude/memory/soft-limits-are-not-conservative.md) — a physical limit switch trips inside `eastern_haLimit` at some declinations; passing the soft limits does not mean a position is reachable
+- [HA angle distance is broken](.claude/memory/ha-angle-distance-is-broken.md) — `Angle.ShortestDistance` is wrong for HA-typed angles and ran an axis into a limit. **Do not command HA targets**
+- [slew-to-ha-dec is broken](.claude/memory/slew-to-ha-dec-broken.md) — case-sensitivity bug, also breaks the Dash's HA/Dec slew. **Awaiting a fix**
+- [Telescope drive topology](.claude/memory/telescope-drive-topology.md) — `TeleSlew` is a shared speed selector, so both axes must use the same speed among slew/set; only guide is independent. Read before touching the slew rendezvous
+- [Slew time: where it goes](.claude/memory/slew-time-where-it-goes.md) — where slew time goes on both axes, verified on sky. HA is tuned and 73 % faster eastward; **Dec is not repeatable enough to tune**. Read the two measurement traps before trusting any coast figure
+- [Renishaw encoder calibration](.claude/memory/renishaw-encoder-calibration.md) — calibrated against the sky 2026-09-16; no scale error, zero point corrected, now the encoders in use
+- [ACP / driver integration](.claude/memory/wise40-acp-driver-integration.md) — ACP will not pass `Action` through, `DriverAccess` is not COM-creatable, and only one ProgID is safe to use
+- [Secrets move to vault.json](.claude/memory/secrets-move-to-vault-json.md) — **planned, not done.** The MySQL root password and the PAT move to `c:\Wise40\vault.json`, outside git. Read it before starting: relocating is not rotating, and the PAT probably belongs in the credential manager rather than a file
+- [Settings live in Settings.json](.claude/memory/settings-live-in-json.md) — `c:\Wise40\Settings.json` holds driver settings, registration stays in the registry. Reads never write, nothing seeds from the registry. **A `Profile` field assigned far from its uses was missed by the migration** — check before assuming a driver reads the file
+- [Diagnostics that break what they measure](.claude/memory/diagnostics-that-break-what-they-measure.md) — `tail -f` locks a log and silences the writer, `Start-Process -PassThru` returns a null ExitCode, enumerating all COM classes takes minutes. Suspect the observation before the tool
+- [Build and environment gotchas](.claude/memory/wise40-build-and-environment-gotchas.md) — COM registration needs elevation, the watcher gives children a broken environment, logs roll at noon UT. **Partly corrected 2026-09-21**: the solution build works now and is what the deploy uses, `RegisterForComInterop=false` is dangerous, and a rebuild no longer costs settings
+- [Global\ objects across accounts](.claude/memory/global-mutex-across-accounts.md) — the watcher is LocalSystem and the hubs are the user, so a `Global\` mutex needs an explicit DACL; in a static initializer it kills every driver in the process, and it **only reproduces across accounts**
+- [Abandoned mutex grants ownership](.claude/memory/abandoned-mutex-grants-ownership.md) — `AbandonedMutexException` means the wait **succeeded** and you now own the mutex; throwing from that catch held it forever and took the chain down. Fixed in all thirteen `Safe*` sites
+- [ASCOM astrometry: one instance per process](.claude/memory/ascom-astrometry-one-instance-per-process.md) — disposing **or collecting** a `NOVAS31`/`AstroUtils` takes the whole process down; never do either
+- [ASCOM MoonIllumination kills the process](.claude/memory/ascom-moonillumination-kills-the-process.md) — the moon actions are **withdrawn**: serving them fast-fails ASCOM.RemoteServer natively. Read before reinstating — four hypotheses are already eliminated
+- [No safe unelevated solution build](.claude/memory/no-safe-unelevated-solution-build.md) — `/t:Build`, `/t:Compile` and even `RegisterForComInterop=false` all reach regasm; the `false` setting **unregisters** drivers, and its access-denied error hides the half that already succeeded
+- [No AnyCPU consumers](.claude/memory/no-anycpu-consumers.md) — everything the chain loads is x86; a config *named* `Debug|AnyCPU` can still target x86, so read `PlatformTarget` (or the built assembly), never the configuration name
+- [Common.dll shadowing](.claude/memory/common-dll-shadowing.md) — **rebuilding `Common` or `Hardware` is not enough**: every driver carries its own copy, the first loaded wins for the whole process, and a fresh build can be silently ignored at runtime
+- [Driver Connected/Dispose scoping](.claude/memory/wise40-driver-connected-dispose.md) — per-client teardown used to reach shared singletons and stop the mount; fixed in six drivers, two left
+- [Filter metadata sources](.claude/memory/wise40-filter-metadata-sources.md) — names from MaxIm DL 7, offsets from ACP; Wise40 keeps only the RFID tags
+- [Filter wheel Arduino source](.claude/memory/wise40-filterwheel-arduino-source.md) — three copies exist; the live one is under Documents\Arduino, not in this tree
+- [Filter wheel firmware validated](.claude/memory/filterwheel-fixes-awaiting-hardware-test.md) — works end to end as of 2026-08-15; the slit detector needs ~40 ms to settle or it lies convincingly
+- [Filter wheel RFID stays on SoftwareSerial](.claude/memory/filterwheel-rfid-stays-on-softwareserial.md) — rewiring D0 to pin 19 was considered and rejected; do not propose it again
+- [Focuser COM interfaces](.claude/memory/focuser-com-interfaces.md) — use FocusMax **v5**, not v4 (Platform 6.5 SP1 has no V1 `IFocuser` to bind to). Swapping the declared interface on a `ClassInterfaceType.None` driver **removes** the old one from QueryInterface — declare both
+- [OCH forwards SensorDescription](.claude/memory/och-forwards-sensordescription.md) — the hub asks the serving device, so it is an authoritative provenance channel that answers even when the station is down
+- [One station voids the weather digest](.claude/memory/one-station-voids-the-weather-digest.md) — a powered-down TessW threw out through the OCH and voided the **whole** `SafeToOperate` status digest; the Dash blanked every weather field and `ObservatoryMonitor` stopped evaluating safety. Fixed — guard every digest field
+- [IP9258 power switch](.claude/memory/ip9258-power-switch.md) — the switch that feeds the camera. A wrong password trips the undocumented `HTTPCMD_TRYLIMIT` lockout, which only a box power cycle clears, and the power cycle turns every outlet OFF
+- [Elevated steps from a tool call](.claude/memory/elevated-steps-from-a-tool-call.md) — admin steps as a `.ps1` run with `-File` and a log, never inline `-Command`; replacing a locked DLL; what the harness blocks
+
+## Building
+
+`RegisterForComInterop` is on for several projects, so **build elevated**. A non-elevated build
+unregisters and then fails to re-register, and re-registration wipes the driver's ASCOM Profile
+subkey. Before debugging any setting that appears to have "reverted on its own", read the
+build-and-environment memory.

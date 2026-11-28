@@ -1,0 +1,2 @@
+- [User learning Rust](user_learning_rust.md) — studying Rust in `rust-zk`; likes design-tradeoff framing and cross-language comparisons
+- [Socratic mentor style for learning](feedback_mentor_style.md) — in learning mode, guide via questions; don't hand over the answer

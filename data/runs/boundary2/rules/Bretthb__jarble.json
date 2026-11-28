@@ -1,0 +1,1270 @@
+{
+  "repo": "Bretthb/jarble",
+  "dir": ".claude/memory",
+  "n_files": 52,
+  "n_rules": 210,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "bugs-and-fixes.md",
+      "quote": "always use pairing mode",
+      "rule": "For Discord and Telegram channels in OpenClaw, always use pairing mode for dmPolicy instead of a saved value such as \"open\"."
+    },
+    {
+      "id": "R2",
+      "file": "canvas-workspace-plan.md",
+      "quote": "Start Phase 1 implementation.",
+      "rule": "At the start of the next session, begin implementing Phase 1 of the moveable canvas workspace plan."
+    },
+    {
+      "id": "R3",
+      "file": "canvas-workspace-plan.md",
+      "quote": "Begin with steps 1.1 (types) + 1.2 (reducer) + 1.8 (install react-rnd) as they have no dependencies",
+      "rule": "Begin Phase 1 implementation with steps 1.1 (types), 1.2 (reducer), and 1.8 (install react-rnd), since they have no dependencies."
+    },
+    {
+      "id": "R4",
+      "file": "canvas-workspace-plan.md",
+      "quote": "then 1.3 (InfiniteCanvas) + 1.4 (CanvasCardWrapper)",
+      "rule": "After steps 1.1, 1.2, and 1.8, implement steps 1.3 (InfiniteCanvas) and 1.4 (CanvasCardWrapper)."
+    },
+    {
+      "id": "R5",
+      "file": "canvas-workspace-plan.md",
+      "quote": "then 1.5 (useCanvasChat) + 1.6 (TextMessage)",
+      "rule": "After steps 1.3 and 1.4, implement steps 1.5 (useCanvasChat) and 1.6 (TextMessage)."
+    },
+    {
+      "id": "R6",
+      "file": "canvas-workspace-plan.md",
+      "quote": "and finally 1.7 (page rewrite)",
+      "rule": "Implement step 1.7 (page rewrite) last, after steps 1.5 and 1.6."
+    },
+    {
+      "id": "R7",
+      "file": "control_ui_integration.md",
+      "quote": "Jarble panel is the write path, Control UI is the verification path.",
+      "rule": "Create, edit, and delete subagent records through Jarble's SubagentsPanel, not directly in the OpenClaw Control UI."
+    },
+    {
+      "id": "R8",
+      "file": "control_ui_integration.md",
+      "quote": "Keep both — they serve different scopes.",
+      "rule": "Keep both Jarble's FilePanel and the OpenClaw Agents > Files tab rather than consolidating them into one."
+    },
+    {
+      "id": "R9",
+      "file": "control_ui_integration.md",
+      "quote": "The Control UI's Chat could be used for testing delegation behavior by chatting directly with the entry bot.",
+      "rule": "When testing Agent Teams delegation behavior, you may use the OpenClaw Control UI Chat to message the entry bot directly."
+    },
+    {
+      "id": "R10",
+      "file": "control_ui_integration.md",
+      "quote": "Keep Bot Teams entirely in Jarble UI.",
+      "rule": "Keep Agent Teams / Bot Teams features entirely in the Jarble UI, not in the OpenClaw Control UI."
+    },
+    {
+      "id": "R11",
+      "file": "control_ui_integration.md",
+      "quote": "Use OpenClaw's cron system for per-pod scheduling.",
+      "rule": "Use OpenClaw's cron system for per-pod scheduled tasks."
+    },
+    {
+      "id": "R12",
+      "file": "control_ui_integration.md",
+      "quote": "If Jarble needs platform-level scheduling (across deployments), build that separately.",
+      "rule": "If Jarble needs platform-level scheduling across deployments, build it separately from OpenClaw's cron system."
+    },
+    {
+      "id": "R13",
+      "file": "control_ui_integration.md",
+      "quote": "Config editing lives entirely in the Control UI now.",
+      "rule": "Do config editing in the OpenClaw Control UI Config page, not through Jarble-side config forms."
+    },
+    {
+      "id": "R14",
+      "file": "cron_jobs_planned.md",
+      "quote": "When designing the flow engine or scheduler, plan for BOTH levels.",
+      "rule": "When designing the flow engine or scheduler, plan for cron scheduling at both the deployment level and the subagent level."
+    },
+    {
+      "id": "R15",
+      "file": "cron_jobs_planned.md",
+      "quote": "This is NOT scoped or shipped yet. File as a future feature ticket.",
+      "rule": "Treat the cron jobs feature as unscoped and unshipped, and file it as a future feature ticket rather than implementing it now."
+    },
+    {
+      "id": "R16",
+      "file": "cron_jobs_planned.md",
+      "quote": "When implementing, coordinate with the team-deployment-bridge work",
+      "rule": "When implementing the cron jobs feature, coordinate with the team-deployment-bridge work."
+    },
+    {
+      "id": "R17",
+      "file": "cron_jobs_planned.md",
+      "quote": "make sure cron triggers can also fire flow chat sessions (so a scheduled run can use the same delegation contract as a manual chat).",
+      "rule": "When implementing cron triggers, make sure they can also fire flow chat sessions so a scheduled run uses the same delegation contract as a manual chat."
+    },
+    {
+      "id": "R18",
+      "file": "custom_themes_skins.md",
+      "quote": "**How to apply:** When implementing, build on existing infrastructure:",
+      "rule": "When implementing custom themes and skins, build on the existing infrastructure rather than creating parallel systems."
+    },
+    {
+      "id": "R19",
+      "file": "custom_themes_skins.md",
+      "quote": "- `/theme <custom-name>` — should check custom themes first, then presets",
+      "rule": "When resolving a `/theme <name>` command, check custom themes first, then fall back to presets."
+    },
+    {
+      "id": "R20",
+      "file": "custom_themes_skins.md",
+      "quote": "- Theme marketplace items could reuse the existing `marketplaceComponents` table with a new category",
+      "rule": "Store theme marketplace items in the existing `marketplaceComponents` table under a new category rather than creating a separate table."
+    },
+    {
+      "id": "R21",
+      "file": "deployment_orchestration.md",
+      "quote": "Build incrementally:",
+      "rule": "When implementing the /deployments orchestration canvas, build it incrementally, one phase at a time, rather than all at once."
+    },
+    {
+      "id": "R22",
+      "file": "deployment_orchestration.md",
+      "quote": "Existing Infrastructure to Reuse",
+      "rule": "When implementing deployment orchestration features, reuse the existing infrastructure listed in the file (such as @xyflow/react, chatWithBot, agentCredits, and services) instead of building new equivalents."
+    },
+    {
+      "id": "R23",
+      "file": "enterprise-phase1.md",
+      "quote": "Phase 2 (agent listings router) and Phase 3 (deploy-from-listing flow) are next.",
+      "rule": "Treat Phase 2 (agent listings router) and Phase 3 (deploy-from-listing flow) as the next planned work items after Phase 1."
+    },
+    {
+      "id": "R24",
+      "file": "enterprise-phase1.md",
+      "quote": "Frontend org switcher and agent marketplace pages still needed.",
+      "rule": "Treat the frontend org switcher and agent marketplace pages as still needing to be built."
+    },
+    {
+      "id": "R25",
+      "file": "error-resilience-implementation.md",
+      "quote": "Read the error carefully",
+      "rule": "When a component fails with an error message from the system, read the error carefully before responding."
+    },
+    {
+      "id": "R26",
+      "file": "error-resilience-implementation.md",
+      "quote": "don't repeat the same structure",
+      "rule": "After a component error, do not repeat the same invalid data structure; provide corrected data instead."
+    },
+    {
+      "id": "R27",
+      "file": "error-resilience-implementation.md",
+      "quote": "say \"I see — let me provide the data properly\"",
+      "rule": "After a component error, acknowledge the fix to the user and say you will provide the data properly."
+    },
+    {
+      "id": "R28",
+      "file": "error-resilience-implementation.md",
+      "quote": "Always provide sample data",
+      "rule": "Always provide sample data when generating components."
+    },
+    {
+      "id": "R29",
+      "file": "error-resilience-implementation.md",
+      "quote": "don't generate empty datasets",
+      "rule": "Do not generate empty datasets for components."
+    },
+    {
+      "id": "R30",
+      "file": "error-resilience-implementation.md",
+      "quote": "Use the component reference to check valid prop values",
+      "rule": "Use the component reference to check valid prop values before emitting a component."
+    },
+    {
+      "id": "R31",
+      "file": "error-resilience-implementation.md",
+      "quote": "Test different data sizes",
+      "rule": "Test different data sizes when generating components, since some components work better with more or fewer items."
+    },
+    {
+      "id": "R32",
+      "file": "error-resilience-implementation.md",
+      "quote": "When in doubt, use simple components like `card` or `alert`",
+      "rule": "When unsure which component to use, use simple components such as card or alert."
+    },
+    {
+      "id": "R33",
+      "file": "error-resilience-implementation.md",
+      "quote": "Use only built-in components unless you've defined the custom one",
+      "rule": "Use only built-in components unless the custom component has been defined."
+    },
+    {
+      "id": "R34",
+      "file": "error-resilience-implementation.md",
+      "quote": "Before emitting a component, verify:",
+      "rule": "Before emitting a component, verify its data against the data quality checklist."
+    },
+    {
+      "id": "R35",
+      "file": "error-resilience-implementation.md",
+      "quote": "Non-empty data arrays (at least 1 item)",
+      "rule": "Before emitting a component, verify that data arrays are non-empty (at least 1 item)."
+    },
+    {
+      "id": "R36",
+      "file": "error-resilience-implementation.md",
+      "quote": "Correct data types (strings vs numbers)",
+      "rule": "Before emitting a component, verify that data values have correct types (strings vs numbers)."
+    },
+    {
+      "id": "R37",
+      "file": "error-resilience-implementation.md",
+      "quote": "Required fields present",
+      "rule": "Before emitting a component, verify that all required fields are present."
+    },
+    {
+      "id": "R38",
+      "file": "error-resilience-implementation.md",
+      "quote": "Valid enum values",
+      "rule": "Before emitting a component, verify that enum fields use valid values."
+    },
+    {
+      "id": "R39",
+      "file": "error-resilience-implementation.md",
+      "quote": "Reasonable sizes (< 100 items for initial display)",
+      "rule": "Before emitting a component, verify that it has reasonable size (fewer than 100 items for initial display)."
+    },
+    {
+      "id": "R40",
+      "file": "error-resilience-implementation.md",
+      "quote": "If any fail, provide corrected data.",
+      "rule": "If any data quality check fails before emitting a component, provide corrected data."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_autonomous_overnight.md",
+      "quote": "When given overnight authority, focus on high-impact safe changes (cleanup, tests, docs, bug fixes)",
+      "rule": "When given overnight autonomous authority, focus on high-impact safe changes such as cleanup, tests, docs, and bug fixes."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_autonomous_overnight.md",
+      "quote": "avoid risky changes to core systems (schema, auth, infra)",
+      "rule": "When working under overnight autonomous authority, avoid risky changes to core systems such as schema, auth, and infra."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_autonomous_overnight.md",
+      "quote": "Use specialized agents in parallel.",
+      "rule": "When working under overnight autonomous authority, use specialized agents in parallel."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_autonomous_overnight.md",
+      "quote": "Prioritize things that make the platform \"look pristine and production ready.\"",
+      "rule": "When working under overnight autonomous authority, prioritize work that makes the platform look pristine and production ready."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_component_quality.md",
+      "quote": "Components must be visually appealing and professional.",
+      "rule": "When working on components, system prompts, or component rendering, make components visually appealing and professional."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_component_quality.md",
+      "quote": "Use real data, not placeholder data",
+      "rule": "When working on components, system prompts, or component rendering, use real data rather than placeholder data."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_component_quality.md",
+      "quote": "Include descriptive titles/subtitles with units and context",
+      "rule": "When working on components, system prompts, or component rendering, include descriptive titles or subtitles with units and context."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_component_quality.md",
+      "quote": "Use intentional colors (green for growth, red for decline)",
+      "rule": "When working on components, system prompts, or component rendering, use intentional colors: green for growth and red for decline."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_component_quality.md",
+      "quote": "Include images when relevant (Unsplash)",
+      "rule": "When working on components, system prompts, or component rendering, include images from Unsplash when relevant."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_component_quality.md",
+      "quote": "Use sparklines, trend indicators, status badges",
+      "rule": "When working on components, system prompts, or component rendering, use sparklines."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_component_quality.md",
+      "quote": "Use sparklines, trend indicators, status badges",
+      "rule": "When working on components, system prompts, or component rendering, use trend indicators."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_component_quality.md",
+      "quote": "Use sparklines, trend indicators, status badges",
+      "rule": "When working on components, system prompts, or component rendering, use status badges."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_component_quality.md",
+      "quote": "Make dashboards that tell a visual story",
+      "rule": "When working on components, system prompts, or component rendering, make dashboards that tell a visual story."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_component_quality.md",
+      "quote": "Every component should look like it belongs in a professional dashboard",
+      "rule": "When working on components, system prompts, or component rendering, make every component look like it belongs in a professional dashboard."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Never propose removing or degrading `/d/[id]` in favor of a team-only surface",
+      "rule": "Never propose removing or degrading a deployment's `/d/[id]` page in favor of a team-only surface."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Any orchestration feature added to a team should ALSO work when you drill into a sub-specialist at `/d/[specialist-id]` and treat IT as the root",
+      "rule": "When adding an orchestration feature to a team, make sure it also works when a sub-specialist is opened at its own `/d/[specialist-id]` page and treated as the root."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "The Run button and Team Chat on a team should ultimately converge: both let the entry bot receive a goal and delegate",
+      "rule": "Design the team's Run button and Team Chat to converge so both let the entry bot receive a goal and delegate."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Delegation tree visualizations must be recursive-aware — a specialist that is itself an entry must be drillable",
+      "rule": "Make delegation tree visualizations recursive-aware, so a specialist that is itself an entry point can be drilled into."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "When scoping new team features, ask \"does this pattern still hold if the user zoomed in to any sub-node?\"",
+      "rule": "When scoping new team features, check whether the pattern still holds if the user zooms into any sub-node."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Memory scoping, canvas attribution, and billing all need to be recursion-aware",
+      "rule": "Make memory scoping, canvas attribution, and billing recursion-aware, not limited to a team-vs-individual distinction."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Compute/resource views should aggregate per-pod stats up through the team hierarchy, not hide that each node is its own K8s workload",
+      "rule": "Make compute/resource views aggregate per-pod stats up through the team hierarchy, and do not hide that each node is its own K8s workload."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Don't conflate them in UI or data models.",
+      "rule": "Do not conflate subagents with teammates in UI or data models."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Features must treat these two levels differently",
+      "rule": "Make features treat internal orchestration (subagents) and external orchestration (teammates) differently, even though the chat/canvas surface is the same."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "The chat/canvas/URL pattern MUST be identical at every level.",
+      "rule": "Keep the chat, canvas, and URL pattern identical at every level of the orchestration tree."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_deployments_are_atomic.md",
+      "quote": "Starter prompt for Run should slot into the entry node's args at execute time",
+      "rule": "Insert the Run starter prompt into the entry node's args at execution time."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_deployments_page.md",
+      "quote": "Every overnight QA session should run flow builder (persona 10) and flow runner (persona 22) personas",
+      "rule": "Every overnight QA session should run the flow builder (persona 10) and flow runner (persona 22) personas."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_deployments_page.md",
+      "quote": "Focus on: graph rendering, flow canvas drag/connect/save/run, resource map connections, tab switching, performance, empty states",
+      "rule": "When testing the /deployments page in overnight QA, focus on graph rendering, flow canvas drag/connect/save/run, resource map connections, tab switching, performance, and empty states."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_deployments_page.md",
+      "quote": "The orchestration features (flows, execution, HITL pause/resume) need heavy real-world testing",
+      "rule": "Orchestration features (flows, execution, HITL pause/resume) on the /deployments page must receive heavy real-world testing."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_deployments_page.md",
+      "quote": "Check Deployments.tsx (1600+ lines) for visual bugs, layout issues, interaction problems",
+      "rule": "When working on the /deployments page, check Deployments.tsx for visual bugs, layout issues, and interaction problems."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_deployments_page.md",
+      "quote": "Test with 0, 1, 5, and 10+ deployments to verify scaling",
+      "rule": "Test the /deployments page with 0, 1, 5, and 10+ deployments to verify scaling."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "When a design question comes up, ask \"what would a human team do here?\"",
+      "rule": "When facing an ambiguous design decision for Jarble, ask how a human team would handle it and use that answer to guide implementation."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Use \"workforce\" language in product copy, not \"fractal\" or \"multi-agent\"",
+      "rule": "Use \"workforce\" language in Jarble product copy; do not use \"fractal\" or \"multi-agent\"."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Use them alone, or team them up.",
+      "rule": "Do not treat the pitch as a reason to design features beyond the pitch; it is fine to describe that users can use agents alone or team them up."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Do not design onboarding flows around \"free trial pods\" or \"freemium to paid\" conversion funnels",
+      "rule": "Do not design onboarding flows around free trial pods or freemium-to-paid conversion funnels; assume the user has already committed to paying."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Onboarding should assume the user has already committed to paying.",
+      "rule": "Design onboarding to assume the user has already committed to paying via Stripe."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Do not design features assuming cross-user delegation, cross-user trust, inter-account billing, or publisher dashboards until explicitly reopened.",
+      "rule": "Do not design features that assume cross-user delegation, cross-user trust, inter-account billing, or publisher dashboards until explicitly reopened."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Team builder palette should only show agents the user owns; empty state CTA = \"Deploy your first agent\"",
+      "rule": "The team builder palette should only show agents the user owns, with the empty-state CTA \"Deploy your first agent\"."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Adding a team member should display the cumulative monthly cost",
+      "rule": "When adding a team member, display the cumulative monthly cost of the team."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Flow references to agents the user doesn't own → block + redirect to marketplace / deploy flow",
+      "rule": "Block flow references to agents the user does not own and redirect the user to the marketplace or deploy flow."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Stop vs Delete vs Remove-from-team must be three distinct UI actions with clear distinctions",
+      "rule": "Keep Stop, Delete, and Remove-from-team as three distinct UI actions with clear distinctions between them."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "UI must clearly communicate WHY the palette is filtered",
+      "rule": "The UI must clearly communicate why the team builder palette is filtered."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Subagents vs teammates** → subagents are \"your own internal thoughts and habits\" (in-pod); teammates are \"other people\" (cross-pod). Never collapse the distinction.",
+      "rule": "Never collapse the distinction between subagents (in-pod) and teammates (cross-pod)."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "There should be one front door, not two. Run + starter prompt = same flow as Team Chat.",
+      "rule": "Provide one front door for asking an agent for help; the Run flow with a starter prompt should be the same flow as Team Chat."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Teammate crash should route around; subagent crash degrades the parent deployment.",
+      "rule": "When a teammate crashes, route work around it; a subagent crash should degrade only the parent deployment."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "`MAX_DELEGATION_DEPTH = 4` has a principled basis, not an arbitrary number.",
+      "rule": "Use a delegation depth cap of MAX_DELEGATION_DEPTH = 4."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Agents need declared capabilities (résumé), usage metrics (references), and trial runs (interviews).",
+      "rule": "Marketplace agents should expose declared capabilities, usage metrics, and trial runs as their hiring signals."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Defend the pod-per-deployment cost via the \"each person has their own life\" framing",
+      "rule": "When justifying pod-per-deployment cost, use the \"each person has their own life\" framing."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Don't model coordination problems that only exist because humans are human.",
+      "rule": "Do not model coordination problems that only exist because humans are human, such as ego or politics."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_human_workforce_mental_model.md",
+      "quote": "Don't use human metaphor to decide on replica count; that's a compute decision.",
+      "rule": "Do not use the human metaphor to decide replica count; treat replica count as a compute decision."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "NEVER merge develop to main automatically.",
+      "rule": "Never merge develop into main automatically; only do so after the user explicitly asks."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "All work stays on develop until the user explicitly says to merge.",
+      "rule": "Keep all work on the develop branch until the user explicitly says to merge."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "confirm the branch before merging.",
+      "rule": "Confirm the target branch before performing any merge."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "When the user says \"deploy\" or \"push,\" push to develop only.",
+      "rule": "When the user says \"deploy\" or \"push,\" push only to the develop branch."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "When the user explicitly says \"merge to main\" or \"deploy to production,\" then merge.",
+      "rule": "Merge to main only when the user explicitly says \"merge to main\" or \"deploy to production.\""
+    },
+    {
+      "id": "R95",
+      "file": "feedback_no_auto_merge_main.md",
+      "quote": "Ask first if unsure.",
+      "rule": "Ask the user for confirmation before merging or pushing when unsure what the user wants."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_overnight_qa.md",
+      "quote": "the `.env` must be manually created",
+      "rule": "After cloning or pulling the repository on the overnight QA machine, manually create the scripts/nightly-qa/.env file."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_overnight_qa.md",
+      "quote": "Consider adding a `.env.example` for the QA machine setup",
+      "rule": "Consider adding a .env.example file to document the overnight QA machine setup."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_slash_commands.md",
+      "quote": "Theme switching must ONLY trigger on explicit `/theme` or `/skin` slash commands.",
+      "rule": "Only switch the theme when the user issues an explicit /theme or /skin slash command; never switch it based on contextual keyword detection."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_slash_commands.md",
+      "quote": "The bot's system prompt tells it NOT to call set_theme unless explicitly asked.",
+      "rule": "Do not call set_theme unless the user explicitly asks for it."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_slash_commands.md",
+      "quote": "All theme changes go through the API-level command handler, not through keyword detection.",
+      "rule": "Route all theme changes through the API-level command handler, not through keyword detection."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_whatsapp_secondary.md",
+      "quote": "Prioritize web chat bugs over messaging platform bugs.",
+      "rule": "When triaging bugs, prioritize web chat path issues (e.g., /d/[id]) over WhatsApp, Discord, Slack, or Telegram issues."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_whatsapp_secondary.md",
+      "quote": "When triaging bugs, web chat path issues are higher priority than WhatsApp/Discord/Slack/Telegram issues.",
+      "rule": "When triaging bugs, treat web chat path issues as higher priority than WhatsApp, Discord, Slack, or Telegram issues."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_whatsapp_secondary.md",
+      "quote": "QR stream and messaging platform bugs are real but lower priority.",
+      "rule": "When triaging bugs, treat QR stream and messaging platform bugs as real but lower priority."
+    },
+    {
+      "id": "R104",
+      "file": "harness-and-chat-decision.md",
+      "quote": "The per-deployment agent process is now called \"Agent Harness\", not \"Agent Runtime\", in all user-facing / architectural prose.",
+      "rule": "In user-facing and architectural prose, call the per-deployment agent process \"Agent Harness\", not \"Agent Runtime\"."
+    },
+    {
+      "id": "R105",
+      "file": "harness-and-chat-decision.md",
+      "quote": "Code identifiers are intentionally preserved",
+      "rule": "Do not rename code identifiers such as `RuntimeHandler`, `runtimes/handlers/`, `runtimeCatalog`, `RUNTIME_EXTRA_STEPS`, or `RUNTIME_CONFIG_TABS`."
+    },
+    {
+      "id": "R106",
+      "file": "harness-and-chat-decision.md",
+      "quote": "Use the literal code identifiers in code blocks and file paths.",
+      "rule": "Use the literal code identifiers (not \"Agent Harness\" terminology) in code blocks and file paths."
+    },
+    {
+      "id": "R107",
+      "file": "harness-and-chat-decision.md",
+      "quote": "use \"Agent Harness\" / \"harness-agnostic\" / \"harness catalog\" in narrative",
+      "rule": "When writing docs narrative, use the terms \"Agent Harness\", \"harness-agnostic\", and \"harness catalog\"."
+    },
+    {
+      "id": "R108",
+      "file": "harness-and-chat-decision.md",
+      "quote": "**That code is on a path to deletion. Do not extend it.**",
+      "rule": "Do not extend the legacy canvas and chat code (`Jarble-mvp/components/canvas/`, `useCanvasChat.ts`, `AssistantUIChat.tsx`, `SimpleCanvasGrid.tsx`, `lib/assistantRuntime.ts`, `render_ui` / `define_component` tools in `jarble-ui-server.js`)."
+    },
+    {
+      "id": "R109",
+      "file": "harness-and-chat-decision.md",
+      "quote": "Before scaffolding anything that touches `components/canvas/`, `useCanvasChat`, `AssistantUIChat`, `SimpleCanvasGrid`, or `jarble-ui-server.js`, stop and propose either (a) leaving the legacy code untouched, or (b) deleting it. Do not add features.",
+      "rule": "Before scaffolding anything touching the legacy canvas/chat code, stop and propose either leaving it untouched or deleting it, and do not add features to it."
+    },
+    {
+      "id": "R110",
+      "file": "harness-and-chat-decision.md",
+      "quote": "The `canvas-component-builder` agent and `/new-component` skill are deprecated tombstones — do not invoke.",
+      "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+    },
+    {
+      "id": "R111",
+      "file": "harness-and-chat-decision.md",
+      "quote": "Stop describing marketplace browsing/installing/earning as a current feature.",
+      "rule": "Do not describe marketplace browsing, installing, or earning as a current feature, since the marketplace is planned and not shipped."
+    },
+    {
+      "id": "R112",
+      "file": "infra-hosting.md",
+      "quote": "When setting env vars for the frontend, use Coolify dashboard, not Vercel.",
+      "rule": "When setting environment variables for the frontend, use the Coolify dashboard, not Vercel."
+    },
+    {
+      "id": "R113",
+      "file": "infra-hosting.md",
+      "quote": "API env vars go through Kubero or `kubectl` on the K3s cluster.",
+      "rule": "When setting environment variables for the API, set them through Kubero or kubectl on the K3s cluster."
+    },
+    {
+      "id": "R114",
+      "file": "infra_docker_builds.md",
+      "quote": "NEVER build Docker images on the K3s master node.",
+      "rule": "Never build Docker images on the K3s master node."
+    },
+    {
+      "id": "R115",
+      "file": "infra_docker_builds.md",
+      "quote": "Use GitHub Actions workflow (`.github/workflows/deploy-api.yml`) for image builds",
+      "rule": "Use the GitHub Actions workflow (.github/workflows/deploy-api.yml) for Docker image builds."
+    },
+    {
+      "id": "R116",
+      "file": "infra_docker_builds.md",
+      "quote": "The Coolify/Kubero server is for frontend builds only",
+      "rule": "Use the Coolify/Kubero server only for frontend builds."
+    },
+    {
+      "id": "R117",
+      "file": "infra_docker_builds.md",
+      "quote": "If manual build needed: use a separate build machine, never the master",
+      "rule": "When a manual Docker build is needed, use a separate build machine, never the master node."
+    },
+    {
+      "id": "R118",
+      "file": "infra_docker_builds.md",
+      "quote": "After accidental build on master: stop Docker (`systemctl stop docker`)",
+      "rule": "After an accidental Docker build on the master node, stop Docker with `systemctl stop docker`."
+    },
+    {
+      "id": "R119",
+      "file": "infra_docker_builds.md",
+      "quote": "clean up (`rm -rf /tmp/jarble-build`)",
+      "rule": "After an accidental Docker build on the master node, clean up by running `rm -rf /tmp/jarble-build`."
+    },
+    {
+      "id": "R120",
+      "file": "infra_docker_builds.md",
+      "quote": "wait for load to recover",
+      "rule": "After an accidental Docker build on the master node, wait for the load average to recover."
+    },
+    {
+      "id": "R121",
+      "file": "jarble-agents-host.md",
+      "quote": "`jarble-agents` uses `~/.ssh/id_ed25519` (NOT `id_ed25519_hetzner`)",
+      "rule": "When connecting to the jarble-agents node over SSH, use the key ~/.ssh/id_ed25519 and do not use id_ed25519_hetzner."
+    },
+    {
+      "id": "R122",
+      "file": "jarble-mc-server.md",
+      "quote": "download new ServerFiles-X.Y.zip into /opt/minecraft/data/",
+      "rule": "When updating the modpack, download the new ServerFiles-X.Y.zip into /opt/minecraft/data/."
+    },
+    {
+      "id": "R123",
+      "file": "jarble-mc-server.md",
+      "quote": "update GENERIC_PACK in compose",
+      "rule": "When updating the modpack, update GENERIC_PACK in the docker compose file to point to the new server pack zip."
+    },
+    {
+      "id": "R124",
+      "file": "jarble-mc-server.md",
+      "quote": "wipe install marker",
+      "rule": "When updating the modpack, wipe the itzg install marker before restarting."
+    },
+    {
+      "id": "R125",
+      "file": "jarble-mc-server.md",
+      "quote": "delete the markers AND the previous mod files before restart",
+      "rule": "To force the modpack to re-extract, delete the itzg install markers and the previous mod files in /data before restarting the server."
+    },
+    {
+      "id": "R126",
+      "file": "jarble_orchestration_layers.md",
+      "quote": "When evaluating a feature request, ask: \"does this add value at the outer layer (cross-bot orchestration), the inner layer (per-bot capability), or both?\"",
+      "rule": "When evaluating a feature request, ask whether it adds value at the outer layer (cross-bot orchestration), the inner layer (per-bot capability), or both."
+    },
+    {
+      "id": "R127",
+      "file": "jarble_orchestration_layers.md",
+      "quote": "Both-layer features are the most valuable.",
+      "rule": "When evaluating feature requests, prefer features that add value at both the outer and inner layers over features that affect only one layer."
+    },
+    {
+      "id": "R128",
+      "file": "orchestration_architecture.md",
+      "quote": "Checkpointing first (safety), then cycles (patterns), then nested flows (marketplace), then HITL (enterprise).",
+      "rule": "When planning Phase 2 of the orchestration system, prioritize features in this order: intermediate checkpointing first, then cycle/loop support, then nested flows/subgraphs, then human-in-the-loop."
+    },
+    {
+      "id": "R129",
+      "file": "perf_useCanvasChat_plan.md",
+      "quote": "Phases 1-2 being implemented now. Phase 3 only if profiling shows need.",
+      "rule": "Do not implement phase 3 (useReducer for Group A state) unless profiling shows a need for it."
+    },
+    {
+      "id": "R130",
+      "file": "perf_useCanvasChat_plan.md",
+      "quote": "**How to apply:** Phases 1-2 being implemented now.",
+      "rule": "When doing performance work on the useCanvasChat chat streaming pipeline, implement phases 1 and 2 (merge rAF loops, React.memo canvas children)."
+    },
+    {
+      "id": "R131",
+      "file": "project_agent_findings_2026_03_22.md",
+      "quote": "A11y critical items should be fixed before public beta.",
+      "rule": "Fix the critical accessibility items before the public beta release."
+    },
+    {
+      "id": "R132",
+      "file": "project_agent_findings_2026_03_22.md",
+      "quote": "Perf items before scaling.",
+      "rule": "Fix the performance items before scaling the product."
+    },
+    {
+      "id": "R133",
+      "file": "project_audit_2026_03_17.md",
+      "quote": "Reference AUDIT-REPORT.md for full details",
+      "rule": "When details of the platform audit findings are needed, consult AUDIT-REPORT.md in the repo root for the full report."
+    },
+    {
+      "id": "R134",
+      "file": "project_audit_2026_03_17.md",
+      "quote": "Fix C1-C4 before any production deploy.",
+      "rule": "Fix the critical audit issues C1-C4 (listed in AUDIT-REPORT.md) before deploying to production."
+    },
+    {
+      "id": "R135",
+      "file": "project_audit_2026_03_17.md",
+      "quote": "Fix H1-H11 before public beta.",
+      "rule": "Fix the high-priority audit issues H1-H11 (listed in AUDIT-REPORT.md) before releasing a public beta."
+    },
+    {
+      "id": "R136",
+      "file": "project_coolify_setup.md",
+      "quote": "Frontend changes go through Coolify.",
+      "rule": "Route frontend changes through Coolify (the frontend build/deploy platform)."
+    },
+    {
+      "id": "R137",
+      "file": "project_coolify_setup.md",
+      "quote": "API changes still go through K8s/Kubero on the separate cluster.",
+      "rule": "Route API changes through K8s/Kubero on the separate cluster, not Coolify."
+    },
+    {
+      "id": "R138",
+      "file": "project_forking_flywheel.md",
+      "quote": "When building agent features, consider forkability.",
+      "rule": "When building agent features, consider forkability."
+    },
+    {
+      "id": "R139",
+      "file": "project_forking_flywheel.md",
+      "quote": "Agent configs should be portable (no hard coupling to user/pod).",
+      "rule": "Agent configs should be portable, with no hard coupling to a user or pod."
+    },
+    {
+      "id": "R140",
+      "file": "project_forking_flywheel.md",
+      "quote": "Platform agents use `AGENT_LLM_API_KEY` env var.",
+      "rule": "Platform agents use the `AGENT_LLM_API_KEY` environment variable for their LLM credentials."
+    },
+    {
+      "id": "R141",
+      "file": "project_k8s_infra_apr3.md",
+      "quote": "push to ghcr.io/jarble-ai/api:latest",
+      "rule": "When deploying API changes, push the image to ghcr.io/jarble-ai/api:latest."
+    },
+    {
+      "id": "R142",
+      "file": "project_k8s_infra_apr3.md",
+      "quote": "let Kubero pick it up in jarble-production namespace",
+      "rule": "When deploying API changes, let Kubero pick up the new image and deploy it in the jarble-production namespace."
+    },
+    {
+      "id": "R143",
+      "file": "project_k8s_infra_apr3.md",
+      "quote": "Bot pods go to jarble namespace separately.",
+      "rule": "Deploy bot pods to the jarble namespace, separately from the Kubero-managed API deployment."
+    },
+    {
+      "id": "R144",
+      "file": "project_merge_2026_03_22.md",
+      "quote": "merge-branch is ready to fast-forward to main once user approves",
+      "rule": "Do not fast-forward main to merge-branch until the user has approved the merge."
+    },
+    {
+      "id": "R145",
+      "file": "project_merge_2026_03_22.md",
+      "quote": "Run `git checkout main && git merge merge-branch`.",
+      "rule": "Once the user approves, run `git checkout main && git merge merge-branch` to merge merge-branch into main."
+    },
+    {
+      "id": "R146",
+      "file": "project_overnight_2026_03_18.md",
+      "quote": "test sandbox-first with restarted pod",
+      "rule": "In the next session, test the sandbox-first behavior with a restarted pod."
+    },
+    {
+      "id": "R147",
+      "file": "project_overnight_2026_03_18.md",
+      "quote": "delete local.db + restart API to fix SQLite test failures",
+      "rule": "In the next session, delete local.db and restart the API to fix the SQLite test failures."
+    },
+    {
+      "id": "R148",
+      "file": "project_overnight_2026_03_18.md",
+      "quote": "review agent reports for further cleanup opportunities",
+      "rule": "In the next session, review agent reports for further cleanup opportunities."
+    },
+    {
+      "id": "R149",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Work is autonomous — no confirmations.",
+      "rule": "Proceed with overnight work autonomously and do not ask the user for confirmations."
+    },
+    {
+      "id": "R150",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Fix restart race condition",
+      "rule": "Fix the restart race condition that shows the 'Cannot restart deployment that is reloading' popup when toggling memory scope in ConfigPanel."
+    },
+    {
+      "id": "R151",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "openclaw system prompt must tell bot to pass session_id when memoryScope=session",
+      "rule": "Make the openclaw system prompt instruct the bot to pass session_id when memoryScope=session."
+    },
+    {
+      "id": "R152",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Full qa-orchestrator run in background",
+      "rule": "Run the full qa-orchestrator in the background."
+    },
+    {
+      "id": "R153",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Live smoke test all 12 tonight's PRs (#67-80)",
+      "rule": "Live smoke test all 12 PRs from tonight (#67-80)."
+    },
+    {
+      "id": "R154",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Fix anything QA agents report (via qa-healer)",
+      "rule": "Fix anything QA agents report by using qa-healer."
+    },
+    {
+      "id": "R155",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Every change via PR with tests + typecheck",
+      "rule": "Deliver every change via a pull request."
+    },
+    {
+      "id": "R156",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Every change via PR with tests + typecheck",
+      "rule": "Include tests with every change."
+    },
+    {
+      "id": "R157",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Every change via PR with tests + typecheck",
+      "rule": "Run typecheck on every change."
+    },
+    {
+      "id": "R158",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "No force-push",
+      "rule": "Never force-push."
+    },
+    {
+      "id": "R159",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "no main edits",
+      "rule": "Never edit the main branch directly."
+    },
+    {
+      "id": "R160",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "High-risk = DRAFT PR with notes",
+      "rule": "Open high-risk changes as DRAFT PRs with notes."
+    },
+    {
+      "id": "R161",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "No DB DROPs",
+      "rule": "Never run DB DROP statements."
+    },
+    {
+      "id": "R162",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "no force-delete of deployments",
+      "rule": "Never force-delete deployments."
+    },
+    {
+      "id": "R163",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Don't touch Stripe/Auth0",
+      "rule": "Do not modify Stripe or Auth0 configuration or code."
+    },
+    {
+      "id": "R164",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Verify API pod healthy after any rollout",
+      "rule": "After any rollout, verify the API pod is healthy."
+    },
+    {
+      "id": "R165",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "docs/audits/overnight-work-report-apr9.md (full summary)",
+      "rule": "Write the full overnight summary to docs/audits/overnight-work-report-apr9.md."
+    },
+    {
+      "id": "R166",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "List of merged PRs + Linear tickets filed",
+      "rule": "Include a list of merged PRs in the morning handoff report."
+    },
+    {
+      "id": "R167",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "List of merged PRs + Linear tickets filed",
+      "rule": "Include a list of Linear tickets filed in the morning handoff report."
+    },
+    {
+      "id": "R168",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Known issues still open",
+      "rule": "Include known open issues in the morning handoff report."
+    },
+    {
+      "id": "R169",
+      "file": "project_overnight_apr9_plan.md",
+      "quote": "Recommended next actions",
+      "rule": "Include recommended next actions in the morning handoff report."
+    },
+    {
+      "id": "R170",
+      "file": "project_page_routing.md",
+      "quote": "ALWAYS add onclick/onchange handlers to the HTML elements that call them.",
+      "rule": "When defining JS functions for a sandbox component (such as showTab or toggleSwitch), always add onclick or onchange handlers to the HTML elements that call those functions."
+    },
+    {
+      "id": "R171",
+      "file": "project_page_routing.md",
+      "quote": "Consider adding routing/interactivity to the native `page` component so the bot has a reason to use it instead of always falling back to sandbox.",
+      "rule": "Consider adding routing and interactivity to the native `page` component so the bot has a reason to use it instead of always falling back to the sandbox component."
+    },
+    {
+      "id": "R172",
+      "file": "project_qa_findings_apr10.md",
+      "quote": "Fix data_table empty cells first (most visible demo-killer).",
+      "rule": "When fixing the open QA issues, fix the data_table empty-cells bug before the other remaining issues."
+    },
+    {
+      "id": "R173",
+      "file": "project_qa_findings_apr10.md",
+      "quote": "Dashboard redirect needs client-side investigation.",
+      "rule": "When investigating the dashboard auto-redirect to /d/[id], investigate it on the client side."
+    },
+    {
+      "id": "R174",
+      "file": "project_sandbox_first_pivot.md",
+      "quote": "If prompt-level changes continue to fail, implement API-level enforcement in tamboAgent.ts",
+      "rule": "If prompt-level changes continue to fail to make the bot use the sandbox, implement API-level enforcement in tamboAgent.ts."
+    },
+    {
+      "id": "R175",
+      "file": "project_sandbox_first_pivot.md",
+      "quote": "when the bot emits 3+ typed component blocks (metric_card/chart/data_table) in a single response, auto-convert to a single sandbox component",
+      "rule": "In tamboAgent.ts, when the bot emits 3 or more typed component blocks (metric_card, chart, or data_table) in a single response, automatically convert them into a single sandbox component."
+    },
+    {
+      "id": "R176",
+      "file": "project_session_2026_03_23.md",
+      "quote": "Next session should focus on action-oriented testing, then merge to main.",
+      "rule": "In the next session, focus on action-oriented testing first, then merge the branch to main."
+    },
+    {
+      "id": "R177",
+      "file": "project_vision.md",
+      "quote": "When making architecture decisions, consider inter-pod communication, service discovery, compute distribution, and marketplace economics.",
+      "rule": "When making architecture decisions, consider inter-pod communication."
+    },
+    {
+      "id": "R178",
+      "file": "project_vision.md",
+      "quote": "When making architecture decisions, consider inter-pod communication, service discovery, compute distribution, and marketplace economics.",
+      "rule": "When making architecture decisions, consider service discovery."
+    },
+    {
+      "id": "R179",
+      "file": "project_vision.md",
+      "quote": "When making architecture decisions, consider inter-pod communication, service discovery, compute distribution, and marketplace economics.",
+      "rule": "When making architecture decisions, consider compute distribution."
+    },
+    {
+      "id": "R180",
+      "file": "project_vision.md",
+      "quote": "When making architecture decisions, consider inter-pod communication, service discovery, compute distribution, and marketplace economics.",
+      "rule": "When making architecture decisions, consider marketplace economics."
+    },
+    {
+      "id": "R181",
+      "file": "project_vision.md",
+      "quote": "The UI system should support both end-user interaction AND programmatic service consumption.",
+      "rule": "Design the UI system to support end-user interaction."
+    },
+    {
+      "id": "R182",
+      "file": "project_vision.md",
+      "quote": "The UI system should support both end-user interaction AND programmatic service consumption.",
+      "rule": "Design the UI system to support programmatic service consumption."
+    },
+    {
+      "id": "R183",
+      "file": "project_vision.md",
+      "quote": "Design agent configs to be portable/forkable",
+      "rule": "Design agent configs to be portable and forkable."
+    },
+    {
+      "id": "R184",
+      "file": "project_vision.md",
+      "quote": "avoid hard-coupling agent state to a specific user or pod",
+      "rule": "Avoid hard-coupling agent state to a specific user or pod."
+    },
+    {
+      "id": "R185",
+      "file": "security-audit.md",
+      "quote": "Should use a non-root user with minimal permissions.",
+      "rule": "Run pod containers as a non-root user with minimal permissions instead of root (uid 0)."
+    },
+    {
+      "id": "R186",
+      "file": "security-audit.md",
+      "quote": "Mount secrets as files instead of env vars:",
+      "rule": "Mount secrets as files instead of exposing them as environment variables."
+    },
+    {
+      "id": "R187",
+      "file": "security-audit.md",
+      "quote": "Disable auto-mounting:",
+      "rule": "Disable auto-mounting of the Kubernetes service account token in the pod spec (automountServiceAccountToken: false)."
+    },
+    {
+      "id": "R188",
+      "file": "security-audit.md",
+      "quote": "Add NetworkPolicy allowing only:",
+      "rule": "Restrict pod egress with a NetworkPolicy that allows only the listed destinations (LLM provider APIs, messaging platforms, DNS, and the jarble-api service)."
+    },
+    {
+      "id": "R189",
+      "file": "security-audit.md",
+      "quote": "Drop all and add only required:",
+      "rule": "Drop all Linux capabilities and add back only those strictly required by the container."
+    },
+    {
+      "id": "R190",
+      "file": "security-audit.md",
+      "quote": "these need to be applied to the pod spec:",
+      "rule": "Apply CPU and memory resource limits and requests to the pod spec rather than relying only on the database values."
+    },
+    {
+      "id": "R191",
+      "file": "soul-md-audit.md",
+      "quote": "Detect your platform and respond accordingly:",
+      "rule": "Detect which platform you are running on and respond accordingly."
+    },
+    {
+      "id": "R192",
+      "file": "soul-md-audit.md",
+      "quote": "Use plain text/markdown only",
+      "rule": "When not on the Jarble web dashboard, respond using plain text/markdown only."
+    },
+    {
+      "id": "R193",
+      "file": "soul-md-audit.md",
+      "quote": "If no [CANVAS_STATE] is present, assume you are NOT on the dashboard.",
+      "rule": "If the message contains no [CANVAS_STATE] marker, assume you are not on the Jarble web dashboard."
+    },
+    {
+      "id": "R194",
+      "file": "staging_pipeline_plan.md",
+      "quote": "When building deploy infrastructure, follow this plan.",
+      "rule": "When building deploy infrastructure, follow the staging-to-production pipeline plan in this file."
+    },
+    {
+      "id": "R195",
+      "file": "staging_pipeline_plan.md",
+      "quote": "When adding schema changes, use expand/contract pattern.",
+      "rule": "When adding schema changes, use the expand/contract migration pattern."
+    },
+    {
+      "id": "R196",
+      "file": "staging_pipeline_plan.md",
+      "quote": "never add NOT NULL without default",
+      "rule": "Never add a NOT NULL column without a default value."
+    },
+    {
+      "id": "R197",
+      "file": "staging_pipeline_plan.md",
+      "quote": "never rename columns in single deploy",
+      "rule": "Never rename a column in a single deploy."
+    },
+    {
+      "id": "R198",
+      "file": "staging_pipeline_plan.md",
+      "quote": "Same Hetzner K3s cluster, separate namespace (not a second cluster)",
+      "rule": "Host staging on the same Hetzner K3s cluster as production, in a separate namespace, not in a second cluster."
+    },
+    {
+      "id": "R199",
+      "file": "staging_pipeline_plan.md",
+      "quote": "Image SHA pinning (no `:latest`)",
+      "rule": "Pin container images by SHA and never use the `:latest` tag."
+    },
+    {
+      "id": "R200",
+      "file": "staging_pipeline_plan.md",
+      "quote": "same image promoted staging → prod",
+      "rule": "Promote the same image from staging to production rather than building a new one."
+    },
+    {
+      "id": "R201",
+      "file": "staging_pipeline_plan.md",
+      "quote": "fork prod → test migrations → if green, run on main",
+      "rule": "Test migrations on a Neon branch forked from production first, and run them on the main database only if the test is green."
+    },
+    {
+      "id": "R202",
+      "file": "staging_pipeline_plan.md",
+      "quote": "run migrations once before app starts, not per-pod in CMD",
+      "rule": "Run database migrations once via a Kubernetes init container before the app starts, not per-pod in the container CMD."
+    },
+    {
+      "id": "R203",
+      "file": "staging_pipeline_plan.md",
+      "quote": "validate DB connectivity + schema version, not just `{ status: \"ok\" }`",
+      "rule": "The /health endpoint should validate database connectivity and schema version, not just return a static ok status."
+    },
+    {
+      "id": "R204",
+      "file": "staging_pipeline_plan.md",
+      "quote": "`maxUnavailable: 0, maxSurge: 1` in deployment.yaml",
+      "rule": "Use a rolling update strategy with maxUnavailable: 0 and maxSurge: 1 in deployment.yaml."
+    },
+    {
+      "id": "R205",
+      "file": "staging_pipeline_plan.md",
+      "quote": "build → deploy staging → smoke test → promote to prod",
+      "rule": "In the GitHub Actions workflow, build, deploy to staging, run a smoke test, and only then promote to production, in that order."
+    },
+    {
+      "id": "R206",
+      "file": "staging_pipeline_plan.md",
+      "quote": "Delete local.db as workaround for now.",
+      "rule": "As a temporary workaround for the local SQLite startup crash, delete local.db."
+    },
+    {
+      "id": "R207",
+      "file": "team_deployment_bridge.md",
+      "quote": "Implement in 5 phases",
+      "rule": "Implement the team-to-deployment bridge work in 5 phases."
+    },
+    {
+      "id": "R208",
+      "file": "team_deployment_bridge.md",
+      "quote": "each independently shippable",
+      "rule": "Make each implementation phase independently shippable."
+    },
+    {
+      "id": "R209",
+      "file": "team_deployment_bridge.md",
+      "quote": "Keep JSON-in-response for now with improved feedback loop",
+      "rule": "Keep the JSON-in-response delegation mechanism for now, and improve its feedback loop, rather than replacing it."
+    },
+    {
+      "id": "R210",
+      "file": "team_deployment_bridge.md",
+      "quote": "Plan MCP tool migration as Phase 5",
+      "rule": "Plan the MCP tool migration as Phase 5 of the implementation."
+    }
+  ],
+  "dropped": []
+}

@@ -1,0 +1,52 @@
+{
+  "repo": "gurayerus/nichart_react",
+  "dir": "memory",
+  "n_files": 3,
+  "n_rules": 7,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_cornerstone_z_flip.md",
+      "quote": "When serving ROI mask slices, use `_loader_slice_index(affine, z, nz)` to map the slider index to the correct array index.",
+      "rule": "When serving ROI mask slices, call `_loader_slice_index(affine, z, nz)` to map the slider index to the correct array index."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_cornerstone_z_flip.md",
+      "quote": "Any backend endpoint that extracts a 2D slice by z-index for overlay on a cornerstone-rendered image must call `_loader_slice_index` before indexing into the array.",
+      "rule": "Any backend endpoint that extracts a 2D slice by z-index for overlay on a cornerstone-rendered image must call `_loader_slice_index` before indexing into the array."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_monospace_font.md",
+      "quote": "Use `fontFamily: '\"Courier New\", Courier, monospace'` for any input or text that needs monospace styling.",
+      "rule": "For any input or text element that needs monospace styling, set fontFamily to '\"Courier New\", Courier, monospace'."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_monospace_font.md",
+      "quote": "Any time `fontFamily: \"monospace\"` would be used in a `styles` or `style` prop on an input or text element, use the explicit Courier New stack instead.",
+      "rule": "Do not use fontFamily \"monospace\" in a styles or style prop on an input or text element; use the explicit Courier New stack ('\"Courier New\", Courier, monospace') instead."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_mri_windowing.md",
+      "quote": "Always derive the MRI window/level (VOI) from backend-computed intensity stats",
+      "rule": "Always derive the MRI window/level (VOI) from backend-computed intensity stats."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_mri_windowing.md",
+      "quote": "not from `image.minPixelValue`/`image.maxPixelValue` reported by `cornerstone-nifti-image-loader`",
+      "rule": "Do not derive the MRI window/level (VOI) from `image.minPixelValue`/`image.maxPixelValue` reported by `cornerstone-nifti-image-loader`."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_mri_windowing.md",
+      "quote": "`MriViewer.tsx` uses these to set `vp.voi`, with cornerstone's values as a fallback.",
+      "rule": "In `MriViewer.tsx`, set `vp.voi` from the backend `vmin`/`vmax` values, and use cornerstone's values only as a fallback."
+    }
+  ],
+  "dropped": []
+}

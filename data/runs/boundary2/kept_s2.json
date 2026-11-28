@@ -1,0 +1,658 @@
+{
+ "rules": [
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R148",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:re-verify korea trip savings events"
+      }
+     }
+    ],
+    "left_out": "The prior confirmation in PocketSmith is explanatory context rather than an expressible action field."
+   },
+   "new_names": [
+    "other:re-verify korea trip savings events"
+   ],
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R194",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:upload films"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:upload films"
+   ],
+   "rule": "Never upload films."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R372",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rebuild kurva s files"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:rebuild kurva s files"
+   ],
+   "rule": "Do not rebuild the Kurva S files."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R8",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:pipeline_update upload stage",
+       "running": [
+        "other:film session"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:pipeline_update upload stage",
+    "other:film session"
+   ],
+   "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R135",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement base 15 ssh sftp channel"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:implement base 15 ssh sftp channel"
+   ],
+   "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R137",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:reverse engineer tier5-b1 capabilities advertisement"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:reverse engineer tier5-b1 capabilities advertisement"
+   ],
+   "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R145",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:search for comchan port"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:search for comchan port"
+   ],
+   "rule": "Do not search for a port for ComChan, since it has no socket."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R166",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:migrate webrtc stack to libdatachannel"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:migrate webrtc stack to libdatachannel"
+   ],
+   "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R361",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement quic support for switch"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:implement quic support for switch"
+   ],
+   "rule": "For the Switch port, do not implement QUIC support."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R107",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:scrape ean-search public site"
+      }
+     }
+    ],
+    "left_out": "The reasons concerning terms and bot protection are not action fields."
+   },
+   "new_names": [
+    "other:scrape ean-search public site"
+   ],
+   "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R14",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:work around cex cloudflare challenge"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:work around cex cloudflare challenge"
+   ],
+   "rule": "Never work around a Cloudflare challenge from CeX."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R61",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:accept final game match"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:accept final game match"
+   ],
+   "rule": "Have the user confirm the final game match before accepting it."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R32",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "branch": "Development"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Always target the Development branch when opening a GitHub PR, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R54",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "branch": "Development"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "The testing purpose cannot be checked."
+   },
+   "new_names": [],
+   "rule": "When opening a pull request, always target the Development branch for testing, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R77",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bump major version",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:bump major version"
+   ],
+   "rule": "Never bump the major version on your own initiative under any circumstances."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R163",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Only commit or push changes when explicitly asked to do so."
+  },
+  {
+   "folder": "ferazfhansurie__ai-memory-faeez",
+   "id": "R132",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R33",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:release podiumd minikube cluster lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bypass podiumd minikube cluster lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:release kees00 podiumd tests lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bypass kees00 podiumd tests lock"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:release podiumd minikube cluster lock",
+    "other:bypass podiumd minikube cluster lock",
+    "other:release kees00 podiumd tests lock",
+    "other:bypass kees00 podiumd tests lock"
+   ],
+   "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R416",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:apply translations"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish a general go-ahead from approval containing specific overrides."
+   },
+   "new_names": [
+    "other:apply translations"
+   ],
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R20",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl apply"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl patch"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl rollout restart"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl exec"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:kubectl apply",
+    "other:kubectl delete",
+    "other:kubectl patch",
+    "other:kubectl rollout restart",
+    "other:kubectl exec"
+   ],
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R26",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app sync"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app set"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:argocd app sync",
+    "other:argocd app delete",
+    "other:argocd app set"
+   ],
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R10",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Stop and ask the user before merging PRs."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R23",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:compact windows vhdx",
+       "running": [
+        "other:hook"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:compact windows vhdx",
+    "other:hook"
+   ],
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R32",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_merge"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R7",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Only execute a commit when the user asks for it."
+  }
+ ]
+}

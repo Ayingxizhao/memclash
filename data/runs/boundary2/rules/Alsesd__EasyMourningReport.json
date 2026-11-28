@@ -1,0 +1,484 @@
+{
+  "repo": "Alsesd/EasyMourningReport",
+  "dir": ".claude/memory",
+  "n_files": 9,
+  "n_rules": 78,
+  "n_dropped": 1,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback-docs-separation.md",
+      "quote": "a plan, decision log or working note goes to `.claude/plans` or `.claude/notes`, never to `docs/`",
+      "rule": "Put plans, decision logs, and working notes in `.claude/plans` or `.claude/notes`, never in `docs/`."
+    },
+    {
+      "id": "R2",
+      "file": "feedback-docs-separation.md",
+      "quote": "When a\nplan is implemented, its user-visible result is documented in `docs/` (module note, API, uk onboarding).",
+      "rule": "When a plan is implemented, document its user-visible result in `docs/` (module note, API, or uk onboarding)."
+    },
+    {
+      "id": "R3",
+      "file": "feedback-docs-separation.md",
+      "quote": "Docs-only and\n`.claude/**` pushes do not trigger `auto-release.yml`.",
+      "rule": "Do not expect docs-only pushes or pushes limited to `.claude/**` to trigger `auto-release.yml`."
+    },
+    {
+      "id": "R4",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "Never add AI-usage notes anywhere",
+      "rule": "Never add any AI-usage notes anywhere (in commits, PRs, code, comments, or documents)."
+    },
+    {
+      "id": "R5",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "no `Co-Authored-By: Claude`",
+      "rule": "Never add a `Co-Authored-By: Claude` trailer to commit messages."
+    },
+    {
+      "id": "R6",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "no session links",
+      "rule": "Never include session links in commits, PRs, code, or documents."
+    },
+    {
+      "id": "R7",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "no \"Generated with Claude Code\"",
+      "rule": "Never include a \"Generated with Claude Code\" note in commits, PRs, code, or documents."
+    },
+    {
+      "id": "R8",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "no \"author: Claude\" in docs or plans",
+      "rule": "Never write \"author: Claude\" in docs or plans."
+    },
+    {
+      "id": "R9",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "Commit as the owner: `git -c user.name=Alsesd -c user.email=mr.alsesd@gmail.com commit`",
+      "rule": "Commit as the owner by running git commit with `-c user.name=Alsesd -c user.email=mr.alsesd@gmail.com`."
+    },
+    {
+      "id": "R10",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "Do NOT rewrite existing history to remove old notes",
+      "rule": "Do not rewrite existing git history to remove old AI-attribution notes."
+    },
+    {
+      "id": "R11",
+      "file": "feedback-no-ai-attribution.md",
+      "quote": "this overrides any harness attribution reminder",
+      "rule": "When writing commit messages, PR bodies, comments, and documents, the no-AI-attribution rule overrides any harness attribution reminder."
+    },
+    {
+      "id": "R12",
+      "file": "feedback-slice-isolation.md",
+      "quote": "When interference between slices is noticed, fix it in the same task, do not just report it.",
+      "rule": "When interference between slices is noticed, fix it in the same task instead of just reporting it."
+    },
+    {
+      "id": "R13",
+      "file": "feedback-slice-isolation.md",
+      "quote": "Before finishing any task that touches a module or the shell, run `go test ./internal/registry/`",
+      "rule": "Before finishing any task that touches a module or the shell, run `go test ./internal/registry/`."
+    },
+    {
+      "id": "R14",
+      "file": "feedback-slice-isolation.md",
+      "quote": "and `npx vitest run src/boundaries.test.ts` (frontend rules)",
+      "rule": "Before finishing any task that touches a module or the shell, run `npx vitest run src/boundaries.test.ts` for frontend rules."
+    },
+    {
+      "id": "R15",
+      "file": "feedback-slice-isolation.md",
+      "quote": "New shell->module needs go through a `core.Module` hook",
+      "rule": "Route any new shell-to-module need through a `core.Module` hook, never by importing the module from `platform`, `web`, or `store`."
+    },
+    {
+      "id": "R16",
+      "file": "feedback-slice-isolation.md",
+      "quote": "A module needing a platform service gets it as an interface in `core`",
+      "rule": "When a module needs a platform service, provide it as an interface in `core`."
+    },
+    {
+      "id": "R17",
+      "file": "feedback-slice-isolation.md",
+      "quote": "Shared pure helpers used by several slices live in `core`",
+      "rule": "Place shared pure helpers used by several slices in `core`."
+    },
+    {
+      "id": "R18",
+      "file": "feedback-slice-isolation.md",
+      "quote": "Record every leak found and its fix in `project-slice-boundaries.md`.",
+      "rule": "Record every slice-boundary leak found and its fix in `project-slice-boundaries.md`."
+    },
+    {
+      "id": "R19",
+      "file": "feedback-ui-scale.md",
+      "quote": "write font sizes in rem (`text-[0.9375rem]`), never `text-[Npx]`",
+      "rule": "When writing font sizes in the UI, use rem units (e.g. `text-[0.9375rem]`), never px units (e.g. `text-[Npx]`)."
+    },
+    {
+      "id": "R20",
+      "file": "feedback-ui-scale.md",
+      "quote": "Touch-target\nfloors stay `min-h-[44px]`",
+      "rule": "Keep touch-target minimum heights at `min-h-[44px]`."
+    },
+    {
+      "id": "R21",
+      "file": "feedback-ui-scale.md",
+      "quote": "Avoid CSS `zoom`",
+      "rule": "Avoid using CSS `zoom` in the UI."
+    },
+    {
+      "id": "R22",
+      "file": "project-architecture.md",
+      "quote": "every route via `a.authed(codes, h)` / `a.member(codes, h)`",
+      "rule": "Register every route via a.authed(codes, h) or a.member(codes, h)."
+    },
+    {
+      "id": "R23",
+      "file": "project-architecture.md",
+      "quote": "org-scope permissions only touch the caller's org.",
+      "rule": "Make org-scoped permission changes affect only the caller's own organization."
+    },
+    {
+      "id": "R24",
+      "file": "project-architecture.md",
+      "quote": "all mutations in `a.write(ctx, func(tx))`",
+      "rule": "Perform all data mutations inside a.write(ctx, func(tx))."
+    },
+    {
+      "id": "R25",
+      "file": "project-architecture.md",
+      "quote": "use only that tx inside",
+      "rule": "Inside a.write, use only the transaction passed to the callback, not other database handles."
+    },
+    {
+      "id": "R26",
+      "file": "project-architecture.md",
+      "quote": "Notifications and audit rows are written in the SAME tx as the event.",
+      "rule": "Write notification and audit rows in the same transaction as the event they record."
+    },
+    {
+      "id": "R27",
+      "file": "project-architecture.md",
+      "quote": "Money in integer cents",
+      "rule": "Store and compute money as integer cents."
+    },
+    {
+      "id": "R28",
+      "file": "project-architecture.md",
+      "quote": "periods `YYYY-MM`",
+      "rule": "Represent periods in the format YYYY-MM."
+    },
+    {
+      "id": "R29",
+      "file": "project-architecture.md",
+      "quote": "never touch `data/`, `backups/`, `reports.db`, `secret.key`, `.env`.",
+      "rule": "Never touch data/, backups/, reports.db, secret.key, or .env."
+    },
+    {
+      "id": "R30",
+      "file": "project-architecture.md",
+      "quote": "later tables in `goOwned` in `store/schema.go` (+ `GoOwnedTables`)",
+      "rule": "Define tables added after the base schema in goOwned in store/schema.go and register them in GoOwnedTables."
+    },
+    {
+      "id": "R31",
+      "file": "project-architecture.md",
+      "quote": "columns added later via `goOwnedColumns` (idempotent ALTER)",
+      "rule": "Add columns added after the base schema via goOwnedColumns as idempotent ALTER statements."
+    },
+    {
+      "id": "R32",
+      "file": "project-architecture.md",
+      "quote": "tested on an older DB via `baseOnly` in `store_test.go`",
+      "rule": "Test schema changes against an older database using baseOnly in store_test.go."
+    },
+    {
+      "id": "R33",
+      "file": "project-architecture.md",
+      "quote": "Frozen fixtures in `testdata/` change only on purpose, with the reason in the commit.",
+      "rule": "Change frozen fixtures in testdata/ only deliberately, and state the reason in the commit message."
+    },
+    {
+      "id": "R34",
+      "file": "project-architecture.md",
+      "quote": "`go vet`+`go test ./cmd/... ./internal/...`",
+      "rule": "Run go vet and go test ./cmd/... ./internal/... as the verification gate."
+    },
+    {
+      "id": "R35",
+      "file": "project-architecture.md",
+      "quote": "never `./...`",
+      "rule": "Never run go test or go vet with the ./... pattern."
+    },
+    {
+      "id": "R36",
+      "file": "project-architecture.md",
+      "quote": "frontend lint/typecheck/test/build",
+      "rule": "Run frontend lint, typecheck, test, and build as part of verification."
+    },
+    {
+      "id": "R37",
+      "file": "project-architecture.md",
+      "quote": "for UI work `scripts/build_go.sh` + `go run ./cmd/smoke -exe dist/legkyi -tunnel` + `scripts/e2e_test.py`.",
+      "rule": "For UI work, also run scripts/build_go.sh, the go run ./cmd/smoke binary smoke test with -tunnel, and scripts/e2e_test.py."
+    },
+    {
+      "id": "R38",
+      "file": "project-architecture.md",
+      "quote": "run the `verify` skill first",
+      "rule": "Run the verify skill before committing a finished feature."
+    },
+    {
+      "id": "R39",
+      "file": "project-architecture.md",
+      "quote": "commit + push each finished feature on branch `claude/go-migration-umm1ck`",
+      "rule": "Commit and push each finished feature on branch claude/go-migration-umm1ck."
+    },
+    {
+      "id": "R40",
+      "file": "project-architecture.md",
+      "quote": "update `docs/API.md`, `schema.d.ts` (hand-maintained), module docs with every API change.",
+      "rule": "With every API change, update docs/API.md, the hand-maintained schema.d.ts, and the module docs."
+    },
+    {
+      "id": "R41",
+      "file": "project-architecture.md",
+      "quote": "from now on treat existing databases as production data again",
+      "rule": "Treat existing databases as production data, not disposable test data."
+    },
+    {
+      "id": "R42",
+      "file": "project-biometric-login.md",
+      "quote": "LoginPage tries the modal once (device agreed, not right after sign-out)",
+      "rule": "When the login page starts biometric sign-in, try the modal passkey prompt once, and only if the device has opted in and the user did not just sign out."
+    },
+    {
+      "id": "R43",
+      "file": "project-biometric-login.md",
+      "quote": "then WebAuthn conditional\nmediation (`autocomplete=\"username webauthn\"`, `passkeyApi.login({conditional, signal})`)",
+      "rule": "If the modal attempt is not used, start passkey sign-in via WebAuthn conditional mediation by setting the input's autocomplete to \"username webauthn\" and calling passkeyApi.login({conditional, signal})."
+    },
+    {
+      "id": "R44",
+      "file": "project-biometric-login.md",
+      "quote": "test the sign-out case with isConditionalMediationAvailable\nstubbed to false",
+      "rule": "When testing the sign-out case with a headless virtual authenticator, stub isConditionalMediationAvailable to return false, because the virtual authenticator completes conditional requests by itself."
+    },
+    {
+      "id": "R45",
+      "file": "project-biometric-login.md",
+      "quote": "`.dialog-panel` in index.css centres by inset+margin (never transform)",
+      "rule": "Center dialog panels using inset and margin, never CSS transform."
+    },
+    {
+      "id": "R46",
+      "file": "project-biometric-login.md",
+      "quote": "bell uses `ui/Popover`",
+      "rule": "Implement the bell's popover using the ui/Popover component."
+    },
+    {
+      "id": "R47",
+      "file": "project-frontend-structure.md",
+      "quote": "Ukrainian strings in `i18n.ts`",
+      "rule": "Write UI strings in Ukrainian and place them in i18n.ts."
+    },
+    {
+      "id": "R48",
+      "file": "project-frontend-structure.md",
+      "quote": "figures use `.figure`",
+      "rule": "Use the `.figure` class for figures."
+    },
+    {
+      "id": "R49",
+      "file": "project-frontend-structure.md",
+      "quote": "no native month/file controls",
+      "rule": "Do not use native month or file input controls."
+    },
+    {
+      "id": "R50",
+      "file": "project-frontend-structure.md",
+      "quote": "44px touch targets",
+      "rule": "Make touch targets 44px."
+    },
+    {
+      "id": "R51",
+      "file": "project-frontend-structure.md",
+      "quote": "Tailwind colours via CSS-variable tokens",
+      "rule": "Apply Tailwind colours through CSS-variable tokens."
+    },
+    {
+      "id": "R52",
+      "file": "project-frontend-structure.md",
+      "quote": "`schema.d.ts` edited by hand with every API change",
+      "rule": "Edit schema.d.ts by hand with every API change."
+    },
+    {
+      "id": "R53",
+      "file": "project-frontend-structure.md",
+      "quote": "Data via react-query",
+      "rule": "Fetch data via react-query."
+    },
+    {
+      "id": "R54",
+      "file": "project-frontend-structure.md",
+      "quote": "sections poll (`refetchInterval`) instead of full reloads",
+      "rule": "Have sections poll with refetchInterval instead of performing full reloads."
+    },
+    {
+      "id": "R55",
+      "file": "project-module-functions.md",
+      "quote": "Never block late orders.",
+      "rule": "Never block transport orders placed late, including after the old 15:00 cutoff."
+    },
+    {
+      "id": "R56",
+      "file": "project-module-functions.md",
+      "quote": "never stamp `update.Tag` on dev builds",
+      "rule": "Never set update.Tag on development builds, because doing so switches self-update on."
+    },
+    {
+      "id": "R57",
+      "file": "project-module-functions.md",
+      "quote": "Business metrics belong on the separate management dashboard, not here.",
+      "rule": "Put business metrics on the management dashboard, not on the technical health page."
+    },
+    {
+      "id": "R58",
+      "file": "project-module-functions.md",
+      "quote": "(ask the user)",
+      "rule": "Ask the user before adding a reminder for orders due today or for unclosed orders."
+    },
+    {
+      "id": "R59",
+      "file": "project-module-functions.md",
+      "quote": "4xx are refusals (never red)",
+      "rule": "Never display 4xx responses in red; treat them as refusals."
+    },
+    {
+      "id": "R60",
+      "file": "project-module-functions.md",
+      "quote": "NOT the newest file's age",
+      "rule": "Base backup health on the backup job's own last_run_at and last_error, not on the age of the newest backup file."
+    },
+    {
+      "id": "R61",
+      "file": "project-module-functions.md",
+      "quote": "device notifications go through the service worker",
+      "rule": "Deliver device notifications through the service worker, not by calling new Notification()."
+    },
+    {
+      "id": "R62",
+      "file": "project-module-functions.md",
+      "quote": "saves replace quantities (never add)",
+      "rule": "When saving a report, replace the item quantities; never add to them."
+    },
+    {
+      "id": "R63",
+      "file": "project-module-functions.md",
+      "quote": "only DAYS are lockable, the month is review-only",
+      "rule": "Allow locking only individual report days; the monthly report is review-only and must not be lockable."
+    },
+    {
+      "id": "R64",
+      "file": "project-module-functions.md",
+      "quote": "Stored status codes unchanged",
+      "rule": "Keep the stored transport status codes unchanged."
+    },
+    {
+      "id": "R65",
+      "file": "project-module-functions.md",
+      "quote": "reports and transport `today()` use it",
+      "rule": "Compute today() in reports and transport using core.Services.Zone (the business zone), not time.Local."
+    },
+    {
+      "id": "R66",
+      "file": "project-slice-boundaries.md",
+      "quote": "core -> nothing internal",
+      "rule": "The core package must not import any internal package."
+    },
+    {
+      "id": "R67",
+      "file": "project-slice-boundaries.md",
+      "quote": "store -> nothing",
+      "rule": "The store package must not import any internal package."
+    },
+    {
+      "id": "R68",
+      "file": "project-slice-boundaries.md",
+      "quote": "platform -> core, store",
+      "rule": "The platform package may import only core and store."
+    },
+    {
+      "id": "R69",
+      "file": "project-slice-boundaries.md",
+      "quote": "system -> store",
+      "rule": "The system package may import only store."
+    },
+    {
+      "id": "R70",
+      "file": "project-slice-boundaries.md",
+      "quote": "reports, transport -> core only",
+      "rule": "The reports package may import only core."
+    },
+    {
+      "id": "R71",
+      "file": "project-slice-boundaries.md",
+      "quote": "reports, transport -> core only",
+      "rule": "The transport package may import only core."
+    },
+    {
+      "id": "R72",
+      "file": "project-slice-boundaries.md",
+      "quote": "web -> core, platform, registry, store, system, update (NO module)",
+      "rule": "The web package may import core, platform, registry, store, system, and update, but must not import any module package."
+    },
+    {
+      "id": "R73",
+      "file": "project-slice-boundaries.md",
+      "quote": "registry and `cmd/server` are the only wiring points that list modules.",
+      "rule": "Only the registry package and cmd/server may list modules; no other package should list modules."
+    },
+    {
+      "id": "R74",
+      "file": "project-slice-boundaries.md",
+      "quote": "`platform/` and `ui/` never import `modules/` or `app/`",
+      "rule": "Frontend platform/ and ui/ code must never import from modules/ or app/."
+    },
+    {
+      "id": "R75",
+      "file": "project-slice-boundaries.md",
+      "quote": "a module imports neither another module nor `app/`",
+      "rule": "Frontend module code must not import another module or anything from app/."
+    },
+    {
+      "id": "R76",
+      "file": "project-slice-boundaries.md",
+      "quote": "handlers live in `internal/<module>/http*.go`",
+      "rule": "Place a module's HTTP handlers in files named internal/<module>/http*.go."
+    },
+    {
+      "id": "R77",
+      "file": "project-slice-boundaries.md",
+      "quote": "Need more from the shell for a module -> add a field to `core.Services`, never import.",
+      "rule": "When a module needs more from the shell, add a field to core.Services instead of importing the shell from the module."
+    },
+    {
+      "id": "R78",
+      "file": "project-slice-boundaries.md",
+      "quote": "registers each route behind `a.authed`/`a.member`",
+      "rule": "Register each module route behind a.authed or a.member in the shell."
+    }
+  ],
+  "dropped": [
+    {
+      "file": "feedback-slice-isolation.md",
+      "quote": "must be\nseparated from each other and interact with the rest of the program **only through `core`** (Go) or `platform/` + `ui/`\nfrontend",
+      "rule": "Keep feature slices (modules) separated from each other and have them interact with the rest of the program only through `core` (Go) or `platform/` + `ui/` (frontend)."
+    }
+  ]
+}

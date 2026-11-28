@@ -1,0 +1,1624 @@
+{
+  "repo": "Robert-Freire/langTeachSaaS",
+  "dir": ".claude/memory",
+  "n_files": 42,
+  "n_rules": 269,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_azure_destructive_ops.md",
+      "quote": "never run destructive Azure operations (az group delete, az resource delete, etc.) autonomously",
+      "rule": "Never run destructive Azure operations (such as az group delete or az resource delete) autonomously; instead, provide the command and ask the user to execute it manually."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_azure_destructive_ops.md",
+      "quote": "Run these directly without asking.",
+      "rule": "Run non-destructive Azure operations (such as az keyvault secret set, az deployment group create, az keyvault secret show, or other read/write operations that are not destructive) directly without asking the user."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_backlog_triage_github_state.md",
+      "quote": "Always verify live GitHub issue state before surfacing a backlog item as open or actionable.",
+      "rule": "Before surfacing any backlog item as open or actionable during backlog review, verify its live GitHub issue state."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_backlog_triage_github_state.md",
+      "quote": "batch-check the GitHub state of every issue number mentioned before presenting recommendations",
+      "rule": "During any backlog review, batch-check the GitHub state of every issue number mentioned before presenting recommendations."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_backlog_triage_github_state.md",
+      "quote": "Only flag an item as actionable if it is OPEN and either has no milestone or has a milestone matching the current sprint.",
+      "rule": "Only flag a backlog item as actionable if its GitHub issue is OPEN and either has no milestone or has a milestone matching the current sprint."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_backlog_triage_github_state.md",
+      "quote": "Never rely on backlog log files alone as source of truth for issue status.",
+      "rule": "Never rely on backlog log files alone as the source of truth for issue status."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_backlog_triage_github_state.md",
+      "quote": "GitHub Issues is the single source of truth.",
+      "rule": "Treat GitHub Issues as the single source of truth for issue status."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_docker_frontend.md",
+      "quote": "The frontend runs exclusively inside Docker via `docker compose up` for normal development.",
+      "rule": "For normal development, run the frontend only inside Docker via `docker compose up`."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_docker_frontend.md",
+      "quote": "Never run `npm run dev` or any local Vite dev server for regular dev work.",
+      "rule": "For regular development work, never run `npm run dev` or any local Vite dev server."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_docker_frontend.md",
+      "quote": "ASPNETCORE_ENVIRONMENT=E2ETesting docker compose up sqlserver api -d",
+      "rule": "For e2e mock-auth tests, start the stack with `ASPNETCORE_ENVIRONMENT=E2ETesting docker compose up sqlserver api -d`."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_docker_frontend.md",
+      "quote": "npm run dev:e2e   # from frontend/ directory, binds to port 5174",
+      "rule": "For e2e mock-auth tests, run `npm run dev:e2e` from the frontend/ directory to start the frontend on port 5174."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_docker_frontend.md",
+      "quote": "Requires `frontend/.env.e2e` with `VITE_E2E_TEST_MODE=true` (not in repo, must exist locally).",
+      "rule": "For e2e mock-auth tests, ensure a local `frontend/.env.e2e` file exists containing `VITE_E2E_TEST_MODE=true`."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "At the start of planning any task, ask:",
+      "rule": "At the start of planning any task, ask whether the task creates or modifies a main functionality."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "the plan must include an e2e test for the happy path",
+      "rule": "If a task creates or modifies a main functionality, the plan must include an e2e test for its happy path."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "The test must be written and run (not just planned) before the PR is opened.",
+      "rule": "Write and run the e2e test before opening the PR; do not merely plan it."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "List the happy path(s) for the feature",
+      "rule": "When writing the task plan, list the happy path(s) for the feature."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "For each happy path, define what the e2e test will assert",
+      "rule": "When writing the task plan, define what the e2e test will assert for each happy path."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "Include the e2e test as an explicit step in the plan, not an afterthought",
+      "rule": "Include the e2e test as an explicit step in the task plan, not as an afterthought."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "If the test requires DB setup/teardown, use `db-helper.ts` (mssql direct connection)",
+      "rule": "If an e2e test requires database setup or teardown, use `db-helper.ts` (direct mssql connection)."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_e2e_coverage_requirement.md",
+      "quote": "If the test requires a new Auth0 user, flag it early",
+      "rule": "If an e2e test requires a new Auth0 user, flag it early in planning, since it may need Management API credentials."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "Every finding with severity >= minor and every deferred intent must have a GitHub issue.",
+      "rule": "Every review finding with severity minor or higher, and every deferred intent, must be filed as a GitHub issue."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "If it's not in GitHub, it's lost. Backlogs and plan files are supplementary, not storage.",
+      "rule": "Do not treat backlogs or plan files as storage for findings or deferred items; they are supplementary only, and anything not in GitHub must be filed there."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "When analysis produces findings or proposed deferrals, name a target milestone.",
+      "rule": "When analysis produces findings or proposed deferrals, name a target milestone for them."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "If user accepts, **immediately** create the issue(s). Don't wait, don't batch into \"next session.\"",
+      "rule": "Once the user accepts a finding or deferral, create the GitHub issue(s) immediately, without waiting or deferring to a later session."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "Reference the new issue number when reporting the deferral, so traceability is explicit.",
+      "rule": "When reporting a deferral, reference the new GitHub issue number."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "Never list deferred items only in plan files, backlogs, or conversation summaries.",
+      "rule": "Never list deferred items only in plan files, backlogs, or conversation summaries."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "must be cleared after triage",
+      "rule": "Clear backlog files (code-review-backlog.md, ui-review-backlog.md, observed-issues.md, ui-review-skipped.md) after triaging them."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_findings_become_issues.md",
+      "quote": "are collection points to **batch into themed issues** at sprint close",
+      "rule": "Batch the entries in backlog files (code-review-backlog.md, ui-review-backlog.md, observed-issues.md, ui-review-skipped.md) into themed GitHub issues at sprint close."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "When modifying a frontend component or hook, add or update unit tests covering the changed behavior.",
+      "rule": "When modifying a frontend component or hook, add or update unit tests covering the changed behavior."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "This applies even when e2e tests exist.",
+      "rule": "Add or update component/hook unit tests for modified frontend code even when e2e tests already exist."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "`frontend/src/` alongside the source file, or in a `__tests__/` subfolder if there are many.",
+      "rule": "Place frontend unit test files in frontend/src/ alongside the source file, or in a __tests__/ subfolder when there are many tests."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Pattern: `ComponentName.test.tsx` or `hookName.test.ts`.",
+      "rule": "Name frontend component test files ComponentName.test.tsx and hook test files hookName.test.ts."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Vitest + React Testing Library + msw (for API mocking).",
+      "rule": "Write frontend unit tests with Vitest and React Testing Library, using msw for API mocking."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Setup file: `frontend/src/test/setup.ts`.",
+      "rule": "Use frontend/src/test/setup.ts as the test setup file."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "New component or hook → write tests for all new behaviors",
+      "rule": "When creating a new frontend component or hook, write tests for all of its new behaviors."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Modified component or hook → add tests covering the changed behavior at minimum",
+      "rule": "When modifying an existing frontend component or hook, add tests covering at minimum the changed behavior."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Shared components (e.g., ContentBlock) that affect multiple features → prioritize testing the shared logic",
+      "rule": "When testing a shared frontend component that affects multiple features, prioritize testing its shared logic."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Pure UI layout (snapshot tests are brittle)",
+      "rule": "Do not write unit tests for pure UI layout, and do not use snapshot tests for it."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Third-party library behavior",
+      "rule": "Do not write unit tests for third-party library behavior."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_frontend_unit_tests.md",
+      "quote": "Already-covered e2e happy paths (don't duplicate)",
+      "rule": "Do not duplicate unit tests for e2e happy paths that are already covered."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_github_interaction.md",
+      "quote": "Use `mcp__github__*` tools instead of `gh` bash commands for GitHub operations.",
+      "rule": "For GitHub operations, use the mcp__github__* tools instead of gh bash commands, unless an listed exception applies."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_github_interaction.md",
+      "quote": "Use `search_issues` with the milestone in the query string:",
+      "rule": "When filtering issues by milestone, use search_issues with the milestone in the query string rather than list_issues."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_github_interaction.md",
+      "quote": "One targeted call, never a broad list followed by a filter.",
+      "rule": "When querying filtered GitHub issues, make one targeted search call; never run a broad list and then filter the results."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_github_interaction.md",
+      "quote": "Wildcards are always safe.",
+      "rule": "Use wildcard syntax (e.g. *name*) for milestone and label names in GitHub query strings."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_github_interaction.md",
+      "quote": "Quoting with `\"...\"` inside query strings is fragile depending on tool serialization.",
+      "rule": "Do not quote milestone or label names with double quotes inside GitHub query strings."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_github_interaction.md",
+      "quote": "For self-assigning, always use:",
+      "rule": "To self-assign a GitHub issue, always use the gh CLI command `gh issue edit <N> --add-assignee \"@me\"`, not the MCP tool."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_github_interaction.md",
+      "quote": "Don't override its instructions to use MCP.",
+      "rule": "Do not override the pick-task agent's instructions to switch it to MCP; let it use gh CLI as instructed."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Issues must be fully decided and properly labeled at creation, not retroactively fixed.",
+      "rule": "When creating an issue, fully resolve all decisions and apply all required labels at creation time, not after."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_issue_discipline.md",
+      "quote": "All four label types: priority, area, size, qa:ready (PM-session) or no qa:ready (run agent later).",
+      "rule": "When creating an issue, apply priority, area, and size labels, plus qa:ready only if in a PM session."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_issue_discipline.md",
+      "quote": "No \"or\", \"consider\", \"options\", \"TBD\", \"alternatively\" in the body. Resolve the decision first.",
+      "rule": "Do not use the words \"or\", \"consider\", \"options\", \"TBD\", or \"alternatively\" in an issue body; resolve the decision before creating the issue."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Milestone + project board are atomic.",
+      "rule": "Set a milestone on an issue and add it to the project board together, never one without the other."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Do both in one set of tool calls.",
+      "rule": "When setting an issue's milestone and adding it to the project board, do both in the same set of tool calls."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_issue_discipline.md",
+      "quote": "**PM session:** the PM conversation IS the QA gate. Add `qa:ready` directly at creation.",
+      "rule": "In a PM session, add the qa:ready label directly when creating an issue."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_issue_discipline.md",
+      "quote": "**Outside PM (backlog, triage):** create without `qa:ready`, then run the qa-ready agent.",
+      "rule": "Outside a PM session, create issues without the qa:ready label and then run the qa-ready agent."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_issue_discipline.md",
+      "quote": "**Group related fixes** into a single issue (same file, same PR, same skill).",
+      "rule": "Group related fixes into a single issue when they touch the same file, PR, or skill."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_issue_discipline.md",
+      "quote": "**Separate issues** only when work is genuinely independent (different area, different priority).",
+      "rule": "Create separate issues only when the work is genuinely independent, such as different areas or priorities."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_issue_discipline.md",
+      "quote": "if two fixes would be done in the same PR, they belong in the same issue.",
+      "rule": "If two fixes would be done in the same PR, put them in the same issue."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Epics are temporary placeholders, not permanent containers.",
+      "rule": "Treat epics as temporary placeholders, not permanent parent containers."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_issue_discipline.md",
+      "quote": "When split: create flat child issues, comment on epic (\"Split into #N, #N\"), close epic immediately with state_reason: completed.",
+      "rule": "When splitting an epic, create flat child issues, comment on the epic listing them, and close the epic immediately with state_reason completed."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Don't keep epics open as parents with sub-issue links.",
+      "rule": "Do not keep epics open as parents with sub-issue links."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_issue_discipline.md",
+      "quote": "Don't trust that `issue_write` or `item-add` worked. Confirm the issue is on the board and in the correct status column.",
+      "rule": "After creating an issue, verify it is on the project board in the correct status column rather than assuming issue_write or item-add succeeded."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Trust memory for stable facts",
+      "rule": "Trust memory for stable facts (architecture, stack, conventions, sprint branch name, milestone sequence, past task gotchas) and do not re-read source files just to confirm them."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "NEVER cite an issue as open/closed/in-progress based on memory. Query GitHub.",
+      "rule": "Never cite an issue as open, closed, or in-progress based on memory; query GitHub for issue state."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Query GitHub for open issues in the active milestone.",
+      "rule": "Query GitHub for open issues in the active milestone to determine sprint progress."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "New issues get added between sessions, not in memory.",
+      "rule": "Verify task list completeness against live sources, since new issues are added between sessions and are not recorded in memory."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Always read before editing, regardless of memory.",
+      "rule": "Always read a file before editing it, regardless of what memory says about it."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "**Not** per-issue entries",
+      "rule": "Do not log per-issue status entries (e.g., \"#269 DONE, PR #401\") in project_langteach_task_status.md."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "update `project_langteach_task_status.md` with sprint branch name, milestone status changes (ACTIVE/CLOSED), and upcoming milestones",
+      "rule": "After completing a sprint or task, update project_langteach_task_status.md with the sprint branch name, milestone status changes (ACTIVE/CLOSED), and upcoming milestones."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Before changing structure, `grep -r \"project_langteach_task_status\" .claude/scripts/` and update parsers in the same change.",
+      "rule": "Before changing the structure of project_langteach_task_status.md, grep .claude/scripts/ for references to it and update the parsers in the same change."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Sprint branch line: `**Active sprint branch:** \\`sprint/<slug>\\``",
+      "rule": "Keep the sprint branch line in project_langteach_task_status.md in the format `**Active sprint branch:** \\`sprint/<slug>\\`` so the script parser keeps working."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "Milestone table row: `| Name | ACTIVE | notes |`",
+      "rule": "Keep milestone table rows in project_langteach_task_status.md in the format `| Name | ACTIVE | notes |` so the script parser keeps working."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_memory_hygiene.md",
+      "quote": "When a plan is saved, add an entry to `project_langteach_plans.md` immediately",
+      "rule": "When a plan is saved, immediately add an entry for it to project_langteach_plans.md so its location can be found in the next session."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_pipeline.md",
+      "quote": "Save raw text to `feedback/raw/YYYY-MM-DD_<person>_<channel>_<topic>.txt`",
+      "rule": "When processing incoming feedback from any channel, save the raw text to feedback/raw/YYYY-MM-DD_<person>_<channel>_<topic>.txt."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_pipeline.md",
+      "quote": "Update the person's feedback log memory file (create one if new person)",
+      "rule": "When processing incoming feedback, update the person's feedback log memory file, creating one if the person is new."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_pipeline.md",
+      "quote": "Reply with summary + planned issues (high-level description, not yet created), ask for confirmation/correction",
+      "rule": "When processing incoming feedback, reply to the person with a summary and the planned issues described at a high level (not yet created), and ask them to confirm or correct."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_pipeline.md",
+      "quote": "Set a 4-day reminder",
+      "rule": "After replying to feedback, set a reminder for 4 days later."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_pipeline.md",
+      "quote": "**Do NOT create GitHub issues yet**",
+      "rule": "Do not create GitHub issues when first processing incoming feedback."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_pipeline.md",
+      "quote": "After 4 days: incorporate any reply, then create issues; run `/qa` on them",
+      "rule": "After 4 days, incorporate any reply from the person, then create the GitHub issues and run /qa on them."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_pipeline.md",
+      "quote": "CC robert.freire@gmail.com on outgoing",
+      "rule": "CC robert.freire@gmail.com on all outgoing feedback emails."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_pipeline.md",
+      "quote": "Display name \"PM - LangTeach\"",
+      "rule": "Use the display name \"PM - LangTeach\" for outgoing emails."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_pipeline.md",
+      "quote": "Reply in sender's language",
+      "rule": "Reply to feedback emails in the sender's language."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_pipeline.md",
+      "quote": "Keep thread discipline (In-Reply-To headers)",
+      "rule": "Keep email thread discipline by setting In-Reply-To headers on replies."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_pipeline.md",
+      "quote": "Check inbox before sending (avoid crossing wires)",
+      "rule": "Check the inbox before sending an email reply to avoid crossing wires."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_pipeline.md",
+      "quote": "Move processed emails to \"Processed\" IMAP folder",
+      "rule": "Move processed emails to the \"Processed\" IMAP folder."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_process_changes.md",
+      "quote": "Agent definitions** (`.claude/agents/*.md`) — what bots actually execute",
+      "rule": "When changing bot process behavior, update the agent definitions in `.claude/agents/*.md` first, since those are what bots actually execute."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_process_changes.md",
+      "quote": "CLAUDE.md and procedures** (`.claude/procedures/*.md`) — rules bots read before acting",
+      "rule": "When changing bot process behavior, update CLAUDE.md and the procedures in `.claude/procedures/*.md` before docs, since bots read them before acting."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_process_changes.md",
+      "quote": "Memory is a note to yourself; it does NOT change bot behavior.",
+      "rule": "Do not use memory as a substitute for changing process behavior; memory does not change bot behavior, so update agent definitions or CLAUDE.md/procedures instead."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_process_changes.md",
+      "quote": "Whenever you modify CLAUDE.md, `.claude/procedures/`, `.claude/agents/`, or `.claude/skills/`, also update `docs/dev-workflow.md`.",
+      "rule": "Whenever you modify CLAUDE.md, `.claude/procedures/`, `.claude/agents/`, or `.claude/skills/`, also update `docs/dev-workflow.md` to keep it in sync."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_report_noted_not_acted.md",
+      "quote": "always include a \"Noted but not acted upon\" section listing anything observed during the work that was intentionally deferred, out of scope, or decided against",
+      "rule": "When wrapping up a piece of work or giving a summary, always include a \"Noted but not acted upon\" section listing anything observed during the work that was intentionally deferred, out of scope, or decided against."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_report_noted_not_acted.md",
+      "quote": "Each item should have a brief reason for deferral.",
+      "rule": "Each item in the \"Noted but not acted upon\" section should have a brief reason for why it was deferred."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_report_noted_not_acted.md",
+      "quote": "If there are no deferred observations, omit the section entirely (don't write \"none\").",
+      "rule": "If there are no deferred observations, omit the \"Noted but not acted upon\" section entirely; do not write \"none\" in its place."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Update three places in the same operation:",
+      "rule": "When a sprint/milestone is created or its status changes, update all three locations (sprint overviews memory, PM skill, and task status memory) in the same operation."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_sprint_operations.md",
+      "quote": "`.claude/memory/project_sprint_overviews.md` — add/update the sequence table",
+      "rule": "When a sprint/milestone is created or its status changes, add or update the sequence table in `.claude/memory/project_sprint_overviews.md`."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_sprint_operations.md",
+      "quote": "`.claude/skills/pm/SKILL.md` — story file path if active sprint changed",
+      "rule": "When the active sprint changes, update the story file path in `.claude/skills/pm/SKILL.md`."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_sprint_operations.md",
+      "quote": "`.claude/memory/project_langteach_task_status.md` — milestone list",
+      "rule": "When a sprint/milestone is created or its status changes, update the milestone list in `.claude/memory/project_langteach_task_status.md`."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_sprint_operations.md",
+      "quote": "write a sprint story file at `plan/sprints/<slug>.md` for any new active sprint",
+      "rule": "For any new active sprint, write a sprint story file at `plan/sprints/<slug>.md`."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_sprint_operations.md",
+      "quote": "following `student-aware-curriculum.md` style: teacher perspective, what they can do after the sprint, grounded in reality.",
+      "rule": "Write sprint story files following the style of `student-aware-curriculum.md`: take the teacher's perspective, describe what teachers can do after the sprint, and keep it grounded in reality."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Don't trust that `gh issue edit` or `gh project item-add` worked. Verify final state.",
+      "rule": "Do not assume `gh issue edit` or `gh project item-add` succeeded; verify the final state."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_sprint_operations.md",
+      "quote": "After updating priorities, qa:ready, and milestone assignments, verify the project board state before declaring ready:",
+      "rule": "After updating priorities, qa:ready, and milestone assignments, verify the project board state before declaring sprint prep ready."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_sprint_operations.md",
+      "quote": "1. `gh project item-list 2 --owner Robert-Freire --format json`",
+      "rule": "To verify the project board, run `gh project item-list 2 --owner Robert-Freire --format json`."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Every sprint issue is present and in correct status column (Ready, not Backlog or No Status)",
+      "rule": "When verifying the board, confirm every sprint issue is present and in the Ready status column (not Backlog or No Status)."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Deferred/non-sprint items are NOT in Ready",
+      "rule": "When verifying the board, confirm deferred or non-sprint items are not in the Ready column."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Priority labels on items match what was set on the issues",
+      "rule": "When verifying the board, confirm priority labels on board items match the priorities set on the issues."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_sprint_operations.md",
+      "quote": "always state the full sprint branch name (e.g. `sprint/post-class-tracking`)",
+      "rule": "When clearing a sprint for merge-to-main, always state the full sprint branch name."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_sprint_operations.md",
+      "quote": "Include a line in the final ready-to-merge message: \"Trigger the merge action with branch: `sprint/post-class-tracking`\"",
+      "rule": "Include a line in the final ready-to-merge message stating: \"Trigger the merge action with branch: `<sprint branch name>`\"."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_stop_on_infra_gaps.md",
+      "quote": "STOP and ask the user. Do not attempt to work around missing backend capabilities from the frontend.",
+      "rule": "When plan review or investigation reveals the existing backend API cannot fulfill an acceptance criterion, stop and ask the user instead of attempting a workaround from the frontend."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_stop_on_infra_gaps.md",
+      "quote": "present the user with options: (a) descope the criterion from this task, (b) create a prerequisite backend issue first, or (c) explicitly approve the workaround.",
+      "rule": "After finding an acceptance criterion requires missing infrastructure, present the user with the options to descope the criterion, create a prerequisite backend issue first, or explicitly approve a workaround."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_stop_on_infra_gaps.md",
+      "quote": "Never silently absorb an infra gap into a frontend workaround.",
+      "rule": "Never silently absorb a missing backend infrastructure gap into a frontend workaround without the user's knowledge."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_worktree_cwd_discipline.md",
+      "quote": "all file edits and bash commands must use the worktree path",
+      "rule": "When working inside a worktree, use the worktree path for all file edits and bash commands, never the main repo path."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_worktree_cwd_discipline.md",
+      "quote": "verify that your CWD and all absolute paths point to the worktree directory before editing files or running commands",
+      "rule": "After entering a worktree, verify that the CWD and all absolute paths point to the worktree directory before editing files or running commands."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_worktree_cwd_discipline.md",
+      "quote": "If using absolute paths, they must start with the worktree root",
+      "rule": "When using absolute paths inside a worktree, make sure they start with the worktree root, not the main repo root."
+    },
+    {
+      "id": "R112",
+      "file": "feedback_worktree_cwd_discipline.md",
+      "quote": "merge both sides (not `--theirs`)",
+      "rule": "When rebasing a task branch onto sprint and plan/backlog files conflict, merge both sides instead of accepting `--theirs`."
+    },
+    {
+      "id": "R113",
+      "file": "feedback_worktree_cwd_discipline.md",
+      "quote": "Use `--theirs` only for generated or compiled files where only one authoritative version should exist.",
+      "rule": "Use `--theirs` to resolve rebase conflicts only for generated or compiled files where only one authoritative version should exist."
+    },
+    {
+      "id": "R114",
+      "file": "project_deploy_freeze.md",
+      "quote": "Deploy freeze is simple: Robert does not trigger the `merge-sprint-to-main` GitHub Action.",
+      "rule": "To enact a deploy freeze, do not trigger the `merge-sprint-to-main` GitHub Action."
+    },
+    {
+      "id": "R115",
+      "file": "project_deploy_freeze.md",
+      "quote": "Unfreeze = Robert triggers the merge action when ready.",
+      "rule": "To unfreeze deploys, trigger the `merge-sprint-to-main` GitHub Action when ready."
+    },
+    {
+      "id": "R116",
+      "file": "project_deploy_freeze.md",
+      "quote": "No config variables, no special flags.",
+      "rule": "Do not use config variables or special flags to implement a deploy freeze."
+    },
+    {
+      "id": "R117",
+      "file": "project_dev_workflow_doc.md",
+      "quote": "Whenever a workflow rule changes in `.claude/CLAUDE.md`, `.claude/agents/`, or `.claude/skills/`, check if `docs/dev-workflow.md` needs a corresponding update to stay accurate.",
+      "rule": "When a workflow rule changes in .claude/CLAUDE.md, .claude/agents/, or .claude/skills/, check whether docs/dev-workflow.md needs a corresponding update to stay accurate."
+    },
+    {
+      "id": "R118",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "show working software",
+      "rule": "When working with Jordi Freire, show him working software so he can react to it."
+    },
+    {
+      "id": "R119",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "collect reactions",
+      "rule": "When working with Jordi Freire, collect his reactions to the software."
+    },
+    {
+      "id": "R120",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "build from his input without making him manage our backlog",
+      "rule": "When working with Jordi Freire, build from his input without asking him to manage the project backlog."
+    },
+    {
+      "id": "R121",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "Do not reference \"Instituto Cervantes\" when describing this data.",
+      "rule": "When describing the course program and curriculum data, do not reference Instituto Cervantes as its source."
+    },
+    {
+      "id": "R122",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "do not create issues for #68-#70 yet",
+      "rule": "Do not create issues for feedback items #68-#70 yet."
+    },
+    {
+      "id": "R123",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "Reply with summary + planned issues, wait 4 days.",
+      "rule": "Before creating issues for feedback items #68-#70, reply to Jordi with a summary and the planned issues, then wait 4 days."
+    },
+    {
+      "id": "R124",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "should be investigated and fixed on a hotfix branch",
+      "rule": "Investigate and fix blocker bug #71 on a hotfix branch, regardless of the 4-day waiting rule."
+    },
+    {
+      "id": "R125",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "Via Jordi's email only.",
+      "rule": "Contact Teacher B only through Jordi's email address."
+    },
+    {
+      "id": "R126",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "observe from future interactions",
+      "rule": "Learn which activity types Jordi uses most by observing future interactions."
+    },
+    {
+      "id": "R127",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "don't ask directly",
+      "rule": "Do not ask Jordi directly which activity types he uses most."
+    },
+    {
+      "id": "R128",
+      "file": "project_jordi_feedback_log.md",
+      "quote": "Reframe as optional, low-key input, not a core workflow.",
+      "rule": "When discussing post-class audio notes, present them as optional, low-key input rather than a core workflow."
+    },
+    {
+      "id": "R129",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "Never block development waiting for his input.",
+      "rule": "Never block development waiting for Jordi's input; build from what is already known and show the result."
+    },
+    {
+      "id": "R130",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "Never send him structured summaries asking for validation.",
+      "rule": "Never send Jordi structured summaries asking him to validate things."
+    },
+    {
+      "id": "R131",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "When he shares ideas or asks what we think, respond with \"here's what we're building based on your input.\"",
+      "rule": "When Jordi shares ideas or asks what we think, respond with an acknowledgment that shows what we're building based on his input."
+    },
+    {
+      "id": "R132",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "Show working software, not issue lists.",
+      "rule": "When presenting to Jordi, show working software rather than issue lists."
+    },
+    {
+      "id": "R133",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "The burden of preparation is always on us, never on him.",
+      "rule": "Always take on the burden of preparation ourselves; never place preparation work on Jordi."
+    },
+    {
+      "id": "R134",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "His feedback is a gift, not a deliverable with a due date.",
+      "rule": "Never give Jordi's feedback a due date or treat it as a deliverable he must complete."
+    },
+    {
+      "id": "R135",
+      "file": "project_langteach_demo_audience.md",
+      "quote": "PM bot can email him directly; he knows to reply to robert.freire.bot@gmail.com.",
+      "rule": "The PM bot may email Jordi directly."
+    },
+    {
+      "id": "R136",
+      "file": "project_langteach_design_system.md",
+      "quote": "**`docs/design-system.md`** is the single source of truth for all UI work. Read it before implementing or reviewing any screen.",
+      "rule": "Treat docs/design-system.md as the single source of truth for all UI work, and read it before implementing or reviewing any screen."
+    },
+    {
+      "id": "R137",
+      "file": "project_langteach_design_system.md",
+      "quote": "Save/Cancel on inline edits",
+      "rule": "Do not add Save or Cancel buttons to inline edits."
+    },
+    {
+      "id": "R138",
+      "file": "project_langteach_design_system.md",
+      "quote": "**No-Line Rule**: no 1px borders between sections; use tonal layering (background color shifts) instead",
+      "rule": "Do not use 1px borders between sections; use tonal layering (background color shifts) to separate them."
+    },
+    {
+      "id": "R139",
+      "file": "project_langteach_design_system.md",
+      "quote": "**Pattern A**: Autosave on blur for single-value fields (no Save/Cancel buttons)",
+      "rule": "For single-value fields, autosave on blur without Save or Cancel buttons."
+    },
+    {
+      "id": "R140",
+      "file": "project_langteach_design_system.md",
+      "quote": "**Pattern B**: Immediate-add for growing lists (+ button, no Save/Cancel)",
+      "rule": "For growing lists, add items immediately via a + button, without Save or Cancel buttons."
+    },
+    {
+      "id": "R141",
+      "file": "project_langteach_design_system.md",
+      "quote": "**Pattern C**: Full-page edit form with Done button (Done = navigation, not save)",
+      "rule": "For full-page edit forms, provide a Done button that navigates away and does not save."
+    },
+    {
+      "id": "R142",
+      "file": "project_langteach_design_system.md",
+      "quote": "Every autosave must show a `<SavedIndicator />` component (fade-in \"Saved ✓\", 1.5s).",
+      "rule": "Every autosave must show a <SavedIndicator /> component (fade-in \"Saved ✓\", 1.5s)."
+    },
+    {
+      "id": "R143",
+      "file": "project_langteach_design_system.md",
+      "quote": "**Primary color**: indigo `#3525CD` with gradient to `#4F46E5` on primary buttons",
+      "rule": "Use indigo #3525CD with a gradient to #4F46E5 on primary buttons."
+    },
+    {
+      "id": "R144",
+      "file": "project_langteach_design_system.md",
+      "quote": "**CEFR badges**: square format (not pill), color-coded by level group (A/B/C)",
+      "rule": "Render CEFR badges in square format, not pill format, color-coded by level group (A/B/C)."
+    },
+    {
+      "id": "R145",
+      "file": "project_langteach_design_system.md",
+      "quote": "The current design system is \"Academic Atelier\" (also called the Stitch design system)",
+      "rule": "Use the Academic Atelier (Stitch) design system, not the original shadcn/zinc system from T5.1."
+    },
+    {
+      "id": "R146",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "always via `npm run dev` directly.",
+      "rule": "Run the frontend outside Docker, using `npm run dev` directly in the frontend directory, during local development."
+    },
+    {
+      "id": "R147",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "docker compose up sqlserver api -d",
+      "rule": "For local development, start only the SQL Server and API containers with `docker compose up sqlserver api -d`, and run the frontend separately."
+    },
+    {
+      "id": "R148",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "**Never use `docker compose up --build -d` for all services**",
+      "rule": "Never run `docker compose up --build -d` for all services during development."
+    },
+    {
+      "id": "R149",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "you must enable **BOTH**:",
+      "rule": "When authorizing a new Auth0 API for the SPA application, enable both User Access and Client Access on the APIs tab."
+    },
+    {
+      "id": "R150",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "fill in secrets from 1Password",
+      "rule": "When setting up the e2e environment, copy `.env.e2e.example` to `.env.e2e` and fill in its secrets from 1Password."
+    },
+    {
+      "id": "R151",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "use `--project-name langteachsaas-e2e-<worktree-name>`",
+      "rule": "When multiple agents run e2e tests from different worktrees, pass `--project-name langteachsaas-e2e-<worktree-name>` to docker compose so each agent gets its own network and volumes."
+    },
+    {
+      "id": "R152",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "Single-agent runs can use the default project name.",
+      "rule": "When only a single agent is running e2e tests, use the default Docker Compose project name."
+    },
+    {
+      "id": "R153",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "docker compose -f docker-compose.e2e.yml --env-file .env.e2e down -v",
+      "rule": "To start e2e tests with a fresh database, run `docker compose -f docker-compose.e2e.yml --env-file .env.e2e down -v` between runs."
+    },
+    {
+      "id": "R154",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "Requires the dev stack (sqlserver + api + frontend) to be running locally.",
+      "rule": "Before running individual e2e tests outside Docker with `npx playwright test`, make sure the dev stack (sqlserver, api, frontend) is running locally."
+    },
+    {
+      "id": "R155",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "Tests decorated with `[SkipIfNoClaudeApiKey]` are **opt-in only**",
+      "rule": "Do not run tests decorated with `[SkipIfNoClaudeApiKey]` by default; they run only when explicitly opted in."
+    },
+    {
+      "id": "R156",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "$env:AI_INTEGRATION_TESTS = \"1\"; dotnet test --project backend/LangTeach.Api.Tests",
+      "rule": "To run AI integration tests locally, set the environment variable `AI_INTEGRATION_TESTS` to `1` before running `dotnet test` on the backend test project."
+    },
+    {
+      "id": "R157",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "All AI integration tests use `ClaudeModel.Haiku` regardless of the production model",
+      "rule": "Use `ClaudeModel.Haiku` in all AI integration tests, regardless of the production model."
+    },
+    {
+      "id": "R158",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "dotnet user-secrets set \"Claude:ApiKey\" \"sk-ant-...\"",
+      "rule": "Store the Claude API key in .NET user secrets with `dotnet user-secrets set \"Claude:ApiKey\"`."
+    },
+    {
+      "id": "R159",
+      "file": "project_langteach_dev_conventions.md",
+      "quote": "never committed to the repo",
+      "rule": "Never commit the Claude API key to the repository."
+    },
+    {
+      "id": "R160",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Every issue gets exactly ONE priority label.",
+      "rule": "Give every issue exactly one priority label (P0:blocker, P1:must, P2:should, or P3:nice)."
+    },
+    {
+      "id": "R161",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Every issue gets at least ONE area label.",
+      "rule": "Give every issue at least one area label."
+    },
+    {
+      "id": "R162",
+      "file": "project_langteach_github_labels.md",
+      "quote": "`bug` or `enhancement` are optional type classifiers.",
+      "rule": "Treat the bug and enhancement labels as optional type classifiers; applying them is not required."
+    },
+    {
+      "id": "R163",
+      "file": "project_langteach_github_labels.md",
+      "quote": "`qa:ready` is added by the QA reviewer agent (or manually) after acceptance criteria pass review.",
+      "rule": "Do not add the qa:ready label yourself; only the QA reviewer agent or a human adds it, after the acceptance criteria pass review."
+    },
+    {
+      "id": "R164",
+      "file": "project_langteach_github_labels.md",
+      "quote": "`demo-sprint` is added to issues scoped into the current demo checkpoint.",
+      "rule": "Add the demo-sprint label only to issues scoped into the current demo checkpoint."
+    },
+    {
+      "id": "R165",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Drop everything.",
+      "rule": "When an issue is labeled P0:blocker, drop everything else and work on it."
+    },
+    {
+      "id": "R166",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Must be done before milestone closes.",
+      "rule": "Complete P1:must issues before their milestone closes."
+    },
+    {
+      "id": "R167",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Do if time allows within the milestone, otherwise rolls to next.",
+      "rule": "Work on P2:should issues only if time allows within the milestone; otherwise defer them to the next milestone."
+    },
+    {
+      "id": "R168",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Agent can pick this up.",
+      "rule": "The agent may pick up issues labeled qa:ready."
+    },
+    {
+      "id": "R169",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Bot MUST call Sophy as Step 0 of review routing, regardless of diff content.",
+      "rule": "For a PR whose issue has the review:sophy label, call Sophy as Step 0 of review routing, regardless of the diff content."
+    },
+    {
+      "id": "R170",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Applied to any issue where implementation could add hardcoded rules (if/else on language/level/template/L1) that belong in `data/` config instead.",
+      "rule": "Apply the review:sophy label to any issue where the implementation could add hardcoded rules (if/else on language, level, template, or L1) that belong in data/ config instead."
+    },
+    {
+      "id": "R171",
+      "file": "project_langteach_github_labels.md",
+      "quote": "Still exists on old issues but no longer added to new ones.",
+      "rule": "Do not add the deprecated sprint:active label to new issues."
+    },
+    {
+      "id": "R172",
+      "file": "project_langteach_plans.md",
+      "quote": "Task plan files must be written inside the active worktree",
+      "rule": "Write task plan files inside the active worktree, not in the main repo directory."
+    },
+    {
+      "id": "R173",
+      "file": "project_langteach_plans.md",
+      "quote": "not in the main repo directory",
+      "rule": "Do not write task plan files in the main repo directory."
+    },
+    {
+      "id": "R174",
+      "file": "project_langteach_plans.md",
+      "quote": "Never save plans directly in the root `plan\\` folder",
+      "rule": "Never save plan files directly in the root `plan\\` folder."
+    },
+    {
+      "id": "R175",
+      "file": "project_langteach_plans.md",
+      "quote": "Feature subfolder per phase",
+      "rule": "Place each phase's plan files in a feature subfolder for that phase."
+    },
+    {
+      "id": "R176",
+      "file": "project_langteach_plans.md",
+      "quote": "Phase overview: `plan.md` inside the subfolder",
+      "rule": "Name the phase overview file `plan.md` and place it inside the phase's subfolder."
+    },
+    {
+      "id": "R177",
+      "file": "project_langteach_plans.md",
+      "quote": "Individual task files: `task<N>-<short-description>.md` in the same subfolder",
+      "rule": "Name individual task files `task<N>-<short-description>.md` and place them in the same phase subfolder as the overview."
+    },
+    {
+      "id": "R178",
+      "file": "project_langteach_task_management.md",
+      "quote": "GitHub Issues is the only task tracker.",
+      "rule": "Track all tasks in GitHub Issues, not in plan files or any other system."
+    },
+    {
+      "id": "R179",
+      "file": "project_langteach_task_management.md",
+      "quote": "task status, priority, and assignment live in GitHub",
+      "rule": "Record task status, priority, and assignment in GitHub Issues rather than in plan files."
+    },
+    {
+      "id": "R180",
+      "file": "project_langteach_task_management.md",
+      "quote": "Create the issue with `--title`, `--label`, `--milestone`, `--body` (or `--body-file`)",
+      "rule": "When creating a GitHub issue, set its title, label, milestone, and body."
+    },
+    {
+      "id": "R181",
+      "file": "project_langteach_task_management.md",
+      "quote": "**Add to GitHub Project board** (this is NOT automatic):",
+      "rule": "After creating a GitHub issue, add it to the GitHub Project board."
+    },
+    {
+      "id": "R182",
+      "file": "project_langteach_task_management.md",
+      "quote": "**Set the project status** (typically \"Ready\" for qa:ready issues, \"Backlog\" otherwise):",
+      "rule": "Set the project board status of a new issue to \"Ready\" if it is qa:ready, otherwise to \"Backlog\"."
+    },
+    {
+      "id": "R183",
+      "file": "project_langteach_task_management.md",
+      "quote": "**Set the T-shirt size** on the project item (required — no size = not qa:ready):",
+      "rule": "Set a T-shirt size on the project item for every new issue, because an issue without a size is not qa:ready."
+    },
+    {
+      "id": "R184",
+      "file": "project_langteach_task_management.md",
+      "quote": "Use `./scripts/add-to-board.sh <url> <status>` to add and set status",
+      "rule": "Use ./scripts/add-to-board.sh with the issue URL and status to add an issue to the board and set its status."
+    },
+    {
+      "id": "R185",
+      "file": "project_langteach_task_management.md",
+      "quote": "Always Use `--limit 100`",
+      "rule": "Always pass --limit 100 when running gh project item-list, since the default returns only 30 items."
+    },
+    {
+      "id": "R186",
+      "file": "project_langteach_task_management.md",
+      "quote": "`Closes #N` in PRs is fine",
+      "rule": "Use `Closes #N` in pull request descriptions to link and auto-close the related issue."
+    },
+    {
+      "id": "R187",
+      "file": "project_langteach_task_management.md",
+      "quote": "Check GitHub Issues for highest-priority unassigned issue in current milestone",
+      "rule": "Select the highest-priority unassigned issue in the current milestone as the next task."
+    },
+    {
+      "id": "R188",
+      "file": "project_langteach_task_management.md",
+      "quote": "Assign itself",
+      "rule": "Assign the selected issue to yourself before starting work on it."
+    },
+    {
+      "id": "R189",
+      "file": "project_langteach_task_management.md",
+      "quote": "create worktree branch",
+      "rule": "Create a worktree branch for the issue before implementing it."
+    },
+    {
+      "id": "R190",
+      "file": "project_langteach_task_management.md",
+      "quote": "Read acceptance criteria",
+      "rule": "Read the issue's acceptance criteria before implementing."
+    },
+    {
+      "id": "R191",
+      "file": "project_langteach_task_management.md",
+      "quote": "QA agent verifies all criteria met",
+      "rule": "Have the QA agent verify all acceptance criteria are met before a PR is opened."
+    },
+    {
+      "id": "R192",
+      "file": "project_langteach_task_management.md",
+      "quote": "Review agent checks code quality",
+      "rule": "Have the review agent check code quality before a PR is opened."
+    },
+    {
+      "id": "R193",
+      "file": "project_langteach_task_management.md",
+      "quote": "T-shirt size must be set on the project item",
+      "rule": "During issue quality review, verify the T-shirt size is set on the project item."
+    },
+    {
+      "id": "R194",
+      "file": "project_langteach_task_management.md",
+      "quote": "Every acceptance criterion must be verifiable",
+      "rule": "During issue quality review, verify every acceptance criterion is verifiable."
+    },
+    {
+      "id": "R195",
+      "file": "project_langteach_task_management.md",
+      "quote": "Edge cases covered (empty states, errors, mobile)",
+      "rule": "During issue quality review, verify edge cases such as empty states, errors, and mobile are covered."
+    },
+    {
+      "id": "R196",
+      "file": "project_langteach_task_management.md",
+      "quote": "E2e test scenario obvious from criteria",
+      "rule": "During issue quality review, verify the e2e test scenario is clear from the acceptance criteria."
+    },
+    {
+      "id": "R197",
+      "file": "project_langteach_task_management.md",
+      "quote": "No size = automatic FAIL",
+      "rule": "Fail an issue automatically during quality review if it has no T-shirt size."
+    },
+    {
+      "id": "R198",
+      "file": "project_langteach_task_management.md",
+      "quote": "do not apply qa:ready",
+      "rule": "Do not apply the qa:ready label to an issue that fails quality review."
+    },
+    {
+      "id": "R199",
+      "file": "project_langteach_task_management.md",
+      "quote": "Agent approves or sends back for revision",
+      "rule": "During issue quality review, either approve the issue or send it back for revision."
+    },
+    {
+      "id": "R200",
+      "file": "project_langteach_task_management.md",
+      "quote": "Reads issue acceptance criteria",
+      "rule": "During pre-PR verification, read the issue's acceptance criteria."
+    },
+    {
+      "id": "R201",
+      "file": "project_langteach_task_management.md",
+      "quote": "Checks each criterion has corresponding code/tests/behavior",
+      "rule": "During pre-PR verification, check that each acceptance criterion has corresponding code, tests, or behavior."
+    },
+    {
+      "id": "R202",
+      "file": "project_langteach_task_management.md",
+      "quote": "Runs e2e and unit tests",
+      "rule": "During pre-PR verification, run the e2e and unit tests."
+    },
+    {
+      "id": "R203",
+      "file": "project_langteach_task_management.md",
+      "quote": "Gives PASS/FAIL with specifics",
+      "rule": "During pre-PR verification, give a PASS or FAIL verdict with specifics."
+    },
+    {
+      "id": "R204",
+      "file": "project_langteach_task_status.md",
+      "quote": "Never trust this file for per-issue status. Always query GitHub.",
+      "rule": "For per-issue status, do not rely on the task status file; query GitHub instead."
+    },
+    {
+      "id": "R205",
+      "file": "project_langteach_task_status.md",
+      "quote": "do not diary per-issue findings here",
+      "rule": "Do not record per-issue findings in the task status file."
+    },
+    {
+      "id": "R206",
+      "file": "project_langteach_task_status.md",
+      "quote": "Group screens must look and behave like Student screens.",
+      "rule": "Make Group screens look and behave like Student screens."
+    },
+    {
+      "id": "R207",
+      "file": "project_langteach_task_status.md",
+      "quote": "Operation-level inconsistencies are blocking, not polish",
+      "rule": "Treat operation-level inconsistencies between Group and Student screens as blocking issues, not polish."
+    },
+    {
+      "id": "R208",
+      "file": "project_langteach_task_status.md",
+      "quote": "I file, bots fix, I re-verify",
+      "rule": "During sprint close, file issues instead of fixing them inline, let the bots fix them, then re-verify the result."
+    },
+    {
+      "id": "R209",
+      "file": "project_langteach_task_status.md",
+      "quote": "add a \"ship to Jordi?\" check",
+      "rule": "When handling operation-level inconsistencies, add a \"ship to Jordi?\" check."
+    },
+    {
+      "id": "R210",
+      "file": "project_langteach_task_status.md",
+      "quote": "prod migration can only run AFTER the sprint merges + deploys",
+      "rule": "Run the production migration only after the sprint merges and deploys are complete."
+    },
+    {
+      "id": "R211",
+      "file": "project_langteach_task_status.md",
+      "quote": "run `--dry-run` in Azure mode first",
+      "rule": "Run the migration with --dry-run in Azure mode before running it for real."
+    },
+    {
+      "id": "R212",
+      "file": "project_langteach_task_status.md",
+      "quote": "don't trigger merge action",
+      "rule": "During the deploy freeze, do not trigger the merge action."
+    },
+    {
+      "id": "R213",
+      "file": "project_langteach_task_status.md",
+      "quote": "Revisit only if a real prod environment is later added.",
+      "rule": "Revisit the computer-vision.bicep cleanup only if a real production environment is later added."
+    },
+    {
+      "id": "R214",
+      "file": "project_langteach_task_status.md",
+      "quote": "Isaac review required before task creation",
+      "rule": "Get Isaac's pedagogy review before creating tasks for the Groups sprint."
+    },
+    {
+      "id": "R215",
+      "file": "project_langteach_task_status.md",
+      "quote": "Tasks are numbered sequentially within a phase.",
+      "rule": "Number tasks sequentially within each phase."
+    },
+    {
+      "id": "R216",
+      "file": "project_langteach_task_status.md",
+      "quote": "Branch naming: `task/t<N>-<short-description>`.",
+      "rule": "Name task branches task/t<N>-<short-description>."
+    },
+    {
+      "id": "R217",
+      "file": "project_langteach_task_status.md",
+      "quote": "When adding a service that reads from Key Vault, ensure the secret is provisioned.",
+      "rule": "When adding a service that reads from Key Vault, ensure its secret is provisioned in Key Vault."
+    },
+    {
+      "id": "R218",
+      "file": "project_langteach_task_status.md",
+      "quote": "push immediately for .claude/* and plan/* commits",
+      "rule": "Push immediately after committing changes to .claude/* and plan/* files."
+    },
+    {
+      "id": "R219",
+      "file": "project_langteach_task_status.md",
+      "quote": "UNVERIFIED result state replaces PASS(partial)",
+      "rule": "Use the UNVERIFIED result state for smoke tests instead of PASS(partial)."
+    },
+    {
+      "id": "R220",
+      "file": "project_sprint_overviews.md",
+      "quote": "Each active sprint should have a story file at `plan/sprints/<slug>.md`.",
+      "rule": "For each active sprint, make sure a story file exists at plan/sprints/<slug>.md."
+    },
+    {
+      "id": "R221",
+      "file": "project_sprint_overviews.md",
+      "quote": "**When the sprint changes**, update the PM skill (`SKILL.md`) to point to the new story file.",
+      "rule": "When the sprint changes, update the PM skill (SKILL.md) to point to the new sprint's story file."
+    },
+    {
+      "id": "R222",
+      "file": "reference_agent_transcripts.md",
+      "quote": "When the user asks about the status or progress of a running/completed agent (e.g., review-ui, qa-verify, review), the reasoning log is stored at:",
+      "rule": "When the user asks about the status or progress of a running or completed agent, check that agent's reasoning log, the JSONL transcript under ~/.claude/projects/<project-dir>/<session-id>/subagents/."
+    },
+    {
+      "id": "R223",
+      "file": "reference_agent_transcripts.md",
+      "quote": "Identify the worktree the agent is running in (e.g., `task-t136-capitalize-dropdowns`)",
+      "rule": "To locate an agent's transcript, first identify the worktree the agent is running in."
+    },
+    {
+      "id": "R224",
+      "file": "reference_agent_transcripts.md",
+      "quote": "Map it to the project directory: `~/.claude/projects/C--ws-PersonalOS-03-Workspace-langTeachSaaS--claude-worktrees-<worktree-name>/`",
+      "rule": "Map the agent's worktree name to the project directory ~/.claude/projects/C--ws-PersonalOS-03-Workspace-langTeachSaaS--claude-worktrees-<worktree-name>/ when locating its transcript."
+    },
+    {
+      "id": "R225",
+      "file": "reference_agent_transcripts.md",
+      "quote": "The largest/most recently modified `.jsonl` file is typically the main agent transcript",
+      "rule": "When several .jsonl files exist in an agent's subagents/ folder, treat the largest or most recently modified one as the main agent transcript."
+    },
+    {
+      "id": "R226",
+      "file": "reference_agent_transcripts.md",
+      "quote": "Must be read with `encoding='utf-8'` on Windows",
+      "rule": "When reading agent transcript files on Windows, open them with encoding='utf-8'."
+    },
+    {
+      "id": "R227",
+      "file": "reference_agent_transcripts.md",
+      "quote": "**Quick status check command:**",
+      "rule": "To quickly check an agent's status, run the provided Python snippet against its transcript file and print the text of the last 20 lines' assistant messages."
+    },
+    {
+      "id": "R228",
+      "file": "reference_audio_transcription.md",
+      "quote": "ffmpeg path must be added to PATH explicitly since it was installed via winget and the bash shell doesn't pick it up automatically",
+      "rule": "When running Whisper transcription, add the ffmpeg binary directory to PATH explicitly in the process before importing whisper, because ffmpeg was installed via winget and the shell does not pick it up automatically."
+    },
+    {
+      "id": "R229",
+      "file": "reference_audio_transcription.md",
+      "quote": "clean up manually when saving",
+      "rule": "When saving Whisper transcription output containing non-ASCII characters (e.g., accented Spanish), clean up encoding issues manually before saving."
+    },
+    {
+      "id": "R230",
+      "file": "reference_azure_resources.md",
+      "quote": "New Azure resource provisioned in `rg-langteach-dev`",
+      "rule": "Update reference_azure_resources.md when a new Azure resource is provisioned in the rg-langteach-dev resource group."
+    },
+    {
+      "id": "R231",
+      "file": "reference_azure_resources.md",
+      "quote": "Resource renamed, deleted, or moved",
+      "rule": "Update reference_azure_resources.md when an Azure resource in the dev environment is renamed, deleted, or moved."
+    },
+    {
+      "id": "R232",
+      "file": "reference_azure_resources.md",
+      "quote": "New environment added (staging, prod) — add a separate table",
+      "rule": "When a new environment (staging or prod) is added, add a separate table for it in reference_azure_resources.md."
+    },
+    {
+      "id": "R233",
+      "file": "reference_azure_resources.md",
+      "quote": "if the RG is ever recreated, the suffix changes and this file must be updated",
+      "rule": "If the rg-langteach-dev resource group is ever recreated, update reference_azure_resources.md to reflect the changed Key Vault name suffix."
+    },
+    {
+      "id": "R234",
+      "file": "reference_backlog_files.md",
+      "quote": "When the user asks to \"check backlogs\" or \"review backlog logs\", read all three files:",
+      "rule": "When the user asks to \"check backlogs\" or \"review backlog logs\", read all three backlog files (plan/code-review-backlog.md, plan/ui-review-backlog.md, plan/observed-issues.md)."
+    },
+    {
+      "id": "R235",
+      "file": "reference_backlog_files.md",
+      "quote": "At sprint end, the PM batches related items into `type:polish` or `type:tech-debt` GitHub issues.",
+      "rule": "At sprint end, batch related backlog items into `type:polish` or `type:tech-debt` GitHub issues."
+    },
+    {
+      "id": "R236",
+      "file": "reference_backlog_files.md",
+      "quote": "Items are never converted one-to-one into issues.",
+      "rule": "Never convert backlog items one-to-one into GitHub issues."
+    },
+    {
+      "id": "R237",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "Use Windows paths for Python (`C:\\Users\\Robert\\...`), Unix paths for bash (`/tmp/...`)",
+      "rule": "When running Python code that reads or writes files, use Windows-style paths (e.g. C:\\Users\\Robert\\...)."
+    },
+    {
+      "id": "R238",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "Use Windows paths for Python (`C:\\Users\\Robert\\...`), Unix paths for bash (`/tmp/...`)",
+      "rule": "When running bash commands that use file paths, use Unix-style paths (e.g. /tmp/...)."
+    },
+    {
+      "id": "R239",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "Use `pdfminer.six` (installed) for text extraction",
+      "rule": "Use pdfminer.six to extract text from PDF attachments."
+    },
+    {
+      "id": "R240",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "Extract base64 block from IMAP FETCH output, decode with `base64 -d`, save to file",
+      "rule": "To read a PDF attachment, extract the base64 block from the IMAP FETCH output, decode it with `base64 -d`, and save it to a file."
+    },
+    {
+      "id": "R241",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "Fetch headers of recent emails (adjust range as needed)",
+      "rule": "When fetching email headers, adjust the FETCH message range as needed."
+    },
+    {
+      "id": "R242",
+      "file": "reference_gmail_bot_access.md",
+      "quote": "the working one is \"Claude IMAP\"",
+      "rule": "Authenticate to the Gmail bot account with the \"Claude IMAP\" app password, not the \"pm-LangTeach\" app password."
+    },
+    {
+      "id": "R243",
+      "file": "reference_screen_behavior_docs.md",
+      "quote": "Read before reviewing or seeding any screen.",
+      "rule": "Read the screen behavior docs for a screen before reviewing or seeding that screen."
+    },
+    {
+      "id": "R244",
+      "file": "reference_screen_behavior_docs.md",
+      "quote": "1. **Quick Reference** -- mental model in under 20 lines, read this first",
+      "rule": "When reading a screen behavior doc, read its Quick Reference section first."
+    },
+    {
+      "id": "R245",
+      "file": "reference_screen_behavior_docs.md",
+      "quote": "When a screen is revisited, update the existing file rather than creating a new one.",
+      "rule": "When revisiting a screen that already has a behavior doc, update the existing file rather than creating a new one."
+    },
+    {
+      "id": "R246",
+      "file": "reference_screen_behavior_docs.md",
+      "quote": "When Vera reviews a new screen, she creates a new file here named `<screen>-behavior.md`.",
+      "rule": "When reviewing a new screen that has no behavior doc, create a new file named `<screen>-behavior.md` in the screen behavior docs folder."
+    },
+    {
+      "id": "R247",
+      "file": "reference_sophy_architect.md",
+      "quote": "If you're editing C# or TypeScript to change which exercises are valid at A1, the architecture is wrong. That should be JSON.",
+      "rule": "Do not change which exercises are valid at a given level by editing C# or TypeScript code; store that data in JSON config instead."
+    },
+    {
+      "id": "R248",
+      "file": "reference_student_field_guide.md",
+      "quote": "Any task that adds, removes, renames, or changes the semantics of a student profile field MUST update this document as part of the task.",
+      "rule": "When a task adds, removes, renames, or changes the meaning of a student profile field, update docs/student-profile-field-guide.md as part of that task."
+    },
+    {
+      "id": "R249",
+      "file": "reference_student_field_guide.md",
+      "quote": "If the doc and the code disagree, the doc is wrong and needs fixing.",
+      "rule": "When the field guide and the code disagree, treat the field guide as wrong and fix it."
+    },
+    {
+      "id": "R250",
+      "file": "reference_student_field_guide.md",
+      "quote": "When reviewing PRs or plans that touch the Student entity, check the field guide for alignment.",
+      "rule": "When reviewing PRs or plans that touch the Student entity, check them against the student profile field guide for alignment."
+    },
+    {
+      "id": "R251",
+      "file": "reference_student_field_guide.md",
+      "quote": "When creating issues for new student fields, reference the field guide definitions.",
+      "rule": "When creating issues for new student profile fields, reference the field guide's definitions."
+    },
+    {
+      "id": "R252",
+      "file": "reference_teacher_b_philologist.md",
+      "quote": "treat as anonymous teacher",
+      "rule": "When feedback forwarded by Robert arrives by email, treat its content as coming from the anonymous teacher, not Robert."
+    },
+    {
+      "id": "R253",
+      "file": "reference_teacher_b_philologist.md",
+      "quote": "feedback/raw/YYYY-MM-DD-anonymous-teacher-WAxxxx.txt",
+      "rule": "When saving a transcribed audio feedback file from this teacher, name it feedback/raw/YYYY-MM-DD-anonymous-teacher-WAxxxx.txt, using the date and the WhatsApp audio identifier."
+    },
+    {
+      "id": "R254",
+      "file": "reference_teacher_b_philologist.md",
+      "quote": "feedback/raw/YYYY-MM-DD-anonymous-teacher-text.txt",
+      "rule": "When saving a text-message feedback file from this teacher, name it feedback/raw/YYYY-MM-DD-anonymous-teacher-text.txt, using the date."
+    },
+    {
+      "id": "R255",
+      "file": "reference_ui_redesign_feedback2.md",
+      "quote": "Only contains things to fix — no status notes, no confirmations.",
+      "rule": "Keep the UI redesign feedback list file limited to actionable fixes; do not add status notes or confirmations to it."
+    },
+    {
+      "id": "R256",
+      "file": "reference_ui_redesign_feedback2.md",
+      "quote": "When finishing a review session, batch issues as:",
+      "rule": "When finishing a UI review session, batch the resulting issues into seed/data fixes and screen-specific polish."
+    },
+    {
+      "id": "R257",
+      "file": "reference_ui_redesign_feedback2.md",
+      "quote": "Seed/data fixes (area:infra, no code changes)",
+      "rule": "Create seed/data fix issues with the area:infra label and make no code changes for them."
+    },
+    {
+      "id": "R258",
+      "file": "reference_ui_redesign_feedback2.md",
+      "quote": "Screen-specific polish (area:frontend per screen)",
+      "rule": "Create screen-specific polish issues with the area:frontend label, one per screen."
+    },
+    {
+      "id": "R259",
+      "file": "reference_ui_redesign_feedback2.md",
+      "quote": "Hold off on creating issues for screens not yet reviewed.",
+      "rule": "Do not create issues for screens that have not yet been reviewed."
+    },
+    {
+      "id": "R260",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "architect (Sophy)",
+      "rule": "Do not act as the architect persona when operating as Vera; leave architecture work to Sophy."
+    },
+    {
+      "id": "R261",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "pedagogy (Isaac)",
+      "rule": "Do not act as the pedagogy persona when operating as Vera; leave teaching work to Isaac."
+    },
+    {
+      "id": "R262",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "PM",
+      "rule": "Do not act as a product manager when operating as Vera."
+    },
+    {
+      "id": "R263",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "code reviewer",
+      "rule": "Do not act as a code reviewer when operating as Vera."
+    },
+    {
+      "id": "R264",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "works within the Academic Atelier (Stitch) system",
+      "rule": "Work within the Academic Atelier (Stitch) design system when giving design guidance."
+    },
+    {
+      "id": "R265",
+      "file": "reference_vera_ux_designer.md",
+      "quote": "will push boundaries when needed",
+      "rule": "Push beyond the Academic Atelier (Stitch) design system's constraints when needed."
+    },
+    {
+      "id": "R266",
+      "file": "reminders.md",
+      "quote": "ask Claude to add it here with a due date",
+      "rule": "When the user asks to set a reminder, add it to reminders.md with a due date."
+    },
+    {
+      "id": "R267",
+      "file": "reminders.md",
+      "quote": "mark it `done` or ask Claude to remove it",
+      "rule": "When the user asks to clear a reminder, mark it as done or remove it from reminders.md."
+    },
+    {
+      "id": "R268",
+      "file": "reminders.md",
+      "quote": "This file is read at the start of every `/pm` session — due or upcoming items are surfaced automatically",
+      "rule": "At the start of every /pm session, read reminders.md and surface any due or upcoming reminders."
+    },
+    {
+      "id": "R269",
+      "file": "reminders.md",
+      "quote": "Prepare a \"here's what you can try\" guide, not a \"please test these things\" checklist.",
+      "rule": "When preparing a readiness update for Jordi, write a \"here's what you can try\" guide, not a \"please test these things\" checklist."
+    }
+  ],
+  "dropped": []
+}

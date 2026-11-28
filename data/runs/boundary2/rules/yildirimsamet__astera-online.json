@@ -1,0 +1,262 @@
+{
+  "repo": "yildirimsamet/astera-online",
+  "dir": ".claude/memory",
+  "n_files": 5,
+  "n_rules": 42,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "README.md",
+      "quote": "If memory and the docs ever disagree, the docs win and the memory is stale.",
+      "rule": "When the agent's memory files and the project docs (CLAUDE.md and docs/) disagree, follow the docs and treat the memory as stale."
+    },
+    {
+      "id": "R2",
+      "file": "astera.md",
+      "quote": "Read the repo, do not reconstruct from memory",
+      "rule": "For the Astera Online project, read the repository files (CLAUDE.md, docs) rather than reconstructing product mission, decisions, balance numbers, or current state from memory."
+    },
+    {
+      "id": "R3",
+      "file": "astera.md",
+      "quote": "read `CLAUDE.md` first, then `docs/decisions.md` and `docs/balance.md`",
+      "rule": "Before doing anything in the Astera Online repo, read CLAUDE.md first, then docs/decisions.md and docs/balance.md."
+    },
+    {
+      "id": "R4",
+      "file": "astera.md",
+      "quote": "Those files are the source of truth and outrank anything remembered here.",
+      "rule": "Treat the blindspace repo docs as the source of truth over this memory file when they conflict."
+    },
+    {
+      "id": "R5",
+      "file": "astera.md",
+      "quote": "Do **not** reopen settled\ndesign questions, keep improving the GDD, or restart the interview format.",
+      "rule": "Do not reopen settled design questions, keep improving the GDD, or restart the design-interview format for Astera Online."
+    },
+    {
+      "id": "R6",
+      "file": "astera.md",
+      "quote": "The next job is a thin React client, deliberately not the 3D map.",
+      "rule": "Focus Astera Online execution work on building a thin React client, not the 3D map."
+    },
+    {
+      "id": "R7",
+      "file": "game-dev-handbook.md",
+      "quote": "consult ~/Desktop/Coding/MyProjects/game-dev-handbook before every game-facing change and apply the principles that fit Astera",
+      "rule": "Before every game-facing change, consult the game-dev-handbook and apply the principles that fit Astera."
+    },
+    {
+      "id": "R8",
+      "file": "game-dev-handbook.md",
+      "quote": "if the handbook covers the topic, follow it, as long as it suits Astera and makes the game better.",
+      "rule": "When the game-dev handbook covers the topic, follow its principles only if they suit Astera and make the game better."
+    },
+    {
+      "id": "R9",
+      "file": "game-dev-handbook.md",
+      "quote": "open `README.md`, use the routing table, read the matching chapter.",
+      "rule": "Before working on a game task, open the handbook's README.md, use its routing table to find the matching chapter, and read that chapter."
+    },
+    {
+      "id": "R10",
+      "file": "game-dev-handbook.md",
+      "quote": "Before delivery: run the matching section of `checklists.md`.",
+      "rule": "Before delivering game work, run the matching section of the handbook's checklists.md."
+    },
+    {
+      "id": "R11",
+      "file": "game-dev-handbook.md",
+      "quote": "Cite the principle IDs used in the plan and the delivery note.",
+      "rule": "Cite the handbook principle IDs used in the plan and in the delivery note."
+    },
+    {
+      "id": "R12",
+      "file": "game-dev-handbook.md",
+      "quote": "Action-game principles (coyote time, frame data, hit stop, parry) apply only to real-time surfaces such as Komutan Gemisi / Savaş Alanı.",
+      "rule": "Apply action-game principles (coyote time, frame data, hit stop, parry) only to real-time surfaces such as Komutan Gemisi / Savaş Alanı."
+    },
+    {
+      "id": "R13",
+      "file": "game-dev-handbook.md",
+      "quote": "CLAUDE.md, docs/ and owner decisions outrank the handbook.",
+      "rule": "When handbook principles conflict with CLAUDE.md, docs/, or owner decisions, follow CLAUDE.md, docs/, or the owner's decisions over the handbook."
+    },
+    {
+      "id": "R14",
+      "file": "game-dev-handbook.md",
+      "quote": "If a handbook principle would improve the game but clashes with a rule, present it as a trade-off and ask",
+      "rule": "If a handbook principle would improve the game but clashes with a rule, present it to the owner as a trade-off and ask before proceeding."
+    },
+    {
+      "id": "R15",
+      "file": "game-dev-handbook.md",
+      "quote": "Do not present `Elaboration` or `Claimed, unverified` entries as proof.",
+      "rule": "Do not present handbook entries marked `Elaboration` or `Claimed, unverified` as proof."
+    },
+    {
+      "id": "R16",
+      "file": "game-dev-handbook.md",
+      "quote": "Never implement the ML-05 anti-patterns without the owner's written approval.",
+      "rule": "Never implement the ML-05 anti-patterns without the owner's written approval."
+    },
+    {
+      "id": "R17",
+      "file": "user-code-quality-bar.md",
+      "quote": "**Everything typed.** `any` is banned. No casts to silence the compiler.",
+      "rule": "Type everything in the code; never use `any`, and never use casts to silence the compiler."
+    },
+    {
+      "id": "R18",
+      "file": "user-code-quality-bar.md",
+      "quote": "**A linter must be set up**, and its output must be zero.",
+      "rule": "Set up a linter on projects and ensure its output is zero before considering work done."
+    },
+    {
+      "id": "R19",
+      "file": "user-code-quality-bar.md",
+      "quote": "If a rule is wrong, change the\n  rule deliberately — never learn to ignore it.",
+      "rule": "If a lint rule is wrong, change the rule deliberately; never learn to ignore the linter's output."
+    },
+    {
+      "id": "R20",
+      "file": "user-code-quality-bar.md",
+      "quote": "**Every piece of code gets tests**",
+      "rule": "Write tests for every piece of code."
+    },
+    {
+      "id": "R21",
+      "file": "user-code-quality-bar.md",
+      "quote": "tests must deliberately cover **edge cases**, not\n  just the happy path: boundaries, malformed input, adversarial input, concurrency, failure,\n  time.",
+      "rule": "Write tests that deliberately cover edge cases (boundaries, malformed input, adversarial input, concurrency, failure, time), not just the happy path."
+    },
+    {
+      "id": "R22",
+      "file": "user-code-quality-bar.md",
+      "quote": "**When writing or fixing a test, find the root cause first.**",
+      "rule": "When writing or fixing a test, find the root cause first."
+    },
+    {
+      "id": "R23",
+      "file": "user-code-quality-bar.md",
+      "quote": "tests must not be forced to fit the code.",
+      "rule": "Do not force tests to fit the code; establish whether the test or the code is wrong before changing either."
+    },
+    {
+      "id": "R24",
+      "file": "user-code-quality-bar.md",
+      "quote": "run typecheck + lint + tests as one gate before claiming anything is done.",
+      "rule": "Run typecheck, lint, and tests as one gate before claiming anything is done."
+    },
+    {
+      "id": "R25",
+      "file": "user-code-quality-bar.md",
+      "quote": "When several tests fail identically, that is one bug, not many.",
+      "rule": "When several tests fail identically, treat it as one bug, not many."
+    },
+    {
+      "id": "R26",
+      "file": "user-code-quality-bar.md",
+      "quote": "When a test is flaky —\ne.g. betting on a probabilistic roll — that is a defect to fix, not noise to tolerate.",
+      "rule": "Treat a flaky test (e.g. one relying on a probabilistic roll) as a defect to fix, not noise to tolerate."
+    },
+    {
+      "id": "R27",
+      "file": "user-execution-mode.md",
+      "quote": "default behaviour is to move it\nforward",
+      "rule": "When the user says a project is out of the design phase, move it forward by default through IMPLEMENT → TEST → PLAY → EVALUATE → FIX → CONTINUE."
+    },
+    {
+      "id": "R28",
+      "file": "user-execution-mode.md",
+      "quote": "Decide yourself, without asking:** architecture, folder structure, library choice, query optimisation, caching, component design, internal API shape, test design, small UX details,\nnaming, refactors.",
+      "rule": "Decide architecture, folder structure, library choice, query optimisation, caching, component design, internal API shape, test design, small UX details, naming, and refactors yourself, without asking the user."
+    },
+    {
+      "id": "R29",
+      "file": "user-execution-mode.md",
+      "quote": "**Ask only when** a change alters the core loop, the risk/reward structure, the product's\nidentity, or a decision already marked locked.",
+      "rule": "Ask the user only when a change alters the core loop, the risk/reward structure, the product's identity, or a decision already marked locked."
+    },
+    {
+      "id": "R30",
+      "file": "user-execution-mode.md",
+      "quote": "re-researching settled questions",
+      "rule": "Do not re-research settled questions."
+    },
+    {
+      "id": "R31",
+      "file": "user-execution-mode.md",
+      "quote": "endlessly improving design\ndocuments",
+      "rule": "Do not endlessly improve design documents."
+    },
+    {
+      "id": "R32",
+      "file": "user-execution-mode.md",
+      "quote": "waiting for every uncertainty to resolve before building",
+      "rule": "Do not wait for every uncertainty to resolve before building."
+    },
+    {
+      "id": "R33",
+      "file": "user-execution-mode.md",
+      "quote": "approval requests for\nsmall technical choices",
+      "rule": "Do not request approval for small technical choices."
+    },
+    {
+      "id": "R34",
+      "file": "user-execution-mode.md",
+      "quote": "redesigning a working system because something better might exist",
+      "rule": "Do not redesign a working system because something better might exist."
+    },
+    {
+      "id": "R35",
+      "file": "user-execution-mode.md",
+      "quote": "treating feature count as progress",
+      "rule": "Do not treat feature count as progress."
+    },
+    {
+      "id": "R36",
+      "file": "user-execution-mode.md",
+      "quote": "never quietly drop or simplify core\ngameplay because it is hard to build.",
+      "rule": "Never quietly drop or simplify core gameplay because it is hard to build."
+    },
+    {
+      "id": "R37",
+      "file": "user-execution-mode.md",
+      "quote": "Ask instead what the simplest version is that\npreserves the intended experience.",
+      "rule": "When core gameplay is hard to build, ask the user what the simplest version is that preserves the intended experience, instead of dropping or simplifying it."
+    },
+    {
+      "id": "R38",
+      "file": "user-execution-mode.md",
+      "quote": "\"simplified gameplay\" is\na product decision that must be deliberate and stated.",
+      "rule": "Simplify gameplay only as a deliberate, stated product decision."
+    },
+    {
+      "id": "R39",
+      "file": "user-execution-mode.md",
+      "quote": "Deliverables\nand documentation stay in English.",
+      "rule": "Write deliverables and documentation in English."
+    },
+    {
+      "id": "R40",
+      "file": "user-execution-mode.md",
+      "quote": "when stuck, pick the smallest reversible option and continue.",
+      "rule": "When stuck, pick the smallest reversible option and continue."
+    },
+    {
+      "id": "R41",
+      "file": "user-execution-mode.md",
+      "quote": "Report what changed and what is next",
+      "rule": "Report what changed and what is next after completing work."
+    },
+    {
+      "id": "R42",
+      "file": "user-execution-mode.md",
+      "quote": "do not narrate every decision",
+      "rule": "Do not narrate every decision."
+    }
+  ],
+  "dropped": []
+}

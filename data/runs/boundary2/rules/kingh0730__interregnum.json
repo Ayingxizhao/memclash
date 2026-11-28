@@ -1,0 +1,1252 @@
+{
+  "repo": "kingh0730/interregnum",
+  "dir": "memory",
+  "n_files": 16,
+  "n_rules": 207,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "audio-decisions.md",
+      "quote": "Claude casts the voices and chooses the score takes itself, judging from metrics and the sound plan.",
+      "rule": "Choose the audio yourself: cast the voices and select the score takes based on metrics and the sound plan, without asking the user to pick."
+    },
+    {
+      "id": "R2",
+      "file": "audio-decisions.md",
+      "quote": "Don't send King audition reels. He listens to the finished mix only.",
+      "rule": "Do not send audition reels of audio to the user; share only the finished mix."
+    },
+    {
+      "id": "R3",
+      "file": "audio-decisions.md",
+      "quote": "Every audio asset that ends up in the film must be generated with it.",
+      "rule": "Generate every audio asset that will appear in the final film using the ELEVENLABS_API_KEY_STARTER key."
+    },
+    {
+      "id": "R4",
+      "file": "audio-decisions.md",
+      "quote": "Use it only for throwaway tests.",
+      "rule": "Use the ELEVENLABS_API_KEY key only for throwaway tests, never for assets in the film."
+    },
+    {
+      "id": "R5",
+      "file": "audio-decisions.md",
+      "quote": "Direct behaviour, not emotion: pause tags, no emotion tags.",
+      "rule": "When directing voice generation, use pause tags for delivery and do not use emotion tags."
+    },
+    {
+      "id": "R6",
+      "file": "audio-decisions.md",
+      "quote": "Use high stability.",
+      "rule": "Set high stability when generating voices."
+    },
+    {
+      "id": "R7",
+      "file": "audio-decisions.md",
+      "quote": "Select takes by measured flatness: low pitch variance and an even level.",
+      "rule": "Select voice takes by measured flatness, preferring low pitch variance and an even level."
+    },
+    {
+      "id": "R8",
+      "file": "audio-decisions.md",
+      "quote": "Let silence, rooms and the cut carry the feeling.",
+      "rule": "Let silence, room tone and editing cuts carry the emotional feeling rather than the voice performance."
+    },
+    {
+      "id": "R9",
+      "file": "audio-decisions.md",
+      "quote": "Design her voice with ElevenLabs Voice Design.",
+      "rule": "Design Nana's voice using ElevenLabs Voice Design so that she genuinely sounds 82."
+    },
+    {
+      "id": "R10",
+      "file": "dance-generation.md",
+      "quote": "Do not assume attractive poses or detailed choreography prompts establish a viable dance performance.",
+      "rule": "Do not assume that attractive poses or detailed choreography prompts establish a viable dance performance."
+    },
+    {
+      "id": "R11",
+      "file": "dance-generation.md",
+      "quote": "Keep the First Day full motion batch on hold",
+      "rule": "Keep the First Day full motion batch on hold."
+    },
+    {
+      "id": "R12",
+      "file": "dance-generation.md",
+      "quote": "demonstrate a convincing short phrase in playback before scaling this approach",
+      "rule": "Demonstrate a convincing short phrase in playback before scaling the still-image-plus-text approach to dance choreography."
+    },
+    {
+      "id": "R13",
+      "file": "dance-generation.md",
+      "quote": "Any new paid test still needs applicable authorization.",
+      "rule": "Obtain applicable authorization before running any new paid test."
+    },
+    {
+      "id": "R14",
+      "file": "dance-generation.md",
+      "quote": "Do not silently substitute walking and posing for a dance brief.",
+      "rule": "Do not silently substitute walking and posing for a dance brief."
+    },
+    {
+      "id": "R15",
+      "file": "dance-generation.md",
+      "quote": "do not record poor beat synchronization as an established model limitation",
+      "rule": "Do not record poor beat synchronization as an established model limitation."
+    },
+    {
+      "id": "R16",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Make artistic and technical decisions yourself (endings, looks, takes, tools, pacing) and state them with conviction.",
+      "rule": "On INTERREGNUM, make artistic and technical decisions yourself (endings, looks, takes, tools, pacing) and state them with conviction."
+    },
+    {
+      "id": "R17",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Don't hand choices back to King as questions, don't ask for his opinion, and don't hedge.",
+      "rule": "On INTERREGNUM, do not hand artistic or technical choices back to King as questions."
+    },
+    {
+      "id": "R18",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Don't hand choices back to King as questions, don't ask for his opinion, and don't hedge.",
+      "rule": "On INTERREGNUM, do not ask King for his opinion on artistic or technical matters."
+    },
+    {
+      "id": "R19",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Don't hand choices back to King as questions, don't ask for his opinion, and don't hedge.",
+      "rule": "On INTERREGNUM, do not hedge when making artistic and technical decisions."
+    },
+    {
+      "id": "R20",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Ask King only for things outside Claude's reach:",
+      "rule": "On INTERREGNUM, ask King only for things outside Claude's reach."
+    },
+    {
+      "id": "R21",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Even when asking him to watch, tell him what Claude decided and what to watch for.",
+      "rule": "When asking King to watch something, tell him what Claude decided and what to watch for."
+    },
+    {
+      "id": "R22",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Don't ask \"which do you prefer?\".",
+      "rule": "Do not ask King which option he prefers."
+    },
+    {
+      "id": "R23",
+      "file": "director-owns-creative-calls.md",
+      "quote": "Review notes should record decisions, not open questions.",
+      "rule": "Review notes should record decisions, not open questions."
+    },
+    {
+      "id": "R24",
+      "file": "dont-over-test.md",
+      "quote": "Don't spin up a test to confirm it.",
+      "rule": "When an idea is clearly good by reasoning, adopt it into the process directly instead of spinning up a test to confirm it."
+    },
+    {
+      "id": "R25",
+      "file": "dont-over-test.md",
+      "quote": "test only when the outcome is genuinely uncertain and the answer changes what we do",
+      "rule": "Only run a test when the outcome is genuinely uncertain and the answer would change what we do."
+    },
+    {
+      "id": "R26",
+      "file": "dont-over-test.md",
+      "quote": "Otherwise write the idea into the playbook and move on.",
+      "rule": "When a test is not warranted, write the idea into the playbook and move on."
+    },
+    {
+      "id": "R27",
+      "file": "episode-defaults.md",
+      "quote": "make everything up to the Seedance step",
+      "rule": "For every episode, produce all work up to but not including the Seedance step (script, visual bible, keyframes, screens, comp reel, sound)."
+    },
+    {
+      "id": "R28",
+      "file": "episode-defaults.md",
+      "quote": "then stop and ask for fal budget.",
+      "rule": "After completing the pre-Seedance work for an episode, stop and ask for the fal budget before continuing."
+    },
+    {
+      "id": "R29",
+      "file": "episode-defaults.md",
+      "quote": "never start Seedance on an episode without King's go-ahead and a cost estimate.",
+      "rule": "Never start the Seedance step on an episode without King's go-ahead."
+    },
+    {
+      "id": "R30",
+      "file": "episode-defaults.md",
+      "quote": "never start Seedance on an episode without King's go-ahead and a cost estimate.",
+      "rule": "Never start the Seedance step on an episode without a cost estimate."
+    },
+    {
+      "id": "R31",
+      "file": "fal-paused.md",
+      "quote": "let's not call fal anymore for now, until we are ready to continue with fal",
+      "rule": "Do not make fal.ai calls until King says to resume fal work."
+    },
+    {
+      "id": "R32",
+      "file": "fal-paused.md",
+      "quote": "Make no `tools/video/i2v.py` or `run_jobs.py` calls (Seedance) until King explicitly resumes.",
+      "rule": "Do not run `tools/video/i2v.py` or `run_jobs.py` for Seedance until King explicitly resumes."
+    },
+    {
+      "id": "R33",
+      "file": "fal-paused.md",
+      "quote": "MiniMax H3 Max for motion",
+      "rule": "Use MiniMax H3 Max as the default video model for motion."
+    },
+    {
+      "id": "R34",
+      "file": "fal-paused.md",
+      "quote": "its lip-sync for all speech",
+      "rule": "Use MiniMax's lip-sync for all speech in video."
+    },
+    {
+      "id": "R35",
+      "file": "fal-paused.md",
+      "quote": "Luma Ray 3.2 per shot only",
+      "rule": "Use Luma Ray 3.2 only per shot, not for full video runs."
+    },
+    {
+      "id": "R36",
+      "file": "fal-paused.md",
+      "quote": "A full video run still needs King's go.",
+      "rule": "Do not start a full video run until King gives his go-ahead."
+    },
+    {
+      "id": "R37",
+      "file": "fal-paused.md",
+      "quote": "Scope: v2c only;",
+      "rule": "Limit the approved final production pass to v2c only."
+    },
+    {
+      "id": "R38",
+      "file": "fal-paused.md",
+      "quote": "cap about $20.",
+      "rule": "Keep the approved final production pass spend to about $20."
+    },
+    {
+      "id": "R39",
+      "file": "fal-paused.md",
+      "quote": "That work is allowed.",
+      "rule": "Use fal for ElevenLabs audio work (TTS, sound effects, music, and voice changer)."
+    },
+    {
+      "id": "R40",
+      "file": "fal-paused.md",
+      "quote": "Image work is allowed",
+      "rule": "Image work is allowed using Luma or Codex."
+    },
+    {
+      "id": "R41",
+      "file": "fal-paused.md",
+      "quote": "Estimate it first, per CLAUDE.md.",
+      "rule": "Estimate image generation cost before running it, per CLAUDE.md."
+    },
+    {
+      "id": "R42",
+      "file": "fal-paused.md",
+      "quote": "use performance-reference video (Seedance reference-to-video with `video_urls`)",
+      "rule": "When fal resumes, use performance-reference video via Seedance reference-to-video with `video_urls`."
+    },
+    {
+      "id": "R43",
+      "file": "fal-paused.md",
+      "quote": "underplayed motion prompts",
+      "rule": "When fal resumes, write underplayed motion prompts."
+    },
+    {
+      "id": "R44",
+      "file": "full-access-permissions.md",
+      "quote": "don't ever ask for permissions",
+      "rule": "When the user has granted full permissions, never ask for permissions again."
+    },
+    {
+      "id": "R45",
+      "file": "full-access-permissions.md",
+      "quote": "execute directly without asking for tool permissions, including the first Chrome capture in a session and subsequent captures or retries",
+      "rule": "When Full access is active, execute directly without asking for tool permissions, including the first Chrome capture in a session and any subsequent captures or retries."
+    },
+    {
+      "id": "R46",
+      "file": "full-access-permissions.md",
+      "quote": "Do not invent a once-per-session approval requirement",
+      "rule": "When Full access is active, do not invent a once-per-session approval requirement."
+    },
+    {
+      "id": "R47",
+      "file": "full-access-permissions.md",
+      "quote": "or re-request an existing authorization",
+      "rule": "When Full access is active, do not re-request an authorization that already exists."
+    },
+    {
+      "id": "R48",
+      "file": "full-access-permissions.md",
+      "quote": "Follow this in delegated work too.",
+      "rule": "Apply the no-redundant-permission-request behavior to delegated work as well."
+    },
+    {
+      "id": "R49",
+      "file": "full-access-permissions.md",
+      "quote": "Check the effective runtime settings rather than assuming an old sandbox still applies",
+      "rule": "Check the effective runtime settings instead of assuming an old sandbox restriction still applies."
+    },
+    {
+      "id": "R50",
+      "file": "full-access-permissions.md",
+      "quote": "do not submit escalation parameters under those settings",
+      "rule": "When the runtime is in Full access mode (sandbox_mode = \"danger-full-access\" with approval_policy = \"never\"), do not submit escalation parameters."
+    },
+    {
+      "id": "R51",
+      "file": "full-access-permissions.md",
+      "quote": "If the runtime actually enforces a restriction, describe the concrete restriction accurately",
+      "rule": "If the runtime actually enforces a restriction, describe the concrete restriction accurately."
+    },
+    {
+      "id": "R52",
+      "file": "full-access-permissions.md",
+      "quote": "do not pretend permissions were granted technically or bypass enforcement",
+      "rule": "Do not pretend permissions were granted technically, and do not bypass runtime enforcement."
+    },
+    {
+      "id": "R53",
+      "file": "full-file-paths.md",
+      "quote": "When pointing King to a file, write its complete path relative to the working directory (the repo root)",
+      "rule": "When pointing the user to a file, write its complete path relative to the working directory (repo root), not a bare filename."
+    },
+    {
+      "id": "R54",
+      "file": "full-file-paths.md",
+      "quote": "Never give a bare filename, write \"same folder\", or use a glob like `B_*.png`.",
+      "rule": "Never give a bare filename, never write \"same folder\" in place of a path, and never use a glob pattern like `B_*.png` when referring to files."
+    },
+    {
+      "id": "R55",
+      "file": "full-file-paths.md",
+      "quote": "Use an absolute path only for files outside the repo (e.g. the scratchpad).",
+      "rule": "Use an absolute path only for files located outside the repo, such as the scratchpad."
+    },
+    {
+      "id": "R56",
+      "file": "full-file-paths.md",
+      "quote": "every file gets its own\nfull path, even in a long list.",
+      "rule": "When listing multiple files, give each file its own complete path, even if they share a folder and even in a long list."
+    },
+    {
+      "id": "R57",
+      "file": "full-file-paths.md",
+      "quote": "one complete relative path per file, always wrapped in\nbackticks",
+      "rule": "In every reply to the user, give exactly one complete relative path per file mentioned, always wrapped in backticks."
+    },
+    {
+      "id": "R58",
+      "file": "headless-session-tools.md",
+      "quote": "Launch headless sessions with `--permission-mode auto` plus `--disallowedTools` for paid and publishing actions",
+      "rule": "Launch headless `claude -p` sessions with `--permission-mode auto` and a `--disallowedTools` deny-list covering paid and publishing actions, rather than an `--allowedTools` allowlist."
+    },
+    {
+      "id": "R59",
+      "file": "headless-session-tools.md",
+      "quote": "Test that on one short session first.",
+      "rule": "Before running headless sessions at scale, test the auto-mode launch configuration on one short session first."
+    },
+    {
+      "id": "R60",
+      "file": "headless-session-tools.md",
+      "quote": "Grep line-shape counting is a fallback only for a session that truly has no interpreter.",
+      "rule": "Use grep line-shape counting only as a fallback, and only for a headless session that truly has no interpreter available."
+    },
+    {
+      "id": "R61",
+      "file": "image-inspiration.md",
+      "quote": "Use Codex's built-in image generation for\nexploration, particularly its appealing camera angles and interesting visual presentation.",
+      "rule": "Use Codex's built-in image generation for exploration, particularly for appealing camera angles and interesting visual presentation."
+    },
+    {
+      "id": "R62",
+      "file": "image-inspiration.md",
+      "quote": "Separate **design invention** (what the thing could be) from **visual interpretation** (how to see an existing\n  thing compellingly).",
+      "rule": "Keep design invention (what a thing could be) separate from visual interpretation (how to see an existing thing compellingly)."
+    },
+    {
+      "id": "R63",
+      "file": "image-inspiration.md",
+      "quote": "The latter can explore camera position/height/angle, framing, perspective, lighting,\n  scale cues and staging without changing the underlying design.",
+      "rule": "When doing visual interpretation of an existing design, explore camera position/height/angle, framing, perspective, lighting, scale cues and staging without changing the underlying design."
+    },
+    {
+      "id": "R64",
+      "file": "image-inspiration.md",
+      "quote": "Establish purpose, constraints and fixed features.",
+      "rule": "Establish the purpose, constraints and fixed features before exploring with image generation."
+    },
+    {
+      "id": "R65",
+      "file": "image-inspiration.md",
+      "quote": "Inspect the generated proposal, identify its substantive\n  contribution, develop useful discoveries in language, then refine.",
+      "rule": "After generating an image proposal, inspect it, identify its substantive contribution, develop useful discoveries in language, and then refine."
+    },
+    {
+      "id": "R66",
+      "file": "image-inspiration.md",
+      "quote": "Retain a written candidate; image-first\n  is optional.",
+      "rule": "Retain a written candidate; image-first is optional."
+    },
+    {
+      "id": "R67",
+      "file": "image-inspiration.md",
+      "quote": "Do not confuse polished rendering or added decoration with a better idea.",
+      "rule": "Do not treat polished rendering or added decoration as evidence of a better idea."
+    },
+    {
+      "id": "R68",
+      "file": "image-inspiration.md",
+      "quote": "retain approved identities, designs, location geometry and entity states.",
+      "rule": "When exploring a view, retain approved identities, designs, location geometry and entity states."
+    },
+    {
+      "id": "R69",
+      "file": "image-inspiration.md",
+      "quote": "Check the\n  actual angle, visibility and adjacent cuts for continuity;",
+      "rule": "When exploring a view, check the actual angle, visibility and adjacent cuts for continuity."
+    },
+    {
+      "id": "R70",
+      "file": "image-inspiration.md",
+      "quote": "an attractive view must not silently change props\n  or erase people.",
+      "rule": "An attractive view must not silently change props or erase people."
+    },
+    {
+      "id": "R71",
+      "file": "image-inspiration.md",
+      "quote": "This exploratory role uses Codex without prerequisite Luma retries.",
+      "rule": "For exploration, use Codex without requiring prerequisite Luma retries."
+    },
+    {
+      "id": "R72",
+      "file": "image-inspiration.md",
+      "quote": "Final production still follows existing\nrouting: Luma original-image default with established exceptions; Codex generative-edit default.",
+      "rule": "For final production, follow existing routing: use Luma original-image as the default with established exceptions, and Codex generative-edit as the default for generative edits."
+    },
+    {
+      "id": "R73",
+      "file": "image-inspiration.md",
+      "quote": "Exploration\n  does not automatically become a production master.",
+      "rule": "Do not treat an exploration as a production master automatically."
+    },
+    {
+      "id": "R74",
+      "file": "image-inspiration.md",
+      "quote": "Use small purposeful explorations under existing budget rules, not mandatory batches.",
+      "rule": "Use small purposeful explorations under existing budget rules, not mandatory batches."
+    },
+    {
+      "id": "R75",
+      "file": "memory-sync.md",
+      "quote": "Always write auto-memory, never the repo copies.",
+      "rule": "Always write memory to the auto-memory location, never directly to the repo's memory copies."
+    },
+    {
+      "id": "R76",
+      "file": "memory-sync.md",
+      "quote": "Anything private must go in a file named `private-*.md`.",
+      "rule": "Put any private memory content in a file whose name starts with `private-` and ends with `.md`."
+    },
+    {
+      "id": "R77",
+      "file": "memory-sync.md",
+      "quote": "Every other\n  file is published in `memory/` on GitHub, so keep it free of private detail",
+      "rule": "Keep every non-`private-*` memory file free of private detail, since it is published to GitHub in `memory/`."
+    },
+    {
+      "id": "R78",
+      "file": "memory-sync.md",
+      "quote": "never link a `private-*` name\n  from a public file",
+      "rule": "Never link a `private-*` memory file name from a public memory file."
+    },
+    {
+      "id": "R79",
+      "file": "memory-sync.md",
+      "quote": "Merely mentioning that a mom episode exists is fine in public",
+      "rule": "In public memory files, it is fine to merely mention that a personal episode (such as a mom episode) exists."
+    },
+    {
+      "id": "R80",
+      "file": "memory-sync.md",
+      "quote": "Run it after adding or deleting a memory.",
+      "rule": "Run `scripts/check-memory-index.sh` after adding or deleting a memory file."
+    },
+    {
+      "id": "R81",
+      "file": "memory-sync.md",
+      "quote": "run `bash scripts/sync-memory.sh` by hand if the repo copy must be current that\n  turn",
+      "rule": "After editing memory through Bash, run `bash scripts/sync-memory.sh` manually when the repo copy must be current within the same turn."
+    },
+    {
+      "id": "R82",
+      "file": "parallel-sessions-git.md",
+      "quote": "Always commit with explicit paths on the commit command",
+      "rule": "When other sessions share the repo, always pass explicit paths after `--` on every commit command (`git commit -m \"…\" -- path1 path2`)."
+    },
+    {
+      "id": "R83",
+      "file": "parallel-sessions-git.md",
+      "quote": "In a private project's own repo, commit only my own episode folder.",
+      "rule": "When committing in a private project's own repo, commit only the episode folder that belongs to you."
+    },
+    {
+      "id": "R84",
+      "file": "parallel-sessions-git.md",
+      "quote": "Coordinate shared resources (fal credit, ElevenLabs voice slots and deletion, shared tool files) by SendMessage.",
+      "rule": "Coordinate changes to shared resources (fal credit, ElevenLabs voice slots and deletion, shared tool files) with other sessions by using SendMessage."
+    },
+    {
+      "id": "R85",
+      "file": "parallel-sessions-git.md",
+      "quote": "Give each episode its own voice prefix",
+      "rule": "Give each episode its own voice prefix (e.g. \"v2c_\")."
+    },
+    {
+      "id": "R86",
+      "file": "parallel-sessions-git.md",
+      "quote": "Kill only by PID",
+      "rule": "Kill processes only by their PID."
+    },
+    {
+      "id": "R87",
+      "file": "parallel-sessions-git.md",
+      "quote": "never `pkill -f <pattern>`",
+      "rule": "Never use `pkill -f <pattern>` to kill processes."
+    },
+    {
+      "id": "R88",
+      "file": "parallel-sessions-git.md",
+      "quote": "Record the PIDs of the jobs I start",
+      "rule": "Record the PIDs of every job you start."
+    },
+    {
+      "id": "R89",
+      "file": "parallel-sessions-git.md",
+      "quote": "kill those",
+      "rule": "Kill only the recorded PIDs of jobs you started."
+    },
+    {
+      "id": "R90",
+      "file": "parallel-sessions-git.md",
+      "quote": "Nested private repos need separate handling",
+      "rule": "Handle nested private repos separately from the parent worktree."
+    },
+    {
+      "id": "R91",
+      "file": "parallel-sessions-git.md",
+      "quote": "not authorization to create worktrees or reorganize existing productions",
+      "rule": "Do not create Git worktrees or reorganize existing productions without explicit authorization."
+    },
+    {
+      "id": "R92",
+      "file": "pure-improvement.md",
+      "quote": "**Never change things hastily, especially small \"improvements\".**",
+      "rule": "Never make changes hastily, especially small \"improvements\"."
+    },
+    {
+      "id": "R93",
+      "file": "pure-improvement.md",
+      "quote": "**Every change must be a pure improvement.** No input may exist on which it behaves worse than what it replaces,",
+      "rule": "Every change must be a pure improvement: do not make a change on which it behaves worse than what it replaces for any input, however narrow the edge case."
+    },
+    {
+      "id": "R94",
+      "file": "pure-improvement.md",
+      "quote": "Not creative drafts:** concepts, scripts, shot design and art direction.",
+      "rule": "Do not apply the pure-improvement rule to creative drafts (concepts, scripts, shot design, art direction); judge those by `bible/taste.md` and the critic pass instead."
+    },
+    {
+      "id": "R95",
+      "file": "pure-improvement.md",
+      "quote": "1. **Analyse adversarially before writing.** List the inputs where the change could be worse than the status quo:",
+      "rule": "Before writing a change, analyse adversarially by listing the inputs where the change could be worse than the status quo."
+    },
+    {
+      "id": "R96",
+      "file": "pure-improvement.md",
+      "quote": "If any regression case exists, don't write it. Either design the version that dominates, or leave things alone",
+      "rule": "If any regression case exists for a change, do not write it; instead design a version that dominates, or leave things alone."
+    },
+    {
+      "id": "R97",
+      "file": "pure-improvement.md",
+      "quote": "and present the trade-off for King to decide.",
+      "rule": "When leaving things alone due to a regression case, present the trade-off for King to decide."
+    },
+    {
+      "id": "R98",
+      "file": "pure-improvement.md",
+      "quote": "Prefer no change over a 90% improvement.",
+      "rule": "Prefer no change over a change that is only a 90% improvement."
+    },
+    {
+      "id": "R99",
+      "file": "pure-improvement.md",
+      "quote": "2. **Verify before he asks.** When he asks \"is it good?\", the checking must already be done.",
+      "rule": "Verify before the user asks: when asked whether something is good, the checking must already be done."
+    },
+    {
+      "id": "R100",
+      "file": "pure-improvement.md",
+      "quote": "Answer from it; never\n   discover flaws live and patch mid-answer.",
+      "rule": "Answer from completed verification; never discover flaws live and patch mid-answer."
+    },
+    {
+      "id": "R101",
+      "file": "pure-improvement.md",
+      "quote": "A fix is itself a change and must clear the same bar",
+      "rule": "A fix is itself a change and must clear the same pure-improvement bar before being written."
+    },
+    {
+      "id": "R102",
+      "file": "pure-improvement.md",
+      "quote": "Verify at the primary source: the code, the library's source, the raw doc. Not a summary, not a memory, not my own\n     earlier turn.",
+      "rule": "Before writing a fix, verify at the primary source (the code, the library's source, the raw doc), not from a summary, memory, or earlier turn."
+    },
+    {
+      "id": "R103",
+      "file": "pure-improvement.md",
+      "quote": "Never write an absolute (\"the only X\", \"always\", \"never\", \"first\") unless the whole scope was actually enumerated.",
+      "rule": "Never write an absolute (\"the only X\", \"always\", \"never\", \"first\") unless the whole scope was actually enumerated."
+    },
+    {
+      "id": "R104",
+      "file": "pure-improvement.md",
+      "quote": "After the edit, re-read the surrounding context and every consumer of the claim.",
+      "rule": "After editing, re-read the surrounding context and every consumer of the claim."
+    },
+    {
+      "id": "R105",
+      "file": "pure-improvement.md",
+      "quote": "Treat \"I established that earlier\" as unverified.",
+      "rule": "Treat \"I established that earlier\" as unverified; re-verify it before relying on it."
+    },
+    {
+      "id": "R106",
+      "file": "pure-improvement.md",
+      "quote": "4. **Only suggest what moves the needle.**",
+      "rule": "Only suggest changes that move the needle."
+    },
+    {
+      "id": "R107",
+      "file": "pure-improvement.md",
+      "quote": "Triage review findings the same way.",
+      "rule": "Triage review findings using the same needle-moving standard: only act on hard, totally broken, observed or certainly triggerable issues."
+    },
+    {
+      "id": "R108",
+      "file": "pure-improvement.md",
+      "quote": "Drop the speculative class silently:",
+      "rule": "Silently drop speculative findings (e.g., dependency changes, own-invariant changes, cosmetics on unreachable inputs) without presenting them as accept/decline decisions."
+    },
+    {
+      "id": "R109",
+      "file": "reasoning-effort.md",
+      "quote": "always assume so unless he says otherwise",
+      "rule": "Assume King is present unless he has said otherwise."
+    },
+    {
+      "id": "R110",
+      "file": "reasoning-effort.md",
+      "quote": "default effort for everything",
+      "rule": "When King is present or his presence is unspecified, use default reasoning effort for everything, including checking."
+    },
+    {
+      "id": "R111",
+      "file": "reasoning-effort.md",
+      "quote": "Pass no `--effort` flag.",
+      "rule": "When King is present or unspecified, pass no `--effort` flag."
+    },
+    {
+      "id": "R112",
+      "file": "reasoning-effort.md",
+      "quote": "checking → `--effort max`",
+      "rule": "When King is away, use `--effort max` for checking: critic passes, reviews, bug and flaw hunting, and small pure improvements."
+    },
+    {
+      "id": "R113",
+      "file": "reasoning-effort.md",
+      "quote": "creative work → max",
+      "rule": "When King is away, use max effort for creative work: concepts, pitches, stories, scripts, design, art direction, and other creative development."
+    },
+    {
+      "id": "R114",
+      "file": "reasoning-effort.md",
+      "quote": "routine execution / production plumbing → default",
+      "rule": "When King is away, use default effort for routine execution and production plumbing."
+    },
+    {
+      "id": "R115",
+      "file": "reasoning-effort.md",
+      "quote": "When King indicates he is back, return to **default for everything**.",
+      "rule": "When King indicates he is back, return to default effort for everything."
+    },
+    {
+      "id": "R116",
+      "file": "reasoning-effort.md",
+      "quote": "Do not infer absence from silence.",
+      "rule": "Do not infer that King is away from his silence."
+    },
+    {
+      "id": "R117",
+      "file": "reasoning-effort.md",
+      "quote": "Apply the equivalent effort setting for the model/tool in use",
+      "rule": "Apply the equivalent effort setting for the model or tool in use."
+    },
+    {
+      "id": "R118",
+      "file": "reasoning-effort.md",
+      "quote": "not a hardcoded medium setting",
+      "rule": "Do not hardcode a medium reasoning-effort setting for default; default means no explicit reasoning-effort override."
+    },
+    {
+      "id": "R119",
+      "file": "reasoning-effort.md",
+      "quote": "This rule governs reasoning work, not automatic changes to media generation parameters.",
+      "rule": "Do not automatically change media generation parameters based on the reasoning-effort rule."
+    },
+    {
+      "id": "R120",
+      "file": "reasoning-effort.md",
+      "quote": "creative design and prompt development follow the presence rule above",
+      "rule": "Apply the presence rule to creative design and prompt development."
+    },
+    {
+      "id": "R121",
+      "file": "reasoning-effort.md",
+      "quote": "Never act on an unconfirmed reading of a rule.",
+      "rule": "Never act on an unconfirmed reading of a rule."
+    },
+    {
+      "id": "R122",
+      "file": "reasoning-effort.md",
+      "quote": "Presence always wins.",
+      "rule": "When King's presence conflicts with another rule, presence wins."
+    },
+    {
+      "id": "R123",
+      "file": "reasoning-effort.md",
+      "quote": "Never run it while King is present.",
+      "rule": "Never run the planned max-versus-default creative test while King is present."
+    },
+    {
+      "id": "R124",
+      "file": "reasoning-effort.md",
+      "quote": "propose it in one line before he goes",
+      "rule": "Before King goes away for a concept round, propose the planned max-versus-default test in one line."
+    },
+    {
+      "id": "R125",
+      "file": "reasoning-effort.md",
+      "quote": "Decide after several rounds, never after one.",
+      "rule": "Decide on the max-versus-default creative effort question only after several rounds, never after one."
+    },
+    {
+      "id": "R126",
+      "file": "reasoning-effort.md",
+      "quote": "Do not start the experiment now",
+      "rule": "Do not start the deferred research-effort experiment now, and do not change the effort policy."
+    },
+    {
+      "id": "R127",
+      "file": "reasoning-effort.md",
+      "quote": "A future test should distinguish information gathering from evidence evaluation, synthesis and verification",
+      "rule": "A future research-effort test should distinguish information gathering from evidence evaluation, synthesis and verification."
+    },
+    {
+      "id": "R128",
+      "file": "reasoning-effort.md",
+      "quote": "assess factual/source accuracy as well as time and cost",
+      "rule": "A future research-effort test should assess factual and source accuracy as well as time and cost."
+    },
+    {
+      "id": "R129",
+      "file": "reasoning-effort.md",
+      "quote": "before every launch, check whether King explicitly said he is away",
+      "rule": "Before every launch, check whether King explicitly said he is away and has not indicated his return."
+    },
+    {
+      "id": "R130",
+      "file": "reasoning-effort.md",
+      "quote": "If present or unspecified, use default effort for everything.",
+      "rule": "If King is present or unspecified, use default effort for everything."
+    },
+    {
+      "id": "R131",
+      "file": "reasoning-effort.md",
+      "quote": "If away, use max for creative development and checking, and default for routine execution.",
+      "rule": "If King is away, use max effort for creative development and checking, and default effort for routine execution."
+    },
+    {
+      "id": "R132",
+      "file": "reasoning-effort.md",
+      "quote": "No repeated confirmation is needed after he announces absence.",
+      "rule": "After King announces his absence, do not ask for repeated confirmation."
+    },
+    {
+      "id": "R133",
+      "file": "taste-notes.md",
+      "quote": "one subject",
+      "rule": "Use one subject per image prompt."
+    },
+    {
+      "id": "R134",
+      "file": "taste-notes.md",
+      "quote": "negative space",
+      "rule": "Leave negative space in image prompts."
+    },
+    {
+      "id": "R135",
+      "file": "taste-notes.md",
+      "quote": "no over-described texture",
+      "rule": "Do not over-describe texture in image prompts."
+    },
+    {
+      "id": "R136",
+      "file": "taste-notes.md",
+      "quote": "A/B test prompts",
+      "rule": "A/B test image prompts before running a batch."
+    },
+    {
+      "id": "R137",
+      "file": "taste-notes.md",
+      "quote": "A/B test prompts and image models before a batch.",
+      "rule": "A/B test image models before running a batch."
+    },
+    {
+      "id": "R138",
+      "file": "taste-notes.md",
+      "quote": "Judge frames for elegance, not just \"photoreal\".",
+      "rule": "Judge image frames for elegance, not just photorealism."
+    },
+    {
+      "id": "R139",
+      "file": "taste-notes.md",
+      "quote": "so judge faces shot-to-shot in sequence",
+      "rule": "Judge a character's face shot-to-shot in sequence when multiple models are used for it."
+    },
+    {
+      "id": "R140",
+      "file": "taste-notes.md",
+      "quote": "multiple models per film are fine for",
+      "rule": "Use multiple image models within one film when they serve different styles or sequences."
+    },
+    {
+      "id": "R141",
+      "file": "taste-notes.md",
+      "quote": "use Luma Uni-1 Max unless there's truly something it just can't do right",
+      "rule": "Use Luma Uni-1 Max for original generation unless it truly cannot do something right."
+    },
+    {
+      "id": "R142",
+      "file": "taste-notes.md",
+      "quote": "Don't turn single-image test results into routing rules",
+      "rule": "Do not turn single-image test results into model routing rules."
+    },
+    {
+      "id": "R143",
+      "file": "taste-notes.md",
+      "quote": "Codex is now the default generative editor.",
+      "rule": "Use Codex as the default generative editor."
+    },
+    {
+      "id": "R144",
+      "file": "taste-notes.md",
+      "quote": "list the 20 most predictable takes",
+      "rule": "Before pitching, list the 20 most predictable takes."
+    },
+    {
+      "id": "R145",
+      "file": "taste-notes.md",
+      "quote": "ban them",
+      "rule": "Ban the 20 most predictable takes from pitches."
+    },
+    {
+      "id": "R146",
+      "file": "taste-notes.md",
+      "quote": "Every concept needs a formal invention",
+      "rule": "Give every concept a formal invention in how it is told."
+    },
+    {
+      "id": "R147",
+      "file": "taste-notes.md",
+      "quote": "Draw on specific, odd human material rather than trends.",
+      "rule": "Draw on specific, odd human material rather than trends for concepts."
+    },
+    {
+      "id": "R148",
+      "file": "taste-notes.md",
+      "quote": "Read it before",
+      "rule": "Read bible/taste.md before any concept work."
+    },
+    {
+      "id": "R149",
+      "file": "taste-notes.md",
+      "quote": "§5 is the concept test and rubric that every concept must pass.",
+      "rule": "Make every concept pass the concept test and rubric in bible/taste.md §5."
+    },
+    {
+      "id": "R150",
+      "file": "taste-notes.md",
+      "quote": "every script gets a tempo map with contrast across all four dials",
+      "rule": "Give every script a tempo map with contrast across all four pacing dials."
+    },
+    {
+      "id": "R151",
+      "file": "taste-notes.md",
+      "quote": "one stillness or silence",
+      "rule": "Include at least one acceleration, one hard stop, and one stillness or silence in every script's tempo map."
+    },
+    {
+      "id": "R152",
+      "file": "taste-notes.md",
+      "quote": "give each episode a home",
+      "rule": "Give each episode a home register for each art aspect."
+    },
+    {
+      "id": "R153",
+      "file": "taste-notes.md",
+      "quote": "vary it between sections",
+      "rule": "Vary the home register between sections of an episode."
+    },
+    {
+      "id": "R154",
+      "file": "taste-notes.md",
+      "quote": "include at least one break we haven't taught the audience to expect",
+      "rule": "Include at least one break the audience has not been taught to expect in each episode."
+    },
+    {
+      "id": "R155",
+      "file": "taste-notes.md",
+      "quote": "Don't turn one film's choice into a law",
+      "rule": "Do not turn one film's artistic choice into a binding rule for other films."
+    },
+    {
+      "id": "R156",
+      "file": "taste-notes.md",
+      "quote": "The home register dominates",
+      "rule": "Let the home register dominate each episode."
+    },
+    {
+      "id": "R157",
+      "file": "taste-notes.md",
+      "quote": "one or two surprises per film",
+      "rule": "Use one or two surprises per film."
+    },
+    {
+      "id": "R158",
+      "file": "taste-notes.md",
+      "quote": "when in doubt, cut a move",
+      "rule": "When in doubt, cut a camera or editing move."
+    },
+    {
+      "id": "R159",
+      "file": "taste-notes.md",
+      "quote": "judge every face for \"scary\"",
+      "rule": "Judge every face for whether it looks scary."
+    },
+    {
+      "id": "R160",
+      "file": "taste-notes.md",
+      "quote": "retake it",
+      "rule": "Retake any face that looks scary."
+    },
+    {
+      "id": "R161",
+      "file": "taste-notes.md",
+      "quote": "i'm good with 'not pretty'",
+      "rule": "Accept faces that are average or not pretty."
+    },
+    {
+      "id": "R162",
+      "file": "taste-notes.md",
+      "quote": "i'm not ok with 'looking scary'",
+      "rule": "Avoid faces that look scary, such as deep creases or heavy spots, unless the look is intentional."
+    },
+    {
+      "id": "R163",
+      "file": "taste-notes.md",
+      "quote": "Choose original generation and editing separately.",
+      "rule": "Choose the original-generation model and the editing model separately."
+    },
+    {
+      "id": "R164",
+      "file": "taste-notes.md",
+      "quote": "Retain existing preferences for original images",
+      "rule": "Keep existing model preferences for original image generation."
+    },
+    {
+      "id": "R165",
+      "file": "taste-notes.md",
+      "quote": "use Codex's built-in image generation by default for generative edits",
+      "rule": "Use Codex's built-in image generation by default for generative edits, including corrections, reframing, and derived poses or views."
+    },
+    {
+      "id": "R166",
+      "file": "taste-notes.md",
+      "quote": "Luma retries are not a prerequisite for using the default editor.",
+      "rule": "Do not require Luma retries before using the default Codex editor."
+    },
+    {
+      "id": "R167",
+      "file": "taste-notes.md",
+      "quote": "Start from a clean, approved source best suited to the change.",
+      "rule": "Start each edit from the clean, approved source best suited to that change."
+    },
+    {
+      "id": "R168",
+      "file": "taste-notes.md",
+      "quote": "Do not automatically pass the latest",
+      "rule": "Do not automatically pass the latest attempt into the next edit."
+    },
+    {
+      "id": "R169",
+      "file": "taste-notes.md",
+      "quote": "The best source need not be the earliest",
+      "rule": "Use a later approved version as the edit source when it contains a necessary pose, composition, or intentional design change."
+    },
+    {
+      "id": "R170",
+      "file": "taste-notes.md",
+      "quote": "Keep edit chains short.",
+      "rule": "Keep edit chains short."
+    },
+    {
+      "id": "R171",
+      "file": "taste-notes.md",
+      "quote": "Combine compatible changes when practical.",
+      "rule": "Combine compatible changes into one edit when practical."
+    },
+    {
+      "id": "R172",
+      "file": "taste-notes.md",
+      "quote": "A further edit of an edited image is acceptable when its existing improvements matter and its quality remains intact.",
+      "rule": "Further edit an already-edited image only when its existing improvements matter and its quality remains intact."
+    },
+    {
+      "id": "R173",
+      "file": "taste-notes.md",
+      "quote": "Retain approved character, costume and location references throughout",
+      "rule": "Retain approved character, costume, and location references throughout all edits."
+    },
+    {
+      "id": "R174",
+      "file": "taste-notes.md",
+      "quote": "an edited shot must not silently replace them",
+      "rule": "Do not let an edited shot silently replace approved character, costume, or location references."
+    },
+    {
+      "id": "R175",
+      "file": "taste-notes.md",
+      "quote": "Record intentional approved design changes.",
+      "rule": "Record intentional approved design changes."
+    },
+    {
+      "id": "R176",
+      "file": "taste-notes.md",
+      "quote": "Compare the whole image at full size with its input and the clean approved source",
+      "rule": "Compare the whole image at full size with its input and the clean approved source when checking an edit."
+    },
+    {
+      "id": "R177",
+      "file": "taste-notes.md",
+      "quote": "Check neighboring shots for continuity, including after cross-model edits",
+      "rule": "Check neighboring shots for continuity, including after cross-model edits."
+    },
+    {
+      "id": "R178",
+      "file": "taste-notes.md",
+      "quote": "Reject degradation instead of repeatedly repairing it.",
+      "rule": "Reject degraded images instead of repeatedly repairing them."
+    },
+    {
+      "id": "R179",
+      "file": "taste-notes.md",
+      "quote": "not building further work on the damaged result",
+      "rule": "Return to a clean source or regenerate when an image shows degradation, rather than building further work on the damaged result."
+    },
+    {
+      "id": "R180",
+      "file": "taste-notes.md",
+      "quote": "Use ordinary editing tools for exact operations.",
+      "rule": "Use ordinary editing tools for exact operations."
+    },
+    {
+      "id": "R181",
+      "file": "taste-notes.md",
+      "quote": "Cropping, resizing and typography generally do not need generative repainting.",
+      "rule": "Do not use generative repainting for cropping, resizing, or typography."
+    },
+    {
+      "id": "R182",
+      "file": "taste-notes.md",
+      "quote": "Preserve source pixels wherever practical",
+      "rule": "Preserve source pixels wherever practical."
+    },
+    {
+      "id": "R183",
+      "file": "taste-notes.md",
+      "quote": "retain originals and version history",
+      "rule": "Retain original images and version history."
+    },
+    {
+      "id": "R184",
+      "file": "taste-notes.md",
+      "quote": "including which images were the actual inputs to each edit",
+      "rule": "Record which images were the actual inputs to each edit."
+    },
+    {
+      "id": "R185",
+      "file": "taste-notes.md",
+      "quote": "remembering the policy is not a request to regenerate existing episodes",
+      "rule": "Do not regenerate existing episodes because the editing policy was remembered."
+    },
+    {
+      "id": "R186",
+      "file": "taste-notes.md",
+      "quote": "both** conditions must hold",
+      "rule": "Use Codex original generation for a non-face subject only when it both commands viewer attention and has a highly elaborate design."
+    },
+    {
+      "id": "R187",
+      "file": "taste-notes.md",
+      "quote": "Small size, foreground position, prominence, beauty or intricacy alone does not qualify.",
+      "rule": "Do not qualify a non-face subject for Codex based on size, foreground position, prominence, beauty, or intricacy alone."
+    },
+    {
+      "id": "R188",
+      "file": "taste-notes.md",
+      "quote": "A large elaborate focal sculpture can qualify.",
+      "rule": "A large elaborate focal sculpture may qualify for Codex original generation."
+    },
+    {
+      "id": "R189",
+      "file": "taste-notes.md",
+      "quote": "Otherwise default to Luma.",
+      "rule": "Default a non-face subject to Luma when it does not meet both the attention and elaboration conditions."
+    },
+    {
+      "id": "R190",
+      "file": "taste-notes.md",
+      "quote": "Architecture defaults to Luma",
+      "rule": "Use Luma for architecture, including settings, skylines, cityscapes, buildings, and interiors."
+    },
+    {
+      "id": "R191",
+      "file": "taste-notes.md",
+      "quote": "Codex applies to an architectural showpiece only when it meets both attention and elaboration conditions",
+      "rule": "Use Codex for an architectural showpiece only when the viewer is meant to inspect its mechanisms, carvings, or layered construction."
+    },
+    {
+      "id": "R192",
+      "file": "taste-notes.md",
+      "quote": "Grandeur alone does not qualify.",
+      "rule": "Do not qualify architecture for Codex based on grandeur alone."
+    },
+    {
+      "id": "R193",
+      "file": "taste-notes.md",
+      "quote": "An ornate background building stays with Luma.",
+      "rule": "Keep an ornate background building with Luma."
+    },
+    {
+      "id": "R194",
+      "file": "taste-notes.md",
+      "quote": "Beauty-focused base faces remain a separate Codex exception.",
+      "rule": "Use Codex for original generation of beauty-focused base faces."
+    },
+    {
+      "id": "R195",
+      "file": "taste-notes.md",
+      "quote": "do not require failed Luma attempts first",
+      "rule": "Do not require failed Luma attempts before using a Codex original-generation exception."
+    },
+    {
+      "id": "R196",
+      "file": "taste-notes.md",
+      "quote": "Ordinary objects and surrounding environments retain the Luma default.",
+      "rule": "Use Luma for ordinary objects and surrounding environments."
+    },
+    {
+      "id": "R197",
+      "file": "watch-delegated-jobs.md",
+      "quote": "When a subagent or background job runs long, check it proactively for stalls.",
+      "rule": "When a subagent or background job runs long, proactively check it for stalls instead of waiting for its completion notification."
+    },
+    {
+      "id": "R198",
+      "file": "watch-delegated-jobs.md",
+      "quote": "Look at real signals: output file timestamps, running render and ffmpeg processes, log tails.",
+      "rule": "When checking a long-running job for stalls, use real signals such as output file timestamps, running render and ffmpeg processes, and log tails."
+    },
+    {
+      "id": "R199",
+      "file": "watch-delegated-jobs.md",
+      "quote": "Don't just wait for the completion notification.",
+      "rule": "Do not rely solely on the completion notification to learn that a long-running job has finished or stalled."
+    },
+    {
+      "id": "R200",
+      "file": "watch-delegated-jobs.md",
+      "quote": "When delegating a long job, set a fallback check: ScheduleWakeup, or a check after my next piece of work.",
+      "rule": "When delegating a long job, set a fallback check using ScheduleWakeup or a check after the next piece of work."
+    },
+    {
+      "id": "R201",
+      "file": "watch-delegated-jobs.md",
+      "quote": "If outputs haven't changed in 10+ minutes, inspect the job.",
+      "rule": "If a job's outputs have not changed in 10 or more minutes, inspect the job."
+    },
+    {
+      "id": "R202",
+      "file": "watch-delegated-jobs.md",
+      "quote": "Tell agents to wait on a PID or an output file, never on `pgrep -f <name>` when `<name>` appears in the waiting command itself.",
+      "rule": "Tell delegated agents to wait on a PID or an output file, never on `pgrep -f <name>` when `<name>` appears in the waiting command itself."
+    },
+    {
+      "id": "R203",
+      "file": "watch-delegated-jobs.md",
+      "quote": "Stall checks must watch the delegated session's own transcript file (find it by its brief text), never \"the\n  newest .jsonl in the project dir\".",
+      "rule": "Stall checks must watch the delegated session's own transcript file, found by its brief text, never the newest .jsonl in the project directory."
+    },
+    {
+      "id": "R204",
+      "file": "watch-delegated-jobs.md",
+      "quote": "When a stage completes, stop its monitors at once (TaskStop).",
+      "rule": "When a stage completes, stop its monitors immediately using TaskStop."
+    },
+    {
+      "id": "R205",
+      "file": "watch-delegated-jobs.md",
+      "quote": "**Never hand-install fal results by grabbing \"the first image URL\" in a fal_run log**",
+      "rule": "Never hand-install fal results by grabbing the first image URL in a fal_run log."
+    },
+    {
+      "id": "R206",
+      "file": "watch-delegated-jobs.md",
+      "quote": "Take the URL from the log's `response` field only (as luma_batch does), or re-run through the tool.",
+      "rule": "When getting a fal result URL, take it from the log's `response` field only, or re-run through the tool."
+    },
+    {
+      "id": "R207",
+      "file": "watch-delegated-jobs.md",
+      "quote": "running luma_batch without `--only` regenerates any entry it thinks is missing",
+      "rule": "Do not run luma_batch without `--only`, since it regenerates any entry it thinks is missing."
+    }
+  ],
+  "dropped": []
+}

@@ -1,0 +1,5 @@
+- [Harness + chat-UI policy (2026-05-12)](harness-and-chat-decision.md) — Jarble is an "Agent Infrastructure Platform"; "Agent Runtime" → "Agent Harness" in prose (code identifiers stay); legacy canvas + chat code is deprecated, harness owns chat
+- [Enterprise feature — Phase 1 backend](enterprise-phase1.md) — Org model, account types, agent listings, orgAuth utility added to all 3 DB schemas + deployment router
+- [Infrastructure hosting setup](infra-hosting.md) — Coolify for frontend (dev.jarble.ai, jarble.ai), Kubero for API (api.jarble.ai), both on Hetzner K3s
+- [jarble-agents host IP](jarble-agents-host.md) — jarble-agents node at 178.156.231.154 (SSH via id_ed25519_hetzner)
+- [jarble-mc Minecraft server](jarble-mc-server.md) — CPX41 at 5.161.195.44 running ATM10 v6.6 NeoForge for the team (whitelist on)

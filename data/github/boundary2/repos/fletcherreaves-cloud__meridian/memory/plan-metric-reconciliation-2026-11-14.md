@@ -1,0 +1,353 @@
+# Task #152 — app-wide metric/formula reconciliation (status, 2026-11-14)
+
+Owner's standing ask (verbatim, from this session): *"let's add to our growing list a
+reconciliation with a description of what every displayed result, app wide, actually
+represents. Formulas included if used. I know that will be a long list, but worthwhile in the
+end to have documented."* Explicitly authorized as multi-session/incremental — this file exists
+so the next pass (including a future me) doesn't re-derive what's already settled.
+
+## Where the documentation actually lives
+
+`src/engine/metric-provenance.js`'s `METRIC_PROVENANCE` registry, surfaced in-app via the
+**Metric Lineage** panel (`src/views/metric-lineage.js`, Calculated / Direct-Source Data tabs —
+both already shipped this session, see `v5.766`-era commits). Two tiers:
+
+- **Auto-generated** (`autoProvenanceFor()`) for every key in `metric-source.js`'s
+  `METRIC_SOURCES` — a metric added there gets a Lineage entry for free, no second manual step.
+- **Hand-curated** (`CURATED_PROVENANCE`) for anything where exact field-reconciled math or a
+  composed (multi-metric) formula is worth writing in prose. Curated always wins on collision.
+
+**Before this pass:** 97 METRIC_SOURCES chains + ~14 curated entries = ~111 total. Covers
+everything routed through the app's own auto-first resolver — the large majority of what's
+actually displayed, since that resolver is the house standard every panel is supposed to use.
+
+## What this pass added
+
+1. **Fixed two real, independently-diagnosed bugs** feeding into the GM Daily Review's Service
+   daypart breakdown (`src/engine/daily-review.js`'s `DAYPART_FIELDS`), input from
+   `memory/finding-signals-liveops-mislabels-2026-11-13.md` #2 (left unfixed there deliberately,
+   out of scope for that dispatch):
+   - `r2p`'s `fc_untilcloseddrawer` (two d's — typo) → `fc_untilclosedrawer` (one d, the real
+     column). Also added that column to `loadDtHistory`'s select list in `src/lib/supabase.js`
+     — it was never fetched at all, so the daypart breakdown silently returned zero R2P
+     dayparts for every store, every day, indistinguishable from "no matching rows" (exactly
+     the trap the test suite's own existing empty-case test couldn't catch — it only proves the
+     empty-case *handling* works, not that the real fields resolve).
+   - `kvst`'s bare `mfy_time`/`mfy_trans_cnt` (don't exist on `qsr_daily_activity` at all) →
+     `mfy1_untilserve`/`mfy2_untilserve` summed, `mfy1_trans_cnt`/`mfy2_trans_cnt` summed (the
+     real side-suffixed columns, already selected by `loadDtHistory` — confirmed before editing).
+   - New test: `src/__tests__/daily-review.test.js` — `'computes real R2P and KVS dayparts from
+     their actual qsr_daily_activity field names'`, asserting a non-empty, correctly-summed
+     result from realistic rows (the gap the pre-existing "no matching rows" test couldn't close).
+   - `dt-speedofservice.js`'s own Front Counter station has the *same* un-subtracted-R2P issue
+     (raw `fc_untilserve/fc_trans_cnt`, no `fc_untilclosedrawer` leg) — **left untouched**, per
+     that file's own dispatch #128 comment explicitly scoping it as future work, and per this
+     dispatch's own scope (daily-review.js was the named, already-diagnosed bug; dt-speedofservice
+     is a *different*, separately-flagged one).
+
+2. **6 new hand-curated `METRIC_PROVENANCE` entries** for displayed numbers that are composed
+   from MULTIPLE already-resolved `metric-source.js` values and so were never covered by
+   `autoProvenanceFor()` (which only sees single `METRIC_SOURCES` chains):
+   - `visitReadinessSpeed` / `visitReadinessAccuracy` / `visitReadinessQuality` /
+     `visitReadinessLeadership` — the 4 sub-scores feeding `visitReadiness` (the composite
+     already had its own entry; the 4 numbers the panel actually prints per-area did not).
+     Formulas traced directly from `engine/visit-readiness.js`'s `scoreMetric()`/`subScore()`
+     and the real `SPEED`/`ACCURACY`/`QUALITY`/`LEADERSHIP` spec arrays — summarized (mean of
+     each metric's 0-1 target-grade) rather than restated field-by-field, since the live panel
+     already prints each metric's own actual/target/score ("drivers") better than a static
+     registry entry could.
+   - `dailyReviewRefundAmt` (`cashRefAmt + cashlessRefAmt`) and `dailyReviewEmplMgrMeal`
+     (`empMealAmt + mgrMealAmt`) — the GM Daily Review's two `sumMs` composed lines
+     (`engine/daily-review.js buildLine()`). Every other line on that panel names a single
+     `metric-source.js` key and so is already auto-covered — these two were the only gap.
+   - New test coverage: `src/__tests__/metric-provenance.test.js`'s new
+     `'METRIC_PROVENANCE — task #152 curated additions (2026-11-14)'` block — asserts all 6 are
+     present/composed/Meridian-derived, the two `sumMs` entries name their real legs, and the 4
+     Visit Readiness keys don't collide with a real `METRIC_SOURCES` chain.
+
+3. **Confirmed Location Dossier needs NO new entries.** Read `location-dossier.js`'s
+   `DOSSIER_METRICS` end to end — all 9 keys (`sales`, `gc`, `laborPct`, `tpph`, `oepe`, `kvst`,
+   `cashOSPct`, `fobPct`, `primeCostPct`) already resolve through `METRIC_SOURCES`/curated
+   entries. Worth stating plainly rather than silently skipping, since "I checked and it's
+   already covered" is itself real progress on a task this broad — otherwise the same ground
+   gets re-walked next pass.
+
+## Pass 2 (2026-11-14, same day) — `signal-registry.js`
+
+The previous pass's "mostly already covered" characterization of `signal-registry.js` was
+**checked directly, not accepted as-is** — it was half right. Read the file end to end (1199
+lines) and classified every `METRIC_CATEGORIES` key:
+
+- **Most ARE already covered**, exactly as the previous pass said — bridged through that file's
+  own `AUTO_FIRST_KEY_MAP` to a real `METRIC_SOURCES` chain, so `autoProvenanceFor()` already
+  generates a Lineage entry. No action needed on these (service/controls categories are 100%
+  covered this way; most of labor/sales too).
+- **But 20 keys genuinely had NO `METRIC_SOURCES` chain at all** (confirmed by `grep` against
+  `metric-source.js` before writing anything — zero hits for every one of them), so they were
+  silently undocumented:
+  - 4 FOB sub-items the file's own `AUTO_FIRST_KEY_MAP` header comment already named as having
+    "NO matching METRIC_SOURCES chain today": `baseFoodPct`, `discCoupon`, `pLFoodPct`,
+    `pLPaperPct`. Direct parser pass-throughs (`src/parsers/index.js`) of the uploaded Monthly
+    Projections/FOB report's own columns — no in-app formula exists because none is computed.
+  - 11 SMG/VOICE customer metrics, previously unflagged by anything: `osat5`, `osatTop2`
+    (composed: 5★+4★), `osatB2B`, `accuracyB2B`, `dtProblem`, `overallProblem` (FullScale
+    scorecard, `smg_fullscale`) and `vpDtSat`/`vpIrSat`/`vpQualityB2B`/`vpFriesB2B`/`vpSnackB2B`
+    (the separate monthly VOICE Performance upload, `smg_voice_performance` — confirmed via
+    `src/lib/supabase.js`'s own `.from('smg_voice_performance')` calls and
+    `src/parsers/index.js`'s VOICE column-name list).
+  - 5 real-formula LifeLenz Data Explorer metrics, also previously unflagged: `schedGap`
+    (`crewHrs − idealTotHrs`, computed upstream, read as-is — table `lifelenz_schedule`),
+    `scheduleEditCount`/`scheduleCostVariance` (`engine/schedule-discipline.js`'s
+    `dailyScheduleVariance()` — count and Σ$ of post-publish schedule edits, table
+    `lifelenz_schedule_variance`), `complianceViolationCount`/`complianceCostPenalty`
+    (`engine/compliance-audit.js` — count and Σ$ of labor-compliance violations, table
+    `lifelenz_compliance_audit`).
+  - All 20 added to `CURATED_PROVENANCE` (`src/engine/metric-provenance.js`), formulas traced
+    directly from the real parser/engine code (not guessed from field names), with 4 new tests
+    (`src/__tests__/metric-provenance.test.js`'s `'task #152 signal-registry.js additions'`
+    block) asserting each is present, correctly marked composed/direct, and doesn't collide with
+    a real `METRIC_SOURCES` key.
+
+### Finding (not fixed): `salesVsLY` is two different, same-named metrics in two unrelated registries
+
+`signal-registry.js`'s `salesVsLY` key (Sales category) reads `fobRows.salesVsLY` directly — a
+raw monthly field, straight from the uploaded Monthly Projections/FOB report, no in-app
+computation. This is a **completely different number** from `metric-provenance.js`'s existing
+curated `salesVsLY` entry, which documents `vs-ly.js`'s `matchedVsLY` — a daily, DAR-sourced,
+matched-day Σcurrent/ΣLY calculation. Same string key, two unrelated real metrics, in two
+registries that don't cross-reference each other.
+
+**Not currently a live bug** — checked directly: `metric-lineage.js`/`metric-provenance.js`
+never import or read `signal-registry.js` at all (confirmed by grep), so a user browsing Metric
+Lineage for "salesVsLY" only ever sees the DAR-matched-day description; `signals.js`'s Signal
+Lab/Scanner never link out to Metric Lineage for any metric today (checked — the panel's only
+`InfoIcon` is one generic `signals_guide` KB link, not per-metric). So the two `salesVsLY`s
+never actually collide in front of a user today. **But the moment anyone wires Signal Lab
+metrics into Metric Lineage lookups** (a natural next step for exactly the kind of
+"what does this represent" transparency this whole task is about), this collision would make
+the FOB-sourced monthly `salesVsLY` silently show the wrong (DAR-matched-day) formula. Flagging
+here rather than renaming anything — renaming either one is a real product decision (which name
+is "the" Sales vs LY metric going forward), not something to resolve unilaterally mid-pass.
+
+### Explicitly deferred from pass 2
+
+- **The ~30 "cloud-leg" direct-read duplicates** (`glSales`, `glGC`, `csCashRefCnt`, `slSales`,
+  `qaSales`, etc. — the `glimpse`/`cash`/`ledger`/`daractivity` categories) are real, separately
+  user-visible Signal Lab picker entries, each a simple single-table/single-field read with no
+  formula. Not added this pass: there are ~30 of them, each mechanically identical in shape
+  (`{table: <one source table>, field: <name>}`), and `METRIC_CONCEPT` in `signal-registry.js`
+  already documents inline which manual-key counterpart each one is the "same underlying
+  quantity, different leg" of. Worth a dedicated bulk pass (genuinely mechanical, low risk,
+  lower value per entry than what's covered above) — next priority for `signal-registry.js`
+  specifically, separate from the `forecast.js` deferral below.
+- Weather/Calendar/Logged-Events/Pricing/Product-Mix-item categories — judged as NOT needing
+  `METRIC_PROVENANCE` entries. These are synthesized Scanner/Signal-Lab correlation inputs with
+  no source table and no panel-displayed KPI number in the traditional sense (a 0/1 day-of-week
+  flag, a per-item dynamic resolver) — `signal-registry.js`'s own extensive inline comments
+  already document what each one is and why, better than a registry entry could. This is a
+  judgment call, stated plainly rather than silently skipped, per this task's own standing rule.
+
+## Pass 3 (2026-11-14) — `forecast.js`'s 5 named models — RESOLVED
+
+All 5 (`dow`, `di`, `ae`, `ewma`, `simple`) now have `CURATED_PROVENANCE` entries
+(`forecastModelDow`/`forecastModelDi`/`forecastModelAe`/`forecastModelEwma`/`forecastModelSimple`,
+`src/engine/metric-provenance.js`). Traced directly from `engine/forecast.js`'s
+`forecastDay()`/`forecastSimple()`/`forecastAdaptiveEnsemble()`/`forecastEWMA()` branches — **and
+cross-checked against this same file's own pre-existing owner-facing KB articles**
+(`model_types`/`forecast_formula`/`adaptive_ensemble`/`ewma_model`/`adaptive_di`/
+`dialed_in_calibration`, all in the `KB_ARTICLES` object further down `forecast.js`) rather than
+independently re-deriving the same math from scratch and risking the two surfaces disagreeing.
+The two surfaces agreed on every formula checked.
+
+- **DOW and DI are the exact same code path** (the "Core Forecast Formula": `forecast = lyAdjH ×
+  opsFactor × (1+wAdj) × (1+trendFactor) × (1+eventFactor) × (1+plusUp)`) — DI differs only in
+  which parameter VALUES feed `lyW`/`t2`/`t4`/`t6`/`opsMult` (this store's own Dialed-In-calibrated
+  values vs. the district defaults DOW uses), not in the formula shape. Documented as two entries
+  anyway since they're two separately-selectable, separately-displayed model assignments, but each
+  entry says explicitly that they share the formula.
+- **AE (Adaptive Ensemble)** is a genuinely different 5-signal weighted blend that never touches
+  the Core Forecast Formula at all — documented all 5 signals (EWMA-DOW, LY-Adjusted, Momentum,
+  Seasonality, Adaptive DI) and the OK-vs-FL-interstate / weekday-vs-weekend weight variation.
+- **EWMA** is the simplest real formula (`Σ(α×(1−α)^i×S_i) ÷ Σ(α×(1−α)^i)`), no LY/trend/ops at all.
+- **Simple** — the day-level propagation of the T3M/T6W/T3W trailing family, leak-free (anchors to
+  start-of-day). The entry also states the later Period-Total Scoreboard finding (AE beats Simple
+  on 28-day totals, 2.7% vs 4.5% median MAPE, per `memory/simple-models-propagation.md`) so a
+  reader doesn't read Simple's original monthly-total backtest win as the current verdict on which
+  model is "best" — it's descriptive of what the model computes, not a ranking.
+
+**Found, not fixed (out of this task's scope, flagged for whoever next touches it):** this file's
+own `model_types` KB article (owner-facing, different surface than `METRIC_PROVENANCE`) still says
+*"Four codes exist: DOW, DI, AE, EWMA"* — stale since `simple` shipped in v4.532. `simple` has no
+equivalent KB article at all (confirmed: no `simple_model` key in `KB_ARTICLES`). This is the kind
+of doc-content drift this task's own methodology is otherwise built to catch, just on the KB
+surface rather than the Metric Lineage one — recorded here so the next KB-maintenance pass (task
+#75, Knowledge Base expansion) picks it up rather than it being silently re-discovered later.
+
+6 new tests (`src/__tests__/metric-provenance.test.js`'s `'task #152 forecast model additions'`
+block): all 5 present/composed/non-colliding, DOW/DI both cite the Core Formula shape while naming
+which side supplies "district default" vs "calibrated" parameters, AE names all 5 real signals and
+explicitly disclaims the Core Formula, EWMA's decay formula is present with no LY/ops leakage into
+its description, Simple's leak-free/T3M-T6W-T3W/Period-Total-Scoreboard framing is all present.
+- **`paperCost` (FOB_LINES in `daily-review.js`) — a genuine, already-flagged data gap, not a
+  documentation gap.** `DEFAULT_TARGETS` carries a real `tPaperCost` target but `metric-source.js`
+  has no actual-value key for it at all. The panel already surfaces this honestly (target-only
+  line, no actual, per that file's own comment) — there is no formula to document because none
+  exists yet. Not touched here; inventing one would be exactly the kind of guess CLAUDE.md's
+  "measure, don't reason" rule forbids. Flagging it here so it isn't mistaken for an oversight.
+
+## Mislabel candidates checked — none renamed
+
+Per this dispatch's own instruction (and the session's standing "measure before renaming" bar,
+already exercised this session on Accuracy→2nd Side Healthy Usage %, Prime Cost %→Labor + FOB %,
+DT Speed→OEPE): traced several candidate labels while reading the above files and found none
+that were actually wrong — `refundAmt`/`emplMgrMeal`/the 4 Visit Readiness sub-score labels all
+accurately describe what they compute. **No renames made this pass.** If a future pass finds a
+real mislabel, it goes through the same bar: trace the code first, rename only on confirmation,
+write it up the same way `finding-prime-cost-rename-2026-11-13.md` etc. already do.
+
+## Pass 4 (2026-11-16) — signal-registry.js's "cloud-leg" direct reads, RESOLVED
+
+Picked up the item pass 2 explicitly flagged as "next priority... genuinely mechanical, low
+risk" — the `glimpse`/`cash`/`ledger`/`daractivity` `METRIC_CATEGORIES` in `signal-registry.js`,
+each offering a manual/DAR-resolved metric's SAME real-world quantity as a separate, "· cloud"
+labeled Signal Lab/Scanner picker entry, read straight off one emailed/cloud Supabase table.
+
+Re-counted the real list directly against `signal-registry.js`'s own object literals rather than
+trusting the "~30" estimate from pass 2 — **34 keys, not ~30** (a plain grep undercounted several
+differently-spaced entries, e.g. `glTRedVoid`'s label spanning the pattern oddly — the same
+regex-undercount failure class task #75's KB batch 21 already hit once on `KB_ARTICLES` itself,
+worth remembering as a standing caution whenever "count the matches" is the method).
+
+- **15 `glimpseRows` keys** (`daily_glimpse_daily`), **7 `cashRows`** (`cash_sheet_daily`),
+  **7 `salesLedgerRows`** (`sales_ledger_daily`), **5 `qsrActSummaryRows`** (`qsr_daily_activity`)
+  — all added to `CURATED_PROVENANCE`. 32 are bare column reads (`composed: false`); the two
+  vs-LY % entries (`slSalesVsLY`, `qaSalesVsLY`) are `composed: true` since each is itself a
+  ratio against a matched LY figure, and each formula explicitly flags that it is NOT the same
+  calculation as the matched-day DAR `salesVsLY` entry documented earlier in this file — the
+  existing open naming-collision finding, now referenced from both of its new neighbors instead
+  of just the one place.
+- Every entry cross-references `signal-registry.js`'s own `METRIC_CONCEPT` grouping where one
+  exists (e.g. `glSales`/`slSales`/`qaSales` are all "cloud leg of the same net_sales quantity"),
+  and says plainly when a key has no concept-grouped counterpart (e.g. `glTRedVoid`, `cs3poSales`,
+  `qaActHrs`) rather than inventing a relationship that isn't in the registry.
+- 6 new tests (`src/__tests__/metric-provenance.test.js`'s `'task #152 signal-registry.js
+  "cloud-leg" additions (2026-11-16)'` block): exact key-count (34) locked so a future change to
+  either registry is forced to touch this test too, presence + no-METRIC_SOURCES-collision,
+  composed-flag split (only the 2 vs-LY keys), per-category table names, every label ending in
+  "· cloud" (the exact picker text a user sees), and the two vs-LY entries' own
+  not-the-same-calculation disclaimers.
+
+**Also fixed in the same pass (found while re-reading pass 3's own notes, not newly discovered):**
+the `model_types` KB article (`src/engine/forecast.js`'s `KB_ARTICLES`) — pass 3 had already
+flagged this as stale ("Four codes exist", no mention of `simple` at all, despite `simple`
+shipping as a selectable model in v4.532) and explicitly routed the fix to "the next KB-
+maintenance pass (task #75)." Picked up directly rather than waiting, since it's a factual
+correction to already-wired content, not a product/UI judgment call — the two genuinely open
+task #75 items (Condiment's 6-row icon treatment, Count Cycle's missing tab header) are
+unaffected and still need an owner decision, unchanged. Added a `## Simple — Trailing Baseline
+(T3M/T6W/T3W)` section, title/summary updated to "five," cross-checked word-for-word against
+`metric-provenance.js`'s own `forecastModelSimple` entry (written in pass 3, already verified
+against `engine/forecast.js` directly) so the two surfaces state the same formula and the same
+Period-Total-Scoreboard caveat, rather than drifting again.
+
+**Still open, deliberately deferred (not mechanical, needs a decision):** `condiment_pct`'s
+6-row FOB grid icon treatment and `count_cycle_guide`'s missing tab header — both task #75's,
+both re-confirmed across 5+ batches as needing a product/UI call, not another sweep.
+
+## Pass 5 (2026-11-16) — the Swing Alarm + Needs Attention's cross-domain $ figures
+
+Read `src/engine/attention-feed.js` (the ~20-detector engine behind the "Needs Attention" feed)
+and `src/engine/swing-feed.js`/`swing-detect.js` (the Swing Alarm global banner) end to end,
+looking for displayed results with a real formula that Metric Lineage didn't yet cover.
+
+- **`swingAlarm`** — genuinely undocumented until now, despite being the single most prominent
+  app-wide alert the owner has (Notes 58 #4: *"an absolute must... there must be no way for it
+  to go unnoticed"*). Added to `CURATED_PROVENANCE`, formula traced directly from
+  `swing-detect.js`'s `detectSwing()`/`pctSeries()`/`classify()` — the sustained-run threshold
+  logic, the dollars-at-stake sum, and the sales-vs-guest classification (traffic vs
+  check-erosion), including the real 676-store-week calibration already documented in that
+  file's own header comment (not re-derived, just carried over).
+- **`trafficDivergenceDollars`** — the one other genuinely NEW composed `$` formula found in
+  `attention-feed.js`: `trafficDivergenceAlerts`' "sales holding, traffic falling" dollar figure
+  (lost guests × the store's own current average check), only computed in that one direction
+  per the app's standing no-guess-dollar convention.
+- **Everything else in `attention-feed.js` was read and judged to need NO new entry** — most
+  detectors (`fobOutliers`, `fobOverTarget`, `opportunityAlerts`, `transferOpportunities`, etc.)
+  only format/threshold a metric already documented elsewhere: `fobOutliers`/`fobOverTarget`'s
+  excess-$ formula is the same `(rate − benchmark) × sales` shape `oppTotal`'s Food$ leg already
+  documents (just a different benchmark — district average vs. the store's own target), and the
+  rest are straight pass-throughs of already-computed engine output (`computeOpportunity()`,
+  `computeTransfers()`, `rankCommentOpportunities()`, etc.) with no new math of their own. Stated
+  here per this task's own standing rule, rather than silently skipping the file.
+- `recommendation-ledger.js` was also checked — not a candidate yet. Its grading math
+  (`gradeOutcome`) is real, but the feature isn't live (the ledger table doesn't exist in
+  Supabase yet, per that file's own header comment); adding a provenance entry for a number
+  nothing displays would be documenting a feature that doesn't exist, the same trap pass 3's
+  `paperCost` note already named.
+- 5 new tests (`src/__tests__/metric-provenance.test.js`'s `'task #152 Swing Alarm + Traffic
+  Divergence additions (2026-11-16)'` block): both present/composed/non-colliding, swingAlarm's
+  real thresholds + the 676-store-week/10422 calibration + its per-situation ack-key granularity,
+  trafficDivergenceDollars' real formula + the dollars:0 no-guess convention for the reverse
+  direction, and a scope-guard asserting `oppTotal` already covers the FOB-excess shape (so a
+  future pass doesn't re-add it under a new key).
+
+## Pass 6 (2026-11-19) — Promo/Discount ROI, RESOLVED
+
+Read `src/engine/promo-roi.js` end to end (the matched-day lift engine behind the Promo/Discount
+ROI panel and SAGE's `query_promo_roi` tool) — a genuinely new, substantial, previously
+undocumented formula. `metric-provenance.js` only had the raw cloud-leg column reads
+(`glPromoPct`/`glPromoAmt`); the actual ROI computation (lift %, give-away $, gross-profit Δ,
+verdict) had no entry at all.
+
+- Added one `promoDiscountRoi` entry to `CURATED_PROVENANCE` — modeled on `swingAlarm`'s "one
+  entity, several displayed facets" shape rather than one entry per column, since all of the
+  panel's displayed figures (Sales lift/day, Give-away/day, Gross-profit Δ/day, Lift %, Verdict —
+  both per-store and district) come out of the same single `matchedLift()` pass. Documents the
+  file's own central methodology in full: why the exogenous promo-calendar-tag split (org_events
+  `event_type:'promo'`, `orgSourced:true` only — the national OPNAD calendar) replaced two prior
+  same-day-intensity splits that each measured biased in opposite directions at a true effect of
+  zero (dispatch-113.md / `finding-promo-roi-denominator-bias-2026-08-23.md`), the real verdict
+  thresholds (pays/costs/neutral/n-a, the `$5`/`2%` floor), and the discount lever's honest
+  "no_signal_exists" limit — a structural data-model gap, not a temporary coverage hole the promo
+  lever's own "missing calendar data for the loaded window" case is.
+- **Deliberately left out `extraGcPerDay`** — the engine computes it but the panel never renders
+  it anywhere (confirmed by grep against `src/views/promo-roi.js`), and this task's own scope is
+  documented DISPLAYED results only, not every intermediate the engine happens to calculate.
+- 5 new tests (`src/__tests__/metric-provenance.test.js`'s `'task #152 Promo/Discount ROI
+  addition (2026-11-19)'` block): presence/composed/non-collision, the exogenous-split language
+  + dispatch-113 citation, the real verdict thresholds + district weighting, the discount
+  lever's no-signal-exists/structural-limit framing, and a negative assertion that
+  `extraGcPerDay` never appears (guards against a future edit silently promoting it to a
+  "displayed" field without updating this entry).
+
+## Pass 7 (2026-11-19) — FOB Root-Cause Analysis (Recount Impact + FOB Consistency), RESOLVED
+
+Read `src/engine/fob-recount-analysis.js` end to end — the engine behind the "🔬 FOB Root-Cause
+Analysis" modal (`eom-dashboard.js`, Notes 41) and SAGE's `query_eom_recount_impact` tool.
+Genuinely undocumented: no "recount" hit anywhere in `metric-provenance.js` before this pass.
+
+- Added **two** entries (`fobRecountImpact`, `fobConsistency`), not one — unlike `swingAlarm`'s
+  "one entity, many facets" shape, this file's two outputs are genuinely separate displayed
+  tables with their own heading, own columns, and the panel's own already-written inline
+  methodology blurb (which the two new entries were checked word-for-word against, not
+  independently re-derived, so the two surfaces can't drift from day one):
+  - `fobRecountImpact` — Toward $0 / Away / Net / # recounted, from `recountImpactByStore()`:
+    per repeatedly-counted item, `eff = |base $ variance| − |final $ variance|`; positive sums
+    into `toward` (the recount helped), negative into `away` (it hurt); `net = toward − away`,
+    net-negative stores sorted first as the coaching list.
+  - `fobConsistency` — Mean FOB% / Std dev (pp) / # months, from `fobConsistencyByStore()`: each
+    store's MONTH-FINAL (last day of month) dollar-weighted FOB% per month, then the mean and
+    population std-dev across all months in scope. Explicitly noted that low sd measures
+    repeatability, not quality — a store can be consistently over target.
+- 4 new tests (`src/__tests__/metric-provenance.test.js`'s `'task #152 FOB Root-Cause Analysis
+  additions (2026-11-19)'` block): presence/composed/non-collision for both, the real
+  toward/away/base/final language, the dollar-weighted month-final formula + the
+  consistency-is-not-a-quality-verdict caveat, and both citing the same real engine file.
+
+## Verification
+
+Full suite (`npm test -- --run`) and `npm run build` both pass clean (see commit for exact
+counts/KB — this file predates running them in sequence, so don't quote stale numbers from here;
+read the commit message for the real figures). The two bug-fix changes were verified the same
+way the rest of this session held to: realistic fixture rows with the REAL field names, not a
+rename-and-hope pass.

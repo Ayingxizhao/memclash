@@ -1,0 +1,9 @@
+- [Plan & Task management](plan-management.md) — File structure, naming rules, format conventions and execution flow (plan→execute→summarize)
+- [Bridge architecture: Mapbox vs Maplibre](feedback_bridge-architecture.md) — Bridge layers are independent; do not force abstraction into shared
+- [Tooling decisions](project_tooling-decisions.md) — ESLint deferred, playground aliases use absolute paths, tsup external
+- [Vue component patterns](feedback_vue-component-patterns.md) — h() not JSX, static arrays for callbacks, emits are not props, attrs passthrough, layered build error diagnosis
+- [Debugging lessons](feedback_debugging-lessons.md) — maplibre-gl CSS must be explicitly imported, headless Chrome can't render WebGL, Popup closeOnClick default behavior
+- [ViewState reactivity](feedback_viewstate-reactivity.md) — Map watch must explicitly destructure viewState fields, no flush:'sync', _updateSize width=0 guard
+- [Vue lifecycle timing](feedback_vue-lifecycle-timing.md) — Child onMounted timing, Popup addTo delay, closeOnClick race condition
+- [Maplibre v5 migration](feedback_maplibre-v5-migration.md) — canvasContextAttributes, projection API, marker inside canvasContainer
+- [npm publishing workflow](project_npm-publishing.md) — publish order, scripts/publish.sh, workspace:* resolution, single-package updates

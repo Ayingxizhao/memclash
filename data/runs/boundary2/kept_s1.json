@@ -1,0 +1,279 @@
+{
+ "rules": [
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R9",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "merge",
+       "branch": "main"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Merge changes into main only when the user explicitly says to."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R129",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:download and launch vs code for a probe"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:download and launch vs code for a probe"
+   ],
+   "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R110",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:canvas-component-builder agent"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:new-component skill"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:canvas-component-builder agent",
+    "other:new-component skill"
+   ],
+   "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R158",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "force_push"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never force-push."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R161",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:db drop statements"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:db drop statements"
+   ],
+   "rule": "Never run DB DROP statements."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R162",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:force-delete deployments"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:force-delete deployments"
+   ],
+   "rule": "Never force-delete deployments."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R43",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "stage",
+        "commit",
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not stage, commit, or push changes even if it seems like a natural next step."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R85",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": "tailwind.config.ts"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not create a `tailwind.config.ts` file."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R88",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:reconnect acmevintagesupply domain"
+      }
+     }
+    ],
+    "left_out": "The explanation about overwriting GoDaddy DNS records is not an additional action constraint."
+   },
+   "new_names": [
+    "other:reconnect acmevintagesupply domain"
+   ],
+   "rule": "Do not reconnect acmevintagesupply.com in Shopify \u2192 Domains, because it overwrites GoDaddy DNS records."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R113",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/data/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R114",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/checkpoint/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R115",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/results/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R84",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records approval but not the act of asking or waiting for it."
+   },
+   "new_names": [],
+   "rule": "Ask for or wait for user approval before running git commit."
+  }
+ ]
+}

@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R31",
+   "rule": "Do not make fal.ai calls until King says to resume fal work."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R36",
+   "rule": "Do not start a full video run until King gives his go-ahead."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R41",
+   "rule": "Estimate image generation cost before running it, per CLAUDE.md."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R83",
+   "rule": "When committing in a private project's own repo, commit only the episode folder that belongs to you."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R2",
+   "rule": "To build the SYSTEM hive used by the ramdisk, run `ninja boot/bootdata/system`, not `ninja bootcd_hives`."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R38",
+   "rule": "Do not create git commits without first asking the user for permission."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R58",
+   "rule": "Before starting any IO subsystem translation work, check the IO translation status file."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R81",
+   "rule": "When using the Unix socket serial client, listen on the socket before starting QEMU (server-socket pattern)."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R16",
+   "rule": "Do not modify plugin cache files to fix agent model configuration."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R17",
+   "rule": "Do not modify .claude/settings.json to fix agent model configuration."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R18",
+   "rule": "Do not modify CLAUDE.md to fix agent model configuration; use the memory layer instead."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R11",
+   "rule": "Edit project skills in `.agents/skills/`, not in the generated `.claude/skills/` mirror."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R110",
+   "rule": "Before running `kubectl delete application <name> -n argocd`, always confirm with the user first."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R13",
+   "rule": "Edit `MEMORY.md` directly at `/workspaces/home-ops/.claude/memory/MEMORY.md`, not through the symlinked path."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R17",
+   "rule": "If a memory file in `~/.claude/projects/-workspaces-home-ops/memory/` is a real file, move it to `/workspaces/home-ops/.claude/memory/`."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R178",
+   "rule": "Never commit the Thread network key or PSKc to the repository."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R183",
+   "rule": "Never edit /data/settings.json in Music Assistant while MA is running."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R19",
+   "rule": "Run kubectl get, describe, logs, top, and diff freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R20",
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R21",
+   "rule": "Run talosctl get, health, logs, version, dmesg, ps, services, and disks freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R22",
+   "rule": "Ask the user for confirmation before running talosctl apply-config, upgrade, reset, reboot, or shutdown."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R23",
+   "rule": "Run terraform show, plan, and state freely without asking for confirmation, in provision/terraform/cloudflare/."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R24",
+   "rule": "Ask the user for confirmation before running terraform apply, destroy, taint, or import in provision/terraform/cloudflare/."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R25",
+   "rule": "Run argocd app list, get, and diff freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R26",
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R51",
+   "rule": "Committing on the feature branch is allowed."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R54",
+   "rule": "Never merge a PR without fresh consent from the user."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R65",
+   "rule": "Always render the Helm/Kustomize manifests before committing Helm/Kustomize changes."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R7",
+   "rule": "Before creating a templates/httproute.yaml file, run helm show values on the chart to check for built-in gateway/HTTPRoute support."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R79",
+   "rule": "Keep superpowers-era specs and plans in `.archive/.plans/superpowers/{specs,plans,research}/`; do not move them out."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R80",
+   "rule": "Do not recreate `.plans/superpowers/`."
+  },
+  {
+   "folder": "mosqueeto__me",
+   "id": "R12",
+   "rule": "Update VERSION_NAME in main.c as part of every commit."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R10",
+   "rule": "Stop and ask the user before merging PRs."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R16",
+   "rule": "Never merge a pull request by any method, including `gh pr merge`, unless the user explicitly tells you to merge."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R109",
+   "rule": "When deleting temporary space, delete that exact absolute path rather than using a wildcard or a relative path."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R166",
+   "rule": "Before merging a worker's PR, the controller must verify the PASS claim independently rather than trusting the worker's report."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R198",
+   "rule": "Keep the .mcp.json file untracked (do not commit it to version control)."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R22",
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only with the owner's OK."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R23",
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R32",
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R34",
+   "rule": "Never ask the user for permission before opening the PR."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R5",
+   "rule": "Run `git branch -D` only after verifying that the branch tip equals the merged PR head, and perform that check as its own separate step."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R71",
+   "rule": "For a change that touches only proposals, plans, docs, `.claude/`, `memory/` or root Markdown, do not run tests, typecheck, lint, or `pnpm verify`, and do not wait on or report them."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R87",
+   "rule": "Before running any `git commit`, verify the current branch is not `main`."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R104",
+   "rule": "Run the staging corpus loader as a one-off container on the noorinalabs_backend docker network on the staging host (ssh deploy@noorinalabs-stg), since no bolt port is published."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R105",
+   "rule": "Do not run production corpus loads without explicit owner approval."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R106",
+   "rule": "Staging corpus loads are permitted as sanctioned wave work."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R109",
+   "rule": "Gate thaqalayn parser fixes on passing `make validate` in strict mode."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R115",
+   "rule": "For fast stage rehearsal, use scripts/scrub_relational_pollution.py on already-built curated artifacts instead of re-running the full NER\u2192disambiguate\u2192enrichment pipeline."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R118",
+   "rule": "When resuming dedup, reload the persisted .faiss index instead of rebuilding it."
+  }
+ ]
+}

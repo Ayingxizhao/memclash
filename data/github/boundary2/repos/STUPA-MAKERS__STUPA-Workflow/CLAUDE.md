@@ -1,0 +1,119 @@
+# CLAUDE.md — agent guide to STUPA-Workflow
+
+Entry point for any AI agent (Claude Code and other wrappers) that works in this repo. It maps the
+codebase to the **specs** (`specs/`, the binding rules), a set of **skills** (per-module navigation
+docs) and **memories** (pointers to specs). Use them to orient fast instead of reading everything
+again.
+
+## What this is
+
+**STUPA-Workflow** (also called *antragsplattform*) — a web platform for the application, meeting,
+and budget work of a student government (STUPA/AStA). Applicants submit through a public form.
+Gremium members process applications, run meetings with live votes and a protocol, and manage
+cost-center budgets and invoices. The platform versions and audits all of this work. Monorepo, one
+VM, `docker compose`.
+
+**Stack:** Backend = Python 3.13 / FastAPI / Pydantic v2 / SQLAlchemy 2.0 async + Alembic / arq
+worker. Frontend = Angular 22 (strict TS, standalone, separate `.html`/`.scss`, signals,
+ngx-formly). Postgres 16 (versioned JSONB), Redis, MinIO (S3), ClamAV, typst (internal
+Markdown→PDF), ALTCHA.
+
+Full prose: `README.md`. Workflow & Definition of Done: the `conventions` skill.
+
+## How to navigate (read in this order)
+
+0. **`specs/`** — the binding rules, one rule per file. `specs/README.md` has the index. A spec
+   wins over a skill or a memory. A change request starts as a spec.
+1. **`.claude/skills/conventions/`** — house rules (problem+json, tz-aware, server-side RBAC, no
+   `eval`, i18n parity, coverage gates, alembic policy). Read this before changing any code.
+2. **The relevant `be-*` / component skill** — open the skill for the module you touch. Each
+   skill's `description` says when to use it. The body maps key files, the domain model, the API
+   surface, and the traps. Skills cross-link siblings (`be-x`) and memories (`[[slug]]`).
+3. **The memory it links** — `.claude/memory/` points to the specs of a subject. Read a linked
+   `[[memory]]` when it is relevant to your change.
+
+## Skills (`.claude/skills/<name>/SKILL.md`)
+
+Cross-cutting:
+- **conventions** — house rules, Definition of Done, test/coverage gates, alembic migration policy,
+  `app/shared/` utilities. **Start here.**
+
+Backend domain modules (`backend/app/modules/<module>`):
+- **be-auth** — OIDC+PKCE / magic-link, sessions, RBAC, OAuth2 tokens for MCP *(critical)*
+- **be-admin** — branding, gremium roles, site-config draft/activate, per-page admin RBAC
+- **be-applications** — application lifecycle, version diff, timeline, comments, anonymization
+- **be-application-types** — bind a form version to an application type (one global flow)
+- **be-forms** — versioned form JSON, definition/answer validation, JsonLogic visibleIf/compute
+- **be-flow** — declarative state machine, guard evaluator (no eval), transition actions
+  *(critical)*
+- **be-voting** — quorum/majority/secret ballot, tally, gremium-scoped reads *(critical)*
+- **be-livevote** — meetings, agenda items, attendance, live vote over WebSocket + beamer stream
+- **be-protocol** — meeting protocol (Markdown→PDF), vote snippets, finalize + mail
+- **be-delegations** — meeting-bound vote delegations + substitute pool
+- **be-budget** — cost-center tree, fiscal years, allocations, bookings/transfers, ZUGFeRD
+  invoices *(critical)*
+- **be-orders** — Bestellungen of an approved Antrag: purchases with planned and real price,
+  status, positions, buyer, own files, right `order.manage`, the page "Bestellungen" (/orders)
+- **be-notifications** — mail templates (Jinja2 sandboxed), rules, prefs, arq dispatch
+- **be-webhooks** — outgoing event webhooks, SSRF guard, HMAC signature *(critical)*
+- **be-audit** — append-only sha256 hash chain, DB trigger, chain verification *(critical)*
+- **be-backup** — whole-platform age-encrypted backups + in-app restore, `/admin/backups` *(critical,
+  100 % branch gate)*
+- **be-translations** — admin overrides of the UI texts, extra UI languages, public `/i18n` bundle,
+  the built-in texts from the frontend catalog JSON
+- **be-config-revision** — versioned config + audit + revert
+- **be-files** — MinIO attachments, ClamAV scan, downloads streamed through the API
+- **be-media** — Markdown images: upload, Pillow re-encode, canonical `/api/media/images/<id>`,
+  public protocol images, images in the protocol PDF
+- **be-pdf** — client to the typst render service (protocols, the plan export, and the Antrag PDF
+  of the `documents` module)
+- **be-privacy** — DSGVO/GDPR anonymization, export/erasure
+- **be-calendar** — calendar/ICS feed for meetings
+- **be-avatars** — Gravatar proxy for person avatars (`/principals/{id}/avatar`), Redis cache,
+  admin switch
+- **be-antiabuse** — ALTCHA captcha + rate-limiting + body-cap for public endpoints
+- **be-search** — global search (command palette): one query, nine sources, each behind the
+  gate of its own module
+- **be-tickets** — help-menu tickets: one-way public report (ALTCHA when signed out),
+  `ticket.manage` work routes, notes, events, retention cron
+- **be-graph** — the graph page: `GET /api/graph` (elements and relations as nodes and edges,
+  paged), permission `graph.view`, read rules through the link resolver
+- **be-paperless** — optional Paperless-ngx integration: connection at `/admin/paperless`
+  (`admin.paperless`), the filing cron for protocols, Anträge, attachments and plans, the failed
+  list, the backfill, the entry "In Paperless öffnen" (`paperless.use`)
+- **be-todos** — to-do boards (gremium, personal, team): RBAC `todo.write`/`todo.configure`,
+  lexorank moves, ETag, links with per-kind read checks, ticket and agenda coupling, mails
+
+Components:
+- **frontend** — Angular 22 SPA (`frontend/`): core/shared/features/pages, design system, build
+- **mcp** — MCP server (`mcp/`): act on the platform through its API as the logged-in user, PKCE
+  browser grant
+- **typst** — internal Markdown→PDF render service (`typst/`), data-driven Typst template,
+  layout calibrated to the pytex reference, variants
+- **deploy** — docker-compose production stack (`deploy/`) behind an external Caddy reverse
+  proxy (the TLS edge), services, networking
+
+## Memory (`.claude/memory/`)
+
+One file per subject. Each file lists the specs that hold its rules. Index + per-file links:
+**`.claude/memory/MEMORY.md`**.
+
+> This repo intentionally does **not** mirror internal security-audit findings. Do not add them.
+
+## For other agent wrappers
+
+- `AGENTS.md` is a symlink to this file.
+- `.agents/skills` is a symlink to `.claude/skills`.
+
+So a wrapper that looks for `AGENTS.md` or `.agents/skills` resolves to the same content.
+
+## Quick command reference
+
+- Backend (`backend/`): `ruff check .` · `lint-imports` · `basedpyright` · `pytest` ·
+  `pytest -m integration`
+- Frontend (`frontend/`): `npm run lint` · `npm run typecheck` · `npm test` · `npm run build`
+- Migrations (`backend/`): `alembic revision -m "..."` (hash id) · `alembic heads` (must be 1) ·
+  `alembic upgrade head`
+- Stack (`deploy/`): `docker compose config -q` · `docker compose up -d --build`
+
+See the `conventions` skill for the full gates.

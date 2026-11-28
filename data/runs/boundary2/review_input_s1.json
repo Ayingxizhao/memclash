@@ -1,0 +1,1120 @@
+{
+ "rules": [
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R5",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot express that every change must have its own dedicated branch."
+   },
+   "new_names": [],
+   "rule": "Never commit directly to the main branch; every change must be made on its own dedicated branch."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R59",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push_branch"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not push to GitHub unless the user explicitly says \"sync\" or an equivalent request."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R61",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push_branch"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never run `git push` unless the user asks to sync."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R7",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "stage",
+        "commit"
+       ],
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "The explicit act of checking or confirming the current branch cannot be represented."
+   },
+   "new_names": [],
+   "rule": "Before running any git add or git commit, confirm the current working branch is not main."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R8",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit",
+       "branch": "main"
+      },
+      "needs": {
+       "after": "branch_create"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "If the current working branch is main, create a new branch before making any commit."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R9",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "merge",
+       "branch": "main"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Merge changes into main only when the user explicitly says to."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R129",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:download and launch vs code for a probe"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:download and launch vs code for a probe"
+   ],
+   "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R41",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:confirm base branch exists with git ls-remote",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:confirm base branch exists with git ls-remote"
+   ],
+   "rule": "Before opening a PR, run `git ls-remote --heads origin` and confirm the base branch exists."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R15",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "local_merge"
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "after": "pr_create"
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:codex automated review"
+      }
+     }
+    ],
+    "left_out": "The vocabulary does not distinguish GitHub from another PR host."
+   },
+   "new_names": [
+    "other:codex automated review"
+   ],
+   "rule": "Use a GitHub PR workflow with Codex automated review before merging changes."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R5",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "test",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the tests are end-to-end or cover every major path rather than only one path."
+   },
+   "new_names": [],
+   "rule": "Before submitting a PR, run end-to-end tests covering all major paths, not just one path."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R6",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:list and verify trigger paths",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:list and verify trigger paths"
+   ],
+   "rule": "Before submitting a PR, list all trigger paths and verify each one individually."
+  },
+  {
+   "folder": "Alsesd__EasyMourningReport",
+   "id": "R29",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ],
+       "path": [
+        "data/",
+        "backups/",
+        "reports.db",
+        "secret.key",
+        ".env"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never touch data/, backups/, reports.db, secret.key, or .env."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R110",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:canvas-component-builder agent"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:new-component skill"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:canvas-component-builder agent",
+    "other:new-component skill"
+   ],
+   "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R158",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "force_push"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never force-push."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R159",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "edit",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never edit the main branch directly."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R161",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:db drop statements"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:db drop statements"
+   ],
+   "rule": "Never run DB DROP statements."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R162",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:force-delete deployments"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:force-delete deployments"
+   ],
+   "rule": "Never force-delete deployments."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R92",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "merge"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Confirm the target branch before performing any merge."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R94",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "merge",
+       "branch": "main"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records that the user asked but cannot require the exact phrases \"merge to main\" or \"deploy to production.\""
+   },
+   "new_names": [],
+   "rule": "Merge to main only when the user explicitly says \"merge to main\" or \"deploy to production.\""
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R99",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:set theme"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:set theme"
+   ],
+   "rule": "Do not call set_theme unless the user explicitly asks for it."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R2",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:remove python installation"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:check console scripts"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot correlate the check with each particular interpreter or distribution or identify its Scripts directory."
+   },
+   "new_names": [
+    "other:remove python installation",
+    "other:check console scripts"
+   ],
+   "rule": "For each Python interpreter or distro slated for removal, check its Scripts directory for console scripts that point to it."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R3",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:remove python installation"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:search profiles for python path"
+      }
+     }
+    ],
+    "left_out": "The rule does not name the profile and init file paths, and the vocabulary cannot correlate the search with each particular interpreter or distribution."
+   },
+   "new_names": [
+    "other:remove python installation",
+    "other:search profiles for python path"
+   ],
+   "rule": "For each Python interpreter or distro slated for removal, grep profile and init files for its path."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R114",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "worktree_add",
+        "worktree_remove"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never use git worktrees on this project."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R268",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "cherry_pick"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:check recent git log",
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that exactly five one-line log entries were inspected or that the check successfully confirmed the contents."
+   },
+   "new_names": [
+    "other:check recent git log"
+   ],
+   "rule": "Always check `git log --oneline -5` to confirm what is on main before cherry-picking."
+  },
+  {
+   "folder": "CrystalPlatforms__exsize",
+   "id": "R11",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start exsize phase"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:check issue blockers"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot correlate the blocker check with the particular phase."
+   },
+   "new_names": [
+    "other:start exsize phase",
+    "other:check issue blockers"
+   ],
+   "rule": "Always check issue blockers before starting a phase of the ExSize project."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R129",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:fix shopify private access token 401"
+      }
+     }
+    ],
+    "left_out": "The explanatory claim that the error resolves when the store goes live is not a normative action constraint."
+   },
+   "new_names": [
+    "other:fix shopify private access token 401"
+   ],
+   "rule": "Do not attempt a code fix for the Shopify private_access_tokens 401 error; it resolves on its own once the store goes live."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R13",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:fix exchange rate cors error"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:fix exchange rate cors error"
+   ],
+   "rule": "Do not fix the CORS error in the exchange-rate fetch (api.frankfurter.app blocked in lib/currency.ts/store/currencyStore.ts) until the user says to."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R40",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "push",
+        "commit",
+        "stage"
+       ]
+      }
+     }
+    ],
+    "left_out": "The phrase \"any destructive git command\" does not identify a fixed set of additional vocabulary actions, so only push, commit, and git add/stage are translated."
+   },
+   "new_names": [],
+   "rule": "Never run git push, git commit, git add, or any destructive git command."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R43",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "stage",
+        "commit",
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not stage, commit, or push changes even if it seems like a natural next step."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R83",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start next build phase"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the user's confirmation to have the exact text \"Yes, Proceed.\""
+   },
+   "new_names": [
+    "other:start next build phase"
+   ],
+   "rule": "Do not start the next build phase until the user has explicitly replied \"Yes, Proceed.\""
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R85",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": "tailwind.config.ts"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not create a `tailwind.config.ts` file."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R88",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:reconnect acmevintagesupply domain"
+      }
+     }
+    ],
+    "left_out": "The explanation about overwriting GoDaddy DNS records is not an additional action constraint."
+   },
+   "new_names": [
+    "other:reconnect acmevintagesupply domain"
+   ],
+   "rule": "Do not reconnect acmevintagesupply.com in Shopify \u2192 Domains, because it overwrites GoDaddy DNS records."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R113",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/data/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R114",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/checkpoint/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R115",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "stage",
+       "path": "src/results/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R150",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "delete",
+       "path": "C:\\Users\\javid\\Documents\\Javier\\.claude"
+      }
+     }
+    ],
+    "left_out": "The rationale that this is the only pre-crash copy is not represented."
+   },
+   "new_names": [],
+   "rule": "Do not delete the Claude home backup at `C:\\Users\\javid\\Documents\\Javier\\.claude`, because it is the only copy of the pre-crash state."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R209",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:single-snapshot self-aiding"
+      }
+     }
+    ],
+    "left_out": "The broad notion of pursuing the approach outside a runnable task is not represented."
+   },
+   "new_names": [
+    "other:single-snapshot self-aiding"
+   ],
+   "rule": "Do not pursue single-snapshot self-aiding (a self-derived prior from one codeword) any further."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R244",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:build ns-3 5g-lena ns3-rt integration"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot inspect project content to identify implementation of this integration."
+   },
+   "new_names": [
+    "other:build ns-3 5g-lena ns3-rt integration"
+   ],
+   "rule": "Do not build an ns-3 + 5G-LENA + ns3-rt integration."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R17",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": "MEMORY.md"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "memory/MEMORY.md"
+      }
+     }
+    ],
+    "left_out": "The vocabulary has no copy action and cannot prove that the created file is a copy rather than newly authored content."
+   },
+   "new_names": [],
+   "rule": "Do not create MEMORY.md from scratch; only copy the existing memory/MEMORY.md."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R217",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit",
+       "path": ".claude/helpers/"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:bootstrap"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish a direct edit from an edit produced by bootstrap or represent source-of-truth status."
+   },
+   "new_names": [
+    "other:bootstrap"
+   ],
+   "rule": "Never edit .claude/helpers/ directly as the source of truth; update it only by re-running the bootstrap."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R77",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:end-to-end verification"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot determine whether /verify, launching the app, or driving it constitutes the named end-to-end verification task."
+   },
+   "new_names": [
+    "other:end-to-end verification"
+   ],
+   "rule": "Do not run end-to-end verification, such as the /verify skill or launching the app and driving it."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R79",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "files_shown": true,
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "files_shown approximates review but cannot prove that the user reviewed the change; the prior-slice history is explanatory."
+   },
+   "new_names": [],
+   "rule": "Do not run git commit until the user has reviewed the change and explicitly approved it, even if prior slices in the repo were committed one per issue."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R82",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "lint"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "build"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:typecheck"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:verification"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:checks"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the request occurred in the same conversation."
+   },
+   "new_names": [
+    "other:typecheck",
+    "other:verification",
+    "other:checks"
+   ],
+   "rule": "Run verification or checks only when the user explicitly asks for them in that conversation."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R84",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records approval but not the act of asking or waiting for it."
+   },
+   "new_names": [],
+   "rule": "Ask for or wait for user approval before running git commit."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R86",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:verification"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish a harness or skill prompt from a user request or represent prompt precedence."
+   },
+   "new_names": [
+    "other:verification"
+   ],
+   "rule": "Do not let harness or skill prompts suggesting verification override the rule against running verification without user request."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R159",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": "has_secret does not distinguish the Claude API key from other secrets."
+   },
+   "new_names": [],
+   "rule": "Never commit the Claude API key to the repository."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R174",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit"
+       ],
+       "path": "plan/*"
+      }
+     }
+    ],
+    "left_out": "The path pattern captures files directly inside plan/ but cannot determine semantically whether each file is a plan file."
+   },
+   "new_names": [],
+   "rule": "Never save plan files directly in the root `plan\\` folder."
+  }
+ ]
+}

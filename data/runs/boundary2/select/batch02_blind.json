@@ -1,0 +1,2548 @@
+{
+ "BeastHome__dice-roller": {
+  "R1": {
+   "file": "feedback-commit-from-main-project.md",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, make file edits with `Edit`/`Write` using absolute paths under the main project root, not the worktree path."
+  },
+  "R2": {
+   "file": "feedback-commit-from-main-project.md",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, run the project's build tools and `git` commands against the main project path, not the worktree path."
+  },
+  "R3": {
+   "file": "feedback-commit-from-main-project.md",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, never switch branches in the worktree to commit there."
+  },
+  "R4": {
+   "file": "feedback-commit-style.md",
+   "rule": "When writing commit messages, match the existing commit style visible in `git log`."
+  },
+  "R5": {
+   "file": "feedback-commit-style.md",
+   "rule": "Write commit subject lines in short conventional-commit format."
+  },
+  "R6": {
+   "file": "feedback-commit-style.md",
+   "rule": "Omit the commit body when the subject line already conveys enough information."
+  },
+  "R7": {
+   "file": "feedback-commit-style.md",
+   "rule": "Format commit subject lines as `<type>(<scope>): <imperative summary>`, keeping them under about 72 characters."
+  },
+  "R8": {
+   "file": "feedback-commit-style.md",
+   "rule": "Use `fix`, `feat`, `refactor`, `chore`, or `docs` as the commit type, usually."
+  },
+  "R9": {
+   "file": "feedback-commit-style.md",
+   "rule": "Use the package name as the commit scope, or `docs` for documentation changes."
+  },
+  "R10": {
+   "file": "feedback-commit-style.md",
+   "rule": "Add a commit body only when the reason for the change isn't obvious from the subject line, such as for a subtle invariant, an opt-out, or a multi-step migration."
+  },
+  "R11": {
+   "file": "feedback-commit-style.md",
+   "rule": "Use multi-line or multi-paragraph commit bodies when the content warrants it."
+  },
+  "R12": {
+   "file": "feedback-commit-style.md",
+   "rule": "Do not pad commit bodies with filler, but do not truncate them either; include what the reviewer needs."
+  },
+  "R13": {
+   "file": "feedback-commit-style.md",
+   "rule": "Do not add a `Co-Authored-By: Claude` trailer to commits."
+  },
+  "R14": {
+   "file": "feedback-commit-style.md",
+   "rule": "Do not add the `Co-Authored-By: Claude` trailer even when the harness's commit template suggests it."
+  },
+  "R15": {
+   "file": "feedback-engine-api-naming.md",
+   "rule": "Use the suffixed engine method names RollOnce and RollN for dice evaluation, never the bare Roll name."
+  },
+  "R16": {
+   "file": "feedback-engine-api-naming.md",
+   "rule": "Do not introduce or rename any dice-engine evaluation method to a bare `Roll` form."
+  },
+  "R17": {
+   "file": "feedback-engine-api-naming.md",
+   "rule": "When adding new dice-engine evaluation entry points, follow the suffix convention: lead with the verb, then the cardinality or variant tag."
+  },
+  "R18": {
+   "file": "feedback-engine-api-naming.md",
+   "rule": "When proposing API changes that touch the dice-engine evaluation methods, surface the rename impact for embedded consumers, not just the in-tree CLI/TUI."
+  },
+  "R19": {
+   "file": "feedback-engine-api-naming.md",
+   "rule": "Do not add a `Roll` alias to the dice-engine evaluation methods for convenience."
+  },
+  "R20": {
+   "file": "feedback-inline-edits.md",
+   "rule": "When updating an existing file (especially memory files), make targeted inline edits on the specific lines that need to change using Edit, rather than rewriting the whole file with Write."
+  },
+  "R21": {
+   "file": "feedback-inline-edits.md",
+   "rule": "When updating an existing file, keep existing wording that is still true."
+  },
+  "R22": {
+   "file": "feedback-inline-edits.md",
+   "rule": "When updating an existing file, add or adjust only the lines that need changing, even if the result is less tidy than a fresh rewrite would be."
+  },
+  "R23": {
+   "file": "feedback-inline-edits.md",
+   "rule": "Using a whole-file Write is permitted when creating brand-new files."
+  },
+  "R24": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "For multi-file regex rewrites, use the Edit tool, which is UTF-8 safe."
+  },
+  "R25": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "For multi-file regex rewrites, ripgrep plus sed run via WSL bash may be used as an alternative to the Edit tool."
+  },
+  "R26": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "Do not use PowerShell Get-Content/Set-Content for text replacement on source files."
+  },
+  "R27": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "When tests need non-ASCII literals, prefer the language's Unicode escape syntax (e.g., \\u00XX, or \\U000XXXXX in Go) over pasting the literal character."
+  },
+  "R28": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "If PowerShell is the only option, set Console InputEncoding and OutputEncoding to a UTF8Encoding instance."
+  },
+  "R29": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "If PowerShell is the only option, read and write files with [IO.File]::ReadAllText and WriteAllText using a UTF8Encoding instance."
+  },
+  "R30": {
+   "file": "feedback-no-powershell-utf8-rewrites.md",
+   "rule": "Even when PowerShell is used, prefer the Edit tool for file text rewrites because PowerShell approaches are error-prone."
+  },
+  "R31": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Do not try to fix drift by editing the pre-commit hook."
+  },
+  "R32": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Do not bypass the pre-commit hook with `--no-verify`."
+  },
+  "R33": {
+   "file": "project-drift-check-hook.md",
+   "rule": "When the drift checker reports drift, fix the source of truth the script compares against instead of the hook."
+  },
+  "R34": {
+   "file": "project-drift-check-hook.md",
+   "rule": "When a commit fails, confirm the drift checker script path exists before assuming real drift."
+  },
+  "R35": {
+   "file": "project-drift-check-hook.md",
+   "rule": "If the drift checker script or its venv is missing on a machine, tell David rather than working around it."
+  },
+  "R36": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Do not disable the pre-commit hook silently when its script or venv is missing."
+  },
+  "R37": {
+   "file": "project-drift-check-hook.md",
+   "rule": "To run the pre-commit hook without committing, use `git hook run pre-commit` on either OS."
+  },
+  "R38": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Make portable pre-commit hook fixes in `dev-manifest.json` in dev-tools."
+  },
+  "R39": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Do not edit `~/dev/templates/` directly to fix the pre-commit hook."
+  },
+  "R40": {
+   "file": "project-drift-check-hook.md",
+   "rule": "After a portable hook fix is made in `dev-manifest.json`, copy it into each app's `.githooks/pre-commit`."
+  },
+  "R41": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Set `core.hooksPath` on any new clone of the repo."
+  },
+  "R42": {
+   "file": "project-drift-check-hook.md",
+   "rule": "Verify the Windows hook branch with `git hook run pre-commit` on Windows before porting it to other repos."
+  },
+  "R43": {
+   "file": "reference-memory-layout.md",
+   "rule": "Store memory files in `.claude/memory/` within the project repo, not in `~/.claude/projects/<project>/memory/`."
+  },
+  "R44": {
+   "file": "reference-memory-layout.md",
+   "rule": "Write any new memory files to the project repo, never to the legacy userdir location."
+  },
+  "R45": {
+   "file": "reference-memory-layout.md",
+   "rule": "At session start, read `CLAUDE.md` in the project root."
+  },
+  "R46": {
+   "file": "reference-memory-layout.md",
+   "rule": "At session start, read `AGENTS.md` in the project root for project context."
+  },
+  "R47": {
+   "file": "reference-memory-layout.md",
+   "rule": "At session start, read `.claude/memory/MEMORY.md` and skim its file titles."
+  },
+  "R48": {
+   "file": "reference-memory-layout.md",
+   "rule": "Load only the memory files relevant to the current task."
+  },
+  "R49": {
+   "file": "user-david.md",
+   "rule": "Take shell and path cues from whichever machine the current session is running on (Windows or macOS), not from a fixed assumption."
+  },
+  "R50": {
+   "file": "user-david.md",
+   "rule": "Determine the programming language and toolchain from the project itself, not from assumptions."
+  },
+  "R51": {
+   "file": "user-david.md",
+   "rule": "Deliver work in small, tested slices rather than large feature drops."
+  },
+  "R52": {
+   "file": "user-david.md",
+   "rule": "Report honestly on what worked, what didn't, and what was skipped."
+  },
+  "R53": {
+   "file": "user-david.md",
+   "rule": "Take initiative to carry out already-agreed plans without re-asking for confirmation."
+  },
+  "R54": {
+   "file": "user-david.md",
+   "rule": "Redirect work when the user's priorities shift."
+  }
+ },
+ "Bretthb__jarble": {
+  "R1": {
+   "file": "bugs-and-fixes.md",
+   "rule": "For Discord and Telegram channels in OpenClaw, always use pairing mode for dmPolicy instead of a saved value such as \"open\"."
+  },
+  "R2": {
+   "file": "canvas-workspace-plan.md",
+   "rule": "At the start of the next session, begin implementing Phase 1 of the moveable canvas workspace plan."
+  },
+  "R3": {
+   "file": "canvas-workspace-plan.md",
+   "rule": "Begin Phase 1 implementation with steps 1.1 (types), 1.2 (reducer), and 1.8 (install react-rnd), since they have no dependencies."
+  },
+  "R4": {
+   "file": "canvas-workspace-plan.md",
+   "rule": "After steps 1.1, 1.2, and 1.8, implement steps 1.3 (InfiniteCanvas) and 1.4 (CanvasCardWrapper)."
+  },
+  "R5": {
+   "file": "canvas-workspace-plan.md",
+   "rule": "After steps 1.3 and 1.4, implement steps 1.5 (useCanvasChat) and 1.6 (TextMessage)."
+  },
+  "R6": {
+   "file": "canvas-workspace-plan.md",
+   "rule": "Implement step 1.7 (page rewrite) last, after steps 1.5 and 1.6."
+  },
+  "R7": {
+   "file": "control_ui_integration.md",
+   "rule": "Create, edit, and delete subagent records through Jarble's SubagentsPanel, not directly in the OpenClaw Control UI."
+  },
+  "R8": {
+   "file": "control_ui_integration.md",
+   "rule": "Keep both Jarble's FilePanel and the OpenClaw Agents > Files tab rather than consolidating them into one."
+  },
+  "R9": {
+   "file": "control_ui_integration.md",
+   "rule": "When testing Agent Teams delegation behavior, you may use the OpenClaw Control UI Chat to message the entry bot directly."
+  },
+  "R10": {
+   "file": "control_ui_integration.md",
+   "rule": "Keep Agent Teams / Bot Teams features entirely in the Jarble UI, not in the OpenClaw Control UI."
+  },
+  "R11": {
+   "file": "control_ui_integration.md",
+   "rule": "Use OpenClaw's cron system for per-pod scheduled tasks."
+  },
+  "R12": {
+   "file": "control_ui_integration.md",
+   "rule": "If Jarble needs platform-level scheduling across deployments, build it separately from OpenClaw's cron system."
+  },
+  "R13": {
+   "file": "control_ui_integration.md",
+   "rule": "Do config editing in the OpenClaw Control UI Config page, not through Jarble-side config forms."
+  },
+  "R14": {
+   "file": "cron_jobs_planned.md",
+   "rule": "When designing the flow engine or scheduler, plan for cron scheduling at both the deployment level and the subagent level."
+  },
+  "R15": {
+   "file": "cron_jobs_planned.md",
+   "rule": "Treat the cron jobs feature as unscoped and unshipped, and file it as a future feature ticket rather than implementing it now."
+  },
+  "R16": {
+   "file": "cron_jobs_planned.md",
+   "rule": "When implementing the cron jobs feature, coordinate with the team-deployment-bridge work."
+  },
+  "R17": {
+   "file": "cron_jobs_planned.md",
+   "rule": "When implementing cron triggers, make sure they can also fire flow chat sessions so a scheduled run uses the same delegation contract as a manual chat."
+  },
+  "R18": {
+   "file": "custom_themes_skins.md",
+   "rule": "When implementing custom themes and skins, build on the existing infrastructure rather than creating parallel systems."
+  },
+  "R19": {
+   "file": "custom_themes_skins.md",
+   "rule": "When resolving a `/theme <name>` command, check custom themes first, then fall back to presets."
+  },
+  "R20": {
+   "file": "custom_themes_skins.md",
+   "rule": "Store theme marketplace items in the existing `marketplaceComponents` table under a new category rather than creating a separate table."
+  },
+  "R21": {
+   "file": "deployment_orchestration.md",
+   "rule": "When implementing the /deployments orchestration canvas, build it incrementally, one phase at a time, rather than all at once."
+  },
+  "R22": {
+   "file": "deployment_orchestration.md",
+   "rule": "When implementing deployment orchestration features, reuse the existing infrastructure listed in the file (such as @xyflow/react, chatWithBot, agentCredits, and services) instead of building new equivalents."
+  },
+  "R23": {
+   "file": "enterprise-phase1.md",
+   "rule": "Treat Phase 2 (agent listings router) and Phase 3 (deploy-from-listing flow) as the next planned work items after Phase 1."
+  },
+  "R24": {
+   "file": "enterprise-phase1.md",
+   "rule": "Treat the frontend org switcher and agent marketplace pages as still needing to be built."
+  },
+  "R25": {
+   "file": "error-resilience-implementation.md",
+   "rule": "When a component fails with an error message from the system, read the error carefully before responding."
+  },
+  "R26": {
+   "file": "error-resilience-implementation.md",
+   "rule": "After a component error, do not repeat the same invalid data structure; provide corrected data instead."
+  },
+  "R27": {
+   "file": "error-resilience-implementation.md",
+   "rule": "After a component error, acknowledge the fix to the user and say you will provide the data properly."
+  },
+  "R28": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Always provide sample data when generating components."
+  },
+  "R29": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Do not generate empty datasets for components."
+  },
+  "R30": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Use the component reference to check valid prop values before emitting a component."
+  },
+  "R31": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Test different data sizes when generating components, since some components work better with more or fewer items."
+  },
+  "R32": {
+   "file": "error-resilience-implementation.md",
+   "rule": "When unsure which component to use, use simple components such as card or alert."
+  },
+  "R33": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Use only built-in components unless the custom component has been defined."
+  },
+  "R34": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify its data against the data quality checklist."
+  },
+  "R35": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify that data arrays are non-empty (at least 1 item)."
+  },
+  "R36": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify that data values have correct types (strings vs numbers)."
+  },
+  "R37": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify that all required fields are present."
+  },
+  "R38": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify that enum fields use valid values."
+  },
+  "R39": {
+   "file": "error-resilience-implementation.md",
+   "rule": "Before emitting a component, verify that it has reasonable size (fewer than 100 items for initial display)."
+  },
+  "R40": {
+   "file": "error-resilience-implementation.md",
+   "rule": "If any data quality check fails before emitting a component, provide corrected data."
+  },
+  "R41": {
+   "file": "feedback_autonomous_overnight.md",
+   "rule": "When given overnight autonomous authority, focus on high-impact safe changes such as cleanup, tests, docs, and bug fixes."
+  },
+  "R42": {
+   "file": "feedback_autonomous_overnight.md",
+   "rule": "When working under overnight autonomous authority, avoid risky changes to core systems such as schema, auth, and infra."
+  },
+  "R43": {
+   "file": "feedback_autonomous_overnight.md",
+   "rule": "When working under overnight autonomous authority, use specialized agents in parallel."
+  },
+  "R44": {
+   "file": "feedback_autonomous_overnight.md",
+   "rule": "When working under overnight autonomous authority, prioritize work that makes the platform look pristine and production ready."
+  },
+  "R45": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, make components visually appealing and professional."
+  },
+  "R46": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, use real data rather than placeholder data."
+  },
+  "R47": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, include descriptive titles or subtitles with units and context."
+  },
+  "R48": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, use intentional colors: green for growth and red for decline."
+  },
+  "R49": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, include images from Unsplash when relevant."
+  },
+  "R50": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, use sparklines."
+  },
+  "R51": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, use trend indicators."
+  },
+  "R52": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, use status badges."
+  },
+  "R53": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, make dashboards that tell a visual story."
+  },
+  "R54": {
+   "file": "feedback_component_quality.md",
+   "rule": "When working on components, system prompts, or component rendering, make every component look like it belongs in a professional dashboard."
+  },
+  "R55": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Never propose removing or degrading a deployment's `/d/[id]` page in favor of a team-only surface."
+  },
+  "R56": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "When adding an orchestration feature to a team, make sure it also works when a sub-specialist is opened at its own `/d/[specialist-id]` page and treated as the root."
+  },
+  "R57": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Design the team's Run button and Team Chat to converge so both let the entry bot receive a goal and delegate."
+  },
+  "R58": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Make delegation tree visualizations recursive-aware, so a specialist that is itself an entry point can be drilled into."
+  },
+  "R59": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "When scoping new team features, check whether the pattern still holds if the user zooms into any sub-node."
+  },
+  "R60": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Make memory scoping, canvas attribution, and billing recursion-aware, not limited to a team-vs-individual distinction."
+  },
+  "R61": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Make compute/resource views aggregate per-pod stats up through the team hierarchy, and do not hide that each node is its own K8s workload."
+  },
+  "R62": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Do not conflate subagents with teammates in UI or data models."
+  },
+  "R63": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Make features treat internal orchestration (subagents) and external orchestration (teammates) differently, even though the chat/canvas surface is the same."
+  },
+  "R64": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Keep the chat, canvas, and URL pattern identical at every level of the orchestration tree."
+  },
+  "R65": {
+   "file": "feedback_deployments_are_atomic.md",
+   "rule": "Insert the Run starter prompt into the entry node's args at execution time."
+  },
+  "R66": {
+   "file": "feedback_deployments_page.md",
+   "rule": "Every overnight QA session should run the flow builder (persona 10) and flow runner (persona 22) personas."
+  },
+  "R67": {
+   "file": "feedback_deployments_page.md",
+   "rule": "When testing the /deployments page in overnight QA, focus on graph rendering, flow canvas drag/connect/save/run, resource map connections, tab switching, performance, and empty states."
+  },
+  "R68": {
+   "file": "feedback_deployments_page.md",
+   "rule": "Orchestration features (flows, execution, HITL pause/resume) on the /deployments page must receive heavy real-world testing."
+  },
+  "R69": {
+   "file": "feedback_deployments_page.md",
+   "rule": "When working on the /deployments page, check Deployments.tsx for visual bugs, layout issues, and interaction problems."
+  },
+  "R70": {
+   "file": "feedback_deployments_page.md",
+   "rule": "Test the /deployments page with 0, 1, 5, and 10+ deployments to verify scaling."
+  },
+  "R71": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "When facing an ambiguous design decision for Jarble, ask how a human team would handle it and use that answer to guide implementation."
+  },
+  "R72": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Use \"workforce\" language in Jarble product copy; do not use \"fractal\" or \"multi-agent\"."
+  },
+  "R73": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Do not treat the pitch as a reason to design features beyond the pitch; it is fine to describe that users can use agents alone or team them up."
+  },
+  "R74": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Do not design onboarding flows around free trial pods or freemium-to-paid conversion funnels; assume the user has already committed to paying."
+  },
+  "R75": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Design onboarding to assume the user has already committed to paying via Stripe."
+  },
+  "R76": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Do not design features that assume cross-user delegation, cross-user trust, inter-account billing, or publisher dashboards until explicitly reopened."
+  },
+  "R77": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "The team builder palette should only show agents the user owns, with the empty-state CTA \"Deploy your first agent\"."
+  },
+  "R78": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "When adding a team member, display the cumulative monthly cost of the team."
+  },
+  "R79": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Block flow references to agents the user does not own and redirect the user to the marketplace or deploy flow."
+  },
+  "R80": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Keep Stop, Delete, and Remove-from-team as three distinct UI actions with clear distinctions between them."
+  },
+  "R81": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "The UI must clearly communicate why the team builder palette is filtered."
+  },
+  "R82": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Never collapse the distinction between subagents (in-pod) and teammates (cross-pod)."
+  },
+  "R83": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Provide one front door for asking an agent for help; the Run flow with a starter prompt should be the same flow as Team Chat."
+  },
+  "R84": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "When a teammate crashes, route work around it; a subagent crash should degrade only the parent deployment."
+  },
+  "R85": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Use a delegation depth cap of MAX_DELEGATION_DEPTH = 4."
+  },
+  "R86": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Marketplace agents should expose declared capabilities, usage metrics, and trial runs as their hiring signals."
+  },
+  "R87": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "When justifying pod-per-deployment cost, use the \"each person has their own life\" framing."
+  },
+  "R88": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Do not model coordination problems that only exist because humans are human, such as ego or politics."
+  },
+  "R89": {
+   "file": "feedback_human_workforce_mental_model.md",
+   "rule": "Do not use the human metaphor to decide replica count; treat replica count as a compute decision."
+  },
+  "R90": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "Never merge develop into main automatically; only do so after the user explicitly asks."
+  },
+  "R91": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "Keep all work on the develop branch until the user explicitly says to merge."
+  },
+  "R92": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "Confirm the target branch before performing any merge."
+  },
+  "R93": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "When the user says \"deploy\" or \"push,\" push only to the develop branch."
+  },
+  "R94": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "Merge to main only when the user explicitly says \"merge to main\" or \"deploy to production.\""
+  },
+  "R95": {
+   "file": "feedback_no_auto_merge_main.md",
+   "rule": "Ask the user for confirmation before merging or pushing when unsure what the user wants."
+  },
+  "R96": {
+   "file": "feedback_overnight_qa.md",
+   "rule": "After cloning or pulling the repository on the overnight QA machine, manually create the scripts/nightly-qa/.env file."
+  },
+  "R97": {
+   "file": "feedback_overnight_qa.md",
+   "rule": "Consider adding a .env.example file to document the overnight QA machine setup."
+  },
+  "R98": {
+   "file": "feedback_slash_commands.md",
+   "rule": "Only switch the theme when the user issues an explicit /theme or /skin slash command; never switch it based on contextual keyword detection."
+  },
+  "R99": {
+   "file": "feedback_slash_commands.md",
+   "rule": "Do not call set_theme unless the user explicitly asks for it."
+  },
+  "R100": {
+   "file": "feedback_slash_commands.md",
+   "rule": "Route all theme changes through the API-level command handler, not through keyword detection."
+  },
+  "R101": {
+   "file": "feedback_whatsapp_secondary.md",
+   "rule": "When triaging bugs, prioritize web chat path issues (e.g., /d/[id]) over WhatsApp, Discord, Slack, or Telegram issues."
+  },
+  "R102": {
+   "file": "feedback_whatsapp_secondary.md",
+   "rule": "When triaging bugs, treat web chat path issues as higher priority than WhatsApp, Discord, Slack, or Telegram issues."
+  },
+  "R103": {
+   "file": "feedback_whatsapp_secondary.md",
+   "rule": "When triaging bugs, treat QR stream and messaging platform bugs as real but lower priority."
+  },
+  "R104": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "In user-facing and architectural prose, call the per-deployment agent process \"Agent Harness\", not \"Agent Runtime\"."
+  },
+  "R105": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Do not rename code identifiers such as `RuntimeHandler`, `runtimes/handlers/`, `runtimeCatalog`, `RUNTIME_EXTRA_STEPS`, or `RUNTIME_CONFIG_TABS`."
+  },
+  "R106": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Use the literal code identifiers (not \"Agent Harness\" terminology) in code blocks and file paths."
+  },
+  "R107": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "When writing docs narrative, use the terms \"Agent Harness\", \"harness-agnostic\", and \"harness catalog\"."
+  },
+  "R108": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Do not extend the legacy canvas and chat code (`Jarble-mvp/components/canvas/`, `useCanvasChat.ts`, `AssistantUIChat.tsx`, `SimpleCanvasGrid.tsx`, `lib/assistantRuntime.ts`, `render_ui` / `define_component` tools in `jarble-ui-server.js`)."
+  },
+  "R109": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Before scaffolding anything touching the legacy canvas/chat code, stop and propose either leaving it untouched or deleting it, and do not add features to it."
+  },
+  "R110": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+  },
+  "R111": {
+   "file": "harness-and-chat-decision.md",
+   "rule": "Do not describe marketplace browsing, installing, or earning as a current feature, since the marketplace is planned and not shipped."
+  },
+  "R112": {
+   "file": "infra-hosting.md",
+   "rule": "When setting environment variables for the frontend, use the Coolify dashboard, not Vercel."
+  },
+  "R113": {
+   "file": "infra-hosting.md",
+   "rule": "When setting environment variables for the API, set them through Kubero or kubectl on the K3s cluster."
+  },
+  "R114": {
+   "file": "infra_docker_builds.md",
+   "rule": "Never build Docker images on the K3s master node."
+  },
+  "R115": {
+   "file": "infra_docker_builds.md",
+   "rule": "Use the GitHub Actions workflow (.github/workflows/deploy-api.yml) for Docker image builds."
+  },
+  "R116": {
+   "file": "infra_docker_builds.md",
+   "rule": "Use the Coolify/Kubero server only for frontend builds."
+  },
+  "R117": {
+   "file": "infra_docker_builds.md",
+   "rule": "When a manual Docker build is needed, use a separate build machine, never the master node."
+  },
+  "R118": {
+   "file": "infra_docker_builds.md",
+   "rule": "After an accidental Docker build on the master node, stop Docker with `systemctl stop docker`."
+  },
+  "R119": {
+   "file": "infra_docker_builds.md",
+   "rule": "After an accidental Docker build on the master node, clean up by running `rm -rf /tmp/jarble-build`."
+  },
+  "R120": {
+   "file": "infra_docker_builds.md",
+   "rule": "After an accidental Docker build on the master node, wait for the load average to recover."
+  },
+  "R121": {
+   "file": "jarble-agents-host.md",
+   "rule": "When connecting to the jarble-agents node over SSH, use the key ~/.ssh/id_ed25519 and do not use id_ed25519_hetzner."
+  },
+  "R122": {
+   "file": "jarble-mc-server.md",
+   "rule": "When updating the modpack, download the new ServerFiles-X.Y.zip into /opt/minecraft/data/."
+  },
+  "R123": {
+   "file": "jarble-mc-server.md",
+   "rule": "When updating the modpack, update GENERIC_PACK in the docker compose file to point to the new server pack zip."
+  },
+  "R124": {
+   "file": "jarble-mc-server.md",
+   "rule": "When updating the modpack, wipe the itzg install marker before restarting."
+  },
+  "R125": {
+   "file": "jarble-mc-server.md",
+   "rule": "To force the modpack to re-extract, delete the itzg install markers and the previous mod files in /data before restarting the server."
+  },
+  "R126": {
+   "file": "jarble_orchestration_layers.md",
+   "rule": "When evaluating a feature request, ask whether it adds value at the outer layer (cross-bot orchestration), the inner layer (per-bot capability), or both."
+  },
+  "R127": {
+   "file": "jarble_orchestration_layers.md",
+   "rule": "When evaluating feature requests, prefer features that add value at both the outer and inner layers over features that affect only one layer."
+  },
+  "R128": {
+   "file": "orchestration_architecture.md",
+   "rule": "When planning Phase 2 of the orchestration system, prioritize features in this order: intermediate checkpointing first, then cycle/loop support, then nested flows/subgraphs, then human-in-the-loop."
+  },
+  "R129": {
+   "file": "perf_useCanvasChat_plan.md",
+   "rule": "Do not implement phase 3 (useReducer for Group A state) unless profiling shows a need for it."
+  },
+  "R130": {
+   "file": "perf_useCanvasChat_plan.md",
+   "rule": "When doing performance work on the useCanvasChat chat streaming pipeline, implement phases 1 and 2 (merge rAF loops, React.memo canvas children)."
+  },
+  "R131": {
+   "file": "project_agent_findings_2026_03_22.md",
+   "rule": "Fix the critical accessibility items before the public beta release."
+  },
+  "R132": {
+   "file": "project_agent_findings_2026_03_22.md",
+   "rule": "Fix the performance items before scaling the product."
+  },
+  "R133": {
+   "file": "project_audit_2026_03_17.md",
+   "rule": "When details of the platform audit findings are needed, consult AUDIT-REPORT.md in the repo root for the full report."
+  },
+  "R134": {
+   "file": "project_audit_2026_03_17.md",
+   "rule": "Fix the critical audit issues C1-C4 (listed in AUDIT-REPORT.md) before deploying to production."
+  },
+  "R135": {
+   "file": "project_audit_2026_03_17.md",
+   "rule": "Fix the high-priority audit issues H1-H11 (listed in AUDIT-REPORT.md) before releasing a public beta."
+  },
+  "R136": {
+   "file": "project_coolify_setup.md",
+   "rule": "Route frontend changes through Coolify (the frontend build/deploy platform)."
+  },
+  "R137": {
+   "file": "project_coolify_setup.md",
+   "rule": "Route API changes through K8s/Kubero on the separate cluster, not Coolify."
+  },
+  "R138": {
+   "file": "project_forking_flywheel.md",
+   "rule": "When building agent features, consider forkability."
+  },
+  "R139": {
+   "file": "project_forking_flywheel.md",
+   "rule": "Agent configs should be portable, with no hard coupling to a user or pod."
+  },
+  "R140": {
+   "file": "project_forking_flywheel.md",
+   "rule": "Platform agents use the `AGENT_LLM_API_KEY` environment variable for their LLM credentials."
+  },
+  "R141": {
+   "file": "project_k8s_infra_apr3.md",
+   "rule": "When deploying API changes, push the image to ghcr.io/jarble-ai/api:latest."
+  },
+  "R142": {
+   "file": "project_k8s_infra_apr3.md",
+   "rule": "When deploying API changes, let Kubero pick up the new image and deploy it in the jarble-production namespace."
+  },
+  "R143": {
+   "file": "project_k8s_infra_apr3.md",
+   "rule": "Deploy bot pods to the jarble namespace, separately from the Kubero-managed API deployment."
+  },
+  "R144": {
+   "file": "project_merge_2026_03_22.md",
+   "rule": "Do not fast-forward main to merge-branch until the user has approved the merge."
+  },
+  "R145": {
+   "file": "project_merge_2026_03_22.md",
+   "rule": "Once the user approves, run `git checkout main && git merge merge-branch` to merge merge-branch into main."
+  },
+  "R146": {
+   "file": "project_overnight_2026_03_18.md",
+   "rule": "In the next session, test the sandbox-first behavior with a restarted pod."
+  },
+  "R147": {
+   "file": "project_overnight_2026_03_18.md",
+   "rule": "In the next session, delete local.db and restart the API to fix the SQLite test failures."
+  },
+  "R148": {
+   "file": "project_overnight_2026_03_18.md",
+   "rule": "In the next session, review agent reports for further cleanup opportunities."
+  },
+  "R149": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Proceed with overnight work autonomously and do not ask the user for confirmations."
+  },
+  "R150": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Fix the restart race condition that shows the 'Cannot restart deployment that is reloading' popup when toggling memory scope in ConfigPanel."
+  },
+  "R151": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Make the openclaw system prompt instruct the bot to pass session_id when memoryScope=session."
+  },
+  "R152": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Run the full qa-orchestrator in the background."
+  },
+  "R153": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Live smoke test all 12 PRs from tonight (#67-80)."
+  },
+  "R154": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Fix anything QA agents report by using qa-healer."
+  },
+  "R155": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Deliver every change via a pull request."
+  },
+  "R156": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Include tests with every change."
+  },
+  "R157": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Run typecheck on every change."
+  },
+  "R158": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Never force-push."
+  },
+  "R159": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Never edit the main branch directly."
+  },
+  "R160": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Open high-risk changes as DRAFT PRs with notes."
+  },
+  "R161": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Never run DB DROP statements."
+  },
+  "R162": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Never force-delete deployments."
+  },
+  "R163": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Do not modify Stripe or Auth0 configuration or code."
+  },
+  "R164": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "After any rollout, verify the API pod is healthy."
+  },
+  "R165": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Write the full overnight summary to docs/audits/overnight-work-report-apr9.md."
+  },
+  "R166": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Include a list of merged PRs in the morning handoff report."
+  },
+  "R167": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Include a list of Linear tickets filed in the morning handoff report."
+  },
+  "R168": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Include known open issues in the morning handoff report."
+  },
+  "R169": {
+   "file": "project_overnight_apr9_plan.md",
+   "rule": "Include recommended next actions in the morning handoff report."
+  },
+  "R170": {
+   "file": "project_page_routing.md",
+   "rule": "When defining JS functions for a sandbox component (such as showTab or toggleSwitch), always add onclick or onchange handlers to the HTML elements that call those functions."
+  },
+  "R171": {
+   "file": "project_page_routing.md",
+   "rule": "Consider adding routing and interactivity to the native `page` component so the bot has a reason to use it instead of always falling back to the sandbox component."
+  },
+  "R172": {
+   "file": "project_qa_findings_apr10.md",
+   "rule": "When fixing the open QA issues, fix the data_table empty-cells bug before the other remaining issues."
+  },
+  "R173": {
+   "file": "project_qa_findings_apr10.md",
+   "rule": "When investigating the dashboard auto-redirect to /d/[id], investigate it on the client side."
+  },
+  "R174": {
+   "file": "project_sandbox_first_pivot.md",
+   "rule": "If prompt-level changes continue to fail to make the bot use the sandbox, implement API-level enforcement in tamboAgent.ts."
+  },
+  "R175": {
+   "file": "project_sandbox_first_pivot.md",
+   "rule": "In tamboAgent.ts, when the bot emits 3 or more typed component blocks (metric_card, chart, or data_table) in a single response, automatically convert them into a single sandbox component."
+  },
+  "R176": {
+   "file": "project_session_2026_03_23.md",
+   "rule": "In the next session, focus on action-oriented testing first, then merge the branch to main."
+  },
+  "R177": {
+   "file": "project_vision.md",
+   "rule": "When making architecture decisions, consider inter-pod communication."
+  },
+  "R178": {
+   "file": "project_vision.md",
+   "rule": "When making architecture decisions, consider service discovery."
+  },
+  "R179": {
+   "file": "project_vision.md",
+   "rule": "When making architecture decisions, consider compute distribution."
+  },
+  "R180": {
+   "file": "project_vision.md",
+   "rule": "When making architecture decisions, consider marketplace economics."
+  },
+  "R181": {
+   "file": "project_vision.md",
+   "rule": "Design the UI system to support end-user interaction."
+  },
+  "R182": {
+   "file": "project_vision.md",
+   "rule": "Design the UI system to support programmatic service consumption."
+  },
+  "R183": {
+   "file": "project_vision.md",
+   "rule": "Design agent configs to be portable and forkable."
+  },
+  "R184": {
+   "file": "project_vision.md",
+   "rule": "Avoid hard-coupling agent state to a specific user or pod."
+  },
+  "R185": {
+   "file": "security-audit.md",
+   "rule": "Run pod containers as a non-root user with minimal permissions instead of root (uid 0)."
+  },
+  "R186": {
+   "file": "security-audit.md",
+   "rule": "Mount secrets as files instead of exposing them as environment variables."
+  },
+  "R187": {
+   "file": "security-audit.md",
+   "rule": "Disable auto-mounting of the Kubernetes service account token in the pod spec (automountServiceAccountToken: false)."
+  },
+  "R188": {
+   "file": "security-audit.md",
+   "rule": "Restrict pod egress with a NetworkPolicy that allows only the listed destinations (LLM provider APIs, messaging platforms, DNS, and the jarble-api service)."
+  },
+  "R189": {
+   "file": "security-audit.md",
+   "rule": "Drop all Linux capabilities and add back only those strictly required by the container."
+  },
+  "R190": {
+   "file": "security-audit.md",
+   "rule": "Apply CPU and memory resource limits and requests to the pod spec rather than relying only on the database values."
+  },
+  "R191": {
+   "file": "soul-md-audit.md",
+   "rule": "Detect which platform you are running on and respond accordingly."
+  },
+  "R192": {
+   "file": "soul-md-audit.md",
+   "rule": "When not on the Jarble web dashboard, respond using plain text/markdown only."
+  },
+  "R193": {
+   "file": "soul-md-audit.md",
+   "rule": "If the message contains no [CANVAS_STATE] marker, assume you are not on the Jarble web dashboard."
+  },
+  "R194": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "When building deploy infrastructure, follow the staging-to-production pipeline plan in this file."
+  },
+  "R195": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "When adding schema changes, use the expand/contract migration pattern."
+  },
+  "R196": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Never add a NOT NULL column without a default value."
+  },
+  "R197": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Never rename a column in a single deploy."
+  },
+  "R198": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Host staging on the same Hetzner K3s cluster as production, in a separate namespace, not in a second cluster."
+  },
+  "R199": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Pin container images by SHA and never use the `:latest` tag."
+  },
+  "R200": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Promote the same image from staging to production rather than building a new one."
+  },
+  "R201": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Test migrations on a Neon branch forked from production first, and run them on the main database only if the test is green."
+  },
+  "R202": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Run database migrations once via a Kubernetes init container before the app starts, not per-pod in the container CMD."
+  },
+  "R203": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "The /health endpoint should validate database connectivity and schema version, not just return a static ok status."
+  },
+  "R204": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "Use a rolling update strategy with maxUnavailable: 0 and maxSurge: 1 in deployment.yaml."
+  },
+  "R205": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "In the GitHub Actions workflow, build, deploy to staging, run a smoke test, and only then promote to production, in that order."
+  },
+  "R206": {
+   "file": "staging_pipeline_plan.md",
+   "rule": "As a temporary workaround for the local SQLite startup crash, delete local.db."
+  },
+  "R207": {
+   "file": "team_deployment_bridge.md",
+   "rule": "Implement the team-to-deployment bridge work in 5 phases."
+  },
+  "R208": {
+   "file": "team_deployment_bridge.md",
+   "rule": "Make each implementation phase independently shippable."
+  },
+  "R209": {
+   "file": "team_deployment_bridge.md",
+   "rule": "Keep the JSON-in-response delegation mechanism for now, and improve its feedback loop, rather than replacing it."
+  },
+  "R210": {
+   "file": "team_deployment_bridge.md",
+   "rule": "Plan the MCP tool migration as Phase 5 of the implementation."
+  }
+ },
+ "CaioLC__nvim-onepager": {
+  "R1": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "Before removing software judged \"stale\" (old Python interpreters, base Anaconda/Miniconda), check what depends on it before calling it safe to remove."
+  },
+  "R2": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "For each Python interpreter or distro slated for removal, check its Scripts directory for console scripts that point to it."
+  },
+  "R3": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "For each Python interpreter or distro slated for removal, grep profile and init files for its path."
+  },
+  "R4": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "When an interpreter or distro slated for removal has dependents, flag it as \"has dependents — will break X\", naming what will break."
+  },
+  "R5": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "When an interpreter or distro slated for removal has dependents, warn the user loudly."
+  },
+  "R6": {
+   "file": "check-runtime-dependents-before-removal.md",
+   "rule": "Never label an interpreter or distro slated for removal as safe to remove without first running the dependents check."
+  },
+  "R7": {
+   "file": "user-python-workflow-conda-poetry.md",
+   "rule": "Install Poetry in an isolated way, using pipx or the official installer."
+  },
+  "R8": {
+   "file": "user-python-workflow-conda-poetry.md",
+   "rule": "Do not install Poetry with `pip install --user` into a specific Python interpreter."
+  },
+  "R9": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Never modify or remove the remote-access stack (AnyDesk, Tailscale, SonicWall NetExtender, QuickAssist) when debloating the user's Windows desktop."
+  },
+  "R10": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Do not flag AnyDesk, Tailscale, SonicWall NetExtender, or QuickAssist as bloat."
+  },
+  "R11": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Keep Google Drive (FS) when cleaning up cloud sync software."
+  },
+  "R12": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When dropping OneDrive, turn off its autostart."
+  },
+  "R13": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When dropping OneDrive, stop its running processes."
+  },
+  "R14": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When dropping OneDrive, leave its files on disk and do not unlink them."
+  },
+  "R15": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Set the power plan to High Performance on the user's desktop."
+  },
+  "R16": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Be aggressive about removing Store/MSIX bloat."
+  },
+  "R17": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Remove Store/MSIX bloat with both Remove-AppxPackage and Remove-AppxProvisionedPackage, so the apps are deprovisioned and do not return on feature updates."
+  },
+  "R18": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Scan the registry, processes, and services for evidence before recommending any debloat action."
+  },
+  "R19": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "Write debloat scripts that run in dry-run mode first so the user can curate them, then execute them."
+  },
+  "R20": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When asked to lighten Windows, first scan startup keys, top-RAM processes, and orphan services and tasks."
+  },
+  "R21": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When lightening Windows, present a curated table of candidates grouped by safety."
+  },
+  "R22": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "After recommending, act on the clear wins."
+  },
+  "R23": {
+   "file": "user-windows-debloat-preferences.md",
+   "rule": "When clearing %TEMP%, exclude %TEMP%\\claude, Claude Code's own task-output directory."
+  }
+ },
+ "CodingButter__cardboard": {
+  "R1": {
+   "file": "README.md",
+   "rule": "On a fresh machine, read the repo's memory `MEMORY.md` index and follow the rule files it links to."
+  },
+  "R2": {
+   "file": "README.md",
+   "rule": "Treat syncing memory files between the repo mirror and the auto-memory location as a manual step whenever new rules are written."
+  },
+  "R3": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "When dispatching worktree agents that may run a dev server, assign each agent a distinct, currently unused port in its brief."
+  },
+  "R4": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Choose agent dev server ports from a range such as 3010-3099."
+  },
+  "R5": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Do not assign ports 3000 or 3001 to agents."
+  },
+  "R6": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Give each agent brief exactly one unique port value."
+  },
+  "R7": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Tell each agent in its brief how to override the dev server port."
+  },
+  "R8": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Before dispatching agents, verify the port override convention and include the exact invocation in the brief."
+  },
+  "R9": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "When starting the orchestrator's own dev server, use a port other than 3001."
+  },
+  "R10": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "For a wave of N agents, allocate N+1 ports, reserving one for the orchestrator's own verification server."
+  },
+  "R11": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Agents must not use port 3001 for their dev servers."
+  },
+  "R12": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Record which dev server port belongs to which worktree."
+  },
+  "R13": {
+   "file": "feedback_agent_dev_server_ports.md",
+   "rule": "Before re-screenshotting, tear down or replace any dev server still running from a previous worktree."
+  },
+  "R14": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "When dispatching parallel worktree agents that need to verify their work, do not have them all use Playwright."
+  },
+  "R15": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "By default, verify agent work without using Playwright."
+  },
+  "R16": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Prefer running `bun run typecheck` to verify agent work."
+  },
+  "R17": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Prefer running `bun build` to verify agent work."
+  },
+  "R18": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Verify agent work by reading the changed file back."
+  },
+  "R19": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Verify JSX changes by walking the JSX manually."
+  },
+  "R20": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Verify layout by reasoning about it instead of opening a browser."
+  },
+  "R21": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "For dimension or responsive checks, calculate the expected dimensions instead of opening a browser."
+  },
+  "R22": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Tell each dispatched agent not to spawn or use a Playwright session, because the orchestrator owns the browser."
+  },
+  "R23": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Tell each dispatched agent to verify its work via typecheck and reasoning only."
+  },
+  "R24": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "When a wave needs Playwright verification per panel, run that wave's agents sequentially, not in parallel."
+  },
+  "R25": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "As an alternative to parallel Playwright use, have agents emit verification SQL queries for panel size and visible elements."
+  },
+  "R26": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Have the orchestrator run agents' verification SQL queries in a batch after the wave lands."
+  },
+  "R27": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Pause the orchestrator's Playwright audit until the wave is fully merged."
+  },
+  "R28": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Do not have agents spin up dev servers for verification."
+  },
+  "R29": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "Rely on the orchestrator's running dev server after merge rather than starting dev servers in agents."
+  },
+  "R30": {
+   "file": "feedback_agent_playwright_contention.md",
+   "rule": "If agents do spin up dev servers for verification, give each agent a distinct port."
+  },
+  "R31": {
+   "file": "feedback_always_delegate.md",
+   "rule": "For any task beyond a trivial one-file edit, delegate the work to an Agent subagent."
+  },
+  "R32": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Use the Explore subagent for read-only research tasks."
+  },
+  "R33": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Use the general-purpose subagent (or a Vercel-specific specialist when one matches) for multi-file implementations."
+  },
+  "R34": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Keep the main context for orchestration, decisions, and user-facing summaries; do not run greps, read large source trees, or execute multi-file diffs directly in it."
+  },
+  "R35": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Before doing any meaningful read, grep, or edit pass, ask whether a subagent could do it and report back in under 200 words; if yes, delegate it."
+  },
+  "R36": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Bundle related work into a single subagent dispatch; do not split one logical change across many small agent calls."
+  },
+  "R37": {
+   "file": "feedback_always_delegate.md",
+   "rule": "Make each subagent prompt self-contained, including the plan docs to read, exact file paths, constraints, and verification commands."
+  },
+  "R38": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "For panel polish work, run a two-agent loop per panel: a thorough audit agent first, then a focused fix agent that acts on the audit findings."
+  },
+  "R39": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "Run the audit-then-fix loop sequentially for each panel, not in parallel across panels."
+  },
+  "R40": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The orchestrator writes a detailed brief for both the audit agent and the fix agent."
+  },
+  "R41": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The audit agent reports findings and must not modify any code."
+  },
+  "R42": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The audit agent's output must be a structured findings report with one finding per issue, including screenshot evidence."
+  },
+  "R43": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The fix agent commits and pushes its fixes directly to main."
+  },
+  "R44": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The fix agent verifies its changes via Playwright in its own tab."
+  },
+  "R45": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The audit agent uses Playwright in its own tab to navigate the editor."
+  },
+  "R46": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The audit agent must verify the panel does not break, lose content, scroll horizontally, or render unreadably at any reasonable size."
+  },
+  "R47": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The orchestrator validates audit findings against the original intent before acting on them."
+  },
+  "R48": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The orchestrator marks a panel done only after reviewing the fix and confirming it is solid."
+  },
+  "R49": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "For trivial single-line fixes, the orchestrator applies the fix directly instead of using the audit-then-fix loop."
+  },
+  "R50": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "For broad sweeps that touch every panel, use a single sweep agent or an orchestrator-driven sed pattern instead of the per-panel loop."
+  },
+  "R51": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "When building new panel content from scratch, use a single build agent instead of the audit-then-fix loop."
+  },
+  "R52": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "Both audit and fix agents run in the main checkout, not in worktrees."
+  },
+  "R53": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The orchestrator must confirm the previous panel's fix is fully merged before starting the next panel's audit."
+  },
+  "R54": {
+   "file": "feedback_audit_then_fix_loop.md",
+   "rule": "The audit agent and the fix agent must each open their own Playwright tab."
+  },
+  "R55": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "When dispatching an audit, dispatch it with run_in_background set to true."
+  },
+  "R56": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "After dispatching an audit, immediately pick up the next piece of disjoint work (another audit, code edits in non-overlapping files, doc updates, planning, memory hygiene) without waiting for the audit to finish."
+  },
+  "R57": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Always parallelize audits with other work (another audit, code edits in disjoint files, doc updates, planning)."
+  },
+  "R58": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Never sit idle waiting for an audit to finish."
+  },
+  "R59": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "When dispatching an audit, immediately decide what comes next."
+  },
+  "R60": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Always end an audit-dispatch turn with parallel work already in motion."
+  },
+  "R61": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Do not wait for an audit's result while it is running; avoid the stance of 'the audit is running, I'll wait for the result.'"
+  },
+  "R62": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Do not dispatch a FIX agent against the same area an audit is auditing; wait for the audit's findings first."
+  },
+  "R63": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "While an audit runs, other work is permitted, including unrelated FIX agents, plan docs, and refactors in different file trees."
+  },
+  "R64": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "When audit findings dictate the next step and no other work is queued, idle-waiting for the audit is acceptable."
+  },
+  "R65": {
+   "file": "feedback_audits_parallel.md",
+   "rule": "Before idle-waiting on an audit, check the task list for queued work."
+  },
+  "R66": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Register every new editor action with registerCommand and every new editor setting with registerSetting."
+  },
+  "R67": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "When writing an agent brief that introduces a UI action or setting, include the registration directive verbatim."
+  },
+  "R68": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Register every new action (button click, menu item, keybinding, etc.) via registerCommand with id, title, category, and run, and optionally keywords, keybinding, and icon."
+  },
+  "R69": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Register commands from a component inside a useEffect that returns the unregister function."
+  },
+  "R70": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Register every new user-tunable preference via registerSetting with id, title, category, type, and default, and optionally scope."
+  },
+  "R71": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Read and write settings only through useSettingsStore.getState().get(id) and .set(id, value)."
+  },
+  "R72": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Store setting values in the existing source of truth (such as the workspace store or project store), not in new storage."
+  },
+  "R73": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Do not use the settings registry as a separate storage system."
+  },
+  "R74": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Assign each registered command one of these categories: 'File', 'Edit', 'View', 'Workspace', 'Navigation', or 'Help'."
+  },
+  "R75": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Keep the existing button or menu handler for an action working when registering that action."
+  },
+  "R76": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Make a registered command's run function call the existing button or menu handler."
+  },
+  "R77": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "Do not create a second implementation of an action that already has a handler."
+  },
+  "R78": {
+   "file": "feedback_command_registry_required.md",
+   "rule": "When unsure whether an action or setting should be registered, register it."
+  },
+  "R79": {
+   "file": "feedback_dispatch_without_approval_gate.md",
+   "rule": "When the next step is clear, dispatch immediately and report the dispatch in a one-line voice update."
+  },
+  "R80": {
+   "file": "feedback_dispatch_without_approval_gate.md",
+   "rule": "Do not ask the user for approval (e.g., \"say go\" or \"approve the brief?\") before launching agents."
+  },
+  "R81": {
+   "file": "feedback_dispatch_without_approval_gate.md",
+   "rule": "Dispatch immediately when the decision is clear, without pausing for approval."
+  },
+  "R82": {
+   "file": "feedback_dispatch_without_approval_gate.md",
+   "rule": "Seek confirmation from the user only when the dispatch decision is genuinely ambiguous."
+  },
+  "R83": {
+   "file": "feedback_dispatch_without_approval_gate.md",
+   "rule": "Routine agent briefs and panel picks should be dispatched without seeking approval."
+  },
+  "R84": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "Never sit idle waiting for the user when no agent is working."
+  },
+  "R85": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When no agent is working and you would otherwise stop to ask the user something, schedule a self-wakeup 15 minutes out."
+  },
+  "R86": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "Before stopping to ask the user something, check whether at least one agent is in flight."
+  },
+  "R87": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "If at least one agent is in flight, it is fine to stand by while the work continues."
+  },
+  "R88": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "If at least one agent is in flight, end the turn after a brief status update."
+  },
+  "R89": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "If no agent is in flight, dispatch an agent rather than stopping."
+  },
+  "R90": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "If a clear next task exists (queued in TaskList, mentioned in the user's prior message, or implied by the last commit), dispatch an agent for it."
+  },
+  "R91": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "If multiple candidate next tasks exist, pick one and proceed without asking the user."
+  },
+  "R92": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When you would benefit from user input but must proceed, schedule a self-wakeup 15 minutes (900 seconds) out via ScheduleWakeup."
+  },
+  "R93": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When you would benefit from user input, send the user a brief text and voice message describing the question and noting the 15-minute fallback is set."
+  },
+  "R94": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When all planned work is done, read the docs/plans/ tree, MEMORY.md, and the current SESSION_STATE."
+  },
+  "R95": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When all planned work is done, pick an unimplemented item from the docs and dispatch an agent for it."
+  },
+  "R96": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "Instead of asking what to do next, pick one task and dispatch it."
+  },
+  "R97": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When choosing between alternatives A and B, ship A and mention B in the commit message as a deferred alternative instead of asking."
+  },
+  "R98": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "Instead of waiting for the user to say go, dispatch first and then tell the user what was done and to flag it if the direction is wrong."
+  },
+  "R99": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When no agent is working and you would otherwise stand by for the user's call, schedule a wakeup and dispatch a reasonable next thing."
+  },
+  "R100": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When multiple agents are in flight on tightly-coupled files, do not open a third stream; end the turn quietly."
+  },
+  "R101": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "While tests are running in CI, wait for the result."
+  },
+  "R102": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When a task is explicitly blocked on external state, wait, but schedule a wakeup as a safety net."
+  },
+  "R103": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "Do not skip verification inside dispatched work just because you are picking tasks quickly."
+  },
+  "R104": {
+   "file": "feedback_never_idle_protocol.md",
+   "rule": "When scheduling a wakeup and texting the user, the text should carry the same content as the voice message plus the wakeup time."
+  },
+  "R105": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Never horizontally scroll category filter chips, filter tab strips, or similar small discrete navigation surfaces."
+  },
+  "R106": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "When category chips don't fit on one row, wrap them onto multiple rows instead of scrolling."
+  },
+  "R107": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "When space is tight for category chips, use smaller chips or icons."
+  },
+  "R108": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Only when category chips cannot fit even in two wrapped rows at very narrow widths (under about 140px), use a single icon-only kebab or \"More…\" dropdown as a last resort."
+  },
+  "R109": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Use ScrollRow for long content lists, tag clouds where overflow into a \"more\" is acceptable, and horizontal carousels of large preview cards, but not for navigation chip strips."
+  },
+  "R110": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Before putting chips in ScrollRow, if they are a primary navigation surface (filters, tabs, modes), do not use ScrollRow and wrap rows instead."
+  },
+  "R111": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Do not use ScrollRow for chip strips where the user is expected to discover all options at a glance."
+  },
+  "R112": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "Do not use ScrollRow for chip strips with a fixed, small option count (8 or fewer)."
+  },
+  "R113": {
+   "file": "feedback_no_horizontal_scroll_for_categories.md",
+   "rule": "ScrollRow is acceptable for search-results-style overflow where scrolling to see additional items makes sense."
+  },
+  "R114": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Never use git worktrees on this project."
+  },
+  "R115": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Never pass isolation: \"worktree\" to the Agent tool; run agents in the main checkout instead."
+  },
+  "R116": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "For overlapping work, serialize agent dispatches rather than running them in parallel."
+  },
+  "R117": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Do not dispatch agents in parallel when two of them touch the same file."
+  },
+  "R118": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Run overlapping agents one at a time, with each agent committing and pushing before the next begins."
+  },
+  "R119": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "For non-overlapping work, parallel agent dispatch is allowed."
+  },
+  "R120": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Parallel agents working on non-overlapping files must all operate against the same main checkout."
+  },
+  "R121": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Do not run git worktree remove --force unsupervised to clean up leftover worktrees; leave that to the user."
+  },
+  "R122": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "When panels share a file, the orchestrator must first stage the shared edits in a single commit before dispatching per-panel agents that touch only their own panel file."
+  },
+  "R123": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "For fix waves where each agent edits one panel file, serialize the agents rather than running them in parallel."
+  },
+  "R124": {
+   "file": "feedback_no_worktrees.md",
+   "rule": "Do not dispatch the next batch until the previous batch is merged and pushed cleanly."
+  },
+  "R125": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "When building a page, register 3-5 predefined layouts for it in `apps/editor/src/state/predefinedLayouts.ts`, keyed by page id."
+  },
+  "R126": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Give each predefined layout an id, a human-readable label, a `SerializedDockview` JSON snapshot, and optionally a description."
+  },
+  "R127": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Make sure every shared dock panel is available in the panel modal."
+  },
+  "R128": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Expose page-specific opt-in dock panels on every page via the Docks modal, including panels that are not in the default layout."
+  },
+  "R129": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Pick 2-4 sensible opt-in panels for each page and build stubs for them in Phase 1."
+  },
+  "R130": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Implement the bodies of opt-in panel stubs in a later wave, not in Phase 1."
+  },
+  "R131": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Register every shared dock panel in every page's PANELS array."
+  },
+  "R132": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Define a `SHARED_PANELS` constant in `apps/editor/src/views/sharedPanels.ts`."
+  },
+  "R133": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Have each page import `SHARED_PANELS` and spread it into its own PANELS array."
+  },
+  "R134": {
+   "file": "feedback_page_layouts_and_shared_docks.md",
+   "rule": "Prefix persistence keys for page-scoped panels with the page id, e.g. `cardboard.<page>.notes.text`."
+  },
+  "R135": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Every panel-body agent must design for unpredictable panel sizes and shapes from the start."
+  },
+  "R136": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Never expose a native horizontal scrollbar on panels."
+  },
+  "R137": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Use the hover-area pattern from apps/editor/src/components/ui/TabStrip.tsx (scrollable={true} mode) for horizontal overflow."
+  },
+  "R138": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Show edge fades only when the content actually overflows the panel width, and hide them when content fits."
+  },
+  "R139": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Make hovering an edge fade trigger continuous auto-scroll in that direction."
+  },
+  "R140": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Make clicking an edge fade jump to the extreme of the content in that direction."
+  },
+  "R141": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "When content fits the panel, show no edge fades or scroll chrome."
+  },
+  "R142": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Give each row of items its own ScrollRow container and do not share a parent overflow between rows."
+  },
+  "R143": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Give every tile or button a min-w-* minimum width that prevents it from collapsing below a useful size."
+  },
+  "R144": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Design responsive logic per panel to fit that panel's contents, not as one universal reflow pattern."
+  },
+  "R145": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Make every panel consider wide, tall, and square dock shapes when its body is built."
+  },
+  "R146": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Per-panel agent briefs must call out the aspect ratios the panel might see and the agent's specific strategy for each."
+  },
+  "R147": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "For button-or-icon grids, use auto-fit with minmax reflow so the grid moves from vertical stack to horizontal row as the panel widens."
+  },
+  "R148": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Document the chosen layout or overflow approach in the panel's docstring when content is not a button or icon grid."
+  },
+  "R149": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Use native vertical scroll for long lists."
+  },
+  "R150": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Native vertical scrollbars are acceptable for vertical overflow."
+  },
+  "R151": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Every panel-body agent brief must state that responsive design is a heavy focus and that the TabStrip scrollable pattern from apps/editor/src/components/ui/TabStrip.tsx is the overflow affordance, never exposing native scrollbars."
+  },
+  "R152": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "When the first panel needs vertical-scroll behavior, extract the pattern into a shared ScrollArea primitive under apps/editor/src/components/ui/ instead of re-implementing it inline."
+  },
+  "R153": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Future panels must import the shared ScrollArea primitive rather than re-implementing scroll behavior."
+  },
+  "R154": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Make content density adapt to panel width, using short labels on narrow widths and full labels on wide widths."
+  },
+  "R155": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Use @container queries or ResizeObserver instead of window-width Tailwind breakpoints for panel-responsive layout."
+  },
+  "R156": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Use an auto-fit minmax grid such as grid-cols-[repeat(auto-fit,minmax(40px,1fr))] for tile or button grids so the layout reflows naturally."
+  },
+  "R157": {
+   "file": "feedback_panel_responsive_design.md",
+   "rule": "Avoid fixed-column-count grids unless the spec explicitly requires one."
+  },
+  "R158": {
+   "file": "feedback_parallel_agents.md",
+   "rule": "When delegating multiple independent pieces of work to Agent subagents, send all the Agent tool calls in a single assistant message so they run concurrently."
+  },
+  "R159": {
+   "file": "feedback_parallel_agents.md",
+   "rule": "Do not dispatch an Agent subagent, wait for it to finish, and only then dispatch the next one when the next one does not need the first one's output."
+  },
+  "R160": {
+   "file": "feedback_parallel_agents.md",
+   "rule": "If later Agent subagents need no output from earlier ones, bundle them all into one message."
+  },
+  "R161": {
+   "file": "feedback_parallel_agents.md",
+   "rule": "If a later Agent subagent needs output from an earlier one, serialise only the dependent agents and still parallelise all the others."
+  },
+  "R162": {
+   "file": "feedback_parallel_agents.md",
+   "rule": "Multiple independent implementation agents may be dispatched in parallel after a single Explore agent's result is returned."
+  },
+  "R163": {
+   "file": "feedback_playwright_screenshots_folder.md",
+   "rule": "When calling `mcp__playwright__browser_take_screenshot`, always pass a `filename` value that begins with `screenshots/`."
+  },
+  "R164": {
+   "file": "feedback_playwright_screenshots_folder.md",
+   "rule": "Every `browser_take_screenshot` call must set `filename` to `screenshots/<descriptive-name>.png`."
+  },
+  "R165": {
+   "file": "feedback_playwright_screenshots_folder.md",
+   "rule": "Never leave Playwright screenshot PNG files in the repository root."
+  },
+  "R166": {
+   "file": "feedback_playwright_screenshots_folder.md",
+   "rule": "Always explicitly specify the screenshot filename rather than relying on the default output location (cwd or `.playwright-mcp/`)."
+  },
+  "R167": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Make all cross-panel state (selection, active tool, brush, layers, history, etc.) work correctly when a panel is popped out into its own browser window."
+  },
+  "R168": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Design the wiring layer for cross-window communication from the start of the project."
+  },
+  "R169": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Wrap state that should survive reloads in a Zustand store using `zustand/middleware/persist`, writing to localStorage under a scoped key."
+  },
+  "R170": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Attach a `window.addEventListener(\"storage\", ...)` listener in a `useEffect` in each persisted store's hook."
+  },
+  "R171": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When a storage event fires from another window writing to the same key, re-hydrate the store from the new value."
+  },
+  "R172": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Use the `BroadcastChannel` API to propagate ephemeral state between windows."
+  },
+  "R173": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Pair each BroadcastChannel with a Zustand store that listens on the channel and writes received data to local state."
+  },
+  "R174": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Use one Zustand store per concern."
+  },
+  "R175": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Have each store persist its relevant slice and subscribe to cross-window sync."
+  },
+  "R176": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Avoid storing references in stores."
+  },
+  "R177": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Store only serializable data (numbers, strings, plain objects, arrays) in stores."
+  },
+  "R178": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Throttle or debounce ephemeral broadcasts to ~30Hz, or emit them only on cell-grid boundary crossings."
+  },
+  "R179": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When testing Wave 3 wiring, always test the popout path."
+  },
+  "R180": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When testing the popout path, make a state change in the popout window."
+  },
+  "R181": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When testing the popout path, verify the change is reflected in the orchestrator window."
+  },
+  "R182": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When testing the popout path, repeat the state change test in the reverse direction."
+  },
+  "R183": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "When testing the popout path, reload both windows and verify state persists where it should."
+  },
+  "R184": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Build new stores on top of the cross-window sync utility module."
+  },
+  "R185": {
+   "file": "feedback_popout_state_sync.md",
+   "rule": "Do NOT build Wave 3 stores without the cross-window sync layer."
+  },
+  "R186": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Use the progressive tooltip as the hover affordance for every interactive element where context-on-hover is useful."
+  },
+  "R187": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Show a tooltip with the element's short name or label after a 2-second hover."
+  },
+  "R188": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "After a 5-second hover, swap the tooltip to show both the short name and a fuller description."
+  },
+  "R189": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "When the cursor leaves the element, cancel any pending tooltip stages and hide the tooltip immediately."
+  },
+  "R190": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Default new interactive content to the staged two-stage tooltip pattern rather than a single-content tooltip."
+  },
+  "R191": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Use the single-content Tooltip mode only for trivial labels, such as a close button."
+  },
+  "R192": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Store every interactive control's label and description on its fixture, config, or manifest entry so its tooltip is wrapped consistently."
+  },
+  "R193": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "When dispatching a panel-build agent brief, include the instruction to wrap interactive controls in `<Tooltip stages={...}>` per the progressive-tooltips standard."
+  },
+  "R194": {
+   "file": "feedback_progressive_tooltips.md",
+   "rule": "Do not tune the 2s and 5s tooltip delays per panel; keep them project-wide."
+  },
+  "R195": {
+   "file": "feedback_text_for_remote_sessions.md",
+   "rule": "Whenever a response uses voice synthesis, also include text that carries the same substantive content."
+  },
+  "R196": {
+   "file": "feedback_text_for_remote_sessions.md",
+   "rule": "Do not use voice as a substitute for text; voice must accompany text, never replace it."
+  },
+  "R197": {
+   "file": "feedback_text_for_remote_sessions.md",
+   "rule": "Even when voice has already narrated a milestone, end the turn with a 1-2 line text summary."
+  },
+  "R198": {
+   "file": "feedback_text_for_remote_sessions.md",
+   "rule": "Do not end a turn on tool calls or on voice alone; end with text."
+  },
+  "R199": {
+   "file": "feedback_tts_questions.md",
+   "rule": "When calling AskUserQuestion, also speak the question content aloud via TTS."
+  },
+  "R200": {
+   "file": "feedback_tts_questions.md",
+   "rule": "Whenever calling AskUserQuestion, also call mcp__voice__synthesize in the same turn with the question content."
+  },
+  "R201": {
+   "file": "feedback_tts_questions.md",
+   "rule": "Do not rely solely on the visual UI to present questions; always provide the audio channel as well."
+  },
+  "R202": {
+   "file": "feedback_tts_questions.md",
+   "rule": "The voice TTS call paired with AskUserQuestion should include a short phrase indicating a question is being asked."
+  },
+  "R203": {
+   "file": "feedback_tts_questions.md",
+   "rule": "The voice TTS call paired with AskUserQuestion should include the substance of the question, not merely a generic statement that a question is being asked."
+  },
+  "R204": {
+   "file": "feedback_tts_questions.md",
+   "rule": "The voice TTS call paired with AskUserQuestion may include the recommended option."
+  },
+  "R205": {
+   "file": "feedback_tts_questions.md",
+   "rule": "Always pair AskUserQuestion with a voice TTS call."
+  },
+  "R206": {
+   "file": "feedback_tts_questions.md",
+   "rule": "The voice TTS content carries the substantive question content, while AskUserQuestion serves as the formal capture of the question."
+  },
+  "R207": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before stating a factual claim about project state, verify it via grep, Read, or git log in the same turn."
+  },
+  "R208": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "If a factual claim about project state cannot be verified cheaply, say explicitly that it is unverified (e.g., \"I'd need to check\" or \"my guess is X but I haven't verified\")."
+  },
+  "R209": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before sending any response, re-read the draft and check every factual claim in it by asking how to prove it is true."
+  },
+  "R210": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "If a factual claim in a draft can be verified cheaply (grep, Read, git, ls, typecheck), verify it before sending and rewrite it if it turns out wrong."
+  },
+  "R211": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "If a factual claim in a draft is expensive to verify, hedge it explicitly in the response (e.g., \"I think X but haven't verified\") or omit it."
+  },
+  "R212": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Do not verify subjective recommendations or analysis; ship them as-is."
+  },
+  "R213": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before stating a duration (e.g., \"for weeks\", \"since Phase 2\"), check the dates with git log, such as git log --reverse --format='%ad %s' --date=short | head -3, or check the specific file's git log."
+  },
+  "R214": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before stating a count (e.g., \"24 panels\"), grep and wc -l the actual matches."
+  },
+  "R215": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before quoting a file path or function/identifier name, grep for it first."
+  },
+  "R216": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Never quote a file path or identifier from memory of what you think the codebase looks like."
+  },
+  "R217": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Before stating a commit hash or status claim (e.g., \"tests pass\", \"tsc clean\"), verify the hash exists, run the check, or hedge the claim."
+  },
+  "R218": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "When caught making a wrong factual claim, make the next tool call a verification (grep, Read, or git), not a defensive explanation."
+  },
+  "R219": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "Do not give an explanation such as \"The reason is...\" for a wrong claim without verifying it first."
+  },
+  "R220": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "In voice (TTS) responses, use approximate wording (e.g., \"a few days\") instead of a specific number you have not verified."
+  },
+  "R221": {
+   "file": "feedback_verify_before_asserting.md",
+   "rule": "In voice (TTS) responses, verify any fact that the substantive content depends on before synthesizing the audio."
+  },
+  "R222": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "When a turn produces findings, a status report, a list of changes, or another meaningful result, the voice synthesis must contain that content, not a short placeholder intro like \"let me check\" or \"on it.\""
+  },
+  "R223": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "When a turn has a single meaningful response, voice that response in the voice synthesis."
+  },
+  "R224": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "When a turn has both an intro action and a findings report, voice the findings."
+  },
+  "R225": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "When a turn has both an intro action and a findings report, you may skip the intro or combine it into the same voice call as the findings."
+  },
+  "R226": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "If you must voice more than once in a turn, make the second voice carry the substantive content."
+  },
+  "R227": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "Do not truncate the spoken summary."
+  },
+  "R228": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "Make the spoken summary match the depth of the text response."
+  },
+  "R229": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "When the text response has many points, have the spoken summary mention the main ones rather than reducing it to a vague summary such as \"everything's fine.\""
+  },
+  "R230": {
+   "file": "feedback_voice_carries_content.md",
+   "rule": "A one-line confirmation is acceptable as the voice content when it is the substantive content of the turn."
+  },
+  "R231": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "When a voice response would take more than about 20 seconds to synthesize as one call, split it into multiple synthesize→pipe pairs and run them in sequence within the same turn."
+  },
+  "R232": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Do not cram a paragraph-plus of voice content into a single synthesize call."
+  },
+  "R233": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Keep the text for each voice synthesize call under about 55 words or 350 characters."
+  },
+  "R234": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "When splitting a long voice response into chunks, split at natural sentence boundaries."
+  },
+  "R235": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Never split a voice response chunk mid-sentence."
+  },
+  "R236": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Make each voice chunk a complete sentence (or two short sentences) that stands on its own."
+  },
+  "R237": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Run voice synthesize→pipe pairs strictly serially, never in parallel."
+  },
+  "R238": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Never batch multiple synthesize calls in a single parallel tool-use block."
+  },
+  "R239": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Start the next synthesize→pipe pair only after the previous pipe call has returned."
+  },
+  "R240": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Run all voice synth+pipe pairs before any other tool calls in the turn."
+  },
+  "R241": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Make every voice chunk carry real substance rather than filler."
+  },
+  "R242": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "Do not pad voice chunks to reach the 20-second target; cut content from a chunk that lacks substance instead."
+  },
+  "R243": {
+   "file": "feedback_voice_chunks.md",
+   "rule": "When a voice response is genuinely short, use a single chunk and do not artificially split it."
+  },
+  "R244": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "For every response, begin the turn with a mcp__voice__synthesize call before anything else."
+  },
+  "R245": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "When calling mcp__voice__synthesize, omit the play_local parameter and pipe the returned URL through the response's \"Recommended playback\" command in a background Bash."
+  },
+  "R246": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "Keep the spoken text of each voice synthesis call to one paragraph or less."
+  },
+  "R247": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "Make the spoken text a concise summary of what is about to happen or what just finished, not the full detailed response."
+  },
+  "R248": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "After the voice call, write the full detailed text response below it."
+  },
+  "R249": {
+   "file": "feedback_voice_first_response.md",
+   "rule": "Never use the long detailed response itself as the spoken text in a voice synthesis call."
+  },
+  "R250": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "At the start of every turn, make the voice synthesize tool call first and the playback Bash command second, before any other work."
+  },
+  "R251": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "Make `mcp__voice__synthesize` the first tool call of each turn, omitting the `play_local` parameter."
+  },
+  "R252": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "Run the recommended playback Bash command without `run_in_background` so playback runs in the foreground and blocks until the audio finishes."
+  },
+  "R253": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "Make any other tool calls only after the synthesize and playback calls have been made."
+  },
+  "R254": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "Do not place any other tool call between the synthesize call and the playback Bash call."
+  },
+  "R255": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "Do not batch the synthesize call in parallel with other tool calls."
+  },
+  "R256": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "When producing multiple voice responses in one turn, run each as synthesize then foreground playback then next work, in series."
+  },
+  "R257": {
+   "file": "feedback_voice_mcp_playback.md",
+   "rule": "If the turn's voice output was missed or only an intro was voiced, pipe the substantive voice immediately even if it is late."
+  },
+  "R258": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Never dispatch a new batch of parallel worktree agents until the previous batch's work is fully merged into main."
+  },
+  "R259": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Before dispatching any new batch of parallel worktree agents, verify the previous batch is fully merged, conflict-free, typechecked, pushed, and committed."
+  },
+  "R260": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Cherry-pick every commit from the previous batch into main (or merge it equivalently) before dispatching the next batch."
+  },
+  "R261": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Resolve all cherry-pick or merge conflicts before dispatching the next batch."
+  },
+  "R262": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Do not leave cherry-picks dangling in an aborted or skipped state before dispatching the next batch."
+  },
+  "R263": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Run `bun run typecheck` from `apps/editor/` on the current main HEAD and confirm it exits 0 before dispatching the next batch."
+  },
+  "R264": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Run `git push origin main` and confirm it succeeds before dispatching the next batch."
+  },
+  "R265": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Confirm `git status` is clean (no uncommitted modifications or untracked files that should be tracked) before dispatching the next batch."
+  },
+  "R266": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Dispatch the next batch of agents only after all pre-dispatch conditions are met."
+  },
+  "R267": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Prefer `git cherry-pick <sha>` over `git merge` when integrating each agent's branch."
+  },
+  "R268": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Always check `git log --oneline -5` to confirm what is on main before cherry-picking."
+  },
+  "R269": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "If a cherry-pick stalls with \"nothing to commit\" despite a non-empty diff, investigate before continuing."
+  },
+  "R270": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "When a cherry-pick stalls because the working directory shifted into a worktree, cd back to the project root and retry."
+  },
+  "R271": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "For shared files likely to conflict across agents, pre-stage the shared changes yourself in a single commit before dispatching the dependent agents."
+  },
+  "R272": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "Never skip the pre-dispatch gate because agents need to start now."
+  },
+  "R273": {
+   "file": "feedback_wave_merge_gate.md",
+   "rule": "If any pre-dispatch check fails, fix it before dispatching agents."
+  },
+  "R274": {
+   "file": "project_dnd_day_one.md",
+   "rule": "Do not dispatch Wave 3.3 panel migration work until the DnD plan doc, payload contract, DropZone primitive, useAssetStore, and useDragStore are at least specified."
+  },
+  "R275": {
+   "file": "project_dnd_day_one.md",
+   "rule": "When migrating a panel in Wave 3.3, write it as a drag source and/or drop target depending on its role, following the integration matrix in the plan doc."
+  },
+  "R276": {
+   "file": "project_dnd_day_one.md",
+   "rule": "Give each draggable kind its own MIME type with the prefix `application/x-cardboard-*` so drop zones can filter by `accepts`."
+  },
+  "R277": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Ship only the shell in Cardboard, and implement everything else, including the editor itself, as a pack on top of the shell."
+  },
+  "R278": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Do not put toolbars, layouts, the home screen, the project picker, or scene tabs in the shell; place them in the core editor pack."
+  },
+  "R279": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Place every dock panel (such as ToolPalette, Brush, TilePresets, Layers) in the core editor pack, not in the shell."
+  },
+  "R280": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Keep game-domain-specific code (fixtures, hardcoded layer taxonomies, hardcoded tile preset categories) out of the shell; put it in the core editor pack or a game-domain pack chained after it."
+  },
+  "R281": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Do not create special APIs that only the editor can use."
+  },
+  "R282": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Do not create hidden surfaces that only the editor can access."
+  },
+  "R283": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Give the editor the same docs, examples, and imports that third-party pack authors use."
+  },
+  "R284": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "When a third party could reasonably need a capability, put it in the shell or expose it as a published primitive."
+  },
+  "R285": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "When a third party would not reasonably need a capability, put it in the core editor pack."
+  },
+  "R286": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "If the editor uses a different mechanism than a third party would, expose that mechanism through the shell so third parties can use it too."
+  },
+  "R287": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "If a feature needs a hook only the editor has access to, redesign it as a normal primitive available to all packs."
+  },
+  "R288": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "If shipping an API would embarrass us in front of a community-pack author, fix the API before shipping it."
+  },
+  "R289": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "When the editor needs something the shell does not expose, extend the shell instead of adding a private hook."
+  },
+  "R290": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Reduce apps/editor/ so that it contains only the shell."
+  },
+  "R291": {
+   "file": "project_dogfooding_principle.md",
+   "rule": "Move the editor views, panels, and page chrome from apps/editor/ into the packages/core-editor-pack/ workspace."
+  },
+  "R292": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When the user paints, edits scripts, or tweaks an entity, the resulting write must land in IDB."
+  },
+  "R293": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Do not store asset content in LocalStorage-backed Zustand stores; they may hold only UI state."
+  },
+  "R294": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Do not treat a synced Zustand store as asset storage; they are different layers."
+  },
+  "R295": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Any planned useAssetStore must be a reactive view over IDB, not a createSyncedStore."
+  },
+  "R296": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When designing a new asset, script, or scene-content store, default to an IDB-backed store with BroadcastChannel cross-window invalidation, not an LS-backed Zustand store."
+  },
+  "R297": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When wiring DnD payloads, make the payload reference an IDB record by id or path."
+  },
+  "R298": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When handling a DnD drop, read the referenced record from IDB to resolve it."
+  },
+  "R299": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When migrating a Wave-3.3 panel that touches content, check whether its data lives in IDB."
+  },
+  "R300": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "When a content panel reads or writes project data, route those reads and writes through EditorProjectStore."
+  },
+  "R301": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Do not route content reads or writes through a new LocalStorage store."
+  },
+  "R302": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Ensure engine-side reads for playtest and export work without the editor running."
+  },
+  "R303": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Treat the IDB contract as owned by the engine package."
+  },
+  "R304": {
+   "file": "project_idb_source_of_truth.md",
+   "rule": "Make the editor's view layer adapt to the engine-owned IDB contract."
+  },
+  "R305": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Do not render cubes or spheres for entities; represent entities as billboard sprites."
+  },
+  "R306": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Do not use 3D meshes for entities."
+  },
+  "R307": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Entity preview panels and similar previews must show sprites, not cubes or spheres."
+  },
+  "R308": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "For entity previews, render a single textured quad that billboards toward the camera."
+  },
+  "R309": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Make entity placeholder geometry a flat quad, not a 3D shape."
+  },
+  "R310": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Placeholder 3D geometry for walls in MapCanvas is allowed."
+  },
+  "R311": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "The 3D PreviewPanel on the Scene page may show a perspective 3D view of the raycaster result."
+  },
+  "R312": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Entity-specific previews on the Prefabs page should show the sprite asset, not a 3D mesh."
+  },
+  "R313": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "When building entity-rendering surfaces, default to sprite-based rendering unless explicitly working on the 3D Scene Preview."
+  },
+  "R314": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Replace the cube/sphere rendering in EntityPreviewPanel with a billboard sprite."
+  },
+  "R315": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Lock the billboard plane's rotation to face the camera by copying the camera quaternion in the render loop."
+  },
+  "R316": {
+   "file": "project_raycaster_billboard_prefabs.md",
+   "rule": "Keep the orbit camera in EntityPreviewPanel so the user can verify the billboard faces them."
+  },
+  "R317": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "When working on the sync.ts transport, design its seams now, even if the network transport is implemented later."
+  },
+  "R318": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Design D4–D7 of the DnD plan so a PeerJS transport can be plugged in later without retrofitting."
+  },
+  "R319": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Treat createSyncedStore's transport as an interface that a future PeerJS transport can satisfy."
+  },
+  "R320": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Don't write code that accesses localStorage directly."
+  },
+  "R321": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Don't write code that assumes `storage` event semantics."
+  },
+  "R322": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Go through createSyncedStore's API when reading or writing synced store state."
+  },
+  "R323": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "If createSyncedStore's API lacks needed functionality, extend the API rather than bypassing it."
+  },
+  "R324": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Flag all set(...) calls that originate from a remote peer so the local window doesn't echo the write back over the network."
+  },
+  "R325": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Don't assume all store writes are local."
+  },
+  "R326": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Keep heavy state (entities, cells, prefab refs) out of the URL; transfer it via WebRTC after the handshake."
+  },
+  "R327": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "When DockPanelDef is extended, default existing panels to mountable: {local: true, remote: false}."
+  },
+  "R328": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Opt a panel into remote mountability only if it genuinely makes sense to mount remotely."
+  },
+  "R329": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Document last-write-wins as the conflict policy for UI state (tool, brush, selection)."
+  },
+  "R330": {
+   "file": "project_remote_dock_via_qr.md",
+   "rule": "Defer the conflict-resolution decision for richer mutations until concrete use cases land."
+  },
+  "R331": {
+   "file": "reference_playwright_cardboard_apg.md",
+   "rule": "For drag-and-drop or file-input testing, prefer the ~/Downloads/Cardboard.apg path when loading a pack."
+  },
+  "R332": {
+   "file": "reference_playwright_cardboard_apg.md",
+   "rule": "For URL-based pack loading, use the apps/game/public/packs/Cardboard.apg path."
+  },
+  "R333": {
+   "file": "reference_playwright_cardboard_apg.md",
+   "rule": "Do not generate a new pack during a Playwright run; use the existing Cardboard.apg fixture instead."
+  }
+ },
+ "CrystalPlatforms__exsize": {
+  "R1": {
+   "file": "feedback_dev_tooling.md",
+   "rule": "Always prefix tool invocations in this repo (such as pytest, uvicorn) with `uv run` to run them."
+  },
+  "R2": {
+   "file": "feedback_dev_tooling.md",
+   "rule": "Never invoke `.venv/bin/pytest` or `.venv/bin/uvicorn` directly; run them through `uv run` instead."
+  },
+  "R3": {
+   "file": "feedback_dev_tooling.md",
+   "rule": "To add a Python dependency to this project, use `uv add <package>`."
+  },
+  "R4": {
+   "file": "feedback_dev_tooling.md",
+   "rule": "To sync project dependencies, use `uv sync`."
+  },
+  "R5": {
+   "file": "feedback_sqlite_migrations.md",
+   "rule": "When database model schema changes, delete the dev database (exsize.db) and recreate it, because create_all does not alter existing tables."
+  },
+  "R6": {
+   "file": "feedback_sqlite_migrations.md",
+   "rule": "After any model schema change, remind the user to run `rm exsize.db` and restart the server."
+  },
+  "R7": {
+   "file": "feedback_sqlite_migrations.md",
+   "rule": "Consider suggesting Alembic for database migrations if schema migrations become frequent."
+  },
+  "R8": {
+   "file": "feedback_tdd_workflow.md",
+   "rule": "When the user invokes `/tdd N`, fetch GitHub issue #N for acceptance criteria and context, then follow the TDD workflow against those criteria."
+  },
+  "R9": {
+   "file": "project_issues.md",
+   "rule": "When `/tdd N` is invoked, look up GitHub issue #N and use its acceptance criteria."
+  },
+  "R10": {
+   "file": "project_issues.md",
+   "rule": "When `/tdd N` is invoked, look up GitHub issue #N and determine its blocked-by chain."
+  },
+  "R11": {
+   "file": "project_overview.md",
+   "rule": "Always check issue blockers before starting a phase of the ExSize project."
+  },
+  "R12": {
+   "file": "project_progress.md",
+   "rule": "When the /tdd N command is invoked for issue N, check the project progress table to confirm that issue N's dependencies are met before starting work on it."
+  },
+  "R13": {
+   "file": "project_progress.md",
+   "rule": "After each GitHub issue is completed, update the project progress table to record its status and completion date."
+  },
+  "R14": {
+   "file": "project_techstack.md",
+   "rule": "When writing code, tests, or setting up the project, use the ExSize tech stack: Python, FastAPI, and SQLite."
+  }
+ }
+}

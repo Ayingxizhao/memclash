@@ -1,0 +1,59 @@
+# Memory index
+
+
+- [Satisfactory Factories project](project-satisfactory-factories.md) — logistics planner for the game; my architecture docs live in `docs/architecture/`
+- [Renovate catalog lockfile mismatch](renovate-catalog-lockfile-mismatch.md) — why `sharedWorkspaceLockfile` must stay true; Renovate only ever commits the root lockfile
+- [Backend deploy & prod drift](backend-deploy-and-prod-drift.md) — before assuming the API is deployable from `main`, or reading a green Actions run as a successful deploy
+- [Preview API environment](preview-api-environment.md) — the second API previews point at; shared, port 3002, and nothing puts it back on `main`
+- [Building groups](building-groups-branch-status.md) — how overclocking/somersloops work and their gotchas; shipped, the branch it was built on is dead
+- [Calc engine gotchas](calc-engine-gotchas.md) — double-pass recalc, load-bearing step order, migration patches, and other traps
+- [Sync v0.7.0 realtime rooms](project-sync-v7-rooms.md) — built and green on `claude/sync-mechanism-refactor-7b021b`, not yet merged; file map, locked decisions and the flagged follow-ups
+- [Offline durability](offline-durability.md) — content, intent, revision and any unanswered conflict are one durable generation, journalled per browser instance; read before touching plan persistence
+- [Tab sync v2 rework](project-tab-sync-v2.md) — superseded by sync v0.7.0; `tab-sync-v2` branch is a design reference only
+- [Scope plans per session](feedback-scope-plans-per-session.md) — split big multi-part features into separate plans/branches/sessions
+- [Opus workers, Fable orchestrator](feedback-opus-workers-fable-orchestrator.md) — subagents inherit the session model; pin model:'opus' on every agent() call
+- [Graph rebuild plan (parked)](project-graph-rebuild-plan.md) — Vue Flow graph-view rebuild plan saved to repo `.claude/plans/graph-view-vue-flow-rebuild.md`, decisions locked, M1–M6 not started
+- [AWESOME Sink plan (Beta v0.6)](project-awesome-sink-plan.md) — sink + byproduct routing plan approved, in `.claude/plans/awesome-sink-and-byproduct-routing.md`; do NOT implement during Beta v0.5
+- [Surplus disposition is not production-tied](surplus-disposition-not-production-tied.md) — sink/depot features key off surplus alone, never off whether the factory makes the part
+- [TDD specs fail intentionally](tdd-specs-fail-intentionally.md) — web/testing/tdd/ holds WIP specs written before implementation; failures there may be pre-existing user work
+- [Dependency modernization plan](dependency-modernization-plan.md) — phased upgrade programme state; TS capped at 6.0, ESLint target 9+neostandard, vue-router pinned ~4.4.5, VNumberInput gotchas
+- [Vuetify 4 migration](vuetify-4-migration-checklist.md) — done in PR #490; cascade layers invert app-vs-Vuetify precedence, and one layer bug only shows in a production build
+- [Color system](color-system.md) — semantic colours live in utils/colors.ts → --sf-* CSS vars; use sfColors / semantic sf-chip classes, never new literal hexes
+- [Verify: tab navigation](verify-tab-navigation.md) — puppeteer recipe for adding/switching factory tabs (:scope > add btn; factory .v-tabs = the one without "Change Log")
+- [Verify: export calculator](verify-export-calculator.md) — open the tray via export chips w/ '/min' text (not the calc button); scope belt selectors to .belt-section
+- [FontAwesome dynamic icons](fontawesome-dynamic-icons.md) — FA SVG replacement detaches `<i>`; toggle a wrapper span, never `:class`-flip an icon
+- [Rendering rework + loader intent](rendering-rework-loader-intent.md) — planned on-select factory rendering; loader should track calc not render; don't micro-opt the 75ms stagger before that lands
+- [Verify: colour iteration](verify-color-iteration.md) — compare style candidates by editing the file through HMR; DOM overrides get clobbered by Vue re-renders
+- [Perf: devtools sync watcher](perf-devtools-sync-watcher.md) — the add-factory hang was Pinia devtools' deep+sync $subscribe (O(n²) traverse per write); fixed by the clone-run-commit engine
+- [Perf: deep-watcher bottleneck](perf-deep-watcher-bottleneck.md) — full-plan deep watchers + devtools overlay eliminated; remaining edit cost is render/layout (rendering rework); benchmarks inside
+- [Perf: devtools sync watcher](perf-devtools-sync-watcher.md) — the add-factory hang is Pinia devtools' deep+sync $subscribe (O(n²) traverse per write), not a calc cascade; benchmarks inside
+- [Perf: deep-watcher bottleneck](perf-deep-watcher-bottleneck.md) — post-diff-commit, 124-factory edits still block ~5s: three full-plan deep watchers + persistence stringify; fix plan inside
+- [VNumberInput clamping](vnumberinput-clamping.md) — clamp typed values on entry and remount the field; `:max` swallows the update event
+- [Export/import chain invariants](export-import-chain-invariants.md) — exports are derived from imports, factory IDs must be unique, and a loaded plan won't self-heal unless validation asks for a recalc
+- [Factory status registry](factory-status-registry.md) — adding a status is one array entry; keep the warning tier out of the engine loop and mirror the product-less guard or saved plans change colour
+- [Extraction output multiplier](extraction-output-multiplier.md) — how miner mark + node purity plug into the building-group maths without forking the solver
+- [Raw input assumption](raw-input-assumption.md) — removed entirely; the only survivors are decided by the game data, and misjudging that rule erases shortages silently
+- [Raw Resources Wizard](raw-resources-wizard.md) — why apply is transactional, and the building-group sync dance a created mine needs
+- [Game data version cache](game-data-version-cache.md) — bump `dataVersion` every time the data is regenerated, or browsers keep serving the old JSON
+- [Factory icon registry](factory-icon-registry.md) — plans store a bare icon ID we can never migrate; regenerate the registry after a game data change and never rename an ID
+- [Factory groups invariant](factory-groups-invariant.md) — groups ride on the factory (the save payload is a bare Factory[]) and are a sort of the one flat array; both break silently
+- [Client version gate](client-version-gate.md) — the rules the API's version gate must keep, and why build-time constants travel as `VITE_*` rather than a Vite `define`
+- [Game asset tooltips](game-asset-tooltips.md) — why every game image went tooltip-less: VImg eats a `title`, and a three-root component drops it with no warning
+- [Changelog: no word salad](changelog-no-word-salad.md) — release copy states the change and stops; reasons belong in commits, not the changelog
+- [Building group balance tolerance](building-group-balance-tolerance.md) — balanced is a percentage of the item's demand with a ceiling, and changing it has to force a recalc
+- [Input debounce window](input-debounce-window.md) — the timer does reset per keystroke; the 250ms window is just shorter than typing, and reverse-solving inputs compound partial values
+- [Stale branch: cherry-pick, don't merge](stale-branch-cherry-pick-not-merge.md) — squash merges make a merge-forward conflict on 70 files where a cherry-pick conflicts on 2
+- [Overlay z-index bands](overlay-z-index-bands.md) — banners sit at 1900 below Vuetify menus (2000+), toasts at 2600 above dialogs; a banner above the overlay stack steals menu clicks
+- [prom-client is deprecated](prom-client-deprecated-successor.md) — the successor was days old and 0.x, so the metrics endpoint stayed put; what would change that, and the third package name context7 hands out
+- [Verify: hidden-pane menu freeze](verify-hidden-pane-menu-freeze.md) — a hidden browser pane leaves Vuetify menus stuck invisible with inline pointer-events:none; clear the inline props before hit-testing
+- [prom-client label lifecycle](prom-client-label-lifecycle.md) — seed bounded label sets at zero or panels read "No data"; reset ranked ones or dropped labels report forever
+- [Clock step freezes rate limits](clock-step-freezes-rate-limits.md) — a backwards clock step at boot 429'd the API container unhealthy under express-rate-limit; why @nestjs/throttler closed it, why we run our own throttler storage instead of its, and why it looks exactly like prod drift
+- [Grafana dashboard via API](grafana-dashboard-via-api.md) — `docs/grafana/generate.py` is the source of truth; regenerate and PUT the v2 JSON from the Grafana box with the on-box token, never hand-edit live; ask for SSH first
+- [Renovate automerge is dead](renovate-automerge-blocked-by-ruleset.md) — the "Human review required" ruleset needs one approval, so green Renovate PRs never merge themselves; sweep them in one branch
+- [Nest 12 landed](nest-12-blocked-on-throttler.md) — in since 2026-09-21; the traps are the exports map hiding `@nestjs/common/interfaces` under nodenext and @nestjs/config jumping 4.x to 12.x
+- [E2E concurrency flake](e2e-concurrency-flake.md) — the debounce straddle behind weeks of Playwright failures, why collisions are judged by op id, and why retries are CI-only
+- [Prometheus server config](prometheus-server-config.md) — 180d global retention (not per-target), the unit-file backslash trap, node_exporter, health dashboard; disk alerts are Zabbix
+- [Text sanity rules](text-sanity-rules.md) — one rulebook for names, notes and tasks in planner and server; links banned, old text repaired on load
+- [Plan deletion moves DB metrics](plan-deletion-moves-db-metrics.md) — a cliff in synced factories with edits falling too is deletion; deleted plans leave no trace but Prometheus
+- [Game save format](game-save-format.md) — reading a 1.2 .sav; a save is a diff not a snapshot, and the ways a wrong parse stays silent
+- [Recipe unlocks from a save](recipe-unlocks.md) — which alternates a loaded save locks; id mapping traps, one tab field so forgetting syncs, the leaf the chip reads

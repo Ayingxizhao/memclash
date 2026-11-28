@@ -1,0 +1,136 @@
+{
+  "repo": "mrwpress/assent-site",
+  "dir": ".claude/memory",
+  "n_files": 6,
+  "n_rules": 21,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "Use `<Picture />` or `<Image />` from `astro:assets` instead of raw `<img>` tags for raster images.",
+      "rule": "Use Astro's `<Picture />` or `<Image />` component from `astro:assets` instead of a raw `<img>` tag for raster images."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "Images that need optimization go in `src/assets/` (not `public/`) so the build pipeline processes them.",
+      "rule": "Place images that need optimization in `src/assets/`, not in `public/`."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "`public/` is only for files that must be served as-is (favicons, robots.txt, etc).",
+      "rule": "Use `public/` only for files that must be served as-is, such as favicons and robots.txt."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "Before writing any `<img>` tag, consider whether it should be a `<Picture />` or `<Image />` component.",
+      "rule": "Before writing any `<img>` tag, consider whether it should be a `<Picture />` or `<Image />` component instead."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "Import images from `src/assets/` in frontmatter.",
+      "rule": "Import images from `src/assets/` in the frontmatter."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_astro_best_practices.md",
+      "quote": "Reserve `public/` for non-optimizable assets.",
+      "rule": "Reserve `public/` for assets that cannot be optimized."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_autonomy.md",
+      "quote": "Do not ask for confirmation on file edits, git operations, or GitHub actions within the project scope.",
+      "rule": "Do not ask for confirmation before file edits, git operations, or GitHub actions within the project scope."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_autonomy.md",
+      "quote": "Act freely on any file in the project directory",
+      "rule": "Act freely on any file in the project directory without asking first."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_autonomy.md",
+      "quote": "any GitHub operation (branches, commits, PRs, pushes)",
+      "rule": "Perform GitHub operations such as creating branches, commits, PRs, and pushes without asking first."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_autonomy.md",
+      "quote": "Stop and ask only for: merging PRs",
+      "rule": "Stop and ask the user before merging PRs."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_autonomy.md",
+      "quote": "anything touching computer/system settings",
+      "rule": "Stop and ask the user before touching computer or system settings."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_autonomy.md",
+      "quote": "destructive operations outside this project",
+      "rule": "Stop and ask the user before performing destructive operations outside this project."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_github_workflow.md",
+      "quote": "Create a branch",
+      "rule": "Start all work on a new branch off main."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_github_workflow.md",
+      "quote": "Commit frequently to the branch",
+      "rule": "Commit work frequently to the feature branch."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_github_workflow.md",
+      "quote": "Open a PR when work is ready for review",
+      "rule": "Open a pull request when work is ready for review."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_github_workflow.md",
+      "quote": "Never use `gh pr merge` or merge via any method unless the user explicitly says to merge",
+      "rule": "Never merge a pull request by any method, including `gh pr merge`, unless the user explicitly tells you to merge."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_shared_memories.md",
+      "quote": "Always commit memory files to the repo at `.claude/memory/`.",
+      "rule": "Always commit memory files to the repo at `.claude/memory/`."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_shared_memories.md",
+      "quote": "write them to both the local path (`~/.claude/projects/.../memory/`) and the repo path (`.claude/memory/`)",
+      "rule": "When creating or updating memory files, write them to both the local path (`~/.claude/projects/.../memory/`) and the repo path (`.claude/memory/`)."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_shared_memories.md",
+      "quote": "Include memory file changes in commits.",
+      "rule": "When committing, include memory file changes in the commits."
+    },
+    {
+      "id": "R20",
+      "file": "project_overview.md",
+      "quote": "No CMS — content is published directly through Claude",
+      "rule": "Do not use a CMS for the Assent Canine Training site; publish its content directly through Claude."
+    },
+    {
+      "id": "R21",
+      "file": "project_overview.md",
+      "quote": "content is published directly through Claude",
+      "rule": "Publish content for the Assent Canine Training site directly through Claude."
+    }
+  ],
+  "dropped": []
+}

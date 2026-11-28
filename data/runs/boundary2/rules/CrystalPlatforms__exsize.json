@@ -1,0 +1,94 @@
+{
+  "repo": "CrystalPlatforms/exsize",
+  "dir": ".claude/memory",
+  "n_files": 7,
+  "n_rules": 14,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_dev_tooling.md",
+      "quote": "Always use `uv run` to run tools.",
+      "rule": "Always prefix tool invocations in this repo (such as pytest, uvicorn) with `uv run` to run them."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_dev_tooling.md",
+      "quote": "Never use `.venv/bin/pytest` or `.venv/bin/uvicorn` directly.",
+      "rule": "Never invoke `.venv/bin/pytest` or `.venv/bin/uvicorn` directly; run them through `uv run` instead."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_dev_tooling.md",
+      "quote": "Add dependency: `uv add <package>`",
+      "rule": "To add a Python dependency to this project, use `uv add <package>`."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_dev_tooling.md",
+      "quote": "Sync deps: `uv sync`",
+      "rule": "To sync project dependencies, use `uv sync`."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_sqlite_migrations.md",
+      "quote": "the dev DB (`exsize.db`) must be deleted and recreated",
+      "rule": "When database model schema changes, delete the dev database (exsize.db) and recreate it, because create_all does not alter existing tables."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_sqlite_migrations.md",
+      "quote": "remind the user to `rm exsize.db` and restart the server",
+      "rule": "After any model schema change, remind the user to run `rm exsize.db` and restart the server."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_sqlite_migrations.md",
+      "quote": "Consider suggesting Alembic if migrations become frequent.",
+      "rule": "Consider suggesting Alembic for database migrations if schema migrations become frequent."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_tdd_workflow.md",
+      "quote": "**How to apply:** When `/tdd N` is received, fetch issue #N from GitHub for acceptance criteria and context, then follow the TDD workflow against those criteria.",
+      "rule": "When the user invokes `/tdd N`, fetch GitHub issue #N for acceptance criteria and context, then follow the TDD workflow against those criteria."
+    },
+    {
+      "id": "R9",
+      "file": "project_issues.md",
+      "quote": "look up issue #N for acceptance criteria",
+      "rule": "When `/tdd N` is invoked, look up GitHub issue #N and use its acceptance criteria."
+    },
+    {
+      "id": "R10",
+      "file": "project_issues.md",
+      "quote": "and blocked-by chain",
+      "rule": "When `/tdd N` is invoked, look up GitHub issue #N and determine its blocked-by chain."
+    },
+    {
+      "id": "R11",
+      "file": "project_overview.md",
+      "quote": "**How to apply:** Always check issue blockers before starting a phase.",
+      "rule": "Always check issue blockers before starting a phase of the ExSize project."
+    },
+    {
+      "id": "R12",
+      "file": "project_progress.md",
+      "quote": "When `/tdd N` is invoked, check this table to confirm dependencies are met before starting.",
+      "rule": "When the /tdd N command is invoked for issue N, check the project progress table to confirm that issue N's dependencies are met before starting work on it."
+    },
+    {
+      "id": "R13",
+      "file": "project_progress.md",
+      "quote": "Update after each issue is completed.",
+      "rule": "After each GitHub issue is completed, update the project progress table to record its status and completion date."
+    },
+    {
+      "id": "R14",
+      "file": "project_techstack.md",
+      "quote": "All code, tests, and project setup should use this stack.",
+      "rule": "When writing code, tests, or setting up the project, use the ExSize tech stack: Python, FastAPI, and SQLite."
+    }
+  ],
+  "dropped": []
+}

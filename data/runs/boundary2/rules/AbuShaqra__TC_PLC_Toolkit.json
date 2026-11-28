@@ -1,0 +1,964 @@
+{
+  "repo": "AbuShaqra/TC_PLC_Toolkit",
+  "dir": ".claude/memory",
+  "n_files": 25,
+  "n_rules": 159,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "README.md",
+      "quote": "Do **not** duplicate what the repo already records.",
+      "rule": "Do not write a shared memory note that duplicates content the repo already records in other files."
+    },
+    {
+      "id": "R2",
+      "file": "README.md",
+      "quote": "Architecture belongs in `DEVELOPMENT.md`",
+      "rule": "Record architecture in DEVELOPMENT.md, not in memory notes."
+    },
+    {
+      "id": "R3",
+      "file": "README.md",
+      "quote": "current state in `HANDOFF.md`",
+      "rule": "Record current project state in HANDOFF.md, not in memory notes."
+    },
+    {
+      "id": "R4",
+      "file": "README.md",
+      "quote": "the rules of the codebase in `CLAUDE.md`",
+      "rule": "Record the rules of the codebase in CLAUDE.md, not in memory notes."
+    },
+    {
+      "id": "R5",
+      "file": "README.md",
+      "quote": "If a note would still be true on a fresh clone on someone else's laptop, it belongs here.",
+      "rule": "Save a note to the shared project memory only if it would still be true on a fresh clone on another developer's machine."
+    },
+    {
+      "id": "R6",
+      "file": "README.md",
+      "quote": "Anything tied to one machine: local paths, installed TwinCAT versions, personal tooling",
+      "rule": "Save notes tied to one machine (local paths, installed TwinCAT versions, personal tooling) in the per-machine bank, not the shared bank."
+    },
+    {
+      "id": "R7",
+      "file": "README.md",
+      "quote": "Preferences that are yours rather than the project's",
+      "rule": "Save the user's personal preferences in the per-machine bank, not the shared bank."
+    },
+    {
+      "id": "R8",
+      "file": "README.md",
+      "quote": "That is the bar for adding one.",
+      "rule": "Add a shared memory note only for a lesson that was earned the expensive way, such as a wrong conclusion shipped, a day lost, or repeated failed fixes."
+    },
+    {
+      "id": "R9",
+      "file": "README.md",
+      "quote": "`<slug>` **must equal** the frontmatter `name`",
+      "rule": "Name each shared memory note file `<slug>.md`, where the slug exactly equals the frontmatter name."
+    },
+    {
+      "id": "R10",
+      "file": "README.md",
+      "quote": "Write the file.",
+      "rule": "To add a shared memory note, create its file in the repo; no index needs updating."
+    },
+    {
+      "id": "R11",
+      "file": "README.md",
+      "quote": "Be concrete — dates, counts, the actual failure.",
+      "rule": "In a memory note's Why section, state concrete details such as dates, counts, and the actual failure."
+    },
+    {
+      "id": "R12",
+      "file": "README.md",
+      "quote": "A `[[link]]` to a note that does not exist yet is fine",
+      "rule": "Link to a shared memory note with [[wikilink]] syntax even if the target note does not exist yet."
+    },
+    {
+      "id": "R13",
+      "file": "README.md",
+      "quote": "node .claude/memory/bank.js --check",
+      "rule": "Validate shared memory notes by running `node .claude/memory/bank.js --check` after adding one."
+    },
+    {
+      "id": "R14",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "Background agents must **report progress frequently / send a heartbeat**",
+      "rule": "Background agents must report progress frequently by sending a heartbeat so that 'still working' can be distinguished from 'silently dead'."
+    },
+    {
+      "id": "R15",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "at least every ~10 tool calls",
+      "rule": "The implementer agent must send SendMessage progress updates to main at least every ~10 tool calls."
+    },
+    {
+      "id": "R16",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "SendMessage updates to `main` on start",
+      "rule": "The implementer agent must send a SendMessage update to main when it starts."
+    },
+    {
+      "id": "R17",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "after investigation, after each file, before long steps",
+      "rule": "The implementer agent must send SendMessage updates to main after investigation, after each file it writes, and before long-running steps."
+    },
+    {
+      "id": "R18",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "Never assume a quiet agent is working.",
+      "rule": "Never assume a quiet background agent is still working."
+    },
+    {
+      "id": "R19",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "Check liveness (TaskOutput on its id, or whether its owned files have been touched).",
+      "rule": "When an agent is quiet, check its liveness using TaskOutput on its id or by checking whether its owned files have been touched."
+    },
+    {
+      "id": "R20",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "If it is dead, take the task back and do it directly rather than waiting.",
+      "rule": "If a background agent is confirmed dead, take its task back and perform it directly instead of waiting."
+    },
+    {
+      "id": "R21",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "Always re-measure/re-verify an agent's headline claims before relaying them to the user.",
+      "rule": "Always re-measure or re-verify an agent's headline claims before relaying them to the user."
+    },
+    {
+      "id": "R22",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "assign strictly disjoint file ownership",
+      "rule": "When running agents in parallel, assign strictly disjoint file ownership to each agent."
+    },
+    {
+      "id": "R23",
+      "file": "agent-heartbeat-and-verification.md",
+      "quote": "keep shared files (`package.json`, `HANDOFF.md`) centrally owned",
+      "rule": "When running agents in parallel, keep shared files such as package.json and HANDOFF.md centrally owned rather than assigned to individual agents."
+    },
+    {
+      "id": "R24",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "Decide routine calls yourself from the rules\nalready on record",
+      "rule": "Decide routine choices yourself by applying the rules already on record, instead of asking the user about them."
+    },
+    {
+      "id": "R25",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "record the\nchoice and its reason in HANDOFF.md, and keep going",
+      "rule": "After making a routine decision, record the choice and its reason in HANDOFF.md and continue working."
+    },
+    {
+      "id": "R26",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "Ask (as a card) only when the answer is genuinely the\nuser's and cannot be derived",
+      "rule": "Ask the user (as a card) only when the answer is genuinely the user's to give and cannot be derived from existing rules."
+    },
+    {
+      "id": "R27",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "Do not stop the work to ask the user about every choice.",
+      "rule": "Do not stop work to ask the user about every choice."
+    },
+    {
+      "id": "R28",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "before an AskUserQuestion, check whether an existing rule already answers it; if it\ndoes, apply it and say so in the status update instead.",
+      "rule": "Before asking the user a question via AskUserQuestion, check whether an existing rule already answers it; if one does, apply that rule and state it in the status update instead of asking."
+    },
+    {
+      "id": "R29",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "When a real question is needed, keep other\nindependent work moving meanwhile, and batch questions rather than asking one at a time.",
+      "rule": "When a real question is needed, keep independent work moving meanwhile and batch questions rather than asking them one at a time."
+    },
+    {
+      "id": "R30",
+      "file": "ask-only-what-is-the-users-call.md",
+      "quote": "Brief agents\nthe same way: decide by the rules, report the choice, stop only for a user-level decision.",
+      "rule": "When briefing agents, instruct them to decide by the existing rules, report their choices, and stop only for user-level decisions."
+    },
+    {
+      "id": "R31",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "Any \"catch every error and show it\" handler in the webview must filter the browser's benign notices,",
+      "rule": "When writing a catch-all error handler in the webview, filter out the browser's benign notices (such as the ResizeObserver loop notice) so they are not shown as errors."
+    },
+    {
+      "id": "R32",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "a webview change is not verified until someone has LOOKED at the real window doing the thing.",
+      "rule": "After making a webview change, do not consider it verified until the real window has been opened and visually inspected doing the relevant action."
+    },
+    {
+      "id": "R33",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "A global error handler is a *filter*, not a funnel: skip `/ResizeObserver loop/` (and any other\n  documented-benign notice you meet) explicitly, and keep a test that a genuine error still surfaces.",
+      "rule": "Treat a global error handler as a filter: explicitly skip the ResizeObserver loop notice and any other documented-benign notice, and keep a test confirming that genuine errors still surface."
+    },
+    {
+      "id": "R34",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "Do not trust a green browser harness for anything timing-dependent",
+      "rule": "Do not trust a passing browser harness as proof of behavior for timing-dependent code."
+    },
+    {
+      "id": "R35",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "dispatch the exact event by\n  hand as the deterministic half of the assertion",
+      "rule": "For timing-dependent behavior, dispatch the exact event by hand as the deterministic part of the test assertion."
+    },
+    {
+      "id": "R36",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "When a harness can capture the real window, assert on what the USER sees (overlay hidden, no\n  `error` posted), not only on the mechanism under test.",
+      "rule": "When a harness can capture the real window, assert on what the user sees (e.g., overlay hidden, no error posted), not only on the underlying mechanism."
+    },
+    {
+      "id": "R37",
+      "file": "benign-browser-notices-are-error-events.md",
+      "quote": "after a webview change, open the real\n  thing once and look",
+      "rule": "After a webview change, open the real thing once and look at it."
+    },
+    {
+      "id": "R38",
+      "file": "branch-cleanup-names-each-repos-integration-branch.md",
+      "quote": "write one command **per repository**,\neach keeping that repository's own integration branch by name — never one \"delete all except …\" line\nmeant for several repos.",
+      "rule": "When giving the user a command that deletes remote branches, write a separate command for each repository, each keeping that repository's own integration branch by name; never use one \"delete all except …\" command for several repositories."
+    },
+    {
+      "id": "R39",
+      "file": "branch-cleanup-names-each-repos-integration-branch.md",
+      "quote": "list the protected names of *that* repo: here `main`, `dev` and the session's\n  working branch; in the fork `main`, `development` and its working branch.",
+      "rule": "In any branch-delete command, list the protected branch names of that specific repository (e.g., main, dev and the session's working branch for this repo; main, development and its working branch for the fork)."
+    },
+    {
+      "id": "R40",
+      "file": "branch-cleanup-names-each-repos-integration-branch.md",
+      "quote": "Prefer listing the exact branches to delete over an exclusion pattern.",
+      "rule": "When writing a branch-delete command, prefer listing the exact branches to delete over using an exclusion pattern."
+    },
+    {
+      "id": "R41",
+      "file": "branch-cleanup-names-each-repos-integration-branch.md",
+      "quote": "Before opening a PR, run `git ls-remote --heads origin` and confirm the base branch exists.",
+      "rule": "Before opening a PR, run `git ls-remote --heads origin` and confirm the base branch exists."
+    },
+    {
+      "id": "R42",
+      "file": "clean-merge-is-not-a-tested-merge.md",
+      "quote": "merge current `development` into it and run\nthe full build and test suite on that result, whenever any file it changes was also changed on\n`development` since its gate",
+      "rule": "Before merging a branch whose gate ran on an older base, merge current development into it and run the full build and test suite on that result whenever any file the branch changes was also changed on development since its gate."
+    },
+    {
+      "id": "R43",
+      "file": "clean-merge-is-not-a-tested-merge.md",
+      "quote": "\"Git reported no conflict\" proves nothing about behaviour.",
+      "rule": "Do not treat a clean git merge (no conflict reported) as evidence that the merged behaviour is correct; test the combined result."
+    },
+    {
+      "id": "R44",
+      "file": "clean-merge-is-not-a-tested-merge.md",
+      "quote": "use the combined-test step (worktree on the branch, `git merge origin/development`,\n`cp -al` node_modules, build, full vitest, extension tests) for every overlapping branch",
+      "rule": "For every branch that overlaps with development, use the combined-test step: create a worktree on the branch, run git merge origin/development, copy node_modules with cp -al, then run the build, full vitest suite, and extension tests."
+    },
+    {
+      "id": "R45",
+      "file": "clean-merge-is-not-a-tested-merge.md",
+      "quote": "When\n`development` moves again before the merge and touches the same files, re-run it.",
+      "rule": "If development moves again before the merge and touches the same files, re-run the combined-test step."
+    },
+    {
+      "id": "R46",
+      "file": "clean-merge-is-not-a-tested-merge.md",
+      "quote": "Watch especially\nfor hunks that change a guard (`if`, early `return`) around code another branch also edits.",
+      "rule": "Pay especially close attention to merge hunks that change a guard (such as an if condition or early return) around code that another branch also edits."
+    },
+    {
+      "id": "R47",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "Never pipe a gate command through tail/head/grep in a && chain",
+      "rule": "Never pipe a gate command (such as a typecheck) through tail, head, or grep inside a && chain."
+    },
+    {
+      "id": "R48",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "Run the gate bare (`npm run typecheck && ...`) and trim output some other way",
+      "rule": "Run a gate command without a pipe, so its exit code is preserved, and trim its output by some other means."
+    },
+    {
+      "id": "R49",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "code explicitly (`npm run typecheck; echo \"exit: $?\"`) before any commit/push in the same chain.",
+      "rule": "Check a gate's exit code explicitly before any commit or push in the same command chain."
+    },
+    {
+      "id": "R50",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "tool-invoked one-liners rarely set it — don't rely",
+      "rule": "Don't rely on `set -o pipefail` being set in tool-invoked one-liners."
+    },
+    {
+      "id": "R51",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "The same trap applies to `npm test 2>&1 | tail -N`",
+      "rule": "Don't pipe `npm test` through tail when its exit status matters."
+    },
+    {
+      "id": "R52",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "the EXIT CODE is the gate; the text is commentary.",
+      "rule": "When a decision depends on a gate, treat the gate's exit code as the result and the output text as commentary only."
+    },
+    {
+      "id": "R53",
+      "file": "gates-must-propagate-exit-codes.md",
+      "quote": "Prove immutability with `node --use-strict` or `Object.isFrozen`.",
+      "rule": "Prove that an object is immutable using `node --use-strict` or `Object.isFrozen`, not a try/catch around a write."
+    },
+    {
+      "id": "R54",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "guard the failure arm with an explicit comparison",
+      "rule": "When narrowing a JSDoc boolean-literal discriminated union, guard the failure arm with an explicit comparison such as `if (res.ok === false)`."
+    },
+    {
+      "id": "R55",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "never with truthiness (`if (!res.ok)`)",
+      "rule": "Never narrow a JSDoc boolean-literal discriminated union with a truthiness check such as `if (!res.ok)`."
+    },
+    {
+      "id": "R56",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "Use `=== true` / `=== false`",
+      "rule": "Wherever a JSDoc union must narrow, use `=== true` or `=== false` comparisons on the discriminant."
+    },
+    {
+      "id": "R57",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "or an `in` check on an arm-specific property",
+      "rule": "Wherever a JSDoc union must narrow, an `in` check on an arm-specific property may be used instead of a boolean comparison."
+    },
+    {
+      "id": "R58",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "leave a one-line comment at the site",
+      "rule": "Leave a one-line comment at each site where a JSDoc union is narrowed with an explicit comparison, so the comparison survives review."
+    },
+    {
+      "id": "R59",
+      "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+      "quote": "re-tested before being dropped",
+      "rule": "If the project moves off the TS 7 preview, re-test this narrowing rule before dropping it."
+    },
+    {
+      "id": "R60",
+      "file": "keep-development-md-current.md",
+      "quote": "Always keep DEVELOPMENT.md up to date when architecture, tests, or build change",
+      "rule": "Keep DEVELOPMENT.md up to date whenever architecture, tests, or build change."
+    },
+    {
+      "id": "R61",
+      "file": "keep-development-md-current.md",
+      "quote": "update DEVELOPMENT.md in the *same* change",
+      "rule": "Update DEVELOPMENT.md in the same change that modifies architecture, test layout/commands, or build/packaging."
+    },
+    {
+      "id": "R62",
+      "file": "keep-development-md-current.md",
+      "quote": "The rule is also written into the repo's [CLAUDE.md]",
+      "rule": "Keep DEVELOPMENT.md current as stated in the repo's CLAUDE.md (\"Keep DEVELOPMENT.md current — always\")."
+    },
+    {
+      "id": "R63",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "grep the **content** of every historical blob",
+      "rule": "When sweeping a repo for customer or private data, grep the content of every historical blob."
+    },
+    {
+      "id": "R64",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "separately check the things content-grep structurally cannot see",
+      "rule": "When sweeping a repo for customer or private data, separately check the items that content grep cannot see, not only file content."
+    },
+    {
+      "id": "R65",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "commit author/committer",
+      "rule": "When sweeping a repo for private data, check commit author and committer headers."
+    },
+    {
+      "id": "R66",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "commit messages, tag metadata",
+      "rule": "When sweeping a repo for private data, check commit messages."
+    },
+    {
+      "id": "R67",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "tag metadata, unreachable objects",
+      "rule": "When sweeping a repo for private data, check tag metadata."
+    },
+    {
+      "id": "R68",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "tag metadata, unreachable objects",
+      "rule": "When sweeping a repo for private data, check unreachable objects."
+    },
+    {
+      "id": "R69",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "generated/binary files that were",
+      "rule": "When sweeping a repo for private data, check generated or binary files that were committed."
+    },
+    {
+      "id": "R70",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "check source **comments** for real-world names",
+      "rule": "When sweeping a repo for private data, check source comments for real-world names transcribed as examples."
+    },
+    {
+      "id": "R71",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "Verify across every ref, and note `--all` is doing real work in that command.",
+      "rule": "When verifying a privacy sweep, check every ref, not just the currently checked-out or main branch."
+    },
+    {
+      "id": "R72",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "Loop over `git for-each-ref refs/heads/` and over `git ls-remote --heads origin`",
+      "rule": "When verifying a privacy sweep across refs, loop over local branches from git for-each-ref refs/heads/ and over remote branches from git ls-remote --heads origin."
+    },
+    {
+      "id": "R73",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "the mailmap pass has to be the last thing that happens before the final push, not the first",
+      "rule": "Run the mailmap pass as the last step before the final push, not earlier."
+    },
+    {
+      "id": "R74",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "run `git log --all --pretty='%an <%ae> | %cn <%ce>' | sort | uniq -c` early",
+      "rule": "Early in a privacy sweep, run git log --all --pretty='%an <%ae> | %cn <%ce>' | sort | uniq -c to list author and committer identities."
+    },
+    {
+      "id": "R75",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "Treat a plausible-looking vendor or POU name in a comment as suspect until you can say where it came from",
+      "rule": "Treat a plausible-looking vendor or POU name in a comment as suspect until you can establish where it came from."
+    },
+    {
+      "id": "R76",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "When replacing such names, preserve the property the comment exists to teach",
+      "rule": "When replacing real-world names in comments or fixtures, preserve the property the comment exists to teach."
+    },
+    {
+      "id": "R77",
+      "file": "leaks-hide-in-metadata-not-content.md",
+      "quote": "metadata the thing to check **first**, while it is still cheap to fix.",
+      "rule": "When doing a privacy sweep, check metadata first, while it is still cheap to fix."
+    },
+    {
+      "id": "R78",
+      "file": "multi-project-workspaces.md",
+      "quote": "before adding any name-keyed workspace structure, ask which project owns each entry",
+      "rule": "Before adding any name-keyed workspace structure, determine which project owns each entry."
+    },
+    {
+      "id": "R79",
+      "file": "multi-project-workspaces.md",
+      "quote": "route it through `src/lsp/projectMap.js`",
+      "rule": "Route any new name-keyed workspace structure through `src/lsp/projectMap.js`."
+    },
+    {
+      "id": "R80",
+      "file": "multi-project-workspaces.md",
+      "quote": "index it into every owner",
+      "rule": "When a file is `<Compile>`d by more than one project, index it into every owning project."
+    },
+    {
+      "id": "R81",
+      "file": "multi-project-workspaces.md",
+      "quote": "route requests to the one whose directory contains it",
+      "rule": "When a file is `<Compile>`d by more than one project, route requests for it to the project whose directory contains it."
+    },
+    {
+      "id": "R82",
+      "file": "multi-project-workspaces.md",
+      "quote": "the **rename config-object scan** must be project-scoped",
+      "rule": "Scope the rename config-object scan to a single project so it does not rewrite other projects' `.TcVIS`/`.TcTLO`/`.TcTTO` files."
+    },
+    {
+      "id": "R83",
+      "file": "multi-project-workspaces.md",
+      "quote": "Verify multi-project changes on a real two-project fixture",
+      "rule": "Verify multi-project changes on a real two-project fixture, such as the one built by `test/_multiproject.js` from the committed sample."
+    },
+    {
+      "id": "R84",
+      "file": "multi-project-workspaces.md",
+      "quote": "keep the partition's normalized keys OUT of uris and file reads",
+      "rule": "Never use the partition's normalized keys in URIs or file reads."
+    },
+    {
+      "id": "R85",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "Keep the two roles in separate fields",
+      "rule": "Keep identity keys (normalized paths) and display or open paths in separate fields, so a normalized key is never used as a path."
+    },
+    {
+      "id": "R86",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "never build a uri, tab, label or file read from the key side",
+      "rule": "Never build a URI, editor tab, label, or file read from a normalized identity key; use the on-disk spelling instead."
+    },
+    {
+      "id": "R87",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "Pin casing with case-SENSITIVE assertions",
+      "rule": "When testing path or URI casing, use case-sensitive assertions."
+    },
+    {
+      "id": "R88",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "never `/…/i`",
+      "rule": "Never use case-insensitive regex assertions (the /i flag) to test path or URI casing."
+    },
+    {
+      "id": "R89",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "run it whenever navigation identity or uri spelling changes",
+      "rule": "Run test/devhost/run.js whenever navigation identity or URI spelling changes."
+    },
+    {
+      "id": "R90",
+      "file": "normalized-keys-are-not-file-paths.md",
+      "quote": "Paths that leave an XML attribute must pass through entity decoding.",
+      "rule": "Decode XML entities in any path value read from an XML attribute before using it."
+    },
+    {
+      "id": "R91",
+      "file": "one-checkout-one-writer.md",
+      "quote": "treat that checkout as the agent's: do not switch\nbranches, reset, or edit files the agent is likely to rewrite",
+      "rule": "While a delegated agent is working in a checkout, do not switch branches in that checkout."
+    },
+    {
+      "id": "R92",
+      "file": "one-checkout-one-writer.md",
+      "quote": "do not switch\nbranches, reset, or edit files the agent is likely to rewrite",
+      "rule": "While a delegated agent is working in a checkout, do not reset that checkout."
+    },
+    {
+      "id": "R93",
+      "file": "one-checkout-one-writer.md",
+      "quote": "do not switch\nbranches, reset, or edit files the agent is likely to rewrite (HANDOFF.md, ROADMAP.md, docs)",
+      "rule": "While a delegated agent is working in a checkout, do not edit files the agent is likely to rewrite (such as HANDOFF.md, ROADMAP.md, or docs)."
+    },
+    {
+      "id": "R94",
+      "file": "one-checkout-one-writer.md",
+      "quote": "Sync with\n`git fetch` and read through `git show`/a separate `git worktree`",
+      "rule": "Sync with `git fetch` and read files through `git show` or a separate `git worktree` rather than switching branches in the agent's checkout."
+    },
+    {
+      "id": "R95",
+      "file": "one-checkout-one-writer.md",
+      "quote": "make your own edits only in files the\nagent was told not to touch",
+      "rule": "Make your own edits only in files the delegated agent was told not to touch."
+    },
+    {
+      "id": "R96",
+      "file": "one-checkout-one-writer.md",
+      "quote": "re-check them after its commit lands",
+      "rule": "After the delegated agent's commit lands, re-check your own edits to files it may have rewritten."
+    },
+    {
+      "id": "R97",
+      "file": "one-checkout-one-writer.md",
+      "quote": "run post-merge syncs as `git fetch` only (no checkout) until the\nagent reports done",
+      "rule": "After delegating, run post-merge syncs as `git fetch` only, with no checkout, until the agent reports done."
+    },
+    {
+      "id": "R98",
+      "file": "one-checkout-one-writer.md",
+      "quote": "give a docs-touching agent an explicit list of entries it must preserve",
+      "rule": "When delegating to an agent that touches docs, give it an explicit list of entries it must preserve."
+    },
+    {
+      "id": "R99",
+      "file": "one-checkout-one-writer.md",
+      "quote": "after\nits commit, `git diff <your last commit> HEAD -- HANDOFF.md ROADMAP.md` to catch dropped lines",
+      "rule": "After a docs-touching agent's commit, run `git diff <your last commit> HEAD -- HANDOFF.md ROADMAP.md` to catch dropped lines."
+    },
+    {
+      "id": "R100",
+      "file": "permission-tests-need-enforcement-probes.md",
+      "quote": "must **probe that the restriction is\n  actually in effect** (e.g. after `chmod 0o000`, try `readdirSync` — if it succeeds, skip\n  cleanly)",
+      "rule": "A test that depends on a permission or filesystem restriction must probe that the restriction is actually in effect before asserting on it (e.g. after chmod 0o000, try readdirSync), and if the probe succeeds, skip the test cleanly."
+    },
+    {
+      "id": "R101",
+      "file": "permission-tests-need-enforcement-probes.md",
+      "quote": "anything platform-dependent\n  (permissions, path shape, case sensitivity, EOL) needs either both-platform behaviour or an\n  honest `[SKIP]`.",
+      "rule": "Any platform-dependent test behavior (permissions, path shape, case sensitivity, EOL) must either behave correctly on both platforms or emit an honest [SKIP] on platforms where it does not apply."
+    },
+    {
+      "id": "R102",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "immediately update its description with the same\ntext and read it back",
+      "rule": "After opening a pull request through the GitHub tool, immediately update its description with the same text you wrote, then read it back."
+    },
+    {
+      "id": "R103",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "confirm the body has no \"Claude Code\"",
+      "rule": "After creating a pull request, confirm via pull_request_read that the PR body contains no \"Claude Code\" attribution text."
+    },
+    {
+      "id": "R104",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "Create the PR, then `update_pull_request` with the body you wrote",
+      "rule": "When creating a pull request, follow the create call with an update_pull_request call that sets the body to the text you wrote."
+    },
+    {
+      "id": "R105",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "Writing the body without\nthe footer is not enough; the tool adds it on create.",
+      "rule": "Do not rely on writing the PR body without the footer at creation time; the footer must be removed with a follow-up update."
+    },
+    {
+      "id": "R106",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "The same applies in the STruC++ fork (`AbuShaqra/STruCpp`).",
+      "rule": "In the STruC++ fork (AbuShaqra/STruCpp), apply the same post-creation footer-removal update and read-back check to pull requests."
+    },
+    {
+      "id": "R107",
+      "file": "pr-creation-appends-attribution-footer.md",
+      "quote": "check them anyway",
+      "rule": "Check squash-merge commit messages for a Claude Code attribution footer even though they are written by hand."
+    },
+    {
+      "id": "R108",
+      "file": "reproduce-on-real-artifacts.md",
+      "quote": "When the user reports a bug, reproduce it against **their actual project, through the actual code\npath the product uses**, before forming any theory.",
+      "rule": "When the user reports a bug, reproduce it against the user's actual project through the actual code path the product uses, before forming any theory."
+    },
+    {
+      "id": "R109",
+      "file": "reproduce-on-real-artifacts.md",
+      "quote": "A synthetic test case you write yourself encodes\nthe assumptions you already have",
+      "rule": "Do not treat a synthetic test case you wrote yourself as a substitute for reproducing the bug on the real project."
+    },
+    {
+      "id": "R110",
+      "file": "reproduce-on-real-artifacts.md",
+      "quote": "first reproduce on the real artifact",
+      "rule": "When investigating a bug, first reproduce it on the real artifact."
+    },
+    {
+      "id": "R111",
+      "file": "reproduce-on-real-artifacts.md",
+      "quote": "when a subsystem \"cannot resolve\"\nsomething, ask *why the symbol is missing from the index* rather than patching the consumer that\ncopes with it missing",
+      "rule": "When a subsystem cannot resolve a symbol, investigate why the symbol is missing from the index rather than patching the consumer that copes with it missing."
+    },
+    {
+      "id": "R112",
+      "file": "reproduce-on-real-artifacts.md",
+      "quote": "measure before optimising a hypothesis",
+      "rule": "Measure before optimising a hypothesis."
+    },
+    {
+      "id": "R113",
+      "file": "review-loops-hold-the-scope-line.md",
+      "quote": "Anything older that a review turns up goes on a follow-up list,\nnot into the branch.",
+      "rule": "When a review finds pre-existing gaps that are older than the branch, record them on a follow-up list instead of fixing them inside the branch."
+    },
+    {
+      "id": "R114",
+      "file": "review-loops-hold-the-scope-line.md",
+      "quote": "Cap the loop at one review and one recheck, then merge with the follow-ups, unless\nthe recheck finds something new and high-severity.",
+      "rule": "Limit the review loop to one review and one recheck, then merge with the follow-ups, unless the recheck finds a new high-severity issue."
+    },
+    {
+      "id": "R115",
+      "file": "review-loops-hold-the-scope-line.md",
+      "quote": "Send the\nlane only the new ones plus anything inside the branch's own decision or docs claims; collect the rest\nfor the release's known-issues list.",
+      "rule": "When sorting review findings, send only new findings and those inside the branch's own decision or docs claims to the lane; collect the rest for the release's known-issues list."
+    },
+    {
+      "id": "R116",
+      "file": "review-loops-hold-the-scope-line.md",
+      "quote": "Run at most one review batch at a time while a gate chain shares\nthe machine.",
+      "rule": "While a gate chain shares the machine, run at most one review batch at a time."
+    },
+    {
+      "id": "R117",
+      "file": "review-loops-hold-the-scope-line.md",
+      "quote": "Prefer a structural fix (one central check, one expected-type pass) over a list of\nper-construct patches",
+      "rule": "Prefer a structural fix, such as one central check or one expected-type pass, over a list of per-construct patches."
+    },
+    {
+      "id": "R118",
+      "file": "shallow-clone-is-not-the-repo.md",
+      "quote": "run\n`git rev-parse --is-shallow-repository`",
+      "rule": "Before treating a local clone as a complete copy of the repository (auditing its history, pushing it to a recreated repo, or deleting the remote it came from), run `git rev-parse --is-shallow-repository`."
+    },
+    {
+      "id": "R119",
+      "file": "shallow-clone-is-not-the-repo.md",
+      "quote": "If it says `true`, nothing derived from that clone's history",
+      "rule": "If `git rev-parse --is-shallow-repository` returns `true`, do not treat anything derived from that clone's history as complete."
+    },
+    {
+      "id": "R120",
+      "file": "shallow-clone-is-not-the-repo.md",
+      "quote": "An audit over a shallow clone is an audit of the fetched window, not the repo.",
+      "rule": "Treat an audit run over a shallow clone as covering only the fetched window of commits, not the whole repository."
+    },
+    {
+      "id": "R121",
+      "file": "shallow-clone-is-not-the-repo.md",
+      "quote": "(`git fetch --unshallow <source> <branch>`), then re-run the audit",
+      "rule": "Before re-running an audit on a shallow clone, unshallow it with `git fetch --unshallow <source> <branch>`."
+    },
+    {
+      "id": "R122",
+      "file": "shallow-clone-is-not-the-repo.md",
+      "quote": "Order destructive cutovers so nothing is deleted until the replacement is verified.",
+      "rule": "When performing a destructive cutover, do not delete the old repository until the replacement has been verified."
+    },
+    {
+      "id": "R123",
+      "file": "stop-at-implausible-results.md",
+      "quote": "stop. Verify it another way,\nor ask the user, before reporting it as a finding or building anything on top of it.",
+      "rule": "When a measurement or experiment produces a result that contradicts logic or the user's domain experience, even if it looks internally consistent and plausible, stop and verify it by another method or ask the user before reporting it as a finding or building on it."
+    },
+    {
+      "id": "R124",
+      "file": "stop-at-implausible-results.md",
+      "quote": "before reporting a surprising finding, ask \"what would have to be true about the\nworld for this to be real?\"",
+      "rule": "Before reporting a surprising finding, ask what would have to be true about the world for it to be real."
+    },
+    {
+      "id": "R125",
+      "file": "stop-at-implausible-results.md",
+      "quote": "If the answer is absurd (a whole product configuration would be broken,\na vendor would ship something useless), the tool or my usage of it is wrong, not reality.",
+      "rule": "If the answer to 'what would have to be true' is absurd, assume the tool or your usage of it is wrong rather than reality."
+    },
+    {
+      "id": "R126",
+      "file": "stop-at-implausible-results.md",
+      "quote": "Re-measure\nby a different route, or put the contradiction to the user",
+      "rule": "When a surprising result seems absurd, re-measure it by a different route or put the contradiction to the user."
+    },
+    {
+      "id": "R127",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "When a change depends on how VS Code itself reacts (TreeView refresh, view visibility, focus,\nprogress), prove it in a real VS Code before telling the user it works.",
+      "rule": "When a change depends on how VS Code itself reacts (TreeView refresh, view visibility, focus, progress), prove it in a real VS Code before telling the user it works."
+    },
+    {
+      "id": "R128",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "The harnesses' `vscode` stub\nrecords what the extension sends; it cannot show what VS Code does with it.",
+      "rule": "Do not treat passing tests against the recording vscode stub as proof of how VS Code itself behaves."
+    },
+    {
+      "id": "R129",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "Ask the\nuser first: downloading and launching it may need their approval.",
+      "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+    },
+    {
+      "id": "R130",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "Do the probe before the user\ntests, not after their report.",
+      "rule": "Run the real-VS Code probe before the user tests a change, not after the user reports a problem."
+    },
+    {
+      "id": "R131",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "download VS Code into the scratchpad with `@vscode/test-electron`\n(`downloadAndUnzipVSCode`)",
+      "rule": "When probing in a real VS Code, download VS Code into the scratchpad using `@vscode/test-electron` (`downloadAndUnzipVSCode`)."
+    },
+    {
+      "id": "R132",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "load a tiny probe extension that uses the real module under test with a\nfake data source shaped like the live one",
+      "rule": "When probing in a real VS Code, load a tiny probe extension that uses the real module under test with a fake data source shaped like the live one."
+    },
+    {
+      "id": "R133",
+      "file": "stubbed-vscode-is-not-vscode.md",
+      "quote": "launch it with Playwright's `_electron` under `xvfb-run`, and sample the DOM.",
+      "rule": "When probing in a real VS Code, launch it with Playwright's `_electron` under `xvfb-run` and sample the DOM."
+    },
+    {
+      "id": "R134",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "Never give a git worktree a symlinked `node_modules` (or `vscode-extension/node_modules`).",
+      "rule": "Never give a git worktree a symlinked node_modules directory, including vscode-extension/node_modules."
+    },
+    {
+      "id": "R135",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "with `cp -al <clone>/…/node_modules <worktree>/…/node_modules`",
+      "rule": "Give a worktree its node_modules by copying the clone's directory with `cp -al <clone>/…/node_modules <worktree>/…/node_modules`."
+    },
+    {
+      "id": "R136",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "verify with `readlink -f <worktree>/vscode-extension/node_modules/strucpp`",
+      "rule": "Verify a worktree's node_modules setup by running `readlink -f <worktree>/vscode-extension/node_modules/strucpp`."
+    },
+    {
+      "id": "R137",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "it must print the worktree itself.",
+      "rule": "Confirm that the `readlink -f <worktree>/vscode-extension/node_modules/strucpp` check prints the worktree path itself."
+    },
+    {
+      "id": "R138",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "when creating any worktree for a gate or review, `cp -al` both `node_modules`",
+      "rule": "When creating any worktree for a gate or review, copy both node_modules directories with `cp -al` rather than symlinking them."
+    },
+    {
+      "id": "R139",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "run the `readlink -f` check before trusting a test result",
+      "rule": "Run the `readlink -f` check before trusting any test result from a worktree."
+    },
+    {
+      "id": "R140",
+      "file": "symlinked-node-modules-test-another-tree.md",
+      "quote": "A gate that passes the extension tests in under a minute on a branch that touched the compiler deserves a second look.",
+      "rule": "When a gate passes the extension tests in under a minute on a branch that touched the compiler, re-examine the result before trusting it."
+    },
+    {
+      "id": "R141",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "reveal only while `view.visible`",
+      "rule": "When a view follows the active editor, call TreeView.reveal only while view.visible is true."
+    },
+    {
+      "id": "R142",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "remember the last target",
+      "rule": "When a view follows the active editor, remember the last reveal target."
+    },
+    {
+      "id": "R143",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "reveal it from `onDidChangeVisibility` when the view is shown",
+      "rule": "When a view follows the active editor, reveal the remembered target from the onDidChangeVisibility handler when the view is shown."
+    },
+    {
+      "id": "R144",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "re-read every `reveal`/`focus` call on it as if the view were hidden",
+      "rule": "When moving a view between containers, re-read every reveal and focus call on that view as if the view were hidden."
+    },
+    {
+      "id": "R145",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "show the view first",
+      "rule": "In dev-host tests, show the view before triggering the reveal."
+    },
+    {
+      "id": "R146",
+      "file": "treeview-reveal-shows-hidden-views.md",
+      "quote": "wait for the recorded reveal instead of sleeping",
+      "rule": "In dev-host tests, wait for the recorded reveal instead of using a fixed sleep."
+    },
+    {
+      "id": "R147",
+      "file": "typecheck-graph-grows-with-requires.md",
+      "quote": "treat that file as newly gated — a red typecheck on an untouched file is *your* change's\n  trigger, and bisection + a TS 5 cross-check separates \"tooling bug\" from \"real defect\".",
+      "rule": "When a change adds a `require` that pulls a file into the tsc program for the first time, treat that file as newly gated, and if its typecheck fails on an untouched file, treat the failure as caused by your change."
+    },
+    {
+      "id": "R148",
+      "file": "typecheck-graph-grows-with-requires.md",
+      "quote": "bisection + a TS 5 cross-check separates \"tooling bug\" from \"real defect\"",
+      "rule": "When a typecheck failure appears in a file that was not otherwise modified, use bisection and a TypeScript 5 cross-check to determine whether the failure is a tooling bug or a real defect."
+    },
+    {
+      "id": "R149",
+      "file": "typecheck-graph-grows-with-requires.md",
+      "quote": "avoid Closure-style `function(...): T` JSDoc types; use a `@callback` typedef",
+      "rule": "In this repo, avoid Closure-style `function(...): T` JSDoc types and use a `@callback` typedef instead."
+    },
+    {
+      "id": "R150",
+      "file": "verify-before-declaring-impossible.md",
+      "quote": "Do not conclude that something is **impossible** or **does not exist** on the strength of \"I checked",
+      "rule": "Do not conclude that something is impossible or does not exist merely because it was not found in the places checked."
+    },
+    {
+      "id": "R151",
+      "file": "verify-before-declaring-impossible.md",
+      "quote": "Report what was actually checked, and what remains",
+      "rule": "When reporting that something was not found, state which sources were checked and which remain unchecked."
+    },
+    {
+      "id": "R152",
+      "file": "verify-before-declaring-impossible.md",
+      "quote": "distinguish \"I could not find X in A, B and C\" from \"X does not exist.\"",
+      "rule": "Distinguish between \"I could not find X in the sources checked\" and \"X does not exist\"; only the former is a supported statement of fact."
+    },
+    {
+      "id": "R153",
+      "file": "verify-before-declaring-impossible.md",
+      "quote": "Before writing an impossibility",
+      "rule": "Before writing that something is impossible into docs or telling the user it cannot be done, re-read the sources already parsed."
+    },
+    {
+      "id": "R154",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "scan the committed bytes for C0 control\ncharacters (anything below 0x20 other than tab, LF, CR), not just parse the YAML.",
+      "rule": "Before pushing a change to `.github/workflows/*.yml`, scan the committed bytes for C0 control characters (below 0x20, excluding tab, LF, CR), not just parse the YAML."
+    },
+    {
+      "id": "R155",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "Scan the bytes GitHub will see (the committed blob, not the CRLF working copy):",
+      "rule": "When checking a GitHub workflow file for control bytes, scan the committed blob (e.g. via `git show HEAD:...`), not the CRLF working copy."
+    },
+    {
+      "id": "R156",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "Do not use `grep -P` for this on Windows Git Bash",
+      "rule": "Do not use `grep -P` to scan workflow file bytes on Windows Git Bash."
+    },
+    {
+      "id": "R157",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "a `|| echo none` fallback turns that failure into a green result",
+      "rule": "Do not append a `|| echo none` fallback to the byte-scan command, since it turns a failure into a passing result."
+    },
+    {
+      "id": "R158",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "A zero-job run named by the file path is a parse failure, not a test failure — read the file's\n  bytes, not the logs (there are none).",
+      "rule": "When a workflow run is named by the file path with zero jobs, treat it as a parse failure and inspect the file's bytes rather than the logs."
+    },
+    {
+      "id": "R159",
+      "file": "workflow-yaml-needs-a-byte-scan.md",
+      "quote": "Prefer a real comment stating *why* a trigger is off over commenting the trigger's lines out;",
+      "rule": "When a workflow trigger should be disabled, prefer a real comment explaining why over commenting out the trigger's lines."
+    }
+  ],
+  "dropped": []
+}

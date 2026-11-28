@@ -1,0 +1,773 @@
+Reading additional input from stdin...
+OpenAI Codex v0.155.1
+--------
+workdir: /Users/yingxizhao/dev/cs2520/projects
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a21452-b7a6-7bc1-a420-52c27c4608c0
+--------
+user
+You translate rules into a fixed formal vocabulary for a research experiment. Work read-only;
+your final message is saved. Open ONLY: `data/runs/boundary2/translate/batch08_english.json` (50 real
+rules), `pipeline/rules/vocab.py`, `pipeline/rules/model.py`, `pipeline/rules/patterns.py`,
+`docs/adr/0003-clash-definition.md`, `docs/adr/0004-unexpressible-conditions.md`,
+`docs/adr/0008-git-and-file-vocabulary.md`, `data/runs/natural/enforce_names.json`. Do not open
+any other file under `data/`. No paid API calls.
+
+For EACH rule give its translation in this format (the format `model.py` reads):
+{"status": "ok" | "not_in_scope" | "unclear", "clauses": [...] or null, "left_out": "<parts of the
+rule the vocabulary cannot say, or empty>"}
+Clause types: never, only_if (with "needs"), must_do, may_do, must_hold, never_hold; fields only
+from vocab.py; `when_unmodeled` for a condition the vocabulary cannot check (ADR 0004).
+Translate the meaning faithfully: do not drop conditions, do not invent paths or branches the rule
+does not name. For tasks and running processes use names from enforce_names.json when one fits;
+otherwise "other:<short lowercase words>", and list each such new name under "new_names".
+
+Output only a JSON object in a ```json block:
+{"rules": [{"folder": "...", "id": "R..", "translation": {...}, "new_names": ["other:..."]}]}
+covering all 50 rules.
+
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+codex
+I’ll read only the eight files you authorized, map every rule against the declared schema and ADR constraints, and return the 50-entry JSON block with no filesystem changes.
+exec
+/bin/zsh -lc "sed -n '1,260p' data/runs/boundary2/translate/batch08_english.json
+sed -n '1,260p' pipeline/rules/vocab.py
+sed -n '1,320p' pipeline/rules/model.py
+sed -n '1,320p' pipeline/rules/patterns.py
+sed -n '1,260p' docs/adr/0003-clash-definition.md
+sed -n '1,260p' docs/adr/0004-unexpressible-conditions.md
+sed -n '1,260p' docs/adr/0008-git-and-file-vocabulary.md
+sed -n '1,320p' data/runs/natural/enforce_names.json" in /Users/yingxizhao/dev/cs2520/projects
+ succeeded in 0ms:
+{
+ "rules": [
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R31",
+   "rule": "Do not make fal.ai calls until King says to resume fal work."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R36",
+   "rule": "Do not start a full video run until King gives his go-ahead."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R41",
+   "rule": "Estimate image generation cost before running it, per CLAUDE.md."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R83",
+   "rule": "When committing in a private project's own repo, commit only the episode folder that belongs to you."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R2",
+   "rule": "To build the SYSTEM hive used by the ramdisk, run `ninja boot/bootdata/system`, not `ninja bootcd_hives`."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R38",
+   "rule": "Do not create git commits without first asking the user for permission."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R58",
+   "rule": "Before starting any IO subsystem translation work, check the IO translation status file."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R81",
+   "rule": "When using the Unix socket serial client, listen on the socket before starting QEMU (server-socket pattern)."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R16",
+   "rule": "Do not modify plugin cache files to fix agent model configuration."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R17",
+   "rule": "Do not modify .claude/settings.json to fix agent model configuration."
+  },
+  {
+   "folder": "melodydashora__Vecto-Pilot",
+   "id": "R18",
+   "rule": "Do not modify CLAUDE.md to fix agent model configuration; use the memory layer instead."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R11",
+   "rule": "Edit project skills in `.agents/skills/`, not in the generated `.claude/skills/` mirror."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R110",
+   "rule": "Before running `kubectl delete application <name> -n argocd`, always confirm with the user first."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R13",
+   "rule": "Edit `MEMORY.md` directly at `/workspaces/home-ops/.claude/memory/MEMORY.md`, not through the symlinked path."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R17",
+   "rule": "If a memory file in `~/.claude/projects/-workspaces-home-ops/memory/` is a real file, move it to `/workspaces/home-ops/.claude/memory/`."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R178",
+   "rule": "Never commit the Thread network key or PSKc to the repository."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R183",
+   "rule": "Never edit /data/settings.json in Music Assistant while MA is running."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R19",
+   "rule": "Run kubectl get, describe, logs, top, and diff freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R20",
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R21",
+   "rule": "Run talosctl get, health, logs, version, dmesg, ps, services, and disks freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R22",
+   "rule": "Ask the user for confirmation before running talosctl apply-config, upgrade, reset, reboot, or shutdown."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R23",
+   "rule": "Run terraform show, plan, and state freely without asking for confirmation, in provision/terraform/cloudflare/."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R24",
+   "rule": "Ask the user for confirmation before running terraform apply, destroy, taint, or import in provision/terraform/cloudflare/."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R25",
+   "rule": "Run argocd app list, get, and diff freely without asking for confirmation."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R26",
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R51",
+   "rule": "Committing on the feature branch is allowed."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R54",
+   "rule": "Never merge a PR without fresh consent from the user."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R65",
+   "rule": "Always render the Helm/Kustomize manifests before committing Helm/Kustomize changes."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R7",
+   "rule": "Before creating a templates/httproute.yaml file, run helm show values on the chart to check for built-in gateway/HTTPRoute support."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R79",
+   "rule": "Keep superpowers-era specs and plans in `.archive/.plans/superpowers/{specs,plans,research}/`; do not move them out."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R80",
+   "rule": "Do not recreate `.plans/superpowers/`."
+  },
+  {
+   "folder": "mosqueeto__me",
+   "id": "R12",
+   "rule": "Update VERSION_NAME in main.c as part of every commit."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R10",
+   "rule": "Stop and ask the user before merging PRs."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R16",
+   "rule": "Never merge a pull request by any method, including `gh pr merge`, unless the user explicitly tells you to merge."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R109",
+   "rule": "When deleting temporary space, delete that exact absolute path rather than using a wildcard or a relative path."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R166",
+   "rule": "Before merging a worker's PR, the controller must verify the PASS claim independently rather than trusting the worker's report."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R198",
+   "rule": "Keep the .mcp.json file untracked (do not commit it to version control)."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R22",
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only with the owner's OK."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R23",
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R32",
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R34",
+   "rule": "Never ask the user for permission before opening the PR."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R5",
+   "rule": "Run `git branch -D` only after verifying that the branch tip equals the merged PR head, and perform that check as its own separate step."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R71",
+   "rule": "For a change that touches only proposals, plans, docs, `.claude/`, `memory/` or root Markdown, do not run tests, typecheck, lint, or `pnpm verify`, and do not wait on or report them."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R87",
+   "rule": "Before running any `git commit`, verify the current branch is not `main`."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R104",
+   "rule": "Run the staging corpus loader as a one-off container on the noorinalabs_backend docker network on the staging host (ssh deploy@noorinalabs-stg), since no bolt port is published."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R105",
+   "rule": "Do not run production corpus loads without explicit owner approval."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R106",
+   "rule": "Staging corpus loads are permitted as sanctioned wave work."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R109",
+   "rule": "Gate thaqalayn parser fixes on passing `make validate` in strict mode."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R115",
+   "rule": "For fast stage rehearsal, use scripts/scrub_relational_pollution.py on already-built curated artifacts instead of re-running the full NER\u2192disambiguate\u2192enrichment pipeline."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R118",
+   "rule": "When resuming dedup, reload the persisted .faiss index instead of rebuilding it."
+  }
+ ]
+}"""The fixed word list (vocabulary v2, docs/adr/0008, sections 2-3). Everything a translation
+may name is listed here; any other name is an error."""
+
+GIT_CMDS = ["commit", "stage", "push_branch", "push_delete", "force_push", "local_merge",
+            "pr_create", "pr_merge", "branch_create", "branch_delete", "checkout", "pull",
+            "rebase", "reset_hard", "cherry_pick", "fetch", "worktree_add", "worktree_remove"]
+FILE_CMDS = ["read", "create", "edit", "move", "delete"]
+CMDS = GIT_CMDS + FILE_CMDS + ["run"]
+
+# Fixed meanings: every kind of push is a push, every kind of merge is a merge. No file groups.
+GROUPS = {"push": ["push_branch", "push_delete", "force_push"],
+          "merge": ["local_merge", "pr_merge"],
+          "any_branch_delete": ["branch_delete", "push_delete"]}
+
+TASKS = ["test", "build", "lint", "format", "deploy", "migrate", "publish", "restart"]
+OTHER_TASK = "other:"  # any other task: "other:<exact words>", matched only if identical
+
+# Yes/no fields. The agent decides these as part of the action (it can ask for approval).
+ACTION_BOOLS = ["has_secret", "user_confirmed", "files_shown", "secrets_checked",
+                "admin_bypass", "in_worktree"]
+# Yes/no fields the situation fixes; the agent cannot change them.
+WORLD_BOOLS = ["user_asked", "tests_passed"]
+BOOLS = ACTION_BOOLS + WORLD_BOOLS
+
+PATH_FIELDS = ["path", "dest_path"]          # targets (patterns.path_re)
+BRANCH_FIELDS = ["branch"]                   # globs (patterns.glob_re)
+# Details of the earlier step that `after` names (vocabulary v2.1): each refers to the same
+# earlier step, one earlier step per action kind.
+AFTER_FIELDS = ["after_branch", "after_task", "after_path", "after_ok"]
+FILE_ACTIONS = ["read", "create", "edit", "move", "delete", "stage", "commit"]
+FIELDS = (["cmd", "path_except", "kind", "task", "suite", "after", "running",
+           "min_files", "max_files"] + PATH_FIELDS + BRANCH_FIELDS + AFTER_FIELDS + BOOLS)
+
+# Which fields describe the situation a pair is tested in: see pair.situations.
+
+CLAUSE_TYPES = ["never", "only_if", "must_do", "may_do", "must_hold", "never_hold"]
+STATE_TYPES = ["must_hold", "never_hold"]
+
+
+def expand(names):
+    """Action names and groups -> sorted list of actions."""
+    out = []
+    for n in names if isinstance(names, list) else [names]:
+        if n in GROUPS:
+            out += GROUPS[n]
+        elif n in CMDS:
+            out.append(n)
+        else:
+            raise ValueError(f"unknown action {n!r}")
+    return sorted(set(out))
+
+
+def norm_name(name):
+    """Process and task names match only if identical after trivial clean-up:
+    case, extra spaces and a leading "the" ("The game server" = "game server")."""
+    s = " ".join(str(name).lower().split())
+    return s[4:] if s.startswith("the ") else s
+
+
+def task_name(task):
+    t = str(task).strip()
+    if t in TASKS:
+        return t
+    if t.startswith(OTHER_TASK) and len(t) > len(OTHER_TASK):
+        return OTHER_TASK + norm_name(t[len(OTHER_TASK):])
+    raise ValueError(f"unknown task {task!r}")
+"""One action as Z3 variables, and one translated rule as Z3 formulas over it.
+
+A clause's `where` (and `needs`) is a set of fields; `Event.match` turns it into a formula that
+is true when the action has those fields. `never` and `only_if` clauses become constraints on
+the action (`constraints`). `must_do` / `may_do` are tested by pair.py; `must_hold` /
+`never_hold` are repository states, handled by state.py.
+"""
+
+from z3 import And, Bool, BoolVal, Implies, InRe, Int, Not, Or, String, StringVal
+
+from rules.patterns import glob_re, target_re
+from rules.vocab import (AFTER_FIELDS, BOOLS, BRANCH_FIELDS, CMDS, FIELDS, FILE_ACTIONS, PATH_FIELDS,
+                         STATE_TYPES, expand, norm_name, task_name)
+
+
+def _paths(v):
+    """A path pattern may be written as one string or a list; a bare string must not be read
+    letter by letter (fix logged in docs/review/boundary_results.md)."""
+    return [v] if isinstance(v, str) else list(v)
+
+
+class Event:
+    """Z3 variables for one action; `tag` keeps the actions of different clauses apart."""
+
+    def __init__(self, tag):
+        self.tag = tag
+        self.cmd = Int(f"{tag}_cmd")
+        # which actions happened at some earlier point (several can be true)
+        self.prior = {c: Bool(f"{tag}_prior_{c}") for c in CMDS}
+        # details of the earlier step of each kind (v2.1): its branch, its path, and for run its
+        # task and whether it succeeded
+        self.prior_branch = {c: String(f"{tag}_prior_branch_{c}") for c in CMDS}
+        self.prior_path = {c: String(f"{tag}_prior_path_{c}") for c in FILE_ACTIONS}
+        self.prior_task = String(f"{tag}_prior_task")
+        self.prior_ok = Bool(f"{tag}_prior_ok")
+        self.n_files = Int(f"{tag}_n_files")
+        self.s = {f: String(f"{tag}_{f}") for f in PATH_FIELDS + BRANCH_FIELDS + ["task"]}
+        self.b = {k: Bool(f"{tag}_{k}") for k in BOOLS}
+        self.is_dir = Bool(f"{tag}_is_dir")
+        self.suite_all = Bool(f"{tag}_suite_all")
+
+    def running(self, name):
+        """Process `name` is running (one yes/no per name)."""
+        return Bool(f"{self.tag}_running_{norm_name(name)}")
+
+    def cond(self, name):
+        """An unknown yes/no fact: a condition the rule names but the vocabulary cannot express."""
+        return Bool(f"{self.tag}_cond_{name}")
+
+    def wellformed(self):
+        return And(self.cmd >= 0, self.cmd < len(CMDS), self.n_files >= 0)
+
+    def is_cmd(self, names):
+        return Or([self.cmd == CMDS.index(c) for c in expand(names)])
+
+    def earlier(self, where):
+        """An earlier step of one of the `after` kinds, with all the after_* details on that same
+        step. Without `after`, the details pick the kinds they can describe."""
+        task, path, ok, br = (where.get(k) for k in ("after_task", "after_path", "after_ok", "after_branch"))
+        if "after" in where:
+            kinds = expand(where["after"])
+        else:
+            kinds = ["run"] if task is not None or ok is not None else FILE_ACTIONS if path is not None else CMDS
+        if (task is not None or ok is not None) and "run" not in kinds:
+            raise ValueError("after_task / after_ok need run in after")
+        if path is not None and not set(kinds) & set(FILE_ACTIONS):
+            raise ValueError("after_path needs a file action in after")
+        if ok is not None and not isinstance(ok, bool):
+            raise ValueError("after_ok must be true/false")
+        opts = []
+        for c in kinds:
+            if (task is not None or ok is not None) and c != "run":
+                continue
+            if path is not None and c not in FILE_ACTIONS:
+                continue
+            f = [self.prior[c]]
+            if br is not None:
+                f.append(InRe(self.prior_branch[c], glob_re(br)))
+            if path is not None:
+                f.append(InRe(self.prior_path[c], target_re(path)))
+            if task is not None:
+                f.append(self.prior_task == StringVal(task_name(task)))
+            if ok is not None:
+                f.append(self.prior_ok == BoolVal(ok))
+            opts.append(And(f))
+        return Or(opts)
+
+    def match(self, where):
+        cs = []
+        if "path_except" in where and "path" not in where:
+            raise ValueError("path_except without path")
+        if "after" in where or any(k in where for k in AFTER_FIELDS):
+            cs.append(self.earlier(where))
+        for k, v in where.items():
+            if k == "_cond":
+                cs.append(self.cond(v))
+            elif k not in FIELDS:
+                raise ValueError(f"unknown field {k!r}")
+            elif k == "cmd":
+                cs.append(self.is_cmd(v))
+            elif k == "path":
+                cs.append(InRe(self.s["path"], target_re(_paths(v), _paths(where.get("path_except", [])))))
+            elif k == "dest_path":
+                cs.append(InRe(self.s["dest_path"], target_re(_paths(v))))
+            elif k == "path_except" or k == "after" or k in AFTER_FIELDS:
+                continue  # part of `path` / of the earlier step (self.earlier)
+            elif k in BRANCH_FIELDS:
+                cs.append(InRe(self.s[k], glob_re(v)))
+            elif k == "kind":
+                if v not in ("file", "dir"):
+                    raise ValueError(f"kind must be file or dir, not {v!r}")
+                cs.append(self.is_dir == BoolVal(v == "dir"))
+            elif k == "task":
+                cs.append(self.s["task"] == StringVal(task_name(v)))
+            elif k == "suite":
+                if v != "all":
+                    raise ValueError(f"suite must be 'all', not {v!r}")
+                cs.append(self.suite_all)
+            elif k == "running":
+                cs.append(And([self.running(n) for n in v]))
+            elif k == "min_files":
+                cs.append(self.n_files >= int(v))
+            elif k == "max_files":
+                cs.append(self.n_files <= int(v))
+            elif isinstance(v, bool):
+                cs.append(self.b[k] == BoolVal(v))
+            else:
+                raise ValueError(f"{k} must be true/false")
+        return And(cs) if cs else BoolVal(True)
+
+
+def check_clause(c):
+    """Rules of the format the schema cannot express on its own."""
+    if "cmd" in c.get("needs", {}):
+        raise ValueError("an action in needs (write 'before X do Y' as needs after: [Y])")
+    if c["type"] == "only_if" and "needs" not in c:
+        raise ValueError("only_if without needs")
+
+
+def action_clauses(clauses):
+    out = [c for c in clauses if c["type"] not in STATE_TYPES]
+    for c in out:
+        check_clause(c)
+    return out
+
+
+def constraints(e, clauses):
+    """What `never` and `only_if` clauses demand of action e."""
+    out = []
+    for c in clauses:
+        if c["type"] == "never":
+            out.append(Not(e.match(c["where"])))
+        elif c["type"] == "only_if":
+            out.append(Implies(e.match(c["where"]), e.match(c["needs"])))
+    return out
+
+
+def prepared(clauses, tag):
+    """A clause with `when_unmodeled` applies only when an unknown fact of its own holds
+    (ADR 0004). No other rule names that fact, so at worst a clash is missed."""
+    out = []
+    for i, c in enumerate(clauses):
+        c = dict(c)
+        if c.get("when_unmodeled"):
+            c["where"] = {**c["where"], "_cond": f"{tag}{i}"}
+        out.append(c)
+    return out
+
+
+def witness(model, e):
+    """The action the solver found, in the translation's own field names."""
+    out = {"cmd": CMDS[model.eval(e.cmd).as_long()]}
+    done = [c for c in CMDS if bool(model.eval(e.prior[c], model_completion=True))]
+    if done:
+        out["after"] = done
+        for c in done:  # details of the earlier steps, where the solver fixed them
+            v = model.eval(e.prior_branch[c])
+            if hasattr(v, "as_string") and v.as_string():
+                out.setdefault("after_branch", v.as_string())
+            if c in e.prior_path:
+                v = model.eval(e.prior_path[c])
+                if hasattr(v, "as_string") and v.as_string():
+                    out.setdefault("after_path", v.as_string())
+        if "run" in done:
+            v = model.eval(e.prior_task)
+            if hasattr(v, "as_string") and v.as_string():
+                out["after_task"] = v.as_string()
+            out["after_ok"] = bool(model.eval(e.prior_ok, model_completion=True))
+    for f, v in e.s.items():
+        v = model.eval(v)
+        if hasattr(v, "as_string") and v.as_string():
+            out[f] = v.as_string()
+    for k in BOOLS:
+        out[k] = bool(model.eval(e.b[k], model_completion=True))
+    return out
+"""File-name and branch patterns (vocabulary v2, docs/adr/0008, section 4), as Z3 regexes.
+
+Part of pipeline/rules/: the git and file rule checker. pipeline/git/git_check.py stays
+unchanged so earlier results can be rerun. Tests: tests/rules/test_patterns.py.
+"""
+
+from z3 import (AllChar, Complement, Concat, InRe, Intersect, Option, Re, ReSort, Solver, Star,
+                String, StringSort, StringVal, Union, sat)
+
+RE = ReSort(StringSort())
+ANY = Star(AllChar(RE))                                  # any text, "/" included
+SEG_CHAR = Intersect(AllChar(RE), Complement(Re("/")))   # one character that is not "/"
+
+
+def is_sat(*fs):
+    s = Solver()
+    s.add(*fs)
+    return s.check() == sat
+
+
+# ---------------------------------------------------------------- patterns (ADR 0008, section 4)
+
+def glob_re(pattern):
+    """Wildcards: `*` = any text inside one folder level, `?` = one character that is not "/",
+    `**` = any depth. `a/**/b` also matches `a/b`; `a/**` matches everything inside a/."""
+    p, pieces, i = str(pattern), [], 0
+    lit = ""
+    while i < len(p):
+        if p.startswith("**/", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Option(Concat(ANY, Re("/"))))  # zero or more folder levels
+            i += 3
+        elif p.startswith("**", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(ANY)
+            i += 2
+        elif p[i] in "*?":
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Star(SEG_CHAR) if p[i] == "*" else SEG_CHAR)
+            i += 1
+        else:
+            lit += p[i]
+            i += 1
+    pieces += [Re(lit)] if lit else []
+    if not pieces:
+        return Re("")
+    return pieces[0] if len(pieces) == 1 else Concat(*pieces)
+
+
+def path_re(pattern):
+    """A path pattern as written by the translator, made canonical in code:
+    - paths are relative to the repo root ("./" and a leading "/" are dropped);
+    - `X/` is the folder X itself and everything in it;
+    - a name with no "/" (`server-world.dat`, `*.md`) matches at any depth."""
+    p = str(pattern).strip()
+    p = p[2:] if p.startswith("./") else p
+    p = p.lstrip("/")
+    folder = p.endswith("/")
+    bare = "/" not in p          # checked before the trailing "/" is dropped: `vendor/` is not bare
+    p = p.rstrip("/")
+    if bare:
+        p = "**/" + p
+    r = glob_re(p)
+    return Union(r, glob_re(p + "/**")) if folder else r
+
+
+def target_re(include, exclude=()):
+    """In some include pattern and in no exclude pattern (order never matters, no `!`)."""
+    r = Union(*[path_re(x) for x in include]) if len(include) > 1 else path_re(include[0])
+    if exclude:
+        ex = Union(*[path_re(x) for x in exclude]) if len(exclude) > 1 else path_re(exclude[0])
+        r = Intersect(r, Complement(ex))
+    return r
+
+
+def matches(regex, text):
+    v = String("probe")
+    return is_sat(v == StringVal(text), InRe(v, regex))
+# 0003. A clash means no single action satisfies both rules; "may" is a strong permission
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+Labelling showed that readers used different meanings of "clash". Two candidates:
+1. "Following one rule can break the other." Taken literally, almost every pair clashes through
+   details neither rule mentions (for example the timing of "prune after each clone batch").
+2. "In some situation, no single action satisfies both rules." This is the standard meaning of
+   inconsistency, and Z3 can answer it exactly.
+
+Under (2), the reading of "may" decides pairs such as "create PRs with MCP" vs "you may also
+create PRs with gh-cc-var". In deontic logic (the logic of obligation and permission), von Wright
+separates a weak permission (merely not forbidden) from a strong permission (explicitly stated
+by the rules). Vranes (2006) argues that a norm conflict covers obligation vs prohibition,
+obligation vs permission not to act, and prohibition vs permission. Norm-conflict checkers in
+multi-agent systems (Vasconcelos, Kollingbaum & Norman, 2008) also treat permission vs
+prohibition as a conflict.
+
+## Decision
+Two rules clash if, in some situation the rules name, no single action satisfies both. The
+words that set a rule's force are read as follows:
+
+| Words | Meaning | Clause |
+|---|---|---|
+| must, always, do X | obligation | `must_do` |
+| never, don't, avoid | prohibition | `never` |
+| may, it's fine to, permit | strong permission: the action must stay possible | `may_do` |
+| only if, not without, before X do Y | conditional obligation | `only_if` |
+
+An explicit "may" in a memory rule is a strong permission, because the rule states it. "Use M
+for X" read together with "use G for X" is a clash when the agent uses one tool per task
+(indirect conflict: it depends on knowing that the two options exclude each other, and that,
+for example, a lookup is a kind of read).
+
+## Consequences
+- An exception written as a permission ("you may skip dev-bot testing for test-only PRs")
+  clashes with the rule it excepts. This is intended: the agent must know which rule wins.
+- The checker already treats `may_do` as a strong permission.
+- Sources (abstracts and summaries only, to be read in full before citing): Vranes 2006, EJIL
+  17:395; Vasconcelos, Kollingbaum & Norman 2008, JAAMAS; Torres da Silva et al. 2015 on
+  indirect conflicts; von Wright 1951/1968 via secondary sources.
+# 0004. Conditions the model cannot express become unknown facts
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+On the large folders, the first translations reported 20 clashes, all false. One cause: the
+translator dropped conditions it could not express, so "never commit to the local clones" became
+"never commit", which then clashed with every rule that requires a commit.
+
+## Decision
+A condition the model cannot express ("in the local clones", "during a backlog sweep") is kept
+as `when_unmodeled`. The checker turns it into a fresh unknown yes/no fact for that clause, so
+the clause applies only when that fact holds. An `only_if` whose requirement cannot be expressed
+becomes an unknown requirement the agent can meet.
+
+Rule of thumb: dropping a requirement can only cause missed clashes; dropping a condition causes
+false clashes. So conditions are never dropped.
+
+## Consequences
+- False clashes on the large folders went from 20 to 0.
+- Known blind spot: two rules naming the same unexpressible condition get two different unknown
+  facts, so their clash is missed (for example "during a sweep, review" vs "during a sweep, never
+  review"). A fix is to let rules that name the same condition share one fact.
+# 0008. One fixed vocabulary for git and basic file rules
+
+Date: 2026-11-22. Status: Accepted. Extends 0002.
+
+## Context
+The survey of 60 more memory folders found that besides git, rules about files (read, create,
+edit, move, delete, what stays in the repo) and about running commands are common and can be
+written in a fixed form without knowing tool names. Two research reports
+(`docs/review/schema_research_*.md`) found that comparable systems (GitHub rulesets, Claude
+Code permissions, Cedar, AppArmor) all fix the action list in code and leave only names open.
+Two critical reviews (`docs/review/attack_review_*.md`) asked that every item be justified and
+that ambiguous words not be decided silently.
+
+## Decision
+- The vocabulary is `docs/review/vocab_draft.md` v2, written by Claude and Codex in five review
+  rounds and approved by the author. It is fixed in code for the experiment; changes need a
+  new version.
+- Scope: git rules plus basic file rules and `run` with a fixed task list. If the file part
+  gives poor results, it is dropped from the report.
+- Words with more than one meaning are read from the rule's own text; if unclear, the rule is
+  excluded and listed with the word.
+- "In the repo" is a state. Opposite state requirements are reported as a separate verdict,
+  "state conflict"; 0003 is unchanged.
+- "May" vs "never" / "must" pairs are reported as their own category, "exception (needs a
+  priority rule)", next to plain clashes.
+- The translator sees only the rule, its file name and its section heading, not the folder's
+  other rules, so that other rules cannot change how a rule is read.
+- Claims say "solver-checked": exact with respect to the translations.
+
+## Consequences
+- The checker and prompt changes in section 8 of the vocabulary must be made before any
+  translation run.
+- Some rules a reader would understand from the folder become unclear; their number is reported.
+- The held-out folders were selected with a git filter (0005), so the held-out claim stays
+  git-only. File rules are reported on the survey folders, with three-run agreement and a
+  hand-checked sample.
+{
+ "how": "Project name list, fixed at compile time. Translations and action events must use these names for `task`, `after_task` and `running`. A running entry names a task that is still in progress. Anything else uses 'other:<words>' and will not match.",
+ "all_folders": {
+  "test": "run the test suite or any test subset",
+  "build": "compile or build the project",
+  "lint": "run linters",
+  "format": "run formatters",
+  "deploy": "deploy to an environment",
+  "migrate": "run database migrations",
+  "publish": "publish a package or release",
+  "restart": "restart a running service or server"
+ },
+ "per_folder": {
+  "martinambrus__RDForward": {
+   "other:rdforward server": "start or run the RDForward server process (e.g. java -jar, gradle run)"
+  },
+  "ruddyribera-ops__CRUDDY-OPENCODE": {
+   "other:back up the database": "make a backup of the database (e.g. pg_dump)"
+  }
+ }
+}
+codex
+```json
+{"rules":[{"folder":"kingh0730__interregnum","id":"R31","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:fal.ai calls"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish King's instruction to resume fal work from general user confirmation."},"new_names":["other:fal.ai calls"]},{"folder":"kingh0730__interregnum","id":"R36","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:full video run"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish King's go-ahead from general user confirmation."},"new_names":["other:full video run"]},{"folder":"kingh0730__interregnum","id":"R41","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:image generation"},"needs":{"after":"run","after_task":"other:estimate image generation cost"}}],"left_out":"The requirement to perform the estimate specifically according to CLAUDE.md cannot be checked."},"new_names":["other:image generation","other:estimate image generation cost"]},{"folder":"kingh0730__interregnum","id":"R83","translation":{"status":"not_in_scope","clauses":null,"left_out":"The vocabulary cannot identify a private project's own repository, determine which episode folder belongs to the agent, or require a commit to contain only that unnamed folder."},"new_names":[]},{"folder":"meanie-py__vibeos","id":"R2","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:ninja boot bootdata system"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:ninja bootcd hives"},"when_unmodeled":true}],"left_out":"The condition that the purpose is building the SYSTEM hive used by the ramdisk cannot be checked."},"new_names":["other:ninja boot bootdata system","other:ninja bootcd hives"]},{"folder":"meanie-py__vibeos","id":"R38","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":[]},{"folder":"meanie-py__vibeos","id":"R58","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:io subsystem translation work"},"needs":{"after":"run","after_task":"other:check io translation status file"}}],"left_out":""},"new_names":["other:io subsystem translation work","other:check io translation status file"]},{"folder":"meanie-py__vibeos","id":"R81","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:start qemu"},"needs":{"after":"run","after_task":"other:listen with unix socket serial client"}}],"left_out":"The server-socket configuration details cannot be checked."},"new_names":["other:start qemu","other:listen with unix socket serial client"]},{"folder":"melodydashora__Vecto-Pilot","id":"R16","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit"},"when_unmodeled":true}],"left_out":"Whether a target is a plugin cache file and whether the edit is intended to fix agent model configuration cannot be checked."},"new_names":[]},{"folder":"melodydashora__Vecto-Pilot","id":"R17","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":".claude/settings.json"},"when_unmodeled":true}],"left_out":"Whether the edit is intended to fix agent model configuration cannot be checked."},"new_names":[]},{"folder":"melodydashora__Vecto-Pilot","id":"R18","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":"CLAUDE.md"},"when_unmodeled":true},{"type":"must_do","where":{"cmd":"run","task":"other:use memory layer"},"when_unmodeled":true}],"left_out":"The condition that the action is being taken to fix agent model configuration cannot be checked."},"new_names":["other:use memory layer"]},{"folder":"mmalyska__home-ops","id":"R11","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"edit","path":".agents/skills/"},"when_unmodeled":true},{"type":"never","where":{"cmd":"edit","path":".claude/skills/"},"when_unmodeled":true}],"left_out":"The condition that the edit concerns project skills and the fact that .claude/skills/ is a generated mirror cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R110","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:kubectl delete application in argocd"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:kubectl delete application in argocd"]},{"folder":"mmalyska__home-ops","id":"R13","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"edit","path":"/workspaces/home-ops/.claude/memory/MEMORY.md"},"when_unmodeled":true},{"type":"never","where":{"cmd":"edit"},"when_unmodeled":true}],"left_out":"The condition that MEMORY.md is being edited and whether an access path is symlinked cannot be checked for the prohibition."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R17","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"move","path":"~/.claude/projects/-workspaces-home-ops/memory/","dest_path":"/workspaces/home-ops/.claude/memory/"},"when_unmodeled":true}],"left_out":"Whether the source memory entry is a real file rather than a symlink cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R178","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"commit","has_secret":true}}],"left_out":"The vocabulary treats the Thread network key and PSKc through the general has_secret field and cannot distinguish those particular secret types."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R183","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":"/data/settings.json","running":["other:music assistant"]}}],"left_out":""},"new_names":["other:music assistant"]},{"folder":"mmalyska__home-ops","id":"R19","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:kubectl get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl describe","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl logs","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl top","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl diff","user_confirmed":false}}],"left_out":""},"new_names":["other:kubectl get","other:kubectl describe","other:kubectl logs","other:kubectl top","other:kubectl diff"]},{"folder":"mmalyska__home-ops","id":"R20","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:kubectl apply"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl delete"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl patch"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl rollout restart"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl exec"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:kubectl apply","other:kubectl delete","other:kubectl patch","other:kubectl rollout restart","other:kubectl exec"]},{"folder":"mmalyska__home-ops","id":"R21","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:talosctl get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl health","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl logs","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl version","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl dmesg","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl ps","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl services","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl disks","user_confirmed":false}}],"left_out":""},"new_names":["other:talosctl get","other:talosctl health","other:talosctl logs","other:talosctl version","other:talosctl dmesg","other:talosctl ps","other:talosctl services","other:talosctl disks"]},{"folder":"mmalyska__home-ops","id":"R22","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:talosctl apply config"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl upgrade"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl reset"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl reboot"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl shutdown"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:talosctl apply config","other:talosctl upgrade","other:talosctl reset","other:talosctl reboot","other:talosctl shutdown"]},{"folder":"mmalyska__home-ops","id":"R23","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:terraform show","user_confirmed":false},"when_unmodeled":true},{"type":"may_do","where":{"cmd":"run","task":"other:terraform plan","user_confirmed":false},"when_unmodeled":true},{"type":"may_do","where":{"cmd":"run","task":"other:terraform state","user_confirmed":false},"when_unmodeled":true}],"left_out":"The condition that the command is run in provision/terraform/cloudflare/ cannot be represented because path fields describe targets, not the working directory."},"new_names":["other:terraform show","other:terraform plan","other:terraform state"]},{"folder":"mmalyska__home-ops","id":"R24","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:terraform apply"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform destroy"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform taint"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform import"},"needs":{"user_confirmed":true},"when_unmodeled":true}],"left_out":"The condition that the command is run in provision/terraform/cloudflare/ cannot be represented because path fields describe targets, not the working directory."},"new_names":["other:terraform apply","other:terraform destroy","other:terraform taint","other:terraform import"]},{"folder":"mmalyska__home-ops","id":"R25","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:argocd app list","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:argocd app get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:argocd app diff","user_confirmed":false}}],"left_out":""},"new_names":["other:argocd app list","other:argocd app get","other:argocd app diff"]},{"folder":"mmalyska__home-ops","id":"R26","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:argocd app sync"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:argocd app delete"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:argocd app set"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:argocd app sync","other:argocd app delete","other:argocd app set"]},{"folder":"mmalyska__home-ops","id":"R51","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"commit"},"when_unmodeled":true}],"left_out":"Whether the current branch is a feature branch cannot be checked without an actual branch name or pattern."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R54","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot check that the consent is fresh."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R65","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"after":"run","after_task":"other:render helm kustomize manifests"},"when_unmodeled":true}],"left_out":"Whether the commit contains Helm or Kustomize changes cannot be checked."},"new_names":["other:render helm kustomize manifests"]},{"folder":"mmalyska__home-ops","id":"R7","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"create","path":"templates/httproute.yaml"},"needs":{"after":"run","after_task":"other:helm show values for gateway support"}}],"left_out":"The vocabulary can require the check to occur but cannot inspect whether built-in gateway or HTTPRoute support was found."},"new_names":["other:helm show values for gateway support"]},{"folder":"mmalyska__home-ops","id":"R79","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"move","path":[".archive/.plans/superpowers/specs/",".archive/.plans/superpowers/plans/",".archive/.plans/superpowers/research/"]},"when_unmodeled":true}],"left_out":"Whether an item is a superpowers-era spec or plan and whether its destination is outside the named archive directories cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R80","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"create","path":".plans/superpowers/"}}],"left_out":""},"new_names":[]},{"folder":"mosqueeto__me","id":"R12","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"after":"edit","after_path":"main.c"}}],"left_out":"The vocabulary can require an earlier edit to main.c but cannot verify that the edit updated VERSION_NAME."},"new_names":[]},{"folder":"mrwpress__assent-site","id":"R10","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":[]},{"folder":"mrwpress__assent-site","id":"R16","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_asked":true}}],"left_out":"The vocabulary records that the user asked for the merge but cannot separately encode the word explicitly."},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R109","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"delete"},"when_unmodeled":true}],"left_out":"The condition that the target is temporary space and the prohibition on selecting it through a wildcard or relative path cannot be checked; paths are canonicalized by the model."},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R166","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"after":"run","after_task":"other:independently verify pass claim","after_ok":true},"when_unmodeled":true}],"left_out":"Whether the pull request belongs to a worker cannot be checked."},"new_names":["other:independently verify pass claim"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R198","translation":{"status":"ok","clauses":[{"type":"never_hold","where":{"path":".mcp.json","kind":"file"}}],"left_out":""},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R22","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:compact windows vhdx"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:compact windows vhdx"},"needs":{"after":"run","after_task":"other:wsl shutdown"}}],"left_out":"The vocabulary cannot distinguish the owner's approval from general user confirmation."},"new_names":["other:compact windows vhdx","other:wsl shutdown"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R23","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"run","task":"other:compact windows vhdx","running":["other:hook"]}}],"left_out":""},"new_names":["other:compact windows vhdx","other:hook"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R32","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"pr_merge"}}],"left_out":""},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R34","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"pr_create","after":"run","after_task":"other:ask user for pr permission"}}],"left_out":""},"new_names":["other:ask user for pr permission"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R5","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"branch_delete"},"needs":{"after":"run","after_task":"other:verify branch tip equals merged pr head","after_ok":true}}],"left_out":"The vocabulary records the verification as a separate earlier task but cannot inspect the compared commit identities."},"new_names":["other:verify branch tip equals merged pr head"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R71","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"run","task":"test"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:typecheck"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"lint"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:pnpm verify"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:wait on verification checks"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:report verification checks"},"when_unmodeled":true}],"left_out":"Whether a change touches only proposals, plans, docs, .claude/, memory/, or root Markdown cannot be checked."},"new_names":["other:typecheck","other:pnpm verify","other:wait on verification checks","other:report verification checks"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R87","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"commit","branch":"main"}}],"left_out":""},"new_names":[]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R104","translation":{"status":"not_in_scope","clauses":null,"left_out":"The central requirements concern execution as a one-off container, a named Docker network, and a named SSH host. The vocabulary has no fields for container mode, network, host, or unpublished ports."},"new_names":[]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R105","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:production corpus load"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish owner approval from general user confirmation."},"new_names":["other:production corpus load"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R106","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:staging corpus load"}}],"left_out":""},"new_names":["other:staging corpus load"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R109","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:thaqalayn parser fixes"},"needs":{"after":"run","after_task":"other:make validate strict mode","after_ok":true}}],"left_out":""},"new_names":["other:thaqalayn parser fixes","other:make validate strict mode"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R115","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:scrub relational pollution script"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:full ner disambiguate enrichment pipeline"},"when_unmodeled":true}],"left_out":"The fast-stage-rehearsal condition and the requirement that the scrub script operate on already-built curated artifacts cannot be checked."},"new_names":["other:scrub relational pollution script","other:full ner disambiguate enrichment pipeline"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R118","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:reload persisted faiss index"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:rebuild faiss index"},"when_unmodeled":true}],"left_out":"The condition that deduplication is being resumed cannot be checked."},"new_names":["other:reload persisted faiss index","other:rebuild faiss index"]}]}
+```
+tokens used
+21,144
+```json
+{"rules":[{"folder":"kingh0730__interregnum","id":"R31","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:fal.ai calls"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish King's instruction to resume fal work from general user confirmation."},"new_names":["other:fal.ai calls"]},{"folder":"kingh0730__interregnum","id":"R36","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:full video run"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish King's go-ahead from general user confirmation."},"new_names":["other:full video run"]},{"folder":"kingh0730__interregnum","id":"R41","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:image generation"},"needs":{"after":"run","after_task":"other:estimate image generation cost"}}],"left_out":"The requirement to perform the estimate specifically according to CLAUDE.md cannot be checked."},"new_names":["other:image generation","other:estimate image generation cost"]},{"folder":"kingh0730__interregnum","id":"R83","translation":{"status":"not_in_scope","clauses":null,"left_out":"The vocabulary cannot identify a private project's own repository, determine which episode folder belongs to the agent, or require a commit to contain only that unnamed folder."},"new_names":[]},{"folder":"meanie-py__vibeos","id":"R2","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:ninja boot bootdata system"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:ninja bootcd hives"},"when_unmodeled":true}],"left_out":"The condition that the purpose is building the SYSTEM hive used by the ramdisk cannot be checked."},"new_names":["other:ninja boot bootdata system","other:ninja bootcd hives"]},{"folder":"meanie-py__vibeos","id":"R38","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":[]},{"folder":"meanie-py__vibeos","id":"R58","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:io subsystem translation work"},"needs":{"after":"run","after_task":"other:check io translation status file"}}],"left_out":""},"new_names":["other:io subsystem translation work","other:check io translation status file"]},{"folder":"meanie-py__vibeos","id":"R81","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:start qemu"},"needs":{"after":"run","after_task":"other:listen with unix socket serial client"}}],"left_out":"The server-socket configuration details cannot be checked."},"new_names":["other:start qemu","other:listen with unix socket serial client"]},{"folder":"melodydashora__Vecto-Pilot","id":"R16","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit"},"when_unmodeled":true}],"left_out":"Whether a target is a plugin cache file and whether the edit is intended to fix agent model configuration cannot be checked."},"new_names":[]},{"folder":"melodydashora__Vecto-Pilot","id":"R17","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":".claude/settings.json"},"when_unmodeled":true}],"left_out":"Whether the edit is intended to fix agent model configuration cannot be checked."},"new_names":[]},{"folder":"melodydashora__Vecto-Pilot","id":"R18","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":"CLAUDE.md"},"when_unmodeled":true},{"type":"must_do","where":{"cmd":"run","task":"other:use memory layer"},"when_unmodeled":true}],"left_out":"The condition that the action is being taken to fix agent model configuration cannot be checked."},"new_names":["other:use memory layer"]},{"folder":"mmalyska__home-ops","id":"R11","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"edit","path":".agents/skills/"},"when_unmodeled":true},{"type":"never","where":{"cmd":"edit","path":".claude/skills/"},"when_unmodeled":true}],"left_out":"The condition that the edit concerns project skills and the fact that .claude/skills/ is a generated mirror cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R110","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:kubectl delete application in argocd"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:kubectl delete application in argocd"]},{"folder":"mmalyska__home-ops","id":"R13","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"edit","path":"/workspaces/home-ops/.claude/memory/MEMORY.md"},"when_unmodeled":true},{"type":"never","where":{"cmd":"edit"},"when_unmodeled":true}],"left_out":"The condition that MEMORY.md is being edited and whether an access path is symlinked cannot be checked for the prohibition."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R17","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"move","path":"~/.claude/projects/-workspaces-home-ops/memory/","dest_path":"/workspaces/home-ops/.claude/memory/"},"when_unmodeled":true}],"left_out":"Whether the source memory entry is a real file rather than a symlink cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R178","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"commit","has_secret":true}}],"left_out":"The vocabulary treats the Thread network key and PSKc through the general has_secret field and cannot distinguish those particular secret types."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R183","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"edit","path":"/data/settings.json","running":["other:music assistant"]}}],"left_out":""},"new_names":["other:music assistant"]},{"folder":"mmalyska__home-ops","id":"R19","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:kubectl get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl describe","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl logs","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl top","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:kubectl diff","user_confirmed":false}}],"left_out":""},"new_names":["other:kubectl get","other:kubectl describe","other:kubectl logs","other:kubectl top","other:kubectl diff"]},{"folder":"mmalyska__home-ops","id":"R20","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:kubectl apply"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl delete"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl patch"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl rollout restart"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:kubectl exec"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:kubectl apply","other:kubectl delete","other:kubectl patch","other:kubectl rollout restart","other:kubectl exec"]},{"folder":"mmalyska__home-ops","id":"R21","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:talosctl get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl health","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl logs","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl version","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl dmesg","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl ps","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl services","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:talosctl disks","user_confirmed":false}}],"left_out":""},"new_names":["other:talosctl get","other:talosctl health","other:talosctl logs","other:talosctl version","other:talosctl dmesg","other:talosctl ps","other:talosctl services","other:talosctl disks"]},{"folder":"mmalyska__home-ops","id":"R22","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:talosctl apply config"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl upgrade"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl reset"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl reboot"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:talosctl shutdown"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:talosctl apply config","other:talosctl upgrade","other:talosctl reset","other:talosctl reboot","other:talosctl shutdown"]},{"folder":"mmalyska__home-ops","id":"R23","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:terraform show","user_confirmed":false},"when_unmodeled":true},{"type":"may_do","where":{"cmd":"run","task":"other:terraform plan","user_confirmed":false},"when_unmodeled":true},{"type":"may_do","where":{"cmd":"run","task":"other:terraform state","user_confirmed":false},"when_unmodeled":true}],"left_out":"The condition that the command is run in provision/terraform/cloudflare/ cannot be represented because path fields describe targets, not the working directory."},"new_names":["other:terraform show","other:terraform plan","other:terraform state"]},{"folder":"mmalyska__home-ops","id":"R24","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:terraform apply"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform destroy"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform taint"},"needs":{"user_confirmed":true},"when_unmodeled":true},{"type":"only_if","where":{"cmd":"run","task":"other:terraform import"},"needs":{"user_confirmed":true},"when_unmodeled":true}],"left_out":"The condition that the command is run in provision/terraform/cloudflare/ cannot be represented because path fields describe targets, not the working directory."},"new_names":["other:terraform apply","other:terraform destroy","other:terraform taint","other:terraform import"]},{"folder":"mmalyska__home-ops","id":"R25","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:argocd app list","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:argocd app get","user_confirmed":false}},{"type":"may_do","where":{"cmd":"run","task":"other:argocd app diff","user_confirmed":false}}],"left_out":""},"new_names":["other:argocd app list","other:argocd app get","other:argocd app diff"]},{"folder":"mmalyska__home-ops","id":"R26","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:argocd app sync"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:argocd app delete"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:argocd app set"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":["other:argocd app sync","other:argocd app delete","other:argocd app set"]},{"folder":"mmalyska__home-ops","id":"R51","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"commit"},"when_unmodeled":true}],"left_out":"Whether the current branch is a feature branch cannot be checked without an actual branch name or pattern."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R54","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot check that the consent is fresh."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R65","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"after":"run","after_task":"other:render helm kustomize manifests"},"when_unmodeled":true}],"left_out":"Whether the commit contains Helm or Kustomize changes cannot be checked."},"new_names":["other:render helm kustomize manifests"]},{"folder":"mmalyska__home-ops","id":"R7","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"create","path":"templates/httproute.yaml"},"needs":{"after":"run","after_task":"other:helm show values for gateway support"}}],"left_out":"The vocabulary can require the check to occur but cannot inspect whether built-in gateway or HTTPRoute support was found."},"new_names":["other:helm show values for gateway support"]},{"folder":"mmalyska__home-ops","id":"R79","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"move","path":[".archive/.plans/superpowers/specs/",".archive/.plans/superpowers/plans/",".archive/.plans/superpowers/research/"]},"when_unmodeled":true}],"left_out":"Whether an item is a superpowers-era spec or plan and whether its destination is outside the named archive directories cannot be checked."},"new_names":[]},{"folder":"mmalyska__home-ops","id":"R80","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"create","path":".plans/superpowers/"}}],"left_out":""},"new_names":[]},{"folder":"mosqueeto__me","id":"R12","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"commit"},"needs":{"after":"edit","after_path":"main.c"}}],"left_out":"The vocabulary can require an earlier edit to main.c but cannot verify that the edit updated VERSION_NAME."},"new_names":[]},{"folder":"mrwpress__assent-site","id":"R10","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_confirmed":true}}],"left_out":""},"new_names":[]},{"folder":"mrwpress__assent-site","id":"R16","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"user_asked":true}}],"left_out":"The vocabulary records that the user asked for the merge but cannot separately encode the word explicitly."},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R109","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"delete"},"when_unmodeled":true}],"left_out":"The condition that the target is temporary space and the prohibition on selecting it through a wildcard or relative path cannot be checked; paths are canonicalized by the model."},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R166","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"pr_merge"},"needs":{"after":"run","after_task":"other:independently verify pass claim","after_ok":true},"when_unmodeled":true}],"left_out":"Whether the pull request belongs to a worker cannot be checked."},"new_names":["other:independently verify pass claim"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R198","translation":{"status":"ok","clauses":[{"type":"never_hold","where":{"path":".mcp.json","kind":"file"}}],"left_out":""},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R22","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:compact windows vhdx"},"needs":{"user_confirmed":true}},{"type":"only_if","where":{"cmd":"run","task":"other:compact windows vhdx"},"needs":{"after":"run","after_task":"other:wsl shutdown"}}],"left_out":"The vocabulary cannot distinguish the owner's approval from general user confirmation."},"new_names":["other:compact windows vhdx","other:wsl shutdown"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R23","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"run","task":"other:compact windows vhdx","running":["other:hook"]}}],"left_out":""},"new_names":["other:compact windows vhdx","other:hook"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R32","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"pr_merge"}}],"left_out":""},"new_names":[]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R34","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"pr_create","after":"run","after_task":"other:ask user for pr permission"}}],"left_out":""},"new_names":["other:ask user for pr permission"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R5","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"branch_delete"},"needs":{"after":"run","after_task":"other:verify branch tip equals merged pr head","after_ok":true}}],"left_out":"The vocabulary records the verification as a separate earlier task but cannot inspect the compared commit identities."},"new_names":["other:verify branch tip equals merged pr head"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R71","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"run","task":"test"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:typecheck"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"lint"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:pnpm verify"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:wait on verification checks"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:report verification checks"},"when_unmodeled":true}],"left_out":"Whether a change touches only proposals, plans, docs, .claude/, memory/, or root Markdown cannot be checked."},"new_names":["other:typecheck","other:pnpm verify","other:wait on verification checks","other:report verification checks"]},{"folder":"namnhatpham1995__hackathon-stuttgart-2026","id":"R87","translation":{"status":"ok","clauses":[{"type":"never","where":{"cmd":"commit","branch":"main"}}],"left_out":""},"new_names":[]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R104","translation":{"status":"not_in_scope","clauses":null,"left_out":"The central requirements concern execution as a one-off container, a named Docker network, and a named SSH host. The vocabulary has no fields for container mode, network, host, or unpublished ports."},"new_names":[]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R105","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:production corpus load"},"needs":{"user_confirmed":true}}],"left_out":"The vocabulary cannot distinguish owner approval from general user confirmation."},"new_names":["other:production corpus load"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R106","translation":{"status":"ok","clauses":[{"type":"may_do","where":{"cmd":"run","task":"other:staging corpus load"}}],"left_out":""},"new_names":["other:staging corpus load"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R109","translation":{"status":"ok","clauses":[{"type":"only_if","where":{"cmd":"run","task":"other:thaqalayn parser fixes"},"needs":{"after":"run","after_task":"other:make validate strict mode","after_ok":true}}],"left_out":""},"new_names":["other:thaqalayn parser fixes","other:make validate strict mode"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R115","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:scrub relational pollution script"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:full ner disambiguate enrichment pipeline"},"when_unmodeled":true}],"left_out":"The fast-stage-rehearsal condition and the requirement that the scrub script operate on already-built curated artifacts cannot be checked."},"new_names":["other:scrub relational pollution script","other:full ner disambiguate enrichment pipeline"]},{"folder":"noorinalabs__noorinalabs-data-acquisition","id":"R118","translation":{"status":"ok","clauses":[{"type":"must_do","where":{"cmd":"run","task":"other:reload persisted faiss index"},"when_unmodeled":true},{"type":"never","where":{"cmd":"run","task":"other:rebuild faiss index"},"when_unmodeled":true}],"left_out":"The condition that deduplication is being resumed cannot be checked."},"new_names":["other:reload persisted faiss index","other:rebuild faiss index"]}]}
+```

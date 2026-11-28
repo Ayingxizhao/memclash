@@ -21,6 +21,5 @@ look for.
 - Z3's answer is exact for what the model can express.
 - Anything outside the model is invisible to the checker: tool choice (MCP vs CLI), words such as
   "backlog sweep" or "firmware". On the large folders, all 11 reference clashes fall outside the
-  model (see ADR 0006), so the model must grow (for example a tool field) or the limit must be
+  model, so the model must grow (for example a tool field) or the limit must be
   stated.
-- Rules that are not about git are handled by the general method, not by this one.

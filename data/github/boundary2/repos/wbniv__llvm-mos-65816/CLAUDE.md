@@ -1,0 +1,122 @@
+# llvm-mos-65816 — project guide
+
+Compiler pin updates use `task upstream:repin`, which validates an isolated build and MOS suites before publishing tracked inputs. See the [command plan and October 10 completion](docs/plans/2026-10-10-repeatable-compiler-repin.md).
+
+Project-specific guide; **extends the shared `~/CLAUDE.md`** (generic conventions: plan-first, TODO
+format, commit-at-checkpoints, only-commit-your-work, markdown rules). It is **auto-loaded every session**,
+so it is the standing preface for every handoff: each piece of work = this guide (general) **+** a per-task
+`docs/plans/YYYY-MM-DD-<topic>.md` supplement. **Build/test commands, gotchas, the differential gate
+details, measurement methodology, and backend navigation live in
+[`docs/agent-handoff.md`](docs/agent-handoff.md)** — read it before doing codegen work. Keep both current.
+
+## What this project is
+
+A from-source fork of **llvm-mos** adding native **16-bit-accumulator** codegen for the **WDC 65816** — the
+opt-in target feature **`+mos-a16`** — plus a SNES platform to exercise it. GitHub issue **#321** (ROADMAP
+step 5 / milestone **M2**). Orientation: `docs/ROADMAP.md` (M0→M1→M2), **`TODO.md`** (the live backlog; the
+M2 section is the curated state of all #321 follow-ups), `docs/INVESTIGATION.md`. The 65816 runs in native
+mode (crt0 does `XCE`); under `+mos-a16` the accumulator is 16-bit (`M=0`, entered/left via `rep`/`sep`).
+
+## Source of truth & the `vendor/` model — read before editing
+
+- The compiler source is the gitignored LLVM/clang checkout selected by **`dev/llvm-mos-pin`**.
+  The default is `vendor/llvm-mos/`; if that shared checkout has another base, the scripts select
+  `vendor/llvm-mos-<first 12 pin characters>/` and a matching build directory. Edit and rebuild the
+  selected checkout (`dev/run.sh toolchain`), or set `LLVM_MOS_SOURCE` and `LLVM_MOS_BUILDDIR` explicitly.
+- The **tracked** artifacts are **`patches/llvm-mos/*.patch`** (`0002-321-accum16.patch` = all #321
+  codegen before the later standalone carries). After editing the selected checkout, regenerate with
+  **`dev/regen-patch.sh`**, using the same `LLVM_MOS_SOURCE` override if one was supplied.
+- **`vendor/` is shared** with concurrent agents/humans. **Only commit your own files.** Never stage
+  `vendor/` (gitignored), a patch you didn't author, or `docs/transcripts/`. If you find another worker's
+  in-progress `vendor/` edits, leave them — rebuild on top, don't revert.
+
+Pin-selection update: OpenAI Codex 0.162.0, model `gpt-6.1-sol`, `medium` reasoning effort;
+verified session `01a1208b-91e0-7e33-b5bf-8787d2a9c919`.
+
+## The bar
+
+Correctness = the **differential**: host-computed == default(non-`+mos-a16`)@MAME == `+mos-a16`@MAME ==
+`+mos-a16`@bsnes-jg, plus `-verify-machineinstrs` clean. Any disagreement or crash is a real defect, not a
+glitch. (Exact commands + the micro-test pattern: `docs/agent-handoff.md`.)
+
+## Defect evidence and closure — mandatory for every agent
+
+Before starting a compiler fix or calling a failure new, perform the
+[prior-work reconciliation](docs/howto-defect-evidence.md#reconcile-prior-work-before-opening-or-fixing-a-defect):
+check canonical records, follow-ups, Git history, folded/standalone patches,
+live source, and the tested binary. Extend the existing canonical record for
+repeat sightings; a new record needs the staged `prior_work` audit. Update the
+original report's visible status when an existing repair is established.
+Before upstream preparation, reconcile the exact destination's entry-point
+guards, callers, regression tests, and history too; an existing upstream guard
+may make the local failing path unreachable. Prefer its backport over a duplicate
+upstream repair when applicable.
+
+Follow [the defect evidence workflow](docs/howto-defect-evidence.md) and the
+closure rules in [AGENTS.md](AGENTS.md). Every new compiler defect or status
+change needs a structured `docs/defects/*.json` record. Capture the exact input,
+failing toolchain/configuration, diagnostics, and relevant IR/MIR before changing
+the compiler; keep that baseline immutable. Preserve original attribution.
+
+A current passing probe establishes **not reproduced on this build**, not fixed
+or invalid. Label reconstructed inputs, retain historical evidence, and keep
+missing baseline information explicit. Close as fixed only with a causal change
+and a same-input regression that fails on the preserved baseline and passes with
+the fix. Do not retire an XFAIL merely because a replacement fixture passes.
+The pre-commit evidence check enforces structured closure requirements; do not
+bypass it. Its checks do not replace reviewing the trigger or replaying evidence.
+
+## Four governing lessons (hard-won)
+
+1. **Measure, don't assume.** Predicted codegen is often wrong here — build the real shape, diff the bytes,
+   read the disasm; verify a rebuild actually took (the stale-`clang-23` gotcha). Measure in realistic
+   16-bit-ambient context, not isolated leaf functions.
+2. **A native 16-bit op is NOT automatically smaller.** It routes operands through the zero-page `Imag16`
+   pair + a `rep`/`sep` bracket, which *loses* to a tight 8-bit `cpx;cmp`/byte path when an operand is
+   register-resident (`$a:$x`, the first arg) or the value is consumed as bytes. The win depends on
+   **operand residency** and **schedule** → **gate** a native form to fire only where it wins, and make the
+   gate **conservative**: a misclassification must only ever *miss a win*, never *cause a regression*.
+3. **Modest gains are worth doing.** On a compiler a few-byte win is amplified across every program built
+   with the toolchain, so "high-effort / modest-gain" is a *scheduling* input, not a veto. But only
+   *genuine* gains — a *blanket* change that regresses common shapes to win a sub-case is wrong; gate it.
+4. **Always ask whether the optimization level can gate it.** For every codegen change, ask whether it can
+   be switched on or off per optimization setting: `-O2`/`-O3` against `-Os`/`-Oz`, which reach llc as the
+   `optsize`/`minsize` function attributes. Measure each level on its own objective, size at `-Os`/`-Oz`
+   and cycles at `-O2`/`-O3`, and let the change fire only where it wins. Policy 0070 is the model: its
+   bounded M16/Y8 indexing is on at `-O2`/`-O3` and off at `-Os`/`-Oz`. A result measured only as `-O2`
+   bytes answers neither question. (User directive, 2026‑09‑30: "always ask yourself this question".)
+
+## Commit discipline (project specifics; generic rules in `~/CLAUDE.md`)
+
+- **Stage only your files**, explicitly; then verify `git diff --cached --name-only` is exactly your set —
+  never `vendor/`, a foreign patch, or `docs/transcripts/`. When regenerating `0002`, sanity-check it
+  didn't absorb another patch's hunks: `grep -c <foreign-symbol> patches/llvm-mos/0002-*.patch`.
+- **Investigations go on throwaway worktrees, not `main`.** Measurements / spikes / probes (e.g. the
+  ZP-pressure scan, `dev/measure-zp-pressure.sh`) run on a `throwaway/<slug>` branch in its own worktree off
+  `main` HEAD — this repo's `main` working copy is a **hot shared tree** (concurrent agents leave `vendor/`,
+  `0002`, `TODO.md` dirty mid-edit), so a worktree gives a clean checkout + clean commits with no surgical
+  staging. The worktree has no `build/`: env-override `CLANG`/`OBJDUMP` to this checkout's
+  `build/llvm-mos-install/bin/...` rather than rebuilding (host-side scripts only — for the Dockerized
+  `dev/run.sh`, `cp -al` the prebuilt `build/` subdirs into the worktree instead; see
+  [`docs/howto-feature-worktree.md`](docs/howto-feature-worktree.md)). **Keep** → merge the durable artifacts (script,
+  recorded verdict) back; **dead-end** → `dev/worktree-teardown.sh throwaway/<slug> --yes` (raw
+  `git worktree remove` is guard-blocked; the wrapper handles `throwaway/<slug>` too — disposable, so no
+  retain-until-upstream gate, but `--yes` is still required). (Generic rule + rationale:
+  `~/CLAUDE.md` "Worktree-based feature workflow".)
+- **Commit hooks fire automatically:** `regen-md-history` snapshots edited plans into `docs/plans/.history/`;
+  `audit-plan-deferrals` captures plan "Deferred"/unverified bullets into a `## Inbox` in `TODO.md` —
+  **triage them** (delete a bullet already covered by a curated TODO item with a short
+  `<!-- triaged YYYY-MM-DD: … -->` note; a fingerprint ledger keeps deleted items from returning), then
+  re-commit `TODO.md`.
+- Follow [AGENTS.md's AI attribution rule](AGENTS.md#ai-attribution) in every commit
+  and authored record: include the actual agent/tool version, exact model name/ID
+  and version, and reasoning effort, verified from the relevant session metadata.
+  Use the actual contributor in `Co-Authored-By`; never reuse a hard-coded model
+  credit. Record unavailable historical details as unknown and retain original credits.
+- **Push only when asked / coordinate.** `main` may carry other workers' commits not yet pushed (some route
+  via fork PR branches deliberately); don't `git push origin main` without checking.
+- **Upstream contributions are queued in [`docs/upstream-contribution-status.md`](docs/upstream-contribution-status.md)** —
+  every PR / issue / design-note we draft for `llvm-mos`(-sdk), split ready-to-post vs future/blocked, each with its exact
+  `gh` command. Posting is **user-triggered**. **Keep it current in the same commit** whenever you draft a new upstream
+  artifact, push a PR branch, or post one (mirror the one-line pointer in TODO's *Upstream / Contribution* section).
+- Follow [AGENTS.md's PR Markdown requirements](AGENTS.md#upstream-submissions-and-published-demos) when generating or revising pending PR descriptions: one physical line per prose paragraph and list-item paragraph, with structural newlines preserved. Formatting maintenance leaves posted PRs and their retained body copies unchanged unless explicitly requested.

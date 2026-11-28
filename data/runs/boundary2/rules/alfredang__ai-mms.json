@@ -1,0 +1,688 @@
+{
+  "repo": "alfredang/ai-mms",
+  "dir": ".claude/memory",
+  "n_files": 21,
+  "n_rules": 113,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "README.md",
+      "quote": "`MEMORY.md` is the one-line index — scan it first.",
+      "rule": "Before other work, scan the MEMORY.md index file in the memory directory."
+    },
+    {
+      "id": "R2",
+      "file": "README.md",
+      "quote": "After fixing a non-obvious bug",
+      "rule": "After fixing a non-obvious bug (one whose surprise came from invisible behavior rather than a visible syntax error), record it as a memory entry."
+    },
+    {
+      "id": "R3",
+      "file": "README.md",
+      "quote": "Add `feedback_<short-slug>.md` here with the rule + Why + How to apply.",
+      "rule": "When adding a memory entry, create a feedback_<short-slug>.md file in the memory directory containing the rule, its Why, and its How to apply."
+    },
+    {
+      "id": "R4",
+      "file": "README.md",
+      "quote": "Add a one-line pointer at the bottom of `MEMORY.md`.",
+      "rule": "When adding a memory entry, add a one-line pointer to it at the bottom of MEMORY.md."
+    },
+    {
+      "id": "R5",
+      "file": "README.md",
+      "quote": "Commit + push.",
+      "rule": "After adding a memory entry, commit and push the change."
+    },
+    {
+      "id": "R6",
+      "file": "README.md",
+      "quote": "Keep entries terse — one screen each.",
+      "rule": "Keep each memory entry terse, no longer than one screen."
+    },
+    {
+      "id": "R7",
+      "file": "README.md",
+      "quote": "If you edit files here, also update your personal copy",
+      "rule": "When editing a shared memory file, also update your personal copy of it, and when editing a personal copy, also update the shared copy."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_admin_hidden_row_checkboxes.md",
+      "quote": "Never instruct the user to \"select all and reindex\" on Index Management — it won't work.",
+      "rule": "Never instruct the user to select all and reindex on the Index Management page, because the row checkboxes are hidden and the mass action won't work."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_admin_hidden_row_checkboxes.md",
+      "quote": "When a feature needs flat reindex / cache flush, wire a dedicated POST controller action that runs",
+      "rule": "When a feature needs a flat reindex or cache flush, implement a dedicated POST controller action to perform it rather than relying on mass actions."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_admin_hidden_row_checkboxes.md",
+      "quote": "Surface it as a button on whatever admin page the feature lives on — don't send the user to Index Management.",
+      "rule": "Surface the reindex or cache flush action as a button on the admin page where the feature lives, and do not direct the user to Index Management."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "First thing to check when localhost or live returns 500 on all routes is whether Apache mod_headers is loaded",
+      "rule": "When localhost or the live site returns HTTP 500 on all routes, check first whether Apache mod_headers is loaded."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "run the recovery one-liner above",
+      "rule": "If the logs show \"Invalid command 'Header'\", re-enable the missing Apache modules by running `docker exec ai-mms-web-1 a2enmod headers expires brotli rewrite deflate && docker exec ai-mms-web-1 apachectl -k graceful`."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "ensure `docker/entrypoint.sh` still contains the `a2enmod headers expires brotli rewrite deflate` line before the migration block.",
+      "rule": "Ensure `docker/entrypoint.sh` still contains the `a2enmod headers expires brotli rewrite deflate` line before the migration block."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "always run in this order:",
+      "rule": "When diagnosing a site 500 error, run the diagnostic checklist steps in the specified order."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "`curl -sS -o /tmp/h.html -w \"HTTP=%{http_code}\\n\" -L http://localhost:8080/` — confirm 500",
+      "rule": "When diagnosing a site 500 error, first confirm the 500 status with `curl -sS -o /tmp/h.html -w \"HTTP=%{http_code}\\n\" -L http://localhost:8080/`."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "`docker logs --tail 30 ai-mms-web-1` — look for `Invalid command 'Header'`",
+      "rule": "When diagnosing a site 500 error, check `docker logs --tail 30 ai-mms-web-1` for the message \"Invalid command 'Header'\"."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_apache_500_mod_headers.md",
+      "quote": "Only after ruling out (2) should you look at `var/report/` for Magento-level fatals",
+      "rule": "Only look at `var/report/` for Magento-level fatals after ruling out the missing mod_headers cause."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_apply_php_sql_splitter.md",
+      "quote": "no line *inside the value* may end with `;`",
+      "rule": "When writing a multi-line string value in a migration .sql file, never let any line inside the value end with a semicolon, because migrations/apply.php would split the statement there."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_apply_php_sql_splitter.md",
+      "quote": "emit each value line so it ends with a tag (`>`) or a quote (`'`), never a bare\n`;`",
+      "rule": "When generating data migrations with multi-line text values, end each value line with a tag (`>`) or a quote (`'`), never with a bare semicolon."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_apply_php_sql_splitter.md",
+      "quote": "Verify before applying:\n`grep -nE ';\\s*$' migrations/NNN.sql`",
+      "rule": "Before applying a migration, run `grep -nE ';\\s*$' migrations/NNN.sql` and confirm every hit is a real statement terminator."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_apply_php_sql_splitter.md",
+      "quote": "guard content-rewrite UPDATEs with `MD5(value) = '<oldhash>'`",
+      "rule": "Guard content-rewrite UPDATE statements in migrations with a `MD5(value) = '<oldhash>'` condition so they are idempotent and skip rows edited after the migration was generated."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "always write a SQL migration script",
+      "rule": "When local and remote databases diverge in this project, always write a SQL migration script to bring them into line."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "Never propose dump-and-restore, direct replication, or other whole-DB sync methods.",
+      "rule": "Never propose dump-and-restore, direct replication, or other whole-database sync methods to reconcile local and remote databases in this project."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "skip straight to drafting the migration SQL",
+      "rule": "When the user reports local/remote DB drift or asks to \"sync\" databases, skip straight to drafting the migration SQL."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "Ask what the *target state* should be",
+      "rule": "Before drafting a DB sync migration, ask the user what the target state should be (which fields/rows differ and which side is canonical)."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "write an idempotent script that applies just those changes",
+      "rule": "Write the DB migration script as idempotent and limited to applying only the agreed changes."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "Place under `migrations/` for production-bound scripts",
+      "rule": "Place production-bound DB migration scripts under `migrations/`."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_db_sync_via_migration.md",
+      "quote": "or `scripts/local-dev/` for local-only fixups",
+      "rule": "Place local-only DB fixup scripts under `scripts/local-dev/`."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_dcf_editor_not_standard_product_edit.md",
+      "quote": "The EAV migration is necessary but NOT sufficient.",
+      "rule": "When asked to add, remove, or modify a field that admins see on the \"Edit Course\" page, do not treat an EAV migration alone as sufficient."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_dcf_editor_not_standard_product_edit.md",
+      "quote": "Add a `<div class=\"dcf-row\">…</div>` to the appropriate `dcf-tab-panel`",
+      "rule": "When adding a field to the \"Edit Course\" page, add a `<div class=\"dcf-row\">…</div>` to the appropriate `dcf-tab-panel` in `dashboard/index.phtml`."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_dcf_editor_not_standard_product_edit.md",
+      "quote": "search for nearby fields like `name=\"training_hours\"` or `name=\"course_type_select\"` to find the right tab",
+      "rule": "When determining where to place a new field in `dashboard/index.phtml`, search for nearby fields such as `name=\"training_hours\"` or `name=\"course_type_select\"` to find the right tab."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_dcf_editor_not_standard_product_edit.md",
+      "quote": "Add a corresponding `if (($v = $req->getParam('<field>')) !== null)",
+      "rule": "When adding a field to the \"Edit Course\" page, add a corresponding `if (($v = $req->getParam('<field>')) !== null) $product->setData('<field>', …)` line in `saveAction()` of `CoursesaveController.php`."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_eav_multiselect_source_model.md",
+      "quote": "you **must** set `source_model='eav/entity_attribute_source_table'` on the `eav_attribute` row",
+      "rule": "When adding a multiselect EAV product attribute on catalog_product, set source_model='eav/entity_attribute_source_table' on the eav_attribute row."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_eav_multiselect_source_model.md",
+      "quote": "Any new multiselect (or `select` w/ admin-managed options) EAV migration in this repo must include in the `INSERT INTO eav_attribute`:",
+      "rule": "Any new multiselect (or select with admin-managed options) EAV migration in this repo must include backend_model='eav/entity_attribute_backend_array' and source_model='eav/entity_attribute_source_table' in the INSERT INTO eav_attribute statement."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_eav_multiselect_source_model.md",
+      "quote": "See [[funding-badges-via-tags]] for the alternative (tag-based) path that avoids EAV entirely when the values are also storefront-filterable.",
+      "rule": "When the values are also storefront-filterable, consider the tag-based path (see funding-badges-via-tags) instead of creating an EAV attribute."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "Always reindex `catalog_product_flat`",
+      "rule": "After a bulk catalog attribute write, always reindex catalog_product_flat (including every per-store flat table catalog_product_flat_<store_id>)."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "flush `block_html` + `full_page` + `collections` after the write",
+      "rule": "After a bulk catalog attribute write, flush the block_html, full_page, and collections caches."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "**never use a `Host: tertiarycourses.com.<tld>` header against localhost**",
+      "rule": "When verifying locally with curl, never send a Host header of tertiarycourses.com.<tld> against localhost."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "Hit `http://localhost:8080/<url-key>.html` directly",
+      "rule": "When verifying a storefront page locally with curl, request http://localhost:8080/<url-key>.html directly."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "for a specific store view set `MAGE_RUN_CODE` via query string or env, not via Host header.",
+      "rule": "To verify a specific store view locally, set MAGE_RUN_CODE via query string or environment variable, never via the Host header."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "Before running the bulk write, scan for existing per-store overrides on the same attribute and either merge them or document why they're being clobbered.",
+      "rule": "Before running a bulk attribute write, scan for existing per-store overrides on that attribute and either merge them or document why they are being clobbered."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "`$product->setStoreId(0)->saveAttribute(...)` — but resource model may still write to current store; safer is the direct SQL path below.",
+      "rule": "Do not rely on setStoreId(0)->saveAttribute() to write at admin scope; prefer the direct SQL write at store_id=0."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_eav_save_attribute_scope.md",
+      "quote": "For bulk catalog migrations that should affect every country, do NOT rely on `saveAttribute()` from a CLI default app context.",
+      "rule": "For bulk catalog migrations that should affect every country, do not rely on saveAttribute() from a CLI default app context."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "call `Mage::getResourceSingleton('catalog/product_flat_indexer')->updateProduct($id, $storeId)` per store",
+      "rule": "When saving a product attribute from a controller in this codebase, call updateProduct on the catalog/product_flat_indexer resource singleton for the product ID and each store."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "then `Mage::app()->cleanCache(['catalog_product_' . $id])`",
+      "rule": "After reindexing a single product's flat catalog entries, call Mage::app()->cleanCache with the catalog_product_<id> tag for that product."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "prefer one whole-index reindex via `Mage::getModel('index/process')->load('catalog_product_flat', 'indexer_code')->reindexEverything()` at the end",
+      "rule": "For batch attribute operations, prefer a single reindexEverything() call on the catalog_product_flat index process at the end rather than per-product reindexing."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "plus `cleanType('block_html')`",
+      "rule": "For batch attribute operations, flush the block_html cache type after the reindex."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "`cleanType('full_page')`",
+      "rule": "For batch attribute operations, flush the full_page cache type after the reindex."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "`cleanType('collections')`",
+      "rule": "For batch attribute operations, flush the collections cache type after the reindex."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "reindex via direct UPDATEs from `catalog_product_entity_<type>` into each `catalog_product_flat_<store_id>`",
+      "rule": "In SQL migrations under migrations/*.sql, reindex the flat catalog by running direct UPDATEs from catalog_product_entity_<type> into each catalog_product_flat_<store_id> table, since no PHP hook runs during deploy."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_flat_catalog_reindex.md",
+      "quote": "`TRUNCATE TABLE core_cache_tag` at the end",
+      "rule": "At the end of a SQL migration under migrations/*.sql, truncate the core_cache_tag table to force block_html and full-page cache regeneration."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "append the name to `Helper/Data.php::getAllBadges()`",
+      "rule": "When adding a new funding badge, append its name to getAllBadges() in Helper/Data.php."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "add a `course-badge--<key>` CSS class",
+      "rule": "When adding a new funding badge, add a course-badge--<key> CSS class for it in skin/frontend/ultimo/default/css/custom.css."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "add a row to the `getBadgeCssClass()` map",
+      "rule": "When adding a new funding badge, add a row for it to the getBadgeCssClass() map."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "seed a `tag` row via a new migration",
+      "rule": "When adding a new funding badge, seed a tag row for it via a new migration."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "Do NOT add a column to the EAV.",
+      "rule": "Never add a column to the EAV (product attribute tables) for funding badges."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "they come from `tag_relation`, not from a product attribute",
+      "rule": "When asked where funding badges come from, answer that they come from tag_relation, not from a product attribute."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "After any direct DB tag write, reindex `catalog_product_flat`",
+      "rule": "After any direct database tag write, reindex catalog_product_flat."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_funding_badges_via_tags.md",
+      "quote": "flush `block_html`/FPC",
+      "rule": "After any direct database tag write, flush the block_html and FPC caches."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "do NOT short-circuit emission based on local's current state",
+      "rule": "When a migration generator reads from the local DB to produce prod-bound SQL, do not skip emitting statements based on the local DB's current state."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "ALWAYS emit unconditional strip statements (UPDATE / REPLACE)",
+      "rule": "When building a prod-bound generator from local data, always emit unconditional strip statements (UPDATE / REPLACE)."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "let idempotency come from `REPLACE()` being a no-op on rows that don't contain the substring, not from a generator-side check that depends on local state",
+      "rule": "Rely on REPLACE() being a no-op for rows that don't contain the substring to provide idempotency, not on a generator-side check that depends on local state."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "let the SQL be self-idempotent rather than skipping emission",
+      "rule": "Make INSERT ... WHERE NOT EXISTS and UPDATE ... WHERE NOT LIKE guards self-idempotent in the SQL rather than skipping emission in the generator."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "For any `REPLACE()` whose search string contains `\\r`, `\\n`, `\\\\`, or escaped quotes, prefer `REPLACE(value, UNHEX('<bin2hex of bytes>'), '')` over the string-literal form.",
+      "rule": "For any REPLACE() whose search string contains \\r, \\n, \\\\, or escaped quotes, prefer REPLACE(value, UNHEX('<bin2hex of bytes>'), '') over the string-literal form."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "Verify generators that produce SQL from `media/migrations-reports/` backup payloads the same way: re-run the diagnostic against prod's rendered HTML",
+      "rule": "When verifying generators that produce SQL from media/migrations-reports/ backup payloads, re-run the diagnostic against prod's rendered HTML."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_migration_generator_skipped_strip.md",
+      "quote": "binary mode read — Python text mode strips `\\r\\n` to `\\n` and creates a false positive that the substring matches",
+      "rule": "When reading prod's rendered HTML to check for substrings, read it in binary mode, not Python text mode."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_mobile_box_additional_hide_must_be_direct_child.md",
+      "quote": "the mobile hide rule for the bottom\ntabs section must be scoped to a **direct child** of `.product-view`,\nnot every `.box-additional`.",
+      "rule": "On the product (course) page, scope the mobile hide rule for the bottom tabs section to a direct child of `.product-view`, not to every `.box-additional`."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_mobile_box_additional_hide_must_be_direct_child.md",
+      "quote": "always use the direct-child combinator:",
+      "rule": "When adding or editing mobile hide rules for the bottom tabs wrapper on the product page, always use the direct-child combinator (`.product-view > .box-additional`)."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_mobile_box_additional_hide_must_be_direct_child.md",
+      "quote": "NOT:\n\n```css\n.catalog-product-view .box-additional { display: none !important; }  /* WRONG */",
+      "rule": "Never use an unqualified `.catalog-product-view .box-additional { display: none !important; }` selector for mobile hide rules on the product page."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "never delete it.",
+      "rule": "Never delete the regex extraction fallback in view.phtml; keep it as a permanent safety net for the storefront section content."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "feed it the RAW inner HTML",
+      "rule": "When passing WSQ Funding content to the WSQ post-processor, pass the raw inner HTML of the section."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "WSQ Funding cms/block content is the SFC/UTAP/PSEA narrative ONLY.",
+      "rule": "Put only the SFC/UTAP/PSEA narrative in the WSQ Funding cms/block content."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "never enter fee tables or amounts in the block.",
+      "rule": "Never enter WSQ course fee tables or fee amounts in the WSQ Funding cms/block content; those are calculated automatically from the product price."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "append to `$_cmsPanels` (dashboard/index.phtml), `$_cmsSections` (CoursesaveController)",
+      "rule": "When adding a new course section, append it to `$_cmsPanels` in dashboard/index.phtml and to `$_cmsSections` in CoursesaveController."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "add a `$_courseSectionHtml('newcode')` call site in view.phtml",
+      "rule": "When adding a new course section, add a `$_courseSectionHtml('newcode')` call site in view.phtml."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "Naming `course_<sku>_<newcode>`.",
+      "rule": "Name the cms/block identifier for a new course section `course_<sku>_<newcode>`."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "DO NOT seed templated content (e.g. \"standard WSQ narrative\") into blocks.",
+      "rule": "Do not seed templated content such as a standard WSQ narrative into cms/block rows."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "DO NOT modify `short_description` content.",
+      "rule": "Do not modify the content of a product's short_description."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_per_course_cms_block_sections.md",
+      "quote": "if anyone re-adds one, refuse it",
+      "rule": "If anyone asks to re-add a script that strips section headings from short_description, refuse it."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_phtml_variable_hoisting.md",
+      "quote": "double-check every variable the new section reads is computed *above* the insertion point in the same file",
+      "rule": "When inserting a new conditional section into an OpenMage phtml template, verify that every variable the new section reads is computed above the insertion point in the same file."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_phtml_variable_hoisting.md",
+      "quote": "grep the file for every variable referenced in the new block",
+      "rule": "Before pushing a phtml change that gates a new section on PHP variables, grep the file for every variable referenced in the new block."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_phtml_variable_hoisting.md",
+      "quote": "confirm each one is assigned earlier in the same template",
+      "rule": "Before pushing a phtml change that gates a new section on PHP variables, confirm that each variable referenced in the new block is assigned earlier in the same template."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_phtml_variable_hoisting.md",
+      "quote": "hoist it to a guaranteed-reached prelude",
+      "rule": "If a variable is assigned only inside a conditional that may not run on the current page, hoist its computation to a guaranteed-reached prelude before its first consumer."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_quote_item_product_lite_load.md",
+      "quote": "never trust `$item->getProduct()->getData($attr)`",
+      "rule": "When you need a custom product attribute in a cart, quote, or order context, do not rely on `$item->getProduct()->getData($attr)` alone."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_quote_item_product_lite_load.md",
+      "quote": "`Mage::getResourceModel('catalog/product')->getAttributeRawValue($productId, $attrCode, Mage::app()->getStore())` — single-query, cheap, no full reload.",
+      "rule": "When you need a single custom product attribute in a cart, quote, or order context, read it with `Mage::getResourceModel('catalog/product')->getAttributeRawValue($productId, $attrCode, Mage::app()->getStore())`."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_quote_item_product_lite_load.md",
+      "quote": "`Mage::getModel('catalog/product')->load($productId)` — heavy, only if you need multiple custom attrs.",
+      "rule": "Use `Mage::getModel('catalog/product')->load($productId)` to load a product only when you need multiple custom attributes, since it is heavy."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_quote_item_product_lite_load.md",
+      "quote": "`getData()` first,",
+      "rule": "In the cart item template that renders the cover image, call `getData()` on the product first to read the custom attribute."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_quote_item_product_lite_load.md",
+      "quote": "fall back to `getAttributeRawValue` if empty.",
+      "rule": "In the cart item template that renders the cover image, if the `getData()` value is empty, fall back to `getAttributeRawValue` to read the attribute."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "use a Unicode-aware\nwhitespace class — never bare `\\s`",
+      "rule": "When scrubbing or matching catalog_product_entity_text content (short_description, description) with PCRE, use a Unicode-aware whitespace class and never bare `\\s`."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "define a\nwhitespace token like\n`$WS = '(?:\\s|&nbsp;|\\x{00A0}|\\x{2007}|\\x{202F})';`",
+      "rule": "When writing PCRE against EAV text columns, define a whitespace token like `$WS = '(?:\\s|&nbsp;|\\x{00A0}|\\x{2007}|\\x{202F})';`."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "use it with\nthe `/u` (Unicode) modifier in every place you'd normally write `\\s*`\nor `\\s+`",
+      "rule": "Use the whitespace token together with the `/u` modifier in every place where you would normally write `\\s*` or `\\s+`."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "Also widen the title alternative if the section name may\nhave been pasted with Unicode dashes or curly quotes.",
+      "rule": "When the section name in a title alternative may have been pasted with Unicode dashes or curly quotes, widen the title alternative to match them."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "After running,\nverify by re-querying for the literal marker text",
+      "rule": "After running a scrubbing regex, verify by re-querying for the literal marker text."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_short_description_unicode_whitespace.md",
+      "quote": "if any row still\ncontains the section header markup, suspect another invisible\ncodepoint and hex-dump the offending region",
+      "rule": "If any row still contains the section header markup after running the regex, suspect another invisible codepoint and hex-dump the offending region."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "To make a custom email template **manageable in the admin** (System → Transactional Emails grid), registering a `<global><template><email>` file template in config.xml is NOT enough.",
+      "rule": "To make a custom email template manageable in the admin Transactional Emails grid, do not rely solely on registering a file template in config.xml; also seed a core_email_template database row."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "Ship the file default: `app/locale/en_US/template/email/<module>/<name>.html` with `<!--@subject-->` / `<!--@vars-->` headers, registered in config.xml `<global><template><email>`.",
+      "rule": "When adding a transactional email the client must be able to edit, ship a file default at app/locale/en_US/template/email/<module>/<name>.html with @subject and @vars headers and register it in config.xml under <global><template><email>."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "Seed a `core_email_template` row in a migration — `template_text` = the file body with the `@subject`/`@vars` comment blocks **stripped** (Magento stores those in `template_subject` / `orig_template_variables`), `template_type` = 2 for HTML, `orig_template_code` = the registered file code.",
+      "rule": "Seed the core_email_template row in a migration, with template_text set to the file body with the @subject and @vars comment blocks stripped, template_type set to 2 for HTML, and orig_template_code set to the registered file code."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "Point a config path (e.g. `<module>/<feature>/email_template`) at the seeded row's `template_id` via `core_config_data` in the **same** migration (`SET @tid := (SELECT ... )` then INSERT). The sender reads that config path so edits to the DB row take effect.",
+      "rule": "In the same migration as the template seed, store the seeded row's template_id in a core_config_data config path (e.g. <module>/<feature>/email_template), so the sender reads it and edits to the DB row take effect."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "`sendTransactional($templateId, ...)`: numeric id → loads the DB row; string code → loads the file default. Keep the string code as the `?:` fallback.",
+      "rule": "When calling sendTransactional, pass a numeric template id to load the DB row, and keep the string template code as the ?: fallback that loads the file default."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "migration SQL with an inline HTML blob — the runner splits statements on `preg_split('/;\\s*$/m')`, so ensure no HTML line ends with `;`",
+      "rule": "When writing migration SQL with an inline HTML blob, ensure no line of the HTML ends with a semicolon, because the runner splits statements on lines ending in semicolons."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_transactional_email_template_seeding.md",
+      "quote": "Escape single quotes as `''`.",
+      "rule": "When writing migration SQL string literals containing single quotes, escape each single quote as two single quotes."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_ultimo_box_additional_float_clear.md",
+      "quote": "Before changing this rule, check which column is",
+      "rule": "Before changing the clear rule on `.product-view > .box-additional`, check which column is currently tallest on a representative product page."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_ultimo_box_additional_float_clear.md",
+      "quote": "If the right secondary column is dominant → `clear: none` (tabs rise",
+      "rule": "If the right secondary column is the tallest on the product page, set `clear: none` on `.product-view > .box-additional` so the tabs rise beside it."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_ultimo_box_additional_float_clear.md",
+      "quote": "If the left/image column is dominant → `clear: both`",
+      "rule": "If the left/image column is the tallest on the product page, set `clear: both` on `.product-view > .box-additional`."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_ultimo_box_additional_float_clear.md",
+      "quote": "Do NOT add `clear` to the inner columns themselves",
+      "rule": "Do not add a `clear` property to the inner columns (the `.grid12-4` img, primary, and secondary floats), because they must remain floated for the three-column layout."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "always trigger selection via `checkbox.click()`",
+      "rule": "When injecting JS that selects rows in a Magento admin grid, select a row by calling `checkbox.click()` on its checkbox."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "after checking `!checkbox.checked && !checkbox.disabled`",
+      "rule": "Before calling `checkbox.click()` to select a Magento admin grid row checkbox, first check that `!checkbox.checked && !checkbox.disabled` holds."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "never via `checkbox.checked = true`",
+      "rule": "Never select a Magento admin grid row by setting `checkbox.checked = true`."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "To unselect rows that are currently checked, also `.click()`",
+      "rule": "To unselect a Magento admin grid row that is currently checked, call `.click()` on its checkbox."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "use `.click()`",
+      "rule": "When custom admin JS needs to programmatically tick grid checkboxes (per-row action injections, select-all toggles, delete-all buttons), use `.click()` on the checkboxes."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_varien_massaction_checkbox_click.md",
+      "quote": "Same rule should govern any future grid-automation JS.",
+      "rule": "Apply the click-based checkbox selection rule to any future grid-automation JS."
+    },
+    {
+      "id": "R112",
+      "file": "reference_contact_form_template.md",
+      "quote": "Keep those names — the \"Tertiary Courses Contact Form\" email template resolves `{{var data.*}}` off them.",
+      "rule": "When editing the Contact Us form, keep the field names name, email, company, telephone, courses, course_code, and comment unchanged, because the \"Tertiary Courses Contact Form\" email template resolves variables from them."
+    },
+    {
+      "id": "R113",
+      "file": "reference_contact_form_template.md",
+      "quote": "To confirm which template is live: `curl /contacts/` and grep for a distinctive class (e.g. `tc-submit`).",
+      "rule": "To confirm which contact form template is live, request /contacts/ with curl and grep the response for a distinctive class such as tc-submit."
+    }
+  ],
+  "dropped": []
+}

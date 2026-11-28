@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R201",
+   "rule": "Test migrations on a Neon branch forked from production first, and run them on the main database only if the test is green."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R90",
+   "rule": "Never merge develop into main automatically; only do so after the user explicitly asks."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R92",
+   "rule": "Confirm the target branch before performing any merge."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R93",
+   "rule": "When the user says \"deploy\" or \"push,\" push only to the develop branch."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R94",
+   "rule": "Merge to main only when the user explicitly says \"merge to main\" or \"deploy to production.\""
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R98",
+   "rule": "Only switch the theme when the user issues an explicit /theme or /skin slash command; never switch it based on contextual keyword detection."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R99",
+   "rule": "Do not call set_theme unless the user explicitly asks for it."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R1",
+   "rule": "Before removing software judged \"stale\" (old Python interpreters, base Anaconda/Miniconda), check what depends on it before calling it safe to remove."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R11",
+   "rule": "Keep Google Drive (FS) when cleaning up cloud sync software."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R14",
+   "rule": "When dropping OneDrive, leave its files on disk and do not unlink them."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R19",
+   "rule": "Write debloat scripts that run in dry-run mode first so the user can curate them, then execute them."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R2",
+   "rule": "For each Python interpreter or distro slated for removal, check its Scripts directory for console scripts that point to it."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R23",
+   "rule": "When clearing %TEMP%, exclude %TEMP%\\claude, Claude Code's own task-output directory."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R3",
+   "rule": "For each Python interpreter or distro slated for removal, grep profile and init files for its path."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R6",
+   "rule": "Never label an interpreter or distro slated for removal as safe to remove without first running the dependents check."
+  },
+  {
+   "folder": "CaioLC__nvim-onepager",
+   "id": "R9",
+   "rule": "Never modify or remove the remote-access stack (AnyDesk, Tailscale, SonicWall NetExtender, QuickAssist) when debloating the user's Windows desktop."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R114",
+   "rule": "Never use git worktrees on this project."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R121",
+   "rule": "Do not run git worktree remove --force unsupervised to clean up leftover worktrees; leave that to the user."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R165",
+   "rule": "Never leave Playwright screenshot PNG files in the repository root."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R185",
+   "rule": "Do NOT build Wave 3 stores without the cross-window sync layer."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R268",
+   "rule": "Always check `git log --oneline -5` to confirm what is on main before cherry-picking."
+  },
+  {
+   "folder": "CodingButter__cardboard",
+   "id": "R333",
+   "rule": "Do not generate a new pack during a Playwright run; use the existing Cardboard.apg fixture instead."
+  },
+  {
+   "folder": "CrystalPlatforms__exsize",
+   "id": "R11",
+   "rule": "Always check issue blockers before starting a phase of the ExSize project."
+  },
+  {
+   "folder": "CrystalPlatforms__exsize",
+   "id": "R12",
+   "rule": "When the /tdd N command is invoked for issue N, check the project progress table to confirm that issue N's dependencies are met before starting work on it."
+  },
+  {
+   "folder": "Desgue__landscaper",
+   "id": "R4",
+   "rule": "Only proceed to the next phase when every reviewer returns PASS."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R124",
+   "rule": "Never paste real secret token values into memory files or plan docs."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R129",
+   "rule": "Do not attempt a code fix for the Shopify private_access_tokens 401 error; it resolves on its own once the store goes live."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R13",
+   "rule": "Do not fix the CORS error in the exchange-rate fetch (api.frankfurter.app blocked in lib/currency.ts/store/currencyStore.ts) until the user says to."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R22",
+   "rule": "When creating a daily log, check the MEMORY.md index first."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R26",
+   "rule": "When creating a daily log, read the June 18 log in the Client Requirements Checklist folder as a format reference."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R27",
+   "rule": "Write the daily log to Client Requirements Checklist/DAILY_LOG_YYYY-MM-DD.md, using today's date."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R40",
+   "rule": "Never run git push, git commit, git add, or any destructive git command."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R41",
+   "rule": "After making code changes, stop at the file edits and do not proceed to any git operations."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R43",
+   "rule": "Do not stage, commit, or push changes even if it seems like a natural next step."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R46",
+   "rule": "Never put API keys, bearer tokens, secrets, or credentials in plan docs, spec docs, code files, or any markdown/documentation file."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R48",
+   "rule": "Store secrets only in `.env.local` and Vercel environment variables, never in committed files."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R73",
+   "rule": "If the 51k Brisk CRM lead list resurfaces, do not build import or send tooling for it without first re-confirming where the list came from."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R83",
+   "rule": "Do not start the next build phase until the user has explicitly replied \"Yes, Proceed.\""
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R85",
+   "rule": "Do not create a `tailwind.config.ts` file."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R88",
+   "rule": "Do not reconnect acmevintagesupply.com in Shopify \u2192 Domains, because it overwrites GoDaddy DNS records."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R89",
+   "rule": "When updating stock quantities for existing Shopify products, use bulk edit rather than a CSV import, to avoid creating duplicates."
+  },
+  {
+   "folder": "FearCleevan__final-project-acme",
+   "id": "R91",
+   "rule": "Never store WordPress login credentials or passwords in memory files."
+  },
+  {
+   "folder": "Firesofiso__mouse-platformer",
+   "id": "R1",
+   "rule": "Before changing code in this project, diagnose the problem via debug instrumentation first."
+  },
+  {
+   "folder": "Firesofiso__mouse-platformer",
+   "id": "R3",
+   "rule": "After adding diagnostics, read the console or execute_code result before writing any code."
+  },
+  {
+   "folder": "Firesofiso__mouse-platformer",
+   "id": "R4",
+   "rule": "Only write fix code after the diagnostic results have been read."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R109",
+   "rule": "Do not use the checkpoint joint_los15_az170.pt for cross-scene evaluation, because it was trained with a random split and leaks test UEs in a geo-split test; use the geo-split source model results/geo_split/100k/geo_geographic.pt instead."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R112",
+   "rule": "When preparing a commit for JD-2207/CSI-ISAC, add new files only under `src/exp/*.py`."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R113",
+   "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R114",
+   "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R115",
+   "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+  }
+ ]
+}

@@ -8,11 +8,11 @@ edit, move, delete, what stays in the repo) and about running commands are commo
 written in a fixed form without knowing tool names. Two research reports
 (`docs/review/schema_research_*.md`) found that comparable systems (GitHub rulesets, Claude
 Code permissions, Cedar, AppArmor) all fix the action list in code and leave only names open.
-Two critical reviews (`docs/review/attack_review_*.md`) asked that every item be justified and
+Two critical reviews asked that every item be justified and
 that ambiguous words not be decided silently.
 
 ## Decision
-- The vocabulary is `docs/review/vocab_draft.md` v2, written by Claude and Codex in five review
+- The vocabulary is v2 (`pipeline/rules/vocab.py`), drafted with two AI reviewers over five review
   rounds and approved by the author. It is fixed in code for the experiment; changes need a
   new version.
 - Scope: git rules plus basic file rules and `run` with a fixed task list. If the file part
@@ -31,6 +31,3 @@ that ambiguous words not be decided silently.
 - The checker and prompt changes in section 8 of the vocabulary must be made before any
   translation run.
 - Some rules a reader would understand from the folder become unclear; their number is reported.
-- The held-out folders were selected with a git filter (0005), so the held-out claim stays
-  git-only. File rules are reported on the survey folders, with three-run agreement and a
-  hand-checked sample.

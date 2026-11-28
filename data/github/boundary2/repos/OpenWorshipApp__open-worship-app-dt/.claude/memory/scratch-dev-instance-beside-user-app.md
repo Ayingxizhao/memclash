@@ -1,0 +1,161 @@
+---
+name: scratch-dev-instance-beside-user-app
+description: "Verify a fix on a fresh profile without touching the user's running dev app: start a SECOND dev Electron on OWA_USER_DATA_PATH against the same Vite; never npm run dev or electron:build for it"
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: d2887407-24f9-4c3c-8777-b599e6de5d03
+  modified: 2026-11-13T21:00:00.000Z
+---
+
+When the user's own dev app is up (their `-dev` profile, their real data) and a live check needs
+a first-run state — no KJV installed, no child folders, a floating panel with no saved position —
+start a SECOND dev Electron on a scratch profile against the same Vite server instead of driving
+(or emptying) theirs:
+
+```
+env -u ELECTRON_RUN_AS_NODE OWA_USER_DATA_PATH="<repo>\release\<scratch>" NODE_ENV=development \
+  ./node_modules/electron/dist/electron.exe .        # background
+```
+
+with `<scratch>\setting.json` seeded
+`{"clientSetting":{"selected-parent-dir":"<scratch>\\data","stay-awake":"false"}}` and
+`<scratch>\data` created. **The data folder's child folders are ITS settings**
+(2026-11-10): write `<scratch>\data\local-storage\select-dir-bible-notes`
+(`$DATA_DIR_PATH\bible-notes`), `select-dir-app-document` (`…\documents`) and
+`select-dir-bible-presenter` (`…\bibles`) before the launch, or every note call
+answers _No Bible notes folder is set up yet_ (Path Settings is the person's way
+in). A copied `KJV.xml` carries whatever the source had when it was made --
+`kjvBibleBooks.json` fixes reach a fresh install only.
+
+- **Prove a pid is the scratch one by its `userDataPath` before driving or
+  killing it** (2026-10-23). A loop taking "the first discovery file that is
+  not the user's pid" took the USER's app: they had restarted `electron:dev`
+  meanwhile, so their new pid was not the one excluded. The driver opened a
+  card in their chatbot, a reload hit their pages, and `taskkill //PID … //T`
+  stopped their app. Read the one field (`userDataPath`) of the new file and
+  match it to the scratch folder, every time. And `electron . --owa-open-chatbot`
+  for the scratch profile can come up as a SECOND full app instead of handing
+  over (two came up that day, a `timeout 20` killed neither): list
+  `electron.exe` with its command line afterwards and stop the extra one.
+- **A forgotten one keeps the PC from sleeping** (2026-10-16). Stay Awake is ON when unset
+  (`toIsStayAwake`), so a scratch Presenter holds `prevent-display-sleep` for as long as it
+  lives. pid 13428 (`release/robot-chatbot-20261015-2145`, launcher gone, window hidden) did
+  that for 25 h, and the user found their PC would not sleep. Seed `stay-awake` false as above,
+  and **stop it by pid before the session ends**. Its `lockfile` in the scratch folder is
+  dated with the start time, which is how to match an orphan to its profile.
+
+- **A model's rare slip is shown live with a stand-in model** (2026-11-04,
+  `EC-460`): a real model drifted into the wrong language once in two asks
+  and not again on demand. Launch the scratch instance with
+  `OWA_LLM_REGISTRY_URL=http://127.0.0.1:<port>/info.json` pointing at a
+  small node server that serves a version-1 registry naming ITSELF
+  (`isFree`, one model named `gemma4:cloud` so Auto picks it and asks in the
+  language typed), `GET /v1/models`, and a `POST /v1/chat/completions` that
+  answers by what it was asked -- the wrong script first, then the right one
+  to the nudge -- logging each request body. No setting, no key, nothing in
+  the user's profile. On a fresh profile the Reader's _Create the KJV
+  Bible?_ prompt holds the popup host, so the AI caution waits behind it
+  until that prompt is answered.
+- **Not `npm run dev` and not `electron:build`.** `strictPort` makes a second `npm run dev` stop on
+  the busy :3000, and `electron:build` deletes the `electron-build/` the user's app runs from
+  ([[build-kills-running-dev-app]]). `electron .` reuses the compiled `electron-build/`, so `grep`
+  the `.js` for a main-process change before counting on it.
+- The userData decides the single-instance lock, so the two run side by side and
+  `prod-app.mjs status` lists both. **Since 2026-11-13 a stdio server drives NEITHER until told**
+  (`owa_choose_app`, `appChoice.mjs`): with two apps up every tool answers with the list, so
+  choose the scratch one by the pid whose `userDataPath` is the scratch folder, and both tool
+  halves follow it (proven live the same day with three apps up). Scripts that import
+  `discovery.mjs` still take the newest — prove it with a screenshot of a fresh-profile state
+  before the first click.
+- **Only the `owa_*` half follows the scratch instance** (2026-10-11).
+  `take_screenshot`, `click`, `fill` and `list_pages` stayed on the app that
+  was up first, so a uid press meant for the scratch window lands in the
+  user's. Use the `owa_*` tools there and nothing aimed by uid.
+- **Not even `owa_*` stays on it** (2026-10-16): mid-session, with the scratch
+  instance still the newest and its window still published, `owa_app_state`
+  answered with the USER's app (their song on two live screens). Check the
+  answer's content, not the pid list, before every batch. What held: a FRESH
+  stdio server pinned to the scratch port -- `OWA_CDP_PORT=<port> node
+  tools/owa-devtools-mcp/bin.mjs`, JSON-RPC on stdin (initialize →
+  `notifications/initialized` → `tools/call`). The pin is exclusive
+  ([[cdp-pin-is-exclusive]]), every call still passes the firewall, and the
+  fresh process also serves just-edited tool code
+  ([[mcp-tool-edit-two-processes]]).
+- **A scratch instance has a taskbar identity of its own** (2026-10-15,
+  `toAppUserModelId` in `electron/taskbarHelpers.ts`). Before, every dev
+  copy shared `app.openworship.desktop.dev`, and the jump list belongs to
+  the identity: a `release/scratch-lang2` copy started after the user's
+  app pointed the taskbar's tasks at its own folder, and the user's
+  **App Help (Chatbot)** opened a new app on it. Now a scratch copy shows
+  as a separate taskbar button and leaves the user's menu alone.
+- **A covered scratch window also starves the tools** (2026-10-22): its
+  Reader read `visibilityState: hidden`, the first `owa_lookup_record`
+  answered in 2.5 s and every later one timed out at 65 s (Chromium's
+  hidden-page throttling). Launch it with
+  `--disable-background-timer-throttling --disable-renderer-backgrounding
+  --disable-backgrounding-occluded-windows` before the `.` and it stays
+  `visible` and answers in 0.2-5 s, behind the user's window, without being
+  brought to the front.
+- **A scratch window the user's own window covers stops painting**, and
+  `owa_screenshot` then hands back its last frame as if it were now. Trust
+  the DOM tools (`owa_list_ui`, a click's `isOnNow`) and the files under the
+  scratch `data/local-storage/`; for a picture, draw the CSS in an offscreen
+  `BrowserWindow` (`show: false`, `offscreen: true`) instead.
+- **A NATIVE dialog of the main process can be checked there, at the OS
+  level** (2026-11-05, Help → Factory Reset's `dialog.showMessageBox`, which
+  no `owa_*` tool sees and `owa_menu` refuses to open). Start the scratch
+  copy with `--inspect=<port>` before the `.`; over that Node inspector
+  `Runtime.evaluate` (`includeCommandLineAPI: true`, so `require` works)
+  `Menu.getApplicationMenu()` → the item → `.click()`. The dialog is a
+  Win32 task dialog (class #32770), a top-level window of the scratch PID:
+  UI Automation reads its words, the Win32 PrintWindow call pictures it
+  even when covered, and its buttons have no Invoke pattern -- each has the
+  automation id CommandButton_N, and with `noLink: true` every button is
+  custom, N = 100 + its index -- pressed by posting the task dialog's
+  click-button message (0x0466, wParam N) to the dialog. Never coordinates or SendKeys: they land in whatever window
+  the user has in front. Aim only by the scratch pid, never the user's app.
+- A name box or a confirm is the person's to answer there too: seed the
+  state it would have made as a `local-storage` file and reopen the panel
+  (a setting read as absent is believed for 10 s).
+- **Its Presenter window can be HIDDEN outright** (2026-10-16: pid 13428's main window
+  `IsWindowVisible = false`, while its popups — editors, Settings, print preview — still
+  show on the user's desktop). A confirm raised there (e.g. **Select Default "documents"**)
+  is answerable by NOBODY: the firewall refuses it and the user cannot see it, and both
+  instances are titled "Open Worship app - Presenter", so a request to press it lands in
+  the user's own app. Never press a control that asks a question in that window; restore
+  through the path box instead, or write the setting file and `owa_menu View > Reload`.
+  `owa_click` now reports the `question` a press raised, but cannot say the window is
+  hidden: this window's page still reads `visibilityState: 'visible'`, and Electron's
+  CDP has no `Browser.getWindowForTarget` -- check `IsWindowVisible` from the OS.
+- It shares the user's Vite: touching a file to clear a stale transform
+  ([[vite-caches-failed-import-resolution]]) reloads THEIR windows too.
+- Settings → General raises **Set according paths** the first time; **Yes** creates the child
+  folders inside the scratch data folder. An agent CANNOT press that Yes — the MCP firewall
+  refuses every confirm (`owa_click` and a uid `click` alike) and any label saying _Remove_ /
+  _Delete_ — so seed one child setting first and the prompt never comes: write
+  `<scratch>\data\local-storage\select-dir-app-document` holding `<scratch>\data\documents`
+  (and create that folder). Seed `local-storage\` in a second data folder too and it counts as
+  a used data folder, so switching to it reloads straight in with no question (2026-10-04). A state the UI cannot reach without a destructive
+  press (a missing bible key) can be set in the scratch `data/local-storage/<setting>` file and
+  read back after **Apply Settings**, which reloads only the scratch instance's windows.
+- **A non-English pass needs no person either** (2026-11-09):
+  before the launch, extract the packed `extra-work/lang/<code>-<v>.tar.gz`
+  into `<scratch>\data\lang\<code>@<v>\` and put `"language-locale"`
+  (that language's locale, as its `meta.json` says) in the seeded `clientSetting`; copy the user's
+  `bibles-data\KJV.xml` into `<scratch>\data\bibles-data\` so the Reader's
+  _Create the KJV Bible?_ confirm (the person's, refused) never comes; and
+  a list folder is `local-storage\select-dir-bible-presenter` holding
+  `$DATA_DIR_PATH\bibles` (a hand-written `.owb` there is listed). Write
+  every Windows path from node with `path.win32.join` or
+  `String.fromCharCode(92)`: Git Bash halves `\\` even in a quoted
+  `node -e` ([[bash-heredoc-halves-backslashes]]).
+- Stop it by its own pid (`taskkill //PID <pid>` from Git Bash exits it cleanly), then delete the
+  scratch folder — after `cd`-ing out of it: a shell whose cwd is inside makes the delete EBUSY.
+
+**Why:** 2026-10-01, verifying seven fixes from a release run: F1 needed a Reader on _"KJV" is not
+available!_, which the user's dev data (KJV installed) could not show without trashing their bible.
+
+**How to apply:** default to this whenever a live check needs a first-run or destructive-ish state
+while a dev app of the user's is running; [[pack-release-from-snapshot]] is the packaged-build
+counterpart.

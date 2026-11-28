@@ -1,0 +1,346 @@
+{
+  "repo": "map-gl/map-gl",
+  "dir": ".claude/memory",
+  "n_files": 9,
+  "n_rules": 56,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_bridge-architecture.md",
+      "quote": "Maintain fully independent bridge implementations for Mapbox and Maplibre",
+      "rule": "Maintain fully independent bridge implementations for Mapbox and Maplibre; do not force them into a shared bridge abstraction."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_bridge-architecture.md",
+      "quote": "only putting pure utility functions and intersection types in the shared package",
+      "rule": "Only put pure utility functions and intersection types in the shared package."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_bridge-architecture.md",
+      "quote": "Shared package**: Only put truly shared code — `deep-equal.ts`, `style-utils.ts`, basic type definitions",
+      "rule": "Only put truly shared code (such as deep-equal.ts, style-utils.ts, and basic type definitions) in the shared package."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "it must be manually `import`ed at the application entry point",
+      "rule": "Import maplibre-gl's CSS file (maplibre-gl/dist/maplibre-gl.css) explicitly at the application entry point; it does not load automatically."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "When writing docs or examples in the future, remind users they must import CSS themselves.",
+      "rule": "When writing docs or examples for maplibre-gl, remind users they must import the CSS themselves."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "Don't use headless screenshots to diagnose map rendering issues.",
+      "rule": "Do not use headless Chrome screenshots to diagnose map rendering issues."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "Instead check: (1) JS console errors (2) DOM structure (whether canvas exists) (3) whether CSS is loaded.",
+      "rule": "When diagnosing map rendering issues, check JS console errors, DOM structure (whether the canvas exists), and whether the CSS is loaded instead of relying on headless screenshots."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "If visual verification is needed, have the user check in a real browser.",
+      "rule": "When visual verification of a map is needed, have the user check it in a real browser rather than headless Chrome."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "If you only want to close via the X button, explicitly set `:closeOnClick=\"false\"`.",
+      "rule": "To make a Popup close only via its X button, explicitly set closeOnClick to false."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_debugging-lessons.md",
+      "quote": "Documentation should explain this default behavior.",
+      "rule": "When writing Popup documentation, explain that closeOnClick defaults to true."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_maplibre-v5-migration.md",
+      "quote": "Remove these three keys from the Map component's `INIT_OPTION_KEYS`",
+      "rule": "When upgrading to maplibre-gl v5, remove `antialias`, `preserveDrawingBuffer`, and `failIfMajorPerformanceCaveat` from the Map component's `INIT_OPTION_KEYS` array."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_maplibre-v5-migration.md",
+      "quote": "add `canvasContextAttributes`",
+      "rule": "When upgrading to maplibre-gl v5, add `canvasContextAttributes` to the Map component's `INIT_OPTION_KEYS` array."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_maplibre-v5-migration.md",
+      "quote": "Remove optional chaining (`map.getProjection?.()`) and `@ts-ignore` comments for `map.setProjection?.()` in the bridge class.",
+      "rule": "When upgrading to maplibre-gl v5, remove the optional chaining from `map.getProjection?.()` calls in the bridge class."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_maplibre-v5-migration.md",
+      "quote": "Remove optional chaining (`map.getProjection?.()`) and `@ts-ignore` comments for `map.setProjection?.()` in the bridge class.",
+      "rule": "When upgrading to maplibre-gl v5, remove the `@ts-ignore` comments on `map.setProjection?.()` calls in the bridge class."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_maplibre-v5-migration.md",
+      "quote": "Consider the interaction between marker click and map click when designing.",
+      "rule": "When designing features with markers on a maplibre-gl map, consider how marker clicks interact with the map's click event."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_viewstate-reactivity.md",
+      "quote": "the watch getter must explicitly access inner fields (e.g. `vs?.longitude`)",
+      "rule": "When a Map component's watch tracks a reactive object passed as a prop, the watch getter must explicitly access each inner field of that object (e.g. vs?.longitude) so Vue tracks nested changes."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_viewstate-reactivity.md",
+      "quote": "Remove `flush: 'sync'` and use the default `pre`.",
+      "rule": "Do not use flush: 'sync' in the Map component's watch; use the default flush ('pre') instead."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_viewstate-reactivity.md",
+      "quote": "Add a `width > 0 && height > 0` guard.",
+      "rule": "When viewState width or height is used to trigger resize sync, add a guard that only proceeds when width > 0 and height > 0."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_viewstate-reactivity.md",
+      "quote": "destructure every field of viewState in the getter",
+      "rule": "Whenever the Map component watches prop changes to sync to the bridge, destructure every field of viewState in the watch getter."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_viewstate-reactivity.md",
+      "quote": "don't use `flush: 'sync'`",
+      "rule": "Whenever the Map component watches prop changes to sync to the bridge, do not use flush: 'sync'."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "Use `h()` not JSX",
+      "rule": "Do not use JSX syntax in Vue component render functions in .ts files; use the `h()` function instead."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "Vue component render functions should uniformly use the `h()` function",
+      "rule": "Write all Vue component render functions using the `h()` function."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "All Vue component render sections use `h('div', {attr: val}, children)` form",
+      "rule": "Write Vue component render sections in the `h(tag, attrs, children)` form."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "don't access emit internals",
+      "rule": "Do not access emit internals (such as `emit.$.args`) in Vue 3 components."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "Maintain a `CALLBACK_EVENTS: (keyof MapCallbacks)[]` static array and iterate over it to build callbacks",
+      "rule": "Maintain a `CALLBACK_EVENTS: (keyof MapCallbacks)[]` static array and iterate over it to build callbacks."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "always use predefined static arrays to build callbacks",
+      "rule": "In emit-bridging components like map.ts, always build callbacks from predefined static arrays."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "Use `emit('onError', ...)` directly for error handling",
+      "rule": "Use `emit('onError', ...)` directly for error handling instead of reading handlers from props."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "don't try to read from props",
+      "rule": "When needing to emit events, do not try to read event handlers from props."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "All optional string props should have `?? defaultValue` when passed as arguments",
+      "rule": "When passing an optional string prop as an argument, apply a `?? defaultValue` fallback."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "Maintain an `INIT_OPTION_KEYS` constant array, extracting corresponding values from attrs to pass to the bridge class",
+      "rule": "Maintain an `INIT_OPTION_KEYS` constant array and extract the corresponding MapOptions init values from attrs to pass to the bridge class."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_vue-component-patterns.md",
+      "quote": "When encountering build failures, look at ESM/CJS errors first to fix syntax, then DTS errors to fix types",
+      "rule": "When diagnosing build failures, fix ESM/CJS syntax errors first, then fix DTS type errors."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_vue-lifecycle-timing.md",
+      "quote": "instead use the `useMapContext` composable (internally uses `watch` + `immediate: true`) to wait for context availability before initializing",
+      "rule": "In overlay components that depend on Map context (Marker/Popup/Source/Layer/Control), do not read context directly in onMounted; instead use the useMapContext composable to wait for context availability before initializing."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_vue-lifecycle-timing.md",
+      "quote": "`popup.addTo(map.getMap())` is wrapped in `setTimeout(0)`",
+      "rule": "In the Popup component, wrap popup.addTo(map.getMap()) in setTimeout(0) so the pending map click is processed before the closeOnClick handler is registered."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_vue-lifecycle-timing.md",
+      "quote": "The recommended pattern is `closeOnClick: false` + marker toggle behavior (clicking the same marker closes)",
+      "rule": "When implementing a Popup that opens on marker click, set closeOnClick to false and implement toggle behavior where clicking the same marker closes the popup."
+    },
+    {
+      "id": "R35",
+      "file": "plan-management.md",
+      "quote": "update the detailed design (changed files, key decisions, implementation details) into the current task document under `.claude/tasks/`",
+      "rule": "After exploring the codebase, update the detailed design (changed files, key decisions, implementation details) into the current task document under .claude/tasks/ before executing."
+    },
+    {
+      "id": "R36",
+      "file": "plan-management.md",
+      "quote": "Implement according to the design in the task document",
+      "rule": "Implement the task according to the design recorded in the task document."
+    },
+    {
+      "id": "R37",
+      "file": "plan-management.md",
+      "quote": "After task completion, append a `## Summary` section at the end of the task document",
+      "rule": "After completing a task, append a `## Summary` section at the end of the task document."
+    },
+    {
+      "id": "R38",
+      "file": "plan-management.md",
+      "quote": "recording actually modified files, newly created files, deleted files, and key design decisions",
+      "rule": "In the Summary section, record the actually modified files, newly created files, deleted files, and key design decisions."
+    },
+    {
+      "id": "R39",
+      "file": "plan-management.md",
+      "quote": "Update the design into the task document at the start of each task",
+      "rule": "At the start of each task, update the design into the task document."
+    },
+    {
+      "id": "R40",
+      "file": "plan-management.md",
+      "quote": "append a summary to the same document when complete",
+      "rule": "When a task is complete, append a summary to the same task document."
+    },
+    {
+      "id": "R41",
+      "file": "plan-management.md",
+      "quote": "All plans/tasks use the project-local `.claude/` directory, not the global Claude path.",
+      "rule": "Store all plans and tasks in the project-local .claude/ directory, never in the global Claude path."
+    },
+    {
+      "id": "R42",
+      "file": "plan-management.md",
+      "quote": "When creating a new plan, also update the `PLAN.md` index and memory.",
+      "rule": "When creating a new plan, also update the PLAN.md index and memory."
+    },
+    {
+      "id": "R43",
+      "file": "plan-management.md",
+      "quote": "Specific phase task lists, acceptance criteria and other details go in the corresponding task files; the plan file only serves as an index.",
+      "rule": "Put specific phase task lists, acceptance criteria and other details in the corresponding task files, not in the plan file, which serves only as an index."
+    },
+    {
+      "id": "R44",
+      "file": "plan-management.md",
+      "quote": "**Plan files**: `{sequence}-{name}.md`",
+      "rule": "Name plan files as {sequence}-{name}.md (e.g. 00-init.md)."
+    },
+    {
+      "id": "R45",
+      "file": "plan-management.md",
+      "quote": "**Task files**: `{planName}-phase-{number}-{name}.md`",
+      "rule": "Name task files as {planName}-phase-{number}-{name}.md."
+    },
+    {
+      "id": "R46",
+      "file": "project_npm-publishing.md",
+      "quote": "Use `scripts/publish.sh` — builds all, publishes in order, skips already-published versions.",
+      "rule": "To publish packages to npm, use `scripts/publish.sh` rather than publishing packages individually."
+    },
+    {
+      "id": "R47",
+      "file": "project_npm-publishing.md",
+      "quote": "pnpm publish: `workspace:*` auto-resolved to real versions (don't use `npm publish` directly)",
+      "rule": "Do not use `npm publish` directly; publish packages with `pnpm publish` so that `workspace:*` dependencies are resolved to real versions."
+    },
+    {
+      "id": "R48",
+      "file": "project_npm-publishing.md",
+      "quote": "Scoped packages (`@map-gl/*`) need `--access public`",
+      "rule": "When publishing scoped packages (`@map-gl/*`), pass `--access public`."
+    },
+    {
+      "id": "R49",
+      "file": "project_npm-publishing.md",
+      "quote": "`--no-git-checks` required (pnpm rejects unclean working trees)",
+      "rule": "When running `pnpm publish`, pass `--no-git-checks`."
+    },
+    {
+      "id": "R50",
+      "file": "project_npm-publishing.md",
+      "quote": "npm warns about `--git-checks` being unknown CLI config — harmless, ignore it",
+      "rule": "Ignore npm warnings about `--git-checks` being unknown CLI config; do not treat them as errors."
+    },
+    {
+      "id": "R51",
+      "file": "project_npm-publishing.md",
+      "quote": "Bump `version` in its `package.json`",
+      "rule": "Before publishing a package, bump its `version` in its `package.json`."
+    },
+    {
+      "id": "R52",
+      "file": "project_tooling-decisions.md",
+      "quote": "Phase 0 only configures Prettier; ESLint is left for later phases as needed",
+      "rule": "In Phase 0, configure only Prettier and do not set up ESLint; defer ESLint to later phases as needed."
+    },
+    {
+      "id": "R53",
+      "file": "project_tooling-decisions.md",
+      "quote": "Playground aliases must use absolute paths",
+      "rule": "Playground aliases must use absolute paths, not relative paths."
+    },
+    {
+      "id": "R54",
+      "file": "project_tooling-decisions.md",
+      "quote": "aliases must use `resolve(__dirname, '..')` to build absolute paths",
+      "rule": "In vite.config.ts, build alias paths with `resolve(__dirname, '..')`."
+    },
+    {
+      "id": "R55",
+      "file": "project_tooling-decisions.md",
+      "quote": "point to `src/index.ts` files rather than directories",
+      "rule": "Point vite.config.ts aliases to specific entry files such as `src/index.ts`, not to directories."
+    },
+    {
+      "id": "R56",
+      "file": "project_tooling-decisions.md",
+      "quote": "always use `resolve(__dirname, '..')` to build paths",
+      "rule": "When modifying vite.config.ts aliases, always use `resolve(__dirname, '..')` to build paths."
+    }
+  ],
+  "dropped": []
+}

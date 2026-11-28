@@ -1,0 +1,3170 @@
+Reading additional input from stdin...
+OpenAI Codex v0.155.1
+--------
+workdir: /Users/yingxizhao/dev/cs2520/projects
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a21457-2d3b-7023-b08d-626164342ade
+--------
+user
+You translate rules into a fixed formal vocabulary for a research experiment. Work read-only;
+your final message is saved. Open ONLY: `data/runs/boundary2/translate/batch04_english.json` (50 real
+rules), `pipeline/rules/vocab.py`, `pipeline/rules/model.py`, `pipeline/rules/patterns.py`,
+`docs/adr/0003-clash-definition.md`, `docs/adr/0004-unexpressible-conditions.md`,
+`docs/adr/0008-git-and-file-vocabulary.md`, `data/runs/natural/enforce_names.json`. Do not open
+any other file under `data/`. No paid API calls.
+
+For EACH rule give its translation in this format (the format `model.py` reads):
+{"status": "ok" | "not_in_scope" | "unclear", "clauses": [...] or null, "left_out": "<parts of the
+rule the vocabulary cannot say, or empty>"}
+Clause types: never, only_if (with "needs"), must_do, may_do, must_hold, never_hold; fields only
+from vocab.py; `when_unmodeled` for a condition the vocabulary cannot check (ADR 0004).
+Translate the meaning faithfully: do not drop conditions, do not invent paths or branches the rule
+does not name. For tasks and running processes use names from enforce_names.json when one fits;
+otherwise "other:<short lowercase words>", and list each such new name under "new_names".
+
+Output only a JSON object in a ```json block:
+{"rules": [{"folder": "...", "id": "R..", "translation": {...}, "new_names": ["other:..."]}]}
+covering all 50 rules.
+
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+codex
+I’ll read only the eight files you authorized, extract the formal schema and ADR constraints, then translate all 50 rules without writing to the workspace or calling external APIs.
+exec
+/bin/zsh -lc "sed -n '1,260p' pipeline/rules/vocab.py && sed -n '1,320p' pipeline/rules/model.py && sed -n '1,360p' pipeline/rules/patterns.py && sed -n '1,260p' docs/adr/0003-clash-definition.md && sed -n '1,260p' docs/adr/0004-unexpressible-conditions.md && sed -n '1,260p' docs/adr/0008-git-and-file-vocabulary.md && sed -n '1,320p' data/runs/natural/enforce_names.json" in /Users/yingxizhao/dev/cs2520/projects
+ succeeded in 0ms:
+"""The fixed word list (vocabulary v2, docs/adr/0008, sections 2-3). Everything a translation
+may name is listed here; any other name is an error."""
+
+GIT_CMDS = ["commit", "stage", "push_branch", "push_delete", "force_push", "local_merge",
+            "pr_create", "pr_merge", "branch_create", "branch_delete", "checkout", "pull",
+            "rebase", "reset_hard", "cherry_pick", "fetch", "worktree_add", "worktree_remove"]
+FILE_CMDS = ["read", "create", "edit", "move", "delete"]
+CMDS = GIT_CMDS + FILE_CMDS + ["run"]
+
+# Fixed meanings: every kind of push is a push, every kind of merge is a merge. No file groups.
+GROUPS = {"push": ["push_branch", "push_delete", "force_push"],
+          "merge": ["local_merge", "pr_merge"],
+          "any_branch_delete": ["branch_delete", "push_delete"]}
+
+TASKS = ["test", "build", "lint", "format", "deploy", "migrate", "publish", "restart"]
+OTHER_TASK = "other:"  # any other task: "other:<exact words>", matched only if identical
+
+# Yes/no fields. The agent decides these as part of the action (it can ask for approval).
+ACTION_BOOLS = ["has_secret", "user_confirmed", "files_shown", "secrets_checked",
+                "admin_bypass", "in_worktree"]
+# Yes/no fields the situation fixes; the agent cannot change them.
+WORLD_BOOLS = ["user_asked", "tests_passed"]
+BOOLS = ACTION_BOOLS + WORLD_BOOLS
+
+PATH_FIELDS = ["path", "dest_path"]          # targets (patterns.path_re)
+BRANCH_FIELDS = ["branch"]                   # globs (patterns.glob_re)
+# Details of the earlier step that `after` names (vocabulary v2.1): each refers to the same
+# earlier step, one earlier step per action kind.
+AFTER_FIELDS = ["after_branch", "after_task", "after_path", "after_ok"]
+FILE_ACTIONS = ["read", "create", "edit", "move", "delete", "stage", "commit"]
+FIELDS = (["cmd", "path_except", "kind", "task", "suite", "after", "running",
+           "min_files", "max_files"] + PATH_FIELDS + BRANCH_FIELDS + AFTER_FIELDS + BOOLS)
+
+# Which fields describe the situation a pair is tested in: see pair.situations.
+
+CLAUSE_TYPES = ["never", "only_if", "must_do", "may_do", "must_hold", "never_hold"]
+STATE_TYPES = ["must_hold", "never_hold"]
+
+
+def expand(names):
+    """Action names and groups -> sorted list of actions."""
+    out = []
+    for n in names if isinstance(names, list) else [names]:
+        if n in GROUPS:
+            out += GROUPS[n]
+        elif n in CMDS:
+            out.append(n)
+        else:
+            raise ValueError(f"unknown action {n!r}")
+    return sorted(set(out))
+
+
+def norm_name(name):
+    """Process and task names match only if identical after trivial clean-up:
+    case, extra spaces and a leading "the" ("The game server" = "game server")."""
+    s = " ".join(str(name).lower().split())
+    return s[4:] if s.startswith("the ") else s
+
+
+def task_name(task):
+    t = str(task).strip()
+    if t in TASKS:
+        return t
+    if t.startswith(OTHER_TASK) and len(t) > len(OTHER_TASK):
+        return OTHER_TASK + norm_name(t[len(OTHER_TASK):])
+    raise ValueError(f"unknown task {task!r}")
+"""One action as Z3 variables, and one translated rule as Z3 formulas over it.
+
+A clause's `where` (and `needs`) is a set of fields; `Event.match` turns it into a formula that
+is true when the action has those fields. `never` and `only_if` clauses become constraints on
+the action (`constraints`). `must_do` / `may_do` are tested by pair.py; `must_hold` /
+`never_hold` are repository states, handled by state.py.
+"""
+
+from z3 import And, Bool, BoolVal, Implies, InRe, Int, Not, Or, String, StringVal
+
+from rules.patterns import glob_re, target_re
+from rules.vocab import (AFTER_FIELDS, BOOLS, BRANCH_FIELDS, CMDS, FIELDS, FILE_ACTIONS, PATH_FIELDS,
+                         STATE_TYPES, expand, norm_name, task_name)
+
+
+def _paths(v):
+    """A path pattern may be written as one string or a list; a bare string must not be read
+    letter by letter (fix logged in docs/review/boundary_results.md)."""
+    return [v] if isinstance(v, str) else list(v)
+
+
+class Event:
+    """Z3 variables for one action; `tag` keeps the actions of different clauses apart."""
+
+    def __init__(self, tag):
+        self.tag = tag
+        self.cmd = Int(f"{tag}_cmd")
+        # which actions happened at some earlier point (several can be true)
+        self.prior = {c: Bool(f"{tag}_prior_{c}") for c in CMDS}
+        # details of the earlier step of each kind (v2.1): its branch, its path, and for run its
+        # task and whether it succeeded
+        self.prior_branch = {c: String(f"{tag}_prior_branch_{c}") for c in CMDS}
+        self.prior_path = {c: String(f"{tag}_prior_path_{c}") for c in FILE_ACTIONS}
+        self.prior_task = String(f"{tag}_prior_task")
+        self.prior_ok = Bool(f"{tag}_prior_ok")
+        self.n_files = Int(f"{tag}_n_files")
+        self.s = {f: String(f"{tag}_{f}") for f in PATH_FIELDS + BRANCH_FIELDS + ["task"]}
+        self.b = {k: Bool(f"{tag}_{k}") for k in BOOLS}
+        self.is_dir = Bool(f"{tag}_is_dir")
+        self.suite_all = Bool(f"{tag}_suite_all")
+
+    def running(self, name):
+        """Process `name` is running (one yes/no per name)."""
+        return Bool(f"{self.tag}_running_{norm_name(name)}")
+
+    def cond(self, name):
+        """An unknown yes/no fact: a condition the rule names but the vocabulary cannot express."""
+        return Bool(f"{self.tag}_cond_{name}")
+
+    def wellformed(self):
+        return And(self.cmd >= 0, self.cmd < len(CMDS), self.n_files >= 0)
+
+    def is_cmd(self, names):
+        return Or([self.cmd == CMDS.index(c) for c in expand(names)])
+
+    def earlier(self, where):
+        """An earlier step of one of the `after` kinds, with all the after_* details on that same
+        step. Without `after`, the details pick the kinds they can describe."""
+        task, path, ok, br = (where.get(k) for k in ("after_task", "after_path", "after_ok", "after_branch"))
+        if "after" in where:
+            kinds = expand(where["after"])
+        else:
+            kinds = ["run"] if task is not None or ok is not None else FILE_ACTIONS if path is not None else CMDS
+        if (task is not None or ok is not None) and "run" not in kinds:
+            raise ValueError("after_task / after_ok need run in after")
+        if path is not None and not set(kinds) & set(FILE_ACTIONS):
+            raise ValueError("after_path needs a file action in after")
+        if ok is not None and not isinstance(ok, bool):
+            raise ValueError("after_ok must be true/false")
+        opts = []
+        for c in kinds:
+            if (task is not None or ok is not None) and c != "run":
+                continue
+            if path is not None and c not in FILE_ACTIONS:
+                continue
+            f = [self.prior[c]]
+            if br is not None:
+                f.append(InRe(self.prior_branch[c], glob_re(br)))
+            if path is not None:
+                f.append(InRe(self.prior_path[c], target_re(path)))
+            if task is not None:
+                f.append(self.prior_task == StringVal(task_name(task)))
+            if ok is not None:
+                f.append(self.prior_ok == BoolVal(ok))
+            opts.append(And(f))
+        return Or(opts)
+
+    def match(self, where):
+        cs = []
+        if "path_except" in where and "path" not in where:
+            raise ValueError("path_except without path")
+        if "after" in where or any(k in where for k in AFTER_FIELDS):
+            cs.append(self.earlier(where))
+        for k, v in where.items():
+            if k == "_cond":
+                cs.append(self.cond(v))
+            elif k not in FIELDS:
+                raise ValueError(f"unknown field {k!r}")
+            elif k == "cmd":
+                cs.append(self.is_cmd(v))
+            elif k == "path":
+                cs.append(InRe(self.s["path"], target_re(_paths(v), _paths(where.get("path_except", [])))))
+            elif k == "dest_path":
+                cs.append(InRe(self.s["dest_path"], target_re(_paths(v))))
+            elif k == "path_except" or k == "after" or k in AFTER_FIELDS:
+                continue  # part of `path` / of the earlier step (self.earlier)
+            elif k in BRANCH_FIELDS:
+                cs.append(InRe(self.s[k], glob_re(v)))
+            elif k == "kind":
+                if v not in ("file", "dir"):
+                    raise ValueError(f"kind must be file or dir, not {v!r}")
+                cs.append(self.is_dir == BoolVal(v == "dir"))
+            elif k == "task":
+                cs.append(self.s["task"] == StringVal(task_name(v)))
+            elif k == "suite":
+                if v != "all":
+                    raise ValueError(f"suite must be 'all', not {v!r}")
+                cs.append(self.suite_all)
+            elif k == "running":
+                cs.append(And([self.running(n) for n in v]))
+            elif k == "min_files":
+                cs.append(self.n_files >= int(v))
+            elif k == "max_files":
+                cs.append(self.n_files <= int(v))
+            elif isinstance(v, bool):
+                cs.append(self.b[k] == BoolVal(v))
+            else:
+                raise ValueError(f"{k} must be true/false")
+        return And(cs) if cs else BoolVal(True)
+
+
+def check_clause(c):
+    """Rules of the format the schema cannot express on its own."""
+    if "cmd" in c.get("needs", {}):
+        raise ValueError("an action in needs (write 'before X do Y' as needs after: [Y])")
+    if c["type"] == "only_if" and "needs" not in c:
+        raise ValueError("only_if without needs")
+
+
+def action_clauses(clauses):
+    out = [c for c in clauses if c["type"] not in STATE_TYPES]
+    for c in out:
+        check_clause(c)
+    return out
+
+
+def constraints(e, clauses):
+    """What `never` and `only_if` clauses demand of action e."""
+    out = []
+    for c in clauses:
+        if c["type"] == "never":
+            out.append(Not(e.match(c["where"])))
+        elif c["type"] == "only_if":
+            out.append(Implies(e.match(c["where"]), e.match(c["needs"])))
+    return out
+
+
+def prepared(clauses, tag):
+    """A clause with `when_unmodeled` applies only when an unknown fact of its own holds
+    (ADR 0004). No other rule names that fact, so at worst a clash is missed."""
+    out = []
+    for i, c in enumerate(clauses):
+        c = dict(c)
+        if c.get("when_unmodeled"):
+            c["where"] = {**c["where"], "_cond": f"{tag}{i}"}
+        out.append(c)
+    return out
+
+
+def witness(model, e):
+    """The action the solver found, in the translation's own field names."""
+    out = {"cmd": CMDS[model.eval(e.cmd).as_long()]}
+    done = [c for c in CMDS if bool(model.eval(e.prior[c], model_completion=True))]
+    if done:
+        out["after"] = done
+        for c in done:  # details of the earlier steps, where the solver fixed them
+            v = model.eval(e.prior_branch[c])
+            if hasattr(v, "as_string") and v.as_string():
+                out.setdefault("after_branch", v.as_string())
+            if c in e.prior_path:
+                v = model.eval(e.prior_path[c])
+                if hasattr(v, "as_string") and v.as_string():
+                    out.setdefault("after_path", v.as_string())
+        if "run" in done:
+            v = model.eval(e.prior_task)
+            if hasattr(v, "as_string") and v.as_string():
+                out["after_task"] = v.as_string()
+            out["after_ok"] = bool(model.eval(e.prior_ok, model_completion=True))
+    for f, v in e.s.items():
+        v = model.eval(v)
+        if hasattr(v, "as_string") and v.as_string():
+            out[f] = v.as_string()
+    for k in BOOLS:
+        out[k] = bool(model.eval(e.b[k], model_completion=True))
+    return out
+"""File-name and branch patterns (vocabulary v2, docs/adr/0008, section 4), as Z3 regexes.
+
+Part of pipeline/rules/: the git and file rule checker. pipeline/git/git_check.py stays
+unchanged so earlier results can be rerun. Tests: tests/rules/test_patterns.py.
+"""
+
+from z3 import (AllChar, Complement, Concat, InRe, Intersect, Option, Re, ReSort, Solver, Star,
+                String, StringSort, StringVal, Union, sat)
+
+RE = ReSort(StringSort())
+ANY = Star(AllChar(RE))                                  # any text, "/" included
+SEG_CHAR = Intersect(AllChar(RE), Complement(Re("/")))   # one character that is not "/"
+
+
+def is_sat(*fs):
+    s = Solver()
+    s.add(*fs)
+    return s.check() == sat
+
+
+# ---------------------------------------------------------------- patterns (ADR 0008, section 4)
+
+def glob_re(pattern):
+    """Wildcards: `*` = any text inside one folder level, `?` = one character that is not "/",
+    `**` = any depth. `a/**/b` also matches `a/b`; `a/**` matches everything inside a/."""
+    p, pieces, i = str(pattern), [], 0
+    lit = ""
+    while i < len(p):
+        if p.startswith("**/", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Option(Concat(ANY, Re("/"))))  # zero or more folder levels
+            i += 3
+        elif p.startswith("**", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(ANY)
+            i += 2
+        elif p[i] in "*?":
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Star(SEG_CHAR) if p[i] == "*" else SEG_CHAR)
+            i += 1
+        else:
+            lit += p[i]
+            i += 1
+    pieces += [Re(lit)] if lit else []
+    if not pieces:
+        return Re("")
+    return pieces[0] if len(pieces) == 1 else Concat(*pieces)
+
+
+def path_re(pattern):
+    """A path pattern as written by the translator, made canonical in code:
+    - paths are relative to the repo root ("./" and a leading "/" are dropped);
+    - `X/` is the folder X itself and everything in it;
+    - a name with no "/" (`server-world.dat`, `*.md`) matches at any depth."""
+    p = str(pattern).strip()
+    p = p[2:] if p.startswith("./") else p
+    p = p.lstrip("/")
+    folder = p.endswith("/")
+    bare = "/" not in p          # checked before the trailing "/" is dropped: `vendor/` is not bare
+    p = p.rstrip("/")
+    if bare:
+        p = "**/" + p
+    r = glob_re(p)
+    return Union(r, glob_re(p + "/**")) if folder else r
+
+
+def target_re(include, exclude=()):
+    """In some include pattern and in no exclude pattern (order never matters, no `!`)."""
+    r = Union(*[path_re(x) for x in include]) if len(include) > 1 else path_re(include[0])
+    if exclude:
+        ex = Union(*[path_re(x) for x in exclude]) if len(exclude) > 1 else path_re(exclude[0])
+        r = Intersect(r, Complement(ex))
+    return r
+
+
+def matches(regex, text):
+    v = String("probe")
+    return is_sat(v == StringVal(text), InRe(v, regex))
+# 0003. A clash means no single action satisfies both rules; "may" is a strong permission
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+Labelling showed that readers used different meanings of "clash". Two candidates:
+1. "Following one rule can break the other." Taken literally, almost every pair clashes through
+   details neither rule mentions (for example the timing of "prune after each clone batch").
+2. "In some situation, no single action satisfies both rules." This is the standard meaning of
+   inconsistency, and Z3 can answer it exactly.
+
+Under (2), the reading of "may" decides pairs such as "create PRs with MCP" vs "you may also
+create PRs with gh-cc-var". In deontic logic (the logic of obligation and permission), von Wright
+separates a weak permission (merely not forbidden) from a strong permission (explicitly stated
+by the rules). Vranes (2006) argues that a norm conflict covers obligation vs prohibition,
+obligation vs permission not to act, and prohibition vs permission. Norm-conflict checkers in
+multi-agent systems (Vasconcelos, Kollingbaum & Norman, 2008) also treat permission vs
+prohibition as a conflict.
+
+## Decision
+Two rules clash if, in some situation the rules name, no single action satisfies both. The
+words that set a rule's force are read as follows:
+
+| Words | Meaning | Clause |
+|---|---|---|
+| must, always, do X | obligation | `must_do` |
+| never, don't, avoid | prohibition | `never` |
+| may, it's fine to, permit | strong permission: the action must stay possible | `may_do` |
+| only if, not without, before X do Y | conditional obligation | `only_if` |
+
+An explicit "may" in a memory rule is a strong permission, because the rule states it. "Use M
+for X" read together with "use G for X" is a clash when the agent uses one tool per task
+(indirect conflict: it depends on knowing that the two options exclude each other, and that,
+for example, a lookup is a kind of read).
+
+## Consequences
+- An exception written as a permission ("you may skip dev-bot testing for test-only PRs")
+  clashes with the rule it excepts. This is intended: the agent must know which rule wins.
+- The checker already treats `may_do` as a strong permission.
+- Sources (abstracts and summaries only, to be read in full before citing): Vranes 2006, EJIL
+  17:395; Vasconcelos, Kollingbaum & Norman 2008, JAAMAS; Torres da Silva et al. 2015 on
+  indirect conflicts; von Wright 1951/1968 via secondary sources.
+# 0004. Conditions the model cannot express become unknown facts
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+On the large folders, the first translations reported 20 clashes, all false. One cause: the
+translator dropped conditions it could not express, so "never commit to the local clones" became
+"never commit", which then clashed with every rule that requires a commit.
+
+## Decision
+A condition the model cannot express ("in the local clones", "during a backlog sweep") is kept
+as `when_unmodeled`. The checker turns it into a fresh unknown yes/no fact for that clause, so
+the clause applies only when that fact holds. An `only_if` whose requirement cannot be expressed
+becomes an unknown requirement the agent can meet.
+
+Rule of thumb: dropping a requirement can only cause missed clashes; dropping a condition causes
+false clashes. So conditions are never dropped.
+
+## Consequences
+- False clashes on the large folders went from 20 to 0.
+- Known blind spot: two rules naming the same unexpressible condition get two different unknown
+  facts, so their clash is missed (for example "during a sweep, review" vs "during a sweep, never
+  review"). A fix is to let rules that name the same condition share one fact.
+# 0008. One fixed vocabulary for git and basic file rules
+
+Date: 2026-11-22. Status: Accepted. Extends 0002.
+
+## Context
+The survey of 60 more memory folders found that besides git, rules about files (read, create,
+edit, move, delete, what stays in the repo) and about running commands are common and can be
+written in a fixed form without knowing tool names. Two research reports
+(`docs/review/schema_research_*.md`) found that comparable systems (GitHub rulesets, Claude
+Code permissions, Cedar, AppArmor) all fix the action list in code and leave only names open.
+Two critical reviews (`docs/review/attack_review_*.md`) asked that every item be justified and
+that ambiguous words not be decided silently.
+
+## Decision
+- The vocabulary is `docs/review/vocab_draft.md` v2, written by Claude and Codex in five review
+  rounds and approved by the author. It is fixed in code for the experiment; changes need a
+  new version.
+- Scope: git rules plus basic file rules and `run` with a fixed task list. If the file part
+  gives poor results, it is dropped from the report.
+- Words with more than one meaning are read from the rule's own text; if unclear, the rule is
+  excluded and listed with the word.
+- "In the repo" is a state. Opposite state requirements are reported as a separate verdict,
+  "state conflict"; 0003 is unchanged.
+- "May" vs "never" / "must" pairs are reported as their own category, "exception (needs a
+  priority rule)", next to plain clashes.
+- The translator sees only the rule, its file name and its section heading, not the folder's
+  other rules, so that other rules cannot change how a rule is read.
+- Claims say "solver-checked": exact with respect to the translations.
+
+## Consequences
+- The checker and prompt changes in section 8 of the vocabulary must be made before any
+  translation run.
+- Some rules a reader would understand from the folder become unclear; their number is reported.
+- The held-out folders were selected with a git filter (0005), so the held-out claim stays
+  git-only. File rules are reported on the survey folders, with three-run agreement and a
+  hand-checked sample.
+{
+ "how": "Project name list, fixed at compile time. Translations and action events must use these names for `task`, `after_task` and `running`. A running entry names a task that is still in progress. Anything else uses 'other:<words>' and will not match.",
+ "all_folders": {
+  "test": "run the test suite or any test subset",
+  "build": "compile or build the project",
+  "lint": "run linters",
+  "format": "run formatters",
+  "deploy": "deploy to an environment",
+  "migrate": "run database migrations",
+  "publish": "publish a package or release",
+  "restart": "restart a running service or server"
+ },
+ "per_folder": {
+  "martinambrus__RDForward": {
+   "other:rdforward server": "start or run the RDForward server process (e.g. java -jar, gradle run)"
+  },
+  "ruddyribera-ops__CRUDDY-OPENCODE": {
+   "other:back up the database": "make a backup of the database (e.g. pg_dump)"
+  }
+ }
+}
+exec
+/bin/zsh -lc "sed -n '1,1000p' data/runs/boundary2/translate/batch04_english.json" in /Users/yingxizhao/dev/cs2520/projects
+ succeeded in 0ms:
+{
+ "rules": [
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R188",
+   "rule": "Assign the selected issue to yourself before starting work on it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R189",
+   "rule": "Create a worktree branch for the issue before implementing it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R191",
+   "rule": "Have the QA agent verify all acceptance criteria are met before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R192",
+   "rule": "Have the review agent check code quality before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R211",
+   "rule": "Run the migration with --dry-run in Azure mode before running it for real."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R243",
+   "rule": "Read the screen behavior docs for a screen before reviewing or seeding that screen."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R66",
+   "rule": "Always read a file before editing it, regardless of what memory says about it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R9",
+   "rule": "For regular development work, never run `npm run dev` or any local Vite dev server."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R124",
+   "rule": "Read AGENTS.md before any cross-tool invocation."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R126",
+   "rule": "Do not pursue further SPY systematic options refinement, since that area is considered settled."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R129",
+   "rule": "Refine the inverse-squeeze short straddle TP50 strategy before deploying it as a sleeve."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R142",
+   "rule": "In the next session, do not re-verify the budget event structure; it was already confirmed clean as of 2026-04-24."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R148",
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R182",
+   "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a Bonferroni-corrected test."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R183",
+   "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a split-sample test."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R185",
+   "rule": "Do not deploy the long-strangle book, because it is not yet deployable."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R200",
+   "rule": "Do not switch the trading-tools repo to the `main` branch; use `master`."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R241",
+   "rule": "Do not perform max sprints or depth jumps until the readiness gates pass."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R250",
+   "rule": "Do not automatically activate the travel domain; wait until Scott asks to activate it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R251",
+   "rule": "Do not add the travel domain to the top-level PLAIOS CLAUDE.md domains table unless Scott explicitly requests it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R299",
+   "rule": "Do not run a parallel rs_vol sleeve alongside the SPY_top_5 strategy."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R3",
+   "rule": "Do not run `git push` unless the user explicitly asks for it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R64",
+   "rule": "Do not make repository changes (such as editing cli.py or writing decision records and studies) without Scott's explicit go-ahead."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R65",
+   "rule": "Delete the temporary file D:\\PLAIOS\\bundle.md only after Scott gives the go-ahead."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R10",
+   "rule": "Perform an upload or scheduling action only when Bryan explicitly requests it in chat for that one specific upload, and treat that permission as covering only that upload."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R124",
+   "rule": "Keep the user's real file untouched until all changes are verified in the scratchpad."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R140",
+   "rule": "Before regex-fixing text in a .pptx file, dump the raw run XML of the target paragraphs first."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R16",
+   "rule": "When Bryan asks for a copy of a file, offer any fill-in of its contents as a separate step and wait for his explicit yes before doing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R169",
+   "rule": "For the animate skill, always run build.mjs before export.mjs."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R170",
+   "rule": "Before building any new skill, tool, script, or small app from scratch, search GitHub (and Hugging Face for models/agents) for an existing one first."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R172",
+   "rule": "Never connect Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R173",
+   "rule": "Never log in to Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R177",
+   "rule": "Audit a good-fit tool before installing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R187",
+   "rule": "Ask before installing any tool found in the search."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R188",
+   "rule": "For any request to make a skill, tool, or script, make the search the first step."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R193",
+   "rule": "In a film chat, stop once at the every=3 board, wait for Bryan's approval, then render."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R194",
+   "rule": "Never upload films."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R218",
+   "rule": "Never place animation pieces in the JARVIS repo."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R22",
+   "rule": "Before building an Excel file, run one feasibility test that covers every formatting trick the design relies on."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R230",
+   "rule": "Do not start building a PowerPoint presentation for the Bahasa Inggris presentation project until the user explicitly asks for it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R235",
+   "rule": "Ask for the grading rubric before submitting any Bahasa Inggris project or assignment."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R244",
+   "rule": "Read the existing artifact first in a new session before republishing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R28",
+   "rule": "Before replacing Bryan's file, check that it is not open by looking for its ~$ lock file."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R29",
+   "rule": "Before replacing Bryan's file, check that it is byte-identical to your backup."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R296",
+   "rule": "Do not move the GP-100 editor installed at C:\\Bryan De Great\\GP-100\\, because its shortcuts point there."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R318",
+   "rule": "Before rebuilding the kaos boards with `buat_kaos.py`, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R336",
+   "rule": "Don't commit the sekitar skill to git until Bryan asks."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R337",
+   "rule": "Don't commit the riset-sekitar skill to git until Bryan asks."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R340",
+   "rule": "Schedule uploads one at a time; never bulk-post."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R360",
+   "rule": "Don't post a first comment on a scheduled upload until it is live."
+  }
+ ]
+}
+codex
+```json
+{
+  "rules": [
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R188",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:start issue work"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:assign issue to self"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that both actions concern the same selected issue."
+      },
+      "new_names": [
+        "other:start issue work",
+        "other:assign issue to self"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R189",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement issue"
+            },
+            "needs": {
+              "after": "worktree_add"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the worktree and implementation concern the same issue or that the worktree was created with a new branch."
+      },
+      "new_names": [
+        "other:implement issue"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R191",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:qa acceptance criteria verification",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the QA agent or correlate the verification with the particular PR."
+      },
+      "new_names": [
+        "other:qa acceptance criteria verification"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R192",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:code quality review",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the review agent or correlate its review with the particular PR."
+      },
+      "new_names": [
+        "other:code quality review"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R211",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "migrate"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "migrate",
+              "after_ok": true
+            },
+            "when_unmodeled": "the current migration is the real run in Azure mode"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a --dry-run migration from a real migration."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R243",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:review screen"
+            },
+            "needs": {
+              "after": "read"
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:seed screen"
+            },
+            "needs": {
+              "after": "read"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify an unnamed screen-behavior document or verify that the read document and action concern the same screen."
+      },
+      "new_names": [
+        "other:review screen",
+        "other:seed screen"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R66",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "read"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot require the earlier read and current edit to target the same otherwise-unnamed file."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R9",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:npm run dev"
+            },
+            "when_unmodeled": "the action is part of regular development work"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:local vite dev server"
+            },
+            "when_unmodeled": "the action is part of regular development work"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:npm run dev",
+        "other:local vite dev server"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:cross-tool invocation"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "AGENTS.md"
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:cross-tool invocation"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R126",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:spy systematic options refinement"
+            }
+          }
+        ],
+        "left_out": "The stated reason that the area is settled is not a formal condition."
+      },
+      "new_names": [
+        "other:spy systematic options refinement"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R129",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:refine inverse-squeeze short straddle tp50 strategy"
+            },
+            "when_unmodeled": "the deployment is of the inverse-squeeze short straddle TP50 strategy as a sleeve"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:refine inverse-squeeze short straddle tp50 strategy"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R142",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:re-verify budget event structure"
+            },
+            "when_unmodeled": "the action occurs in the next session"
+          }
+        ],
+        "left_out": "The prior clean confirmation and its date are explanatory context rather than expressible action fields."
+      },
+      "new_names": [
+        "other:re-verify budget event structure"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R148",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:re-verify korea trip savings events"
+            }
+          }
+        ],
+        "left_out": "The prior confirmation in PocketSmith is explanatory context rather than an expressible action field."
+      },
+      "new_names": [
+        "other:re-verify korea trip savings events"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R182",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the deployment concerns a skip-month or buy-month trading claim"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a Bonferroni-corrected test from other tests or correlate it with the deployed claim."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R183",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the deployment concerns a skip-month or buy-month trading claim"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a split-sample test from other tests or correlate it with the deployed claim."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R185",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "when_unmodeled": "the deployment is of the long-strangle book"
+          }
+        ],
+        "left_out": "The reason that the book is not yet deployable is not a separate formal condition."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R200",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "checkout",
+              "branch": "main"
+            },
+            "when_unmodeled": "the repository is trading-tools"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "checkout",
+              "branch": "master"
+            },
+            "when_unmodeled": "switching branches in the trading-tools repository"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R241",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:max sprints"
+            },
+            "when_unmodeled": "the readiness gates have not passed"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:depth jumps"
+            },
+            "when_unmodeled": "the readiness gates have not passed"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:max sprints",
+        "other:depth jumps"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R250",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:activate travel domain"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": [
+        "other:activate travel domain"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R251",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "CLAUDE.md"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the edit adds the travel domain to the top-level PLAIOS domains table"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R299",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:rs_vol sleeve",
+              "running": [
+                "other:spy_top_5 strategy"
+              ]
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:rs_vol sleeve",
+        "other:spy_top_5 strategy"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R3",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "push"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R64",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user or cover repository changes that are neither basic file actions nor named git actions."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R65",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "delete",
+              "path": "D:\\PLAIOS\\bundle.md"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R10",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:upload"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the request in chat is for this one specific upload"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:schedule upload"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the request in chat is for this one specific upload"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user or represent permission expiration after the single upload."
+      },
+      "new_names": [
+        "other:upload",
+        "other:schedule upload"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:verify changes in scratchpad",
+              "after_ok": true
+            },
+            "when_unmodeled": "the target is the user's real file"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the scratchpad verification with the particular real file."
+      },
+      "new_names": [
+        "other:verify changes in scratchpad"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R140",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "*.pptx"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:dump raw run xml"
+            },
+            "when_unmodeled": "the edit regex-fixes text"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the XML dump with the target paragraphs."
+      },
+      "new_names": [
+        "other:dump raw run xml"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R16",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the edit fills in the contents of a copied file after the user requested the copy"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that offering the fill-in must be a separate conversational step."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R169",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:export.mjs"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:build.mjs",
+              "after_ok": true
+            },
+            "when_unmodeled": "the action is for the animate skill"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:export.mjs",
+        "other:build.mjs"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R170",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:search github for existing solution"
+            },
+            "when_unmodeled": "the build creates a new skill, tool, script, or small app from scratch"
+          }
+        ],
+        "left_out": "The additional Hugging Face search required for models or agents cannot be combined with the GitHub prerequisite because the vocabulary records only one earlier run task."
+      },
+      "new_names": [
+        "other:search github for existing solution"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R172",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:connect higgsfield"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:connect higgsfield"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R173",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:log in to higgsfield"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:log in to higgsfield"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R177",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:install tool"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:audit tool",
+              "after_ok": true
+            },
+            "when_unmodeled": "the tool is considered a good fit"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the audited and installed tools are the same."
+      },
+      "new_names": [
+        "other:install tool",
+        "other:audit tool"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R187",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:install tool"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask user about installation"
+            },
+            "when_unmodeled": "the tool was found in the search"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the question and installation concern the same tool."
+      },
+      "new_names": [
+        "other:install tool",
+        "other:ask user about installation"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R188",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:search for existing solution"
+            },
+            "when_unmodeled": "the user requests creation of a skill, tool, or script"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that the search must be the first step rather than merely an obligatory step."
+      },
+      "new_names": [
+        "other:search for existing solution"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R193",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:render"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:stop at every=3 board",
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the action occurs in a film chat"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user or express that the stop happens exactly once."
+      },
+      "new_names": [
+        "other:render",
+        "other:stop at every=3 board"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R194",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:upload films"
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:upload films"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R218",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "move"
+              ]
+            },
+            "when_unmodeled": "the action places animation pieces in the JARVIS repository"
+          }
+        ],
+        "left_out": "No concrete path for the animation pieces or JARVIS repository is named."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R22",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "create",
+              "path": "*.xlsx"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:excel formatting feasibility test",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the single test covers every formatting technique used by the particular design."
+      },
+      "new_names": [
+        "other:excel formatting feasibility test"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R230",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ],
+              "path": "*.pptx"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the presentation is for the Bahasa Inggris presentation project and building it is being started"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R235",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:submit bahasa inggris work"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask for grading rubric"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the requested rubric with the particular project or assignment."
+      },
+      "new_names": [
+        "other:submit bahasa inggris work",
+        "other:ask for grading rubric"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R244",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "publish"
+            },
+            "needs": {
+              "after": "read"
+            },
+            "when_unmodeled": "the action republishes an existing artifact in a new session"
+          }
+        ],
+        "left_out": "The vocabulary cannot require the earlier read and republication to concern the same artifact."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R28",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:check for lock file",
+              "after_ok": true
+            },
+            "when_unmodeled": "the edit replaces Bryan's file"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that the check specifically looks for the corresponding ~$ lock file or identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:check for lock file"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R29",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:check file matches backup",
+              "after_ok": true
+            },
+            "when_unmodeled": "the edit replaces Bryan's file"
+          }
+        ],
+        "left_out": "The vocabulary cannot express byte identity or correlate the check, backup, and replaced file; it also cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:check file matches backup"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R296",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "move",
+              "path": "C:\\Bryan De Great\\GP-100\\",
+              "kind": "dir"
+            }
+          }
+        ],
+        "left_out": "The shortcut dependency is explanatory context rather than a formal condition."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R318",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:buat_kaos.py"
+            },
+            "needs": {
+              "after": "move"
+            },
+            "when_unmodeled": "the action rebuilds kaos boards and same-named output files already exist"
+          }
+        ],
+        "left_out": "The vocabulary cannot constrain an earlier move's destination to _Arsip\\ or correlate the moved files with the rebuild outputs."
+      },
+      "new_names": [
+        "other:buat_kaos.py"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R336",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the commit contains the sekitar skill"
+          }
+        ],
+        "left_out": "No concrete path for the sekitar skill is named, and the vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R337",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the commit contains the riset-sekitar skill"
+          }
+        ],
+        "left_out": "No concrete path for the riset-sekitar skill is named, and the vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R340",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:bulk-post uploads"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot count scheduled uploads, so the positive one-at-a-time formulation is represented only by the bulk-post prohibition."
+      },
+      "new_names": [
+        "other:bulk-post uploads"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R360",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:post first comment"
+            },
+            "when_unmodeled": "the associated scheduled upload is not yet live"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the comment with a particular scheduled upload."
+      },
+      "new_names": [
+        "other:post first comment"
+      ]
+    }
+  ]
+}
+```
+tokens used
+22,745
+```json
+{
+  "rules": [
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R188",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:start issue work"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:assign issue to self"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that both actions concern the same selected issue."
+      },
+      "new_names": [
+        "other:start issue work",
+        "other:assign issue to self"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R189",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement issue"
+            },
+            "needs": {
+              "after": "worktree_add"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the worktree and implementation concern the same issue or that the worktree was created with a new branch."
+      },
+      "new_names": [
+        "other:implement issue"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R191",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:qa acceptance criteria verification",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the QA agent or correlate the verification with the particular PR."
+      },
+      "new_names": [
+        "other:qa acceptance criteria verification"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R192",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:code quality review",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the review agent or correlate its review with the particular PR."
+      },
+      "new_names": [
+        "other:code quality review"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R211",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "migrate"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "migrate",
+              "after_ok": true
+            },
+            "when_unmodeled": "the current migration is the real run in Azure mode"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a --dry-run migration from a real migration."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R243",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:review screen"
+            },
+            "needs": {
+              "after": "read"
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:seed screen"
+            },
+            "needs": {
+              "after": "read"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify an unnamed screen-behavior document or verify that the read document and action concern the same screen."
+      },
+      "new_names": [
+        "other:review screen",
+        "other:seed screen"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R66",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "read"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot require the earlier read and current edit to target the same otherwise-unnamed file."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R9",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:npm run dev"
+            },
+            "when_unmodeled": "the action is part of regular development work"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:local vite dev server"
+            },
+            "when_unmodeled": "the action is part of regular development work"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:npm run dev",
+        "other:local vite dev server"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:cross-tool invocation"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "AGENTS.md"
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:cross-tool invocation"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R126",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:spy systematic options refinement"
+            }
+          }
+        ],
+        "left_out": "The stated reason that the area is settled is not a formal condition."
+      },
+      "new_names": [
+        "other:spy systematic options refinement"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R129",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:refine inverse-squeeze short straddle tp50 strategy"
+            },
+            "when_unmodeled": "the deployment is of the inverse-squeeze short straddle TP50 strategy as a sleeve"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:refine inverse-squeeze short straddle tp50 strategy"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R142",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:re-verify budget event structure"
+            },
+            "when_unmodeled": "the action occurs in the next session"
+          }
+        ],
+        "left_out": "The prior clean confirmation and its date are explanatory context rather than expressible action fields."
+      },
+      "new_names": [
+        "other:re-verify budget event structure"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R148",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:re-verify korea trip savings events"
+            }
+          }
+        ],
+        "left_out": "The prior confirmation in PocketSmith is explanatory context rather than an expressible action field."
+      },
+      "new_names": [
+        "other:re-verify korea trip savings events"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R182",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the deployment concerns a skip-month or buy-month trading claim"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a Bonferroni-corrected test from other tests or correlate it with the deployed claim."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R183",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the deployment concerns a skip-month or buy-month trading claim"
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a split-sample test from other tests or correlate it with the deployed claim."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R185",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "deploy"
+            },
+            "when_unmodeled": "the deployment is of the long-strangle book"
+          }
+        ],
+        "left_out": "The reason that the book is not yet deployable is not a separate formal condition."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R200",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "checkout",
+              "branch": "main"
+            },
+            "when_unmodeled": "the repository is trading-tools"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "checkout",
+              "branch": "master"
+            },
+            "when_unmodeled": "switching branches in the trading-tools repository"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R241",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:max sprints"
+            },
+            "when_unmodeled": "the readiness gates have not passed"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:depth jumps"
+            },
+            "when_unmodeled": "the readiness gates have not passed"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:max sprints",
+        "other:depth jumps"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R250",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:activate travel domain"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": [
+        "other:activate travel domain"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R251",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "CLAUDE.md"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the edit adds the travel domain to the top-level PLAIOS domains table"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R299",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:rs_vol sleeve",
+              "running": [
+                "other:spy_top_5 strategy"
+              ]
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:rs_vol sleeve",
+        "other:spy_top_5 strategy"
+      ]
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R3",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "push"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R64",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user or cover repository changes that are neither basic file actions nor named git actions."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Sc07713__PLAIOS",
+      "id": "R65",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "delete",
+              "path": "D:\\PLAIOS\\bundle.md"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Scott separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R10",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:upload"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the request in chat is for this one specific upload"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:schedule upload"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the request in chat is for this one specific upload"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user or represent permission expiration after the single upload."
+      },
+      "new_names": [
+        "other:upload",
+        "other:schedule upload"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:verify changes in scratchpad",
+              "after_ok": true
+            },
+            "when_unmodeled": "the target is the user's real file"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the scratchpad verification with the particular real file."
+      },
+      "new_names": [
+        "other:verify changes in scratchpad"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R140",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "*.pptx"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:dump raw run xml"
+            },
+            "when_unmodeled": "the edit regex-fixes text"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the XML dump with the target paragraphs."
+      },
+      "new_names": [
+        "other:dump raw run xml"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R16",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the edit fills in the contents of a copied file after the user requested the copy"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that offering the fill-in must be a separate conversational step."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R169",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:export.mjs"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:build.mjs",
+              "after_ok": true
+            },
+            "when_unmodeled": "the action is for the animate skill"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:export.mjs",
+        "other:build.mjs"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R170",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:search github for existing solution"
+            },
+            "when_unmodeled": "the build creates a new skill, tool, script, or small app from scratch"
+          }
+        ],
+        "left_out": "The additional Hugging Face search required for models or agents cannot be combined with the GitHub prerequisite because the vocabulary records only one earlier run task."
+      },
+      "new_names": [
+        "other:search github for existing solution"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R172",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:connect higgsfield"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:connect higgsfield"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R173",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:log in to higgsfield"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:log in to higgsfield"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R177",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:install tool"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:audit tool",
+              "after_ok": true
+            },
+            "when_unmodeled": "the tool is considered a good fit"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the audited and installed tools are the same."
+      },
+      "new_names": [
+        "other:install tool",
+        "other:audit tool"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R187",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:install tool"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask user about installation"
+            },
+            "when_unmodeled": "the tool was found in the search"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the question and installation concern the same tool."
+      },
+      "new_names": [
+        "other:install tool",
+        "other:ask user about installation"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R188",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:search for existing solution"
+            },
+            "when_unmodeled": "the user requests creation of a skill, tool, or script"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that the search must be the first step rather than merely an obligatory step."
+      },
+      "new_names": [
+        "other:search for existing solution"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R193",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:render"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:stop at every=3 board",
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the action occurs in a film chat"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify Bryan separately from the user or express that the stop happens exactly once."
+      },
+      "new_names": [
+        "other:render",
+        "other:stop at every=3 board"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R194",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:upload films"
+            }
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": [
+        "other:upload films"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R218",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "move"
+              ]
+            },
+            "when_unmodeled": "the action places animation pieces in the JARVIS repository"
+          }
+        ],
+        "left_out": "No concrete path for the animation pieces or JARVIS repository is named."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R22",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "create",
+              "path": "*.xlsx"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:excel formatting feasibility test",
+              "after_ok": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the single test covers every formatting technique used by the particular design."
+      },
+      "new_names": [
+        "other:excel formatting feasibility test"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R230",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ],
+              "path": "*.pptx"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the presentation is for the Bahasa Inggris presentation project and building it is being started"
+          }
+        ],
+        "left_out": ""
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R235",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:submit bahasa inggris work"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask for grading rubric"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the requested rubric with the particular project or assignment."
+      },
+      "new_names": [
+        "other:submit bahasa inggris work",
+        "other:ask for grading rubric"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R244",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "publish"
+            },
+            "needs": {
+              "after": "read"
+            },
+            "when_unmodeled": "the action republishes an existing artifact in a new session"
+          }
+        ],
+        "left_out": "The vocabulary cannot require the earlier read and republication to concern the same artifact."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R28",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:check for lock file",
+              "after_ok": true
+            },
+            "when_unmodeled": "the edit replaces Bryan's file"
+          }
+        ],
+        "left_out": "The vocabulary cannot express that the check specifically looks for the corresponding ~$ lock file or identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:check for lock file"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R29",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:check file matches backup",
+              "after_ok": true
+            },
+            "when_unmodeled": "the edit replaces Bryan's file"
+          }
+        ],
+        "left_out": "The vocabulary cannot express byte identity or correlate the check, backup, and replaced file; it also cannot identify Bryan separately from the user."
+      },
+      "new_names": [
+        "other:check file matches backup"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R296",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "move",
+              "path": "C:\\Bryan De Great\\GP-100\\",
+              "kind": "dir"
+            }
+          }
+        ],
+        "left_out": "The shortcut dependency is explanatory context rather than a formal condition."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R318",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:buat_kaos.py"
+            },
+            "needs": {
+              "after": "move"
+            },
+            "when_unmodeled": "the action rebuilds kaos boards and same-named output files already exist"
+          }
+        ],
+        "left_out": "The vocabulary cannot constrain an earlier move's destination to _Arsip\\ or correlate the moved files with the rebuild outputs."
+      },
+      "new_names": [
+        "other:buat_kaos.py"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R336",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the commit contains the sekitar skill"
+          }
+        ],
+        "left_out": "No concrete path for the sekitar skill is named, and the vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R337",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the commit contains the riset-sekitar skill"
+          }
+        ],
+        "left_out": "No concrete path for the riset-sekitar skill is named, and the vocabulary cannot identify Bryan separately from the user."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R340",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:bulk-post uploads"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot count scheduled uploads, so the positive one-at-a-time formulation is represented only by the bulk-post prohibition."
+      },
+      "new_names": [
+        "other:bulk-post uploads"
+      ]
+    },
+    {
+      "folder": "Slicon123__JARVIS",
+      "id": "R360",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:post first comment"
+            },
+            "when_unmodeled": "the associated scheduled upload is not yet live"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the comment with a particular scheduled upload."
+      },
+      "new_names": [
+        "other:post first comment"
+      ]
+    }
+  ]
+}
+```

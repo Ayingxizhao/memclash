@@ -1,0 +1,460 @@
+{
+  "repo": "vipulbms/crypto-trader-agent",
+  "dir": ".claude/memory",
+  "n_files": 6,
+  "n_rules": 75,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_coding_style.md",
+      "quote": "Keep responses short and direct.",
+      "rule": "Keep responses short and direct."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_coding_style.md",
+      "quote": "No trailing summaries after tool calls.",
+      "rule": "Do not add trailing summaries after tool calls."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_coding_style.md",
+      "quote": "Lead with the action or finding.",
+      "rule": "Lead responses with the action taken or the finding."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_coding_style.md",
+      "quote": "Only explain when something is non-obvious or needs a decision.",
+      "rule": "Only explain things when they are non-obvious or require a decision from the user."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_coding_style.md",
+      "quote": "Always prepare a git commit statement for review before executing, unless the user says \"commit\" directly or invokes /commit.",
+      "rule": "Before executing a git commit, prepare the commit message for review, unless the user says \"commit\" directly or invokes /commit."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_coding_style.md",
+      "quote": "show the proposed commit message as a code block",
+      "rule": "When changes are ready to commit, show the proposed commit message in a code block."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_coding_style.md",
+      "quote": "Only execute when asked.",
+      "rule": "Only execute a commit when the user asks for it."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_coding_style.md",
+      "quote": "When bugs are found while investigating something else, fix them immediately and mention them concisely.",
+      "rule": "When bugs are found while investigating something else, fix them immediately and mention them concisely."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_coding_style.md",
+      "quote": "Always check the agent.log when the user opens it",
+      "rule": "When the user opens agent.log, read it to diagnose the issue."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_coding_style.md",
+      "quote": "Read the tail of the log immediately and report the latest error or status.",
+      "rule": "When investigating agent.log, read its tail immediately and report the latest error or status."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_coding_style.md",
+      "quote": "Delegate downloads, model pulls, and any other human-executable tasks to the user instead of running them via Bash.",
+      "rule": "Delegate downloads, model pulls, and other human-executable tasks to the user instead of running them via Bash."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_coding_style.md",
+      "quote": "give the exact command for the user to run rather than executing it. Do not use Bash for these.",
+      "rule": "For downloads or installs, give the user the exact command to run instead of executing it, and do not use Bash for these."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_github_traceability.md",
+      "quote": "Every change — bug fix, config tweak, feature, refactor — must have a corresponding GitHub issue before the work is done.",
+      "rule": "Before finishing any code or config change (bug fix, config tweak, feature, refactor), ensure a corresponding GitHub issue exists."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_github_traceability.md",
+      "quote": "Before making any change, check if an issue already exists: `gh issue list --repo vipulbms/crypto-trader-agent`",
+      "rule": "Before making any change, check whether a GitHub issue already exists for it by running `gh issue list --repo vipulbms/crypto-trader-agent`."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_github_traceability.md",
+      "quote": "If no issue exists, create one first:",
+      "rule": "If no GitHub issue exists for the change, create one before making the change."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_github_traceability.md",
+      "quote": "The issue body must include: **What** (the problem/feature), **Why** (motivation), **How to fix** (proposed approach).",
+      "rule": "When creating a GitHub issue, include in its body a What section (the problem or feature), a Why section (motivation), and a How to fix section (proposed approach)."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_github_traceability.md",
+      "quote": "Reference the issue in the commit message: `Closes #N` (fully resolved) or `Refs #N` (partial).",
+      "rule": "Reference the GitHub issue in the commit message using `Closes #N` when the issue is fully resolved, or `Refs #N` when partially resolved."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_github_traceability.md",
+      "quote": "When closing an issue, leave a comment summarising what was done and which files changed.",
+      "rule": "When closing a GitHub issue, leave a comment summarising what was done and which files changed."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_github_traceability.md",
+      "quote": "This applies to ALL change types: bug fixes, config changes, documentation updates, test additions, refactors.",
+      "rule": "Apply the GitHub issue requirement to all change types, including bug fixes, config changes, documentation updates, test additions, and refactors."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_github_traceability.md",
+      "quote": "1. Investigate → confirm root cause",
+      "rule": "Investigate and confirm the root cause before creating a GitHub issue or making a fix."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_github_traceability.md",
+      "quote": "4. Run full test suite — all must pass",
+      "rule": "Run the full test suite before committing, and ensure all tests pass."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_github_traceability.md",
+      "quote": "5. Commit with `Closes #N` in message",
+      "rule": "Commit changes with `Closes #N` in the commit message."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_github_traceability.md",
+      "quote": "6. Confirm issue is closed on GitHub",
+      "rule": "Confirm the GitHub issue is closed after committing."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_raa_logging.md",
+      "quote": "All three log files must be wired up in every standalone runtime process (research_analyst.py, data_collector.py, etc.), not just main.py.",
+      "rule": "Wire up all three log files (agent.log, agent-llm-prompts.log, cycle_decisions.log) in every standalone runtime process such as research_analyst.py and data_collector.py, not only in main.py."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_raa_logging.md",
+      "quote": "replace `logging.basicConfig()` with a `RotatingFileHandler` on `agent.log`",
+      "rule": "In a standalone runtime process's main(), replace logging.basicConfig() with a RotatingFileHandler writing to agent.log."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_raa_logging.md",
+      "quote": "(same `log_dir`/`max_bytes`/`backup_count` from config)",
+      "rule": "Configure the agent.log RotatingFileHandler using log_dir, max_bytes, and backup_count from config."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_raa_logging.md",
+      "quote": "Add a `StreamHandler` only when `sys.stdout.isatty()` to avoid duplicate lines in background mode.",
+      "rule": "Add a StreamHandler to logging only when sys.stdout.isatty() is true, to avoid duplicate lines in background mode."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_raa_logging.md",
+      "quote": "call `init_llm_logger(log_dir, config)` at startup",
+      "rule": "Call init_llm_logger(log_dir, config) at process startup."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_raa_logging.md",
+      "quote": "call `log_llm_interaction(...)` after every `ai_client.chat_with_tools()` response",
+      "rule": "Call log_llm_interaction(...) after every ai_client.chat_with_tools() response."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_raa_logging.md",
+      "quote": "Use a module-level `_SESSION_ID = uuid.uuid4().hex[:8]`",
+      "rule": "Define a module-level _SESSION_ID = uuid.uuid4().hex[:8] for LLM logging."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_raa_logging.md",
+      "quote": "a per-module cycle counter",
+      "rule": "Use a per-module cycle counter for LLM logging."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_raa_logging.md",
+      "quote": "Pass `prompt_template` to distinguish RAA records from main-agent records",
+      "rule": "Pass prompt_template to log_llm_interaction so RAA records can be distinguished from main-agent records (e.g., \"raa_batch_universe_decision\")."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_raa_logging.md",
+      "quote": "call `init_cycle_logger(log_dir, config)` at startup",
+      "rule": "Call init_cycle_logger(log_dir, config) at process startup."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_raa_logging.md",
+      "quote": "call `write_raa_cycle_report(cycle_id, duration_ms, candidates, decisions, persistence_data)` at the end of each `run_cycle()`",
+      "rule": "Call write_raa_cycle_report(cycle_id, duration_ms, candidates, decisions, persistence_data) at the end of each run_cycle()."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_raa_logging.md",
+      "quote": "The RAA record includes `\"source\": \"RAA\"` so it can be filtered from main-agent records.",
+      "rule": "Include \"source\": \"RAA\" in RAA cycle records so they can be filtered from main-agent records."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_session_documentation.md",
+      "quote": "Every code commit must include:",
+      "rule": "Every code commit must include the required documentation updates (session notes, and README.md or CLAUDE.md where applicable)."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_session_documentation.md",
+      "quote": "new file `docs/sessions/session_YYYY_MM_DDx.md` documenting what changed and why",
+      "rule": "For every code commit, create a new session notes file at docs/sessions/session_YYYY_MM_DDx.md documenting what changed and why."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_session_documentation.md",
+      "quote": "README.md** update — if the feature is user-facing or affects trading behavior",
+      "rule": "Update README.md when the change is user-facing or affects trading behavior."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_session_documentation.md",
+      "quote": "CLAUDE.md** update — if the feature is architectural or impacts known behaviors",
+      "rule": "Update CLAUDE.md when the change is architectural or impacts known behaviors."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_session_documentation.md",
+      "quote": "When using `/commit`, always create a corresponding session note (even for hotfixes)",
+      "rule": "When using /commit, always create a corresponding session note, even for hotfixes."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_session_documentation.md",
+      "quote": "Session notes should include: issue #, root cause (if bug), what changed, testing, related sessions",
+      "rule": "Session notes should include the issue number, root cause (if it is a bug), what changed, testing, and related sessions."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_session_documentation.md",
+      "quote": "README updates needed for: new personas, trading mechanics, CLI commands, config changes",
+      "rule": "Update README when adding new personas, changing trading mechanics, changing CLI commands, or changing config."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_session_documentation.md",
+      "quote": "CLAUDE.md updates needed for: architecture changes, known behaviors, critical design decisions",
+      "rule": "Update CLAUDE.md when making architecture changes, documenting known behaviors, or recording critical design decisions."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_session_documentation.md",
+      "quote": "All three should be committed in the same git commit (atomic documentation + code)",
+      "rule": "Commit session notes, README/CLAUDE.md updates, and code changes together in the same git commit."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_testing.md",
+      "quote": "All tests — whether written by Claude or Copilot — must be saved in the `tests/` folder",
+      "rule": "Save all tests, regardless of who writes them, in the `tests/` folder so they can be found, rerun, and extended in future sessions."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_testing.md",
+      "quote": "Never write test logic as inline `python3 -c \"...\"` scripts when the test is validating a real feature.",
+      "rule": "Never write test logic as inline `python3 -c` scripts when validating a real feature; write it to `tests/test_<feature>.py` instead."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_testing.md",
+      "quote": "Every test function must have a Gherkin-style docstring:",
+      "rule": "Give every test function a Gherkin-style docstring (Given/When/Then)."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_testing.md",
+      "quote": "When code behaviour changes (e.g. a signal rule is updated), review existing tests in `tests/` and update any that test the changed behaviour.",
+      "rule": "When code behaviour changes, review existing tests in `tests/` and update any that test the changed behaviour."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_testing.md",
+      "quote": "Tests should be runnable standalone: `~/.pyenv/versions/3.11.15/bin/python3 tests/test_<feature>.py`",
+      "rule": "Make tests runnable standalone, executable directly as `~/.pyenv/versions/3.11.15/bin/python3 tests/test_<feature>.py`."
+    },
+    {
+      "id": "R50",
+      "file": "project_kryptos.md",
+      "quote": "Use this context when making any code or config changes to understand the full system.",
+      "rule": "When making any code or config change, consult this project context to understand the full system."
+    },
+    {
+      "id": "R51",
+      "file": "project_kryptos.md",
+      "quote": "`config.yaml` — ALL parameters (no hardcoded values in source)",
+      "rule": "Keep all parameters in config.yaml; do not hardcode parameter values in source code."
+    },
+    {
+      "id": "R52",
+      "file": "project_kryptos.md",
+      "quote": "Score weights all in `config.yaml` under `signals:`. Never hardcode them.",
+      "rule": "Never hardcode signal score weights; keep them in config.yaml under signals:."
+    },
+    {
+      "id": "R53",
+      "file": "project_kryptos.md",
+      "quote": "`decision_type` values are `BUY`/`SELL`/`HOLD` (not `TRADE_BUY`)",
+      "rule": "Use only BUY, SELL, or HOLD as decision_type values; never use TRADE_BUY."
+    },
+    {
+      "id": "R54",
+      "file": "project_kryptos.md",
+      "quote": "Tool execution always uses the signal `pair`, never `tool_args[\"pair\"]`",
+      "rule": "Execute tools using the signal's pair, never tool_args[\"pair\"], because the LLM hallucinates pair names."
+    },
+    {
+      "id": "R55",
+      "file": "project_kryptos.md",
+      "quote": "`set_cycle_id()` must be called in `main.py` immediately after `audit.log_cycle()` — before signals are computed",
+      "rule": "Call set_cycle_id() in main.py immediately after audit.log_cycle() and before signals are computed."
+    },
+    {
+      "id": "R56",
+      "file": "project_kryptos.md",
+      "quote": "always verify it after any paper_broker.py edit",
+      "rule": "After any edit to paper_broker.py, verify that PaperBroker.get_balance() still returns total_usd as cash plus open position entry cost."
+    },
+    {
+      "id": "R57",
+      "file": "project_kryptos.md",
+      "quote": "`paper_broker.py` requires `from datetime import datetime`",
+      "rule": "Keep `from datetime import datetime` in paper_broker.py."
+    },
+    {
+      "id": "R58",
+      "file": "project_kryptos.md",
+      "quote": "Always close DB connections AFTER all queries — never before",
+      "rule": "Close database connections only after all queries have completed; never close them before."
+    },
+    {
+      "id": "R59",
+      "file": "project_kryptos.md",
+      "quote": "`prompts.py` system prompt must stay aligned with signal scorer weights",
+      "rule": "Keep the prompts.py system prompt aligned with the signal scorer weights."
+    },
+    {
+      "id": "R60",
+      "file": "project_kryptos.md",
+      "quote": "never hardcode RSI thresholds as mandatory BUY conditions",
+      "rule": "Never hardcode RSI thresholds as mandatory BUY conditions in the prompts.py system prompt."
+    },
+    {
+      "id": "R61",
+      "file": "project_kryptos.md",
+      "quote": "`prompts.py` must use an explicit decision tree (Signal=BUY → propose_buy)",
+      "rule": "prompts.py must use an explicit decision tree in which Signal=BUY leads to propose_buy."
+    },
+    {
+      "id": "R62",
+      "file": "project_kryptos.md",
+      "quote": "with an exhaustive list of override conditions",
+      "rule": "prompts.py must include an exhaustive list of override conditions."
+    },
+    {
+      "id": "R63",
+      "file": "project_kryptos.md",
+      "quote": "never vague \"when in doubt, hold\" language",
+      "rule": "Never use vague \"when in doubt, hold\" language in prompts.py."
+    },
+    {
+      "id": "R64",
+      "file": "project_kryptos.md",
+      "quote": "Do NOT raise `bb_min_width_pct` above 0.5%",
+      "rule": "Do not raise bb_min_width_pct above 0.5%."
+    },
+    {
+      "id": "R65",
+      "file": "project_kryptos.md",
+      "quote": "never stages .env/data/logs",
+      "rule": "The /commit skill must never stage .env, data, or logs files."
+    },
+    {
+      "id": "R66",
+      "file": "project_kryptos.md",
+      "quote": "run after any `risk_manager.py` changes",
+      "rule": "Run tests/test_circuit_breaker.py after any change to risk_manager.py."
+    },
+    {
+      "id": "R67",
+      "file": "project_kryptos.md",
+      "quote": "Run after any `signals.py` or `features.py` edit.",
+      "rule": "Run tests/test_per_pair_params.py after any edit to signals.py or features.py."
+    },
+    {
+      "id": "R68",
+      "file": "project_kryptos.md",
+      "quote": "keep SKILL.md in sync whenever signal logic or risk rules change",
+      "rule": "Keep .claude/skills/trading-rules/SKILL.md in sync whenever signal logic or risk rules change."
+    },
+    {
+      "id": "R69",
+      "file": "project_kryptos.md",
+      "quote": "do not hardcode deepseek-r1 anywhere",
+      "rule": "Do not hardcode the model name deepseek-r1 anywhere; keep LLM references model-agnostic."
+    },
+    {
+      "id": "R70",
+      "file": "project_kryptos.md",
+      "quote": "must resolve to 'closed' before SL/TP orders are attached",
+      "rule": "In live trading, wait for limit orders to resolve to 'closed' before attaching SL/TP orders."
+    },
+    {
+      "id": "R71",
+      "file": "project_kryptos.md",
+      "quote": "regenerate with /explain skill when multiple modules change",
+      "rule": "Regenerate docs/codebase.md with the /explain skill when multiple modules change."
+    },
+    {
+      "id": "R72",
+      "file": "project_kryptos.md",
+      "quote": "surgical edits only, never full rewrite",
+      "rule": "Make only surgical edits to docs/business_requirements.md; never fully rewrite it."
+    },
+    {
+      "id": "R73",
+      "file": "project_kryptos.md",
+      "quote": "append new stories or tick completed ones only",
+      "rule": "In docs/epics_stories_ac.md, only append new stories or tick completed ones."
+    },
+    {
+      "id": "R74",
+      "file": "project_kryptos.md",
+      "quote": "`RiskManager` requires `db_path` param — injected in `main.py`",
+      "rule": "Pass the db_path parameter to RiskManager, injected in main.py."
+    },
+    {
+      "id": "R75",
+      "file": "project_kryptos.md",
+      "quote": "run once to create all epics (E1–E12) and 28 stories",
+      "rule": "Run scripts/create_github_issues.sh only once."
+    }
+  ],
+  "dropped": []
+}

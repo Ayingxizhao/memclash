@@ -1,0 +1,2544 @@
+{
+ "28dayslater__pinp-cpp-prototype": {
+  "R1": {
+   "file": "feedback_branch_focus.md",
+   "rule": "Keep the current branch focused on its existing functionality; do not mix unrelated changes into it."
+  },
+  "R2": {
+   "file": "feedback_branch_focus.md",
+   "rule": "When the user requests a code improvement unrelated to the branch being worked on, warn the user before proceeding with it."
+  },
+  "R3": {
+   "file": "feedback_branch_focus.md",
+   "rule": "Before implementing any change, check whether it belongs to the current branch's scope."
+  },
+  "R4": {
+   "file": "feedback_branch_focus.md",
+   "rule": "If a requested change does not belong to the current branch's scope, flag it to the user and let the user decide whether to proceed."
+  },
+  "R5": {
+   "file": "feedback_branch_policy.md",
+   "rule": "Never commit directly to the main branch; every change must be made on its own dedicated branch."
+  },
+  "R6": {
+   "file": "feedback_branch_policy.md",
+   "rule": "Put every change (feature, fix, refactor, chore, doc update) on its own branch, and merge it into main only when the user explicitly agrees."
+  },
+  "R7": {
+   "file": "feedback_branch_policy.md",
+   "rule": "Before running any git add or git commit, confirm the current working branch is not main."
+  },
+  "R8": {
+   "file": "feedback_branch_policy.md",
+   "rule": "If the current working branch is main, create a new branch before making any commit."
+  },
+  "R9": {
+   "file": "feedback_branch_policy.md",
+   "rule": "Merge changes into main only when the user explicitly says to."
+  },
+  "R10": {
+   "file": "feedback_changelog_milestones.md",
+   "rule": "When a version bump corresponds to a GitHub milestone, include the milestone URL in the CHANGELOG entry header or description."
+  },
+  "R11": {
+   "file": "feedback_changelog_milestones.md",
+   "rule": "When writing a new CHANGELOG entry, check whether a GitHub milestone was created for that body of work, and if so, link it."
+  },
+  "R12": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Do not include benchmark numbers in commit messages."
+  },
+  "R13": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Do not include binary or artefact sizes in commit messages."
+  },
+  "R14": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Do not include test pass/fail counts in commit messages."
+  },
+  "R15": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Do not include disk usage figures, memory deltas, or throughput numbers in commit messages."
+  },
+  "R16": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "For spec-driven work, put measurements in the spec's \"## Measurement (close-out)\" section rather than in the commit message."
+  },
+  "R17": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "When needed, reference the relevant spec from the commit message."
+  },
+  "R18": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Keep the commit body to a short prose paragraph on the change."
+  },
+  "R19": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "In the commit body, include a bullet list of files touched and what each contains."
+  },
+  "R20": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "In the commit body, include any non-obvious why that would not be evident from reading the diff."
+  },
+  "R21": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Do not include bare statements like \"tests pass\" in the commit body."
+  },
+  "R22": {
+   "file": "feedback_commit_no_metrics.md",
+   "rule": "Use the commit body only for content the diff cannot communicate."
+  },
+  "R23": {
+   "file": "feedback_fixme_policy.md",
+   "rule": "When a code quality issue is noticed mid-iteration in code that the current iteration did not touch, add a detailed `// FIXME:` comment and defer the fix to a future branch."
+  },
+  "R24": {
+   "file": "feedback_fixme_policy.md",
+   "rule": "When a code quality issue is noticed mid-iteration in code that the current iteration added or modified, fix it immediately."
+  },
+  "R25": {
+   "file": "feedback_fixme_policy.md",
+   "rule": "Before fixing anything flagged as a quality issue, check git blame or the current diff to determine whether the code belongs to this iteration or predates it."
+  },
+  "R26": {
+   "file": "feedback_formatting.md",
+   "rule": "Use a 100-column line limit for all C/C++ code, not 80."
+  },
+  "R27": {
+   "file": "feedback_formatting.md",
+   "rule": "After editing C/C++ files, always run `clang-format -i` on them."
+  },
+  "R28": {
+   "file": "feedback_inline_methods.md",
+   "rule": "A method of up to 4 lines with no loops may be defined inline in the struct/class definition."
+  },
+  "R29": {
+   "file": "feedback_inline_methods.md",
+   "rule": "Any method that is more complex than a short loop-free method (has loops or is more than 4 lines) must be defined out-of-line in the `.cc` file."
+  },
+  "R30": {
+   "file": "feedback_inline_methods.md",
+   "rule": "Before writing a method body in a header, check whether it has a loop or is more than 4 lines; if yes to either, put the method in the `.cc` file instead."
+  },
+  "R31": {
+   "file": "feedback_loop_style.md",
+   "rule": "Write every infinite loop (one exited via break or return) as `do { ... } while (true);`."
+  },
+  "R32": {
+   "file": "feedback_loop_style.md",
+   "rule": "Never write infinite loops as `while (true)`, `while (1)`, or `for (;;)`."
+  },
+  "R33": {
+   "file": "feedback_loop_style.md",
+   "rule": "Whenever an infinite loop is needed, write it as `do { ... } while (true);`."
+  },
+  "R34": {
+   "file": "feedback_m_prefix.md",
+   "rule": "Use the m_ prefix only on private or protected members of a class."
+  },
+  "R35": {
+   "file": "feedback_m_prefix.md",
+   "rule": "Never use the m_ prefix on struct fields."
+  },
+  "R36": {
+   "file": "feedback_m_prefix.md",
+   "rule": "When an m_ prefix appears on a struct field, remove the prefix."
+  },
+  "R37": {
+   "file": "feedback_method_spacing.md",
+   "rule": "When writing or editing a class body, put an empty line between every method, including one-line methods."
+  },
+  "R38": {
+   "file": "feedback_method_spacing.md",
+   "rule": "When writing or editing a class, put a blank line separator around constructors, operators, and accessors as well, not just ordinary methods."
+  },
+  "R39": {
+   "file": "feedback_naming.md",
+   "rule": "Use hyphens (-) instead of underscores (_) as word separators in all project filenames, including specs, docs, and test .cc files."
+  },
+  "R40": {
+   "file": "feedback_naming.md",
+   "rule": "When creating any new file in specs/, tests/, or elsewhere in the project, use hyphens as word separators in the filename."
+  },
+  "R41": {
+   "file": "feedback_naming.md",
+   "rule": "Make all identifiers (rule names, variables, functions, types) readable by an average non-expert human."
+  },
+  "R42": {
+   "file": "feedback_naming.md",
+   "rule": "Do not use unexplained abbreviations in identifiers."
+  },
+  "R43": {
+   "file": "feedback_naming.md",
+   "rule": "Name string literal identifiers as str_literal, not str_lit."
+  },
+  "R44": {
+   "file": "feedback_naming.md",
+   "rule": "Name float literal identifiers as float_literal, not float_lit."
+  },
+  "R45": {
+   "file": "feedback_naming.md",
+   "rule": "Name lexer grammar identifiers as lex_grammar, not lg."
+  },
+  "R46": {
+   "file": "feedback_naming.md",
+   "rule": "When unsure whether an abbreviation is clear, use the full English word in identifiers."
+  },
+  "R47": {
+   "file": "feedback_naming.md",
+   "rule": "Short forms src, dst, buf, idx, pos, loc, op, lhs, and rhs are acceptable in identifiers."
+  },
+  "R48": {
+   "file": "feedback_no_autocommit.md",
+   "rule": "Do not commit changes after completing a task unless the user explicitly asks you to commit."
+  },
+  "R49": {
+   "file": "feedback_no_autocommit.md",
+   "rule": "After making changes and formatting them, stop and leave committing to the user."
+  },
+  "R50": {
+   "file": "feedback_no_param_letter_in_comments.md",
+   "rule": "Do not rely on single-letter parameter names (such as M, F, B, V) in code comments or documentation; refer to the entity by its type-noun (e.g., \"the module\", \"the function\", \"the basic block\", \"the value\") instead."
+  },
+  "R51": {
+   "file": "feedback_no_param_letter_in_comments.md",
+   "rule": "Write code comments and documentation so they are understandable on their own, without requiring the reader to look at the function signature."
+  },
+  "R52": {
+   "file": "feedback_no_param_letter_in_comments.md",
+   "rule": "When a comment must name a specific parameter, write the full parameter name (e.g., `module`) rather than its single-letter form."
+  },
+  "R53": {
+   "file": "feedback_no_param_letter_in_comments.md",
+   "rule": "Single-letter LLVM-style parameter names may still be used in code itself; the restriction applies only to comment text."
+  },
+  "R54": {
+   "file": "feedback_spec_sections.md",
+   "rule": "Place any analysis, notes, or commentary written into a spec file in the `[AI]` section, not in the human's section."
+  },
+  "R55": {
+   "file": "feedback_spec_sections.md",
+   "rule": "When asked to fill in or append to a spec file, write the content under the `[AI]` section, not inline with the human's text."
+  },
+  "R56": {
+   "file": "feedback_string_view.md",
+   "rule": "Prefer std::string_view over std::string wherever the data is not owned by the object holding it."
+  },
+  "R57": {
+   "file": "feedback_string_view.md",
+   "rule": "Default to std::string_view for function parameters, token fields, and any struct member that references data owned elsewhere."
+  },
+  "R58": {
+   "file": "feedback_string_view.md",
+   "rule": "Only use std::string when the object must own its own copy of the string."
+  },
+  "R59": {
+   "file": "feedback_sync.md",
+   "rule": "Do not push to GitHub unless the user explicitly says \"sync\" or an equivalent request."
+  },
+  "R60": {
+   "file": "feedback_sync.md",
+   "rule": "Commit code freely without asking for permission."
+  },
+  "R61": {
+   "file": "feedback_sync.md",
+   "rule": "Never run `git push` unless the user asks to sync."
+  },
+  "R62": {
+   "file": "feedback_test_descriptions.md",
+   "rule": "When writing or editing a Catch2 TEST_CASE description string, capitalise its first character."
+  },
+  "R63": {
+   "file": "feedback_test_descriptions.md",
+   "rule": "When a TEST_CASE description starts with a language keyword (e.g. `if/else`, `::name`), leave its first character lowercase."
+  },
+  "R64": {
+   "file": "feedback_test_descriptions.md",
+   "rule": "When writing or editing TEST_CASE descriptions, uppercase the first letter unless the description starts with a language keyword."
+  },
+  "R65": {
+   "file": "feedback_unordered_map.md",
+   "rule": "Use std::unordered_map for all symbol tables (variable maps, function registries, etc.) going forward."
+  },
+  "R66": {
+   "file": "feedback_unordered_map.md",
+   "rule": "When creating a new map keyed by string name (variable, function, type), default to std::unordered_map."
+  },
+  "R67": {
+   "file": "feedback_unordered_map.md",
+   "rule": "When touching code that contains existing std::map instances, migrate them to std::unordered_map opportunistically."
+  },
+  "R68": {
+   "file": "feedback_workflow.md",
+   "rule": "Treat writing and maintaining tests as the top priority in the work."
+  },
+  "R69": {
+   "file": "feedback_workflow.md",
+   "rule": "Follow strict TDD order for each implementation step: write failing tests first, then implement, then refactor together with the user."
+  },
+  "R70": {
+   "file": "feedback_workflow.md",
+   "rule": "When a new feature is requested, write tests before writing any implementation."
+  },
+  "R71": {
+   "file": "feedback_workflow.md",
+   "rule": "Do not write implementation code before tests for it exist."
+  },
+  "R72": {
+   "file": "feedback_workflow.md",
+   "rule": "If the user approves work before tests exist, gently flag that the tests are missing."
+  },
+  "R73": {
+   "file": "feedback_workflow.md",
+   "rule": "Do not skip the collaborative refactor pass."
+  },
+  "R74": {
+   "file": "feedback_workflow.md",
+   "rule": "Use `tests/explore/` only for experimentation, never for tests tied to a spec."
+  },
+  "R75": {
+   "file": "feedback_workflow.md",
+   "rule": "Place any test tied to a spec in the main `tests/` directory, using a numbered filename such as `test-0014-arrays.cc`."
+  },
+  "R76": {
+   "file": "feedback_workflow.md",
+   "rule": "Set up the `tests/explore/` directory at the start of each new iteration."
+  },
+  "R77": {
+   "file": "feedback_workflow.md",
+   "rule": "Set up an opt-in `pinp_explore_tests` CMake target at the start of each new iteration."
+  },
+  "R78": {
+   "file": "feedback_workflow.md",
+   "rule": "At iteration close, either promote each `tests/explore/` file into a numbered test file in `tests/` or delete it."
+  },
+  "R79": {
+   "file": "feedback_workflow.md",
+   "rule": "Ensure all C++ code passes clang-tidy before committing it."
+  },
+  "R80": {
+   "file": "feedback_workflow.md",
+   "rule": "Run `scripts/lint.sh` to check C++ code against clang-tidy."
+  },
+  "R81": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "Immediately after running `git worktree add` for a new parserkg/ worktree, symlink third_party/llvm-install from the canonical worktree's third_party/llvm-install."
+  },
+  "R82": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "If the build directory was already configured before the llvm-install symlink was created, run `rm -rf build && cmake -S . -B build` to wipe and re-configure it."
+  },
+  "R83": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "After configuring, verify that the cmake output names the local LLVM install and its version, not the system LLVM."
+  },
+  "R84": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "If the configure output reports a different LLVM version than the local install (e.g. a distro-packaged LLVM), fix the symlink and re-configure before building."
+  },
+  "R85": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "For a new worktree, replace the empty third_party/llvm-project directory with a symlink to the canonical worktree's third_party/llvm-project."
+  },
+  "R86": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "Before symlinking llvm-project in a new worktree, remove the empty third_party/llvm-project placeholder directory with `rmdir`."
+  },
+  "R87": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "Do not edit the llvm-project/ source per-branch in a worktree."
+  },
+  "R88": {
+   "file": "feedback_worktree_llvm_install.md",
+   "rule": "If a worktree needs a divergent LLVM source state, run `git submodule update --init third_party/llvm-project` inside that worktree instead of symlinking."
+  },
+  "R89": {
+   "file": "project_aot_compiler.md",
+   "rule": "Do not keep built-in constant injection in `jit.cc` long-term."
+  },
+  "R90": {
+   "file": "project_aot_compiler.md",
+   "rule": "Move built-in constant injection into `CodegenContext`."
+  },
+  "R91": {
+   "file": "project_aot_compiler.md",
+   "rule": "When designing codegen APIs, place anything that both the JIT and AOT paths need on `CodegenContext`, not on `PinpJIT`."
+  },
+  "R92": {
+   "file": "project_next_iterations.md",
+   "rule": "When starting the next iteration, do not work on other features until items 1–4 from near-code-improvements.md (scope duplication, parser state stack fragility, magic operator chars, and codegen.cc size) have been addressed."
+  },
+  "R93": {
+   "file": "project_parser_rewrite.md",
+   "rule": "When resuming work on the parser-rewrite branch, pick up from the open items listed in its status file."
+  },
+  "R94": {
+   "file": "project_scope_design.md",
+   "rule": "When adding a new semantic check, put it in the appropriate `Sema::check()` overload."
+  },
+  "R95": {
+   "file": "project_string_layout.md",
+   "rule": "Implement Pinp strings as a custom struct, not as std::string."
+  },
+  "R96": {
+   "file": "project_string_layout.md",
+   "rule": "Define the Pinp string layout as an LLVM struct type that works in both JIT and AOT codegen."
+  },
+  "R97": {
+   "file": "project_string_layout.md",
+   "rule": "Never construct a Pinp string with is_heap=0 and is_mutable=1."
+  },
+  "R98": {
+   "file": "project_string_layout.md",
+   "rule": "Make Pinp strings immutable by default."
+  },
+  "R99": {
+   "file": "project_string_layout.md",
+   "rule": "Always heap-allocate mutable Pinp strings; never store a mutable string inline."
+  },
+  "R100": {
+   "file": "project_string_layout.md",
+   "rule": "Finalize the string layout before writing any string codegen."
+  },
+  "R101": {
+   "file": "project_todo_bootstrap.md",
+   "rule": "When the user returns to the pinp LLVM bootstrap automation task, implement a `scripts/bootstrap.sh` that handles the full LLVM submodule setup."
+  },
+  "R102": {
+   "file": "project_todo_bootstrap.md",
+   "rule": "When the user returns to the pinp LLVM bootstrap automation task, also implement a GitHub Actions workflow that caches `third_party/llvm-install/` to avoid full rebuilds on CI."
+  },
+  "R103": {
+   "file": "project_todo_pinpstr_anon_union.md",
+   "rule": "When working on PinpStr in lib/immutable-string.hh, give its anonymous union a member name (e.g. `u`) to eliminate the -Wgnu-anonymous-struct warning."
+  },
+  "R104": {
+   "file": "project_todo_pinpstr_anon_union.md",
+   "rule": "After naming the PinpStr union, update all access sites in lib/immutable-string.cc and lib/immutable-string.hh to go through the named member (e.g. str_.u.heap.ptr, str_.u.inl.tag_len)."
+  },
+  "R105": {
+   "file": "project_todo_pinpstr_anon_union.md",
+   "rule": "Do the PinpStr anonymous union fix at the start of the next strings iteration, before adding any new string features."
+  },
+  "R106": {
+   "file": "project_todo_semantic_passes.md",
+   "rule": "While the str-concat optimisation is the only semantic optimisation, it may remain inline in emit(BinOpNode)."
+  },
+  "R107": {
+   "file": "project_todo_semantic_passes.md",
+   "rule": "When a second semantic-level transformation is introduced, extract all semantic optimisation logic into a separate AST rewrite pass."
+  },
+  "R108": {
+   "file": "project_todo_semantic_passes.md",
+   "rule": "The semantic optimisation pass should run after sema and before codegen."
+  },
+  "R109": {
+   "file": "project_todo_semantic_passes.md",
+   "rule": "When extracting semantic optimisations into a pass, move the str-concat flattening into that pass first."
+  },
+  "R110": {
+   "file": "project_todo_semantic_passes.md",
+   "rule": "When the str-concat flattening is moved into the semantic optimisation pass, introduce a StrConcatNode into the AST."
+  }
+ },
+ "AbuShaqra__TC_PLC_Toolkit": {
+  "R1": {
+   "file": "README.md",
+   "rule": "Do not write a shared memory note that duplicates content the repo already records in other files."
+  },
+  "R2": {
+   "file": "README.md",
+   "rule": "Record architecture in DEVELOPMENT.md, not in memory notes."
+  },
+  "R3": {
+   "file": "README.md",
+   "rule": "Record current project state in HANDOFF.md, not in memory notes."
+  },
+  "R4": {
+   "file": "README.md",
+   "rule": "Record the rules of the codebase in CLAUDE.md, not in memory notes."
+  },
+  "R5": {
+   "file": "README.md",
+   "rule": "Save a note to the shared project memory only if it would still be true on a fresh clone on another developer's machine."
+  },
+  "R6": {
+   "file": "README.md",
+   "rule": "Save notes tied to one machine (local paths, installed TwinCAT versions, personal tooling) in the per-machine bank, not the shared bank."
+  },
+  "R7": {
+   "file": "README.md",
+   "rule": "Save the user's personal preferences in the per-machine bank, not the shared bank."
+  },
+  "R8": {
+   "file": "README.md",
+   "rule": "Add a shared memory note only for a lesson that was earned the expensive way, such as a wrong conclusion shipped, a day lost, or repeated failed fixes."
+  },
+  "R9": {
+   "file": "README.md",
+   "rule": "Name each shared memory note file `<slug>.md`, where the slug exactly equals the frontmatter name."
+  },
+  "R10": {
+   "file": "README.md",
+   "rule": "To add a shared memory note, create its file in the repo; no index needs updating."
+  },
+  "R11": {
+   "file": "README.md",
+   "rule": "In a memory note's Why section, state concrete details such as dates, counts, and the actual failure."
+  },
+  "R12": {
+   "file": "README.md",
+   "rule": "Link to a shared memory note with [[wikilink]] syntax even if the target note does not exist yet."
+  },
+  "R13": {
+   "file": "README.md",
+   "rule": "Validate shared memory notes by running `node .claude/memory/bank.js --check` after adding one."
+  },
+  "R14": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "Background agents must report progress frequently by sending a heartbeat so that 'still working' can be distinguished from 'silently dead'."
+  },
+  "R15": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "The implementer agent must send SendMessage progress updates to main at least every ~10 tool calls."
+  },
+  "R16": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "The implementer agent must send a SendMessage update to main when it starts."
+  },
+  "R17": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "The implementer agent must send SendMessage updates to main after investigation, after each file it writes, and before long-running steps."
+  },
+  "R18": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "Never assume a quiet background agent is still working."
+  },
+  "R19": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "When an agent is quiet, check its liveness using TaskOutput on its id or by checking whether its owned files have been touched."
+  },
+  "R20": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "If a background agent is confirmed dead, take its task back and perform it directly instead of waiting."
+  },
+  "R21": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "Always re-measure or re-verify an agent's headline claims before relaying them to the user."
+  },
+  "R22": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "When running agents in parallel, assign strictly disjoint file ownership to each agent."
+  },
+  "R23": {
+   "file": "agent-heartbeat-and-verification.md",
+   "rule": "When running agents in parallel, keep shared files such as package.json and HANDOFF.md centrally owned rather than assigned to individual agents."
+  },
+  "R24": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "Decide routine choices yourself by applying the rules already on record, instead of asking the user about them."
+  },
+  "R25": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "After making a routine decision, record the choice and its reason in HANDOFF.md and continue working."
+  },
+  "R26": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "Ask the user (as a card) only when the answer is genuinely the user's to give and cannot be derived from existing rules."
+  },
+  "R27": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "Do not stop work to ask the user about every choice."
+  },
+  "R28": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "Before asking the user a question via AskUserQuestion, check whether an existing rule already answers it; if one does, apply that rule and state it in the status update instead of asking."
+  },
+  "R29": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "When a real question is needed, keep independent work moving meanwhile and batch questions rather than asking them one at a time."
+  },
+  "R30": {
+   "file": "ask-only-what-is-the-users-call.md",
+   "rule": "When briefing agents, instruct them to decide by the existing rules, report their choices, and stop only for user-level decisions."
+  },
+  "R31": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "When writing a catch-all error handler in the webview, filter out the browser's benign notices (such as the ResizeObserver loop notice) so they are not shown as errors."
+  },
+  "R32": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "After making a webview change, do not consider it verified until the real window has been opened and visually inspected doing the relevant action."
+  },
+  "R33": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "Treat a global error handler as a filter: explicitly skip the ResizeObserver loop notice and any other documented-benign notice, and keep a test confirming that genuine errors still surface."
+  },
+  "R34": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "Do not trust a passing browser harness as proof of behavior for timing-dependent code."
+  },
+  "R35": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "For timing-dependent behavior, dispatch the exact event by hand as the deterministic part of the test assertion."
+  },
+  "R36": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "When a harness can capture the real window, assert on what the user sees (e.g., overlay hidden, no error posted), not only on the underlying mechanism."
+  },
+  "R37": {
+   "file": "benign-browser-notices-are-error-events.md",
+   "rule": "After a webview change, open the real thing once and look at it."
+  },
+  "R38": {
+   "file": "branch-cleanup-names-each-repos-integration-branch.md",
+   "rule": "When giving the user a command that deletes remote branches, write a separate command for each repository, each keeping that repository's own integration branch by name; never use one \"delete all except …\" command for several repositories."
+  },
+  "R39": {
+   "file": "branch-cleanup-names-each-repos-integration-branch.md",
+   "rule": "In any branch-delete command, list the protected branch names of that specific repository (e.g., main, dev and the session's working branch for this repo; main, development and its working branch for the fork)."
+  },
+  "R40": {
+   "file": "branch-cleanup-names-each-repos-integration-branch.md",
+   "rule": "When writing a branch-delete command, prefer listing the exact branches to delete over using an exclusion pattern."
+  },
+  "R41": {
+   "file": "branch-cleanup-names-each-repos-integration-branch.md",
+   "rule": "Before opening a PR, run `git ls-remote --heads origin` and confirm the base branch exists."
+  },
+  "R42": {
+   "file": "clean-merge-is-not-a-tested-merge.md",
+   "rule": "Before merging a branch whose gate ran on an older base, merge current development into it and run the full build and test suite on that result whenever any file the branch changes was also changed on development since its gate."
+  },
+  "R43": {
+   "file": "clean-merge-is-not-a-tested-merge.md",
+   "rule": "Do not treat a clean git merge (no conflict reported) as evidence that the merged behaviour is correct; test the combined result."
+  },
+  "R44": {
+   "file": "clean-merge-is-not-a-tested-merge.md",
+   "rule": "For every branch that overlaps with development, use the combined-test step: create a worktree on the branch, run git merge origin/development, copy node_modules with cp -al, then run the build, full vitest suite, and extension tests."
+  },
+  "R45": {
+   "file": "clean-merge-is-not-a-tested-merge.md",
+   "rule": "If development moves again before the merge and touches the same files, re-run the combined-test step."
+  },
+  "R46": {
+   "file": "clean-merge-is-not-a-tested-merge.md",
+   "rule": "Pay especially close attention to merge hunks that change a guard (such as an if condition or early return) around code that another branch also edits."
+  },
+  "R47": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Never pipe a gate command (such as a typecheck) through tail, head, or grep inside a && chain."
+  },
+  "R48": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Run a gate command without a pipe, so its exit code is preserved, and trim its output by some other means."
+  },
+  "R49": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Check a gate's exit code explicitly before any commit or push in the same command chain."
+  },
+  "R50": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Don't rely on `set -o pipefail` being set in tool-invoked one-liners."
+  },
+  "R51": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Don't pipe `npm test` through tail when its exit status matters."
+  },
+  "R52": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "When a decision depends on a gate, treat the gate's exit code as the result and the output text as commentary only."
+  },
+  "R53": {
+   "file": "gates-must-propagate-exit-codes.md",
+   "rule": "Prove that an object is immutable using `node --use-strict` or `Object.isFrozen`, not a try/catch around a write."
+  },
+  "R54": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "When narrowing a JSDoc boolean-literal discriminated union, guard the failure arm with an explicit comparison such as `if (res.ok === false)`."
+  },
+  "R55": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "Never narrow a JSDoc boolean-literal discriminated union with a truthiness check such as `if (!res.ok)`."
+  },
+  "R56": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "Wherever a JSDoc union must narrow, use `=== true` or `=== false` comparisons on the discriminant."
+  },
+  "R57": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "Wherever a JSDoc union must narrow, an `in` check on an arm-specific property may be used instead of a boolean comparison."
+  },
+  "R58": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "Leave a one-line comment at each site where a JSDoc union is narrowed with an explicit comparison, so the comparison survives review."
+  },
+  "R59": {
+   "file": "jsdoc-union-narrowing-needs-explicit-compare.md",
+   "rule": "If the project moves off the TS 7 preview, re-test this narrowing rule before dropping it."
+  },
+  "R60": {
+   "file": "keep-development-md-current.md",
+   "rule": "Keep DEVELOPMENT.md up to date whenever architecture, tests, or build change."
+  },
+  "R61": {
+   "file": "keep-development-md-current.md",
+   "rule": "Update DEVELOPMENT.md in the same change that modifies architecture, test layout/commands, or build/packaging."
+  },
+  "R62": {
+   "file": "keep-development-md-current.md",
+   "rule": "Keep DEVELOPMENT.md current as stated in the repo's CLAUDE.md (\"Keep DEVELOPMENT.md current — always\")."
+  },
+  "R63": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for customer or private data, grep the content of every historical blob."
+  },
+  "R64": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for customer or private data, separately check the items that content grep cannot see, not only file content."
+  },
+  "R65": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check commit author and committer headers."
+  },
+  "R66": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check commit messages."
+  },
+  "R67": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check tag metadata."
+  },
+  "R68": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check unreachable objects."
+  },
+  "R69": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check generated or binary files that were committed."
+  },
+  "R70": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When sweeping a repo for private data, check source comments for real-world names transcribed as examples."
+  },
+  "R71": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When verifying a privacy sweep, check every ref, not just the currently checked-out or main branch."
+  },
+  "R72": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When verifying a privacy sweep across refs, loop over local branches from git for-each-ref refs/heads/ and over remote branches from git ls-remote --heads origin."
+  },
+  "R73": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "Run the mailmap pass as the last step before the final push, not earlier."
+  },
+  "R74": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "Early in a privacy sweep, run git log --all --pretty='%an <%ae> | %cn <%ce>' | sort | uniq -c to list author and committer identities."
+  },
+  "R75": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "Treat a plausible-looking vendor or POU name in a comment as suspect until you can establish where it came from."
+  },
+  "R76": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When replacing real-world names in comments or fixtures, preserve the property the comment exists to teach."
+  },
+  "R77": {
+   "file": "leaks-hide-in-metadata-not-content.md",
+   "rule": "When doing a privacy sweep, check metadata first, while it is still cheap to fix."
+  },
+  "R78": {
+   "file": "multi-project-workspaces.md",
+   "rule": "Before adding any name-keyed workspace structure, determine which project owns each entry."
+  },
+  "R79": {
+   "file": "multi-project-workspaces.md",
+   "rule": "Route any new name-keyed workspace structure through `src/lsp/projectMap.js`."
+  },
+  "R80": {
+   "file": "multi-project-workspaces.md",
+   "rule": "When a file is `<Compile>`d by more than one project, index it into every owning project."
+  },
+  "R81": {
+   "file": "multi-project-workspaces.md",
+   "rule": "When a file is `<Compile>`d by more than one project, route requests for it to the project whose directory contains it."
+  },
+  "R82": {
+   "file": "multi-project-workspaces.md",
+   "rule": "Scope the rename config-object scan to a single project so it does not rewrite other projects' `.TcVIS`/`.TcTLO`/`.TcTTO` files."
+  },
+  "R83": {
+   "file": "multi-project-workspaces.md",
+   "rule": "Verify multi-project changes on a real two-project fixture, such as the one built by `test/_multiproject.js` from the committed sample."
+  },
+  "R84": {
+   "file": "multi-project-workspaces.md",
+   "rule": "Never use the partition's normalized keys in URIs or file reads."
+  },
+  "R85": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "Keep identity keys (normalized paths) and display or open paths in separate fields, so a normalized key is never used as a path."
+  },
+  "R86": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "Never build a URI, editor tab, label, or file read from a normalized identity key; use the on-disk spelling instead."
+  },
+  "R87": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "When testing path or URI casing, use case-sensitive assertions."
+  },
+  "R88": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "Never use case-insensitive regex assertions (the /i flag) to test path or URI casing."
+  },
+  "R89": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "Run test/devhost/run.js whenever navigation identity or URI spelling changes."
+  },
+  "R90": {
+   "file": "normalized-keys-are-not-file-paths.md",
+   "rule": "Decode XML entities in any path value read from an XML attribute before using it."
+  },
+  "R91": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "While a delegated agent is working in a checkout, do not switch branches in that checkout."
+  },
+  "R92": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "While a delegated agent is working in a checkout, do not reset that checkout."
+  },
+  "R93": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "While a delegated agent is working in a checkout, do not edit files the agent is likely to rewrite (such as HANDOFF.md, ROADMAP.md, or docs)."
+  },
+  "R94": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "Sync with `git fetch` and read files through `git show` or a separate `git worktree` rather than switching branches in the agent's checkout."
+  },
+  "R95": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "Make your own edits only in files the delegated agent was told not to touch."
+  },
+  "R96": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "After the delegated agent's commit lands, re-check your own edits to files it may have rewritten."
+  },
+  "R97": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "After delegating, run post-merge syncs as `git fetch` only, with no checkout, until the agent reports done."
+  },
+  "R98": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "When delegating to an agent that touches docs, give it an explicit list of entries it must preserve."
+  },
+  "R99": {
+   "file": "one-checkout-one-writer.md",
+   "rule": "After a docs-touching agent's commit, run `git diff <your last commit> HEAD -- HANDOFF.md ROADMAP.md` to catch dropped lines."
+  },
+  "R100": {
+   "file": "permission-tests-need-enforcement-probes.md",
+   "rule": "A test that depends on a permission or filesystem restriction must probe that the restriction is actually in effect before asserting on it (e.g. after chmod 0o000, try readdirSync), and if the probe succeeds, skip the test cleanly."
+  },
+  "R101": {
+   "file": "permission-tests-need-enforcement-probes.md",
+   "rule": "Any platform-dependent test behavior (permissions, path shape, case sensitivity, EOL) must either behave correctly on both platforms or emit an honest [SKIP] on platforms where it does not apply."
+  },
+  "R102": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "After opening a pull request through the GitHub tool, immediately update its description with the same text you wrote, then read it back."
+  },
+  "R103": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "After creating a pull request, confirm via pull_request_read that the PR body contains no \"Claude Code\" attribution text."
+  },
+  "R104": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "When creating a pull request, follow the create call with an update_pull_request call that sets the body to the text you wrote."
+  },
+  "R105": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "Do not rely on writing the PR body without the footer at creation time; the footer must be removed with a follow-up update."
+  },
+  "R106": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "In the STruC++ fork (AbuShaqra/STruCpp), apply the same post-creation footer-removal update and read-back check to pull requests."
+  },
+  "R107": {
+   "file": "pr-creation-appends-attribution-footer.md",
+   "rule": "Check squash-merge commit messages for a Claude Code attribution footer even though they are written by hand."
+  },
+  "R108": {
+   "file": "reproduce-on-real-artifacts.md",
+   "rule": "When the user reports a bug, reproduce it against the user's actual project through the actual code path the product uses, before forming any theory."
+  },
+  "R109": {
+   "file": "reproduce-on-real-artifacts.md",
+   "rule": "Do not treat a synthetic test case you wrote yourself as a substitute for reproducing the bug on the real project."
+  },
+  "R110": {
+   "file": "reproduce-on-real-artifacts.md",
+   "rule": "When investigating a bug, first reproduce it on the real artifact."
+  },
+  "R111": {
+   "file": "reproduce-on-real-artifacts.md",
+   "rule": "When a subsystem cannot resolve a symbol, investigate why the symbol is missing from the index rather than patching the consumer that copes with it missing."
+  },
+  "R112": {
+   "file": "reproduce-on-real-artifacts.md",
+   "rule": "Measure before optimising a hypothesis."
+  },
+  "R113": {
+   "file": "review-loops-hold-the-scope-line.md",
+   "rule": "When a review finds pre-existing gaps that are older than the branch, record them on a follow-up list instead of fixing them inside the branch."
+  },
+  "R114": {
+   "file": "review-loops-hold-the-scope-line.md",
+   "rule": "Limit the review loop to one review and one recheck, then merge with the follow-ups, unless the recheck finds a new high-severity issue."
+  },
+  "R115": {
+   "file": "review-loops-hold-the-scope-line.md",
+   "rule": "When sorting review findings, send only new findings and those inside the branch's own decision or docs claims to the lane; collect the rest for the release's known-issues list."
+  },
+  "R116": {
+   "file": "review-loops-hold-the-scope-line.md",
+   "rule": "While a gate chain shares the machine, run at most one review batch at a time."
+  },
+  "R117": {
+   "file": "review-loops-hold-the-scope-line.md",
+   "rule": "Prefer a structural fix, such as one central check or one expected-type pass, over a list of per-construct patches."
+  },
+  "R118": {
+   "file": "shallow-clone-is-not-the-repo.md",
+   "rule": "Before treating a local clone as a complete copy of the repository (auditing its history, pushing it to a recreated repo, or deleting the remote it came from), run `git rev-parse --is-shallow-repository`."
+  },
+  "R119": {
+   "file": "shallow-clone-is-not-the-repo.md",
+   "rule": "If `git rev-parse --is-shallow-repository` returns `true`, do not treat anything derived from that clone's history as complete."
+  },
+  "R120": {
+   "file": "shallow-clone-is-not-the-repo.md",
+   "rule": "Treat an audit run over a shallow clone as covering only the fetched window of commits, not the whole repository."
+  },
+  "R121": {
+   "file": "shallow-clone-is-not-the-repo.md",
+   "rule": "Before re-running an audit on a shallow clone, unshallow it with `git fetch --unshallow <source> <branch>`."
+  },
+  "R122": {
+   "file": "shallow-clone-is-not-the-repo.md",
+   "rule": "When performing a destructive cutover, do not delete the old repository until the replacement has been verified."
+  },
+  "R123": {
+   "file": "stop-at-implausible-results.md",
+   "rule": "When a measurement or experiment produces a result that contradicts logic or the user's domain experience, even if it looks internally consistent and plausible, stop and verify it by another method or ask the user before reporting it as a finding or building on it."
+  },
+  "R124": {
+   "file": "stop-at-implausible-results.md",
+   "rule": "Before reporting a surprising finding, ask what would have to be true about the world for it to be real."
+  },
+  "R125": {
+   "file": "stop-at-implausible-results.md",
+   "rule": "If the answer to 'what would have to be true' is absurd, assume the tool or your usage of it is wrong rather than reality."
+  },
+  "R126": {
+   "file": "stop-at-implausible-results.md",
+   "rule": "When a surprising result seems absurd, re-measure it by a different route or put the contradiction to the user."
+  },
+  "R127": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "When a change depends on how VS Code itself reacts (TreeView refresh, view visibility, focus, progress), prove it in a real VS Code before telling the user it works."
+  },
+  "R128": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "Do not treat passing tests against the recording vscode stub as proof of how VS Code itself behaves."
+  },
+  "R129": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+  },
+  "R130": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "Run the real-VS Code probe before the user tests a change, not after the user reports a problem."
+  },
+  "R131": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "When probing in a real VS Code, download VS Code into the scratchpad using `@vscode/test-electron` (`downloadAndUnzipVSCode`)."
+  },
+  "R132": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "When probing in a real VS Code, load a tiny probe extension that uses the real module under test with a fake data source shaped like the live one."
+  },
+  "R133": {
+   "file": "stubbed-vscode-is-not-vscode.md",
+   "rule": "When probing in a real VS Code, launch it with Playwright's `_electron` under `xvfb-run` and sample the DOM."
+  },
+  "R134": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "Never give a git worktree a symlinked node_modules directory, including vscode-extension/node_modules."
+  },
+  "R135": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "Give a worktree its node_modules by copying the clone's directory with `cp -al <clone>/…/node_modules <worktree>/…/node_modules`."
+  },
+  "R136": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "Verify a worktree's node_modules setup by running `readlink -f <worktree>/vscode-extension/node_modules/strucpp`."
+  },
+  "R137": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "Confirm that the `readlink -f <worktree>/vscode-extension/node_modules/strucpp` check prints the worktree path itself."
+  },
+  "R138": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "When creating any worktree for a gate or review, copy both node_modules directories with `cp -al` rather than symlinking them."
+  },
+  "R139": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "Run the `readlink -f` check before trusting any test result from a worktree."
+  },
+  "R140": {
+   "file": "symlinked-node-modules-test-another-tree.md",
+   "rule": "When a gate passes the extension tests in under a minute on a branch that touched the compiler, re-examine the result before trusting it."
+  },
+  "R141": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "When a view follows the active editor, call TreeView.reveal only while view.visible is true."
+  },
+  "R142": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "When a view follows the active editor, remember the last reveal target."
+  },
+  "R143": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "When a view follows the active editor, reveal the remembered target from the onDidChangeVisibility handler when the view is shown."
+  },
+  "R144": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "When moving a view between containers, re-read every reveal and focus call on that view as if the view were hidden."
+  },
+  "R145": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "In dev-host tests, show the view before triggering the reveal."
+  },
+  "R146": {
+   "file": "treeview-reveal-shows-hidden-views.md",
+   "rule": "In dev-host tests, wait for the recorded reveal instead of using a fixed sleep."
+  },
+  "R147": {
+   "file": "typecheck-graph-grows-with-requires.md",
+   "rule": "When a change adds a `require` that pulls a file into the tsc program for the first time, treat that file as newly gated, and if its typecheck fails on an untouched file, treat the failure as caused by your change."
+  },
+  "R148": {
+   "file": "typecheck-graph-grows-with-requires.md",
+   "rule": "When a typecheck failure appears in a file that was not otherwise modified, use bisection and a TypeScript 5 cross-check to determine whether the failure is a tooling bug or a real defect."
+  },
+  "R149": {
+   "file": "typecheck-graph-grows-with-requires.md",
+   "rule": "In this repo, avoid Closure-style `function(...): T` JSDoc types and use a `@callback` typedef instead."
+  },
+  "R150": {
+   "file": "verify-before-declaring-impossible.md",
+   "rule": "Do not conclude that something is impossible or does not exist merely because it was not found in the places checked."
+  },
+  "R151": {
+   "file": "verify-before-declaring-impossible.md",
+   "rule": "When reporting that something was not found, state which sources were checked and which remain unchecked."
+  },
+  "R152": {
+   "file": "verify-before-declaring-impossible.md",
+   "rule": "Distinguish between \"I could not find X in the sources checked\" and \"X does not exist\"; only the former is a supported statement of fact."
+  },
+  "R153": {
+   "file": "verify-before-declaring-impossible.md",
+   "rule": "Before writing that something is impossible into docs or telling the user it cannot be done, re-read the sources already parsed."
+  },
+  "R154": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "Before pushing a change to `.github/workflows/*.yml`, scan the committed bytes for C0 control characters (below 0x20, excluding tab, LF, CR), not just parse the YAML."
+  },
+  "R155": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "When checking a GitHub workflow file for control bytes, scan the committed blob (e.g. via `git show HEAD:...`), not the CRLF working copy."
+  },
+  "R156": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "Do not use `grep -P` to scan workflow file bytes on Windows Git Bash."
+  },
+  "R157": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "Do not append a `|| echo none` fallback to the byte-scan command, since it turns a failure into a passing result."
+  },
+  "R158": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "When a workflow run is named by the file path with zero jobs, treat it as a parse failure and inspect the file's bytes rather than the logs."
+  },
+  "R159": {
+   "file": "workflow-yaml-needs-a-byte-scan.md",
+   "rule": "When a workflow trigger should be disabled, prefer a real comment explaining why over commenting out the trigger's lines."
+  }
+ },
+ "Akagilnc__ak-ai-postflow": {
+  "R1": {
+   "file": "feedback_confirm_before_act.md",
+   "rule": "Never treat your own judgment, or the user's acknowledgment of a suggestion, as confirmation to proceed with changes."
+  },
+  "R2": {
+   "file": "feedback_confirm_before_act.md",
+   "rule": "Only treat an explicit user greenlight such as \"改\", \"好\", \"可以开始\", or \"动手吧\" as confirmation to proceed."
+  },
+  "R3": {
+   "file": "feedback_confirm_before_act.md",
+   "rule": "After proposing a plan or agreeing with a suggestion, always stop and ask the user whether to proceed (e.g., \"要现在改吗？\")."
+  },
+  "R4": {
+   "file": "feedback_confirm_before_act.md",
+   "rule": "Do not proceed with the action until the user explicitly greenlights it."
+  },
+  "R5": {
+   "file": "feedback_e2e_before_pr.md",
+   "rule": "Before submitting a PR, run end-to-end tests covering all major paths, not just one path."
+  },
+  "R6": {
+   "file": "feedback_e2e_before_pr.md",
+   "rule": "Before submitting a PR, list all trigger paths and verify each one individually."
+  },
+  "R7": {
+   "file": "feedback_e2e_before_pr.md",
+   "rule": "When verifying trigger paths before a PR, include at least: manually specified content, automatically generated content, and platform combinations."
+  },
+  "R8": {
+   "file": "feedback_tdd.md",
+   "rule": "When adding a new feature, follow Test-Driven Development."
+  },
+  "R9": {
+   "file": "feedback_tdd.md",
+   "rule": "Write tests before or at minimum alongside the implementation code when adding features."
+  },
+  "R10": {
+   "file": "feedback_tdd.md",
+   "rule": "Before implementing a new function, write its test case first."
+  },
+  "R11": {
+   "file": "feedback_tdd.md",
+   "rule": "Commit tests together with the feature they cover, not in a separate commit that adds tests afterward."
+  },
+  "R12": {
+   "file": "feedback_worker_vitest_spawn_eperm.md",
+   "rule": "When Worker tests fail with `spawn EPERM` in Codex Desktop, first treat the failure as a sandbox/environment issue."
+  },
+  "R13": {
+   "file": "feedback_worker_vitest_spawn_eperm.md",
+   "rule": "When Worker tests fail with `spawn EPERM` in Codex Desktop, re-run `cmd /c npm test` outside the sandbox before concluding that Vitest, the Vite config, or the test code is broken."
+  },
+  "R14": {
+   "file": "user_profile.md",
+   "rule": "Respond to the user primarily in Chinese (中文)."
+  },
+  "R15": {
+   "file": "user_profile.md",
+   "rule": "Use a GitHub PR workflow with Codex automated review before merging changes."
+  },
+  "R16": {
+   "file": "user_profile.md",
+   "rule": "Follow a TDD (test-driven development) flow when developing."
+  },
+  "R17": {
+   "file": "user_profile.md",
+   "rule": "Prefer practical explanations and solutions over theoretical ones."
+  },
+  "R18": {
+   "file": "user_profile.md",
+   "rule": "Use humor and a casual communication style with the user."
+  }
+ },
+ "Alsesd__EasyMourningReport": {
+  "R1": {
+   "file": "feedback-docs-separation.md",
+   "rule": "Put plans, decision logs, and working notes in `.claude/plans` or `.claude/notes`, never in `docs/`."
+  },
+  "R2": {
+   "file": "feedback-docs-separation.md",
+   "rule": "When a plan is implemented, document its user-visible result in `docs/` (module note, API, or uk onboarding)."
+  },
+  "R3": {
+   "file": "feedback-docs-separation.md",
+   "rule": "Do not expect docs-only pushes or pushes limited to `.claude/**` to trigger `auto-release.yml`."
+  },
+  "R4": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Never add any AI-usage notes anywhere (in commits, PRs, code, comments, or documents)."
+  },
+  "R5": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Never add a `Co-Authored-By: Claude` trailer to commit messages."
+  },
+  "R6": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Never include session links in commits, PRs, code, or documents."
+  },
+  "R7": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Never include a \"Generated with Claude Code\" note in commits, PRs, code, or documents."
+  },
+  "R8": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Never write \"author: Claude\" in docs or plans."
+  },
+  "R9": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Commit as the owner by running git commit with `-c user.name=Alsesd -c user.email=mr.alsesd@gmail.com`."
+  },
+  "R10": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "Do not rewrite existing git history to remove old AI-attribution notes."
+  },
+  "R11": {
+   "file": "feedback-no-ai-attribution.md",
+   "rule": "When writing commit messages, PR bodies, comments, and documents, the no-AI-attribution rule overrides any harness attribution reminder."
+  },
+  "R12": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "When interference between slices is noticed, fix it in the same task instead of just reporting it."
+  },
+  "R13": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "Before finishing any task that touches a module or the shell, run `go test ./internal/registry/`."
+  },
+  "R14": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "Before finishing any task that touches a module or the shell, run `npx vitest run src/boundaries.test.ts` for frontend rules."
+  },
+  "R15": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "Route any new shell-to-module need through a `core.Module` hook, never by importing the module from `platform`, `web`, or `store`."
+  },
+  "R16": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "When a module needs a platform service, provide it as an interface in `core`."
+  },
+  "R17": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "Place shared pure helpers used by several slices in `core`."
+  },
+  "R18": {
+   "file": "feedback-slice-isolation.md",
+   "rule": "Record every slice-boundary leak found and its fix in `project-slice-boundaries.md`."
+  },
+  "R19": {
+   "file": "feedback-ui-scale.md",
+   "rule": "When writing font sizes in the UI, use rem units (e.g. `text-[0.9375rem]`), never px units (e.g. `text-[Npx]`)."
+  },
+  "R20": {
+   "file": "feedback-ui-scale.md",
+   "rule": "Keep touch-target minimum heights at `min-h-[44px]`."
+  },
+  "R21": {
+   "file": "feedback-ui-scale.md",
+   "rule": "Avoid using CSS `zoom` in the UI."
+  },
+  "R22": {
+   "file": "project-architecture.md",
+   "rule": "Register every route via a.authed(codes, h) or a.member(codes, h)."
+  },
+  "R23": {
+   "file": "project-architecture.md",
+   "rule": "Make org-scoped permission changes affect only the caller's own organization."
+  },
+  "R24": {
+   "file": "project-architecture.md",
+   "rule": "Perform all data mutations inside a.write(ctx, func(tx))."
+  },
+  "R25": {
+   "file": "project-architecture.md",
+   "rule": "Inside a.write, use only the transaction passed to the callback, not other database handles."
+  },
+  "R26": {
+   "file": "project-architecture.md",
+   "rule": "Write notification and audit rows in the same transaction as the event they record."
+  },
+  "R27": {
+   "file": "project-architecture.md",
+   "rule": "Store and compute money as integer cents."
+  },
+  "R28": {
+   "file": "project-architecture.md",
+   "rule": "Represent periods in the format YYYY-MM."
+  },
+  "R29": {
+   "file": "project-architecture.md",
+   "rule": "Never touch data/, backups/, reports.db, secret.key, or .env."
+  },
+  "R30": {
+   "file": "project-architecture.md",
+   "rule": "Define tables added after the base schema in goOwned in store/schema.go and register them in GoOwnedTables."
+  },
+  "R31": {
+   "file": "project-architecture.md",
+   "rule": "Add columns added after the base schema via goOwnedColumns as idempotent ALTER statements."
+  },
+  "R32": {
+   "file": "project-architecture.md",
+   "rule": "Test schema changes against an older database using baseOnly in store_test.go."
+  },
+  "R33": {
+   "file": "project-architecture.md",
+   "rule": "Change frozen fixtures in testdata/ only deliberately, and state the reason in the commit message."
+  },
+  "R34": {
+   "file": "project-architecture.md",
+   "rule": "Run go vet and go test ./cmd/... ./internal/... as the verification gate."
+  },
+  "R35": {
+   "file": "project-architecture.md",
+   "rule": "Never run go test or go vet with the ./... pattern."
+  },
+  "R36": {
+   "file": "project-architecture.md",
+   "rule": "Run frontend lint, typecheck, test, and build as part of verification."
+  },
+  "R37": {
+   "file": "project-architecture.md",
+   "rule": "For UI work, also run scripts/build_go.sh, the go run ./cmd/smoke binary smoke test with -tunnel, and scripts/e2e_test.py."
+  },
+  "R38": {
+   "file": "project-architecture.md",
+   "rule": "Run the verify skill before committing a finished feature."
+  },
+  "R39": {
+   "file": "project-architecture.md",
+   "rule": "Commit and push each finished feature on branch claude/go-migration-umm1ck."
+  },
+  "R40": {
+   "file": "project-architecture.md",
+   "rule": "With every API change, update docs/API.md, the hand-maintained schema.d.ts, and the module docs."
+  },
+  "R41": {
+   "file": "project-architecture.md",
+   "rule": "Treat existing databases as production data, not disposable test data."
+  },
+  "R42": {
+   "file": "project-biometric-login.md",
+   "rule": "When the login page starts biometric sign-in, try the modal passkey prompt once, and only if the device has opted in and the user did not just sign out."
+  },
+  "R43": {
+   "file": "project-biometric-login.md",
+   "rule": "If the modal attempt is not used, start passkey sign-in via WebAuthn conditional mediation by setting the input's autocomplete to \"username webauthn\" and calling passkeyApi.login({conditional, signal})."
+  },
+  "R44": {
+   "file": "project-biometric-login.md",
+   "rule": "When testing the sign-out case with a headless virtual authenticator, stub isConditionalMediationAvailable to return false, because the virtual authenticator completes conditional requests by itself."
+  },
+  "R45": {
+   "file": "project-biometric-login.md",
+   "rule": "Center dialog panels using inset and margin, never CSS transform."
+  },
+  "R46": {
+   "file": "project-biometric-login.md",
+   "rule": "Implement the bell's popover using the ui/Popover component."
+  },
+  "R47": {
+   "file": "project-frontend-structure.md",
+   "rule": "Write UI strings in Ukrainian and place them in i18n.ts."
+  },
+  "R48": {
+   "file": "project-frontend-structure.md",
+   "rule": "Use the `.figure` class for figures."
+  },
+  "R49": {
+   "file": "project-frontend-structure.md",
+   "rule": "Do not use native month or file input controls."
+  },
+  "R50": {
+   "file": "project-frontend-structure.md",
+   "rule": "Make touch targets 44px."
+  },
+  "R51": {
+   "file": "project-frontend-structure.md",
+   "rule": "Apply Tailwind colours through CSS-variable tokens."
+  },
+  "R52": {
+   "file": "project-frontend-structure.md",
+   "rule": "Edit schema.d.ts by hand with every API change."
+  },
+  "R53": {
+   "file": "project-frontend-structure.md",
+   "rule": "Fetch data via react-query."
+  },
+  "R54": {
+   "file": "project-frontend-structure.md",
+   "rule": "Have sections poll with refetchInterval instead of performing full reloads."
+  },
+  "R55": {
+   "file": "project-module-functions.md",
+   "rule": "Never block transport orders placed late, including after the old 15:00 cutoff."
+  },
+  "R56": {
+   "file": "project-module-functions.md",
+   "rule": "Never set update.Tag on development builds, because doing so switches self-update on."
+  },
+  "R57": {
+   "file": "project-module-functions.md",
+   "rule": "Put business metrics on the management dashboard, not on the technical health page."
+  },
+  "R58": {
+   "file": "project-module-functions.md",
+   "rule": "Ask the user before adding a reminder for orders due today or for unclosed orders."
+  },
+  "R59": {
+   "file": "project-module-functions.md",
+   "rule": "Never display 4xx responses in red; treat them as refusals."
+  },
+  "R60": {
+   "file": "project-module-functions.md",
+   "rule": "Base backup health on the backup job's own last_run_at and last_error, not on the age of the newest backup file."
+  },
+  "R61": {
+   "file": "project-module-functions.md",
+   "rule": "Deliver device notifications through the service worker, not by calling new Notification()."
+  },
+  "R62": {
+   "file": "project-module-functions.md",
+   "rule": "When saving a report, replace the item quantities; never add to them."
+  },
+  "R63": {
+   "file": "project-module-functions.md",
+   "rule": "Allow locking only individual report days; the monthly report is review-only and must not be lockable."
+  },
+  "R64": {
+   "file": "project-module-functions.md",
+   "rule": "Keep the stored transport status codes unchanged."
+  },
+  "R65": {
+   "file": "project-module-functions.md",
+   "rule": "Compute today() in reports and transport using core.Services.Zone (the business zone), not time.Local."
+  },
+  "R66": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The core package must not import any internal package."
+  },
+  "R67": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The store package must not import any internal package."
+  },
+  "R68": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The platform package may import only core and store."
+  },
+  "R69": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The system package may import only store."
+  },
+  "R70": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The reports package may import only core."
+  },
+  "R71": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The transport package may import only core."
+  },
+  "R72": {
+   "file": "project-slice-boundaries.md",
+   "rule": "The web package may import core, platform, registry, store, system, and update, but must not import any module package."
+  },
+  "R73": {
+   "file": "project-slice-boundaries.md",
+   "rule": "Only the registry package and cmd/server may list modules; no other package should list modules."
+  },
+  "R74": {
+   "file": "project-slice-boundaries.md",
+   "rule": "Frontend platform/ and ui/ code must never import from modules/ or app/."
+  },
+  "R75": {
+   "file": "project-slice-boundaries.md",
+   "rule": "Frontend module code must not import another module or anything from app/."
+  },
+  "R76": {
+   "file": "project-slice-boundaries.md",
+   "rule": "Place a module's HTTP handlers in files named internal/<module>/http*.go."
+  },
+  "R77": {
+   "file": "project-slice-boundaries.md",
+   "rule": "When a module needs more from the shell, add a field to core.Services instead of importing the shell from the module."
+  },
+  "R78": {
+   "file": "project-slice-boundaries.md",
+   "rule": "Register each module route behind a.authed or a.member in the shell."
+  }
+ },
+ "Augmented-Design-Capability-Studio__mopt-bot": {
+  "R1": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, when run feedback or stated objectives motivate a new goal-term assumption, add the assumption rows to problem_brief_patch in the same turn the idea is surfaced."
+  },
+  "R2": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, frame assumption additions in past tense (e.g., \"I've added X (weight N)…\")."
+  },
+  "R3": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, after adding assumptions, tell the user they can approve, reject, retune in Definition, or just hit Run."
+  },
+  "R4": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, never propose adding an assumption and ask permission before adding it (e.g., \"shall I?\")."
+  },
+  "R5": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, never say \"If you agree, I'll add Y next.\" or otherwise defer adding an assumption until the user confirms."
+  },
+  "R6": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In agile workflow, never add an assumption only in a later turn after the user replies with confirmation such as \"sure!\"."
+  },
+  "R7": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "When editing agile prompt sections, use strong language such as \"SHOULD\" rather than \"MAY\"."
+  },
+  "R8": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "When editing agile prompt sections, explicitly call out anti-patterns."
+  },
+  "R9": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "When editing agile prompt sections, use fait accompli phrasing in the example visible-reply lines."
+  },
+  "R10": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "In waterfall workflow, ask the user before adding assumptions."
+  },
+  "R11": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "Set a brief row's kind to \"assumption\" and source to \"agent\" when the agent originated the requirement on its own (proactive additions with no user prompt)."
+  },
+  "R12": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "Set a brief row's source to \"user\" (or \"upload\") when the user originated the requirement, including uploaded data."
+  },
+  "R13": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "Keep a user-originated brief row as kind \"gathered\" even when the agent fills in a default weight, threshold, or sub-property."
+  },
+  "R14": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "Do not use the verbatim phrasing of the user's request as the test for a brief row's kind or source."
+  },
+  "R15": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "When editing those prompts, keep the explicit \"ORIGIN not phrasing\" framing."
+  },
+  "R16": {
+   "file": "feedback_agile_proactive_assumptions.md",
+   "rule": "When editing those prompts, do not introduce per-keyword tests on the user's text; decide provenance by who initiated the requirement."
+  },
+  "R17": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "When asked to extend what the participant chatbot can discuss, put the new knowledge in the docs knowledge base rather than the system prompt by default."
+  },
+  "R18": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Write domain-neutral chatbot knowledge as H2/H3 sections in docs/user/*.md."
+  },
+  "R19": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Write per-benchmark chatbot knowledge as H2/H3 sections in {problem_id}_problem/docs/user/*.md."
+  },
+  "R20": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Keep each docs section to at most 100 body words, since longer excerpts are truncated mid-thought."
+  },
+  "R21": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Avoid denylist terms (w1–w7, \"weight aliases\") in docs sections, because sections containing them are silently dropped from the index."
+  },
+  "R22": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Use the participant's own vocabulary in docs sections so retrieval finds them."
+  },
+  "R23": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "When a docs section uses the term \"importance levels\", also include the participant's word \"weight(s)\" once or twice."
+  },
+  "R24": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "In study_chat.py, keep only a pointer of at most 6 lines telling the LLM to consult the matching reference excerpts for the relevant query."
+  },
+  "R25": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Have the chatbot present itself as an optimization programmer who programs the problem modules on the fly for the user's specific problem."
+  },
+  "R26": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not break the optimization-programmer persona framing."
+  },
+  "R27": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not talk like a developer using unexplained technical jargon, even though the persona is a programmer."
+  },
+  "R28": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Explain any technical term inline when it is used."
+  },
+  "R29": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Say \"importance levels\" instead of \"weights\" when speaking to the participant."
+  },
+  "R30": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Say \"rules or limits\" instead of \"constraints\" when speaking to the participant."
+  },
+  "R31": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Say \"search approach\" instead of \"algorithm\" when speaking to the participant."
+  },
+  "R32": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not surface internal keys to the participant."
+  },
+  "R33": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not surface benchmark identity to the participant."
+  },
+  "R34": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not surface numeric defaults the participant has not seen yet."
+  },
+  "R35": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not bypass cold-state masking (surface_problem_brief_for_chat_prompt and the temperature gate on per-module docs)."
+  },
+  "R36": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Describing codified heuristics as rules to a participant is allowed, since it is honest and not fabrication."
+  },
+  "R37": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Do not treat the absence of a Python formula as the absence of a mechanism when the LLM is meant to be the rule."
+  },
+  "R38": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "Never invent mechanics that contradict the actual code."
+  },
+  "R39": {
+   "file": "feedback_chatbot_knowledge_base.md",
+   "rule": "When the real mechanics are not what a participant might expect, describe the actual implementation in plain language."
+  },
+  "R40": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "To opt a port into companion goal term handling, implement gate_conditional_companions() returning a mapping from parent key to companion field."
+  },
+  "R41": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "When the user vaguely mentions a companion rule, ask a clarifying question instead of creating an empty companion goal term."
+  },
+  "R42": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "When a concrete child rule was given but the LLM fails to populate the carrier on a claim turn, keep the parent term with an open question and never silently drop it."
+  },
+  "R43": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Structure plain-language companion rules typed in chat or the definition panel with the LLM, not with regex."
+  },
+  "R44": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "When a companion over-claim check fails after retries, defer gracefully to the open-question floor and never pause the run."
+  },
+  "R45": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Do not rely on prompt nudges to make the agent populate list companion carriers; use the deterministic extractor instead."
+  },
+  "R46": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Structure definition-edit companion rules deterministically at save time, not in a follow-up chat turn."
+  },
+  "R47": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Use the port's goal_term_rationales as the text of synthesized companion rows, not the agent's ambiguity_note narration."
+  },
+  "R48": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "When a parent goal term is removed, drop its companion child carrier."
+  },
+  "R49": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Key all companion pruning layers to the same gate_conditional_companions map, without per-term special cases."
+  },
+  "R50": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "Show an empty parent companion term only when a child rule was actually given."
+  },
+  "R51": {
+   "file": "feedback_companion_goal_term_pattern.md",
+   "rule": "If the companion extraction call returns None, leave the brief untouched."
+  },
+  "R52": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "The analyzer's formulation-quality score must count only the briefed canonical terms, not every active goal term."
+  },
+  "R53": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Compute `coverage` as the number of active canonical terms only."
+  },
+  "R54": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Compute `formulation_score` as coverage + hard_bonus + objective_bonus."
+  },
+  "R55": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Keep `captured_terms` as the full set of active terms, including un-briefed terms."
+  },
+  "R56": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Use `captured_terms` to drive the per-term timing chart, not the formulation score."
+  },
+  "R57": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Do not add idle-wait scoring fields to the port."
+  },
+  "R58": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Treat backend/analysis/notebooks/browser_cells.py as the source of truth for the notebook."
+  },
+  "R59": {
+   "file": "feedback_coverage_canonical_only.md",
+   "rule": "Keep the seed cells in PyodideNotebook.tsx roughly in sync with browser_cells.py."
+  },
+  "R60": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "When a change affects app workflow, architecture, or repository layout, update AI_INSTRUCTIONS.md and README.md in the same task."
+  },
+  "R61": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Keep documentation edits short and scoped."
+  },
+  "R62": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Pure typo or comment fixes may skip the documentation sync."
+  },
+  "R63": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Import the Gemini SDK as `from google import genai` and use `genai.Client` in Gemini/LLM code."
+  },
+  "R64": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "For conversational Gemini flows, prefer the Chat API (client.chats.create and chat.send_message)."
+  },
+  "R65": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Any Gemini/LLM code must use the google-genai package."
+  },
+  "R66": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Never add google-generativeai as a dependency."
+  },
+  "R67": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Put new or changed LLM system prompts, instruction blocks, and reusable agent text in backend/app/prompts/."
+  },
+  "R68": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Do not place long prompt strings in router or service files; import prompts from app.prompts instead."
+  },
+  "R69": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Run all Python commands (run, test, install) using the repo venv at venv/."
+  },
+  "R70": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Do not use system or global python or pip when working in this repo."
+  },
+  "R71": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "On Windows, invoke Python, pip, and pytest via .\\venv\\Scripts\\python.exe, .\\venv\\Scripts\\pip.exe, and .\\venv\\Scripts\\pytest.exe."
+  },
+  "R72": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "On Unix, invoke Python and pip via venv/bin/python and venv/bin/pip."
+  },
+  "R73": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "If venv/ is missing, tell the user to create it before running Python commands."
+  },
+  "R74": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Keep session.workflow_mode a first-class input rather than ignoring or hardcoding it."
+  },
+  "R75": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "Never collapse the agile and waterfall workflow modes into one generic behavior unless the user explicitly asks."
+  },
+  "R76": {
+   "file": "feedback_cursor_rules.md",
+   "rule": "If a change affects workflow semantics, update README.md and AI_INSTRUCTIONS.md."
+  },
+  "R77": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "When rendering the canonical search-strategy OQ (`oq-monitor-algorithm`) or the agile/demo assumption row (`item-monitor-algorithm-default`), list algorithms via the active port's `supported_algorithm_names()` hook."
+  },
+  "R78": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "Render the algorithm list in the search-strategy OQ and the agile/demo assumption row through `app.algorithm_catalog.format_algorithm_choices_phrase()`."
+  },
+  "R79": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "Treat the first algorithm returned by the port's `supported_algorithm_names()` as the agile default that the assumption row names."
+  },
+  "R80": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "Do not hardcode algorithm acronyms or nicknames in monitor-row text, system prompts, or schemas."
+  },
+  "R81": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "Take algorithm nicknames from `algorithm_catalog.ALGORITHM_PARTICIPANT_NICKNAMES_MAP`."
+  },
+  "R82": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "Call optional port hooks through a `getattr(port, \"...\", None)` fallback, because concrete ports do not inherit default methods from `StudyProblemPort`."
+  },
+  "R83": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "When a port wants to restrict algorithm choices, override `supported_algorithm_names()` to return a subset of `CANONICAL_ALGORITHM_NAMES`."
+  },
+  "R84": {
+   "file": "feedback_dynamic_algorithm_oq.md",
+   "rule": "When overriding `supported_algorithm_names()`, put the agile default algorithm first in the returned list."
+  },
+  "R85": {
+   "file": "feedback_lock_two_stores_reconcile.md",
+   "rule": "When the brief-vs-panel lock drift check flags a mismatch, fix the missing aligner rather than weakening or disabling the drift check."
+  },
+  "R86": {
+   "file": "feedback_lock_two_stores_reconcile.md",
+   "rule": "Call `sync.realign_brief_locks_from_panel` in the S5 `derive_config` block, next to `realign_panel_scalars_from_brief`."
+  },
+  "R87": {
+   "file": "feedback_lock_two_stores_reconcile.md",
+   "rule": "When realigning brief locks from the panel, set `goal_terms[key].locked` to True for keys in the panel's locked set and remove the key for all other terms."
+  },
+  "R88": {
+   "file": "feedback_lock_two_stores_reconcile.md",
+   "rule": "When the panel `problem.locked_goal_terms` list and the brief `goal_terms[key].locked` flag disagree about a goal term's lock, treat the panel list as the source of truth."
+  },
+  "R89": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "When the same kind of bug reappears after a prompt-only fix, treat it as evidence the architecture is wrong rather than adding more prompt text."
+  },
+  "R90": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "When multiple components can write the same state, decide which component owns it and make the others structurally unable to write it (via schema constraint, pre-merge strip, or deterministic-only flow)."
+  },
+  "R91": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Fix state-consistency problems by adding a structural gate (a required enum field, typed channel, transactional read snapshot, or similar) rather than relying on prompt instructions."
+  },
+  "R92": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Make optional discriminator fields required (e.g. an enum that includes an \"other\" value) so the LLM cannot abstain and let untagged content slip past dedup."
+  },
+  "R93": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Strip or coerce LLM-emitted state at the merge boundary when an authoritative server-side path owns the same field."
+  },
+  "R94": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Skip diagnostics during in-flight pipeline windows (e.g. when `processing.*_status == \"pending\"`) instead of teaching the LLM to fix phantom-state-induced false positives."
+  },
+  "R95": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Before adding any new prompt block, ask whether a state-ownership problem could be solved more reliably by a schema constraint or server strip, and if so, do that instead."
+  },
+  "R96": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Aim to make the prompt shorter after most bug fixes rather than longer."
+  },
+  "R97": {
+   "file": "feedback_no_prompt_bandages.md",
+   "rule": "Trust structure over free-form text rules when designing agent behavior for participant input."
+  },
+  "R98": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "Do not use regex or keyword/substring matching to parse, classify, or route natural-language interaction input (chat input, brief prose, free-form rationale)."
+  },
+  "R99": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "When parsing natural-language input, prefer structured LLM output: extend the response JSON schema or prompt contract so the model emits typed JSON, then operate on that JSON in code."
+  },
+  "R100": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "When adding a new field that travels from chat to the backend, add it to the LLM response schema rather than to a parser."
+  },
+  "R101": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "When mapping prose to structured fields, extend the prompt with a worked example and the schema; do not write a regex."
+  },
+  "R102": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "Do not use keyword/substring detection of user intent unless the input is known-structured (such as a stable id or system-emitted sentinel)."
+  },
+  "R103": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "For id-based dispatch, use str.split, equality, or str.startswith; never use re.compile."
+  },
+  "R104": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "Use regex only for tokenizing known-machine-formatted strings such as timestamps, version strings, or structured ids the system itself emits."
+  },
+  "R105": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "For any input that came from a human typing free text, use structured LLM output instead of regex."
+  },
+  "R106": {
+   "file": "feedback_no_regex_for_nl.md",
+   "rule": "When refactoring, prefer deleting regex or keyword matchers over patching them."
+  },
+  "R107": {
+   "file": "feedback_oq_answer_anchors_goal_term.md",
+   "rule": "When a participant answers an OQ in a turn and the same patch commits that OQ's goal_key, treat that key as anchored in filter_unanchored_new_goal_terms (answered_oq_keys) rather than premature-dropping it via pending_oq_keys."
+  },
+  "R108": {
+   "file": "feedback_oq_answer_anchors_goal_term.md",
+   "rule": "To distinguish a premature ask from an answer-and-commit, check whether the current turn's oq_actions resolve the OQ."
+  },
+  "R109": {
+   "file": "feedback_oq_answer_anchors_goal_term.md",
+   "rule": "Pass the turn's oq_actions into apply_brief_patch_with_cleanup, compute answered_oq_keys from resolved OQs' goal_keys, and pass them to the filter so they take precedence over pending_oq_keys."
+  },
+  "R110": {
+   "file": "feedback_oq_answer_anchors_goal_term.md",
+   "rule": "Ensure OQ-lifecycle decisions and goal-term-anchoring decisions within one turn are consistent with each other."
+  },
+  "R111": {
+   "file": "feedback_panel_authoritative_for_algorithm.md",
+   "rule": "Never apply a single global \"X always wins\" rule to algorithm conflicts; the winning source is the surface the user edited, enforced by whichever sync function that endpoint calls."
+  },
+  "R112": {
+   "file": "feedback_panel_authoritative_for_algorithm.md",
+   "rule": "When syncing from the config panel, only update an existing brief carrier; never create a new carrier from a panel default."
+  },
+  "R113": {
+   "file": "feedback_panel_authoritative_for_algorithm.md",
+   "rule": "Do not fabricate a search-strategy carrier from a panel default value."
+  },
+  "R114": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, lead with plain natural language that describes behavior in everyday terms rather than code identifiers."
+  },
+  "R115": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, do not present a dense wall of code identifiers."
+  },
+  "R116": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "When explaining a bug diagnosis, plan, or design trade-off to the user, put the plain-English account first."
+  },
+  "R117": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "Keep exact function and variable names in plan implementation sections and code, where precision is required."
+  },
+  "R118": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "Place exact technical identifiers in a clearly separate \"technical detail\" follow-up rather than in the main explanation."
+  },
+  "R119": {
+   "file": "feedback_plain_language_explanations.md",
+   "rule": "When explaining to the user in plain language, include at most one representative code identifier inline; do not include a paragraph of identifiers."
+  },
+  "R120": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Keep the main backend (backend/app/...) problem-agnostic; do not add problem-specific code there."
+  },
+  "R121": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Place anything that mentions or hardcodes problem-specific details in the matching *_problem/ package, surfaced through StudyProblemPort hooks, not in the main backend."
+  },
+  "R122": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Put prompt text or examples that name problem-specific terms in the port's study_prompts.py, surfaced via StudyProblemPort.study_prompt_appendix() or domain-specific addenda, not in the main backend."
+  },
+  "R123": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Do not put self-anchor or evidence checks keyed on problem-specific properties in the main backend; route them through a port hook."
+  },
+  "R124": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Do not put field-mirroring rules between goal_terms properties and top-level panel fields in the main backend; implement them as a port hook returning the mapping."
+  },
+  "R125": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Define managed-field lists, locked-companion fields, and brief-item-slot keying through port hooks, not in the main backend."
+  },
+  "R126": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Put validators, normalizers, and sanitizers for problem-specific data shapes in a helper module inside the port package, called via a port method."
+  },
+  "R127": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Format run-context violation names through a port method, not in the main backend."
+  },
+  "R128": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Place tests that exercise problem-specific paths in the *_problem/tests/ directory; reserve backend/tests/ for backend-pipeline coverage using neutral fixtures."
+  },
+  "R129": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "Do not place LLM-based safety nets or extractors that refill problem-specific structured carriers in the main backend; keep the entire LLM call in the port package."
+  },
+  "R130": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "In the main backend, only orchestrate port safety-net hooks: call the hook, merge the returned brief, and log on exceptions."
+  },
+  "R131": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "When editing or reviewing code in backend/app/, grep for problem-specific tokens; if any exist, move them behind a port hook before making the change."
+  },
+  "R132": {
+   "file": "feedback_problem_module_isolation.md",
+   "rule": "When adding a new check or validator that references one problem's vocabulary, route it through a port hook from the start, even if it seems generic."
+  },
+  "R133": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Load chat prompt guidance based on the turn state the server already tracks (the is_* flags, cold/warm/hot, and workflow_mode)."
+  },
+  "R134": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Do not select chat prompt guidance by parsing user_text."
+  },
+  "R135": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Use both prompt compression (for accuracy) and context caching of static blocks (for cost and latency)."
+  },
+  "R136": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Do not duplicate brief facts into static prompt prose."
+  },
+  "R137": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Keep or strengthen deterministic verification and structural gates for ownership, precedence, and invariants instead of relying on the LLM for logic."
+  },
+  "R138": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Rely on the LLM for the visible reply and prose synthesis."
+  },
+  "R139": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Preserve every behavioral rule when compressing the prompt, unless a deterministic gate now owns that rule."
+  },
+  "R140": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Keep agile and waterfall handling symmetric, except for the 4 canonical axes."
+  },
+  "R141": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Do not damage the tutorial flow when reducing the prompt."
+  },
+  "R142": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Keep tutorial guardrails loaded on every tutorial turn."
+  },
+  "R143": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Keep the chat flow predictable in both agile and waterfall modes."
+  },
+  "R144": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Keep the reply and the patch in a single main-turn call; do not split reply-first."
+  },
+  "R145": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Compress prompt blocks in place, keeping every rule."
+  },
+  "R146": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Update the word-budget snapshot in test_main_turn_prompt_assembly.py after reducing the prompt."
+  },
+  "R147": {
+   "file": "feedback_prompt_reduction_principles.md",
+   "rule": "Run the live_gemini tests after reducing the prompt to confirm behavior held."
+  },
+  "R148": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "Apply a researcher steer once, in the upcoming agent reply, and do not re-raise it in later replies unless the researcher sends it again."
+  },
+  "R149": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "When loading researcher steers into turn context, surface only steers whose message id is newer than the agent's last real reply."
+  },
+  "R150": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "When determining the agent's last real reply for steer filtering, anchor only on assistant rows with kind == \"chat\", not on any assistant row."
+  },
+  "R151": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "Do not let conservative standing defaults override a researcher steer."
+  },
+  "R152": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "The researcher steer block must explicitly state that the steer outranks the agent's proactivity defaults, including topics treated as \"handled for you\", while still forbidding fact-invention."
+  },
+  "R153": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "Place the researcher steer block as the final block of the full main-turn system prompt."
+  },
+  "R154": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "The researcher steer block must not take a workflow mode argument; it must remain workflow-agnostic."
+  },
+  "R155": {
+   "file": "feedback_researcher_steer_one_shot.md",
+   "rule": "When reconstructing researcher steers on resume-from-pause, anchor on the triggering user message so the paused turn's placeholder reply does not count as applied."
+  },
+  "R156": {
+   "file": "feedback_reuse_existing_shapes.md",
+   "rule": "When extending a data layer, prefer reusing the existing nested shape (such as `goal_terms[key].properties`) over inventing a new parallel container."
+  },
+  "R157": {
+   "file": "feedback_reuse_existing_shapes.md",
+   "rule": "Before introducing a new top-level field or wrapper for cross-layer data, search for the canonical shape on the side of the system that already stores it."
+  },
+  "R158": {
+   "file": "feedback_reuse_existing_shapes.md",
+   "rule": "When a nested location already exists and round-trip helpers operate on it, extend the brief or LLM patch schema to carry that same nested shape."
+  },
+  "R159": {
+   "file": "feedback_reuse_existing_shapes.md",
+   "rule": "Introduce a new top-level wrapper only when the existing shape genuinely doesn't fit the data."
+  },
+  "R160": {
+   "file": "feedback_reuse_existing_shapes.md",
+   "rule": "Do not introduce a new top-level wrapper for ergonomics or naming preferences."
+  },
+  "R161": {
+   "file": "feedback_run_error_detail_split.md",
+   "rule": "Never expose the researcher-only `error_detail` field to participants."
+  },
+  "R162": {
+   "file": "feedback_run_error_detail_split.md",
+   "rule": "When adding a failure path, keep `error_message` participant-safe (clean and generic)."
+  },
+  "R163": {
+   "file": "feedback_run_error_detail_split.md",
+   "rule": "When adding a failure path, set `error_detail` to the real cause of the failure."
+  },
+  "R164": {
+   "file": "feedback_run_error_detail_split.md",
+   "rule": "When reading a nullable config field from a parser, coerce it with an explicit None check (use the default if the value is None) instead of relying on `.get(k, default)`."
+  },
+  "R165": {
+   "file": "feedback_run_never_crashes_on_tuning_knob.md",
+   "rule": "In `parse_problem_config` (in both the vrptw and knapsack study_bridge.py files), do not raise an error on out-of-range `early_stop_patience` or `early_stop_epsilon`; clamp the value into range or fall back to the default instead."
+  },
+  "R166": {
+   "file": "feedback_run_never_crashes_on_tuning_knob.md",
+   "rule": "The backend validation of `early_stop_patience` must clamp values identically to the Config UI, not be stricter than it."
+  },
+  "R167": {
+   "file": "feedback_run_never_crashes_on_tuning_knob.md",
+   "rule": "Apply knob-validation fixes to both the vrptw and knapsack ports symmetrically, so both behave the same way."
+  },
+  "R168": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "For a search-strategy or solver knob to be changeable from chat, it must be present in the carrier schema, the forward carrier-to-panel mirror, the reverse panel-to-carrier mirror, and the prompt."
+  },
+  "R169": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Include a search-strategy or solver knob in the carrier schema VRPTW_GOAL_TERM_PROPERTIES_SCHEMA."
+  },
+  "R170": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Include a search-strategy or solver knob in the forward carrier-to-panel mirror, sync.py sync_panel_from_problem_brief."
+  },
+  "R171": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Include a search-strategy or solver knob in the reverse panel-to-carrier mirror, problem_brief.py sync_problem_brief_from_panel."
+  },
+  "R172": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Include a search-strategy or solver knob in the prompt STUDY_CHAT_SEARCH_STRATEGY_ANCHORING."
+  },
+  "R173": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "When gating a boolean knob in the forward mirror, check isinstance(x, bool) rather than truthiness, so that false is preserved as a meaningful value."
+  },
+  "R174": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Implement both the forward and the reverse mirror for a knob, never only one."
+  },
+  "R175": {
+   "file": "feedback_solver_knob_carrier_gap.md",
+   "rule": "Fix a knob that is unreachable from chat with a structural writer, not with a prompt bandage."
+  },
+  "R176": {
+   "file": "feedback_structured_carrier_same_turn.md",
+   "rule": "When a visible reply introduces a rule whose goal_terms entry has a properties sub-schema, populate the structured carrier in that same turn, not in a later one."
+  },
+  "R177": {
+   "file": "feedback_structured_carrier_same_turn.md",
+   "rule": "Do not rely solely on a prose items[] row to represent a rule whose goal_terms entry has a properties sub-schema."
+  },
+  "R178": {
+   "file": "feedback_structured_carrier_same_turn.md",
+   "rule": "Never treat a prose items[] row as a substitute for the structured goal-term carrier."
+  },
+  "R179": {
+   "file": "feedback_structured_carrier_same_turn.md",
+   "rule": "When adding a new goal-term key with a properties sub-schema for a port, document the carrier path in that port's study_prompts.py."
+  },
+  "R180": {
+   "file": "feedback_structured_carrier_same_turn.md",
+   "rule": "When adding a new goal-term key with a properties sub-schema for a port, reinforce same-turn emission of the structured carrier."
+  },
+  "R181": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Do not add many trivial tests."
+  },
+  "R182": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Write one focused test per behavior, covering surprising cases and skipping obvious ones."
+  },
+  "R183": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "When refactoring, prefer deleting redundant tests over keeping them around just in case."
+  },
+  "R184": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Before adding a test, check whether another test already pins that behavior; if so, do not add it."
+  },
+  "R185": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "When refactoring, audit existing tests for ones that are now redundant or test deleted behavior, and delete them in the same change."
+  },
+  "R186": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Skip tests that are pure tautologies of the implementation."
+  },
+  "R187": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Prefer one end-to-end test that exercises the integration over many tiny mocked-out unit tests for the same path."
+  },
+  "R188": {
+   "file": "feedback_test_minimalism.md",
+   "rule": "Merge similar test cases via parametrize when they share scaffolding."
+  },
+  "R189": {
+   "file": "feedback_weight_defaults_displaceable.md",
+   "rule": "When editing weight guidance in `*/study_prompts.py`, never write relational ratio priors such as \"keep X ≥ N× Y\" or \"X stronger than Y\"."
+  },
+  "R190": {
+   "file": "feedback_weight_defaults_displaceable.md",
+   "rule": "When two goal terms co-exist with no relative emphasis stated by the user, seed comparable weights and let the run-feedback loop set their balance."
+  },
+  "R191": {
+   "file": "feedback_weight_defaults_displaceable.md",
+   "rule": "Keep single-value cold-start weight seeds (for a named but unquantified concept) in prompt defaults."
+  },
+  "R192": {
+   "file": "feedback_weight_defaults_displaceable.md",
+   "rule": "When introducing a new goal term, don't quote a starting weight number for it; name its role instead."
+  },
+  "R193": {
+   "file": "feedback_weight_defaults_displaceable.md",
+   "rule": "Remove or demote cross-term relational priors (trade-off rates the user never stated) from prompt weight guidance."
+  },
+  "R194": {
+   "file": "project_architecture.md",
+   "rule": "Treat participant edits, additions, removals, promotions, and clean-up of Definition-tab brief entries as valid direct changes to the problem brief."
+  },
+  "R195": {
+   "file": "project_architecture.md",
+   "rule": "Do not import the internals of domain packages from the backend; interact with them only through the port interface."
+  },
+  "R196": {
+   "file": "project_architecture.md",
+   "rule": "Never import `*_problem/` package internals from the backend or generic frontend; access domain code only via `get_study_port()` or `getProblemModule(id)`."
+  },
+  "R197": {
+   "file": "project_architecture.md",
+   "rule": "The only permitted exception to the rule against importing problem internals from the frontend is `frontend/src/client/problemRegistry.ts`."
+  },
+  "R198": {
+   "file": "project_architecture.md",
+   "rule": "Make modularity changes within a problem package (prompts, panel schema, frontend module, weights) freely."
+  },
+  "R199": {
+   "file": "project_architecture.md",
+   "rule": "Do not change a problem package's solver, evaluator, or instance data without maintainer approval."
+  },
+  "R200": {
+   "file": "project_architecture.md",
+   "rule": "Preserve the chat fast path: send the visible reply first and run brief/config derivation in the background."
+  },
+  "R201": {
+   "file": "project_architecture.md",
+   "rule": "Do not write config directly; always derive config from the problem brief."
+  },
+  "R202": {
+   "file": "project_architecture.md",
+   "rule": "Keep workflow mode as a first-class session variable and do not collapse it into a single behavior."
+  },
+  "R203": {
+   "file": "project_architecture.md",
+   "rule": "When deriving config from the brief, read only goal_terms verbatim and structurally-tagged config-* items; do not use regex or keyword parsing of text."
+  },
+  "R204": {
+   "file": "project_coding_backups.md",
+   "rule": "auto_backup must never raise an exception, so that a backup failure does not block the destructive action it guards."
+  },
+  "R205": {
+   "file": "project_irb_constraints.md",
+   "rule": "Do not propose adding a post-session debrief step back to the study design."
+  },
+  "R206": {
+   "file": "project_irb_constraints.md",
+   "rule": "When editing docs/.study_plan/*.md, do not add deception or disclosure-trace language to the document."
+  },
+  "R207": {
+   "file": "project_irb_constraints.md",
+   "rule": "When editing docs/.study_plan/*.md, do not propose a post-session debrief."
+  },
+  "R208": {
+   "file": "project_irb_constraints.md",
+   "rule": "When updating agent prompts, the agent may use first-person authorship claims (e.g., \"I set up…\") in its default voice, but must remain candid about template constraints when asked directly."
+  },
+  "R209": {
+   "file": "project_irb_constraints.md",
+   "rule": "When a participant asks directly about template constraints, the agent must be candid about them."
+  },
+  "R210": {
+   "file": "project_irb_constraints.md",
+   "rule": "When a participant probes further (e.g., asks to change a visualization), the agent must state candidly that the visual layer is built from a template configured for the scenario."
+  },
+  "R211": {
+   "file": "project_irb_constraints.md",
+   "rule": "In participant-facing default voice, do not use the word \"template\"; use it only when a participant asks."
+  },
+  "R212": {
+   "file": "project_overview.md",
+   "rule": "When suggesting changes to the MOPT project, always consider study integrity."
+  },
+  "R213": {
+   "file": "project_overview.md",
+   "rule": "When suggesting changes to the MOPT project, do not accidentally collapse the differences between Agile and Waterfall workflow modes."
+  },
+  "R214": {
+   "file": "project_overview.md",
+   "rule": "When suggesting changes to the MOPT project, do not expose the underlying problem domain (VRPTW or knapsack) to the participant-facing side."
+  },
+  "R215": {
+   "file": "project_overview.md",
+   "rule": "Do not use the deprecated google-generativeai SDK for Gemini calls; use the google-genai SDK instead."
+  },
+  "R216": {
+   "file": "project_pretask_predictors.md",
+   "rule": "When analyzing the warm-up quiz's relationship to study outcomes, always control for workflow mode."
+  },
+  "R217": {
+   "file": "project_pretask_predictors.md",
+   "rule": "When reporting pre-task predictors of formulation quality, report the warm-up quiz score alone, not as a composite combined with goal-description tags."
+  },
+  "R218": {
+   "file": "project_pretask_predictors.md",
+   "rule": "Keep the goal-description tags descriptive only; do not use them as predictors of outcomes."
+  },
+  "R219": {
+   "file": "project_ranking_asymmetry.md",
+   "rule": "Use the structural check (relative order of common goal terms changed between consecutive panel snapshots, excluding add/remove renumbering) as the paper's definition of a ranking reorder, rather than the manual coding tag check."
+  },
+  "R220": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "When adding a new coding mutation edit path, update both the front-end blockedByLock() chokepoint in useAnalysisController and the backend _require_unlocked(loaded) backstop."
+  },
+  "R221": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "Do not merge origin or transparency into the effect facet of the coding taxonomy, because that would duplicate origin and multiply combinations."
+  },
+  "R222": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "Do not add a new origin value for ask-vs-assume; read ask-vs-assume from the trajectory of mentioned/open-question and applied tags."
+  },
+  "R223": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "When running the LLM tagging pass, use at least a Flash-tier model; do not use flash-lite, which under-tags badly."
+  },
+  "R224": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "Take the displayed verified config from the next turn's pre_turn_state, never from a v2_turn_snapshot."
+  },
+  "R225": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "When renaming a stored annotation value, do not keep a legacy alias; add an idempotent startup migration that rewrites stored annotation JSON and caches instead."
+  },
+  "R226": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "Never assign the feasibility-fix reason on its own; only append it as a qualifier to a causal reason."
+  },
+  "R227": {
+   "file": "project_session_coding_scheme.md",
+   "rule": "Do not treat a soft-to-custom or custom-to-soft type change as a semantic term-type-change reason; attribute it to weight-rebalance."
+  },
+  "R228": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "Gate the tutorial suppression logic on `is_tutorial_active`, and enforce it deterministically in code rather than through prompt instructions."
+  },
+  "R229": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "While the tutorial is active, keep only server-owned open questions: canonical monitors (`oq-monitor-*`) and structural companion asks (`auto-oq-companion-*`)."
+  },
+  "R230": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "While the tutorial is active, strip freeform LLM clarification open questions on every pass."
+  },
+  "R231": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "While the tutorial is active, do not emit the plateau intervention (`oq-monitor-plateau`) in either mode."
+  },
+  "R232": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "For tutorial Runs 1 and 2, relax the run-ack invariant so the bubble flow is not blocked by a freshly raised open question or assumption."
+  },
+  "R233": {
+   "file": "project_tutorial_cleanliness.md",
+   "rule": "While the tutorial is active, keep the foundational monitor open questions (upload, primary_goal, search_strategy)."
+  },
+  "R234": {
+   "file": "project_workflow_axes.md",
+   "rule": "Keep every behavior, rule, or code path that is not one of the four workflow axes symmetric between agile and waterfall modes."
+  },
+  "R235": {
+   "file": "project_workflow_axes.md",
+   "rule": "When auditing prompts or code, move a mode-specific rule that is not one of the four axes into a shared block."
+  },
+  "R236": {
+   "file": "project_workflow_axes.md",
+   "rule": "When auditing prompts or code, extract a rule that is identical in both modes into the shared layer."
+  },
+  "R237": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, use open questions as the primary elicitation mechanism."
+  },
+  "R238": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, keep at most 3 active open questions."
+  },
+  "R239": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, ask open questions in the phase order: scope, then trade-offs, then algorithm."
+  },
+  "R240": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, add at most one open question per turn."
+  },
+  "R241": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, ask open questions sparingly, only for uploads or true must-choose forks."
+  },
+  "R242": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, it is acceptable to have zero open questions."
+  },
+  "R243": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, do not create brief rows with kind \"assumption\"."
+  },
+  "R244": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, place provisional content in open_questions."
+  },
+  "R245": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, add provisional content to gathered only after explicit user confirmation."
+  },
+  "R246": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, use assumptions as the default way to fill gaps."
+  },
+  "R247": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, commit an assumption in the same turn, citing evidence_item_ids."
+  },
+  "R248": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, add at most one new assumption per turn and keep roughly 3–5 active."
+  },
+  "R249": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, promote an assumption to gathered only on explicit user confirmation."
+  },
+  "R250": {
+   "file": "project_workflow_axes.md",
+   "rule": "In waterfall mode, ask about the search strategy via an open question and never set it silently."
+  },
+  "R251": {
+   "file": "project_workflow_axes.md",
+   "rule": "In agile mode, commit the algorithm in the same turn as an assumption items row that names the algorithm."
+  },
+  "R252": {
+   "file": "project_workflow_axes.md",
+   "rule": "Record a user-stated fact as gathered in both modes, committing it in the same turn."
+  },
+  "R253": {
+   "file": "project_workflow_axes.md",
+   "rule": "Apply the confirm-before-gathered gate only to agent-proposed content, never to user-stated facts."
+  },
+  "R254": {
+   "file": "project_workflow_axes.md",
+   "rule": "Do not defer a user-stated goal into an open question."
+  },
+  "R255": {
+   "file": "project_workflow_axes.md",
+   "rule": "On concept-only turns, emit a null problem_brief_patch."
+  },
+  "R256": {
+   "file": "project_workflow_axes.md",
+   "rule": "Do not add brief items that describe the agent's role or capabilities."
+  },
+  "R257": {
+   "file": "project_workflow_axes.md",
+   "rule": "When acting on the run-gate status block, ask in waterfall mode and commit in agile mode."
+  },
+  "R258": {
+   "file": "project_workflow_axes.md",
+   "rule": "After a run in waterfall mode, add an open question on the run-ack turn."
+  },
+  "R259": {
+   "file": "project_workflow_axes.md",
+   "rule": "After a run in agile mode, add or update an assumption row on the run-ack turn."
+  },
+  "R260": {
+   "file": "project_workflow_axes.md",
+   "rule": "In after-run replies, relate the results to the user's stated goals."
+  },
+  "R261": {
+   "file": "project_workflow_axes.md",
+   "rule": "In after-run replies, offer at most 2 config-linked refinements."
+  },
+  "R262": {
+   "file": "project_workflow_axes.md",
+   "rule": "In after-run replies, lead with operational impact."
+  },
+  "R263": {
+   "file": "project_workflow_axes.md",
+   "rule": "Determine provenance by where content originated, not by how it is phrased."
+  },
+  "R264": {
+   "file": "project_workflow_axes.md",
+   "rule": "In demo mode, never explain agile vs waterfall to participants."
+  },
+  "R265": {
+   "file": "project_workflow_axes.md",
+   "rule": "In demo mode, handle open questions like waterfall mode without a cap."
+  },
+  "R266": {
+   "file": "project_workflow_axes.md",
+   "rule": "Keep the plateau intervention symmetric across agile and waterfall modes."
+  },
+  "R267": {
+   "file": "project_workflow_axes.md",
+   "rule": "Do not add mode-specific code paths or prompt rules for anything other than the four workflow axes."
+  },
+  "R268": {
+   "file": "project_workflow_axes.md",
+   "rule": "When adding a mode-specific code path or prompt rule for one of the four axes, document which axis it implements."
+  }
+ }
+}

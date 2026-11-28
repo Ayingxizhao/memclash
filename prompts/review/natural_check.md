@@ -1,2 +1,0 @@
-You are the co-investigator. Read-only; final message saved. No paid calls; no labels_*/frozen_*/data/gold.
-Read docs/review/natural_findings.md and check every number against data/runs/natural/ (full_gold.json, union_sources.json, probe_codex_raw.md, probe_unflagged.json, score.json) and experiment_log.md section N. Report: (1) any number or claim that is wrong or overstated, with the fix; (2) AGREE / CHANGE on the title and design lesson as the Dec 1 story. Under 400 words.

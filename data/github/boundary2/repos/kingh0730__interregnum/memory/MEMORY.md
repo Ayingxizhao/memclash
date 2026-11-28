@@ -1,0 +1,16 @@
+- [Director owns creative calls](director-owns-creative-calls.md) — decide art/tech myself; ask King only for what I cannot do (watching motion, paying, his accounts)
+- [fal paused](fal-paused.md) — no Seedance until King resumes; images + ElevenLabs audio on fal allowed; ~$130 credit (2026-10-01), shared by parallel sessions
+- [Headless session tools](headless-session-tools.md) — launch `claude -p` in auto mode with a paid/publish deny-list; the old allowlist blocked interpreters
+- [Watch delegated jobs](watch-delegated-jobs.md) — check long subagents/bg jobs for stalls myself; never pgrep -f a name in the waiting command; stop a stage's watchers when it completes
+- [Audio decisions](audio-decisions.md) — I cast & pick audio myself; final voices only via Starter key; underplay voices (Kuleshov); Nana must sound 82
+- [Episode defaults](episode-defaults.md) — every episode stops before Seedance by default
+- [Taste notes](taste-notes.md) — Luma originals/architecture; Codex beauty faces or attention AND elaboration, plus generative edits; clean sources, preservation review, non-cliché art and varied pacing
+- [Image inspiration](image-inspiration.md) — Codex image gen for design discovery and compelling camera angles/views of existing designs; preserve identity and continuity; optional exploration, production routing unchanged
+- [Full file paths](full-file-paths.md) — every file as a complete repo-relative path in backticks (coloured, clickable); no bare names or globs
+- [Don't over-test](dont-over-test.md) — adopt ideas that are clearly sound by reasoning; test only genuine uncertainties that change decisions
+- [Reasoning effort](reasoning-effort.md) — Present or unspecified → default for everything; explicitly away → max for creative work (including writing/design) and checking, default for routine execution. Equal-length Astra pilot: max +2.42/30, 5.3× slower; 12 pitches, same-model judging and three-brief limitations. Return to default when King is back.
+- [Parallel sessions & git](parallel-sessions-git.md) — other sessions share the repo: commit with `git commit -m … -- <paths>` only; coordinate fal/ElevenLabs
+- [Memory sync](memory-sync.md) — scripts/sync-memory.sh mirrors memory; private-* files go to gitignored bible/private/memory, the rest are PUBLIC in memory/
+- [Pure improvement](pure-improvement.md) — code/tools/docs/memory/reviews, not creative drafts: every change must dominate what it replaces on every input; verify at primary source; no unscoped absolutes; drop speculative findings
+- [Dance generation](dance-generation.md) — First Day H3 Max still-plus-text test missed choreography and camera lock; prove a short phrase before bulk motion; performance references remain untested
+- [Full-access permissions](full-access-permissions.md) — when King grants Full access, run authorized work directly; no repeated or once-per-session Chrome/tool permission requests

@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R382",
+   "rule": "Never re-pin the decoder version based on a README file."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R383",
+   "rule": "Before re-pinning the decoder, read what the built binary links (e.g., run `nm halyard.elf | grep -c nvtegra` or check `ffversion.h`)."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R386",
+   "rule": "Do not investigate the :11020 port (STFP stats/keepalive) when working on Shadow image quality or resolution."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R414",
+   "rule": "Before pushing a new shadow-client.nro to the Switch, remove the existing file with gio remove."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R68",
+   "rule": "Do not delete the obsolete memory file about YUV_COMPOSITE and IDR_INJECT; keep it for historical traceability of the reverse-engineering work."
+  },
+  {
+   "folder": "alfredang__ai-mms",
+   "id": "R17",
+   "rule": "Only look at `var/report/` for Magento-level fatals after ruling out the missing mod_headers cause."
+  },
+  {
+   "folder": "alfredang__ai-mms",
+   "id": "R27",
+   "rule": "Place production-bound DB migration scripts under `migrations/`."
+  },
+  {
+   "folder": "alfredang__ai-mms",
+   "id": "R28",
+   "rule": "Place local-only DB fixup scripts under `scripts/local-dev/`."
+  },
+  {
+   "folder": "alfredang__ai-mms",
+   "id": "R81",
+   "rule": "Before pushing a phtml change that gates a new section on PHP variables, grep the file for every variable referenced in the new block."
+  },
+  {
+   "folder": "alfredang__ai-mms",
+   "id": "R82",
+   "rule": "Before pushing a phtml change that gates a new section on PHP variables, confirm that each variable referenced in the new block is assigned earlier in the same template."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R100",
+   "rule": "Run `task docker:publish` only when the user explicitly asks for it."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R101",
+   "rule": "Run `task docker:publish` only after the user has run `docker login` themselves."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R103",
+   "rule": "Publish the dev image (`task docker:publish:dev` or `dev-image.yml`) only with the user's explicit go-ahead."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R105",
+   "rule": "Do not compile anything in the Docker image build; it only packages prebuilt output."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R107",
+   "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R111",
+   "rule": "Before writing or editing any Go code, load the write-go skill, every time."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R14",
+   "rule": "Never work around a Cloudflare challenge from CeX."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R18",
+   "rule": "Never work around the Cloudflare challenge blocking CeX search (/v3/boxes?q=)."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R203",
+   "rule": "Do not blur or replace the README home page screenshot (docs/images/home.jpg) on your own."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R231",
+   "rule": "Run the SteamGridDB provider only in the fallback pass, never as LinksOnly."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R233",
+   "rule": "When probing the Telegram Bot API, use only a made-up (bogus) token, never real bot credentials."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R240",
+   "rule": "The host's old `web/node_modules` directory may be deleted, since the container uses its own `node_modules` in a Docker volume."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R241",
+   "rule": "Never run `golangci-lint run --fix` without limiting it to specific linters."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R45",
+   "rule": "Enable developer mode via developerPrivate.updateProfileConfiguration before reloading the extension in end-to-end tests."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R55",
+   "rule": "Never commit photo files to the repository."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R56",
+   "rule": "When resuming the cover-recognition spike, start from the \"Before building it\" list in its README."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R61",
+   "rule": "Have the user confirm the final game match before accepting it."
+  },
+  {
+   "folder": "chewygumxx__dorothy-hermes",
+   "id": "R5",
+   "rule": "You may freely modify the Hermes reference install at ~/.hermes, since it is for reference rather than use."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R1",
+   "rule": "Before creating any branch, open an issue for the work first, then create the branch from that issue."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R10",
+   "rule": "Never delete a branch on your own initiative, except branches just merged as part of the release cleanup checklist."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R12",
+   "rule": "Run `git push origin --delete <branch>` only after the user confirms or as part of post-release cleanup."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R2",
+   "rule": "Name phase work branches as `phase-N-short-description`."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R32",
+   "rule": "Always target the Development branch when opening a GitHub PR, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R35",
+   "rule": "Never close an issue until the user explicitly says they are happy with it."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R36",
+   "rule": "Only run gh issue close after the user has confirmed."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R4",
+   "rule": "Create branches from `Development` unless the user explicitly instructs otherwise."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R42",
+   "rule": "Never close a GitHub issue without the user's explicit sign-off."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R44",
+   "rule": "Run `gh issue close` only after the user confirms satisfaction with the work."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R48",
+   "rule": "For new phases or significant features, wait for the user's explicit go-ahead before writing any code."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R49",
+   "rule": "Do not treat finishing the Q&A as permission to start building; wait for the explicit go-ahead."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R5",
+   "rule": "Never create a branch from `main`."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R51",
+   "rule": "Never start building after Q&A alone; wait for the explicit go-ahead."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R54",
+   "rule": "When opening a pull request, always target the Development branch for testing, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R55",
+   "rule": "On every `gh pr create` invocation, always pass `--base Development`."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R56",
+   "rule": "Never use `--base main` when creating a pull request."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R57",
+   "rule": "Do not open a pull request unless the user explicitly says to; when in doubt, ask the user first."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R58",
+   "rule": "When opening a feature branch PR, always target the Development branch as the base, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R66",
+   "rule": "Merge feature\u2192Development PRs only after the user has reviewed and approved them."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R67",
+   "rule": "Open a Development\u2192main PR only when the user says they are happy with a phase and it can go to main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R68",
+   "rule": "Never merge a Development\u2192main PR; wait for the user to merge it themselves."
+  }
+ ]
+}

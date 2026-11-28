@@ -1,0 +1,62 @@
+{
+ "how": "Project name list, fixed at compile time. Translations and action events must use these names for `task`, `after_task` and `running`. A running entry names a task that is still in progress. Anything else uses 'other:<words>' and will not match. Extended for the boundary test (round 2) with names used by its compiled rules.",
+ "all_folders": {
+  "test": "run the test suite or any test subset",
+  "build": "compile or build the project",
+  "lint": "run linters",
+  "format": "run formatters",
+  "deploy": "deploy to an environment",
+  "migrate": "run database migrations",
+  "publish": "publish a package or release",
+  "restart": "restart a running service or server"
+ },
+ "per_folder": {
+  "Sc07713__PLAIOS": {
+   "other:re-verify korea trip savings events": "re-verify korea trip savings events"
+  },
+  "Slicon123__JARVIS": {
+   "other:upload films": "upload films",
+   "other:rebuild kurva s files": "rebuild kurva s files",
+   "other:pipeline_update upload stage": "pipeline_update upload stage",
+   "other:film session": "film session"
+  },
+  "Wasabules__Halyard": {
+   "other:implement base 15 ssh sftp channel": "implement base 15 ssh sftp channel",
+   "other:reverse engineer tier5-b1 capabilities advertisement": "reverse engineer tier5-b1 capabilities advertisement",
+   "other:search for comchan port": "search for comchan port",
+   "other:migrate webrtc stack to libdatachannel": "migrate webrtc stack to libdatachannel",
+   "other:implement quic support for switch": "implement quic support for switch"
+  },
+  "botchris__game-vault": {
+   "other:scrape ean-search public site": "scrape ean-search public site",
+   "other:work around cex cloudflare challenge": "work around cex cloudflare challenge",
+   "other:accept final game match": "accept final game match"
+  },
+  "dbwg2009__Noted": {
+   "other:bump major version": "bump major version"
+  },
+  "infonl__podiumd-minikube": {
+   "other:release podiumd minikube cluster lock": "release podiumd minikube cluster lock",
+   "other:bypass podiumd minikube cluster lock": "bypass podiumd minikube cluster lock",
+   "other:release kees00 podiumd tests lock": "release kees00 podiumd tests lock",
+   "other:bypass kees00 podiumd tests lock": "bypass kees00 podiumd tests lock"
+  },
+  "jemcik__the-radio-bench": {
+   "other:apply translations": "apply translations"
+  },
+  "mmalyska__home-ops": {
+   "other:kubectl apply": "kubectl apply",
+   "other:kubectl delete": "kubectl delete",
+   "other:kubectl patch": "kubectl patch",
+   "other:kubectl rollout restart": "kubectl rollout restart",
+   "other:kubectl exec": "kubectl exec",
+   "other:argocd app sync": "argocd app sync",
+   "other:argocd app delete": "argocd app delete",
+   "other:argocd app set": "argocd app set"
+  },
+  "namnhatpham1995__hackathon-stuttgart-2026": {
+   "other:compact windows vhdx": "compact windows vhdx",
+   "other:hook": "hook"
+  }
+ }
+}

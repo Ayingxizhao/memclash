@@ -1,0 +1,244 @@
+{
+  "repo": "FarisHijazi/dotclaude",
+  "dir": "memory",
+  "n_files": 6,
+  "n_rules": 39,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Find the responsible service or module in code and relevant repository instructions before adding a writer, listener, cache or poller.",
+      "rule": "Before adding a writer, listener, cache, or poller, find the responsible service or module in the code and the relevant repository instructions."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Extend or fix that owner.",
+      "rule": "Extend or fix the existing owner of shared behavior instead of adding a competing implementation."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Reuse behavior that differs only by data;",
+      "rule": "Reuse existing behavior when the variants differ only by data."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "keep distinct locking, invariants or failure semantics separate.",
+      "rule": "Keep behaviors with distinct locking, invariants, or failure semantics separate rather than merging them."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Preserve the same authorization and safety gates across typed and raw entry points.",
+      "rule": "Apply the same authorization and safety gates across typed and raw entry points."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Passive config, health and telemetry paths must not bypass the command path.",
+      "rule": "Do not let passive config, health, or telemetry paths bypass the command path."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Reject unsupported changes explicitly",
+      "rule": "Reject unsupported changes explicitly rather than silently skipping them."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "identify who corrects a detected fault; do not silently skip work or imply a diagnostic fixed it.",
+      "rule": "When a fault is detected, identify who corrects it, and do not imply that a diagnostic fixed it."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Resolve ownership conflicts explicitly rather than rewriting an invariant to hide a violation.",
+      "rule": "Resolve ownership conflicts explicitly rather than rewriting an invariant to hide a violation."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_find_the_owner_first.md",
+      "quote": "Use this check to guide ordinary work, not stall it.",
+      "rule": "Use the ownership check to guide ordinary work without stalling it."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "Read the matching processes before acting, then use an exact verified PID or the PID saved at launch.",
+      "rule": "Before acting on processes, read the matching processes first, then act only on an exact verified PID or the PID saved at launch."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "Never kill by pattern.",
+      "rule": "Never kill processes by pattern matching."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "On hypervisors, routers, NAS or other shared hosts, use the owning platform's authorized actions instead of raw process signals.",
+      "rule": "On hypervisors, routers, NAS, or other shared hosts, use the owning platform's authorized actions instead of raw process signals."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "Power-state restrictions still apply.",
+      "rule": "Follow power-state restrictions when managing shared hosts such as hypervisors, routers, or NAS devices."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "For test cleanup, remove only the exact processes, sessions and files created by that test.",
+      "rule": "During test cleanup, remove only the exact processes, sessions, and files created by that test."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_never_kill_by_pattern.md",
+      "quote": "Inspect and verify the explicit target list before any destructive batch action.",
+      "rule": "Inspect and verify the explicit target list before performing any destructive batch action."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_never_power_off.md",
+      "quote": "Never initiate shutdown, reboot, reset or power-cycle through shell, APIs, KVM, GPIO or another interface.",
+      "rule": "Never initiate a shutdown, reboot, reset, or power-cycle of a machine through any interface, including shell, APIs, KVM, GPIO, or others."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_never_power_off.md",
+      "quote": "An exception requires the user to explicitly supersede this rule for the named power action and machine; generic recovery approval is insufficient.",
+      "rule": "Perform a power-state action (shutdown, reboot, reset, or power-cycle) on a machine only if the user explicitly supersedes the no-power-action rule for that named action and machine; generic recovery approval is not sufficient."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_never_power_off.md",
+      "quote": "Do not automatically power a machine back on after requesting physical hardware work; its physical state may be unsafe.",
+      "rule": "Do not automatically power a machine back on after requesting physical hardware work."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Show a visible loading state until the first request settles.",
+      "rule": "Show a visible loading state in the interface until the first request settles."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Use an explicit first-settle flag, not merely `!loading`.",
+      "rule": "Track loading completion with an explicit first-settle flag rather than relying solely on the `!loading` condition."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Keep that flag sticky during refreshes",
+      "rule": "Keep the first-settle flag set once it has been set, so it stays true during subsequent refreshes."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "so existing content does not flash back to a skeleton.",
+      "rule": "Do not show a skeleton loading state again during refreshes once existing content has loaded."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Disable controls while their underlying state is unknown;",
+      "rule": "Disable controls while their underlying state is unknown."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "do not display unknown booleans as false",
+      "rule": "Do not display an unknown boolean value as false."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "or unknown counts as zero.",
+      "rule": "Do not display an unknown count as zero."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Distinguish unavailable/error responses from successful empty results in both APIs and UI, with an explicit availability state and reason.",
+      "rule": "Distinguish unavailable or error responses from successful empty results in both APIs and the UI, using an explicit availability state and reason."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Settle the loading state on errors",
+      "rule": "Settle the loading state when a request results in an error."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "and when no request will be made, such as a disabled feature or missing access.",
+      "rule": "Settle the loading state when no request will be made, such as for a disabled feature or missing access."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_never_render_absent_data.md",
+      "quote": "Verify that the loading indicator actually renders visibly.",
+      "rule": "Verify that the loading indicator actually renders visibly."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_never_touch_shared_system_state.md",
+      "quote": "Do not change shared routing, firewall rules, DNS, reverse proxies or port bindings as a workaround for an application problem.",
+      "rule": "Do not change shared routing, firewall rules, DNS, reverse proxies, or port bindings as a workaround for an application problem."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_never_touch_shared_system_state.md",
+      "quote": "Inspect the owning configuration and logs to identify the actual fault",
+      "rule": "Inspect the owning configuration and logs to identify the actual fault before making changes."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_never_touch_shared_system_state.md",
+      "quote": "do not prescribe a blanket service restart",
+      "rule": "Do not prescribe a blanket service restart as a fix."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_never_touch_shared_system_state.md",
+      "quote": "A necessary shared-state change requires explicit authorization for that change and its affected services, with the impact explained beforehand.",
+      "rule": "Make a necessary shared-state change only with explicit authorization for that specific change and its affected services, explaining the impact beforehand."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_no_pairing_codes.md",
+      "quote": "Do not keep\nrecommending pairing after this preference is stated.",
+      "rule": "Do not recommend pairing codes, pairing links, or QR pairing as a sign-in solution once the user has stated this preference."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_no_pairing_codes.md",
+      "quote": "prefer the existing Authentik identity with normal\nbrowser sign-in and automatic credential renewal across desktop, web, and mobile.",
+      "rule": "For self-hosted applications, prefer sign-in through the existing Authentik identity using normal browser sign-in with automatic credential renewal across desktop, web, and mobile."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_no_pairing_codes.md",
+      "quote": "eliminating manual codes is not\npermission to disable authentication or create permanent shared credentials.",
+      "rule": "Do not disable authentication or create permanent shared credentials when eliminating manual pairing codes for self-hosted applications."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_no_pairing_codes.md",
+      "quote": "Reuse existing service\nowners and preserve running fleet sessions.",
+      "rule": "For T3 self-hosting work, reuse existing service owners and preserve running fleet sessions."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_no_pairing_codes.md",
+      "quote": "Necessary authentication changes or\nmaintained patches are preferable to a pairing-code workaround.",
+      "rule": "For T3, prefer necessary authentication changes or maintained patches over a pairing-code workaround."
+    }
+  ],
+  "dropped": []
+}

@@ -1,0 +1,1630 @@
+{
+  "repo": "JD-2207/CSI-ISAC",
+  "dir": "memory",
+  "n_files": 40,
+  "n_rules": 270,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "38843-csi-alignment.md",
+      "quote": "Doing it \"bit by bit\" with the user reviewing each.",
+      "rule": "Make the spec-alignment changes incrementally, one bit at a time, and have the user review each bit before moving on."
+    },
+    {
+      "id": "R2",
+      "file": "38843-csi-alignment.md",
+      "quote": "HOLD for user go-ahead to launch the REAL run.",
+      "rule": "Do not launch the real CSI-representation training run until the user gives explicit go-ahead."
+    },
+    {
+      "id": "R3",
+      "file": "38843-csi-alignment.md",
+      "quote": "10k proxy first; CONFIRM on 100k",
+      "rule": "When running the CSI-representation experiment, run the 10k proxy first, then confirm the result on 100k data."
+    },
+    {
+      "id": "R4",
+      "file": "38843-csi-alignment.md",
+      "quote": "Do NOT read as \"codeword beats dedicated\".",
+      "rule": "Do not interpret the invalid raw-MLP full-channel positioning result as showing that the codeword beats dedicated full-channel positioning."
+    },
+    {
+      "id": "R5",
+      "file": "38843-csi-alignment.md",
+      "quote": "NEXT-SESSION FIX before using 6c: rerun with --loc_fourier_features 256 on both arms",
+      "rule": "Before using the dedicated-positioning (6c) comparison, rerun it with --loc_fourier_features 256 on both arms and/or build a conv-front-end arm B."
+    },
+    {
+      "id": "R6",
+      "file": "38843-csi-alignment.md",
+      "quote": "add if a precoding multi-gNB run is wanted",
+      "rule": "If a precoding multi-gNB run is wanted, add the csi_repr flag to build_multignb_feeds."
+    },
+    {
+      "id": "R7",
+      "file": "38843-csi-alignment.md",
+      "quote": "Per-layer model retrain HELD pending the user's pick among those levers.",
+      "rule": "Hold the per-layer model retrain until the user picks which lever to pursue."
+    },
+    {
+      "id": "R8",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "State this in the thesis.",
+      "rule": "In the thesis, state that the >1 m NLOS errors in the dense-urban scene are consistent with 3GPP's own findings, where sub-meter accuracy at 90% is not achieved in NLOS-heavy scenarios, rather than presenting them as a weakness of the method."
+    },
+    {
+      "id": "R9",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "don't claim to beat",
+      "rule": "Do not claim that the DL-ISAC positioning method beats the 38.857 target of <1 m at 90%, since it is positioned from the comms feedback codeword."
+    },
+    {
+      "id": "R10",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "claim the resource win (below)",
+      "rule": "Claim the positioning-resource-efficiency advantage (zero dedicated PRS/SRS) as the win for the DL-ISAC method, instead of claiming superior accuracy against the 38.857 target."
+    },
+    {
+      "id": "R11",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "add p67/p80 for spec-faithfulness",
+      "rule": "Report positioning accuracy at the 67th and 80th percentiles in addition to p50 and p90, to match the 38.857 CDF reporting for spec faithfulness."
+    },
+    {
+      "id": "R12",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "cite 22.837 for VOCABULARY",
+      "rule": "Cite TR 22.837 for the sensing KPI vocabulary (accuracy, latency, missed-detection, false-alarm, etc.)."
+    },
+    {
+      "id": "R13",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "NOT the object-sensing branch (22.837 metrics)",
+      "rule": "Scope the thesis work to the device-based positioning branch using 38.857 metrics, not the device-free object-sensing branch that uses 22.837 metrics."
+    },
+    {
+      "id": "R14",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "verify version!",
+      "rule": "Verify the specification version (e.g., Rel-19 j00 versus Rel-18 i00) before citing a 3GPP technical report."
+    },
+    {
+      "id": "R15",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "Don't attribute it to 38.843",
+      "rule": "Do not attribute the point that NMSE does not map to sum-rate to TR 38.843; it comes from academic paper 2605.08628, and the 3GPP spec lists SGCS and NMSE as co-equal."
+    },
+    {
+      "id": "R16",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "report CDF + reference 38.857 as CONTEXT, not a target 38.843 imposes",
+      "rule": "Report the AI/ML positioning results as a CDF and reference the 38.857 targets only as context, not as targets that TR 38.843 imposes on AI/ML positioning."
+    },
+    {
+      "id": "R17",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "Cite 38.843 §8 as the authoritative source for both halves.",
+      "rule": "Cite TR 38.843 §8 as the authoritative source for both the CSI-compression conclusion and the positioning conclusion."
+    },
+    {
+      "id": "R18",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "cite 22.137 for normative sensing service reqs",
+      "rule": "Cite TS 22.137 for normative 5G sensing service requirements, since TS 22.261 only delegates to it."
+    },
+    {
+      "id": "R19",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "should ADD an NLOS-mitigated arm",
+      "rule": "Add an NLOS-mitigated classical positioning baseline arm (e.g., BLADE-style) to the classical localization comparison, not only raw DL-TDOA."
+    },
+    {
+      "id": "R20",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "frame our method as angular/spatial",
+      "rule": "Frame the DL positioning method as angular/spatial fingerprinting, which sidesteps the synchronization and NLOS timing-bias problems that affect DL-TDOA."
+    },
+    {
+      "id": "R21",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "mirror that PRS recipe",
+      "rule": "If a faithful classical DL-TDOA baseline is added, mirror the 38.855 PRS configuration (comb-6, 8 symbols, 4 occasions, 19 sites)."
+    },
+    {
+      "id": "R22",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "read the actual CLAUSE BODY at citation time, not the TOC",
+      "rule": "When citing a specification clause, read the actual clause body at citation time rather than relying on the table of contents."
+    },
+    {
+      "id": "R23",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "BUILD, don't keep reading",
+      "rule": "For experiment #1, stop reading the specifications and proceed to build, since further spec reading has diminishing returns."
+    },
+    {
+      "id": "R24",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "revisit only if a deployment/testability claim is needed",
+      "rule": "Revisit the skimmed TR 38.843 protocol (§7.2) and test encoder/decoder (§7.3.2.4) sections only if a deployment or testability claim is needed."
+    },
+    {
+      "id": "R25",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "+ report CsiNet+ params/FLOPs",
+      "rule": "In experiment #1, report the CsiNet+ parameter count and FLOPs for honesty about model complexity."
+    },
+    {
+      "id": "R26",
+      "file": "3gpp-kpi-targets.md",
+      "quote": "is best paired with rank 2/4 (Tier 4)",
+      "rule": "Pair the migration to the Option 1b precoding-based target with rank 2/4 experiments, not with rank-1 setups."
+    },
+    {
+      "id": "R27",
+      "file": "5g-system-primer.md",
+      "quote": "Frames are DRAWN, not described",
+      "rule": "Show protocol frames as drawn figures rather than describing them in prose or label text."
+    },
+    {
+      "id": "R28",
+      "file": "5g-system-primer.md",
+      "quote": "Each control frame is drawn inside the row of the layer that CREATES it",
+      "rule": "Draw each control frame inside the row of the protocol layer that creates it."
+    },
+    {
+      "id": "R29",
+      "file": "5g-system-primer.md",
+      "quote": "Don't force the second into the first.",
+      "rule": "Do not force structural figures into sequence diagrams, or flow diagrams into structural figures."
+    },
+    {
+      "id": "R30",
+      "file": "5g-system-primer.md",
+      "quote": "diff the information content, don't eyeball it",
+      "rule": "When replacing one artifact with another, diff the information content rather than eyeballing it."
+    },
+    {
+      "id": "R31",
+      "file": "5g-system-primer.md",
+      "quote": "probe a list of spec terms and numbers",
+      "rule": "When checking a replacement artifact, probe a list of spec terms and numbers in its extracted text."
+    },
+    {
+      "id": "R32",
+      "file": "5g-system-primer.md",
+      "quote": "report what was lost",
+      "rule": "After diffing artifacts, report what information was lost in the replacement."
+    },
+    {
+      "id": "R33",
+      "file": "5g-system-primer.md",
+      "quote": "Hand-drawn SVGs follow `figures/*.svg` house style",
+      "rule": "Make hand-drawn SVG figures follow the house style of the existing figures/*.svg files."
+    },
+    {
+      "id": "R34",
+      "file": "5g-system-primer.md",
+      "quote": "`<title>`/`<desc>`",
+      "rule": "Include <title> and <desc> elements in hand-drawn SVG figures."
+    },
+    {
+      "id": "R35",
+      "file": "5g-system-primer.md",
+      "quote": "CSS custom properties with `prefers-color-scheme` + `[data-theme]` dark variants",
+      "rule": "Define colours in hand-drawn SVGs as CSS custom properties with prefers-color-scheme and [data-theme] dark variants."
+    },
+    {
+      "id": "R36",
+      "file": "5g-system-primer.md",
+      "quote": "system-ui + ui-monospace",
+      "rule": "Use system-ui for text and ui-monospace for code in hand-drawn SVG figures."
+    },
+    {
+      "id": "R37",
+      "file": "5g-system-primer.md",
+      "quote": "figures must be files referenced with `![]()`",
+      "rule": "Include figures as SVG files referenced with ![]() in Markdown, never as inline <svg>."
+    },
+    {
+      "id": "R38",
+      "file": "5g-system-primer.md",
+      "quote": "from `literature/explainers/` that is `../../figures/`",
+      "rule": "From literature/explainers/, reference figures via the ../../figures/ path."
+    },
+    {
+      "id": "R39",
+      "file": "5g-system-primer.md",
+      "quote": "Generator must compute segment widths from measured text",
+      "rule": "When writing an SVG generator, compute segment widths from measured text length and font size so labels do not overflow."
+    },
+    {
+      "id": "R40",
+      "file": "5g-system-primer.md",
+      "quote": "Semicolons are statement separators: they break any diagram if used inside label text.",
+      "rule": "Do not use semicolons inside mermaid label text."
+    },
+    {
+      "id": "R41",
+      "file": "5g-system-primer.md",
+      "quote": "the bidirectional `<-. \"label\" .->` works",
+      "rule": "Use the syntax <-. \"label\" .-> for labelled bidirectional dotted arrows in mermaid, not <-. \"label\" .-."
+    },
+    {
+      "id": "R42",
+      "file": "5g-system-primer.md",
+      "quote": "Fix = append a trailing `<br/>`.",
+      "rule": "Append a trailing <br/> to multi-line mermaid message labels so the arrow is not drawn through the last line."
+    },
+    {
+      "id": "R43",
+      "file": "5g-system-primer.md",
+      "quote": "`&nbsp;` renders literally, so don't use it.",
+      "rule": "Do not use &nbsp; in mermaid labels."
+    },
+    {
+      "id": "R44",
+      "file": "5g-system-primer.md",
+      "quote": "Keeping note lines ≤ ~45 chars",
+      "rule": "Keep each mermaid note line to about 45 characters or fewer."
+    },
+    {
+      "id": "R45",
+      "file": "5g-system-primer.md",
+      "quote": "spanning two (`Note over A,B`) halves the cost",
+      "rule": "Span mermaid notes over two participants where possible to halve the column-width cost."
+    },
+    {
+      "id": "R46",
+      "file": "5g-system-primer.md",
+      "quote": "`rect rgba(128,128,128,0.10)` gives theme-safe phase bands",
+      "rule": "Use rect rgba(128,128,128,0.10) to create theme-safe phase bands in mermaid sequence diagrams."
+    },
+    {
+      "id": "R47",
+      "file": "5g-system-primer.md",
+      "quote": "Stack figures: `flowchart LR` with `direction TB` inside subgraphs",
+      "rule": "For stack figures in mermaid, use flowchart LR with direction TB inside subgraphs so peers align horizontally."
+    },
+    {
+      "id": "R48",
+      "file": "5g-system-primer.md",
+      "quote": "extract every fenced mermaid block",
+      "rule": "When render-checking, extract every fenced mermaid block from the document."
+    },
+    {
+      "id": "R49",
+      "file": "5g-system-primer.md",
+      "quote": "call `mermaid.render()` (not just `parse`)",
+      "rule": "Render-check mermaid diagrams with mermaid.render(), not just parse."
+    },
+    {
+      "id": "R50",
+      "file": "5g-system-primer.md",
+      "quote": "then *screenshot and read it*",
+      "rule": "After rendering mermaid diagrams, take a screenshot and read it to check the layout."
+    },
+    {
+      "id": "R51",
+      "file": "5g-system-primer.md",
+      "quote": "Extract the block **from the doc**, not a scratchpad copy",
+      "rule": "Extract mermaid blocks for render-checking from the document itself, not from a scratchpad copy."
+    },
+    {
+      "id": "R52",
+      "file": "5g-system-primer.md",
+      "quote": "Chrome needs `dangerouslyDisableSandbox: true`",
+      "rule": "Set dangerouslyDisableSandbox to true when running headless Chrome."
+    },
+    {
+      "id": "R53",
+      "file": "5g-system-primer.md",
+      "quote": "an absolute `--user-data-dir`",
+      "rule": "Pass an absolute path for Chrome's --user-data-dir."
+    },
+    {
+      "id": "R54",
+      "file": "5g-system-primer.md",
+      "quote": "an absolute `--screenshot` path",
+      "rule": "Pass an absolute path for Chrome's --screenshot option."
+    },
+    {
+      "id": "R55",
+      "file": "5g-system-primer.md",
+      "quote": "a Windows-style `file:///C:/…` URL",
+      "rule": "Open local files in headless Chrome with a Windows-style file:///C:/ URL."
+    },
+    {
+      "id": "R56",
+      "file": "5g-system-primer.md",
+      "quote": "use the `venv` env for cropping",
+      "rule": "Use the venv environment for PIL image cropping, since PIL is not in base Python."
+    },
+    {
+      "id": "R57",
+      "file": "5g-system-primer.md",
+      "quote": "keep it theory-only",
+      "rule": "Keep the walkthrough companion doc theory-only, without practical or hardware subsections."
+    },
+    {
+      "id": "R58",
+      "file": "5g-system-primer.md",
+      "quote": "extend it rather than re-verifying",
+      "rule": "Extend the provenance section with new claims rather than re-verifying already-verified claims."
+    },
+    {
+      "id": "R59",
+      "file": "5g-system-primer.md",
+      "quote": "keep `newline=\"\\r\\n\"` in `svg_kit.write`",
+      "rule": "Keep newline=\"\\r\\n\" in svg_kit.write so regenerated SVGs match CRLF line endings."
+    },
+    {
+      "id": "R60",
+      "file": "5g-system-primer.md",
+      "quote": "edit `figures/5g_frame_waterfall.svg` by hand",
+      "rule": "Edit figures/5g_frame_waterfall.svg by hand, since its generator no longer exists."
+    },
+    {
+      "id": "R61",
+      "file": "5g-system-primer.md",
+      "quote": "match the language when editing it",
+      "rule": "When editing thesis_writing_guidelines.md, write in Spanish to match the file's language."
+    },
+    {
+      "id": "R62",
+      "file": "5g-system-primer.md",
+      "quote": "goodput/throughput figures are COMPARATIVE (relative to perfect CSI), never absolute",
+      "rule": "In thesis text, report goodput/throughput figures comparatively relative to perfect CSI, never as absolute values."
+    },
+    {
+      "id": "R63",
+      "file": "5g-system-primer.md",
+      "quote": "start from the single most comprehensible artefact",
+      "rule": "When structuring an explainer, start from the single most comprehensible artefact."
+    },
+    {
+      "id": "R64",
+      "file": "5g-system-primer.md",
+      "quote": "each level *zooms into one box of the previous level's figure*",
+      "rule": "Make each level of an explainer zoom into one box of the previous level's figure."
+    },
+    {
+      "id": "R65",
+      "file": "5g-system-primer.md",
+      "quote": "ending with a \"**What this raises**\" list that forward-points to the level answering each question",
+      "rule": "End each explainer section with a \"What this raises\" list that forward-points to the level answering each question."
+    },
+    {
+      "id": "R66",
+      "file": "5g-system-primer.md",
+      "quote": "Figures renumbered F-1…F-9, local to the section.",
+      "rule": "Number figures locally within each section."
+    },
+    {
+      "id": "R67",
+      "file": "5g-system-primer.md",
+      "quote": "One integrated figure, not sections.",
+      "rule": "Present the section's header, body, and footer as one integrated figure rather than separate sections."
+    },
+    {
+      "id": "R68",
+      "file": "5g-system-primer.md",
+      "quote": "Uplink mirror as a footer.",
+      "rule": "Include the uplink mirror as a footer of the integrated figure."
+    },
+    {
+      "id": "R69",
+      "file": "5g-system-primer.md",
+      "quote": "legal field combinations are arbitrary spec facts, lookup-only, underivable from physics",
+      "rule": "Look up legal field combinations in the specification rather than deriving them from physics."
+    },
+    {
+      "id": "R70",
+      "file": "5g-system-primer.md",
+      "quote": "a holding derivation beats an appeal to authority",
+      "rule": "Prefer a self-contained derivation over an appeal to authority when justifying a thesis claim."
+    },
+    {
+      "id": "R71",
+      "file": "5g-system-primer.md",
+      "quote": "the rank-1 statement is the EMPIRICAL one",
+      "rule": "State the rank-1 channel claim as an empirical finding, not as an assumption."
+    },
+    {
+      "id": "R72",
+      "file": "backup-to-f-drive.md",
+      "quote": "Git is NOT a backup here.",
+      "rule": "Do not treat git as a backup of the thesis source; the F: file mirror is the authoritative copy of the source code."
+    },
+    {
+      "id": "R73",
+      "file": "backup-to-f-drive.md",
+      "quote": "`CSI\\memory` is a **directory junction**",
+      "rule": "Do not assume CSI\\memory is a regular directory; it is a junction into .claude\\projects\\<key>\\memory."
+    },
+    {
+      "id": "R74",
+      "file": "backup-to-f-drive.md",
+      "quote": "The script only treats `>= 8` as failure.",
+      "rule": "When interpreting robocopy results, treat exit codes 0–7 as success and only exit codes 8 or higher as failure."
+    },
+    {
+      "id": "R75",
+      "file": "backup-to-f-drive.md",
+      "quote": "the script aborts if `-Dest` is a drive root.",
+      "rule": "Do not point the backup script's -Dest parameter at a drive root, since /MIR would delete data on the destination."
+    },
+    {
+      "id": "R76",
+      "file": "backup-to-f-drive.md",
+      "quote": "safe to delete once trusted.",
+      "rule": "Do not delete F:\\Javier_old\\users-fernando until the new backup has been verified as trustworthy."
+    },
+    {
+      "id": "R77",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "The user wants every DL method benchmarked against established references",
+      "rule": "Benchmark every deep-learning method against established reference methods, not only against its own ablation variants."
+    },
+    {
+      "id": "R78",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "Include the **industry standard** (3GPP Rel-16 enhanced Type-II codebook, spatial+delay)",
+      "rule": "Include the industry-standard baseline (the 3GPP Rel-16 enhanced Type-II codebook, spatial+delay) when benchmarking a DL method."
+    },
+    {
+      "id": "R79",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "and the **classical baselines** from foundational DL-CSI papers (compressive sensing: LASSO/TVAL3/BM3D-AMP/OMP, as in CsiNet)",
+      "rule": "Include the classical compressive-sensing baselines (LASSO, TVAL3, BM3D-AMP, OMP, as in CsiNet) when benchmarking a DL method."
+    },
+    {
+      "id": "R80",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "on the **same held-out test split**",
+      "rule": "Evaluate all baselines and DL methods on the same held-out test split."
+    },
+    {
+      "id": "R81",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "with rate–distortion curves (NMSE vs feedback bits)",
+      "rule": "Present results as rate–distortion curves of NMSE versus feedback bits."
+    },
+    {
+      "id": "R82",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "proactively include an industry-standard + classical baseline on the shared split",
+      "rule": "When proposing or evaluating any DL method, proactively include an industry-standard baseline and a classical baseline on the shared test split."
+    },
+    {
+      "id": "R83",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "don't wait to be reminded",
+      "rule": "Do not wait for the user to remind you to include the industry-standard and classical baselines."
+    },
+    {
+      "id": "R84",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "Thesis must use RIP-60 as operative",
+      "rule": "In the thesis, use the RIP-based recoverable-K estimate (about 60 at M=256) as the operative recoverable-sparsity figure."
+    },
+    {
+      "id": "R85",
+      "file": "baselines-requirement-and-theory.md",
+      "quote": "label coherence-2 as worst-case",
+      "rule": "In the thesis, label the mutual-coherence-based bound (K≈2) as worst-case."
+    },
+    {
+      "id": "R86",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "From each reconstruction Ĥ derive MRT/conjugate beamformer",
+      "rule": "When evaluating beamforming, derive the MRT/conjugate beamformer from each channel reconstruction Ĥ."
+    },
+    {
+      "id": "R87",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "Score it on the TRUE channel",
+      "rule": "When evaluating beamforming, score the derived beamformer against the true channel, not the reconstructed channel."
+    },
+    {
+      "id": "R88",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "Plot gain/rate vs η (and vs SNR).",
+      "rule": "When presenting beamforming results, plot beamforming gain or rate against compression ratio η and against SNR."
+    },
+    {
+      "id": "R89",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "Report BOTH variants (faithful primary).",
+      "rule": "When reporting the eType-II baseline, report both the faithful and simplified variants, with the faithful variant as the primary result."
+    },
+    {
+      "id": "R90",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "RELABEL as \"simplified Type-II-style\nDFT-codebook baseline,\" NOT eType-II/Rel-16.",
+      "rule": "Label the simplified baseline as a \"simplified Type-II-style DFT-codebook baseline\", not as eType-II or Rel-16."
+    },
+    {
+      "id": "R91",
+      "file": "beamforming-eval-deliverable.md",
+      "quote": "Do NOT write either direction in §4c until resolved.",
+      "rule": "Do not write any conclusion in the §4c overhead-matched comparison about which method wins until the confound is resolved."
+    },
+    {
+      "id": "R92",
+      "file": "canyon-toy-scene.md",
+      "quote": "NOT a replacement for the Munich experiment",
+      "rule": "Do not use the toy simple_street_canyon dataset as a replacement for the Munich experiment; use it only to visualize ray-tracing/simulator features."
+    },
+    {
+      "id": "R93",
+      "file": "canyon-toy-scene.md",
+      "quote": "For NLOS, offset gNB behind a building or sample UEs in cross-streets.",
+      "rule": "When an NLOS demo is needed in the canyon scene, offset the gNB behind a building or sample UEs in the cross-streets, since the open corridor is almost all LOS."
+    },
+    {
+      "id": "R94",
+      "file": "canyon-toy-scene.md",
+      "quote": "**down-canyon camera** (`canyon_axis_camera`, looks along +x from behind gNB",
+      "rule": "For distinguishable ray-path figures in the canyon scene, use the down-canyon camera (canyon_axis_camera, looking along +x from behind the gNB)."
+    },
+    {
+      "id": "R95",
+      "file": "canyon-toy-scene.md",
+      "quote": "**few UEs + low depth**",
+      "rule": "For distinguishable ray-path figures, use few UEs and a low max depth."
+    },
+    {
+      "id": "R96",
+      "file": "canyon-toy-scene.md",
+      "quote": "Final clean `fig_ray_paths` = `n_ue=2, max_depth=2`",
+      "rule": "Render the final clean fig_ray_paths figure with n_ue=2 and max_depth=2."
+    },
+    {
+      "id": "R97",
+      "file": "classical-loc-baseline.md",
+      "quote": "Compare achieved-LOS **p50** (not MAE",
+      "rule": "When comparing an achieved localization error to a CRLB bound, compare the median (p50) of the LOS errors, not the MAE, because outliers corrupt the LOS mean."
+    },
+    {
+      "id": "R98",
+      "file": "classical-loc-baseline.md",
+      "quote": "Sensor noise grounded in the MEASURED LOS errors via ROBUST (MAD) scale, NOT std",
+      "rule": "When estimating sensor noise for a CRLB from measured errors, use a robust (MAD) scale rather than the standard deviation."
+    },
+    {
+      "id": "R99",
+      "file": "classical-loc-baseline.md",
+      "quote": "AoA+ToA fusion = the headline classical method to report.",
+      "rule": "Report AoA+ToA fusion as the headline classical positioning method when presenting classical baseline results."
+    },
+    {
+      "id": "R100",
+      "file": "code-vs-literature-audit.md",
+      "quote": "Always hold the split fixed",
+      "rule": "When sweeping a data-filtering threshold (such as min_norm_frac), keep the model's train/test split fixed so trained-on UEs do not leak into the test set."
+    },
+    {
+      "id": "R101",
+      "file": "code-vs-literature-audit.md",
+      "quote": "report MEDIAN / norm-floored NMSE",
+      "rule": "Report median or norm-floored NMSE rather than mean NMSE, because mean NMSE is heavy-tailed."
+    },
+    {
+      "id": "R102",
+      "file": "code-vs-literature-audit.md",
+      "quote": "If ever citing absolute tap-delays, ifftshift first",
+      "rule": "Apply ifftshift to the CFR-to-delay output before citing absolute tap delays."
+    },
+    {
+      "id": "R103",
+      "file": "code-vs-literature-audit.md",
+      "quote": "Call them \"frequency samples / virtual subcarriers\" in the thesis.",
+      "rule": "In the thesis, refer to the 97.66 kHz frequency samples as \"frequency samples / virtual subcarriers\" rather than NR subcarriers."
+    },
+    {
+      "id": "R104",
+      "file": "code-vs-literature-audit.md",
+      "quote": "expect faithful CC to win on LABEL-EFFICIENCY + local geometry (TW/CT, low-label MAE-WITH-ANCHORS), NOT to beat full supervision on raw absolute MAE",
+      "rule": "When evaluating the faithful charting re-test, judge success on label efficiency and local geometry (TW/CT, low-label MAE with anchors), not on beating full supervision on absolute MAE."
+    },
+    {
+      "id": "R105",
+      "file": "code-vs-literature-audit.md",
+      "quote": "state the single-pol + (8,8)-extrapolation caveats",
+      "rule": "When claiming the Rel-16 eType-II implementation is faithful, state its single-polarization adaptation and (8,8)-array extrapolation caveats."
+    },
+    {
+      "id": "R106",
+      "file": "code-vs-literature-audit.md",
+      "quote": "ASSUMPTION (document)",
+      "rule": "Document in the thesis that users are co-scheduled as random K-tuples (scheduler-agnostic assumption)."
+    },
+    {
+      "id": "R107",
+      "file": "code-vs-literature-audit.md",
+      "quote": "but state it",
+      "rule": "State in the thesis that the scattering coefficient of 0.5 makes the NLOS channel richer than typical urban measurements."
+    },
+    {
+      "id": "R108",
+      "file": "code-vs-literature-audit.md",
+      "quote": "NICE PROPERTY (state in thesis)",
+      "rule": "State in the thesis that the feedback SNR is domain-invariant, because the DFT/FFT transforms are unitary."
+    },
+    {
+      "id": "R109",
+      "file": "cross-scene-generalization.md",
+      "quote": "do NOT use `joint_los15_az170.pt` for cross-scene",
+      "rule": "Do not use the checkpoint joint_los15_az170.pt for cross-scene evaluation, because it was trained with a random split and leaks test UEs in a geo-split test; use the geo-split source model results/geo_split/100k/geo_geographic.pt instead."
+    },
+    {
+      "id": "R110",
+      "file": "csi-isac-github-repo.md",
+      "quote": "Never push there.",
+      "rule": "Never push to the upstream git repo at `CSI\\csi_isac\\` (origin `jmoraispk/StochasticRTcomparison`); push only to the user's own repo, JD-2207/CSI-ISAC."
+    },
+    {
+      "id": "R111",
+      "file": "csi-isac-github-repo.md",
+      "quote": "Scope = update already-tracked files",
+      "rule": "When preparing a commit for JD-2207/CSI-ISAC, only update files that are already tracked in that repo."
+    },
+    {
+      "id": "R112",
+      "file": "csi-isac-github-repo.md",
+      "quote": "new `src/exp/*.py` only",
+      "rule": "When preparing a commit for JD-2207/CSI-ISAC, add new files only under `src/exp/*.py`."
+    },
+    {
+      "id": "R113",
+      "file": "csi-isac-github-repo.md",
+      "quote": "NEVER stage `src/data` (27 GB), `src/checkpoint`, `src/results`",
+      "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+    },
+    {
+      "id": "R114",
+      "file": "csi-isac-github-repo.md",
+      "quote": "NEVER stage `src/data` (27 GB), `src/checkpoint`, `src/results`",
+      "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+    },
+    {
+      "id": "R115",
+      "file": "csi-isac-github-repo.md",
+      "quote": "NEVER stage `src/data` (27 GB), `src/checkpoint`, `src/results`",
+      "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+    },
+    {
+      "id": "R116",
+      "file": "csi-isac-github-repo.md",
+      "quote": "`git diff --stat` after copying to see the real set",
+      "rule": "After copying files into the JD-2207/CSI-ISAC clone, run `git diff --stat` to determine the actual set of changed files instead of relying on byte-compare results."
+    },
+    {
+      "id": "R117",
+      "file": "csi-isac-github-repo.md",
+      "quote": "clone CSI-ISAC to scratchpad",
+      "rule": "Clone JD-2207/CSI-ISAC into a scratchpad directory before making changes for the user's repo."
+    },
+    {
+      "id": "R118",
+      "file": "csi-isac-github-repo.md",
+      "quote": "copy changed files in per the mapping",
+      "rule": "When copying changed files into the cloned repo, place each file at its repo path according to the path mapping (e.g., `src/...` maps to `CSI\\csi_isac\\src\\...`)."
+    },
+    {
+      "id": "R119",
+      "file": "csi-isac-github-repo.md",
+      "quote": "verify with `git ls-remote origin main`",
+      "rule": "When a push credential dialog reports \"User cancelled\", verify whether the push succeeded by running `git ls-remote origin main` rather than assuming it failed."
+    },
+    {
+      "id": "R120",
+      "file": "csi-isac-github-repo.md",
+      "quote": "Commits carry NO co-author trailer",
+      "rule": "Do not add a co-author trailer to commit messages."
+    },
+    {
+      "id": "R121",
+      "file": "deepmimo-cross-simulator.md",
+      "quote": "run any deepmimo entrypoint with `PYTHONUTF8=1`.",
+      "rule": "Run any DeepMIMO entrypoint with the environment variable PYTHONUTF8=1 set, because dm.download's \"✓\" output crashes on Windows cp1252 stdout."
+    },
+    {
+      "id": "R122",
+      "file": "deepmimo-cross-simulator.md",
+      "quote": "use `ds.get_idxs(\"active\"|\"uniform\",...)` + `ds.trim(idxs=...)`.",
+      "rule": "In DeepMIMO v4.0.3, select active or uniform UE indices with ds.get_idxs(\"active\" or \"uniform\", ...) and apply them with ds.trim(idxs=...), instead of the removed subset, get_active_idxs, or get_uniform_idxs methods."
+    },
+    {
+      "id": "R123",
+      "file": "exp-folder-walkthrough.md",
+      "quote": "If asked to EXTEND: continue Topic numbering from 76.",
+      "rule": "When asked to extend the src/exp/ code walkthrough in thesis_code_walkthrough_QA.md, continue topic numbering from Topic 76."
+    },
+    {
+      "id": "R124",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "Default experiments to the **10k dataset**",
+      "rule": "Default experiments to the 10k dataset (data/rt_munich_64ant_10000ue_los15) rather than the 100k dataset."
+    },
+    {
+      "id": "R125",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "only escalate to 100k to CONFIRM a clear 10k\nsignal that's worth it",
+      "rule": "Only escalate to a 100k run to confirm a clear 10k signal that is worth confirming."
+    },
+    {
+      "id": "R126",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "Don't propose a 2h+ run as a first probe.",
+      "rule": "Do not propose a 2h+ run as the first probe of an experiment."
+    },
+    {
+      "id": "R127",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "do actual WEB RESEARCH for established approaches to the specific problem",
+      "rule": "Do actual web research on established approaches to the specific problem (CSI feedback / NLOS localization / channel charting) before proposing or running experiments."
+    },
+    {
+      "id": "R128",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "favor cheap\nfast experiments + consolidation over multi-week new pillars",
+      "rule": "Favor cheap, fast experiments and consolidation over multi-week new research pillars, given the thesis writing deadline."
+    },
+    {
+      "id": "R129",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "any new direction must fit alongside\nwriting",
+      "rule": "Any new research direction must fit alongside thesis writing, which starts the week of 2026-06-16."
+    },
+    {
+      "id": "R130",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "Re-scope effort estimates honestly against this",
+      "rule": "Re-scope effort estimates honestly against the thesis writing timeline."
+    },
+    {
+      "id": "R131",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "research → test best candidate on 10k → only\nthen 100k-confirm",
+      "rule": "Follow the sequence: research candidate approaches, test the best candidate on 10k, and only then confirm on 100k."
+    },
+    {
+      "id": "R132",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "quote fast (~10–30 min) runtimes",
+      "rule": "Quote fast runtimes (about 10–30 minutes) when proposing experiments."
+    },
+    {
+      "id": "R133",
+      "file": "fast-iteration-10k-preference.md",
+      "quote": "consolidate the already-strong deliverables",
+      "rule": "Consolidate the already-strong deliverables rather than starting new work."
+    },
+    {
+      "id": "R134",
+      "file": "identifiability-diagnostic.md",
+      "quote": "Swin stays recon-only (not loc).",
+      "rule": "Use the Swin model only for channel reconstruction, not for localization."
+    },
+    {
+      "id": "R135",
+      "file": "identifiability-diagnostic.md",
+      "quote": "Reframe as coverage/robustness + the <2% LOS-aliasing tail, not the headline loc fix.",
+      "rule": "When describing multi-gNB in the roadmap, frame it as a coverage/robustness improvement, not as the headline localization fix."
+    },
+    {
+      "id": "R136",
+      "file": "localization-analysis.md",
+      "quote": "prioritize driving localization error down (model + data optimization) over baselines/mutual-benefit work",
+      "rule": "Prioritize reducing localization error (through model and data optimization) over building baselines or mutual-benefit work."
+    },
+    {
+      "id": "R137",
+      "file": "localization-analysis.md",
+      "quote": "don't spend effort on denoising for the loc task",
+      "rule": "Do not spend effort on denoising CSI for the localization task."
+    },
+    {
+      "id": "R138",
+      "file": "localization-analysis.md",
+      "quote": "Decision: lock CsiNet+ as working backbone.",
+      "rule": "Use CsiNet+ as the working backbone."
+    },
+    {
+      "id": "R139",
+      "file": "localization-analysis.md",
+      "quote": "should NOT be assumed to apply to our method",
+      "rule": "Do not assume the timing-based bandwidth scaling from 38.857 applies to this method."
+    },
+    {
+      "id": "R140",
+      "file": "localization-analysis.md",
+      "quote": "Run on staged checkpoints when they land to compare.",
+      "rule": "When staged checkpoints become available, run the per-condition error breakdown diagnostic on them to compare against the current results."
+    },
+    {
+      "id": "R141",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "always emit a progress bar with ETA",
+      "rule": "For long-running RT dataset generation jobs (hours-long), always emit a progress bar that shows ETA."
+    },
+    {
+      "id": "R142",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "write a `progress.json` sidecar (done/total/eta/rate/updated)",
+      "rule": "For long-running RT dataset generation jobs, write a progress.json sidecar containing done, total, eta, rate, and updated fields so another process can poll it."
+    },
+    {
+      "id": "R143",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "prints `PROGRESS [bar] % | done/total UE | rate | elapsed | ETA` per shard",
+      "rule": "The generation runner (rt_localization_data_gen.py) prints a PROGRESS line in the format `PROGRESS [bar] % | done/total UE | rate | elapsed | ETA` for each shard."
+    },
+    {
+      "id": "R144",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "and updates `progress.json`",
+      "rule": "The generation runner (rt_localization_data_gen.py) updates progress.json as it runs."
+    },
+    {
+      "id": "R145",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "ETA is based on kept-UE fraction.",
+      "rule": "Compute the ETA for RT generation progress from the fraction of kept UEs."
+    },
+    {
+      "id": "R146",
+      "file": "long-job-progress-monitoring.md",
+      "quote": "arm a watcher for the first progress line / error",
+      "rule": "When launching a multi-hour job in the background, arm a watcher that waits for the first progress line or error to confirm startup."
+    },
+    {
+      "id": "R147",
+      "file": "los-coverage-orientation.md",
+      "quote": "calibrate the azimuth with the actual pipeline",
+      "rule": "When choosing the gNB azimuth for a LOS/NLOS mix, calibrate it with the actual data-generation pipeline (quick 200-UE gens), not with the path-only coverage scan."
+    },
+    {
+      "id": "R148",
+      "file": "los-coverage-orientation.md",
+      "quote": "state this in the thesis comparison",
+      "rule": "When reporting the LOS-vs-baseline A/B comparison in the thesis, state that the shoulder-pointing confound clusters LOS UEs spatially, so LOS partly marks a sub-region."
+    },
+    {
+      "id": "R149",
+      "file": "los-coverage-orientation.md",
+      "quote": "meta.json is authoritative",
+      "rule": "When a dataset directory name conflicts with its LOS percentage, treat meta.json as the source of truth rather than the directory name."
+    },
+    {
+      "id": "R150",
+      "file": "machine-migration-2026-08.md",
+      "quote": "do not delete",
+      "rule": "Do not delete the Claude home backup at `C:\\Users\\javid\\Documents\\Javier\\.claude`, because it is the only copy of the pre-crash state."
+    },
+    {
+      "id": "R151",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "keep numbers + framing current as results land",
+      "rule": "Keep the §4c thesis numbers and framing up to date as new results come in."
+    },
+    {
+      "id": "R152",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "\"generative fix fails.\" RETRACTED.",
+      "rule": "Do not cite the direct-decoder result as evidence that the generative fix fails, because that result was retracted as an invalid test."
+    },
+    {
+      "id": "R153",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "Do NOT claim a matched-overhead recon win over a faithful codebook.",
+      "rule": "Do not claim a matched-overhead reconstruction win over a faithful codebook in the §4c writeup."
+    },
+    {
+      "id": "R154",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "Frame §4c as:",
+      "rule": "Frame the §4c writeup as showing that faithful Rel-16 eType-II matches or beats MSE-DL on matched-overhead MU-MIMO sum-rate, is robust across feedback SNR, and is not closed by a precoding-aware loss."
+    },
+    {
+      "id": "R155",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "If the deterministic refiner shows no gain → try the DIRECT decoder",
+      "rule": "If the deterministic flow refiner shows no gain, try the direct decoder (Gaussian-prior generative sampling)."
+    },
+    {
+      "id": "R156",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "Run at the 4-bit (matched ~1024 b) operating point where the posterior is broadest",
+      "rule": "Run the generative flow decoder experiments at the 4-bit (~1024 b) operating point, where the posterior is broadest."
+    },
+    {
+      "id": "R157",
+      "file": "matched-overhead-classical-vs-dl.md",
+      "quote": "must train fresh los15 D0",
+      "rule": "Do not reuse recon_best_100k.pt as the frozen front end for los15 experiments; train a fresh los15 front-end D0 instead."
+    },
+    {
+      "id": "R158",
+      "file": "no-coauthor-trailer.md",
+      "quote": "Do NOT add `Co-Authored-By: Claude ...` — or any other AI-attribution trailer, footer, or\n\"Generated with\" line — to git commits, PR bodies, or tags in this project.",
+      "rule": "In this project, never add a Co-Authored-By: Claude trailer or any other AI-attribution trailer, footer, or \"Generated with\" line to git commits, PR bodies, or tags."
+    },
+    {
+      "id": "R159",
+      "file": "no-coauthor-trailer.md",
+      "quote": "write the commit body only (summary + bullets), stop there, no trailer.",
+      "rule": "When writing a commit message in this project, write only the commit body (summary and bullets) and add no trailer after it."
+    },
+    {
+      "id": "R160",
+      "file": "no-coauthor-trailer.md",
+      "quote": "If a\ncommit that already carries one has been pushed, fix with `git commit --amend` + verify the\ntree hash is unchanged + `git push --force-with-lease`.",
+      "rule": "If a commit in this project that already carries an AI-attribution trailer has been pushed, fix it with git commit --amend, verify the tree hash is unchanged, and then run git push --force-with-lease."
+    },
+    {
+      "id": "R161",
+      "file": "no-figure-generator-scripts.md",
+      "quote": "edit the `.svg` by hand",
+      "rule": "When a figure in literature/explainers/ needs changing, edit its .svg file by hand rather than through a generator script."
+    },
+    {
+      "id": "R162",
+      "file": "no-figure-generator-scripts.md",
+      "quote": "re-render it (headless Chrome screenshot into an `<img>` wrapper page) to check the result\nbefore claiming it is right",
+      "rule": "After editing a figure SVG, re-render it (headless Chrome screenshot into an <img> wrapper page) and check the result before claiming the change is correct."
+    },
+    {
+      "id": "R163",
+      "file": "no-figure-generator-scripts.md",
+      "quote": "Do not propose reintroducing a build step.",
+      "rule": "Do not propose reintroducing a build step or generator script for the figures."
+    },
+    {
+      "id": "R164",
+      "file": "no-figure-generator-scripts.md",
+      "quote": "read the region of the file being changed first",
+      "rule": "Before editing a figure SVG, read the region of the file being changed first."
+    },
+    {
+      "id": "R165",
+      "file": "realistic-impairments-scope.md",
+      "quote": "Run when GPU free: `python exp/exp_linkbudget_snr.py --task loc --data_dir data/rt_munich_64ant_100000ue_los15`",
+      "rule": "When the GPU is free, run `python exp/exp_linkbudget_snr.py --task loc --data_dir data/rt_munich_64ant_100000ue_los15` to compare uniform, link-budget, and cross SNR evaluations."
+    },
+    {
+      "id": "R166",
+      "file": "realistic-impairments-scope.md",
+      "quote": "Run after GPU free: `python mu_mimo_eval.py --ckpt checkpoint/recon_best_100k.pt --code_bits none,4,2`",
+      "rule": "After the GPU is free, run `python mu_mimo_eval.py --ckpt checkpoint/recon_best_100k.pt --code_bits none,4,2` to evaluate multi-user MU-MIMO performance."
+    },
+    {
+      "id": "R167",
+      "file": "realistic-impairments-scope.md",
+      "quote": "add `--tx_power_dbm` for physical",
+      "rule": "When comparing the physical link-budget SNR anchor in the compare script, add the `--tx_power_dbm` flag."
+    },
+    {
+      "id": "R168",
+      "file": "realistic-impairments-scope.md",
+      "quote": "ACKNOWLEDGE as Limitations/future work (not addressed):",
+      "rule": "Acknowledge the unaddressed realism gaps (Doppler/channel aging, channel-estimation error, hardware impairments, mutual coupling, single-pol, inter-cell interference, moving scatterers) as limitations or future work, not as modeled effects."
+    },
+    {
+      "id": "R169",
+      "file": "recon-nmse-zero-norm-bug.md",
+      "quote": "Any new RT set (esp. high indoor fraction) needs this filter",
+      "rule": "When generating a new RT dataset (especially one with a high indoor fraction), apply the zero-norm UE filter (min_norm_frac=1e-3 via build_multitask_feeds) before training."
+    },
+    {
+      "id": "R170",
+      "file": "recon-nmse-zero-norm-bug.md",
+      "quote": "check `np.linalg.norm(H.reshape(M,-1),axis=1).min()` after generation",
+      "rule": "After generating a new RT dataset, check the minimum per-channel Frobenius norm via np.linalg.norm(H.reshape(M,-1),axis=1).min() to detect zero-norm channels."
+    },
+    {
+      "id": "R171",
+      "file": "record-experiments-always.md",
+      "quote": "**always record to memory when a new experiment\nis run and a conclusion is drawn**",
+      "rule": "Always record to memory when a new experiment is run and a conclusion is drawn, without waiting to be asked each time."
+    },
+    {
+      "id": "R172",
+      "file": "record-experiments-always.md",
+      "quote": "after any experiment that lands a result/conclusion, update the relevant project\nmemory",
+      "rule": "After any experiment that produces a result or conclusion, update the relevant project memory with it."
+    },
+    {
+      "id": "R173",
+      "file": "record-experiments-always.md",
+      "quote": "with the numbers + the conclusion + the artifact path (results/... + the exp script)",
+      "rule": "When recording an experiment in memory, include the numbers, the conclusion, and the artifact path (results files and the experiment script)."
+    },
+    {
+      "id": "R174",
+      "file": "record-experiments-always.md",
+      "quote": "and add/refresh the\nMEMORY.md index line",
+      "rule": "When recording an experiment in memory, add or refresh the corresponding MEMORY.md index line."
+    },
+    {
+      "id": "R175",
+      "file": "record-experiments-always.md",
+      "quote": "Proactively, not only on request.",
+      "rule": "Record experiment results to memory proactively, not only when the user requests it."
+    },
+    {
+      "id": "R176",
+      "file": "record-experiments-always.md",
+      "quote": "Still verify file:line claims before relying\non point-in-time notes.",
+      "rule": "Verify file:line claims before relying on point-in-time notes recorded in memory."
+    },
+    {
+      "id": "R177",
+      "file": "references-and-prior-art.md",
+      "quote": "adopt this as the must-run baseline",
+      "rule": "Adopt the FLnet staged training recipe (3-step: AE alone, freeze encoder and train loc head, then low-LR joint fine-tune) as a must-run baseline in experiments."
+    },
+    {
+      "id": "R178",
+      "file": "references-and-prior-art.md",
+      "quote": "test staging FIRST, reach for PCGrad/ForkMerge only on residual gap.",
+      "rule": "When addressing joint-training negative transfer, test staged training first and use PCGrad or ForkMerge only if a residual gap remains."
+    },
+    {
+      "id": "R179",
+      "file": "references-and-prior-art.md",
+      "quote": "acknowledge in [[beamforming-eval-deliverable]]",
+      "rule": "Acknowledge in the beamforming evaluation deliverable that the MSE-trained decoder limits sum-rate, since lower NMSE does not imply higher MU-MIMO sum-rate."
+    },
+    {
+      "id": "R180",
+      "file": "references-and-prior-art.md",
+      "quote": "re-run the external-prior recon axis at LOW bit budget (code_bits 64/128)",
+      "rule": "Re-run the external-prior reconstruction experiment at a low bit budget (code_bits 64 or 128) to test whether position helps reconstruction."
+    },
+    {
+      "id": "R181",
+      "file": "references-and-prior-art.md",
+      "quote": "SOFTEN finding #3 accordingly",
+      "rule": "Soften finding #3 (that position does not help reconstruction) to reflect the conflicting FLnet Table VIII evidence."
+    },
+    {
+      "id": "R182",
+      "file": "references-and-prior-art.md",
+      "quote": "cite TWC for any GPS-aided claim",
+      "rule": "Cite the FLnet TWC 2024 paper, not the ICC-2023 precursor, for any GPS-aided localization claim."
+    },
+    {
+      "id": "R183",
+      "file": "references-and-prior-art.md",
+      "quote": "do NOT attribute it there",
+      "rule": "Do not attribute the complexity caveat to the abstract of arXiv 2603.14317."
+    },
+    {
+      "id": "R184",
+      "file": "references-and-prior-art.md",
+      "quote": "do NOT attribute the caveat to it",
+      "rule": "Do not attribute the gain-insufficient caveat to arXiv 2506.21796, which is a positive interoperability result."
+    },
+    {
+      "id": "R185",
+      "file": "references-and-prior-art.md",
+      "quote": "cite 38.843 §8 directly",
+      "rule": "Cite TR 38.843 §8 directly for the RAN1 no-consensus conclusion on AI/ML CSI compression."
+    },
+    {
+      "id": "R186",
+      "file": "references-and-prior-art.md",
+      "quote": "Cite it as evidence two-sided ML feedback is practically feasible.",
+      "rule": "Cite arXiv 2506.21796 as evidence that two-sided ML CSI feedback is practically feasible."
+    },
+    {
+      "id": "R187",
+      "file": "references-and-prior-art.md",
+      "quote": "trace the exact sentence here before quoting",
+      "rule": "Trace the exact sentence in arXiv 2206.15132 before quoting it for the complexity caveat."
+    },
+    {
+      "id": "R188",
+      "file": "references-and-prior-art.md",
+      "quote": "read before quoting",
+      "rule": "Read the source of the unverified researchgate 366043969 / 2603.14317 caveat before quoting it."
+    },
+    {
+      "id": "R189",
+      "file": "references-and-prior-art.md",
+      "quote": "cite as roadmap motivation AND honest limitation",
+      "rule": "Cite the Rel-19 gain-insufficient and inter-vendor caveat as both roadmap motivation and an honest limitation."
+    },
+    {
+      "id": "R190",
+      "file": "references-and-prior-art.md",
+      "quote": "NOT quantitative comparisons to our outdoor MU-MIMO RT",
+      "rule": "Do not treat indoor WiFi fingerprinting benchmark numbers as quantitative comparisons to our outdoor MU-MIMO RT results; use them only as SOTA-scale context."
+    },
+    {
+      "id": "R191",
+      "file": "references-and-prior-art.md",
+      "quote": "re-balance TOWARD loc (fixed-λ loc-weight sweep / CAGrad / ForkMerge), NOT staging.",
+      "rule": "To improve joint localization, rebalance training toward localization (fixed-λ loc-weight sweep, CAGrad, or ForkMerge) rather than using staged training."
+    },
+    {
+      "id": "R192",
+      "file": "references-and-prior-art.md",
+      "quote": "fix: orient panel azimuth + ~10° downtilt, sample illuminated sector",
+      "rule": "In the RT data-generation config, orient the panel azimuth with about 10° downtilt and sample only the illuminated sector instead of a 360° box."
+    },
+    {
+      "id": "R193",
+      "file": "references-and-prior-art.md",
+      "quote": "set ≈0.5 + pattern",
+      "rule": "Set the Sionna scattering coefficient to about 0.5 and supply a scattering pattern so the diffuse flag is active."
+    },
+    {
+      "id": "R194",
+      "file": "references-and-prior-art.md",
+      "quote": "Deliberate UPGRADES to keep",
+      "rule": "Keep the deliberate configuration upgrades: 64-antenna 8×8 UPA, 27 m macro BS, Sionna RT with diffuse scattering, and indoor UEs."
+    },
+    {
+      "id": "R195",
+      "file": "references-and-prior-art.md",
+      "quote": "cite directly, no PDF",
+      "rule": "Cite the classical CS baselines (LASSO, TVAL3, BM3D-AMP, Cressie variogram) directly from their publications without a local PDF."
+    },
+    {
+      "id": "R196",
+      "file": "rt-datagen-progress.md",
+      "quote": "I do NOT re-run `convert_channel_angle_delay`",
+      "rule": "Do not re-run convert_channel_angle_delay on the RT-generated CSI, because it is already in the delay domain; only the angular DFT should be applied."
+    },
+    {
+      "id": "R197",
+      "file": "rt-datagen-progress.md",
+      "quote": "L_rec = NMSE (O(1)), NOT raw MSE",
+      "rule": "Use NMSE as the reconstruction loss L_rec in multitask training, not raw MSE."
+    },
+    {
+      "id": "R198",
+      "file": "rt-datagen-progress.md",
+      "quote": "phase ref = strongest element, NOT [0,0]",
+      "rule": "When removing the global phase in normalize_csi, use the strongest CSI element as the phase reference, not element [0,0]."
+    },
+    {
+      "id": "R199",
+      "file": "rt-datagen-progress.md",
+      "quote": "standardized on TRAIN split only",
+      "rule": "Standardize the log-Frobenius magnitude using statistics from the training split only, to avoid leakage."
+    },
+    {
+      "id": "R200",
+      "file": "rt-datagen-progress.md",
+      "quote": "Scene bounds via `scene.mi_scene.bbox()`",
+      "rule": "Obtain scene bounds via scene.mi_scene.bbox(), not via scene.center or scene.size attributes."
+    },
+    {
+      "id": "R201",
+      "file": "rt-datagen-progress.md",
+      "quote": "Indoor UEs ARE included.",
+      "rule": "Include indoor UEs in the generated dataset."
+    },
+    {
+      "id": "R202",
+      "file": "rt-datagen-progress.md",
+      "quote": "Zero-power UEs (deeply shielded, unlocalizable) still dropped.",
+      "rule": "Drop UEs with zero received power from the dataset."
+    },
+    {
+      "id": "R203",
+      "file": "rt-datagen-progress.md",
+      "quote": "`normalize_cfr=False` → keeps absolute path loss",
+      "rule": "Set normalize_cfr=False when generating RT data so absolute path loss is kept as a localization distance cue."
+    },
+    {
+      "id": "R204",
+      "file": "rt-datagen-progress.md",
+      "quote": "Per-sample Frobenius norm deferred to load time.",
+      "rule": "Apply the per-sample Frobenius norm at data load time, not during RT generation."
+    },
+    {
+      "id": "R205",
+      "file": "rt-datagen-progress.md",
+      "quote": "keep one per PRB",
+      "rule": "Keep one subcarrier per PRB when subsampling the generated subcarriers."
+    },
+    {
+      "id": "R206",
+      "file": "rt-datagen-progress.md",
+      "quote": "batch_size=25 (Dr.Jit 2^32 limit)",
+      "rule": "Use batch_size=25 for RT generation to stay under the Dr.Jit 2^32 limit."
+    },
+    {
+      "id": "R207",
+      "file": "rt-datagen-progress.md",
+      "quote": "test pure-NLOS first; LOS/NLOS comparison (re-aim azimuth) deferred.",
+      "rule": "Test the pure-NLOS configuration first and defer the LOS/NLOS comparison that requires re-aiming the azimuth."
+    },
+    {
+      "id": "R208",
+      "file": "rt-datagen-progress.md",
+      "quote": "loc_source='decoder' only for csinet.",
+      "rule": "Use loc_source='decoder' only with the csinet backbone, not with the transformer backbone."
+    },
+    {
+      "id": "R209",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "Don't pursue single-snapshot self-aiding further.",
+      "rule": "Do not pursue single-snapshot self-aiding (a self-derived prior from one codeword) any further."
+    },
+    {
+      "id": "R210",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "DO NOT overclaim \"position doesn't help recon\" as universal",
+      "rule": "Do not state that position does not help reconstruction as a universal claim; qualify it to the operating point (high feedback rate, dense-scattering scene)."
+    },
+    {
+      "id": "R211",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "Match the training budget for any comparison.",
+      "rule": "When comparing training runs, match their training budget (batch size and epochs) so they have the same number of gradient updates."
+    },
+    {
+      "id": "R212",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "Don't pick bs512 \"for speed\" without\n  LR scaling.",
+      "rule": "Do not reduce the batch size to 512 for speed unless the learning rate is scaled accordingly."
+    },
+    {
+      "id": "R213",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "**`nll_decoupled`** is the recommended variant",
+      "rule": "Prefer the nll_decoupled variant for the --loc_loss option."
+    },
+    {
+      "id": "R214",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "detached-σ-must-stay-outside-the-task-weighting rule",
+      "rule": "Keep the detached sigma NLL term outside the task uncertainty weighting (add it as a separate loss term), never folded into the localization loss before task weighting."
+    },
+    {
+      "id": "R215",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "Run on GPU.",
+      "rule": "Run the sigma calibration diagnostic (exp/diag_sigma_calibration.py) on GPU."
+    },
+    {
+      "id": "R216",
+      "file": "self-aided-probabilistic-pareto.md",
+      "quote": "~0.02 if revisited",
+      "rule": "If the self_aided gate is revisited, set gate_scale to about 0.02 instead of 0.15."
+    },
+    {
+      "id": "R217",
+      "file": "simulation-audit-caveats.md",
+      "quote": "report % of perfect / relative only",
+      "rule": "When reporting sum-rate results from the unit-normalized channel setup, report only percent-of-perfect or relative values, not absolute bits/s/Hz."
+    },
+    {
+      "id": "R218",
+      "file": "simulation-audit-caveats.md",
+      "quote": "CSI-error SENSITIVITY, not system capacity",
+      "rule": "Frame sum-rate results as a measure of CSI-error sensitivity, not as system capacity."
+    },
+    {
+      "id": "R219",
+      "file": "simulation-audit-caveats.md",
+      "quote": "Headline numbers to report:",
+      "rule": "When reporting localization and reconstruction results, use the geographic-split numbers as headline figures: reconstruction/beamforming is leakage-robust, and honest localization generalization is about 20 m MAE / 12.5 m p50 at 100k."
+    },
+    {
+      "id": "R220",
+      "file": "simulation-audit-caveats.md",
+      "quote": "flag explicitly",
+      "rule": "Explicitly flag that the 4.7 m and 5.3 m localization figures from the random split are upper bounds."
+    },
+    {
+      "id": "R221",
+      "file": "simulation-audit-caveats.md",
+      "quote": "list explicitly",
+      "rule": "Explicitly list the static-snapshot scope limits (no inter-cell interference, pilot contamination, hardware impairments, or channel aging) when reporting results."
+    },
+    {
+      "id": "R222",
+      "file": "simulation-audit-caveats.md",
+      "quote": "Honest claim: DL's win is overwhelmingly better CSI-subspace compression, small denoising bonus only",
+      "rule": "When describing the denoising result, claim that DL's win is overwhelmingly better CSI-subspace compression, with only a small denoising bonus versus CS at low SNR."
+    },
+    {
+      "id": "R223",
+      "file": "simulation-audit-caveats.md",
+      "quote": "DO NOT IMPLEMENT, cite instead",
+      "rule": "Do not implement the TR 38.901 §8.4 map-based hybrid channel model; cite it instead."
+    },
+    {
+      "id": "R224",
+      "file": "simulation-audit-caveats.md",
+      "quote": "cite §8/Table 8.4-1 to legitimize the RT EM-interaction principles Sionna uses",
+      "rule": "Cite TR 38.901 §8 and Table 8.4-1 to justify the ray-tracing EM-interaction principles that Sionna uses."
+    },
+    {
+      "id": "R225",
+      "file": "simulation-audit-caveats.md",
+      "quote": "frame pure-deterministic Sionna RT as a CLEANER instance of the 3GPP map-based methodology",
+      "rule": "Frame the pure-deterministic Sionna ray-tracing as a cleaner instance of the 3GPP map-based methodology, presenting the omitted stochastic overlay as a principled choice rather than a gap."
+    },
+    {
+      "id": "R226",
+      "file": "simulation-audit-caveats.md",
+      "quote": "OPTIONAL only if a committee demands a diffuse-mismatch test",
+      "rule": "Use an eval-time-only stochastic-cluster perturbation as a robustness probe only if a committee demands a diffuse-mismatch test."
+    },
+    {
+      "id": "R227",
+      "file": "simulation-audit-caveats.md",
+      "quote": "never in training",
+      "rule": "Never use stochastic-cluster perturbation during training."
+    },
+    {
+      "id": "R228",
+      "file": "spec-scenario-grounding.md",
+      "quote": "Do NOT assume 38.857's\nbandwidth scaling",
+      "rule": "Do not assume the 38.857 bandwidth-scaling expectation (100 MHz ≈ 9 m vs 5 MHz ≈ 40 m at 90%) holds for the fingerprinting-based localization method; instead, measure the bandwidth dependence experimentally."
+    },
+    {
+      "id": "R229",
+      "file": "spec-scenario-grounding.md",
+      "quote": "**OPEN EXPERIMENT — run the bandwidth sweep DOWNWARD to 20 MHz**",
+      "rule": "Run the bandwidth sweep downward to 20 MHz (in addition to the existing upward sweep 100→200→400 MHz) to measure localization performance at lower bandwidths."
+    },
+    {
+      "id": "R230",
+      "file": "spec-scenario-grounding.md",
+      "quote": "Cite UMi-SC geometry + note the rooftop/UMa BS height.",
+      "rule": "When describing the Munich scenario's geometry, cite the UMi-SC geometry and note the rooftop/UMa base-station height as a deviation."
+    },
+    {
+      "id": "R231",
+      "file": "spec-scenario-grounding.md",
+      "quote": "Separate the two requirements: **duplexing is hard**",
+      "rule": "When arguing for the FDD choice, treat duplexing as a hard requirement distinct from carrier/bandwidth, which is a soft requirement."
+    },
+    {
+      "id": "R232",
+      "file": "spec-scenario-grounding.md",
+      "quote": "state it",
+      "rule": "State the deviation of the Munich RT indoor/outdoor UE drop (~58% indoor) from the 100%-outdoor idealization explicitly in the thesis."
+    },
+    {
+      "id": "R233",
+      "file": "spec-scenario-grounding.md",
+      "quote": "note it",
+      "rule": "Note in the thesis that the Sionna max_depth of 10 exceeds the 3GPP-recommended reflection/penetration orders."
+    },
+    {
+      "id": "R234",
+      "file": "spec-scenario-grounding.md",
+      "quote": "frame as \"a map-based deterministic instantiation of TR 38.901\nclause 8\"",
+      "rule": "Frame the Sionna ray-tracing methodology in the thesis as a map-based deterministic instantiation of TR 38.901 clause 8, not as a departure from 3GPP."
+    },
+    {
+      "id": "R235",
+      "file": "spec-scenario-grounding.md",
+      "quote": "cite 38.857 (3.5 GHz), not 38.855 (2/4 GHz).",
+      "rule": "Cite TR 38.857 (3.5 GHz) as the carrier-frequency source rather than TR 38.855 (2/4 GHz)."
+    },
+    {
+      "id": "R236",
+      "file": "spec-scenario-grounding.md",
+      "quote": "cite §7.9 to SCOPE OUT the device-free\nbranch, not as a model we use",
+      "rule": "Cite TR 38.901 §7.9 only to scope out the device-free ISAC branch, not as a channel model used by the project."
+    },
+    {
+      "id": "R237",
+      "file": "swin-backbone.md",
+      "quote": "CsiNet+ LOCKED as final backbone",
+      "rule": "Use CsiNet+ as the final backbone for the CSI feedback model rather than the Swin backbone."
+    },
+    {
+      "id": "R238",
+      "file": "swin-backbone.md",
+      "quote": "fused F.scaled_dot_product_attention",
+      "rule": "When reviving the Swin backbone, use fused F.scaled_dot_product_attention instead of eager manual windowed attention."
+    },
+    {
+      "id": "R239",
+      "file": "swin-backbone.md",
+      "quote": "torch.compile",
+      "rule": "When reviving the Swin backbone, compile the model with torch.compile for speed."
+    },
+    {
+      "id": "R240",
+      "file": "swin-backbone.md",
+      "quote": "stride-2 stem",
+      "rule": "When reviving the Swin backbone, use a stride-2 stem so training starts at 32x32 with 4x fewer tokens."
+    },
+    {
+      "id": "R241",
+      "file": "swin-backbone.md",
+      "quote": "lr 3e-4 + warmup for convergence",
+      "rule": "When reviving the Swin backbone, train with learning rate 3e-4 and a warmup schedule."
+    },
+    {
+      "id": "R242",
+      "file": "thesis-project.md",
+      "quote": "cite as **\"CsiNet+-based\"** not verbatim CsiNet+",
+      "rule": "When citing the thesis backbone, describe it as \"CsiNet+-based\", not as verbatim CsiNet+."
+    },
+    {
+      "id": "R243",
+      "file": "thesis-roadmap.md",
+      "quote": "DO IT THE CHEAP WAY: trajectory sampling in our existing Sionna RT generator",
+      "rule": "When generating sequential or trajectory CSI data for temporal experiments, use trajectory sampling in the existing Sionna RT generator, not ns-3."
+    },
+    {
+      "id": "R244",
+      "file": "thesis-roadmap.md",
+      "quote": "Cite as deployment/Digital-Network-Twin framing, DON'T build.",
+      "rule": "Do not build an ns-3 + 5G-LENA + ns3-rt integration."
+    },
+    {
+      "id": "R245",
+      "file": "thesis-roadmap.md",
+      "quote": "Only worth it if committee wants system-level KPIs (throughput/latency/handover)",
+      "rule": "Pursue an ns-3 / 5G-LENA integration only if the committee wants system-level KPIs such as throughput, latency, or handover."
+    },
+    {
+      "id": "R246",
+      "file": "thesis-roadmap.md",
+      "quote": "DO IT WITHOUT ns-3",
+      "rule": "For end-to-end application-KPI evaluation, do not use ns-3; use a trace-driven, semi-analytic evaluation instead."
+    },
+    {
+      "id": "R247",
+      "file": "thesis-roadmap.md",
+      "quote": "Decision recorded so it isn't re-litigated.",
+      "rule": "Do not re-open the decision against adopting ns-3 / 5G-LENA / ns3-rt."
+    },
+    {
+      "id": "R248",
+      "file": "thesis-roadmap.md",
+      "quote": "Cite ns-3/5G-LENA/ns3-rt as the deployment/digital-twin future path",
+      "rule": "Cite ns-3, 5G-LENA, and ns3-rt as the deployment/digital-twin future path, not as built work."
+    },
+    {
+      "id": "R249",
+      "file": "thesis-roadmap.md",
+      "quote": "report as a diminishing-returns scaling curve",
+      "rule": "Report the multi-gNB results as a diminishing-returns scaling curve: the 1→2 gNB step is the large win and the 3rd gNB is a smaller tail improvement."
+    },
+    {
+      "id": "R250",
+      "file": "viz-debug-tooling-progress.md",
+      "quote": "keep as METADATA not model input",
+      "rule": "Store the sector_id label as metadata only; do not use it as a model input, because it would leak localization information."
+    },
+    {
+      "id": "R251",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "WRITE the explanation directly into that doc using LaTeX math ($…$ inline,\n$$…$$ display) — do NOT deliver it only as a terminal reply.",
+      "rule": "When explaining code or concepts from thesis_code_walkthrough_QA.md, write the explanation directly into that doc using LaTeX math ($…$ inline, $$…$$ display), not only as a terminal reply."
+    },
+    {
+      "id": "R252",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "Edit the doc (add a subsection under the relevant Topic) as the primary\ndeliverable",
+      "rule": "For \"explain topic X\" or \"walk through this code\" requests tied to the walkthrough, edit the doc by adding a subsection under the relevant Topic as the primary deliverable."
+    },
+    {
+      "id": "R253",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "keep the terminal reply short (a pointer + offer next step)",
+      "rule": "Keep the terminal reply short, limited to a pointer to the doc and an offer of a next step."
+    },
+    {
+      "id": "R254",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "Line-by-line code\nwalkthroughs go in the doc too.",
+      "rule": "Put line-by-line code walkthroughs in the doc as well."
+    },
+    {
+      "id": "R255",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "Integrate answers/corrections into the existing prose as if always\nwritten that way.",
+      "rule": "Integrate answers and corrections into the existing prose of the doc as if it had always been written that way."
+    },
+    {
+      "id": "R256",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "Never restate the question in the doc",
+      "rule": "Never restate the question in the doc."
+    },
+    {
+      "id": "R257",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "never add meta-notes about the edit\n(\"Notation warning\", \"As requested\", \"renamed X to Y\")",
+      "rule": "Never add meta-notes about the edit to the doc, such as \"Notation warning\", \"As requested\", or \"renamed X to Y\"."
+    },
+    {
+      "id": "R258",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "never leave changelog markers",
+      "rule": "Never leave changelog markers in the doc."
+    },
+    {
+      "id": "R259",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "integrate\nrather than accrete: merge into the existing explanation instead of appending a second,\noverlapping one.",
+      "rule": "Merge new material into the existing explanation rather than appending a second, overlapping one."
+    },
+    {
+      "id": "R260",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "**Check the doc before writing** — if the answer is already there, say so in\nchat and leave the doc unchanged, or sharpen the existing passage",
+      "rule": "Before writing, check the doc: if the answer is already there, say so in chat and leave the doc unchanged, or sharpen the existing passage."
+    },
+    {
+      "id": "R261",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "add a new paragraph only\nwhen the information is genuinely new.",
+      "rule": "Add a new paragraph to the doc only when the information is genuinely new."
+    },
+    {
+      "id": "R262",
+      "file": "walkthrough-explanations-in-doc.md",
+      "quote": "Only annotate if explicitly asked.",
+      "rule": "Only add annotations to the doc if explicitly asked."
+    },
+    {
+      "id": "R263",
+      "file": "walkthrough-html-render.md",
+      "quote": "Run from the repo root: `python tools/render_walkthrough.py`",
+      "rule": "Run the walkthrough render script (`python tools/render_walkthrough.py`) from the repository root."
+    },
+    {
+      "id": "R264",
+      "file": "walkthrough-html-render.md",
+      "quote": "republish the same file path to keep the URL",
+      "rule": "When republishing the walkthrough Artifact, use the same file path so the existing URL is kept."
+    },
+    {
+      "id": "R265",
+      "file": "walkthrough-html-render.md",
+      "quote": "maths is converted to **MathML at build time**, NOT with MathJax",
+      "rule": "Convert maths to MathML at build time in the walkthrough HTML render; do not use MathJax."
+    },
+    {
+      "id": "R266",
+      "file": "walkthrough-html-render.md",
+      "quote": "do not regress them",
+      "rule": "Do not regress the gotchas baked into the walkthrough render script."
+    },
+    {
+      "id": "R267",
+      "file": "walkthrough-html-render.md",
+      "quote": "fenced code blocks and inline `code` spans must be stashed before any `$` rule",
+      "rule": "Stash fenced code blocks before applying any `$` math rule in the walkthrough render script."
+    },
+    {
+      "id": "R268",
+      "file": "walkthrough-html-render.md",
+      "quote": "fenced code blocks and inline `code` spans must be stashed before any `$` rule",
+      "rule": "Stash inline `code` spans before applying any `$` math rule in the walkthrough render script."
+    },
+    {
+      "id": "R269",
+      "file": "walkthrough-html-render.md",
+      "quote": "the inline pattern must allow a newline but not a blank line",
+      "rule": "The inline math pattern in the walkthrough render script must allow a newline within the expression but not a blank line."
+    },
+    {
+      "id": "R270",
+      "file": "walkthrough-html-render.md",
+      "quote": "the image regex must tolerate them",
+      "rule": "The image regex in the walkthrough render script must tolerate balanced brackets in image alt text."
+    }
+  ],
+  "dropped": []
+}

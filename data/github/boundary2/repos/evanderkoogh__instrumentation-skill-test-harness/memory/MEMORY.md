@@ -1,0 +1,23 @@
+# Memory Index
+
+- [User profile](user_erwin.md) — Erwin's role, preferences, collaboration style
+- [Portable skills are the deliverable](project-goal-portable-skills.md) — fix instrumentation quality in the skill, not the harness; harness changes only for better measurement
+- [Always run under caffeinate](run-under-caffeinate.md) — wrap harness runs in `caffeinate -dimsu`; laptop sleep mid-run corrupts results
+- [Rebuild images after harness change](rebuild-images-after-harness-change.md) — edits to baked harness files (src/*.ts, harness.sh, lifecycle.sh, templates) need a docker rebuild (base then lang) to take effect
+- [Git workflow per repo](trunk-based-dev.md) — harness: trunk-based (push to main); agent-skill: commit on the long-running refactor feature branch
+- [Two-box skill model](project-two-box-skill-model.md) — deliverable is now two self-contained skills (otel-instrumentation + read-only otel-verification); no conductor/sub-agents; weaver registry is a static step in the instrumentation skill
+- ["Test run" defaults](feedback-default-4min-run-checkins.md) — a test run = `all --parallel` + caffeinate + 4-min check-in cadence by default; only deviate when he names an app/model/flag
+- [Observing a run](observing-a-run.md) — full picture of a run: local logs + runs.jsonl + the three Honeycomb streams, all scoped by runId
+- [Agent telemetry as GenAI conventions](genai-conventions-agent-telemetry.md) — custom in-process gen_ai spans (one chat per turn incl. thinking, built from the SDK message stream) exported straight to Honeycomb; native export + remap collector removed
+- [Full run report spec](full-run-report-spec.md) — sections + data sources for the full HTML run report: metrics, failure investigations, agent interactions, per-agent actions, expandable call table
+- [Adding a new app](project_add_new_app.md) — config.sh, baseline files, traffic.sh, preamble; Java/Python/Node callouts; check implementer skill has a references/<lang>.md guide
+- [Broadleaf startup mechanics](project_broadleaf_startup.md) — exploded JAR, LTW, bootstrap, HSQLDB facts, stale Solr recovery
+- [No preamble edits](feedback-no-preamble-edits.md) — preambles hold only general framing + app-start facts, never instrumentation how-to (that goes in the skill); suggest-and-ask, never bake in; on an explicit edit do exactly what's asked, no adjacent extras
+- [No scoring changes without permission](feedback-no-scoring-changes-without-permission.md) — never edit an app's eval/scoring attributes (APP_WEAVER_WAIVERS, EVALUATION.md, evaluation.ts/weaver.ts) on my own initiative; suggest-and-ask, wait for explicit approval
+- [Verify compliance impossible before waiver](feedback-verify-compliance-impossible-before-waiver.md) — before recommending a waiver, prove the app can't comply; upgrading the instrumentation library is usually a valid fix
+- [SQLAlchemy instr emits stable DB semconv (newer version)](reference-sqlalchemy-instr-stable-db-semconv.md) — beaverhabits' 0.49b2 pin lagged; a newer release emits db.system.name/db.query.text/db.namespace → upgrade, don't waive
+- [Weaver registry import syntax](reference-weaver-registry-import-syntax.md) — use `dependencies:`/`registry_path:` (not `registries:`/`url:`) + app-specific schema_url to import semconv; wrong form fails silently and `check` still passes
+- [Weaver criteria split + semconv waivers](project-configurable-semconv-expectations.md) — weaver_live_check split into http/db/other criteria; APP_WEAVER_WAIVERS (config.sh, eval-side) waives conventions an app's libs can't emit (realworld-go="db")
+- [Weaver live-check now uses --include-unreferenced](project-weaver-no-include-unreferenced.md) — REVERSED 2026-07-02: harness now sets the flag as a temporary workaround for the released-weaver crediting gap; remove once #1267/#1442 ship
+- [Open harness items (turn analysis)](open-harness-items-turn-analysis.md) — both RESOLVED 2026-07-06: fable sub-agent 400 mitigated (model-gated thinking:enabled in instrumentation.ts query opts); Edit-diff/subagent-text already captured by the in-process span rewrite
+- [Weaver live-check crediting is unreleased](reference-weaver-livecheck-crediting-unreleased.md) — on released weaver 0.24.2 NO registry form credits standard attrs at live-check w/o the flag; imports-of-attribute_groups/spans crediting is unreleased (main, PRs #1267/#1442); weaver_live_check_* currently unpassable by any authored registry → tooling limit, not a skill defect

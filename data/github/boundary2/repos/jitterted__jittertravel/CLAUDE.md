@@ -1,0 +1,1260 @@
+# JitterTravel — Claude Code Notes
+
+## Architecture Rules
+
+**Event-sourcing rules live in `EventSourcingRulesHeuristics.md`** (repo root) — R1–R13 and H1–H8,
+the numbered rules a dozen plan docs cite by number. Read it before designing anything that touches
+events, commands, projectors or a schema migration. The ones most often needed: **R1** never decide
+from an asynchronous projection (until LSN-seen and conditional appends exist; R3 says which source
+to prefer), **R4** the write-path order, **R7** an event's shape is contract, **R8/R10** a
+view's fields come from events and only from events, **R11** a displayed time is a payload field and
+never the store's envelope, **R12** a read model is built from events alone and never from another
+read model — compose them a layer up, in an aggregator or a controller
+(`ProjectorsDependOnEventsAloneTest`), **R13** a stored payload is opaque — nothing outside the
+event store queries into `event_log.payload`, and an ad-hoc question is answered by a read model
+that persists its own tables, never by SQL over the log or a restored backup.
+
+It and this file overlap deliberately: the sections below carry the rules with a *mechanical* guard
+in this repo (an enforcing test, a wiring order), while the numbered rules carry the reasoning and
+the migration history. Where both speak, they agree; if they ever disagree, say so rather than
+picking one.
+
+### Event Storage: use CommandExecutor, never EventStore directly
+
+Application services must **never** receive `EventStore` as a constructor dependency.
+All event appending from application services must go through `CommandExecutor`:
+
+- `commandExecutor.execute(...)` — for domain commands with a decision context
+- `commandExecutor.appendEvents(...)` — for internal actions (clearing conflicts, migrations, etc.)
+
+**Why:** `EventStore.append()` requires the command to already exist in `command_log` (foreign
+key constraint). `CommandExecutor` enforces this ordering. Bypassing it causes FK violations
+and partial writes (some events land, others don't). `CommandExecutor` also throws
+`ReadOnlyModeException` before writing anything, so read-only mode holds even if a controller
+forgets to check — including on the import path.
+
+Enforced by `ApplicationServicesUseCommandExecutorTest`, an ArchUnit rule over the constructors of
+every `application` class, with `CommandExecutor` itself exempt.
+
+### EventStore ordering invariant: persist before notify
+
+`EventStore.append()` persists to the database **before** adding to the in-memory list
+and notifying subscribers. This guarantees projectors only ever see events that are
+durable. If persistence fails, the exception propagates and subscribers are never called.
+
+Covered by `EventStoreTest.subscribersNotNotifiedWhenPersistenceFails()`.
+
+### Restore is validate-then-apply, and resumable
+
+Backup/restore is **event-oriented**: `BackupService` writes every `event_log` row verbatim
+(same ids, sequences, timestamps, `schema_version` stamp) and restores them verbatim — it does
+**not** re-execute commands (commands ride along as opaque history for a future undo; see
+`docs/archived/EventOrientedBackupRestorePlan.md`). `BackupService.restoreJson` runs two passes: pass one
+deserializes, upcasts, and **bind-checks** every event **writing nothing**, pass two inserts them
+**verbatim through `PostgresPersister.restoreCommandsAndEvents`** — not through `EventStore.append`,
+so no projector and no reactor sees a restored row until the next boot replays it. (`CommandExecutor`
+is consulted only for read-only mode. This sentence said "via `CommandExecutor`" until 2026-09-10,
+which was stale; the distinction matters because a consumer with side effects — the email sender in
+`docs/FamilyEmailNotificationsPlan.md` — is safe from restore *only* because of it.) Any validation
+error means zero writes, and *all* bad entries are reported together. `validateJson` exposes pass one on its own as a dry run for
+`/admin/restore/validate`.
+
+**Why:** restore failures are usually data problems in a few events (an address whose zone
+doesn't resolve, a schema-incompatible payload). Applying events as they are read leaves a
+half-populated database that has to be wiped. Pass two also skips events already present in
+`event_log`, so a partially applied restore resumes on re-run instead of colliding on the primary key.
+
+Backup format is at **v3** (per-event `schema_version`). Restore still parses a v2 (unstamped)
+file, but every v2 file predates stored time zones, so since the datetime rungs were retired
+(2026-10-08, Ted) it is refused on its first such row, writing nothing. The oldest backup that
+restores is **2026-08-19**.
+Covered by `RestoreSafetyTest`.
+
+### Redaction: anonymous viewers are a first-class threat model
+
+The calendar at `/calendar` is the one page anonymous visitors can see, and
+`PublicCalendarProjector` is the only thing standing between them and Ted's travel details.
+Treat it as security code, not formatting code.
+
+**It is an allow-list, not a deny-list** (shipped 2026-08-21, replacing `CalendarEntryRedactor`).
+The public calendar is its own read model, built straight from events by a projector that reads only
+the fields it names — so a field it never reads cannot leak, and forgetting to handle a new event or
+a new field leaves the data *absent* from the public calendar rather than exposed. A leak now takes a
+deliberate line of code. The old redactor was the other way round: it stripped fields from a read
+model that already held the hotel names and booking links, so every new field was public until
+someone remembered to strip it.
+
+**Private, never render for an anonymous viewer:**
+
+- hotel names and street addresses
+- any URL that resolves to a place Ted sleeps or a booking — hotel `mapsUrl`, `editPath`
+- travel times of day — departure/arrival/check-in/check-out. Anonymous viewers get *day*
+  granularity only (the grid column), never a clock time, for flights, trains, and hotels.
+- carrier/service identifiers — flight numbers, train `serviceId`, booking references
+- **how a ground transfer is made** — `GroundTransferPlanned.mode`, free text, added 2026-08-23.
+  A subway line is a service identifier like the two above, and "Susan is driving" is a third
+  party who never asked to be on a public page. This is the one travel kind whose subtitle *is*
+  public (the route), so the leak to watch for is an append to that line rather than a new one:
+  `PublicCalendarProjector` reads the endpoints and never `mode()`.
+- links into owner/family surfaces (`/itinerary`, `/booked-*`, `/planned-*`)
+- the whole `/schedule-problems` report (conflict/gap times, names, internal ids) — OWNER-only
+- everything about a conference *except* the collapsed commitment level and the speaking badge
+  below: the submission pipeline (talk titles, submitted/accepted/rejected/withdrawn and their
+  dates, and **that an invitation has arrived**), CFP window dates **and the page the talk is
+  submitted on** (`CfpOpened.submissionUrl`, added 2026-08-22 — a Sessionize link is the submission
+  pipeline in one field, and unlike a date it looks harmless in markup; `PublicCalendarProjector`
+  does not read `CfpOpened` at all, which is what keeps both out), and the commitment **basis** —
+  `AttendanceBasis`, i.e. whether Ted is going because a talk was accepted, he was invited, or he
+  bought a ticket. The basis is the easy leak, because it re-states the submission outcome; the
+  public projector reads the confirmation event only to answer whether Ted speaks and never carries
+  that field onto a view, which is the pattern to copy — do not carry a private value into a view
+  and strip it later. `SpeakingStatus` and `ConferenceFormat` are the same: they live in
+  `ConferenceState` beside the entries, never on one.
+
+**Public by decision** (do not "fix" these without asking Ted): the fact that travel is
+happening on a given day, airport codes and city names for flights/trains/hotels — with the
+**US state code** for a US place ("Denver, CO", Ted 2026-10-07: a state is coarser than the city
+beside it; a region anywhere else is free text holding neighbourhoods and post towns like
+"Altona" and is never published, see `docs/LocationDataCleanupPlan.md`) — and **conferences and
+gatherings in full** — name, venue, city, `infoUrl`, and start/end times.
+A conference's `infoUrl` was on this list before a conference had one; it **shipped 2026-08-22**
+as a field on `ConferencePlanned` and a component of both `EntryDetails.Conference` and
+`EntryDetails.PublicConference`, so the title links out for every viewer. Do not confuse it with
+the CFP's `submissionUrl` above: one is the conference's public page, the other says Ted is
+thinking of submitting there.
+Both are public events Ted speaks at or attends publicly. That Ted is **speaking** at a
+gathering is public too (shipped 2026-08-17): `speaking` is a component of
+`EntryDetails.PublicGathering` and renders as the "A Ted Talk" badge on the anonymous `/calendar`
+(the venue and time are already public, so the badge reveals nothing new). The conference
+conference half **shipped 2026-08-22** — see below; a **private** talk at a company is
+neither — it has no public venue/time and collapses to `EntryDetails.Busy` like every other
+private kind, never modelled as a gathering *or a conference* to earn the badge.
+
+A conference's **attendance commitment** is public too (shipped 2026-08-19):
+`commitment` is a component of `EntryDetails.PublicConference` and renders as a
+"Maybe" chip on the anonymous `/calendar` — the same chip owner and family see. It is publishable
+only because `ConferenceCalendarProjector` has **already collapsed** every speculative state
+(CFP not open, submitted and waiting, rejected but undecided, not submitting) into one
+`AttendanceCommitment.WATCHING`, so the chip cannot distinguish them; the private
+`AttendanceBasis` is read there and discarded rather than carried and stripped. If you ever
+un-collapse that enum — add a value that a viewer could map back to a submission outcome — the
+chip stops being publishable. `GOING` renders no chip, and a declined or organizer-cancelled
+conference leaves the calendar entirely, for everyone. **A conference dropped by a rejection does
+too** (shipped 2026-08-22): where `ConferenceFormat.ACCEPTANCE_REQUIRED` made acceptance the way
+in, a `TalkRejected` removes it from both calendars — it stays only on the OWNER dashboard, behind
+`?dropped=show`.
+
+That **Ted is speaking at a conference** is public as well (shipped 2026-08-22): `speaking` is a
+component of `EntryDetails.PublicConference` and renders as the same "A Ted Talk" badge a gathering
+wears. Two conditions on it, and both are load-bearing:
+
+- **It is published only for a conference Ted is committed to.** Speaking evidence can exist before
+  he has answered — an `InvitedToSpeak` he has not taken up — and a "Maybe" entry wearing the badge
+  would tell a stranger he was asked to speak somewhere he has not decided about. That is the
+  submission pipeline leaking one bit at a time. Going on a bought ticket after an invitation is
+  *attending*, so the confirmation's basis is what separates the two.
+- **The stream decides, and only its conclusion is published.** `ConferenceState.speaking()` is
+  where the rule lives (`PublicCalendarProjector` repeats the commitment check at the point of
+  publication, which is belt-and-braces and today unreachable). Nothing else about the pipeline
+  reaches a calendar: a submitted talk, a rejection and a withdrawal move only the collapsed
+  commitment and this badge, so an anonymous viewer cannot tell a rejected conference from one Ted
+  never submitted to.
+
+Its absence reveals nothing, which is what makes it publishable at all: "attending without
+speaking" is an ordinary thing (Ted, 2026-08-12).
+
+The **away band** is public too (shipped 2026-08-20): the turquoise stripe under a day label
+saying Ted is out of town that day renders for every viewer, anonymous included. It reaches the
+calendar as a plain `Set<LocalDate>` from `ScheduleGapProjector.awayDays()`, which never meets
+`PublicCalendarProjector` — deliberately, so do not "fix" that by routing it through the public
+projection.
+The band aggregates only day-granularity facts already public above, and assembling "he is away
+that week" from the public calendar takes no effort (Ted, 2026-08-20). Note what that argument
+rests on: the band says *when*, never *where* or *why*. A future variant that labelled the trip,
+or that banded days no public entry accounts for, would be a new disclosure and needs asking.
+
+**Private social events are their own kind (shipped 2026-08-13).** `EntryKind.PRIVATE_EVENT`
+(a dinner with friends) is built publicly as `EntryDetails.Busy`: an anonymous viewer sees `Busy`, a
+zone-labelled time range, and city/country, and nothing else — never the title, which the public
+projector does not read. Do **not** model a private-ish event as a GATHERING to reuse its rendering
+(gatherings are fully public).
+
+**Any *new* private-ish kind reuses `EntryDetails.Busy` — it does not get a public type of its
+own.** That is redaction, not economy: a second private kind with its own public lane would let a
+stranger tell it apart from a dinner by lane alone. Give it its own *owner* details type and its own
+branch in `PublicCalendarProjector` that collapses to `Busy`. See
+`docs/archived/PrivateSocialEventPlan.md`.
+
+**Rules for writing the code:**
+
+1. **Redaction is deny-by-default, and the default is "don't read it."** In
+   `PublicCalendarProjector`, publish a value only by naming the event field it comes from. Never
+   derive a public entry from an owner `CalendarEntry` — that is the deny-list the allow-list
+   replaced, and it puts the private value one refactor away from the page. If a kind needs
+   something publishable that the event does not carry directly (a transfer's route, whose owner
+   title names a hotel), build it there from the event's own data.
+   **The kind-specific half of a public entry is an `EntryDetails.Publishable`**, and those records
+   have no slot for an edit path, a cancel path, a maps URL or a hotel name — so a future change
+   cannot fill one in by mistake. Every entry the projector builds goes through its private
+   `entry(...)` helper, whose last argument is a `Publishable`; keep it that way, because that is
+   what makes the allow-list a compiler check rather than a convention. Adding a *public* field
+   means adding it to one of those records, which is the moment to ask whether it may be published
+   at all.
+2. **On travel entries (FLIGHT, TRAIN, GROUND_TRANSFER, LODGING) a `SubtitleLine` carrying a
+   `ZonedTimestamp` must never reach the public calendar.** `ZonedTimeTag` emits
+   `datetime="<UTC instant>"` into the markup, so a time leaks in the attribute even when
+   the visible text looks harmless. Public travel subtitles are `SubtitleLine.Text` or
+   nothing — today the projector gives flights and trains no subtitle at all, and a transfer only
+   its route. (Conference and gathering times are public — see above. The private event's
+   `FixedRange` is the one deliberate exception, its time being public in its own zone.)
+3. **Every new route is deny-by-default too.** `SecurityConfig` ends in
+   `.anyRequest().permitAll()`, so a new `@GetMapping` is public unless you add a matcher.
+   Hiding the nav card in `index.html` (`th:if="${showDataEntryNav}"`) is *not* access
+   control — the URL is still open. Add the route to `SecurityConfig` **and** to the
+   `policy()` matrix in `AuthorizationMatrixTest` in the same change.
+4. **The audience is chosen at the boundary and applied inward.** `CalendarController` derives
+   `isPublicUser` from `request.getRemoteUser()` and picks the read model — `PublicCalendarProjector`
+   for a stranger, `CalendarAggregator` for everyone else. Renderers must never re-derive viewer
+   identity, reach for `SecurityContextHolder`, or strip anything: `CalendarRenderer` draws exactly
+   what it is handed, and `CalendarRendererTest` pins that.
+5. **Every redaction change needs both tiers of test**: a unit test in
+   `PublicCalendarProjectorTest` asserting the private value is not in what the projector emits,
+   and a `CalendarRedactionSecurityTest` case asserting the rendered anonymous body
+   `doesNotContain` the secret through the real security chain. Assert on *absence* of the
+   private value, not just presence of the placeholder. Anonymous fixtures in the security test are
+   built by driving **real events through a real `PublicCalendarProjector`** — never by hand-writing
+   a public `CalendarEntry`, which would let the test assert whatever it wished.
+   `PublicCalendarProjectorTest.everyEntryCarriesOnlyPublishableDetails` is the invariant that
+   replaced the redactor's compile-time forcing function; it is written so that adding a kind does
+   **not** require editing it, and it must stay that way — a test that has to be edited on every
+   change stops guarding, because editing it is exactly what a leaking change would do.
+6. **When in doubt, redact and ask.** A missing detail on a public calendar is a papercut;
+   a leaked one is unrecoverable.
+
+### A comment never reaches the browser
+
+**Comment CSS and templates as freely as you like — none of it is shipped** (Ted, 2026-09-07). Two
+mechanisms, both already in place, and neither asks you to move an explanation away from the thing
+it explains:
+
+- **Inlined CSS**: `Page.head` runs every renderer's stylesheet through `Page.withoutComments`
+  before it reaches the `<style>` block. Nothing to remember — write the comment where it belongs.
+- **Thymeleaf templates**: write `<!--/* … */-->`, the parser-level comment the engine removes
+  before the response. A plain `<!-- … -->` is sent to the browser and fails
+  `TemplateCommentsAreParserLevelTest`.
+
+**Why, and it is the redaction rules above pointing at a channel nothing else watches.** A
+stylesheet is inlined into every page including the anonymous `/calendar`, so a comment naming an
+owner-only surface is a disclosure — which is exactly how a comment naming `.year-overview` reached
+`CalendarRedactionSecurityTest`. Stripping makes that impossible rather than remembered. It also
+takes ~13 KB off every `/calendar` render, uncached, on the iPad's connection.
+
+**Why strip rather than ban comments and hoist them into Javadoc:** these comments are *trap
+warnings* — the `transform` that silently becomes a containing block, `max-content` being the
+unwrapped width of a wrapping flex row, the missing border-box reset — and their value is sitting on
+the declaration somebody would otherwise tidy away. Prose hoisted above a 200-line CSS constant
+loses that anchor, and a note that loses its anchor is the one that gets deleted.
+
+**Three exceptions, all deliberate:**
+
+- **Inline `<script>` text blocks are not stripped.** Doing it safely means handling regex literals
+  and string contents; that is a different job with a worse failure mode. So a JS comment *does*
+  ship — do not name a private surface in one.
+- **`site.css`** is served as a static file and never passes through `Page.head`. Its comments ship.
+- **A `<style>` block inside a Thymeleaf template** holds CSS, so the parser-level comment does not
+  apply there and a `/* */` inside it ships.
+- (And `<!--!…-->` Font Awesome license notices stay, by exemption in the test: the vendor's
+  license is not ours to strip, and it names nothing private.)
+
+**One known limitation of the stripping**, pinned by `PageTest`: a comment marker inside a CSS
+*value* (`content: "/*"`) opens a comment and eats everything up to the next real `*/`. No such
+value exists in the tree; whoever first needs one has to teach `withoutComments` about strings.
+
+### Time comes from the injected Clock — never the ambient system clock
+
+Production code must **never** call `Instant.now()`, `LocalDate.now()`, `LocalDateTime.now()`,
+`System.currentTimeMillis()`, or any other "what time is it" call that does not take a `Clock` —
+`LocalDate.now(zone)` included, since a zone says where, not when. They are unmockable:
+a class that reads the ambient clock cannot be tested at a chosen instant, so anything that
+depends on *when* it runs — a FUTURE/ALL filter at a day boundary, a cancellation deadline, an
+expiry, a "today" column — has no way to be pinned down in a test.
+
+Take the time from the injected `Clock` instead:
+
+- `Instant.now(clock)` or `clock.instant()` in a controller
+- capture it at the boundary and pass it inward — services, projectors, and the domain receive
+  a `now`, they never ask for one (see "external inputs from the boundary")
+
+The **only** legal source of real time is the `Clock` `@Bean` in `EventSourcingConfig`
+(`Clock.systemDefaultZone()`). Everything else — controllers, `EventStore`,
+`PostgresPersister` — takes `Clock` as a constructor dependency.
+
+Enforced by `NoAmbientClockReadsTest`, an ArchUnit rule over the compiled production calls, with
+`EventSourcingConfig` exempt. It reads compiled accesses rather than text, so a statically imported
+`now()` is caught, and so is a method reference like `Instant::now`, which the old regex missed.
+A `now(...)` passes only when its one parameter is a `Clock` — until 2026-09-25 it passed with *any*
+argument, so `now(zone)` slipped through — and the rule is itself tested against a class breaking
+it in each form, because a guard only ever run over clean code passes just as well when it sees
+nothing. Tests may read the wall clock freely; the rule is about production code. Note that a `@WebMvcTest` slice has no `Clock` bean of its own — import
+`WebTodayTestConfig` (which pins one) when slicing a controller that needs time. Prefer a
+`Clock.fixed(...)`; use an advancing clock only when the behaviour under test genuinely
+depends on time passing (see `PostgresPersisterTest`, where command ordering does).
+
+### Destructive actions: red, and gated behind a typed word
+
+Colour carries meaning, and it is not decorative (Ted, 2026-08-19):
+
+- **Red = irreversible.** The action cannot be undone from inside the app — truncating the
+  database, a migration that rewrites or renames stored rows, deleting data.
+- **Amber/orange/yellow = reversible or recoverable.** Work waiting (the pending-commands and
+  post-deploy task banners), a restart needed, a schedule problem to look at. If the answer to
+  "can Ted put this back?" is yes, it is not red.
+
+A warning *about* a destructive operation follows the operation, not the tone of the sentence: it
+is red, never amber.
+
+**"Destructive" means the data is actually gone** (Ted, 2026-08-24) — direct writes against stored
+data, admin operations, and anything unrecoverable: truncating the database, a migration that
+rewrites or renames stored rows, deleting rows. It does **not** mean "a domain action with a scary
+name".
+
+**Recording a `*Cancelled` after a `*Booked` is not destruction.** That is the whole point of event
+sourcing: the cancellation is a *new event appended* to a log that still holds the booking. Nothing
+is overwritten and nothing is lost — the event log, the timeline and `/admin/eventlog` all still show
+the stay, and an undo is a future event away, not a restore from backup. So cancelling a hotel, a
+conference or a ground transfer is an **ordinary domain action**, however final it feels in the UI.
+
+**Every destructive action takes a typed confirmation** — a short all-caps word in a text input
+next to a **red** button, matching the Danger Zone on `/admin/database` (type `DELETE`) and
+`/admin/migrate-legacy-events` (type `MIGRATE`). The controller compares the word exactly and
+re-renders the page with the error when it does not match, writing nothing; a disabled-looking
+button alone is not a gate, because the POST is still reachable. The word goes in the input's
+placeholder and in a hint line, so nobody has to guess it.
+
+**"Exactly" means the word, not the whitespace around it** (Ted, 2026-08-30). `TrimTypedTextAdvice`
+trims every bound parameter, so `" DELETE "` opens the gate. That is deliberate and not a
+weakening: the word is there to prove *intent*, and a phone that appends a space to an autocorrected
+word has not changed Ted's mind — refusing it teaches him that the gate is unreliable, which is how
+a gate stops being read. Case is still exact, and so is every other character.
+
+**Do not add a typed word to a `*Cancelled` action.** Per the paragraph above it destroys nothing,
+and spending the gate there is what makes it noise on `/admin/database`, where it is the only thing
+standing between a misclick and the whole event log. The two current gates are both admin
+operations, and that is the level this rule lives at.
+
+**The two tests are separate, and a cancel can fail one and pass the other.** The typed word asks
+*"is stored data destroyed?"*; the colour asks *"can Ted put this back from inside the app?"*.
+Cancelling a hotel destroys nothing (no word) but has no in-app undo today — the "Undo Cancel Hotel
+Booking" slice is unbuilt — so its red button and red warning are correct as they stand. Ship the
+undo and the colour question reopens; the typed-word question never applied.
+
+**Cancel Train is the same, and shipped amber by mistake on 2026-09-06.** The argument for amber was
+"booking the trip again puts it back". It does not: re-booking mints a new `TrainTripId`, and a past
+trip cannot be re-booked at all, since departure must be in the future. **"Re-entering it by hand"
+is not an undo** — that is the general form of the rule, and it is what the colour question is
+asking. Corrected to red on the button, the list link and the confirmation's own sentence.
+
+### Action affordances: never move, and disable rather than hide — but only for *state*
+
+Two standing UI rules for buttons, links, and icons (Ted, 2026-08-19):
+
+1. **They never move.** A reader aims at a remembered position, and a misclick on an action is not
+   a free mistake. If one action renders conditionally, its neighbours must stay exactly where they
+   were — same position on every row, in every state. Reserve the slot; do **not** re-align the
+   container to compensate (flush-right was tried on `/conferences` and rejected: it reads as off,
+   and it drags the column header right with it).
+   **What "move" means (Ted, 2026-10-08):** an action appearing or disappearing so that a
+   *different* action lands where another one used to be. A whole actions column drifting a little
+   sideways because content-sized columns changed width (showing cancelled flights widens Airline
+   on `/booked-flights`) is not a violation. The actions still line up vertically and keep their
+   order within each row, so the reader still aims at the right one.
+2. **An action that cannot be triggered right now is shown disabled, with the reason** — greyed,
+   non-interactive text (a `span`, never a disabled `<a>`), carrying a `title` that says why. It is
+   not removed. Removing it changes the row's vocabulary between rows and hides that the capability
+   exists at all.
+
+**The split that matters — the second rule is about state, never about authorization.** It applies
+only where the action *has been or will be* available to this viewer: already confirmed, already
+cancelled, no next page. Where a viewer could **never** trigger it — anonymous and family users on
+OWNER surfaces — render **nothing at all**. A greyed control is itself a disclosure: it tells a
+stranger the surface exists and that Ted has one. Hiding by permission stays hiding; see the
+redaction rules above, which win wherever the two appear to disagree.
+
+**The second split — a state *machine* wins over rule 2 (Ted, 2026-08-22).** Where what a row
+offers is decided by a state machine, an action that does not apply is **absent**, not greyed. The
+distinction is whether the action is the same action merely unavailable yet ("already confirmed",
+"no next page" — grey it, say why) or one that would be *meaningless* in this state: `Accepted` on
+a conference nothing was submitted to names an event that could never be true, and greying it
+promises a capability that does not exist. Carrying every move on every row to hold positions fixed
+says less, not more.
+
+Worked example, `ConferencesRenderer.actions`: each row shows only the moves legal from where its
+talk stands — `Submitted · Ticket Bought · Decline` while nothing is out, `Accepted · Rejected ·
+Withdrawn` while one is, `Decline` alone once he is committed. No state reaches four, which is what
+keeps them links rather than a menu. Recording the CFP deadline was moved *out* of that cell for the
+same reason: it is a property of the conference, not a move, so it hangs off the deadline line under
+the name. (This replaced a two-slot greyed-`Confirm` arrangement from 2026-08-19; see
+`docs/Cleanup_Tasks.md` for why it went.)
+
+**A third rule, about dropdowns (Ted, 2026-08-21): use one only above three choices, or where
+space is genuinely constrained — and if you are unsure, ask.** Up to three actions are rendered as
+links, side by side or wrapped; a menu holding one item is a door in front of a door, and even
+three is faster read than opened. "Space is constrained" means a real constraint, like a band in a
+week-grid cell that is one day wide — not a card with a whole column to itself. Where the menu does
+survive, it still needs a **visible affordance**: a control that only reveals itself to someone who
+already knows to click is a hidden affordance, which this project does not ship. Worked examples:
+`ScheduleProblemsRenderer.fixSlot` (links up to three, menu above), and
+`ProblemCalendarViewBuilder.renderBandSegment` (one fix makes the whole band a link; several keep
+the menu, and either way a `Fix ▾`/named chip on the band's face says the action is there).
+
+**A fourth rule, and it is absolute: never have an affordance that relies on `:hover`** (Ted,
+2026-09-04). A control's visible sign of being a control must be there when nothing is pointing at
+it — a colour, a permanent underline, a border, an icon. `:hover` is reinforcement and never the
+affordance itself.
+
+**The iPad has no pointer**, and it is this app's primary target, so a hover-only control is not
+"subtle" there — it is invisible at every moment. That is the whole argument; it is the same one the
+dropdown rule above makes about a menu that "only reveals itself to someone who already knows to
+click", stated for every control.
+
+Worked example, and how it shipped: `/conferences` rendered **"CFP date unknown"** — the one
+affordance for recording a conference's CFP — as `color: inherit` inside a `var(--muted-text)`
+sub-line with `:hover { text-decoration: underline }`. It read as muted grey text identical to the
+non-link sub-lines beside it, and the comment above it said, in as many words, "the underline on
+hover is the affordance". Ted could not find it. The fix was **not** to make it louder: the
+underline became permanent and the muted colour stayed, which keeps the visual hierarchy the
+original note wanted and makes the link visible at rest.
+
+Enforced by `HoverIsNeverTheAffordanceTest`, a source scan over every renderer's CSS and
+`site.css`: a selector whose `:hover` rule is where `text-decoration: underline` first appears must
+declare its own `color` rather than `color: inherit`. **That is narrower than the rule** — it does
+not see a hover that reveals via `opacity`/`display`/`visibility`, or a declared colour too close to
+its surroundings to make out — so apply the English rule when reviewing and treat the test as the
+floor. Note also what is legitimately *not* a violation: an always-visible SVG icon
+(`.edit-pencil`, `.cancel-bin`) whose hover changes nothing about whether you can see it.
+
+The one known violation the test cannot reach — a collapsed past week on `/calendar`, whose only
+always-on signal is `cursor: pointer` — is in `docs/Cleanup_Tasks.md` with its mechanism, in the
+same way the moving-affordance violations are.
+
+**A fifth rule: an icon means one thing, app-wide** (Ted, 2026-09-04). **A pencil means edit and
+nothing else**; a bin means cancel or remove. A new meaning takes a **new icon** — never a borrowed
+one, however well it fits the slot. Borrowing is worse than a missing affordance, because a pencil
+that opens a read-only page teaches that pencils are unreliable, and after that every pencil has to
+be tried rather than read. Caught while planning the conference detail page: the obvious slot for
+"open details" on `/calendar` was the pencil's, and the pencil would have been lying.
+
+The corollary that is deliberately **not** a rule: **where a *title* link goes is a judgment call**
+(Ted, 2026-09-04). `CalendarViewBuilder` used to assert that a title link "always means go look at
+this elsewhere"; that was dropped as unjustified once the owner's conference title wanted to point
+at the app's own detail page. Do not re-derive it from the code — the current targets are choices,
+not a pattern.
+
+**Problem colouring beats problem taxonomy.** On any surface where a problem sits among
+non-problems, every problem wears the same warning amber, whatever kind it is; the kind may survive
+as a left edge, an icon or the words, never as the fill. Ted missed a run of missing hotels on
+`/schedule-problems?view=calendar` because they were blue while travel gaps were amber (2026-08-21).
+The first thing a marker has to say is "something here is wrong".
+
+Known violations still open, with the mechanism for each, are listed in `docs/Cleanup_Tasks.md`
+("Action affordances that still move").
+
+### A recording surface needs no decision-support information
+
+JitterTravel is mostly a **record of things that already happened outside the app** — the ticket was
+bought, the talk was accepted, the hotel was cancelled by phone. That fact sets the past-tense
+labelling rule ("Ticket Bought", not "Buy ticket"), and it also decides **what a page carries at
+all** (Ted, 2026-08-24).
+
+**Before adding a field to a page, ask which kind of page it is:**
+
+- A **recording** surface reports an act already completed. Ted is there *because* the thing is
+  done. It wants **identification** ("which booking is this?") and **consequences** ("what this
+  removes"), and nothing else. Anything that would have helped him *decide or act* is information he
+  needed **one step earlier** — put it on the surface he was standing on then.
+- A **decision-support** surface is where the act is chosen or performed. It carries whatever makes
+  the choice answerable, including context imported from wherever the user came from.
+
+**Worked example, and the reason this is written down.** Booking provenance — which agency holds the
+reservation — was proposed for the cancel-hotel page, on the obvious-looking reasoning that it is
+where you want to know who to phone. Backwards: reaching `/booked-hotels/{id}/cancel` means Ted has
+**already cancelled with the provider** and is recording it. The provider belongs on
+`/booked-hotels`, where he was standing when he decided. See `docs/BookingProvenancePlan.md` D5.
+
+The same reasoning removed the **check-in gate** from Cancel Hotel: telling the app is a separate
+manual step that routinely lags, so "check-in has passed" only ever meant the data entry was late,
+never that the cancellation was wrong (`docs/HotelCancelReplacePlan.md`).
+
+**The next section is this rule pointing the other way, not an exception to it.** A `/book-hotel`
+reached from a problem link *is* a decision-support surface — Ted is there to choose a hotel he has
+not booked — so it gets the whole problem banner, not less context. Recording pages get nothing
+extra; deciding pages get everything that makes the decision answerable. A surface that is neither
+obvious nor clearly one of the two is worth asking about rather than guessing.
+
+### A fix link carries its problem with it
+
+Every href `ProblemFix` builds ends in `?problem=<key>&from=<origin>`, appended in one place
+(`ProblemFix.explaining`) so a new fix cannot ship without them. On the page it lands on,
+`ProblemContextAdvice` resolves the key against `ScheduleGapProjector.problems(now)` and the shared
+fragment `fragments/problem-context.html` renders the banner: the problem in the report's own words,
+the surrounding `ScheduleContext`, and a Back link to the surface the link was clicked on.
+
+**Why:** the prefill was never the gap — `/book-hotel` already arrived with the right city and the
+right nights. What was missing is the sentence that made them the right values, and Ted was opening
+a second tab to re-read the report he had just left (2026-08-21). Full reasoning in
+`docs/archived/ProblemContextOnFixPagesPlan.md`.
+
+**Adding a new fix target — three things, or the banner silently is not there:**
+
+1. Include the fragment in its template:
+   `<div th:replace="~{fragments/problem-context :: problemContext}"></div>`, above the form.
+2. Add its path to `TEMPLATE_FOR_PATH` in `ProblemContextFragmentConventionTest`. That test walks
+   every href `ProblemFix` can emit, so an unlisted path fails it — deliberately, because the
+   wiring is an advice no controller mentions and nothing else would notice.
+3. Keep the route **OWNER-only**. The banner prints hotel cities, gathering names and exact arrival
+   times — the content of a report `SecurityConfig` gates at OWNER. This is a standing condition on
+   all six current targets, not a one-time check.
+
+**The link carries a reference, never the words.** `ProblemRef` derives the key from the problem's
+own content in an exhaustive switch (problems have no id — they are recomputed from events every
+batch), so a new `ScheduleProblem` variant cannot be added without deciding how it is referenced. A
+key matching nothing — hand-edited, bookmarked, or naming a problem since fixed — renders **no
+banner** and leaves the form exactly as it was; that is the whole error path. Never put the sentence
+in the query string: a URL can be edited, and it goes stale the moment the problem is fixed in
+another tab.
+
+**The wording is reused, never rewritten.** The banner reads `ProblemBand` and `ContextBand` — the
+problem calendar's own view types — so it cannot disagree with the band that was clicked. A second
+copy of the phrasing is a second copy to drift.
+
+### Zooming out is lossy on purpose, and the losses are chosen
+
+A third "what belongs on this surface" rule, alongside the two above. Those ask *which kind of page
+is this*; this one asks *how far away is the reader standing*.
+
+**A zoomed-out view is not the same information smaller — it is lossy compression, and the loss is
+selective** (Ted, 2026-09-01). Decide what question the view answers at that distance, keep only
+what answers it, and drop the rest deliberately rather than shrinking everything uniformly.
+
+**The sharpest test for what goes is containment: is this implied by, or inside, something already
+on screen?** If so it is detail belonging to a closer zoom, and the reader will be at that zoom when
+they need it. Prefer dropping such a thing over rendering it small.
+
+**Worked example — the year overview (`YearOverview`, `docs/archived/YearOverviewPlan.md`).** At a year's
+distance Ted needs *where the conferences are* (the reason a trip exists) and *whether its flights
+are booked*. He does **not** need trains or ground transfers, because — his words — *"they happen
+'inside' the overall trip"*: the trip is already drawn, and a taxi within it costs a day of the
+block's colour to say nothing. Hence the panel's whole vocabulary is three tints and one glyph.
+*"For conferences I'm planning for 8 or 10 months from now, that's all the detail i need."*
+
+**Absence can carry the signal — but only where the vocabulary is sparse.** On the overview, *no
+plane on a future trip* means its flights are not booked yet. That reading exists only because the
+plane is the **one** glyph. An earlier version gave all seven `EntryKind`s a glyph and a busy month
+became a wall of pictures in which nothing's absence was noticeable. So sparseness is not only about
+legibility at 18px; it is what buys the negative space that absence needs in order to mean anything.
+Adding a second glyph vocabulary to that panel would destroy a signal, not just add clutter.
+
+**When you build any summary, overview, digest or zoomed-out view, name the losses out loud** — in
+the plan doc and in the PR — rather than defaulting to "show everything, smaller". A loss that was
+argued for is a decision; one that happened by omission is a bug waiting to be reported.
+
+### What belongs in `domain` — and what a curated table is
+
+A type belongs in `dev.ted.jittertravel.domain` when it states a fact or a rule about travel and
+depends on **none** of the following:
+
+- **I/O or a serialization library** — files, sockets, the database, HTTP, Jackson. Persistence and
+  wire formats live in `infrastructure`.
+- **A framework** — no Spring, no annotations from one.
+- **The clock** — see "Time comes from the injected Clock" above. A decision that depends on *when*
+  it runs receives `now` from the boundary.
+- **Randomness** — no `Random`, no `Math.random()`.
+- **Identifier generation** — ids are minted at the boundary and passed inward, for the same reason
+  as `now`: a value the domain invents is a value a test cannot fix. **Standing exception (Ted,
+  2026-08-23): the seven `*Id.random()` factories stay.** They have zero `src/main` call sites and
+  407 in tests; production already mints at the boundary, so the rule holds where it matters.
+- **Presentation** — no display strings; see the section below.
+
+**Two readings people get wrong, both settled (Ted, 2026-08-23):**
+
+1. **A curated in-memory table is data, not I/O.** `LocationZoneResolver`, `AirportZoneResolver` and
+   `StaticAirportCityResolver` are `Map.ofEntries` literals stating facts about the world — which
+   zone an airport is in, which city a code names. They belong in `domain` and live there.
+2. **An interface kept as a seam for a future non-static lookup is ordinary ports-and-adapters.**
+   The interface is the *domain's*; an I/O-backed implementation, if one ever exists, is the
+   adapter in `infrastructure`. Keeping the interface out of `domain` in anticipation is the
+   mistake, not the caution.
+
+**Why the line is here and not somewhere more permissive:** a package that depends on nothing but
+`java.*` and itself can reach Spring or Jackson only through a class it cannot name. That is one
+assertion covering the framework, serialization and presentation clauses at once, and it means a
+library nobody has thought of fails on arrival rather than after someone remembers to add it to a
+list.
+
+**The I/O clause needs a rule of its own, because `java.*` is where the I/O lives.** The whitelist
+admits `java.io`, `java.nio`, `java.net` and `java.sql`, and until 2026-09-25 this section claimed
+the whitelist covered I/O too. It never did. The domain happened to use none of them, so nothing
+was caught and nothing was missed. Those four packages and `java.rmi` are now banned from `domain`
+by name. That list is a short blacklist inside a whitelist, and it is fine that way: the JDK's I/O
+packages are a fixed set, unlike the libraries we might add.
+
+Enforced by `DomainIsPureTest`, ArchUnit rules over the compiled `domain` classes. The dependency
+check is a **whitelist** of `java..` and `dev.ted.jittertravel.domain..`, and must never be
+rewritten as a blacklist of the libraries we happen to use today. Because it reads bytecode, a
+fully-qualified name with no import line is caught too. It also bans the I/O packages above and
+randomness (`Math.random()` and any `RandomGenerator`) in `domain`, and asserts that no production
+class calls an `*Id.random()` factory. Full reasoning and the audit that produced it:
+`docs/archived/CuratedResolversToDomainPlan.md`.
+
+### Presentation formatting stays out of the domain
+
+Display strings are presentation, not domain. A domain type (`Address`, `ZonedTimestamp`, an
+`Event`) must not carry methods that format how it is *shown* — no `cityCountry()`, no
+`asLabel()`, no `formatTime()`. Formatting belongs in the presentation layer: the projectors that
+pre-format `CalendarEntry`/view records, and the j2html/Thymeleaf renderers. Domain types expose
+their data (`city()`, `country()`); the presentation layer decides that a calendar cell reads
+`"London, GB"`.
+
+This codebase hasn't always been strict about it, so you will find counter-examples; do not add
+new ones, and prefer moving formatting toward a renderer when you touch it. A shared formatting
+concern across two presentation sites goes in a presentation-layer collaborator (e.g. a projector
+helper), never pushed down onto the domain type to "share" it — and mind the standing preference
+against single-method utility classes when you place it.
+
+### Typed text is normalized where it lands, not where it is typed
+
+A domain string is never null and never carries surrounding whitespace. Both are settled in the
+**compact constructor of the record that holds it** — `Address`, `TrainStationAddress`, `Place` —
+not at the form, not at the projector, and not at the comparison.
+
+**Why the constructor and not the boundary** (Ted, 2026-08-30): Jackson binds *stored* payloads
+through the same constructor, so a normalization there repairs events already in the log on every
+replay — no migration, no rewritten rows, and the stored JSON is untouched, which keeps backup files
+byte-compatible. A trim at the controller would only protect what has not been written yet.
+
+**Why it matters at all — this is not tidiness.** A city is *compared*, not merely displayed:
+`Place` derives a place from `locationForMatching`, and the schedule asks whether two of them name
+the same city. That comparison is case-insensitive but otherwise exact, while HTML collapses a
+trailing space — so an untrimmed city is a **different city that renders as the same one**. In
+production (event 92) `"Hamburg "` from an iPhone keyboard produced "No travel — Hamburg → Hamburg"
+on `/schedule-problems` and demanded a hotel for nights the Hamburg booking already covered. The
+space bar that commits an autocorrect suggestion leaves the space behind, and `type="text"` submits
+its value verbatim; nothing in between removes it.
+
+**The other half is at the boundary, and it is already done for you.** `TrimTypedTextAdvice` is a
+`@ControllerAdvice` registering a `StringTrimmerEditor(false)`, so **every** `String` bound from a
+form or a query parameter arrives trimmed — every field on every form, including ones nobody has
+written yet. `false` rather than `true` so `""` stays `""` and the no-null-Strings rule is
+untouched. Added 2026-08-30 for the free text nothing compares *yet* (a hotel name, a venue name, a
+title): per-field normalization there would be ceremony in a dozen event records and would still
+leave the next new form uncovered.
+
+**So the split is: the boundary trims everything typed; a record normalizes everything compared.**
+Both are needed — a restore binds stored JSON through Jackson and never passes the boundary, which
+is exactly how event 92 was repaired. When you add a field, that split tells you where to look:
+free text needs nothing, a compared field normalizes in its record and says so. And when you write
+a comparison of two typed strings, trim both sides even where you believe they arrive clean:
+`HomeCities.includes` trimmed from the start and `sameLocation` two lines below it did not, which is
+precisely how this shipped. Nothing at a controller mentions the advice, so
+`TrimmedTypedTextConventionTest` is what makes deleting it fail — the same arrangement
+`ProblemContextAdvice` has.
+
+Two knock-on effects worth knowing. The advice reaches `@RequestParam`, so the typed confirmation
+words below accept `" DELETE "` — agreed deliberately (Ted, 2026-08-30). And optional text is
+guarded with `isBlank()`, never `isEmpty()`, so a value of `" "` reads as absent rather than
+rendering an empty chip or a link to nowhere.
+
+Note the limit, so nobody assumes more cover than exists: `trim()` does not remove a non-breaking
+space (U+00A0), and nothing here sees homoglyphs — one stored street begins with a Cyrillic М.
+Streets are never matched on, so nothing depends on it.
+
+### A city that is really a station is rejected on the write path, never in the record
+
+The section above is about *normalizing* what was typed. This one is about *refusing* it, and the
+two live in different places on purpose.
+
+A booking names a building and the city it stands in, and `EnteredLocation` (domain) is the pair,
+checked from the four commands that write one — `BookTrainCommand`, `ChangeTrainCommand`,
+`BookHotelCommand`, `ChangeHotelCommand`, in their **compact constructor**, before their date rules
+(Ted, 2026-10-22; `docs/archived/ValidateBeforeTheWalPlan.md`). A refusal there throws before
+`CommandExecutor` has written the write-ahead row, so it never reaches the command log. The rule
+generalizes to every command, creation and change alike: **a check that needs nothing beyond the
+form's own values is data entry and belongs in the constructor; a check that needs state — `now`,
+the stream, whether the thing exists — is a domain refusal, stays in `execute`, and is recorded as
+`FAILED_DOMAIN`.** One consequence is accepted on the change commands: a data-entry mistake is
+refused before existence is asked, which only a hand-edited URL can observe. The split is what
+keeps a corrected resubmit from colliding with the refused attempt's row (H4), and the creation
+controllers re-render a refused form under a fresh id for the refusals that *are* recorded
+(`RefusedForm`, which also explains the Spring detail that makes it four lines).
+Three rules, reported in order: the building has a name; the city is filled in; the city does not
+*look* like a building (no brackets, no digit, no whole word from a short list — `hbf`,
+`hauptbahnhof`, `bahnhof`, `bf`, `bhf`, `fernbf`, `gare`, `station(s)`, `stazione`, `estación`,
+`centraal`, `centrale`, `termini`, `parkway`, `flughafen`, `airport`, `terminal`, `hotel`, `hostel`,
+`resort`, `suites`).
+
+**Why it matters** is the section above's argument one door further in: a city is *compared*, not
+merely displayed, so "Frankfurt (Main) Hbf" in the city field is a city that matches nothing —
+`/schedule-problems` then invents a gap between a city and itself, or misses a real one. It is
+event 92's failure through a different door: one paste into the wrong box rather than a stray space.
+It reached production because the paste target looks perfectly reasonable on the page (Ted,
+2026-08-30).
+
+**Why a method and not the compact constructor — the rule that generalizes.** `Address` and
+`TrainStationAddress` normalize in theirs *because* Jackson binds stored payloads through it, which
+is exactly what makes it the wrong place to reject anything: a rule there applies retroactively to
+every event in the log, and one old booking that breaks it stops a replay — and a restore — dead.
+**Normalize in the record; reject in the command.** An existing booking that trips a rule is then
+only met when Ted next edits it, which is the moment he can fix it. A *command's* compact
+constructor is a fine place to reject, because a command is built from a form and never from the
+log: commands ride through backup and restore as opaque rows and are not re-executed.
+
+**Validate a proposed rule against the production backup before shipping it.** A fourth rule was
+written and removed the same day: "the city is not the building's name again". It is the obvious way
+to catch the whole line pasted into both boxes, and it is wrong here — a station is routinely named
+for its town. Run over every venue/city pair in `jittertravel-backup-production-2026-08-30T144616Z`
+it scored **one** rejection, Gembloux/Gembloux (a real Belgian station, in the log twice), and no
+true positives; the paste it was meant to catch carries `Hbf` and brackets, so rule 3 has it anyway.
+`EnteredLocationTest.butAStationNamedForItsOwnTownIsNotAPaste` is the regression that fails if
+anyone re-adds it. Same reasoning curates the word list: `inn` is out (Wasserburg am Inn), and so is
+`park` (Estes Park is in the log) while `parkway` stays. **When a rule misfires, shorten the list —
+do not weaken the rule.**
+
+**At the boundary, the domain names the value and the form names the input.** `InvalidLocationEntry`
+carries a `LocationRole` (departure/arrival/stay) and a `LocationField` (venue name/city); the two
+train controllers share `TrainFormErrors` because `book-train.html` and `change-train.html` share
+their input names, and a stay maps to `hotelName`/`city` inline. Never put a form field name in the
+domain.
+
+Not wired to gatherings, conferences or private events, which have the same venue/city exposure; two
+of their stored events would trip rule 1 today. Extending is a decision, not a chore. Every change
+here needs three tiers: a case in `EnteredLocationTest`, a case on the command that writes it, and a
+`@WebMvcTest` asserting both the field error *and* the rendered `<span class="error">…</span>` —
+a field error the form cannot show is half a fix.
+
+### A rejected form reports everything it can see, under the input that fixes each thing
+
+Four rules, all agreed 2026-09-06 after a booking that took three submits to get through. They were
+written for the two train forms (`TrainEndpoints`, `InvalidTrainEntry`, `TrainFormErrors`) and the
+**hotel pair joined them on 2026-09-20** (`HotelFormErrors`); flights, gatherings, conferences,
+private events and ground transfer still print one undifferentiated sentence in a banner and are the
+obvious next targets.
+
+**What the hotel conversion took, and what it changed for trains.** The hotel forms had carried
+field-level errors all along — a location problem on `hotelName` or `city`, a date problem on the
+input at fault, each with its own `<span class="error">` — so rules 2 and 4 already held. Rule 1
+arrived with `EnteredLocation.problems`, which returns **every** rule the location breaks rather
+than the earliest; `check` throws them together in an `InvalidEnteredLocation` and `HotelFormErrors`
+rejects each against its own input. Rule 3 arrived as the same `.error-summary` banner the train
+forms wear, and the count itself lives on `FormErrors`, which both mappers extend — **one home for
+the sentence**, because "2 problems to fix below." said two slightly different ways on two forms is
+a copy that will drift.
+
+That widened the train forms too: an **end** can now contribute two entries, so a station missing
+both its name and its city marks both inputs of its fieldset and the count reads 2. The per-end
+ordering rule is untouched — location before zone within an end, no order across the two.
+
+**At most one problem per input**, which the markup depends on: an input has one
+`<span class="error">` and two messages under one label would be a form arguing with itself. For a
+location that follows from the rules themselves — a blank city has no brackets, no digit and no
+word, so it cannot also look like a building. The `else` in `EnteredLocation.problems` says so
+rather than establishing it, and **no test can tell it from a plain `if`** (verified by mutating
+it); a future city rule that could hold alongside another is the moment that guarantee needs one.
+
+1. **Every problem, in one response.** A trip has two ends and one submit. Reporting the first
+   failure means fixing it, submitting again, and meeting a *fresh* error — which on screen is
+   indistinguishable from the first fix having done nothing. This is the same principle
+   `BackupService.restoreJson` holds to for restore: validate everything, write nothing, report all
+   the bad entries together.
+
+   **The ordering rule is per end, never across the trip.** Within one end, the location is checked
+   before its zone, because a station that is not a place has no meaningful zone question — that is
+   what stops `"Frankfurt (Main) Hbf"` in a city box being reported as a time-zone problem. Across
+   the two ends there is no order at all: a departure with no city must not suppress the arrival
+   being asked about its country. Getting *that* distinction wrong is what shipped on the first
+   attempt at this fix, and it reproduced the original bug exactly.
+   Pinned by `BookTrainHandlerTest.aLocationProblemAtOneEndDoesNotSuppressAZoneProblemAtTheOther`.
+
+2. **Where a message lands is chosen by what fixes it, not by what failed.** A blank country and an
+   unrecognised one are the same failure (no zone derived) with different ways out, so they are
+   different `UnresolvedStationZone.Cause` values landing on different inputs: the blank one on the
+   country input, because typing a country is the fix; the unrecognised one on the time-zone select,
+   because retyping a country the curated table does not know cannot help. A message that names a
+   fix the reader cannot act on is worse than no message.
+
+3. **Field-level, plus a count.** The message goes under the input — position answers "which end?"
+   for free, and a banner saying "a station" could not be resolved names neither of two identical
+   side-by-side fieldsets. The **only** global error is a count (`"2 problems to fix below."`), which
+   is the one thing position cannot say when a problem is below the fold, and it wears a fill and a
+   left rule so it reads as a banner rather than a stray line of red text. A whole-form failure
+   (`TrainNotFound`) is still its own global message and is deliberately not counted.
+
+4. **Messages are terse, and the budget is the width of the field they sit under.** They render as
+   a label under an input, and in a narrow grid column an explanatory clause wraps to three lines
+   and pushes one fieldset out of step with the one beside it. "City is required", not "City is
+   required — enter the city this station or hotel is in." The input's own label has already said
+   which field this is.
+
+   **Terse is not a word count, though** — a full-width field can afford a longer sentence, and the
+   one message that lands somewhere other than the value that caused it earns one. A country with
+   no single zone is reported on the time-zone select, a field below, so it reads "No time zone
+   known for this country — pick one": it says what to do in the field it sits under. Until
+   2026-10-07 it read "Unknown country — pick a zone, or fix Country name above", pointing back at
+   the culprit, because the country was typed and a misspelling was the likelier cause. Once the
+   country became a picked code (`fragments/place-picker.html`) it could no longer be misspelt, so
+   a message sending Ted back to fix it would name a fix that does not exist — rule 2 above.
+
+   Two more consequences. A message being shortened must keep the *distinction* it carries
+   ("Country or time zone required", not "Country is required" — leaving it blank and picking a
+   zone is a legitimate way through, and a form must not lie about itself). And **no apostrophes**,
+   because Thymeleaf escaping turns `Can't` into `Can&#39;t` and every markup assertion then has to
+   know it.
+
+**`required` is not used on these forms.** It was dropped from all eight train inputs the same day:
+the browser blocks the submit and shows a bubble the server never hears about, so the page stays
+exactly as it was — which reads as "my fix changed nothing", and cost a real session.
+`EnteredLocation` already reports a blank name or city through the same field-level channel as
+everything else, so this is one error vocabulary rather than two. Do not re-add it here.
+
+**The hotel pair followed on 2026-09-20**, for the same reason and with nothing else needed: the
+messages, the controller mapping and the `<span class="error">` were all already in place, so the
+four attributes came off and four `@WebMvcTest` cases now prove a blank name and a blank city each
+render under their own input. **`NoBrowserRequiredOnServerValidatedFormsTest` is what keeps it
+off** — a scan over the four converted templates, because re-adding `required` breaks nothing, looks
+like an improvement, and quietly restores the failure. It holds a **list of the forms that have made
+this choice, not a rule for every form**: add a form to it in the same change that drops its
+attributes, never before, or the test stops recording a decision and starts asserting that markup
+happens to be missing an attribute.
+
+**A blank date or time is a field error, everywhere, and nothing at a form says so.** The argument
+above only covered the *text* inputs. The date inputs never carried `required` either, and nothing
+replaced it: an empty `datetime-local` binds to `null` (Spring's `ParserConverter` returns null for
+blank text), the handler called `ZonedTimestamp.fromLocal(null, zone)`, and the page was a 500 — on
+eleven forms, not one. `RequiredEntryAdvice` is the answer, and it is the shape `TrimTypedTextAdvice`
+already has: every `LocalDate`/`LocalTime`/`LocalDateTime` bound from a form is required, stated once
+and covering the forms nobody has written yet.
+
+Three things follow when you add a form.
+
+1. **Required is the default; `@OptionalEntry` opts out.** Only a hotel's `cancelBy` and a
+   conference's `cfpClosesOn` carry it. That direction is deliberate: a genuinely optional field
+   that forgets the annotation says "Required" on screen, which is visible and one line to fix,
+   while a required field that had to *remember* one binds null and reaches the write path.
+2. **A POST must return before calling its service when `bindingResult.hasErrors()`.** The advice
+   marks and drops the value; without the guard the handler still runs with the null. This also
+   covers a value that would not parse, which had the same ending.
+3. **Every date and time input needs its own `<span class="error">`**, or the message is invisible
+   and the form reads as having ignored the submit — the exact failure `required` was dropped for.
+
+Pinned by `RequiredEntryConventionTest`; nothing at a controller mentions the advice.
+
+## Deployment
+
+### A change needing manual setup outside the repo writes itself into `Pre-Push-Tasks.md`
+
+**Pushing to `main` deploys.** So a change that expects something the deployed environment does not
+have yet — a new environment variable, a dashboard or DNS setting, a one-off `/admin` run after the
+rollout, a device that must be re-subscribed — is only half shipped when the code is committed. The
+other half happens in the Railway dashboard, where nothing in the build can see it: no test goes
+red, the pre-push hook is happy, and the first sign of trouble is a failed health check or, worse,
+an app that comes up misconfigured and looks fine.
+
+**So: in the same change that introduces the need, add a box to `Pre-Push-Tasks.md`** (repo root,
+next to `DEPLOYMENT.md`, which names it as the fourth pre-push gate). That file states the rule in
+full and carries the current boxes; the short version is that a box names the literal thing to do
+including any generating command, which service it goes on, what happens if it is skipped —
+*before* the push or *after* the rollout — and the commit that created the need.
+
+This is not a substitute for `DEPLOYMENT.md`: **a new variable goes in both**, and they say
+different things. `DEPLOYMENT.md`'s table is the standing description of a configured instance —
+what the variable is for, whether it is required, what it does when absent — and it stays true
+forever. A `Pre-Push-Tasks.md` box is a one-shot instruction that stops being true the moment it is
+done, and is then **deleted** (no "Done" section; the history is in git, Ted 2026-10-05). Recording only the second means the reference goes stale (which is exactly how
+`REMEMBER_ME_KEY`, `CALENDAR_FEED_TOKEN` and `JITTERTRAVEL_BASE_URL` were all missing from that
+table on 2026-09-09); recording only the first means nobody notices they have to *do* anything.
+
+**Prefer wiring the variable up before the push, not after.** Set early it is inert; set late the
+deploy meets an environment that does not exist. Note the two failure shapes, because only one of
+them is safe: a variable bound with no default (`TED_PASSWORD`, `FAMILY_PASSWORD`,
+`REMEMBER_ME_KEY`) fails the boot, so the health check rejects the rollout and the healthy instance
+survives — while one with an empty default (`CALENDAR_FEED_TOKEN`) starts happily with the feature
+silently off. Prefer the fail-fast form for anything whose absence is a bug rather than a choice.
+
+## Testing
+
+### Test double terminology
+
+Use Meszaros's names (<http://gerardmeszaros.com/Test%20Double.html>), and use them exactly
+(Ted, 2026-09-22):
+
+- **Stub** — returns programmed answers, or throws programmed exceptions.
+- **Fake** — a simplified *working* implementation (e.g. an in-memory store). There is no
+  "programmable fake"; a double told what to answer is a stub.
+- **Spy** — records the calls made to it, for the test to inspect afterwards.
+- **Mock** — verifies that the calls it expected were made.
+
+Name a double by what it *does* in the test, not by the library that built it: a Mockito
+`@MockitoBean` given `willThrow(...)` and never verified is a stub.
+
+**Spy or fake is decided by purpose, not mechanism.** If the test asserts against what the double
+records, it is a spy. If the double only fulfils the code's obligations — an in-memory repository
+the code reads back from — it is a fake, however much it happens to keep. Examples in the tree: the
+`refusing(...)` services in the `*ControllerTest` classes are stubs; `ConferencePlanningTest`'s
+`RecordingCommandExecutor` is a **spy** — every test there asserts on `emitted` — even though it
+also replays those events through `eventsForDecision()`, which is only there so `OpenCfp` can see
+the plan the previous command produced.
+
+### A test never contains a copy of production code
+
+**Never copy production code, or any part of it, into a test to make it testable** (Ted,
+2026-09-22). A test that runs a copy tests the copy: it stays green when the real code is wrong,
+and it stays green when the real code grows a branch the copy does not have. It is worse than no
+test, because it reads as coverage.
+
+**If the real code cannot be reached from a test, that is a design problem to fix in production
+code — or a question to ask Ted — never a reason to reproduce it.** The same goes for a copy you
+find: do not edit it to keep it passing (that is maintaining the violation), move each case to a
+tier that runs the real code and delete it.
+
+The two shapes this has taken, both in `*ControllerValidationTest` classes:
+
+- **A controller's `catch` block, re-typed in the test** — `catch (DepartureNotInFuture e) {
+  bindingResult.rejectValue("departureDateTime", ...) }` — so the test decided which field an
+  error lands on, and the controller could put it anywhere.
+- **A service's method body, re-typed in an anonymous subclass** — `new FlightBooking(null, null,
+  null) { @Override public void bookFlight(...) { new BookFlightHandler(...).handle(...).execute(
+  ...) } }` — "what the service does, minus the persistence". Stubbing a collaborator is fine
+  (`isReadOnly()` returning `false` so a controller can be reached); re-implementing the thing
+  under test is not.
+
+The replacement is the next section.
+
+Enforced — narrowly — by `TestsNeverWriteToABindingResultTest`: production code writes a
+`BindingResult` and tests only read one, so a test class calling `rejectValue(...)` or
+`reject(...)` on any `Errors` is the catch-block copy, whatever its variable is called (an ArchUnit
+rule over the compiled test classes). It has **no exemption list**: the five classes that carried
+the copy when it arrived were all replaced the same day. **It cannot see the second shape**, or a
+copy of anything else — apply the English rule in review and treat the test as the floor.
+
+### Testing a form's validation: three claims, three tiers — this is the standard
+
+A rejected form makes three separate claims, and each has exactly one place it is tested (Ted,
+2026-09-22). Worked example: the plan-conference form.
+
+1. **The rule** — "a conference that has ended is refused" — is the **command's own unit test**
+   (`PlanConferenceCommandTest`), with the boundaries: the last day, yesterday, the venue's zone.
+2. **Which input each refusal lands on** is a **plain unit test of the controller, parameterized
+   `exception → field`** (`PlanConferenceControllerTest.eachRefusalLandsOnTheInputThatFixesIt`).
+   Construct the controller directly with a **stub service programmed to throw** the given
+   exception, build a `BeanPropertyBindingResult` for the request, call the submit method, and
+   assert the view is the form (re-rendered, not redirected) and that
+   `getFieldErrors()` names exactly that one field. No Spring context, one row per `catch`, and
+   the table is the specification — a new `catch` is a new row.
+   Not a `@WebMvcTest`: the mapping is plain Java, and a Spring slice per exception is slow
+   ceremony for a claim that needs none of it.
+3. **That the error can be seen** is a `@WebMvcTest` — the only claim that needs a real render,
+   because a Thymeleaf mistake surfaces only at render time. **One per input that can carry an
+   error, not one per exception**: stub any refusal that lands there and assert the binding result
+   and the whole `<span class="error">…</span>` (`ConferenceWebIntegrationTest`).
+
+**Plus, where the form is translated into a command** (a handler resolving zones, reading a
+format), the real application service with a recording `CommandExecutor` — `ConferencePlanningTest`
+— proves a real input reaches the command intact.
+
+The stub in (2) is legitimate where the anonymous subclasses above were not: it throws what it was
+given and does nothing else. **A stub decides what a collaborator returns; it never re-implements
+the thing under test.**
+
+### Every test is isolated: order must not matter, and a subset must run
+
+**A test must pass alone, in any order, and in any arbitrary subset.** If it does not, the test is
+not the problem to fix first — **the production code is** (Ted, 2026-09-06). A component that cannot
+be returned to a known state is one the app itself cannot return to a known state, and the test is
+simply the first thing to notice. Do **not** reach for `@DirtiesContext`, and do not quietly arrange
+fixtures so they stop colliding: both hide the report instead of acting on it.
+
+**Enforced for the event store since 2026-09-12, and enforced by an assertion rather than by
+hope.** `EventStore` fills its in-memory event list once at boot and only ever appends, so no
+database truncation reaches it; every integration test sharing a Spring context therefore shared
+event state — with its siblings and, the container being reused, with previous runs.
+`CommandExecutor.eventsForDecision()` folds every write-path decision from that list, which is why
+it matters beyond tests. It stayed invisible for a long time because every fold until 2026-09-06
+asked about one specific id ("does *this* trip exist?"); the overlapping-legs rule is the first
+**cross-aggregate** question and the first thing that could trip over it.
+
+What is in place today, and what is not:
+
+- **`EventStore.reload()`** re-reads the log into the in-memory list, and
+  `AbstractTestcontainerIntegrationTest` calls it in a `@BeforeEach` that then **asserts the store
+  is empty**. The assertion is the guard: remove the `reload()` and methods across **the five
+  integration classes whose context has an `EventStore`** fail on it by name — 12 of those 16
+  methods on the run that measured it — which is how much state was leaking before. Treat any such
+  count as one observation: a method whose predecessor wrote nothing starts clean anyway, and the
+  order is shuffled, so the number moves run to run.
+  **`reload()` reads the log once.** `nextSequence` comes from the last row `loadAllEvents()`
+  returns (it is `ORDER BY sequence`), never from a separate `MAX(sequence)` query — two reads of
+  one table are not atomic, and a row landing between them points `nextSequence` at a sequence the
+  list already holds, so the next `append` collides on the primary key. The `MAX` query was deleted
+  outright (2026-09-12) rather than left unused, and `loadAllEvents`'s ordering now has a test of
+  its own, because the sequence rule depends on it.
+- **The shared test database is emptied after every integration test class as well as before every
+  test** (2026-10-05). A new
+  Spring context replays `event_log` while it boots, before its first test's `@Sql` has run, and the
+  container is shared by every integration context. A test that leaves a row behind
+  (`LegacyEventMigrationTest` writes an unresolvable one on purpose) therefore poisoned whichever
+  context booted next: its replay failed, the store latched read-only for good, and every test in it
+  failed with `ReadOnlyModeException`, by class order alone (1 run in 3 failed ten tests). The
+  `@AfterAll` truncate in `AbstractTestcontainerIntegrationTest` is the fix; not `@DirtiesContext`,
+  which would have hidden the poison instead of removing it. **After the class, not after each
+  test:** an `AFTER_TEST_METHOD @Sql` hangs for ever, because a transactional `@JdbcTest` slice still
+  holds its transaction when that script runs.
+- **`EventStoreTest` covers `reload()` directly, and this is not optional.** The `@BeforeEach`
+  guard asserts the store is *empty* right after the `@Sql` truncate, so it cannot tell a real
+  reload from a bare `events.clear()` — verified by deleting the re-read, which left the whole
+  suite green. Two unit cases carry the contract instead: that reload **replaces** the list from
+  the durable log and re-points `nextSequence` at it, and that a **failed** load leaves the
+  previous list in place and **latches** read-only. Mutation-verified eight ways (drop the re-read,
+  drop the clear, move the clear before the load, drop the `nextSequence` set, lift read-only on a
+  successful reload, drop `loadAllEvents`'s `ORDER BY`, take the first row's sequence rather than
+  the last, start an empty log at 0) — each fails the assertion that claims it. The first-vs-last
+  one only fails because the reload case holds **two** rows with a gap in their sequences, written
+  in the wrong order; with the single row it shipped with, first and last were the same event and
+  the mutation passed. **A fixture of one proves nothing about *which* one.** Note what the second case pins:
+  the store's read-only latch is one-way, and a later successful reload does **not** lift it —
+  it reloads, fails, then reloads successfully and asserts the store is read-only still. That last
+  assertion arrived in the pre-push review, where the latch was written down in three places and
+  asserted in none: **a rule stated in a javadoc is not a rule the code has to keep.**
+- **Both orders are shuffled, and it takes two settings, not one.** `runOrder=random` in the
+  Surefire config shuffles test **classes**; `junit.jupiter.testmethod.order.default=…
+  MethodOrderer$Random` in `src/test/resources/junit-platform.properties` shuffles the **methods**
+  inside one. Surefire's setting alone — which is what shipped first — leaves method order
+  deterministic, and *"one method leaves state the next one reads"* is the commoner shape of the
+  problem, so half the rule would have gone unenforced. No measurable cost to the clock either way.
+
+  **Both halves print a seed, and a shuffle without a visible seed is a flakiness generator rather
+  than a guard** — the failure reads as flake and gets re-run until green, which is the thing
+  shuffling exists to prevent. The class seed is logged by Surefire (`To reproduce ordering use
+  flag -Dsurefire.runOrder.random.seed=<n>`). The method seed is logged by JUnit
+  (`MethodOrderer.Random default seed: <n>`, replayed with
+  `-Djunit.jupiter.execution.order.random.seed=<n>`) — but **at CONFIG level**, and nothing else in
+  this build logs below INFO, so out of the box it goes nowhere and a failing order cannot be
+  recovered. That is the *only* reason `src/test/resources/logging.properties` exists and the only
+  reason `argLine` names it: it drops `org.junit` alone to CONFIG. Delete either and the method
+  shuffle silently stops being reproducible, which is worse than not shuffling. Reproducing a run
+  exactly means passing **both** seeds back.
+- **Still open — the production half.** Nothing calls `reload()` outside the constructor, so
+  `/admin/database` truncate and restore still leave the list wrong. Projectors are stale after
+  those too and only a restart rebuilds them, so the two questions want answering together; see
+  **"Test isolation: the test half is enforced, the production half is not"** in
+  `docs/Cleanup_Tasks.md`.
+- **Still open — the projectors, in tests too.** The `@BeforeEach` guard returns the *event store*
+  to a known state and says so; nothing returns the projectors, and nothing asserts it. No
+  integration test reads a projection today, so it is latent — but if you add one that does, it
+  sees whatever ran before it and no guard fails by name. Raise it against the open item above
+  rather than bolting a reset onto the base class; the mechanism is the same question.
+- **No longer load-bearing:** `BackupRestoreRoundTripTest` derives each booking's window from its
+  own flight id. That was the workaround while the base class was untouched; it is harmless and
+  stays, but the guard is what keeps that test green now.
+
+**When adding shared, long-lived state to production code, ask how it is returned to a known state.**
+If the answer is "restart the process", it will be wrong in a test and wrong for an admin action
+too — and the test that catches it may be years away.
+
+### Email text lives in `src/main/resources/email/`, and changing it needs Ted's approval first
+
+Every email the app sends is a plain text file there, written as the email itself and rendered by
+`EmailTemplates` in Thymeleaf's plain-text mode. Two things the files do not tell you: **a run of
+blank lines is sent as one**, and **`calendarUrl` is absent, not a guess, when no
+`JITTERTRAVEL_BASE_URL` is set**, so any line using it is wrapped in
+`[# th:if="${calendarUrl != null}"] ... [/]`. `FamilyNotificationMessages` only chooses the file and
+prepares the values; a field it does not pass cannot appear in a message, which is what keeps
+anything else from reaching the family.
+
+**`/admin/email-preview`** (linked from Settings) shows every template exactly as sent, from fixed
+samples, and sends them to `TED_REPLY_EMAIL` **and nowhere else** (`BrevoEmailClient.sendTo`; nothing
+on that page can name the family address — keep it that way). A new template needs a card there:
+`EmailPreviewControllerTest.everyEmailTemplateHasACardOnThePage` reads the folder and fails on one
+without.
+
+**Ted approves the exact wording of any text that leaves the app (email, SMS, anything added later)
+before it is committed** (2026-10-05). Show him the literal subject and body, not a description, and
+wait. `FamilyNotificationMessagesTest` pins the words, which proves the code matches what he saw and
+is not itself approval. A new outbound channel gets the same arrangement: its text in one reviewable
+place, and the same gate.
+
+### A local dev run loads real credentials from `~/.config/spring-boot/`, whatever the environment says
+
+Spring Boot DevTools reads `~/.config/spring-boot/spring-boot-devtools.properties` into every run of
+the app from `spring-boot:run` or the IDE, and **it overrides environment variables.** On Ted's
+machine that file holds real keys (a Brevo key, the family address), so a test run started with
+`JITTERTRAVEL_BREVO_API_KEY=dummy` still used the real key, and clicking the email preview's send
+button sent three real emails through Brevo (2026-10-05; to the reserved `example.com`, so nothing
+was delivered, but only by luck of the address). **Any run that could send, spend or write outside
+the machine must be started with a fake home:** `-Dspring-boot.run.jvmArguments=-Duser.home=<empty
+dir>`, which `.claude/skills/run-jittertravel/driver.sh` now does. Check the Settings page for what
+key actually loaded (it shows the last four characters) before trusting that a run is isolated.
+
+### The CSRF cookie is written on every request, and `csrf()` leaks between tests
+
+**`CsrfCookieFilter` reads the CSRF token at the start of every request, and that is load-bearing**
+(2026-10-05). A successful login deliberately clears the CSRF cookie, and Spring writes it again only
+when something *reads* the token, normally the first form a page renders. A page larger than the
+response buffer starts sending before its form renders, and a cookie cannot be added to a response
+that has started: the form then carries a token whose cookie never existed, and its POST lands on
+`/login?expired` for someone who is logged in. It surfaced on the `/admin` family-email test button
+because that was the first large page after a fresh login; every older form worked only because a
+smaller page had already minted the cookie. The fix is the filter, not a Thymeleaf setting: it makes
+the outcome independent of page size and of which page was opened first. MockMvc cannot show this
+failure (it never commits a response early), so after adding or moving a POST form, or touching
+`SecurityConfig`, `CsrfCookieFilter` or response buffering, run **`./mvnw test -Preal-server`**
+(2026-11-14). `CsrfCookieOnARealServerTest` logs in fresh against a real Tomcat, commits the form
+page's response before its view runs, and asserts the cookie was written and the form's POST
+succeeds. It is excluded from the default build, the pre-push hook and both PIT runs, so nothing
+runs it for you. Committing early is deliberate: no page is reliably large (`/admin`, where this was
+found, has no form now), and Tomcat's `setBufferSize` only grows the buffer, so it cannot make a small
+page behave like a large one.
+
+**`.with(csrf())` replaces the shared `CsrfFilter`'s token repository with one that writes no cookie,
+and never puts it back.** In a cached context that is shared with a `csrf()` user, a cookie assertion
+passes or fails by test order. Test cookie behaviour with a plain unit test (`CsrfCookieFilterTest`)
+or in a class whose context nothing else shares (`FamilyNotifyProbeCsrfTest`).
+
+### Assertions against rendered HTML must name whole elements, not bare words
+
+A renderer test asserts on one long string, so `contains("Calendar")` is satisfied by *any*
+occurrence anywhere in the document — the title, a nav link, a CSS class, an entry's text. That is
+almost never the claim the test is making, and it fails to fail when the thing under test changes.
+
+Real example (2026-08-19): `CalendarRendererTest.emptyEntriesRendersCalendarPage` asserted
+`contains("Calendar")` while the page was titled **"Confirmed Calendar"**. Changing the title to
+"Calendar" left the test green — and deleting the `<title>` altogether would *also* have left it
+green, because the nav's own Calendar link matches the same bare word. The assertion pinned nothing.
+
+**So:**
+
+- Assert the **whole element**: `contains("<title>Calendar</title>")`, not `contains("Calendar")`.
+- Assert whole **attributes** with their value: `contains("href=\"/booked-trains/trip-123\"")`.
+- For an absence, be *more* specific still — `doesNotContain("Grand Hotel")` is a real claim;
+  `doesNotContain("Hotel")` would break on the word appearing in a heading, and a too-loose
+  `doesNotContain` passes for the wrong reason once the markup moves.
+- Prefer a distinctive substring of the exact markup over a regex; if a claim genuinely needs
+  structure (this element inside that one), that is a sign the assertion belongs in a
+  `@WebMvcTest`/security-chain test that can query the DOM.
+- Same rule for CSS assertions: `contains("grid-template-columns: repeat(7, minmax(0, 1fr))")`
+  paired with `doesNotContain("repeat(7, 1fr)")` — the pair is what makes it precise.
+
+Mutation-verifying (standing practice) catches exactly this class of bug: change the production
+string and watch the test go red. If it stays green, the assertion is too loose.
+
+### A new `EntryKind` must reach the calendar's day menu
+
+Tapping today's or a future day's number on `/calendar` opens the owner's disclosure menu — "Open
+itinerary" plus one **Add …** link per kind, each dated with that day. **Today offers every kind**,
+though flights, trains and hotels then refuse a time already passed: one menu on every day, with the
+form saying why, beats a menu that changes by the hour (Ted, 2026-09-25). It is where Ted actually starts, and
+it is the surface a new kind gets forgotten on: `PRIVATE_EVENT` shipped 2026-08-13 with a lane, a
+plan form and a nav card, and for **eleven days** could not be created from a day, because nothing
+connected "a new bookable kind exists" to "the menu offers it" (Ted added it himself in `6360aa1`).
+
+`CalendarDayMenuTest` is now that connection, and it is two mechanisms on purpose:
+
+- its cases are driven from `EntryKind.values()`, so a new constant becomes a new case with nobody
+  adding one — the test cannot be left behind;
+- `expectedAddItem` is an **exhaustive switch** over `EntryKind`, so that constant stops the class
+  compiling until someone writes down how the kind is created. A kind with genuinely no create form
+  says so in a case with a comment, rather than by being quietly absent.
+
+It is the **only** thing in the tree that fails when an `EntryKind` constant is added (verified by
+adding one), so do not weaken it into a defaulted switch or a hard-coded list of kinds.
+
+The same file also pins the menu's *contents* — the words, the paths, the order, and that there is
+nothing extra — by calling the package-private `CalendarViewBuilder.dayMenu` directly.
+`CalendarViewBuilderTest` covers only **where** the menu appears (owner-only, today and later) and
+asserts a few hrefs, which is why a renamed item and an added one both shipped green. **A
+self-contained static renderer gets its own direct test**; reaching it only through the page that
+embeds it leaves exactly this kind of gap.
+
+### List views: future/all toggle is a shared, enforced convention
+
+Booked/planned list views (trains, flights, hotels, conferences, gatherings) all share one
+FUTURE/ALL filter, defaulting to FUTURE. A new list view opts in by following the trio:
+the view record implements `TemporalView.relevantUntil()` (the instant after which the item
+is past — the *end* for multi-day items); the projector filters with
+`timeView.includes(view, now)` in `views(TimeView, now)`; the controller reads `?filter=` via
+`TimeView.fromParam` and passes `now()`; the renderer puts
+`TimeFilterToggle.render("/its-path", activeFilter)` inside
+`ListToolbar.render("Book another …", "/its-create-form", toggle)` and adds `ListToolbar.CSS`
+to its page CSS (toggle CSS lives in `site.css`).
+
+**The create link lives in that toolbar, at its right edge, never under the list** (Ted,
+2026-09-27): at the bottom its distance grew with the data. `ListToolbar.CSS` is inlined per
+page rather than put in `site.css`, which the anonymous calendar loads too.
+
+`TimeFilterToggleConventionTest` enforces the last step: it discovers every static
+`render(List, TimeView)` in the `web` package and asserts each emits the shared toggle wired
+to the active filter, and ends its toolbar with the create link exactly once. Forget either on a
+new list renderer and that test fails.
+
+### JS-behavior tests: tag `js`, browser-only, no server
+
+Tiny inline scripts our renderers embed (e.g. the calendar "Show/Hide past weeks"
+toggle) are tested in a dedicated Playwright tier. These tests render HTML directly and
+load it with `page.setContent(...)` — **no server, Spring context, DB, or auth** — so only
+the JS is under test. Extend `JsBehaviorTest` (`@Tag("js")` is inherited) and run with
+`./mvnw test -Pjs-tests`; the default build excludes the `js` group. Full do/don't
+guidance: `docs/JS-Behavior-Tests.md`.
+
+### Mutation testing: PIT runs the plain unit tests, so every Spring test is tagged `spring`
+
+PIT is configured in `pom.xml` and bound to no phase, so neither `./mvnw test` nor the pre-push
+hook runs it. Run it by hand:
+
+```
+./mvnw test-compile org.pitest:pitest-maven:mutationCoverage
+```
+
+The report is `target/pit-reports/index.html`, and a full run takes about two minutes.
+
+**It skips the `spring`, `js`, `replay-preflight` and `performance` groups.** Re-running a Spring
+test once per mutant is slow and buys nothing, and a full context also boots a Testcontainers
+database each time. So **a new `@WebMvcTest`, `@SpringBootTest`, `@JdbcTest` or any other Spring
+slice gets `@Tag("spring")` on the class itself**, even where a superclass would supply it by
+inheritance. Nothing else marks a Spring test as one. The annotation carries no JUnit tag, and the
+name settles nothing: `PlanConferenceControllerTest` is a plain unit test, while
+`CancelHotelControllerTest` is a slice. An untagged Spring test breaks no build. It only makes every
+PIT run slower.
+
+Enforced by `SpringTestsAreTaggedTest`, an ArchUnit rule over the test classes. It treats a class
+as a Spring test when it is meta-annotated with `@ExtendWith(SpringExtension.class)`, which every
+Spring test annotation is built on. So a future slice, or a composed annotation of our own, is
+caught without editing the test.
+
+**Read the report knowing what it cannot see.** Controllers, and anything reached only through a
+Spring test, show as NO_COVERAGE in *this* run, and that is by design rather than a gap to close.
+Judge the domain and application code, where the plain tests live. The report's advert for the
+Arcmutate Spring plugin can be ignored.
+
+**The Spring tier has its own run, `-Ppit-spring`, before a push and never in the hook** (Ted,
+2026-10-04). It runs the plain tests **and** the `spring` group together (changed the same day: it
+first ran the Spring group alone, which reported every class a plain test covers as having no
+coverage, so its numbers said little). It writes to `target/pit-reports-spring/`, and uses fewer
+threads and a longer timeout because a mutant only a Spring slice reaches boots a context (the
+integration tests also need Docker).
+
+So the two runs are two gates: the default run **before a commit**, this one **before a push**.
+
+```
+./mvnw test-compile org.pitest:pitest-maven:mutationCoverage -Ppit-spring \
+    -DtargetClasses=dev.ted.jittertravel.web.BookFlightItineraryController \
+    -DtargetTests=dev.ted.jittertravel.web.BookFlightItineraryControllerTest
+```
+
+Narrow it to the classes and tests the change touched; unnarrowed it is the slowest thing in the
+build. It mutates bytecode, so it says nothing about a template or a stylesheet.
+
+**A mutant inside a `@Bean` method always survives this run, however good the test** (2026-11-14).
+A `@Bean` method runs once, when the context is built, and the minion's Spring test-context cache
+hands every mutant the context built from the unmutated code — so the mutated method never runs.
+`TrailingSlashConfig` scored 0 of 2, and both mutants (dropping `setOrder`, returning `null`) fail
+the test when made by hand in source. So a survivor in a `@Bean` method reads as **"verify by
+hand"**, never "the test is weak" — and never as a reason to add `@DirtiesContext` to make PIT see
+it.

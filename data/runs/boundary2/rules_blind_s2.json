@@ -1,0 +1,103 @@
+{
+ "Sc07713__PLAIOS": {
+  "R148": {
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  }
+ },
+ "Slicon123__JARVIS": {
+  "R194": {
+   "rule": "Never upload films."
+  },
+  "R372": {
+   "rule": "Do not rebuild the Kurva S files."
+  },
+  "R8": {
+   "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+  }
+ },
+ "Wasabules__Halyard": {
+  "R135": {
+   "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+  },
+  "R137": {
+   "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+  },
+  "R145": {
+   "rule": "Do not search for a port for ComChan, since it has no socket."
+  },
+  "R166": {
+   "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+  },
+  "R361": {
+   "rule": "For the Switch port, do not implement QUIC support."
+  }
+ },
+ "botchris__game-vault": {
+  "R107": {
+   "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+  },
+  "R14": {
+   "rule": "Never work around a Cloudflare challenge from CeX."
+  },
+  "R61": {
+   "rule": "Have the user confirm the final game match before accepting it."
+  }
+ },
+ "dbwg2009__Noted": {
+  "R32": {
+   "rule": "Always target the Development branch when opening a GitHub PR, never main."
+  },
+  "R54": {
+   "rule": "When opening a pull request, always target the Development branch for testing, never main."
+  },
+  "R77": {
+   "rule": "Never bump the major version on your own initiative under any circumstances."
+  }
+ },
+ "evanderkoogh__instrumentation-skill-test-harness": {
+  "R163": {
+   "rule": "Only commit or push changes when explicitly asked to do so."
+  }
+ },
+ "ferazfhansurie__ai-memory-faeez": {
+  "R132": {
+   "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+  }
+ },
+ "infonl__podiumd-minikube": {
+  "R33": {
+   "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+  }
+ },
+ "jemcik__the-radio-bench": {
+  "R416": {
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  }
+ },
+ "mmalyska__home-ops": {
+  "R20": {
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  "R26": {
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  }
+ },
+ "mrwpress__assent-site": {
+  "R10": {
+   "rule": "Stop and ask the user before merging PRs."
+  }
+ },
+ "namnhatpham1995__hackathon-stuttgart-2026": {
+  "R23": {
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  "R32": {
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  }
+ },
+ "vipulbms__crypto-trader-agent": {
+  "R7": {
+   "rule": "Only execute a commit when the user asks for it."
+  }
+ }
+}

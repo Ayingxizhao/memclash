@@ -1,0 +1,36 @@
+2026-11-25 (before any screening, translation or scoring): at the user's request, round 2 uses the
+first 50 of the 100 fetched repos (alphabetical by owner__repo, the order extraction runs in; not
+content-based) instead of all 100. If the kept count from these 50 is low, the preregistered
+synthetic fill tops up to 50 new rules. The other 50 repos stay downloaded and unused.
+Correction (same day, before screening): the 50 repos are not the first 50 alphabetically.
+Extraction re-sorted on each pass while repos were still arriving, so the set is the first 50 repos
+extracted (close to the scraper's seeded fetch order); still not content-based. List:
+data/runs/boundary2/repos_used.txt. Extraction: 1,367 files, 9,901 rules, 9 dropped (non-verbatim quotes).
+Sampling rule fixed before screening: the 50 repos hold 9,901 rules (round 1: 1,287), so the kept set
+may be large. All kept rules count toward coverage; if more than 50 real rules are kept, a seeded
+random sample of 50 (random.Random(2520), sorted (folder, id) list) gets actions, labels and arms.
+Codex screening runs in batches of 5 folders (about 1,000 rules per call, round 1's size).
+Screening retry (mechanical): batch04's answer covered 244 of its 3,486 rules (one folder holds
+2,533). The 3,242 unjudged rules (4 folders) are re-screened with the same prompt in chunks of 700
+(select/retry*.md). No judged rule is re-asked.
+Retry dropped (user request, to move fast): retry01 ran 30+ min with no answer and was stopped.
+The 3,242 unjudged rules (4 folders: OpenWorshipApp 2,533, OwlsNightCatch 616, ggOceanMaps 62,
+glute 31) are left out. Coverage denominator = the 6,659 rules Codex actually judged.
+Two stages (user request, before any translation result was seen): stage 1 = rules from
+translation batches 01-03 (the first 150 eligible rules in sorted folder order); after the filter
+and both exactness reviews, up to 25 kept rules (seeded sample, random.Random(2520), if more) get
+actions, labels and arms and are scored as an interim result. Stage 2 = batches 04-10, up to 25
+kept rules the same way. The final result pools both stages (<= 50 rules); the interim is labelled
+interim and never replaces it.
+Bug (plumbing): codex exec reads stdin when it is not closed; runs started from the first job
+inherited an open stdin and hung ("Reading additional input from stdin"), which is also why retry01
+hung. Fix: stdin=DEVNULL in boundary2.codex(). Hung translate batches 01-07 were killed (no output)
+and rerun; batches 08-10 had completed normally.
+Order (to move fast): stage-1 actions, rules and translations frozen (freeze_s1_actions.sha256) before
+labels finish; arms run in parallel with labelling. Arm outputs are not opened until both label sets
+are in and frozen (freeze_s1_labels.sha256). Labelers never see arm outputs.
+Stopped at stage 1 (user decision, 2026-11-25): Codex hit its spend cap again after all stage-1 Codex
+work had finished (no cap errors in any stage-1 log). Stage 2's 25 sampled rules and 200 actions were
+written and blinded (actions_s2.json, actions_blind_s2.json) but never labelled or judged. The round-2
+result is stage 1 (13 rules, 104 actions); coverage uses both stages' screening (58 kept / 6,659).
+The pooled round 1 + 2 analysis was not run.

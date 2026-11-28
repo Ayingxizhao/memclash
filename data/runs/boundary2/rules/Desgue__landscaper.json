@@ -1,0 +1,148 @@
+{
+  "repo": "Desgue/landscaper",
+  "dir": ".claude/memory",
+  "n_files": 5,
+  "n_rules": 23,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_blueprint_review_loop.md",
+      "quote": "After each implementation phase, run a parallel team of reviewers and iterate fixes until all reviewers return PASS before moving to the next phase.",
+      "rule": "After each implementation phase, run a parallel team of reviewers and iterate fixes until all reviewers return PASS before moving to the next phase."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_blueprint_review_loop.md",
+      "quote": "spawn reviewers in parallel: security, docs alignment, plan alignment, code best practices (Opus model), architecture, observability.",
+      "rule": "After each phase, spawn the reviewers in parallel: security, docs alignment, plan alignment, code best practices (using the Opus model), architecture, and observability."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_blueprint_review_loop.md",
+      "quote": "If any reviewer returns FAIL, spawn a fix agent, then re-run all reviewers.",
+      "rule": "If any reviewer returns FAIL, spawn a fix agent, then re-run all reviewers."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_blueprint_review_loop.md",
+      "quote": "Only proceed to the next phase when every reviewer returns PASS.",
+      "rule": "Only proceed to the next phase when every reviewer returns PASS."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_blueprint_review_loop.md",
+      "quote": "LOW findings are non-blocking; HIGH and MEDIUM block the phase.",
+      "rule": "Treat LOW review findings as non-blocking, and treat HIGH and MEDIUM review findings as blocking the phase."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_commit_claude_skills.md",
+      "quote": "write them to `.claude/skills/` inside the project repo and commit them alongside the code they support.",
+      "rule": "When adding or updating Claude Code skills, write them to `.claude/skills/` inside the project repo and commit them alongside the code they support."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_commit_claude_skills.md",
+      "quote": "also copy it to `/Users/guedes/Code/planner-frontend/.claude/skills/` and include it in the next commit.",
+      "rule": "After writing a skill to the global `~/.claude/skills/`, also copy it to `/Users/guedes/Code/planner-frontend/.claude/skills/` and include it in the next commit."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_observability_reviewer.md",
+      "quote": "Add an **Observability** reviewer to every post-implementation review team",
+      "rule": "Include an Observability reviewer in every post-implementation review team, alongside the security, docs, plan alignment, code best practices, and architecture reviewers."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_observability_reviewer.md",
+      "quote": "Spawn a 6th reviewer agent (parallel with the others) after each implementation phase.",
+      "rule": "After each implementation phase, spawn a sixth Observability reviewer agent to run in parallel with the other reviewers."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_observability_reviewer.md",
+      "quote": "check whether the implemented code has adequate logging/tracing for debug purposes",
+      "rule": "When reviewing implemented code, check whether it has adequate logging and tracing for debugging purposes."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_observability_reviewer.md",
+      "quote": "PASS if coverage is adequate or the code is simple enough that logging adds no value.",
+      "rule": "Give the Observability review a PASS when logging coverage is adequate or the code is simple enough that logging adds no value."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_observability_reviewer.md",
+      "quote": "FAIL if errors are silently swallowed or there are complex async paths with no observability.",
+      "rule": "Give the Observability review a FAIL if errors are silently swallowed or if complex async paths have no observability."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_use_write_tool.md",
+      "quote": "Always use the Write or Edit tools when creating or modifying files.",
+      "rule": "When creating or modifying files, use the Write or Edit tools."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_use_write_tool.md",
+      "quote": "Never use `cat <<EOF >` or `echo >` redirects in Bash.",
+      "rule": "Never use `cat <<EOF >` or `echo >` redirects in Bash to create or modify files."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_use_write_tool.md",
+      "quote": "Any time a file needs to be created or edited, reach for Write/Edit first.",
+      "rule": "Whenever a file needs to be created or edited, try the Write or Edit tool first."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_use_write_tool.md",
+      "quote": "Only use Bash for commands that can't be done with dedicated tools (running builds, git operations, etc.).",
+      "rule": "Use Bash only for commands that cannot be done with dedicated tools, such as running builds or git operations."
+    },
+    {
+      "id": "R17",
+      "file": "project_planb_status.md",
+      "quote": "Iterate until all PASS before moving to next phase.",
+      "rule": "Iterate the review loop until all six reviewers pass before moving to the next phase."
+    },
+    {
+      "id": "R18",
+      "file": "project_planb_status.md",
+      "quote": "Plant colors derived from PlantType.category (no color field in schema)",
+      "rule": "Derive plant colors from PlantType.category; do not look for or use a color field on the plant schema."
+    },
+    {
+      "id": "R19",
+      "file": "project_planb_status.md",
+      "quote": "handlers on `<Rect fill=\"rgba(0,0,0,0.001)\">` (not Layer)",
+      "rule": "Attach terrain pointer handlers to a `<Rect fill=\"rgba(0,0,0,0.001)\">` element, not to the Layer."
+    },
+    {
+      "id": "R20",
+      "file": "project_planb_status.md",
+      "quote": "pushHistory pattern: `structuredClone(proj)` BEFORE updateProject, push AFTER",
+      "rule": "When recording history, call structuredClone(proj) before updateProject and push the history entry after it."
+    },
+    {
+      "id": "R21",
+      "file": "project_planb_status.md",
+      "quote": "OverflowDimLayer at slot 10 (above all content)",
+      "rule": "Place OverflowDimLayer at slot 10, above all other content, rather than at the conceptual slot 2 from the spec."
+    },
+    {
+      "id": "R22",
+      "file": "project_planb_status.md",
+      "quote": "Boundary committed edges: dashed `dash={[6/zoom, 4/zoom]}`",
+      "rule": "Render committed boundary edges with the dash pattern dash={[6/zoom, 4/zoom]}."
+    },
+    {
+      "id": "R23",
+      "file": "project_planb_status.md",
+      "quote": "stage.getRelativePointerPosition() = world coords directly (Stage has scaleX/scaleY for zoom)",
+      "rule": "Use stage.getRelativePointerPosition() as world coordinates directly without additional zoom conversion, since the Stage carries scaleX/scaleY for zoom."
+    }
+  ],
+  "dropped": []
+}

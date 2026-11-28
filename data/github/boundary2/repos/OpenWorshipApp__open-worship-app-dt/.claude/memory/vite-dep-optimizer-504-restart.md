@@ -1,0 +1,73 @@
+---
+name: vite-dep-optimizer-504-restart
+description: A 504 on a /node_modules/.vite/deps/* chunk means a stale dep-optimizer cache; touch vite.config.ts to restart the dev server without killing the Electron app
+metadata:
+  node_type: memory
+  type: feedback
+  originSessionId: f04bc2fc-3469-4a09-8e3a-7de58f3cfc35
+  modified: 2026-11-05T14:35:34.532Z
+---
+
+When a window fails with `Failed to fetch dynamically imported module:
+.../node_modules/.vite/deps/<dep>-<hash>.js?v=<browserHash>` plus a bare 504,
+the Vite dev server re-optimized deps and the page still holds the old
+`?v=` hash. Reloading (even with `ignoreCache`) does NOT fix it — Vite's
+server-side transform cache still emits the old hash.
+
+**Why:** happens after any dependency change (`package.json` edits, a
+re-installed local tarball dep like `open-lyric`), and it looks exactly like a
+broken feature — e.g. the Lyric Editor stuck on "Failed to initialize editor".
+
+**How to apply:** append a newline to `vite.config.ts`, wait ~5s (Vite
+auto-restarts on config change), then restore the file — the restart clears the
+transform cache and re-optimizes, and the Electron windows stay alive. Confirm
+with `node_modules/.vite/deps/_metadata.json` (`browserHash` changes). Do NOT
+restart `npm run dev`; that kills the user's running app. See
+[[build-kills-running-dev-app]].
+
+**Second shape (2026-09-08):** the SAME error on an `/@fs/.../node_modules/
+<dep>/dist/*.mjs` URL, surfacing in the app as the "Reload is needed" dialog
+(`confirmReloading` in `main.tsx`; since 2026-10-13 a _Something Went Wrong_ report offer may come first). That is a dep Vite had never pre-bundled
+being DISCOVERED on first use — `bible-note` is imported lazily
+(`import('bible-note')` in `bibleNoteShortVerseHelpers.ts`), so its first
+resolution runs the optimizer, which invalidates the in-flight module graph
+and fails the dynamic import. Once `_metadata.json` lists the dep the reload
+works; the durable fix is `optimizeDeps.include` for lazily-imported deps.
+
+**Third shape (2026-09-12) — FIXED in `vite.config.ts` `optimizeDeps`:** a 504
+on `.vite/deps/open-lyric-plugin-km-kh.js`, imported by the Khmer package
+(then its `index.ts`; since 2026-11-05 `src/lang/data/online/km/openLyricPlugin.ts`
+inside a language plugin vite does not serve), which was reached ONLY through `langHelpers.ts`'s
+template `import(`./data/${langCode}/index.ts`)`. The dep scanner cannot follow
+a template import, so that package was discovered at runtime on EVERY cold
+server, and this time the server stayed stuck answering 504 for that `?v=` across
+reloads (the committed `_metadata.json` never listed it). The fix is
+`exclude: ['open-lyric-plugin-km-kh']` + `include: ['open-lyric/internal']`,
+and deliberately NOT `include` of the plugin: it loads its fonts, dictionaries
+and spellcheck worker with `new URL('assets/…', import.meta.url)`, which would
+point into `.vite/deps/` once pre-bundled; excluded, Vite rewrites them to
+`/@fs/…/open-lyric-plugin-km-kh/dist/assets/…` (all 200). Its one bare import,
+`open-lyric/internal`, has to be included or it is discovered at runtime the
+same way; bundled in the same run as `open-lyric`, both import one shared chunk,
+so `registerPlugin` reaches the one registry. A new language file that imports a
+package needs the same treatment. Vite 8 gives each optimized file its OWN `?v=`
+— curling one file with another's hash 504s and proves nothing.
+**The third shape cannot happen any more** (2026-11-05): no window reaches a
+language's `index.ts` through Vite (every language is a built plugin, loaded by
+the preload), and the song plugin is declared in the Khmer folder's own
+`package.json`, not the app's — so the `exclude` list was removed from
+`vite.config.ts`. `include: ['open-lyric/internal']` stays: the app imports it
+too, and one pre-bundled copy is the one registry a language plugin binds to.
+
+**Fourth shape (2026-11-21) — SILENT, no error at all:** a dependency upgraded
+while `vite:dev` keeps running is not re-bundled. Vite reads the lockfile only
+when it starts, so every window goes on running the OLD
+`.vite/deps/<dep>.js` with no 504, no console line and no reload prompt. Seen
+with open-lyric 0.1.90, installed at 14:26 under a server started the day
+before: Khmer song cards kept printing _Attachments:_ / _Key:_ in English,
+because the old pre-bundle had no label-language code. Real-plugin tests passed
+and the installed language plugin was correct. Check before debugging a
+feature after an upgrade: `grep -c <new symbol>
+node_modules/.vite/deps/<dep>.js` against `node_modules/<dep>/dist`, and the
+`vite` process's start time against the dep's mtime. The fix is the same
+`vite.config.ts` touch, then a reload of the windows.

@@ -1,0 +1,3476 @@
+Reading additional input from stdin...
+OpenAI Codex v0.155.1
+--------
+workdir: /Users/yingxizhao/dev/cs2520/projects
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a21457-2d3b-7753-bcda-583883b83955
+--------
+user
+You translate rules into a fixed formal vocabulary for a research experiment. Work read-only;
+your final message is saved. Open ONLY: `data/runs/boundary2/translate/batch03_english.json` (50 real
+rules), `pipeline/rules/vocab.py`, `pipeline/rules/model.py`, `pipeline/rules/patterns.py`,
+`docs/adr/0003-clash-definition.md`, `docs/adr/0004-unexpressible-conditions.md`,
+`docs/adr/0008-git-and-file-vocabulary.md`, `data/runs/natural/enforce_names.json`. Do not open
+any other file under `data/`. No paid API calls.
+
+For EACH rule give its translation in this format (the format `model.py` reads):
+{"status": "ok" | "not_in_scope" | "unclear", "clauses": [...] or null, "left_out": "<parts of the
+rule the vocabulary cannot say, or empty>"}
+Clause types: never, only_if (with "needs"), must_do, may_do, must_hold, never_hold; fields only
+from vocab.py; `when_unmodeled` for a condition the vocabulary cannot check (ADR 0004).
+Translate the meaning faithfully: do not drop conditions, do not invent paths or branches the rule
+does not name. For tasks and running processes use names from enforce_names.json when one fits;
+otherwise "other:<short lowercase words>", and list each such new name under "new_names".
+
+Output only a JSON object in a ```json block:
+{"rules": [{"folder": "...", "id": "R..", "translation": {...}, "new_names": ["other:..."]}]}
+covering all 50 rules.
+
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+warning: Ignoring unknown `features` requirement `ultrafast_mode` from requirements layers: enterprise-managed requirements Ultra Fast mode access (rbac-ultrafast-mode), enterprise-managed requirements Computer History access (rbac-computer-history)
+codex
+I’ll inspect only the eight files you authorized, map every rule against the declared vocabulary and ADR constraints, then return the 50-entry JSON block with no repository changes.
+exec
+/bin/zsh -lc "sed -n '1,240p' pipeline/rules/vocab.py; sed -n '1,280p' pipeline/rules/model.py; sed -n '1,300p' pipeline/rules/patterns.py; sed -n '1,260p' docs/adr/0003-clash-definition.md; sed -n '1,260p' docs/adr/0004-unexpressible-conditions.md; sed -n '1,300p' docs/adr/0008-git-and-file-vocabulary.md; sed -n '1,300p' data/runs/natural/enforce_names.json; sed -n '1,400p' data/runs/boundary2/translate/batch03_english.json" in /Users/yingxizhao/dev/cs2520/projects
+ succeeded in 0ms:
+"""The fixed word list (vocabulary v2, docs/adr/0008, sections 2-3). Everything a translation
+may name is listed here; any other name is an error."""
+
+GIT_CMDS = ["commit", "stage", "push_branch", "push_delete", "force_push", "local_merge",
+            "pr_create", "pr_merge", "branch_create", "branch_delete", "checkout", "pull",
+            "rebase", "reset_hard", "cherry_pick", "fetch", "worktree_add", "worktree_remove"]
+FILE_CMDS = ["read", "create", "edit", "move", "delete"]
+CMDS = GIT_CMDS + FILE_CMDS + ["run"]
+
+# Fixed meanings: every kind of push is a push, every kind of merge is a merge. No file groups.
+GROUPS = {"push": ["push_branch", "push_delete", "force_push"],
+          "merge": ["local_merge", "pr_merge"],
+          "any_branch_delete": ["branch_delete", "push_delete"]}
+
+TASKS = ["test", "build", "lint", "format", "deploy", "migrate", "publish", "restart"]
+OTHER_TASK = "other:"  # any other task: "other:<exact words>", matched only if identical
+
+# Yes/no fields. The agent decides these as part of the action (it can ask for approval).
+ACTION_BOOLS = ["has_secret", "user_confirmed", "files_shown", "secrets_checked",
+                "admin_bypass", "in_worktree"]
+# Yes/no fields the situation fixes; the agent cannot change them.
+WORLD_BOOLS = ["user_asked", "tests_passed"]
+BOOLS = ACTION_BOOLS + WORLD_BOOLS
+
+PATH_FIELDS = ["path", "dest_path"]          # targets (patterns.path_re)
+BRANCH_FIELDS = ["branch"]                   # globs (patterns.glob_re)
+# Details of the earlier step that `after` names (vocabulary v2.1): each refers to the same
+# earlier step, one earlier step per action kind.
+AFTER_FIELDS = ["after_branch", "after_task", "after_path", "after_ok"]
+FILE_ACTIONS = ["read", "create", "edit", "move", "delete", "stage", "commit"]
+FIELDS = (["cmd", "path_except", "kind", "task", "suite", "after", "running",
+           "min_files", "max_files"] + PATH_FIELDS + BRANCH_FIELDS + AFTER_FIELDS + BOOLS)
+
+# Which fields describe the situation a pair is tested in: see pair.situations.
+
+CLAUSE_TYPES = ["never", "only_if", "must_do", "may_do", "must_hold", "never_hold"]
+STATE_TYPES = ["must_hold", "never_hold"]
+
+
+def expand(names):
+    """Action names and groups -> sorted list of actions."""
+    out = []
+    for n in names if isinstance(names, list) else [names]:
+        if n in GROUPS:
+            out += GROUPS[n]
+        elif n in CMDS:
+            out.append(n)
+        else:
+            raise ValueError(f"unknown action {n!r}")
+    return sorted(set(out))
+
+
+def norm_name(name):
+    """Process and task names match only if identical after trivial clean-up:
+    case, extra spaces and a leading "the" ("The game server" = "game server")."""
+    s = " ".join(str(name).lower().split())
+    return s[4:] if s.startswith("the ") else s
+
+
+def task_name(task):
+    t = str(task).strip()
+    if t in TASKS:
+        return t
+    if t.startswith(OTHER_TASK) and len(t) > len(OTHER_TASK):
+        return OTHER_TASK + norm_name(t[len(OTHER_TASK):])
+    raise ValueError(f"unknown task {task!r}")
+"""One action as Z3 variables, and one translated rule as Z3 formulas over it.
+
+A clause's `where` (and `needs`) is a set of fields; `Event.match` turns it into a formula that
+is true when the action has those fields. `never` and `only_if` clauses become constraints on
+the action (`constraints`). `must_do` / `may_do` are tested by pair.py; `must_hold` /
+`never_hold` are repository states, handled by state.py.
+"""
+
+from z3 import And, Bool, BoolVal, Implies, InRe, Int, Not, Or, String, StringVal
+
+from rules.patterns import glob_re, target_re
+from rules.vocab import (AFTER_FIELDS, BOOLS, BRANCH_FIELDS, CMDS, FIELDS, FILE_ACTIONS, PATH_FIELDS,
+                         STATE_TYPES, expand, norm_name, task_name)
+
+
+def _paths(v):
+    """A path pattern may be written as one string or a list; a bare string must not be read
+    letter by letter (fix logged in docs/review/boundary_results.md)."""
+    return [v] if isinstance(v, str) else list(v)
+
+
+class Event:
+    """Z3 variables for one action; `tag` keeps the actions of different clauses apart."""
+
+    def __init__(self, tag):
+        self.tag = tag
+        self.cmd = Int(f"{tag}_cmd")
+        # which actions happened at some earlier point (several can be true)
+        self.prior = {c: Bool(f"{tag}_prior_{c}") for c in CMDS}
+        # details of the earlier step of each kind (v2.1): its branch, its path, and for run its
+        # task and whether it succeeded
+        self.prior_branch = {c: String(f"{tag}_prior_branch_{c}") for c in CMDS}
+        self.prior_path = {c: String(f"{tag}_prior_path_{c}") for c in FILE_ACTIONS}
+        self.prior_task = String(f"{tag}_prior_task")
+        self.prior_ok = Bool(f"{tag}_prior_ok")
+        self.n_files = Int(f"{tag}_n_files")
+        self.s = {f: String(f"{tag}_{f}") for f in PATH_FIELDS + BRANCH_FIELDS + ["task"]}
+        self.b = {k: Bool(f"{tag}_{k}") for k in BOOLS}
+        self.is_dir = Bool(f"{tag}_is_dir")
+        self.suite_all = Bool(f"{tag}_suite_all")
+
+    def running(self, name):
+        """Process `name` is running (one yes/no per name)."""
+        return Bool(f"{self.tag}_running_{norm_name(name)}")
+
+    def cond(self, name):
+        """An unknown yes/no fact: a condition the rule names but the vocabulary cannot express."""
+        return Bool(f"{self.tag}_cond_{name}")
+
+    def wellformed(self):
+        return And(self.cmd >= 0, self.cmd < len(CMDS), self.n_files >= 0)
+
+    def is_cmd(self, names):
+        return Or([self.cmd == CMDS.index(c) for c in expand(names)])
+
+    def earlier(self, where):
+        """An earlier step of one of the `after` kinds, with all the after_* details on that same
+        step. Without `after`, the details pick the kinds they can describe."""
+        task, path, ok, br = (where.get(k) for k in ("after_task", "after_path", "after_ok", "after_branch"))
+        if "after" in where:
+            kinds = expand(where["after"])
+        else:
+            kinds = ["run"] if task is not None or ok is not None else FILE_ACTIONS if path is not None else CMDS
+        if (task is not None or ok is not None) and "run" not in kinds:
+            raise ValueError("after_task / after_ok need run in after")
+        if path is not None and not set(kinds) & set(FILE_ACTIONS):
+            raise ValueError("after_path needs a file action in after")
+        if ok is not None and not isinstance(ok, bool):
+            raise ValueError("after_ok must be true/false")
+        opts = []
+        for c in kinds:
+            if (task is not None or ok is not None) and c != "run":
+                continue
+            if path is not None and c not in FILE_ACTIONS:
+                continue
+            f = [self.prior[c]]
+            if br is not None:
+                f.append(InRe(self.prior_branch[c], glob_re(br)))
+            if path is not None:
+                f.append(InRe(self.prior_path[c], target_re(path)))
+            if task is not None:
+                f.append(self.prior_task == StringVal(task_name(task)))
+            if ok is not None:
+                f.append(self.prior_ok == BoolVal(ok))
+            opts.append(And(f))
+        return Or(opts)
+
+    def match(self, where):
+        cs = []
+        if "path_except" in where and "path" not in where:
+            raise ValueError("path_except without path")
+        if "after" in where or any(k in where for k in AFTER_FIELDS):
+            cs.append(self.earlier(where))
+        for k, v in where.items():
+            if k == "_cond":
+                cs.append(self.cond(v))
+            elif k not in FIELDS:
+                raise ValueError(f"unknown field {k!r}")
+            elif k == "cmd":
+                cs.append(self.is_cmd(v))
+            elif k == "path":
+                cs.append(InRe(self.s["path"], target_re(_paths(v), _paths(where.get("path_except", [])))))
+            elif k == "dest_path":
+                cs.append(InRe(self.s["dest_path"], target_re(_paths(v))))
+            elif k == "path_except" or k == "after" or k in AFTER_FIELDS:
+                continue  # part of `path` / of the earlier step (self.earlier)
+            elif k in BRANCH_FIELDS:
+                cs.append(InRe(self.s[k], glob_re(v)))
+            elif k == "kind":
+                if v not in ("file", "dir"):
+                    raise ValueError(f"kind must be file or dir, not {v!r}")
+                cs.append(self.is_dir == BoolVal(v == "dir"))
+            elif k == "task":
+                cs.append(self.s["task"] == StringVal(task_name(v)))
+            elif k == "suite":
+                if v != "all":
+                    raise ValueError(f"suite must be 'all', not {v!r}")
+                cs.append(self.suite_all)
+            elif k == "running":
+                cs.append(And([self.running(n) for n in v]))
+            elif k == "min_files":
+                cs.append(self.n_files >= int(v))
+            elif k == "max_files":
+                cs.append(self.n_files <= int(v))
+            elif isinstance(v, bool):
+                cs.append(self.b[k] == BoolVal(v))
+            else:
+                raise ValueError(f"{k} must be true/false")
+        return And(cs) if cs else BoolVal(True)
+
+
+def check_clause(c):
+    """Rules of the format the schema cannot express on its own."""
+    if "cmd" in c.get("needs", {}):
+        raise ValueError("an action in needs (write 'before X do Y' as needs after: [Y])")
+    if c["type"] == "only_if" and "needs" not in c:
+        raise ValueError("only_if without needs")
+
+
+def action_clauses(clauses):
+    out = [c for c in clauses if c["type"] not in STATE_TYPES]
+    for c in out:
+        check_clause(c)
+    return out
+
+
+def constraints(e, clauses):
+    """What `never` and `only_if` clauses demand of action e."""
+    out = []
+    for c in clauses:
+        if c["type"] == "never":
+            out.append(Not(e.match(c["where"])))
+        elif c["type"] == "only_if":
+            out.append(Implies(e.match(c["where"]), e.match(c["needs"])))
+    return out
+
+
+def prepared(clauses, tag):
+    """A clause with `when_unmodeled` applies only when an unknown fact of its own holds
+    (ADR 0004). No other rule names that fact, so at worst a clash is missed."""
+    out = []
+    for i, c in enumerate(clauses):
+        c = dict(c)
+        if c.get("when_unmodeled"):
+            c["where"] = {**c["where"], "_cond": f"{tag}{i}"}
+        out.append(c)
+    return out
+
+
+def witness(model, e):
+    """The action the solver found, in the translation's own field names."""
+    out = {"cmd": CMDS[model.eval(e.cmd).as_long()]}
+    done = [c for c in CMDS if bool(model.eval(e.prior[c], model_completion=True))]
+    if done:
+        out["after"] = done
+        for c in done:  # details of the earlier steps, where the solver fixed them
+            v = model.eval(e.prior_branch[c])
+            if hasattr(v, "as_string") and v.as_string():
+                out.setdefault("after_branch", v.as_string())
+            if c in e.prior_path:
+                v = model.eval(e.prior_path[c])
+                if hasattr(v, "as_string") and v.as_string():
+                    out.setdefault("after_path", v.as_string())
+        if "run" in done:
+            v = model.eval(e.prior_task)
+            if hasattr(v, "as_string") and v.as_string():
+                out["after_task"] = v.as_string()
+            out["after_ok"] = bool(model.eval(e.prior_ok, model_completion=True))
+    for f, v in e.s.items():
+        v = model.eval(v)
+        if hasattr(v, "as_string") and v.as_string():
+            out[f] = v.as_string()
+    for k in BOOLS:
+        out[k] = bool(model.eval(e.b[k], model_completion=True))
+    return out
+"""File-name and branch patterns (vocabulary v2, docs/adr/0008, section 4), as Z3 regexes.
+
+Part of pipeline/rules/: the git and file rule checker. pipeline/git/git_check.py stays
+unchanged so earlier results can be rerun. Tests: tests/rules/test_patterns.py.
+"""
+
+from z3 import (AllChar, Complement, Concat, InRe, Intersect, Option, Re, ReSort, Solver, Star,
+                String, StringSort, StringVal, Union, sat)
+
+RE = ReSort(StringSort())
+ANY = Star(AllChar(RE))                                  # any text, "/" included
+SEG_CHAR = Intersect(AllChar(RE), Complement(Re("/")))   # one character that is not "/"
+
+
+def is_sat(*fs):
+    s = Solver()
+    s.add(*fs)
+    return s.check() == sat
+
+
+# ---------------------------------------------------------------- patterns (ADR 0008, section 4)
+
+def glob_re(pattern):
+    """Wildcards: `*` = any text inside one folder level, `?` = one character that is not "/",
+    `**` = any depth. `a/**/b` also matches `a/b`; `a/**` matches everything inside a/."""
+    p, pieces, i = str(pattern), [], 0
+    lit = ""
+    while i < len(p):
+        if p.startswith("**/", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Option(Concat(ANY, Re("/"))))  # zero or more folder levels
+            i += 3
+        elif p.startswith("**", i):
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(ANY)
+            i += 2
+        elif p[i] in "*?":
+            pieces += [Re(lit)] if lit else []
+            lit = ""
+            pieces.append(Star(SEG_CHAR) if p[i] == "*" else SEG_CHAR)
+            i += 1
+        else:
+            lit += p[i]
+            i += 1
+    pieces += [Re(lit)] if lit else []
+    if not pieces:
+        return Re("")
+    return pieces[0] if len(pieces) == 1 else Concat(*pieces)
+
+
+def path_re(pattern):
+    """A path pattern as written by the translator, made canonical in code:
+    - paths are relative to the repo root ("./" and a leading "/" are dropped);
+    - `X/` is the folder X itself and everything in it;
+    - a name with no "/" (`server-world.dat`, `*.md`) matches at any depth."""
+    p = str(pattern).strip()
+    p = p[2:] if p.startswith("./") else p
+    p = p.lstrip("/")
+    folder = p.endswith("/")
+    bare = "/" not in p          # checked before the trailing "/" is dropped: `vendor/` is not bare
+    p = p.rstrip("/")
+    if bare:
+        p = "**/" + p
+    r = glob_re(p)
+    return Union(r, glob_re(p + "/**")) if folder else r
+
+
+def target_re(include, exclude=()):
+    """In some include pattern and in no exclude pattern (order never matters, no `!`)."""
+    r = Union(*[path_re(x) for x in include]) if len(include) > 1 else path_re(include[0])
+    if exclude:
+        ex = Union(*[path_re(x) for x in exclude]) if len(exclude) > 1 else path_re(exclude[0])
+        r = Intersect(r, Complement(ex))
+    return r
+
+
+def matches(regex, text):
+    v = String("probe")
+    return is_sat(v == StringVal(text), InRe(v, regex))
+# 0003. A clash means no single action satisfies both rules; "may" is a strong permission
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+Labelling showed that readers used different meanings of "clash". Two candidates:
+1. "Following one rule can break the other." Taken literally, almost every pair clashes through
+   details neither rule mentions (for example the timing of "prune after each clone batch").
+2. "In some situation, no single action satisfies both rules." This is the standard meaning of
+   inconsistency, and Z3 can answer it exactly.
+
+Under (2), the reading of "may" decides pairs such as "create PRs with MCP" vs "you may also
+create PRs with gh-cc-var". In deontic logic (the logic of obligation and permission), von Wright
+separates a weak permission (merely not forbidden) from a strong permission (explicitly stated
+by the rules). Vranes (2006) argues that a norm conflict covers obligation vs prohibition,
+obligation vs permission not to act, and prohibition vs permission. Norm-conflict checkers in
+multi-agent systems (Vasconcelos, Kollingbaum & Norman, 2008) also treat permission vs
+prohibition as a conflict.
+
+## Decision
+Two rules clash if, in some situation the rules name, no single action satisfies both. The
+words that set a rule's force are read as follows:
+
+| Words | Meaning | Clause |
+|---|---|---|
+| must, always, do X | obligation | `must_do` |
+| never, don't, avoid | prohibition | `never` |
+| may, it's fine to, permit | strong permission: the action must stay possible | `may_do` |
+| only if, not without, before X do Y | conditional obligation | `only_if` |
+
+An explicit "may" in a memory rule is a strong permission, because the rule states it. "Use M
+for X" read together with "use G for X" is a clash when the agent uses one tool per task
+(indirect conflict: it depends on knowing that the two options exclude each other, and that,
+for example, a lookup is a kind of read).
+
+## Consequences
+- An exception written as a permission ("you may skip dev-bot testing for test-only PRs")
+  clashes with the rule it excepts. This is intended: the agent must know which rule wins.
+- The checker already treats `may_do` as a strong permission.
+- Sources (abstracts and summaries only, to be read in full before citing): Vranes 2006, EJIL
+  17:395; Vasconcelos, Kollingbaum & Norman 2008, JAAMAS; Torres da Silva et al. 2015 on
+  indirect conflicts; von Wright 1951/1968 via secondary sources.
+# 0004. Conditions the model cannot express become unknown facts
+
+Date: 2026-11-19. Status: Accepted.
+
+## Context
+On the large folders, the first translations reported 20 clashes, all false. One cause: the
+translator dropped conditions it could not express, so "never commit to the local clones" became
+"never commit", which then clashed with every rule that requires a commit.
+
+## Decision
+A condition the model cannot express ("in the local clones", "during a backlog sweep") is kept
+as `when_unmodeled`. The checker turns it into a fresh unknown yes/no fact for that clause, so
+the clause applies only when that fact holds. An `only_if` whose requirement cannot be expressed
+becomes an unknown requirement the agent can meet.
+
+Rule of thumb: dropping a requirement can only cause missed clashes; dropping a condition causes
+false clashes. So conditions are never dropped.
+
+## Consequences
+- False clashes on the large folders went from 20 to 0.
+- Known blind spot: two rules naming the same unexpressible condition get two different unknown
+  facts, so their clash is missed (for example "during a sweep, review" vs "during a sweep, never
+  review"). A fix is to let rules that name the same condition share one fact.
+# 0008. One fixed vocabulary for git and basic file rules
+
+Date: 2026-11-22. Status: Accepted. Extends 0002.
+
+## Context
+The survey of 60 more memory folders found that besides git, rules about files (read, create,
+edit, move, delete, what stays in the repo) and about running commands are common and can be
+written in a fixed form without knowing tool names. Two research reports
+(`docs/review/schema_research_*.md`) found that comparable systems (GitHub rulesets, Claude
+Code permissions, Cedar, AppArmor) all fix the action list in code and leave only names open.
+Two critical reviews (`docs/review/attack_review_*.md`) asked that every item be justified and
+that ambiguous words not be decided silently.
+
+## Decision
+- The vocabulary is `docs/review/vocab_draft.md` v2, written by Claude and Codex in five review
+  rounds and approved by the author. It is fixed in code for the experiment; changes need a
+  new version.
+- Scope: git rules plus basic file rules and `run` with a fixed task list. If the file part
+  gives poor results, it is dropped from the report.
+- Words with more than one meaning are read from the rule's own text; if unclear, the rule is
+  excluded and listed with the word.
+- "In the repo" is a state. Opposite state requirements are reported as a separate verdict,
+  "state conflict"; 0003 is unchanged.
+- "May" vs "never" / "must" pairs are reported as their own category, "exception (needs a
+  priority rule)", next to plain clashes.
+- The translator sees only the rule, its file name and its section heading, not the folder's
+  other rules, so that other rules cannot change how a rule is read.
+- Claims say "solver-checked": exact with respect to the translations.
+
+## Consequences
+- The checker and prompt changes in section 8 of the vocabulary must be made before any
+  translation run.
+- Some rules a reader would understand from the folder become unclear; their number is reported.
+- The held-out folders were selected with a git filter (0005), so the held-out claim stays
+  git-only. File rules are reported on the survey folders, with three-run agreement and a
+  hand-checked sample.
+{
+ "how": "Project name list, fixed at compile time. Translations and action events must use these names for `task`, `after_task` and `running`. A running entry names a task that is still in progress. Anything else uses 'other:<words>' and will not match.",
+ "all_folders": {
+  "test": "run the test suite or any test subset",
+  "build": "compile or build the project",
+  "lint": "run linters",
+  "format": "run formatters",
+  "deploy": "deploy to an environment",
+  "migrate": "run database migrations",
+  "publish": "publish a package or release",
+  "restart": "restart a running service or server"
+ },
+ "per_folder": {
+  "martinambrus__RDForward": {
+   "other:rdforward server": "start or run the RDForward server process (e.g. java -jar, gradle run)"
+  },
+  "ruddyribera-ops__CRUDDY-OPENCODE": {
+   "other:back up the database": "make a backup of the database (e.g. pg_dump)"
+  }
+ }
+}{
+ "rules": [
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R125",
+   "rule": "Only escalate to a 100k run to confirm a clear 10k signal that is worth confirming."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R127",
+   "rule": "Do actual web research on established approaches to the specific problem (CSI feedback / NLOS localization / channel charting) before proposing or running experiments."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R150",
+   "rule": "Do not delete the Claude home backup at `C:\\Users\\javid\\Documents\\Javier\\.claude`, because it is the only copy of the pre-crash state."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R164",
+   "rule": "Before editing a figure SVG, read the region of the file being changed first."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R169",
+   "rule": "When generating a new RT dataset (especially one with a high indoor fraction), apply the zero-norm UE filter (min_norm_frac=1e-3 via build_multitask_feeds) before training."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R178",
+   "rule": "When addressing joint-training negative transfer, test staged training first and use PCGrad or ForkMerge only if a residual gap remains."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R196",
+   "rule": "Do not re-run convert_channel_angle_delay on the RT-generated CSI, because it is already in the delay domain; only the angular DFT should be applied."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R2",
+   "rule": "Do not launch the real CSI-representation training run until the user gives explicit go-ahead."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R207",
+   "rule": "Test the pure-NLOS configuration first and defer the LOS/NLOS comparison that requires re-aiming the azimuth."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R209",
+   "rule": "Do not pursue single-snapshot self-aiding (a self-derived prior from one codeword) any further."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R223",
+   "rule": "Do not implement the TR 38.901 \u00a78.4 map-based hybrid channel model; cite it instead."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R227",
+   "rule": "Never use stochastic-cluster perturbation during training."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R244",
+   "rule": "Do not build an ns-3 + 5G-LENA + ns3-rt integration."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R264",
+   "rule": "When republishing the walkthrough Artifact, use the same file path so the existing URL is kept."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R3",
+   "rule": "When running the CSI-representation experiment, run the 10k proxy first, then confirm the result on 100k data."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R7",
+   "rule": "Hold the per-layer model retrain until the user picks which lever to pursue."
+  },
+  {
+   "folder": "JD-2207__CSI-ISAC",
+   "id": "R76",
+   "rule": "Do not delete F:\\Javier_old\\users-fernando until the new backup has been verified as trustworthy."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R11",
+   "rule": "Do not edit memory content when restoring."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R130",
+   "rule": "Never open memory.db from node -e debug scripts while the MCP server is running."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R14",
+   "rule": "Do not rename memory files when restoring."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R17",
+   "rule": "Do not create MEMORY.md from scratch; only copy the existing memory/MEMORY.md."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R204",
+   "rule": "Never add a scripts/patches/NNN-PATCH-*.sh file for changes to the viz/ directory."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R217",
+   "rule": "Never edit .claude/helpers/ directly as the source of truth; update it only by re-running the bootstrap."
+  },
+  {
+   "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+   "id": "R55",
+   "rule": "After editing a hook script, do not restart any daemon, because the next hook invocation will pick up the change."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R68",
+   "rule": "Before saving a memory, ask whether it would apply in any project or only in this one."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R72",
+   "rule": "Do not make code changes when asked to analyze or review, unless explicitly asked to implement them."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R74",
+   "rule": "Only write code when the user explicitly says to apply, fix, implement, or do it."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R76",
+   "rule": "Do not run tests, lint, typecheck, or builds after implementing a change."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R77",
+   "rule": "Do not run end-to-end verification, such as the /verify skill or launching the app and driving it."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R78",
+   "rule": "Do not execute test files you wrote as part of an implementation."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R79",
+   "rule": "Do not run git commit until the user has reviewed the change and explicitly approved it, even if prior slices in the repo were committed one per issue."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R82",
+   "rule": "Run verification or checks only when the user explicitly asks for them in that conversation."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R83",
+   "rule": "When the user invokes /tdd, run only single targeted tests in the red-green loop, and never run full suites, builds, lint, or typecheck."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R84",
+   "rule": "Ask for or wait for user approval before running git commit."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R85",
+   "rule": "Close the completed ticket only after the git commit succeeds."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R86",
+   "rule": "Do not let harness or skill prompts suggesting verification override the rule against running verification without user request."
+  },
+  {
+   "folder": "PhoeNox__Phoenox",
+   "id": "R87",
+   "rule": "Do not treat repo commit history patterns as authorization to run git commit."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R124",
+   "rule": "Investigate and fix blocker bug #71 on a hotfix branch, regardless of the 4-day waiting rule."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R136",
+   "rule": "Treat docs/design-system.md as the single source of truth for all UI work, and read it before implementing or reviewing any screen."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R148",
+   "rule": "Never run `docker compose up --build -d` for all services during development."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R15",
+   "rule": "Write and run the e2e test before opening the PR; do not merely plan it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R154",
+   "rule": "Before running individual e2e tests outside Docker with `npx playwright test`, make sure the dev stack (sqlserver, api, frontend) is running locally."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R155",
+   "rule": "Do not run tests decorated with `[SkipIfNoClaudeApiKey]` by default; they run only when explicitly opted in."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R159",
+   "rule": "Never commit the Claude API key to the repository."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R172",
+   "rule": "Write task plan files inside the active worktree, not in the main repo directory."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R173",
+   "rule": "Do not write task plan files in the main repo directory."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R174",
+   "rule": "Never save plan files directly in the root `plan\\` folder."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R175",
+   "rule": "Place each phase's plan files in a feature subfolder for that phase."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R176",
+   "rule": "Name the phase overview file `plan.md` and place it inside the phase's subfolder."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R177",
+   "rule": "Name individual task files `task<N>-<short-description>.md` and place them in the same phase subfolder as the overview."
+  }
+ ]
+}
+codex
+```json
+{
+  "rules": [
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R125",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:100k run"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:10k proxy",
+              "after_ok": true
+            },
+            "when_unmodeled": "the 10k result is a clear signal worth confirming"
+          }
+        ],
+        "left_out": "The vocabulary cannot assess whether a signal is clear or worth confirming; that requirement is retained as an unmodeled condition."
+      },
+      "new_names": [
+        "other:100k run",
+        "other:10k proxy"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R127",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:experiment"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:web research"
+            },
+            "when_unmodeled": "the experiment concerns CSI feedback, NLOS localization, or channel charting"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:propose experiment"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:web research"
+            },
+            "when_unmodeled": "the proposal concerns CSI feedback, NLOS localization, or channel charting"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the research is actual web research into established approaches or that it addresses the same specific problem."
+      },
+      "new_names": [
+        "other:experiment",
+        "other:propose experiment",
+        "other:web research"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R150",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "delete",
+              "path": "C:\\Users\\javid\\Documents\\Javier\\.claude"
+            }
+          }
+        ],
+        "left_out": "The rationale that this is the only pre-crash copy is not represented."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R164",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "*.svg"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "*.svg"
+            },
+            "when_unmodeled": "the SVG is a figure"
+          }
+        ],
+        "left_out": "The vocabulary cannot require that the earlier read covered the exact region being changed or correlate it with the same SVG."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R169",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:training"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:apply zero-norm ue filter",
+              "after_ok": true
+            },
+            "when_unmodeled": "training uses a newly generated RT dataset"
+          }
+        ],
+        "left_out": "The vocabulary cannot check the dataset's indoor fraction, the min_norm_frac value, or use of build_multitask_feeds."
+      },
+      "new_names": [
+        "other:training",
+        "other:apply zero-norm ue filter"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R178",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:staged training"
+            },
+            "when_unmodeled": "joint-training negative transfer is being addressed"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:pcgrad"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:staged training"
+            },
+            "when_unmodeled": "a residual gap remains after staged training"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:forkmerge"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:staged training"
+            },
+            "when_unmodeled": "a residual gap remains after staged training"
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether negative transfer or a residual gap exists."
+      },
+      "new_names": [
+        "other:staged training",
+        "other:pcgrad",
+        "other:forkmerge"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R196",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:convert channel angle delay"
+            },
+            "when_unmodeled": "the input is RT-generated CSI already in the delay domain"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:angular dft"
+            },
+            "when_unmodeled": "RT-generated CSI is being transformed"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the CSI representation or distinguish which transformation is being applied to a particular dataset."
+      },
+      "new_names": [
+        "other:convert channel angle delay",
+        "other:angular dft"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R2",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:csi-representation training"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "this is the real training run"
+          }
+        ],
+        "left_out": "Whether a run is the real run is retained as an unmodeled condition."
+      },
+      "new_names": [
+        "other:csi-representation training"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R207",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:pure-nlos test"
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:los-nlos comparison"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:pure-nlos test"
+            }
+          }
+        ],
+        "left_out": "The need to re-aim the azimuth is explanatory and cannot be represented."
+      },
+      "new_names": [
+        "other:pure-nlos test",
+        "other:los-nlos comparison"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R209",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:single-snapshot self-aiding"
+            }
+          }
+        ],
+        "left_out": "The broad notion of pursuing the approach outside a runnable task is not represented."
+      },
+      "new_names": [
+        "other:single-snapshot self-aiding"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R223",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement tr 38.901 hybrid model"
+            }
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:cite tr 38.901 hybrid model"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect content to verify that the cited or implemented model is specifically section 8.4's map-based hybrid channel model."
+      },
+      "new_names": [
+        "other:implement tr 38.901 hybrid model",
+        "other:cite tr 38.901 hybrid model"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R227",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:stochastic-cluster perturbation"
+            },
+            "when_unmodeled": "the perturbation is being used during training"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect a training configuration to detect use of this perturbation."
+      },
+      "new_names": [
+        "other:stochastic-cluster perturbation"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R244",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:build ns-3 5g-lena ns3-rt integration"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect project content to identify implementation of this integration."
+      },
+      "new_names": [
+        "other:build ns-3 5g-lena ns3-rt integration"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R264",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "publish"
+            },
+            "when_unmodeled": "the walkthrough Artifact is being republished using its existing file path"
+          }
+        ],
+        "left_out": "The vocabulary has no path field for publish actions and cannot compare a publication's path with its previous path or verify that its URL is preserved."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R3",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:10k proxy"
+            },
+            "when_unmodeled": "the CSI-representation experiment is being run"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:100k run"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:10k proxy",
+              "after_ok": true
+            },
+            "when_unmodeled": "the 100k run is confirming the CSI-representation result"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate both runs with the same experiment or result."
+      },
+      "new_names": [
+        "other:10k proxy",
+        "other:100k run"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R7",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:per-layer model retrain"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the user's confirmation identifies which lever to pursue"
+          }
+        ],
+        "left_out": "The vocabulary cannot record which lever the user selected."
+      },
+      "new_names": [
+        "other:per-layer model retrain"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R76",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "delete",
+              "path": "F:\\Javier_old\\users-fernando"
+            },
+            "when_unmodeled": "the new backup has not been verified as trustworthy"
+          }
+        ],
+        "left_out": "Backup trustworthiness cannot be checked by the vocabulary."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R11",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "edit"
+            },
+            "when_unmodeled": "the target is memory content and the operation is a restoration"
+          }
+        ],
+        "left_out": "No path is named, so memory content and restoration context remain unmodeled."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R130",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "read",
+              "path": "memory.db",
+              "running": [
+                "other:mcp server"
+              ]
+            },
+            "when_unmodeled": "the read is performed from a node -e debug script"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the program responsible for a file read."
+      },
+      "new_names": [
+        "other:mcp server"
+      ]
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R14",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "move"
+            },
+            "when_unmodeled": "the move renames a memory file during restoration"
+          }
+        ],
+        "left_out": "No memory-file path is named, and the vocabulary cannot distinguish renaming from other moves."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R17",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "create",
+              "path": "MEMORY.md"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "memory/MEMORY.md"
+            }
+          }
+        ],
+        "left_out": "The vocabulary has no copy action and cannot prove that the created file is a copy rather than newly authored content."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R204",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "create",
+              "path": "scripts/patches/NNN-PATCH-*.sh"
+            },
+            "when_unmodeled": "the patch file concerns changes to the viz directory"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect a patch file to determine whether it concerns viz/."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R217",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": ".claude/helpers/"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:bootstrap"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a direct edit from an edit produced by bootstrap or represent source-of-truth status."
+      },
+      "new_names": [
+        "other:bootstrap"
+      ]
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R55",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "restart",
+              "after": "edit"
+            },
+            "when_unmodeled": "the earlier edit was to a hook script"
+          }
+        ],
+        "left_out": "No hook-script path is named, and the vocabulary cannot represent the explanatory behavior of the next hook invocation."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R68",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask memory scope"
+            },
+            "when_unmodeled": "the file action saves a memory"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the question to verify that it asks whether the memory is project-specific or generally applicable."
+      },
+      "new_names": [
+        "other:ask memory scope"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R72",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "when_unmodeled": "the action changes code, the user requested only analysis or review, and the user did not explicitly request implementation"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify files as code or distinguish analysis, review, and implementation requests."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R74",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the action writes code and the request uses apply, fix, implement, do it, or equivalent explicit wording"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify written content as code or inspect the user's wording."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R76",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "lint",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "build",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether an earlier file change was an implementation."
+      },
+      "new_names": [
+        "other:typecheck"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R77",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:end-to-end verification"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether /verify, launching the app, or driving it constitutes the named end-to-end verification task."
+      },
+      "new_names": [
+        "other:end-to-end verification"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R78",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "when_unmodeled": "the run executes test files written as part of the current implementation"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify who wrote a test file or why it was written."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R79",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "files_shown": true,
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "files_shown approximates review but cannot prove that the user reviewed the change; the prior-slice history is explanatory."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R82",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "lint"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:verification"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:checks"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the request occurred in the same conversation."
+      },
+      "new_names": [
+        "other:typecheck",
+        "other:verification",
+        "other:checks"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R83",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "max_files": 1
+            },
+            "when_unmodeled": "/tdd is active and the test is part of the red-green loop"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test",
+              "suite": "all"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "lint"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck"
+            },
+            "when_unmodeled": "/tdd is active"
+          }
+        ],
+        "left_out": "max_files captures a single test file but cannot ensure that the test is targeted; invocation of /tdd and membership in the red-green loop are unmodeled."
+      },
+      "new_names": [
+        "other:typecheck"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R84",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary records approval but not the act of asking or waiting for it."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R85",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:close ticket"
+            },
+            "needs": {
+              "after": "commit"
+            },
+            "when_unmodeled": "the ticket is completed and the earlier commit succeeded"
+          }
+        ],
+        "left_out": "after_ok is available only for earlier run actions, so commit success and ticket completion remain unmodeled."
+      },
+      "new_names": [
+        "other:close ticket"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R86",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:verification"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a harness or skill prompt from a user request or represent prompt precedence."
+      },
+      "new_names": [
+        "other:verification"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R87",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "commit"
+            },
+            "when_unmodeled": "the only purported authorization is a pattern in repository commit history"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the reason an action was considered authorized."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:investigate blocker bug 71",
+              "branch": "hotfix*"
+            }
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:fix blocker bug 71",
+              "branch": "hotfix*"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot represent overriding the separate four-day waiting rule, and hotfix* approximates an otherwise unnamed hotfix branch."
+      },
+      "new_names": [
+        "other:investigate blocker bug 71",
+        "other:fix blocker bug 71"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R136",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement screen"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "docs/design-system.md"
+            },
+            "when_unmodeled": "the screen is UI work"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:review screen"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "docs/design-system.md"
+            },
+            "when_unmodeled": "the screen is UI work"
+          }
+        ],
+        "left_out": "The vocabulary cannot enforce that the document is treated as the single source of truth or assess whether work follows it."
+      },
+      "new_names": [
+        "other:implement screen",
+        "other:review screen"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R148",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:docker compose all services"
+            },
+            "when_unmodeled": "the command is docker compose up --build -d for all services during development"
+          }
+        ],
+        "left_out": "The exact command flags, all-services scope, and development context cannot be inspected by the vocabulary."
+      },
+      "new_names": [
+        "other:docker compose all services"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R15",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "create"
+            },
+            "when_unmodeled": "the created file is the required e2e test"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "when_unmodeled": "the run executes the required e2e test"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "create"
+            },
+            "when_unmodeled": "the earlier created file is the required e2e test"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the earlier successful test run is the required e2e test"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the created test file, the test run, and the PR, or distinguish e2e tests from other tests."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R154",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "running": [
+                "other:sqlserver",
+                "other:api",
+                "other:frontend"
+              ]
+            },
+            "when_unmodeled": "an individual e2e test is being run outside Docker with npx playwright test"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the test command or determine whether it runs outside Docker."
+      },
+      "new_names": [
+        "other:sqlserver",
+        "other:api",
+        "other:frontend"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R155",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the selected test has the SkipIfNoClaudeApiKey decoration"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect test decorations; user_confirmed approximates explicit opt-in."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R159",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "commit",
+              "has_secret": true
+            }
+          }
+        ],
+        "left_out": "has_secret does not distinguish the Claude API key from other secrets."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R172",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "in_worktree": true
+            },
+            "when_unmodeled": "the target is a task plan file and the worktree is the active worktree"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify task plan files or distinguish the active worktree from another worktree."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R173",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the target is a task plan file in the main repository directory"
+          }
+        ],
+        "left_out": "No main-repository path is named, and the vocabulary cannot classify task plan files."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R174",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ],
+              "path": "plan/*"
+            }
+          }
+        ],
+        "left_out": "The path pattern captures files directly inside plan/ but cannot determine semantically whether each file is a plan file."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R175",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the target is a phase plan file not located in that phase's feature subfolder"
+          }
+        ],
+        "left_out": "No feature-subfolder path is named, and the vocabulary cannot correlate a plan file with its phase."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R176",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "path": "plan.md"
+            },
+            "when_unmodeled": "the target is a phase overview file located inside that phase's subfolder"
+          }
+        ],
+        "left_out": "The filename requirement is represented, but the vocabulary cannot recognize or correlate the containing phase subfolder."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R177",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "path": "task*-*.md"
+            },
+            "when_unmodeled": "the target is an individual task file"
+          }
+        ],
+        "left_out": "The glob cannot require a numeric N, a short description, or placement in the same phase subfolder as the overview."
+      },
+      "new_names": []
+    }
+  ]
+}
+```
+tokens used
+39,973
+```json
+{
+  "rules": [
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R125",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:100k run"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:10k proxy",
+              "after_ok": true
+            },
+            "when_unmodeled": "the 10k result is a clear signal worth confirming"
+          }
+        ],
+        "left_out": "The vocabulary cannot assess whether a signal is clear or worth confirming; that requirement is retained as an unmodeled condition."
+      },
+      "new_names": [
+        "other:100k run",
+        "other:10k proxy"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R127",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:experiment"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:web research"
+            },
+            "when_unmodeled": "the experiment concerns CSI feedback, NLOS localization, or channel charting"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:propose experiment"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:web research"
+            },
+            "when_unmodeled": "the proposal concerns CSI feedback, NLOS localization, or channel charting"
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the research is actual web research into established approaches or that it addresses the same specific problem."
+      },
+      "new_names": [
+        "other:experiment",
+        "other:propose experiment",
+        "other:web research"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R150",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "delete",
+              "path": "C:\\Users\\javid\\Documents\\Javier\\.claude"
+            }
+          }
+        ],
+        "left_out": "The rationale that this is the only pre-crash copy is not represented."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R164",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": "*.svg"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "*.svg"
+            },
+            "when_unmodeled": "the SVG is a figure"
+          }
+        ],
+        "left_out": "The vocabulary cannot require that the earlier read covered the exact region being changed or correlate it with the same SVG."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R169",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:training"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:apply zero-norm ue filter",
+              "after_ok": true
+            },
+            "when_unmodeled": "training uses a newly generated RT dataset"
+          }
+        ],
+        "left_out": "The vocabulary cannot check the dataset's indoor fraction, the min_norm_frac value, or use of build_multitask_feeds."
+      },
+      "new_names": [
+        "other:training",
+        "other:apply zero-norm ue filter"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R178",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:staged training"
+            },
+            "when_unmodeled": "joint-training negative transfer is being addressed"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:pcgrad"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:staged training"
+            },
+            "when_unmodeled": "a residual gap remains after staged training"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:forkmerge"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:staged training"
+            },
+            "when_unmodeled": "a residual gap remains after staged training"
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether negative transfer or a residual gap exists."
+      },
+      "new_names": [
+        "other:staged training",
+        "other:pcgrad",
+        "other:forkmerge"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R196",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:convert channel angle delay"
+            },
+            "when_unmodeled": "the input is RT-generated CSI already in the delay domain"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:angular dft"
+            },
+            "when_unmodeled": "RT-generated CSI is being transformed"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the CSI representation or distinguish which transformation is being applied to a particular dataset."
+      },
+      "new_names": [
+        "other:convert channel angle delay",
+        "other:angular dft"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R2",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:csi-representation training"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "this is the real training run"
+          }
+        ],
+        "left_out": "Whether a run is the real run is retained as an unmodeled condition."
+      },
+      "new_names": [
+        "other:csi-representation training"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R207",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:pure-nlos test"
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:los-nlos comparison"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:pure-nlos test"
+            }
+          }
+        ],
+        "left_out": "The need to re-aim the azimuth is explanatory and cannot be represented."
+      },
+      "new_names": [
+        "other:pure-nlos test",
+        "other:los-nlos comparison"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R209",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:single-snapshot self-aiding"
+            }
+          }
+        ],
+        "left_out": "The broad notion of pursuing the approach outside a runnable task is not represented."
+      },
+      "new_names": [
+        "other:single-snapshot self-aiding"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R223",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement tr 38.901 hybrid model"
+            }
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:cite tr 38.901 hybrid model"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect content to verify that the cited or implemented model is specifically section 8.4's map-based hybrid channel model."
+      },
+      "new_names": [
+        "other:implement tr 38.901 hybrid model",
+        "other:cite tr 38.901 hybrid model"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R227",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:stochastic-cluster perturbation"
+            },
+            "when_unmodeled": "the perturbation is being used during training"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect a training configuration to detect use of this perturbation."
+      },
+      "new_names": [
+        "other:stochastic-cluster perturbation"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R244",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:build ns-3 5g-lena ns3-rt integration"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect project content to identify implementation of this integration."
+      },
+      "new_names": [
+        "other:build ns-3 5g-lena ns3-rt integration"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R264",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "publish"
+            },
+            "when_unmodeled": "the walkthrough Artifact is being republished using its existing file path"
+          }
+        ],
+        "left_out": "The vocabulary has no path field for publish actions and cannot compare a publication's path with its previous path or verify that its URL is preserved."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R3",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:10k proxy"
+            },
+            "when_unmodeled": "the CSI-representation experiment is being run"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:100k run"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:10k proxy",
+              "after_ok": true
+            },
+            "when_unmodeled": "the 100k run is confirming the CSI-representation result"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate both runs with the same experiment or result."
+      },
+      "new_names": [
+        "other:10k proxy",
+        "other:100k run"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R7",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:per-layer model retrain"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the user's confirmation identifies which lever to pursue"
+          }
+        ],
+        "left_out": "The vocabulary cannot record which lever the user selected."
+      },
+      "new_names": [
+        "other:per-layer model retrain"
+      ]
+    },
+    {
+      "folder": "JD-2207__CSI-ISAC",
+      "id": "R76",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "delete",
+              "path": "F:\\Javier_old\\users-fernando"
+            },
+            "when_unmodeled": "the new backup has not been verified as trustworthy"
+          }
+        ],
+        "left_out": "Backup trustworthiness cannot be checked by the vocabulary."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R11",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "edit"
+            },
+            "when_unmodeled": "the target is memory content and the operation is a restoration"
+          }
+        ],
+        "left_out": "No path is named, so memory content and restoration context remain unmodeled."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R130",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "read",
+              "path": "memory.db",
+              "running": [
+                "other:mcp server"
+              ]
+            },
+            "when_unmodeled": "the read is performed from a node -e debug script"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify the program responsible for a file read."
+      },
+      "new_names": [
+        "other:mcp server"
+      ]
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R14",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "move"
+            },
+            "when_unmodeled": "the move renames a memory file during restoration"
+          }
+        ],
+        "left_out": "No memory-file path is named, and the vocabulary cannot distinguish renaming from other moves."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R17",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "create",
+              "path": "MEMORY.md"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "memory/MEMORY.md"
+            }
+          }
+        ],
+        "left_out": "The vocabulary has no copy action and cannot prove that the created file is a copy rather than newly authored content."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R204",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "create",
+              "path": "scripts/patches/NNN-PATCH-*.sh"
+            },
+            "when_unmodeled": "the patch file concerns changes to the viz directory"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect a patch file to determine whether it concerns viz/."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R217",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "edit",
+              "path": ".claude/helpers/"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:bootstrap"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a direct edit from an edit produced by bootstrap or represent source-of-truth status."
+      },
+      "new_names": [
+        "other:bootstrap"
+      ]
+    },
+    {
+      "folder": "Jordi-Izquierdo-DDS__rUv_install_test",
+      "id": "R55",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "restart",
+              "after": "edit"
+            },
+            "when_unmodeled": "the earlier edit was to a hook script"
+          }
+        ],
+        "left_out": "No hook-script path is named, and the vocabulary cannot represent the explanatory behavior of the next hook invocation."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R68",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "other:ask memory scope"
+            },
+            "when_unmodeled": "the file action saves a memory"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the question to verify that it asks whether the memory is project-specific or generally applicable."
+      },
+      "new_names": [
+        "other:ask memory scope"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R72",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit",
+                "move",
+                "delete"
+              ]
+            },
+            "when_unmodeled": "the action changes code, the user requested only analysis or review, and the user did not explicitly request implementation"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify files as code or distinguish analysis, review, and implementation requests."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R74",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "user_asked": true
+            },
+            "when_unmodeled": "the action writes code and the request uses apply, fix, implement, do it, or equivalent explicit wording"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify written content as code or inspect the user's wording."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R76",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "lint",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "build",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck",
+              "after": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the earlier file change implemented a change"
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether an earlier file change was an implementation."
+      },
+      "new_names": [
+        "other:typecheck"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R77",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:end-to-end verification"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot determine whether /verify, launching the app, or driving it constitutes the named end-to-end verification task."
+      },
+      "new_names": [
+        "other:end-to-end verification"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R78",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "when_unmodeled": "the run executes test files written as part of the current implementation"
+          }
+        ],
+        "left_out": "The vocabulary cannot identify who wrote a test file or why it was written."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R79",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "files_shown": true,
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "files_shown approximates review but cannot prove that the user reviewed the change; the prior-slice history is explanatory."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R82",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "lint"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:verification"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:checks"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot verify that the request occurred in the same conversation."
+      },
+      "new_names": [
+        "other:typecheck",
+        "other:verification",
+        "other:checks"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R83",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "max_files": 1
+            },
+            "when_unmodeled": "/tdd is active and the test is part of the red-green loop"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "test",
+              "suite": "all"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "build"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "lint"
+            },
+            "when_unmodeled": "/tdd is active"
+          },
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:typecheck"
+            },
+            "when_unmodeled": "/tdd is active"
+          }
+        ],
+        "left_out": "max_files captures a single test file but cannot ensure that the test is targeted; invocation of /tdd and membership in the red-green loop are unmodeled."
+      },
+      "new_names": [
+        "other:typecheck"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R84",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "commit"
+            },
+            "needs": {
+              "user_confirmed": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary records approval but not the act of asking or waiting for it."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R85",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:close ticket"
+            },
+            "needs": {
+              "after": "commit"
+            },
+            "when_unmodeled": "the ticket is completed and the earlier commit succeeded"
+          }
+        ],
+        "left_out": "after_ok is available only for earlier run actions, so commit success and ticket completion remain unmodeled."
+      },
+      "new_names": [
+        "other:close ticket"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R86",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:verification"
+            },
+            "needs": {
+              "user_asked": true
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot distinguish a harness or skill prompt from a user request or represent prompt precedence."
+      },
+      "new_names": [
+        "other:verification"
+      ]
+    },
+    {
+      "folder": "PhoeNox__Phoenox",
+      "id": "R87",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "commit"
+            },
+            "when_unmodeled": "the only purported authorization is a pattern in repository commit history"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the reason an action was considered authorized."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R124",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:investigate blocker bug 71",
+              "branch": "hotfix*"
+            }
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "other:fix blocker bug 71",
+              "branch": "hotfix*"
+            }
+          }
+        ],
+        "left_out": "The vocabulary cannot represent overriding the separate four-day waiting rule, and hotfix* approximates an otherwise unnamed hotfix branch."
+      },
+      "new_names": [
+        "other:investigate blocker bug 71",
+        "other:fix blocker bug 71"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R136",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:implement screen"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "docs/design-system.md"
+            },
+            "when_unmodeled": "the screen is UI work"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "other:review screen"
+            },
+            "needs": {
+              "after": "read",
+              "after_path": "docs/design-system.md"
+            },
+            "when_unmodeled": "the screen is UI work"
+          }
+        ],
+        "left_out": "The vocabulary cannot enforce that the document is treated as the single source of truth or assess whether work follows it."
+      },
+      "new_names": [
+        "other:implement screen",
+        "other:review screen"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R148",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "run",
+              "task": "other:docker compose all services"
+            },
+            "when_unmodeled": "the command is docker compose up --build -d for all services during development"
+          }
+        ],
+        "left_out": "The exact command flags, all-services scope, and development context cannot be inspected by the vocabulary."
+      },
+      "new_names": [
+        "other:docker compose all services"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R15",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "create"
+            },
+            "when_unmodeled": "the created file is the required e2e test"
+          },
+          {
+            "type": "must_do",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "when_unmodeled": "the run executes the required e2e test"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "create"
+            },
+            "when_unmodeled": "the earlier created file is the required e2e test"
+          },
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "pr_create"
+            },
+            "needs": {
+              "after": "run",
+              "after_task": "test",
+              "after_ok": true
+            },
+            "when_unmodeled": "the earlier successful test run is the required e2e test"
+          }
+        ],
+        "left_out": "The vocabulary cannot correlate the created test file, the test run, and the PR, or distinguish e2e tests from other tests."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R154",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "running": [
+                "other:sqlserver",
+                "other:api",
+                "other:frontend"
+              ]
+            },
+            "when_unmodeled": "an individual e2e test is being run outside Docker with npx playwright test"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect the test command or determine whether it runs outside Docker."
+      },
+      "new_names": [
+        "other:sqlserver",
+        "other:api",
+        "other:frontend"
+      ]
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R155",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": "run",
+              "task": "test"
+            },
+            "needs": {
+              "user_confirmed": true
+            },
+            "when_unmodeled": "the selected test has the SkipIfNoClaudeApiKey decoration"
+          }
+        ],
+        "left_out": "The vocabulary cannot inspect test decorations; user_confirmed approximates explicit opt-in."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R159",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": "commit",
+              "has_secret": true
+            }
+          }
+        ],
+        "left_out": "has_secret does not distinguish the Claude API key from other secrets."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R172",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "in_worktree": true
+            },
+            "when_unmodeled": "the target is a task plan file and the worktree is the active worktree"
+          }
+        ],
+        "left_out": "The vocabulary cannot classify task plan files or distinguish the active worktree from another worktree."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R173",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the target is a task plan file in the main repository directory"
+          }
+        ],
+        "left_out": "No main-repository path is named, and the vocabulary cannot classify task plan files."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R174",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ],
+              "path": "plan/*"
+            }
+          }
+        ],
+        "left_out": "The path pattern captures files directly inside plan/ but cannot determine semantically whether each file is a plan file."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R175",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "never",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "when_unmodeled": "the target is a phase plan file not located in that phase's feature subfolder"
+          }
+        ],
+        "left_out": "No feature-subfolder path is named, and the vocabulary cannot correlate a plan file with its phase."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R176",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "path": "plan.md"
+            },
+            "when_unmodeled": "the target is a phase overview file located inside that phase's subfolder"
+          }
+        ],
+        "left_out": "The filename requirement is represented, but the vocabulary cannot recognize or correlate the containing phase subfolder."
+      },
+      "new_names": []
+    },
+    {
+      "folder": "Robert-Freire__langTeachSaaS",
+      "id": "R177",
+      "translation": {
+        "status": "ok",
+        "clauses": [
+          {
+            "type": "only_if",
+            "where": {
+              "cmd": [
+                "create",
+                "edit"
+              ]
+            },
+            "needs": {
+              "path": "task*-*.md"
+            },
+            "when_unmodeled": "the target is an individual task file"
+          }
+        ],
+        "left_out": "The glob cannot require a numeric N, a short description, or placement in the same phase subfolder as the overview."
+      },
+      "new_names": []
+    }
+  ]
+}
+```

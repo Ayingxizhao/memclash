@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R40",
+   "rule": "When creating any new file in specs/, tests/, or elsewhere in the project, use hyphens as word separators in the filename."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R48",
+   "rule": "Do not commit changes after completing a task unless the user explicitly asks you to commit."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R5",
+   "rule": "Never commit directly to the main branch; every change must be made on its own dedicated branch."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R59",
+   "rule": "Do not push to GitHub unless the user explicitly says \"sync\" or an equivalent request."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R60",
+   "rule": "Commit code freely without asking for permission."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R61",
+   "rule": "Never run `git push` unless the user asks to sync."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R7",
+   "rule": "Before running any git add or git commit, confirm the current working branch is not main."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R79",
+   "rule": "Ensure all C++ code passes clang-tidy before committing it."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R8",
+   "rule": "If the current working branch is main, create a new branch before making any commit."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R87",
+   "rule": "Do not edit the llvm-project/ source per-branch in a worktree."
+  },
+  {
+   "folder": "28dayslater__pinp-cpp-prototype",
+   "id": "R9",
+   "rule": "Merge changes into main only when the user explicitly says to."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R121",
+   "rule": "Before re-running an audit on a shallow clone, unshallow it with `git fetch --unshallow <source> <branch>`."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R129",
+   "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R154",
+   "rule": "Before pushing a change to `.github/workflows/*.yml`, scan the committed bytes for C0 control characters (below 0x20, excluding tab, LF, CR), not just parse the YAML."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R41",
+   "rule": "Before opening a PR, run `git ls-remote --heads origin` and confirm the base branch exists."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R49",
+   "rule": "Check a gate's exit code explicitly before any commit or push in the same command chain."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R73",
+   "rule": "Run the mailmap pass as the last step before the final push, not earlier."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R82",
+   "rule": "Scope the rename config-object scan to a single project so it does not rewrite other projects' `.TcVIS`/`.TcTLO`/`.TcTTO` files."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R91",
+   "rule": "While a delegated agent is working in a checkout, do not switch branches in that checkout."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R93",
+   "rule": "While a delegated agent is working in a checkout, do not edit files the agent is likely to rewrite (such as HANDOFF.md, ROADMAP.md, or docs)."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R95",
+   "rule": "Make your own edits only in files the delegated agent was told not to touch."
+  },
+  {
+   "folder": "AbuShaqra__TC_PLC_Toolkit",
+   "id": "R97",
+   "rule": "After delegating, run post-merge syncs as `git fetch` only, with no checkout, until the agent reports done."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R15",
+   "rule": "Use a GitHub PR workflow with Codex automated review before merging changes."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R5",
+   "rule": "Before submitting a PR, run end-to-end tests covering all major paths, not just one path."
+  },
+  {
+   "folder": "Akagilnc__ak-ai-postflow",
+   "id": "R6",
+   "rule": "Before submitting a PR, list all trigger paths and verify each one individually."
+  },
+  {
+   "folder": "Alsesd__EasyMourningReport",
+   "id": "R29",
+   "rule": "Never touch data/, backups/, reports.db, secret.key, or .env."
+  },
+  {
+   "folder": "Alsesd__EasyMourningReport",
+   "id": "R35",
+   "rule": "Never run go test or go vet with the ./... pattern."
+  },
+  {
+   "folder": "Alsesd__EasyMourningReport",
+   "id": "R38",
+   "rule": "Run the verify skill before committing a finished feature."
+  },
+  {
+   "folder": "Augmented-Design-Capability-Studio__mopt-bot",
+   "id": "R199",
+   "rule": "Do not change a problem package's solver, evaluator, or instance data without maintainer approval."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R1",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, make file edits with `Edit`/`Write` using absolute paths under the main project root, not the worktree path."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R2",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, run the project's build tools and `git` commands against the main project path, not the worktree path."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R23",
+   "rule": "Using a whole-file Write is permitted when creating brand-new files."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R3",
+   "rule": "When working in a worktree under `.claude/worktrees/<slug>`, never switch branches in the worktree to commit there."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R31",
+   "rule": "Do not try to fix drift by editing the pre-commit hook."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R38",
+   "rule": "Make portable pre-commit hook fixes in `dev-manifest.json` in dev-tools."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R39",
+   "rule": "Do not edit `~/dev/templates/` directly to fix the pre-commit hook."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R43",
+   "rule": "Store memory files in `.claude/memory/` within the project repo, not in `~/.claude/projects/<project>/memory/`."
+  },
+  {
+   "folder": "BeastHome__dice-roller",
+   "id": "R44",
+   "rule": "Write any new memory files to the project repo, never to the legacy userdir location."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R108",
+   "rule": "Do not extend the legacy canvas and chat code (`Jarble-mvp/components/canvas/`, `useCanvasChat.ts`, `AssistantUIChat.tsx`, `SimpleCanvasGrid.tsx`, `lib/assistantRuntime.ts`, `render_ui` / `define_component` tools in `jarble-ui-server.js`)."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R110",
+   "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R124",
+   "rule": "When updating the modpack, wipe the itzg install marker before restarting."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R129",
+   "rule": "Do not implement phase 3 (useReducer for Group A state) unless profiling shows a need for it."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R134",
+   "rule": "Fix the critical audit issues C1-C4 (listed in AUDIT-REPORT.md) before deploying to production."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R135",
+   "rule": "Fix the high-priority audit issues H1-H11 (listed in AUDIT-REPORT.md) before releasing a public beta."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R144",
+   "rule": "Do not fast-forward main to merge-branch until the user has approved the merge."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R158",
+   "rule": "Never force-push."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R159",
+   "rule": "Never edit the main branch directly."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R161",
+   "rule": "Never run DB DROP statements."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R162",
+   "rule": "Never force-delete deployments."
+  },
+  {
+   "folder": "Bretthb__jarble",
+   "id": "R176",
+   "rule": "In the next session, focus on action-oriented testing first, then merge the branch to main."
+  }
+ ]
+}

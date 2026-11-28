@@ -1,0 +1,3268 @@
+{
+ "jemcik__the-radio-bench": {
+  "R1": {
+   "file": "README.md",
+   "rule": "Read the project memory from the memory directory in the repository (not from ~/.claude/projects/<project>/memory/) when working on this project."
+  },
+  "R2": {
+   "file": "README.md",
+   "rule": "Write new memory entries to the memory directory in the repository, not to ~/.claude/projects/<project>/memory/."
+  },
+  "R3": {
+   "file": "README.md",
+   "rule": "Load MEMORY.md, the index, before anything else when working with project memory."
+  },
+  "R4": {
+   "file": "README.md",
+   "rule": "After loading MEMORY.md, read only the memory entries relevant to the current task."
+  },
+  "R5": {
+   "file": "README.md",
+   "rule": "When writing a memory entry, record one fact per file and include the frontmatter block (name, description, metadata type)."
+  },
+  "R6": {
+   "file": "README.md",
+   "rule": "For feedback and project memory entries, include a **Why:** line and a **How to apply:** line."
+  },
+  "R7": {
+   "file": "README.md",
+   "rule": "Link related memory entries to each other using the [[their-name]] syntax."
+  },
+  "R8": {
+   "file": "README.md",
+   "rule": "When creating a new memory entry, add a one-line pointer to it in MEMORY.md."
+  },
+  "R9": {
+   "file": "README.md",
+   "rule": "Before creating a new memory file, check whether an existing file already covers the same ground."
+  },
+  "R10": {
+   "file": "README.md",
+   "rule": "If an existing memory file already covers the same ground as a new fact, update that file instead of creating a new one."
+  },
+  "R11": {
+   "file": "README.md",
+   "rule": "Do not record in memory anything the repository already states, such as code structure, past fixes, or git history."
+  },
+  "R12": {
+   "file": "README.md",
+   "rule": "When a memory entry is found to be wrong, delete it rather than leaving it in place."
+  },
+  "R13": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "Never announce a count or a list in prose and then deliver the content as prose; if the text announces a count or list, render it as an actual list."
+  },
+  "R14": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "When announcing a count, render the items as a `<ul className=\"list-disc pl-6 space-y-1 text-foreground\">` list."
+  },
+  "R15": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "Render each list item as its own `<li><Trans …/></li>` element, one per item."
+  },
+  "R16": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "Give each list item its own i18n key."
+  },
+  "R17": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "When singling out one item of several, name that item in the same sentence as the singling out."
+  },
+  "R18": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "Do not defer naming a singled-out item to a later paragraph; name it in the same sentence."
+  },
+  "R19": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "If you don't want to present a list, delete the announcement of the count or list instead of keeping it."
+  },
+  "R20": {
+   "file": "feedback_announce_then_deliver.md",
+   "rule": "When fixing a flagged problem, find and fix every instance of the same class of problem, not only the one instance that was flagged."
+  },
+  "R21": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "After finishing a fix pass, re-run beginner-review as a subagent."
+  },
+  "R22": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Scope the beginner-review re-run to only the rewritten keys, in both locales."
+  },
+  "R23": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Do not declare a fix pass done or commit it before the beginner-review re-run has been completed."
+  },
+  "R24": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Do not bolt an explanation into an existing sentence using dashes or parentheses; write it as a separate sentence."
+  },
+  "R25": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Express each idea in its own sentence."
+  },
+  "R26": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Do not treat the review finding count as a sign that the text has converged."
+  },
+  "R27": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Stop reviewing only when a review round returns no defects, not when the finding count looks small."
+  },
+  "R28": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Before shipping, find every sentence that quantifies over the whole course (e.g., \"every lab\", \"each chapter\", \"from here on always\")."
+  },
+  "R29": {
+   "file": "feedback_beginner_review_after_fixes.md",
+   "rule": "Check each course-wide quantifying sentence against src/data/chapters.ts and the actual chapter files."
+  },
+  "R30": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "Write each course division as lowercase «частина» followed by a Roman numeral in Ukrainian (e.g., «частина III»), not with a capitalised «Частина» or an Arabic numeral."
+  },
+  "R31": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "Write course part 0 with the Arabic numeral `0`, since it has no Roman numeral form."
+  },
+  "R32": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "In English, capitalise «Part» when naming a course division (e.g., \"Part I\", \"Parts 0 and I\")."
+  },
+  "R33": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "Use Roman numerals for course divisions in both Ukrainian and English, except for part 0."
+  },
+  "R34": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "Do not conclude that «Частина» should be capitalised when a numeral follows it; the numeral does not change the case."
+  },
+  "R35": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "Run the course-part lint and numbering checks to verify translations instead of relying on visual inspection."
+  },
+  "R36": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "When a course-part numbering or capitalisation issue is flagged in one place, search the whole course for the same issue and fix every instance."
+  },
+  "R37": {
+   "file": "feedback_course_parts_lowercase_roman.md",
+   "rule": "When searching or matching these i18n strings, ignore differences between non-breaking spaces and regular spaces."
+  },
+  "R38": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "When using a `<Circuit>` component, always pass a `maxWidth` prop equal to the diagram's width."
+  },
+  "R39": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "When placing a description label above a `Meter` symbol, offset it at least ~32 units from the symbol's center."
+  },
+  "R40": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "When placing a label above a `Diode` symbol, leave at least ~26 units of clearance."
+  },
+  "R41": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Verify diagram text overlap and font size in the real browser via Claude-in-Chrome `javascript_tool`, not with the jsdom gate or by eyeballing screenshots."
+  },
+  "R42": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "For every SVG, use `getBoundingClientRect()` to flag text overlapping other text, circles, symbols, or component rects, and text spilling outside the SVG rect."
+  },
+  "R43": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "For each SVG, report its scale (clientWidth/viewBox.width) and the computed font size of its text."
+  },
+  "R44": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Aim for zero text overlaps and all diagram fonts between 13 and 16px, unless a larger font is an intentional display readout."
+  },
+  "R45": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "New chapters must ship with zero overlaps, since they have no baseline entry."
+  },
+  "R46": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "After an intentional, browser-verified diagram change, regenerate the visual baseline by running `UPDATE_BASELINE=1 npm run test:visual`."
+  },
+  "R47": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "If CI or Linux font metrics cause a grandfathered overlap to drift, regenerate the baseline on that platform."
+  },
+  "R48": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Still run the overlap detector by hand while authoring diagrams, for fast feedback."
+  },
+  "R49": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "After building or editing any diagram, reload the user's dev page."
+  },
+  "R50": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Run the getBoundingClientRect detector across all SVGs before saying the task is done."
+  },
+  "R51": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Run `npm run test:visual` before shipping a diagram change."
+  },
+  "R52": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Trust the getBoundingClientRect detector output over a screenshot glance and over passing jsdom gates."
+  },
+  "R53": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "The hand-check must include non-text graphical elements (path, circle, rect, line, polygon) against the SVG frame, not just text."
+  },
+  "R54": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "For each path, circle, rect, line, or polygon, convert its getBoundingClientRect to viewBox coordinates and flag any edge past 0..VB, allowing about 2px tolerance."
+  },
+  "R55": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Run the non-text frame-edge check especially on hero illustrations, since they have no text."
+  },
+  "R56": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Visually inspect each of a hero's four frame edges specifically, not just the overall composition."
+  },
+  "R57": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Do not treat a check that the composition reads well as a check that nothing touches or crosses the frame edge."
+  },
+  "R58": {
+   "file": "feedback_diagram_overlap_browser_geometry.md",
+   "rule": "Perform a visual and hand-check on every hero diagram as the primary verification, treating the automated gate only as a backstop."
+  },
+  "R59": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "Never position an element on a curved surface using a fixed literal y coordinate; compute its y from the surface curve instead."
+  },
+  "R60": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "Derive all scene-diagram geometry (surface curve, antenna bases, ray endpoints) from one shared source of truth."
+  },
+  "R61": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "For any scene diagram with a ground or sea, antennas, and rays, reuse the scene-earth.tsx component instead of building the scene from scratch."
+  },
+  "R62": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "When tracing a filled earth path, start with the bottom edge so the overlap gate's M/L-only reconstruction sees the bottom and right edges rather than a phantom diagonal."
+  },
+  "R63": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "After building a scene diagram, visually inspect it zoomed in on antenna feet and ray joins."
+  },
+  "R64": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "Do not treat passing automated diagram gates as sufficient verification of a scene diagram's physical correctness."
+  },
+  "R65": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "Consider adding this physical-geometry failure class to diagram-quality/references/common-failures.md."
+  },
+  "R66": {
+   "file": "feedback_diagram_physical_geometry.md",
+   "rule": "A chapter hero diagram must not duplicate a diagram already placed in the chapter; use a distinct concept instead."
+  },
+  "R67": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "Glossary entries must never assume which chapter or widget the reader is currently on."
+  },
+  "R68": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "In glossary tip/detail text (both glossary.ts EN and the glossary block of uk/ui.json), do not use course-narrator sequence phrasing such as \"we cover\", \"we design\", \"we work\", \"we'll\", \"ми розглянемо\", \"ми працюємо\", or \"детально розглянемо\"."
+  },
+  "R69": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "In glossary tip/detail text, do not use reader-did-it past tense such as \"the field you wound in Chapter 1.6\" or \"поле, яке ви створювали в розділі 1.6\"."
+  },
+  "R70": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "In glossary tip/detail text, do not use current-position words such as \"in this chapter\", \"this section\", \"the widget in this section\", \"у цьому розділі\", \"у віджеті цього розділу\", \"внесок у цей розділ\", or \"тут\"."
+  },
+  "R71": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "In glossary text, neutral cross-references that point to a place to look without assuming the reader's position are allowed, e.g. \"Chapter 1.8 covers filter design\" or \"Докладніше — у розділі 1.10\"."
+  },
+  "R72": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "Do not treat references to external literature, such as \"you'll see it in physics textbooks\", as reader-position assumptions; leave them alone."
+  },
+  "R73": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "Do not treat whole-course scope statements with no section reference, such as \"In this course we use it as…\", as reader-position assumptions; leave them alone."
+  },
+  "R74": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "Do not treat measurement-result statements, such as \"ви побачите падіння напруги\", as reader-position assumptions; leave them alone."
+  },
+  "R75": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "Do not treat frequency or value comparisons, such as \"вище/нижче частоти зрізу\", as reader-position assumptions; leave them alone."
+  },
+  "R76": {
+   "file": "feedback_glossary_no_reader_position.md",
+   "rule": "When updating the UA side of glossary entries, splice changes sentence-by-sentence via Gemini and never re-translate the whole entry, since that overwrites untouched prose."
+  },
+  "R77": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Triage every linter warning: either fix it, or document explicitly why it is safe in that context."
+  },
+  "R78": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Never dismiss a lint warning as contextual or acceptable without verifying that claim end-to-end."
+  },
+  "R79": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "When fixing a flagged linter string, rephrase it, use Unicode subscripts, or switch to the appropriate markup."
+  },
+  "R80": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Before claiming a lint warning is safe, open every JSX call site that interpolates the value and confirm it goes through a wrapper."
+  },
+  "R81": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "For plain-string i18n values containing subscript patterns, every interpolation must explicitly wrap the value at the call site."
+  },
+  "R82": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Do not add automatic subscript wrapping inside container components; wrap explicitly at the call site instead."
+  },
+  "R83": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Only ARIA-only or never-rendered strings may keep the bare subscript form without wrapping."
+  },
+  "R84": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Comment or document any ARIA-only or never-rendered string that triggers the subscript warning."
+  },
+  "R85": {
+   "file": "feedback_lint_warnings_are_bugs.md",
+   "rule": "Triage every linter warning with the same skepticism, not only subscript warnings."
+  },
+  "R86": {
+   "file": "feedback_made_it_then_ship_it.md",
+   "rule": "Once a change has already been made, do not ask whether it belongs in the PR or should be reverted; include it in the diff."
+  },
+  "R87": {
+   "file": "feedback_made_it_then_ship_it.md",
+   "rule": "When work is already finished, do not offer to revert it or present its inclusion as a choice to the user."
+  },
+  "R88": {
+   "file": "feedback_made_it_then_ship_it.md",
+   "rule": "When finishing work that touched out-of-scope items, keep all changes and state in one line what else is in the diff and why."
+  },
+  "R89": {
+   "file": "feedback_made_it_then_ship_it.md",
+   "rule": "Do not commit, push, or open a PR without the user's explicit go-ahead, even when the code changes are already finished."
+  },
+  "R90": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Mark Ukraine-specific rules visibly in both locales rather than hiding them from English readers."
+  },
+  "R91": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Scope Ukraine-specific content in the first clause of its paragraph (e.g. \"In Ukraine…\"), not buried mid-paragraph."
+  },
+  "R92": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Mark Ukraine-specific content in the visual as well as in the text, so readers scanning a figure see the marking."
+  },
+  "R93": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Present regulator and band-plan rules as an `onair` callout."
+  },
+  "R94": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Keep safety-critical national facts in a `danger` callout."
+  },
+  "R95": {
+   "file": "feedback_national_content_marked_not_hidden.md",
+   "rule": "Use each locale's own name for a thing (e.g. \"RCD\" in EN, \"ПЗВ\" in UA) rather than forcing one spelling on both locales."
+  },
+  "R96": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "Never write phrasing that assumes how the reader acquired their gear or what it cost, such as \"the amplifier you bought\", \"your expensive antenna analyser\", \"the rig you paid for\", or \"what you can buy\"."
+  },
+  "R97": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "When referring to a piece of equipment whose acquisition is irrelevant, say \"the amplifier itself\", \"your amplifier\", or \"an amplifier\" instead of implying a purchase."
+  },
+  "R98": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "Using the word \"own\" for equipment is allowed, regardless of whether the reader built, was given, or bought it."
+  },
+  "R99": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "Using the word \"buy\" is allowed for genuine consumables such as fuses, solder, or wire, which cannot be built."
+  },
+  "R100": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "Do not build a sentence on an assumption about the reader's situation, such as their competence, their chapter, or their finances."
+  },
+  "R101": {
+   "file": "feedback_no_assumptions_about_reader_gear.md",
+   "rule": "When an assumption about the reader is flagged once, search the whole chapter for other instances of the same class of phrasing and fix them."
+  },
+  "R102": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "Never run git commit, git push, or open/amend a PR unless the user has explicitly asked for it in the current turn."
+  },
+  "R103": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "During any review-pass conversation, default to editing files and running gates, then report back without performing shared-state actions."
+  },
+  "R104": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "During a review pass, after editing and running gates, report back and stop; do not run git commit, git push, or git pr edit."
+  },
+  "R105": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "During a review pass, do not perform any other shared-state action beyond editing files and running gates."
+  },
+  "R106": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "Even when a fix seems obviously done, do not commit or push it; wait for the user to explicitly say to commit or push."
+  },
+  "R107": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "Only commit or push when the user explicitly says \"commit this\", \"push it\", or \"ship\"."
+  },
+  "R108": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "If the user opens with \"let's go through issues one by one\" or an equivalent, treat it as a hard freeze on commits and pause between every fix for the user's decision."
+  },
+  "R109": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "Run pre-PR and per-edit gates (lint, tsc, npm test, check:uk) without asking, since they do not touch shared state."
+  },
+  "R110": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "The trigger for committing or pushing is always an explicit user request, never the agent's own judgment about what is finished."
+  },
+  "R111": {
+   "file": "feedback_no_commits_without_ask.md",
+   "rule": "This no-commit rule overrides any impulse to act on efficiency grounds."
+  },
+  "R112": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When the user flags one instance of a problem class in a chapter, sweep the whole chapter for that class proactively."
+  },
+  "R113": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Do not wait for the user to catch further instances of a flagged problem class; find them yourself."
+  },
+  "R114": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When the user flags one instance of a problem class, immediately search the whole chapter for that class in both English and Ukrainian."
+  },
+  "R115": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Fix every instance of a flagged problem class found in the chapter in the same editing pass."
+  },
+  "R116": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Never state in prose that people get something wrong, or attribute error or incompetence to hams, the reader, or other people."
+  },
+  "R117": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Never imply that the reader, hams, Americans, or anyone else is stupid for following advice."
+  },
+  "R118": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When people commonly get a standard wrong, explain why the mistake is easy to make, such as the advice having been written for a different standard than the hardware, instead of saying people get it wrong."
+  },
+  "R119": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When telling the reader not to apply a rule X in a new context, explain what X is and why X exists."
+  },
+  "R120": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When telling the reader not to apply a rule X in a new context, explain why X is correct in the context it comes from."
+  },
+  "R121": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When telling the reader not to apply a rule X in a new context, explain the specific mechanism by which X fails in that new context."
+  },
+  "R122": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Do not use scolding imperatives in prose, such as telling the reader not to do something in a condescending way."
+  },
+  "R123": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Do not use sneering asides in prose that belittle advice or the reader."
+  },
+  "R124": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When explaining why a standard differs or fails, state the mechanism and let it carry the point rather than adding judgmental commentary."
+  },
+  "R125": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When two national standards genuinely differ, describe each as correct in its own context."
+  },
+  "R126": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "When two national standards genuinely differ, explain the mechanism that makes them differ."
+  },
+  "R127": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Describe differences between standards neutrally and explain them."
+  },
+  "R128": {
+   "file": "feedback_no_condescension_explain_standards.md",
+   "rule": "Never use differences between standards to rank people or countries."
+  },
+  "R129": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Before writing a sentence that denies or corrects a belief (e.g. \"X has nothing to do with Y\" or \"X is not Y, it is Z\"), ask who actually holds that belief."
+  },
+  "R130": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Only write a sentence that denies or corrects a belief when a newcomer plausibly holds that belief and a real rule exists that should be stated."
+  },
+  "R131": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Do not write a sentence that corrects a coincidence only the author can see."
+  },
+  "R132": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Do not write a sentence that denies a norm that does not exist."
+  },
+  "R133": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "When one instance of a flagged phrasing is found, grep the chapter for the whole class of similar phrasings."
+  },
+  "R134": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Judge each grep hit individually rather than treating the class as uniformly good or bad."
+  },
+  "R135": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Decide whether to deny or reassure about X by asking whether the denial implies that a rule exists, not whether a reader could believe X."
+  },
+  "R136": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "If nothing forbids a thing, do not write reassurance that it is permitted."
+  },
+  "R137": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "If nothing forbids a thing, describe its benefit instead of reassuring the reader about it."
+  },
+  "R138": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "When recommending a practice that nothing forbids, describe its benefit (e.g. \"putting it on paper shows you what you had not thought about\")."
+  },
+  "R139": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "Never write reassurance such as \"this is not cheating\" when no rule forbids the practice."
+  },
+  "R140": {
+   "file": "feedback_no_cross_chapter_cleverness.md",
+   "rule": "When checking a chapter for reassurance, grep specifically for permission-granting phrasings such as \"is not cheating\", \"nothing wrong with\", or \"feel free\"."
+  },
+  "R141": {
+   "file": "feedback_no_ideology_in_prose.md",
+   "rule": "Never introduce political or ideological concepts (politics, religion, patriotism, nationalism, Nazism, values framing) in course prose, glossary entries, callouts, captions, or reader-visible comments, even to dismiss them."
+  },
+  "R142": {
+   "file": "feedback_no_ideology_in_prose.md",
+   "rule": "If a draft sentence has the form \"it's not [political/ideological term] — it's [technical reason]\", delete the first half and state only the technical reason."
+  },
+  "R143": {
+   "file": "feedback_no_ideology_in_prose.md",
+   "rule": "Name a country's or region's standard or convention neutrally (e.g., \"the IEC / European standard\", \"the American UL convention\") when it explains where a convention originates; do not editorialize about identity or ideology."
+  },
+  "R144": {
+   "file": "feedback_no_ideology_in_prose.md",
+   "rule": "Do not use the \"not X — it's Y\" rhetorical strawman construction in course prose."
+  },
+  "R145": {
+   "file": "feedback_no_ideology_in_prose.md",
+   "rule": "State the point directly instead of framing it by negating an alternative."
+  },
+  "R146": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "When drafting chapter prose from the syllabus, remove every coverage or scoping note from reader-facing text."
+  },
+  "R147": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "Cut any sentence that only describes what the exam asks rather than helping the reader understand the subject."
+  },
+  "R148": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "It is permitted to bridge an exam term to the matching handbook term in reader-facing prose, because the reader will encounter the handbook term."
+  },
+  "R149": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "When removing exam-scoping meta, do not fix only the single string you are looking at."
+  },
+  "R150": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "When removing exam-scoping meta, grep the distinctive phrase across the whole locale file and glossary.ts to find every remaining occurrence."
+  },
+  "R151": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "When fixing exam-scoping meta, edit the English (glossary.ts) and Ukrainian (uk/ui.json) strings together to keep them in parity."
+  },
+  "R152": {
+   "file": "feedback_no_syllabus_meta_in_prose.md",
+   "rule": "After removing exam-scoping meta, visually verify that the glossary term popover renders clean, not just the diagram block."
+  },
+  "R153": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "When opening a PR, never leave the chapter's status as 'draft'."
+  },
+  "R154": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "When opening a PR, change the chapter's status from 'draft' to 'published' in src/data/chapters.ts as part of that work."
+  },
+  "R155": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Never merge a PR; the user merges every PR himself."
+  },
+  "R156": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Do not run `gh pr merge`."
+  },
+  "R157": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Do not use the `--auto` flag to merge a PR."
+  },
+  "R158": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Do not squash-merge a PR."
+  },
+  "R159": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Do not delete the branch after merging or pushing."
+  },
+  "R160": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Commit and push changes only when the user explicitly asks."
+  },
+  "R161": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "Limit your role to committing, pushing, opening or updating the PR, and optionally reporting CI status; do not merge."
+  },
+  "R162": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "After the branch is pushed and the PR is ready, stop and hand the PR back to the user."
+  },
+  "R163": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "When the user says 'merge', interpret it as a request to prepare the PR for the user to merge, not to perform the merge."
+  },
+  "R164": {
+   "file": "feedback_pr_merge_workflow.md",
+   "rule": "After preparing a PR for merge, report that it is green and ready, then stop."
+  },
+  "R165": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "During a proofreading or review pass, do not add new gates, audits, or deep investigations unless the user explicitly asks for them."
+  },
+  "R166": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "When the user flags issues one at a time during proofreading or review, make the minimal correct fix, do a quick verification (DOM or lint), and move on."
+  },
+  "R167": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "When fixing a flagged item during proofreading or review, do not expand the scope of the change."
+  },
+  "R168": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "Run gates, audits, refactors, or repo-wide sweeps only when the user explicitly requests them."
+  },
+  "R169": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "Do not ask again about a direction the user has already decided."
+  },
+  "R170": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "When the user has already given a direction, execute it without a confirmation question."
+  },
+  "R171": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "Ask the user questions only at genuine decision forks, such as a choice between architectures or branches."
+  },
+  "R172": {
+   "file": "feedback_proofread_fast_minimal_fixes.md",
+   "rule": "When the user asks an architectural question, answer it clearly first, then make the fix, and do not silently rebuild."
+  },
+  "R173": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring a chapter quiz, keep the share of questions whose correct answer is any single letter (a, b, c, or d) at or below 40%."
+  },
+  "R174": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring a chapter quiz, use all four answer slots (a, b, c, d) as correct answers."
+  },
+  "R175": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring quiz questions, keep the four answer options approximately the same length."
+  },
+  "R176": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring quiz questions, put the justification for the correct answer in the `_explanation` field."
+  },
+  "R177": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "Never pad the correct answer option with justification text."
+  },
+  "R178": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring quiz questions, make distractor options substantial and plausible, not terse throwaways."
+  },
+  "R179": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "Keep the `_correct` value identical between the en and uk versions of each quiz question."
+  },
+  "R180": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When authoring a chapter quiz, build the answer-position layout balanced from the start rather than fixing it later."
+  },
+  "R181": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When writing the English version of a quiz, decide the a/b/c/d answer layout at that time."
+  },
+  "R182": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "When a bug class recurs, encode it as an automated gate instead of fixing it by hand more than once."
+  },
+  "R183": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "After reordering quiz options, re-snapshot the unwrapped-math-var baseline by running check-unwrapped-math-var.mjs with --update-baseline."
+  },
+  "R184": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "Before re-snapshotting the unwrapped-math-var baseline, verify that any new text you wrote caused no baseline delta."
+  },
+  "R185": {
+   "file": "feedback_quiz_answer_balance.md",
+   "rule": "After a quiz option moves, repoint its exemption in EXEMPT_KEYS in scripts/check-acronym-parity.mjs to the new slot key."
+  },
+  "R186": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "Before reporting on scope of a flagged style or content issue, scan the whole chapter in both locales for that class of issue."
+  },
+  "R187": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "Report all instances found by the scan, including ones you are not fixing."
+  },
+  "R188": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "Fix only the instances the user asked about, unless the class is a hard rule violation."
+  },
+  "R189": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "When the class is a hard rule violation (blaming the reader, ideology, a wrong legal fact), fix every instance across the chapter in the same pass."
+  },
+  "R190": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "Never claim that something is consistent everywhere without having measured it."
+  },
+  "R191": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "State what was checked and what was found, and do not generalise from a single repair."
+  },
+  "R192": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "If no convention exists in the codebase, say so rather than inventing one."
+  },
+  "R193": {
+   "file": "feedback_scan_the_class_fix_what_was_asked.md",
+   "rule": "Do not invent a convention after a fix in order to justify it."
+  },
+  "R194": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "When writing a Ukrainian subtitle, title, or prose, lead with the expanded Ukrainian term rather than the bare acronym."
+  },
+  "R195": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Never write a Ukrainian subtitle, title, or prose line with the acronym first followed by the Ukrainian name in parentheses."
+  },
+  "R196": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Format acronym-bearing Ukrainian subtitles/titles as «Повна українська назва (ACR, англ. full english form)»: expanded Ukrainian term first, then the acronym and English original in parentheses."
+  },
+  "R197": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Apply the same first-mention explicitness standard to subtitles and titles as to body prose, so each acronym is introduced explicitly at first mention."
+  },
+  "R198": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "When shipping any chapter, review the existing chapterTitles and chapterSubtitles entries in both locales, even if they were not authored in the current session."
+  },
+  "R199": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "When reviewing chapter titles and subtitles, read them as a beginner would, check for bare leading acronyms and acronyms used before introduction, and fix them to the expanded-term-then-acronym order."
+  },
+  "R200": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Do not treat pre-existing chapter titles or subtitles as acceptable merely because they already exist in the repository; they must still pass quality review before shipping."
+  },
+  "R201": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Perform the quality review of chapter titles and subtitles even for entries the agent did not author."
+  },
+  "R202": {
+   "file": "feedback_subtitle_acronym_order.md",
+   "rule": "Verify acronym ordering in chapter titles and subtitles manually rather than relying on automated linting, since acronyms may legitimately appear mid-string."
+  },
+  "R203": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Never ship a diagram label that is pressed against its box frame, touching the edge."
+  },
+  "R204": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Keep a block label at least 2–3 px clearance from each side of its own block."
+  },
+  "R205": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "For centred labels, require at least 2 px clearance from the box edges in the diagram-text fit check."
+  },
+  "R206": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Exempt edge-anchored labels (textAnchor start or end) from the clearance rule; for them, check only that they do not overflow the box."
+  },
+  "R207": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "In the text-fit check, use a per-glyph width factor of 0.72 for wide glyphs, 0.36 for narrow glyphs, and 0.55 for all other characters."
+  },
+  "R208": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "After any diagram edit, run the browser audit that checks both SVG spill and text-to-own-block clearance."
+  },
+  "R209": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "In bare-SVG diagrams, visually check every hand-drawn wire endpoint against the box it should join."
+  },
+  "R210": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Make sure a hero diagram motif reads at first glance."
+  },
+  "R211": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Remove any hero diagram element that needs a caption to be understood."
+  },
+  "R212": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Never hand-place an annotation that must sit on a line or curve; compute its position from the rendered geometry."
+  },
+  "R213": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "Position a badge that must sit on a rendered path at pathEl.getPointAtLength(L/2) inside a useEffect."
+  },
+  "R214": {
+   "file": "feedback_text_touching_block_edge.md",
+   "rule": "When getPointAtLength is unavailable (e.g., in jsdom), fall back to a static position on the line."
+  },
+  "R215": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "When the English source deliberately avoids a term, check that the Ukrainian translation does not reintroduce that term."
+  },
+  "R216": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "Check that every deliberate avoidance in the English survives translation into Ukrainian."
+  },
+  "R217": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "After every gemini-translate.py run, diff the candidate translation against the English for deliberate word choices, not only for tags and numbers."
+  },
+  "R218": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "Keep a short list of each chapter's settled terms and grep the applied Ukrainian text for their rival terms."
+  },
+  "R219": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "Search the whole ch{N}_{M} block for rival terms, not only the keys that were changed."
+  },
+  "R220": {
+   "file": "feedback_translation_reintroduces_avoided_terms.md",
+   "rule": "When English phrasing looks deliberately plain, add a comment next to the key saying so, so later passes do not fix it."
+  },
+  "R221": {
+   "file": "feedback_ua_emdash_before_sign.md",
+   "rule": "In UA chapter prose, never write an em-dash followed by a minus sign (—−), even when an HTML tag sits between them."
+  },
+  "R222": {
+   "file": "feedback_ua_emdash_before_sign.md",
+   "rule": "When an em-dash would come directly before a minus sign in UA prose, put a non-dash character between them, such as a repeated verb, an inserted noun, or a colon."
+  },
+  "R223": {
+   "file": "feedback_ua_emdash_before_sign.md",
+   "rule": "An em-dash directly before a + sign in UA prose is allowed."
+  },
+  "R224": {
+   "file": "feedback_ua_emdash_before_sign.md",
+   "rule": "Run the UA linter (check:uk) after every i18n string edit."
+  },
+  "R225": {
+   "file": "feedback_ua_plausible_nonwords_slip_gates.md",
+   "rule": "When picking UA sentences, treat any term transliterated from English or structurally mirroring English as suspect even if it looks technical."
+  },
+  "R226": {
+   "file": "feedback_ua_plausible_nonwords_slip_gates.md",
+   "rule": "Before accepting a UA term from Gemini, check whether the course already has a settled word for the concept."
+  },
+  "R227": {
+   "file": "feedback_ua_plausible_nonwords_slip_gates.md",
+   "rule": "Grep the UA locale for the concept before choosing a UA term."
+  },
+  "R228": {
+   "file": "feedback_ua_plausible_nonwords_slip_gates.md",
+   "rule": "When the user flags a UA lexis error, fix every instance of that class, add a linter rule, add a row to the ua-translate regression table, and prove the linter rule fires by running it against a probe file containing the old text."
+  },
+  "R229": {
+   "file": "feedback_ua_plausible_nonwords_slip_gates.md",
+   "rule": "Do not treat a clean beginner-review as evidence that the UA lexis is sound."
+  },
+  "R230": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating lab/procedural prose into Ukrainian, never use `покласти`/`покладіть`, `поставити`/`поставте`, or `висіти`/`висить` when the subject is a physical component (resistor, capacitor, inductor, wire, board, dielectric, plate) or a placement action."
+  },
+  "R231": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English \"put / place / lay X\" instruction into Ukrainian, use `розмістіть` or `помістіть` instead of `покладіть`."
+  },
+  "R232": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English \"place / set X between Y and Z\" instruction into Ukrainian, use `розмістіть` or `помістіть між Y і Z`."
+  },
+  "R233": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English \"put X in series\" instruction into Ukrainian, use `увімкніть X послідовно` or `підʼєднайте X послідовно`, not `поставте X послідовно`."
+  },
+  "R234": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English \"mount / install X\" instruction into Ukrainian, use `установіть X`."
+  },
+  "R235": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English \"leave one end hanging / unconnected\" instruction into Ukrainian, use `нехай один кінець залишається вільним` or `лишається неприєднаним`, not `висіти`."
+  },
+  "R236": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When translating an English instruction to stand plates facing each other into Ukrainian, use `розмістіть X паралельно, одну навпроти одної`, not «обличчям одна до одної»."
+  },
+  "R237": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "When unsure which Ukrainian placement verb to use for a component, use `розмістіть`."
+  },
+  "R238": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "Before translating any English imperative that places, mounts, or connects a component, choose the Ukrainian verb from the mapping list based on the action type (placement, connection, installation, or disconnection)."
+  },
+  "R239": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "After writing any lab-instruction prose, scan for `поклад-`, `постав-`, and `вис-` stems; if one appears with a component or material as subject, replace it with the appropriate placement verb."
+  },
+  "R240": {
+   "file": "feedback_ua_playground_placement_verbs.md",
+   "rule": "After every lab-section edit, run `npm run check:uk` or the lint-ua-translation.mjs script on the edited chapter section."
+  },
+  "R241": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "Wrap every math variable in chapter prose in `<var>`."
+  },
+  "R242": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "Wrap every math variable or Greek symbol in chapter prose, summaries, quiz content, and widget descriptions/hints in `<var>X</var>`."
+  },
+  "R243": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "For a math symbol in a JSX control label, render it as `<MathVar>` in the `.tsx` file rather than as `<var>` in the i18n string."
+  },
+  "R244": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "Keep i18n strings for JSX control labels free of math symbols so `aria-label` stays plain text."
+  },
+  "R245": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "After an intentional, render-verified change, re-snapshot the unwrapped-math-var baseline with `--update-baseline`."
+  },
+  "R246": {
+   "file": "feedback_unwrapped_math_var.md",
+   "rule": "Always self-test new Greek symbol sets in the unwrapped-math-var gate before trusting them, e.g. with `node -e \"/[…]/u.test('λ')\"`."
+  },
+  "R247": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "After any edit that produces visible browser output, visually verify the rendered result pixel-by-pixel before claiming the change works."
+  },
+  "R248": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "After any edit that produces visible browser output, look at the rendered pixels."
+  },
+  "R249": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not skip visual verification of a visible change because the change is small."
+  },
+  "R250": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not skip visual verification of a visible change because you are confident the logic is correct."
+  },
+  "R251": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not treat passing code-level gates (lint, tsc, tests) as proof that the output renders correctly; still verify the rendered output visually."
+  },
+  "R252": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "After an edit, reload the page in the browser before visually verifying the change."
+  },
+  "R253": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When verifying a visual change, scroll to the affected element before inspecting it."
+  },
+  "R254": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When verifying a visual change, zoom into the exact area, using the same coordinates as the user's screenshot if provided, or a tight crop around the edited element."
+  },
+  "R255": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Save each verification screenshot to disk so that the description is based on a real artifact."
+  },
+  "R256": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Write a concrete, specific description of what is visible in the rendered output."
+  },
+  "R257": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not describe rendered output with vague approval such as «виглядає правильно»; describe it concretely."
+  },
+  "R258": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Compare the rendered result point-by-point against what the user complained about or what the change was meant to fix."
+  },
+  "R259": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Say the change is done only after completing all verification steps: reload, scroll, zoom, save screenshot, describe, and compare."
+  },
+  "R260": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Apply the visual verification requirement even when the user did not point to specific coordinates."
+  },
+  "R261": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Apply the visual verification requirement even when the change is small."
+  },
+  "R262": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Apply the visual verification requirement to all visible changes, not only those touching SVG."
+  },
+  "R263": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "For any user-facing change, look at the rendered output."
+  },
+  "R264": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Take a screenshot to verify the render when the change touches markup, subscripts, math, glossary popovers, SVG diagrams, or anything affecting layout, width, wrapping, or dark mode."
+  },
+  "R265": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "For plain prose changes with no markup, subscripts, math, popovers, SVG, or layout impact, verify with the UA linter and a DOM/JSON content check instead of a screenshot."
+  },
+  "R266": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Skip the screenshot only if the change has none of the screenshot triggers."
+  },
+  "R267": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Take a screenshot if any screenshot trigger is present or if you are unsure whether one applies."
+  },
+  "R268": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Inspect rendered output carefully, down to every pixel, every time, without exception."
+  },
+  "R269": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not claim a visual change is correct without looking at it."
+  },
+  "R270": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Verify visual output in the target locale and in the final shipped state, not an intermediate one."
+  },
+  "R271": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "After translating a chapter, re-run the full pixel sweep on every diagram and hero in the translated locale, looking for clipped or overflowing labels."
+  },
+  "R272": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When a translated label clips or overflows, fix it by shortening the label, left- or right-anchoring it instead of centring, or widening the box."
+  },
+  "R273": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Check that translated markup tags in captions or aria-labels rendered via plain t() do not print literally."
+  },
+  "R274": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Never treat left-edge overflow as harmless like top-edge overflow; left-edge overflow is clipped."
+  },
+  "R275": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When writing text-bounds tolerances based on a fraction of word width, keep the fraction tight at about 0.10."
+  },
+  "R276": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "In the UA locale, zoom into the far left and far right edges of diagrams to check for clipped labels."
+  },
+  "R277": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "For an end- or start-anchored label column, leave at least about 12 px between the longest UA label's far edge and the viewBox edge."
+  },
+  "R278": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Never anchor a label column directly against the viewBox edge at x=0 or x=vbW."
+  },
+  "R279": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When sizing label space, allow room for the longest Cyrillic (UA) word, not the English one."
+  },
+  "R280": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not claim a change is done unless the same message includes a zoom screenshot and a concrete description of what is visible."
+  },
+  "R281": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "For any click-, hover-, or toggle-revealed content, verify every state in both locales, not a representative one."
+  },
+  "R282": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When a Trans component uses a dynamic or template i18nKey, add a render test because static gates cannot resolve the key."
+  },
+  "R283": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When verifying a schematic, first screenshot it inside its card at normal zoom before zooming in."
+  },
+  "R284": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When verifying schematic labels, check each label's boundaries against neighbours, the nearest symbol, and the viewBox edge, looking to find defects rather than to confirm placement."
+  },
+  "R285": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Place long schematic labels in their own lane, above horizontal parts or below vertical branches, never crammed to the side."
+  },
+  "R286": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When an observed label clip or label-symbol touch is seen, stop and fix it; never rationalise it away."
+  },
+  "R287": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not treat a passing test as proof that label placement is correct."
+  },
+  "R288": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "When a gate flags a label, verify by reading the actual glyphs at the actual edge."
+  },
+  "R289": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Do not accept a quick glance as a verdict that a label does not clip."
+  },
+  "R290": {
+   "file": "feedback_verify_visually_before_done.md",
+   "rule": "Treat a visible label fragment followed by whitespace as a clipped label, not as a fitting one."
+  },
+  "R291": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "For the Radiopedia repo, never invoke preview_start; use the mcp__Claude_in_Chrome__* tools to connect to the user's running dev server instead."
+  },
+  "R292": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "For rendering-related files in the Radiopedia repo, ignore the PostToolUse:Edit hook that suggests preview_start."
+  },
+  "R293": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "If the user's dev server on localhost:5173 isn't running in the Radiopedia repo, start `npm run dev` yourself in the background via Bash with run_in_background=true."
+  },
+  "R294": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "After starting the dev server yourself, leave it running and mention that you started it the next time the user replies."
+  },
+  "R295": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "Always use the mcp__Claude_in_Chrome__* MCP tools to connect to the user's running browser for Radiopedia visual verification."
+  },
+  "R296": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "For changes touching SVG primitives, schematic files in src/components/diagrams/, the glossary popover, i18n prose with markup tags, or any layout/render path, verify in the browser before declaring the work done; do not rely only on lint, tsc, or tests."
+  },
+  "R297": {
+   "file": "feedback_visual_verification_via_chrome.md",
+   "rule": "Pure code refactors with no rendering effect (helper functions, lint scripts, internal types) do not need browser verification."
+  },
+  "R298": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Every wire endpoint in a circuit schematic under src/components/diagrams/ must equal a component pin endpoint exactly."
+  },
+  "R299": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Do not accept a wire endpoint that is offset from a pin coordinate to allow for stroke width."
+  },
+  "R300": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Do not accept a wire endpoint that is merely close enough to a pin coordinate."
+  },
+  "R301": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Do not place wire endpoints by eyeballing their positions."
+  },
+  "R302": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Derive component pin coordinates from the primitive's actual SVG path math, not from comments, memory, or nearby files."
+  },
+  "R303": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Before writing wire coordinates, cross-check the pin coordinate table by reading the primitive's actual SVG path."
+  },
+  "R304": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "For every component placed in a schematic, write down its pin endpoint coordinates."
+  },
+  "R305": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "For every wire, check that its last point equals a known pin coordinate."
+  },
+  "R306": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Run `npm run check:wire-pin-alignment` and make sure it passes before declaring a schematic done."
+  },
+  "R307": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "After the wire-pin alignment check passes, run the visual verification before declaring a schematic done."
+  },
+  "R308": {
+   "file": "feedback_wires_must_touch_pins.md",
+   "rule": "Do not skip any step of the wire-pin alignment workflow before declaring a schematic done."
+  },
+  "R309": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "In gate scripts, use a recursive readdirSync({withFileTypes:true}) walk instead of fs.globSync."
+  },
+  "R310": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Do not use Node-22-only APIs in scripts/*.mjs."
+  },
+  "R311": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Capture the Playwright visual baseline in CI, not locally."
+  },
+  "R312": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Re-baseline the visual gate by running the Re-baseline visual gate workflow_dispatch in CI."
+  },
+  "R313": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Commit the artifact produced by the Re-baseline visual gate workflow."
+  },
+  "R314": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "On a feature branch, get the visual gate counts from CI's reported counts in the failed run log instead of dispatching the re-baseline workflow."
+  },
+  "R315": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Keep at least 10% headroom on the widest label when sizing an SVG canvas."
+  },
+  "R316": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "When a label does not fit, make room by shrinking other columns (band / plot width) rather than widening the SVG canvas."
+  },
+  "R317": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "After any push, verify CI status."
+  },
+  "R318": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "Prefer Node-18-safe APIs in gate scripts."
+  },
+  "R319": {
+   "file": "project_ci_env_vs_local.md",
+   "rule": "For the visual gate, treat CI's numbers as authoritative over local numbers."
+  },
+  "R320": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "When a `test:visual` check fails on a diagram, fix the layout rather than re-baselining the test."
+  },
+  "R321": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "When a label collides with a wire's bounding box, move the label out of the whole bounding rectangle, not just off the drawn stroke."
+  },
+  "R322": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "Run `npm run test:visual` before polishing a new diagram's pixels."
+  },
+  "R323": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "Run `npm run check:all` before polishing a new diagram's pixels."
+  },
+  "R324": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "When diagnosing a diagram collision, measure it in the browser (e.g., with a getBoundingClientRect loop over text and path elements) rather than guessing which element is at fault."
+  },
+  "R325": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "When `check:diagram-viewbox-fit` fails because of a label, spread the symbols across the canvas (e.g., put series elements along the rail)."
+  },
+  "R326": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "Do not widen the canvas to make room for a label when fixing a viewbox-fit failure."
+  },
+  "R327": {
+   "file": "project_diagram_gates_measure_bboxes_not_ink.md",
+   "rule": "If a diagram's layout is genuinely correct but fails `check:diagram-viewbox-fit`, add the file to `SKIP_FILES` with a one-line note."
+  },
+  "R328": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "Before adding a glossary key to glossary.ts, run `node scripts/check-glossary-coverage.mjs`."
+  },
+  "R329": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "Before adding a glossary key, read the per-chapter hits output of `scripts/check-glossary-coverage.mjs`."
+  },
+  "R330": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "If a glossary word would match chapters where it means something else, rename the key to a phrase that cannot collide (e.g., `logbook`, `call sign prefix`, `radio net`)."
+  },
+  "R331": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "Do not wrap a colliding word in chapters where it has a different meaning; rename the key instead."
+  },
+  "R332": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "When a glossary key is renamed, write the new phrase in prose (e.g., «logbook»), not the old word (e.g., «log»)."
+  },
+  "R333": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "For a term that means the same thing across many chapters, add it to `EXEMPT_TERMS` in `scripts/check-glossary-coverage.mjs` instead of wrapping it in every chapter."
+  },
+  "R334": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "Every glossary entry must include all four artifacts: the `glossary.ts` entry, `en:glossary._names.<key>`, `uk:glossary._names.<key>`, and `uk:glossary.<key>.{tip,detail}`."
+  },
+  "R335": {
+   "file": "project_glossary_common_word_collisions.md",
+   "rule": "Key Ukrainian (UA) glossary content by the short key, not the display name."
+  },
+  "R336": {
+   "file": "project_glossary_translate_stale_dump.md",
+   "rule": "When editing `glossary.ts`, escape apostrophes in single-quoted strings as `\\'`."
+  },
+  "R337": {
+   "file": "project_glossary_translate_stale_dump.md",
+   "rule": "When writing text in `glossary.ts`, prefer rewording to avoid apostrophes rather than escaping them."
+  },
+  "R338": {
+   "file": "project_glossary_translate_stale_dump.md",
+   "rule": "To translate a glossary entry, first run `node scripts/extract-glossary.mjs`, then run `gemini-translate.py glossary <term>`."
+  },
+  "R339": {
+   "file": "project_glossary_translate_stale_dump.md",
+   "rule": "After editing `glossary.ts`, run `npx tsc --noEmit` before running any downstream step."
+  },
+  "R340": {
+   "file": "project_glossary_translate_stale_dump.md",
+   "rule": "After running `extract-glossary.mjs`, verify that `/tmp/glossary-en.json` contains the new text before trusting any translation."
+  },
+  "R341": {
+   "file": "project_glossary_was_outside_every_review.md",
+   "rule": "Include glossary entries in the beginner-review skill's scope, so they are reviewed like other content."
+  },
+  "R342": {
+   "file": "project_glossary_was_outside_every_review.md",
+   "rule": "When reviewing a glossary popover, do not assume the reader's location or country, since a popover can fire from any chapter."
+  },
+  "R343": {
+   "file": "project_glossary_was_outside_every_review.md",
+   "rule": "When reviewing a glossary entry, check that it does not contradict its display name in `glossary._names` or the prose that links to it."
+  },
+  "R344": {
+   "file": "project_glossary_was_outside_every_review.md",
+   "rule": "When reviewing a glossary entry, compare it against the English source line by line."
+  },
+  "R345": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Route every frame loop through `useAnimationLoop` in `src/lib/hooks/`."
+  },
+  "R346": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Make frame loops run only while their element is on screen."
+  },
+  "R347": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Make frame loops pause while the page is in a hidden tab."
+  },
+  "R348": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Never start a frame loop when `prefers-reduced-motion` is set."
+  },
+  "R349": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Have a hero write each animation frame through a ref (using `setAttribute` or `style`)."
+  },
+  "R350": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Never write a hero's per-frame animation updates as React state updates."
+  },
+  "R351": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Animations inside the chapter body may use state updates per frame."
+  },
+  "R352": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Always pause animations that are off screen."
+  },
+  "R353": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "When diagnosing a silent spinner, first emulate reduced motion with `page.emulateMedia({ reducedMotion: 'reduce' })`."
+  },
+  "R354": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "When diagnosing a silent spinner, count `MessageChannel` posts after load."
+  },
+  "R355": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "When diagnosing a silent spinner, trap thenables only after the earlier diagnostic steps."
+  },
+  "R356": {
+   "file": "project_hero_state_animation_starves_suspense.md",
+   "rule": "Do not start diagnosing a silent spinner from the served modules or the preamble."
+  },
+  "R357": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "Before calling `.replace()` on an i18n string, assert that the match exists."
+  },
+  "R358": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "Never run a scripted match or replacement against the whole file; scope it to the relevant block."
+  },
+  "R359": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "When matching i18n strings, normalise non-breaking spaces (U+00A0) to regular spaces on both sides, find the index on the normalised copy, and splice the replacement into the original string."
+  },
+  "R360": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "Before trusting a translation, read the glossary extractor's `Wrote N entries` output line and confirm it succeeded."
+  },
+  "R361": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "When writing text into single-quoted strings in `glossary.ts`, escape apostrophes (for example, write `metal\\'s` instead of `metal's`)."
+  },
+  "R362": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "Before editing a chapter's keys, slice out that chapter's block and make edits only inside the slice, then splice it back into the file."
+  },
+  "R363": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "At the end of every translation pass, run the EN-versus-UA changed-keys cross-check."
+  },
+  "R364": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "After an edit, verify that nothing changed outside the block you were working in."
+  },
+  "R365": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "Route every scripted edit to `en/ui.json`, `uk/ui.json`, or `glossary.ts` through a helper that asserts the match count equals 1."
+  },
+  "R366": {
+   "file": "project_i18n_editing_traps.md",
+   "rule": "When a substitution is genuinely optional, explicitly assert that the match count is 0 or 1 instead of letting it pass implicitly."
+  },
+  "R367": {
+   "file": "project_js_word_boundary_kills_cyrillic_rules.md",
+   "rule": "Never end a Cyrillic regex pattern with `\\b` in the UA linter."
+  },
+  "R368": {
+   "file": "project_js_word_boundary_kills_cyrillic_rules.md",
+   "rule": "When a UA linter pattern must end a Cyrillic term, use `(?!\\p{L})` as the terminator instead of `\\b`."
+  },
+  "R369": {
+   "file": "project_js_word_boundary_kills_cyrillic_rules.md",
+   "rule": "When writing or reviewing a linter rule whose alternation ends in a Cyrillic character, check that its terminator actually matches."
+  },
+  "R370": {
+   "file": "project_js_word_boundary_kills_cyrillic_rules.md",
+   "rule": "When adding a linter rule, prove it fires by running the linter on a string it must catch."
+  },
+  "R371": {
+   "file": "project_tech_debt_register.md",
+   "rule": "When a new gate finds pre-existing hits, baseline every existing hit individually by name."
+  },
+  "R372": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Never suppress pre-existing gate hits with a blanket suppression."
+  },
+  "R373": {
+   "file": "project_tech_debt_register.md",
+   "rule": "For each deferred quality item, add a section to TECH_DEBT.md stating what the defect is."
+  },
+  "R374": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Record in the TECH_DEBT.md section why the defect was deferred."
+  },
+  "R375": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Record in the TECH_DEBT.md section how to work off the defect."
+  },
+  "R376": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Include a per-chapter backlog table in the TECH_DEBT.md section."
+  },
+  "R377": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Make the gate print a pointer to TECH_DEBT.md on both its pass and fail paths."
+  },
+  "R378": {
+   "file": "project_tech_debt_register.md",
+   "rule": "When clearing a debt item, delete its section and its baseline entries together in one commit."
+  },
+  "R379": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Do not propose a mass sweep of a debt item during a proofread of something else."
+  },
+  "R380": {
+   "file": "project_tech_debt_register.md",
+   "rule": "Offer a mass sweep of a debt item as its own separate piece of work."
+  },
+  "R381": {
+   "file": "project_vite_serves_stale_module.md",
+   "rule": "Before trusting a browser measurement, confirm the served module matches the file on disk whenever the file is new or was created and edited within the same minute."
+  },
+  "R382": {
+   "file": "project_vite_serves_stale_module.md",
+   "rule": "When confirming the served module, assert on a value only the new revision of the file can produce, such as a changed viewBox, a new label, or a transform value the old code could not emit."
+  },
+  "R383": {
+   "file": "project_vite_serves_stale_module.md",
+   "rule": "When a served module is stale, force the browser to re-request the module graph with a cache-busting navigation, such as setting location.href to the URL with a timestamp query parameter."
+  },
+  "R384": {
+   "file": "project_vite_serves_stale_module.md",
+   "rule": "Never restart the user's `npm run dev` server to fix a stale served module."
+  },
+  "R385": {
+   "file": "project_vite_serves_stale_module.md",
+   "rule": "Verify UI changes by looking at the rendered pixels before declaring the work done."
+  },
+  "R386": {
+   "file": "reference_large_pdfs.md",
+   "rule": "When referencing the ARRL Handbook PDF path in shell commands, always quote the path because it contains spaces and is under Google Drive 'My Drive'."
+  },
+  "R387": {
+   "file": "reference_large_pdfs.md",
+   "rule": "When extracting text from PDFs with pdftotext, use the -layout flag to preserve columns and bound the page range with -f N -l M."
+  },
+  "R388": {
+   "file": "reference_large_pdfs.md",
+   "rule": "After extracting text from a large PDF with pdftotext, read the resulting txt file with the Read tool rather than the PDF itself."
+  },
+  "R389": {
+   "file": "reference_large_pdfs.md",
+   "rule": "Do not tell the user that a large PDF is too big to read; instead chunk it with pdftotext."
+  },
+  "R390": {
+   "file": "reference_large_pdfs.md",
+   "rule": "To locate a section in the PDF, use pdftotext to grep for section headings and find the corresponding PDF page range."
+  },
+  "R391": {
+   "file": "reference_research_pdfs.md",
+   "rule": "When working on Radiopedia chapter content, use the pre-authorised reference resources without asking for permission."
+  },
+  "R392": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Use web search or WebFetch to look up current specs, part datasheets, regulator pages, Wikipedia reality-checks, and modern prices for chapter content."
+  },
+  "R393": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Treat the ARRL Handbook as the canonical reference for ham-radio topics."
+  },
+  "R394": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Consult The Art of Electronics when deriving or double-checking any quantitative claim about electronics."
+  },
+  "R395": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Always quote the Google Drive PDF paths in shell commands, because they contain spaces."
+  },
+  "R396": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Always pass a pages parameter to the Read tool, with at most 20 pages per call."
+  },
+  "R397": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Prefer targeted section reads over scanning a book's table of contents cold."
+  },
+  "R398": {
+   "file": "reference_research_pdfs.md",
+   "rule": "Use pdftotext, not Read, to extract content from the 268 MB ARRL Handbook PDF."
+  },
+  "R399": {
+   "file": "reference_research_pdfs.md",
+   "rule": "If Read rejects the ARRL Handbook PDF, run pdftotext via Bash with the page range and output to stdout."
+  },
+  "R400": {
+   "file": "reference_research_pdfs.md",
+   "rule": "When a claim depends on either reference book, cite the source in the commit message or PR description so the user can verify it."
+  },
+  "R401": {
+   "file": "reference_ua_amateur_regulation_pdfs.md",
+   "rule": "Treat the two Ukrainian amateur-radio regulation PDFs as pre-authorised reading, so no further permission is needed to read them."
+  },
+  "R402": {
+   "file": "reference_ua_amateur_regulation_pdfs.md",
+   "rule": "Extract text from the Ukrainian regulation PDFs with `pdftotext -layout`, not the plain Read tool or other modes."
+  },
+  "R403": {
+   "file": "reference_ua_amateur_regulation_pdfs.md",
+   "rule": "Verify every Ukrainian licensing or regulatory fact against the official regulation PDFs before relying on it."
+  },
+  "R404": {
+   "file": "reference_ua_amateur_regulation_pdfs.md",
+   "rule": "Do not use web mirrors or secondary sites as the source for Ukrainian licensing or regulatory facts."
+  },
+  "R405": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Use the Gemini-primary translation workflow (Gemini translates, Claude reviews and lints, user approves) for every new chapter translation."
+  },
+  "R406": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Load the Gemini API key from .env.local silently in any script."
+  },
+  "R407": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Never echo the Gemini API key to stdout or the chat."
+  },
+  "R408": {
+   "file": "ua_translation_workflow.md",
+   "rule": "For every section of every chapter, perform the per-batch workflow steps in order."
+  },
+  "R409": {
+   "file": "ua_translation_workflow.md",
+   "rule": "For each section, run both Gemini 2.5 Pro and Gemini 3.1 Pro side-by-side via the production script."
+  },
+  "R410": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Never skip the side-by-side comparison stage; never apply single-model output."
+  },
+  "R411": {
+   "file": "ua_translation_workflow.md",
+   "rule": "For each key, Claude analyzes the three candidates (current Claude translation, Gemini 2.5 Pro, Gemini 3.1 Pro) and recommends one with brief justification."
+  },
+  "R412": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When comparing candidates, flag subscript regressions where Gemini 2.5 Pro turns Latin subscripts into Cyrillic, and keep the Latin form."
+  },
+  "R413": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When comparing candidates, flag terminology that regresses against the project glossary."
+  },
+  "R414": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When comparing candidates, flag polarity word substitutions; use «позитивний вивід», never «додатний вивід»."
+  },
+  "R415": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When comparing candidates, flag cases where Gemini corrects past Claude mistakes in the project's translations."
+  },
+  "R416": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  },
+  "R417": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Apply the chosen translation by replacing uk[key] via Python, then manually fix the identified regressions."
+  },
+  "R418": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Run the linter on the translated chapter section after applying changes."
+  },
+  "R419": {
+   "file": "ua_translation_workflow.md",
+   "rule": "The linter run must report zero errors before the work is considered done."
+  },
+  "R420": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Never apply a translation change without running the linter afterward, even for a single-key mid-conversation fix."
+  },
+  "R421": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Keep Latin subscripts such as V_in and f_c in translations; do not convert them to Cyrillic."
+  },
+  "R422": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Keep the Latin abbreviation ESR in translations; do not replace it with ЕПС."
+  },
+  "R423": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Use «розряджувальний» for discharge resistor; do not use «розрядний»."
+  },
+  "R424": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Use «вивід» for a component lead; do not use «висновок»."
+  },
+  "R425": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Replace «осцилограма» used for a generic waveform with «форма сигналу» or «ескіз сигналу»."
+  },
+  "R426": {
+   "file": "ua_translation_workflow.md",
+   "rule": "For the «brick» metaphor, use the diminutive «цеглинка» or drop the metaphor entirely; do not use «цеглина»."
+  },
+  "R427": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Apply Gemini's listed improvements over prior Claude output (for example «коливальні контури», «синфазно», «Приклад розрахунку»)."
+  },
+  "R428": {
+   "file": "ua_translation_workflow.md",
+   "rule": "Never produce a translation using Claude alone; Gemini must be part of the translation."
+  },
+  "R429": {
+   "file": "ua_translation_workflow.md",
+   "rule": "If the Gemini API is unavailable, stop and tell the user."
+  },
+  "R430": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When the Gemini API is unavailable, do not fall back to the old Claude-only translation pipeline."
+  },
+  "R431": {
+   "file": "ua_translation_workflow.md",
+   "rule": "After each new user pushback, update .claude/skills/ua-translate/references/glossary.md."
+  },
+  "R432": {
+   "file": "ua_translation_workflow.md",
+   "rule": "When updating the glossary after user pushback, record the canonical form of the term."
+  },
+  "R433": {
+   "file": "ua_translation_workflow.md",
+   "rule": "If the pushback is mechanically catchable, add a row to the Known Gemini regressions table."
+  },
+  "R434": {
+   "file": "ua_translation_workflow.md",
+   "rule": "If the pushback pattern is stable enough, add a linter rule for it."
+  },
+  "R435": {
+   "file": "ua_translation_workflow.md",
+   "rule": "For a nested subtree such as widget, pass the parent key once to the script so the nested JSON structure is preserved."
+  }
+ },
+ "jwhitf4770-a11y__claude-team-init": {
+  "R1": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Make every database schema follow proper normalization, at minimum Third Normal Form (3NF)."
+  },
+  "R2": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Before writing any database schema, design it for 3NF."
+  },
+  "R3": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Keep separate concerns in separate tables, such as users, profiles, and sessions."
+  },
+  "R4": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Use surrogate key IDs to represent relationships between tables."
+  },
+  "R5": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Never embed related data inside another table to represent a relationship."
+  },
+  "R6": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Eliminate transitive dependencies in database schemas."
+  },
+  "R7": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Create a junction table for each many-to-many relationship."
+  },
+  "R8": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Validate a schema's normalization before implementing it."
+  },
+  "R9": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Do not denormalize database schemas."
+  },
+  "R10": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Do not store relational data in embedded arrays unless the data is for analytical use."
+  },
+  "R11": {
+   "file": "feedback_data_normalization.md",
+   "rule": "Do not store relational data in JSON unless the data is for analytical use."
+  },
+  "R12": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "For all multi-agent work, use the Fly.io MCP as the default caching substrate."
+  },
+  "R13": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "For multi-agent work, do not use local files as the caching substrate for cross-agent state."
+  },
+  "R14": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "For multi-agent work, do not repeat tool-call research that could be reused from the cache."
+  },
+  "R15": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "Include a `cache key: orch-<feature>-result` line in every orchestrator prompt."
+  },
+  "R16": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "In orchestrator prompts, instruct candidate agents to write their results to the Fly.io cache."
+  },
+  "R17": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "For cross-agent handoffs, use `cache_set` and `cache_get` instead of forwarding context."
+  },
+  "R18": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "During long-running overnight runs, call `session_save` periodically."
+  },
+  "R19": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "For heavy compute such as builds or cross-platform tests, prefer `exec_bash` on Fly.io over spawning many local agents."
+  },
+  "R20": {
+   "file": "feedback_flyio_default_cache.md",
+   "rule": "When asked whether to spawn another agent, first check whether the answer is already in the Fly.io cache."
+  },
+  "R21": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "Always provide answers and solutions to the user's requests unless absolutely prevented by system constraints."
+  },
+  "R22": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "Before asking the user to do something (run a command, provide input, or make a decision), try at least 3 other approaches first."
+  },
+  "R23": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "When the user asks how to deploy, do not tell them to run a deploy command; perform the deployment yourself, or explain why you cannot."
+  },
+  "R24": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "When a system constraint blocks a tool call, try alternative tools (reading files, grep, bash) before asking the user for help."
+  },
+  "R25": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "When the user needs to make a decision, propose the best option with its tradeoffs instead of asking them which option they want."
+  },
+  "R26": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "When permission is denied, try lower-privilege tools first and ask the user only if at least 3 alternatives are all blocked."
+  },
+  "R27": {
+   "file": "feedback_manager_employee_dynamic.md",
+   "rule": "When an interactive command is needed, document the command and suggest prefixing it with `!` so the user runs it in-session; do not ask the user to run it in a separate terminal."
+  },
+  "R28": {
+   "file": "feedback_supabase_push_blockers.md",
+   "rule": "Before pushing any new Supabase migration, run `supabase migration list --linked` and audit every local-only migration for schema errors before pushing."
+  },
+  "R29": {
+   "file": "feedback_supabase_push_blockers.md",
+   "rule": "If a pre-existing broken Supabase migration has never been applied to any environment, it is acceptable to repair it in place."
+  },
+  "R30": {
+   "file": "feedback_supabase_push_blockers.md",
+   "rule": "Never modify a Supabase migration that has already been applied remotely; add a new migration instead."
+  },
+  "R31": {
+   "file": "feedback_three_fix_protocol.md",
+   "rule": "Follow the Three-Fix Protocol for any threshold or gate change in the face detection pipeline."
+  },
+  "R32": {
+   "file": "feedback_three_fix_protocol.md",
+   "rule": "Ship obvious wiring fixes (such as a missing abort signal or missing import) autonomously without the Three-Fix Protocol."
+  },
+  "R33": {
+   "file": "feedback_three_fix_protocol.md",
+   "rule": "For threshold, gate, or filter changes (such as area floor, quality floor, or NMS params), always spawn the planner, present 3 candidates, and get approval before proceeding."
+  },
+  "R34": {
+   "file": "feedback_three_fix_protocol.md",
+   "rule": "When unsure about a fix, check git history and production code before writing any fix."
+  }
+ },
+ "kingh0730__interregnum": {
+  "R1": {
+   "file": "audio-decisions.md",
+   "rule": "Choose the audio yourself: cast the voices and select the score takes based on metrics and the sound plan, without asking the user to pick."
+  },
+  "R2": {
+   "file": "audio-decisions.md",
+   "rule": "Do not send audition reels of audio to the user; share only the finished mix."
+  },
+  "R3": {
+   "file": "audio-decisions.md",
+   "rule": "Generate every audio asset that will appear in the final film using the ELEVENLABS_API_KEY_STARTER key."
+  },
+  "R4": {
+   "file": "audio-decisions.md",
+   "rule": "Use the ELEVENLABS_API_KEY key only for throwaway tests, never for assets in the film."
+  },
+  "R5": {
+   "file": "audio-decisions.md",
+   "rule": "When directing voice generation, use pause tags for delivery and do not use emotion tags."
+  },
+  "R6": {
+   "file": "audio-decisions.md",
+   "rule": "Set high stability when generating voices."
+  },
+  "R7": {
+   "file": "audio-decisions.md",
+   "rule": "Select voice takes by measured flatness, preferring low pitch variance and an even level."
+  },
+  "R8": {
+   "file": "audio-decisions.md",
+   "rule": "Let silence, room tone and editing cuts carry the emotional feeling rather than the voice performance."
+  },
+  "R9": {
+   "file": "audio-decisions.md",
+   "rule": "Design Nana's voice using ElevenLabs Voice Design so that she genuinely sounds 82."
+  },
+  "R10": {
+   "file": "dance-generation.md",
+   "rule": "Do not assume that attractive poses or detailed choreography prompts establish a viable dance performance."
+  },
+  "R11": {
+   "file": "dance-generation.md",
+   "rule": "Keep the First Day full motion batch on hold."
+  },
+  "R12": {
+   "file": "dance-generation.md",
+   "rule": "Demonstrate a convincing short phrase in playback before scaling the still-image-plus-text approach to dance choreography."
+  },
+  "R13": {
+   "file": "dance-generation.md",
+   "rule": "Obtain applicable authorization before running any new paid test."
+  },
+  "R14": {
+   "file": "dance-generation.md",
+   "rule": "Do not silently substitute walking and posing for a dance brief."
+  },
+  "R15": {
+   "file": "dance-generation.md",
+   "rule": "Do not record poor beat synchronization as an established model limitation."
+  },
+  "R16": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "On INTERREGNUM, make artistic and technical decisions yourself (endings, looks, takes, tools, pacing) and state them with conviction."
+  },
+  "R17": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "On INTERREGNUM, do not hand artistic or technical choices back to King as questions."
+  },
+  "R18": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "On INTERREGNUM, do not ask King for his opinion on artistic or technical matters."
+  },
+  "R19": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "On INTERREGNUM, do not hedge when making artistic and technical decisions."
+  },
+  "R20": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "On INTERREGNUM, ask King only for things outside Claude's reach."
+  },
+  "R21": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "When asking King to watch something, tell him what Claude decided and what to watch for."
+  },
+  "R22": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "Do not ask King which option he prefers."
+  },
+  "R23": {
+   "file": "director-owns-creative-calls.md",
+   "rule": "Review notes should record decisions, not open questions."
+  },
+  "R24": {
+   "file": "dont-over-test.md",
+   "rule": "When an idea is clearly good by reasoning, adopt it into the process directly instead of spinning up a test to confirm it."
+  },
+  "R25": {
+   "file": "dont-over-test.md",
+   "rule": "Only run a test when the outcome is genuinely uncertain and the answer would change what we do."
+  },
+  "R26": {
+   "file": "dont-over-test.md",
+   "rule": "When a test is not warranted, write the idea into the playbook and move on."
+  },
+  "R27": {
+   "file": "episode-defaults.md",
+   "rule": "For every episode, produce all work up to but not including the Seedance step (script, visual bible, keyframes, screens, comp reel, sound)."
+  },
+  "R28": {
+   "file": "episode-defaults.md",
+   "rule": "After completing the pre-Seedance work for an episode, stop and ask for the fal budget before continuing."
+  },
+  "R29": {
+   "file": "episode-defaults.md",
+   "rule": "Never start the Seedance step on an episode without King's go-ahead."
+  },
+  "R30": {
+   "file": "episode-defaults.md",
+   "rule": "Never start the Seedance step on an episode without a cost estimate."
+  },
+  "R31": {
+   "file": "fal-paused.md",
+   "rule": "Do not make fal.ai calls until King says to resume fal work."
+  },
+  "R32": {
+   "file": "fal-paused.md",
+   "rule": "Do not run `tools/video/i2v.py` or `run_jobs.py` for Seedance until King explicitly resumes."
+  },
+  "R33": {
+   "file": "fal-paused.md",
+   "rule": "Use MiniMax H3 Max as the default video model for motion."
+  },
+  "R34": {
+   "file": "fal-paused.md",
+   "rule": "Use MiniMax's lip-sync for all speech in video."
+  },
+  "R35": {
+   "file": "fal-paused.md",
+   "rule": "Use Luma Ray 3.2 only per shot, not for full video runs."
+  },
+  "R36": {
+   "file": "fal-paused.md",
+   "rule": "Do not start a full video run until King gives his go-ahead."
+  },
+  "R37": {
+   "file": "fal-paused.md",
+   "rule": "Limit the approved final production pass to v2c only."
+  },
+  "R38": {
+   "file": "fal-paused.md",
+   "rule": "Keep the approved final production pass spend to about $20."
+  },
+  "R39": {
+   "file": "fal-paused.md",
+   "rule": "Use fal for ElevenLabs audio work (TTS, sound effects, music, and voice changer)."
+  },
+  "R40": {
+   "file": "fal-paused.md",
+   "rule": "Image work is allowed using Luma or Codex."
+  },
+  "R41": {
+   "file": "fal-paused.md",
+   "rule": "Estimate image generation cost before running it, per CLAUDE.md."
+  },
+  "R42": {
+   "file": "fal-paused.md",
+   "rule": "When fal resumes, use performance-reference video via Seedance reference-to-video with `video_urls`."
+  },
+  "R43": {
+   "file": "fal-paused.md",
+   "rule": "When fal resumes, write underplayed motion prompts."
+  },
+  "R44": {
+   "file": "full-access-permissions.md",
+   "rule": "When the user has granted full permissions, never ask for permissions again."
+  },
+  "R45": {
+   "file": "full-access-permissions.md",
+   "rule": "When Full access is active, execute directly without asking for tool permissions, including the first Chrome capture in a session and any subsequent captures or retries."
+  },
+  "R46": {
+   "file": "full-access-permissions.md",
+   "rule": "When Full access is active, do not invent a once-per-session approval requirement."
+  },
+  "R47": {
+   "file": "full-access-permissions.md",
+   "rule": "When Full access is active, do not re-request an authorization that already exists."
+  },
+  "R48": {
+   "file": "full-access-permissions.md",
+   "rule": "Apply the no-redundant-permission-request behavior to delegated work as well."
+  },
+  "R49": {
+   "file": "full-access-permissions.md",
+   "rule": "Check the effective runtime settings instead of assuming an old sandbox restriction still applies."
+  },
+  "R50": {
+   "file": "full-access-permissions.md",
+   "rule": "When the runtime is in Full access mode (sandbox_mode = \"danger-full-access\" with approval_policy = \"never\"), do not submit escalation parameters."
+  },
+  "R51": {
+   "file": "full-access-permissions.md",
+   "rule": "If the runtime actually enforces a restriction, describe the concrete restriction accurately."
+  },
+  "R52": {
+   "file": "full-access-permissions.md",
+   "rule": "Do not pretend permissions were granted technically, and do not bypass runtime enforcement."
+  },
+  "R53": {
+   "file": "full-file-paths.md",
+   "rule": "When pointing the user to a file, write its complete path relative to the working directory (repo root), not a bare filename."
+  },
+  "R54": {
+   "file": "full-file-paths.md",
+   "rule": "Never give a bare filename, never write \"same folder\" in place of a path, and never use a glob pattern like `B_*.png` when referring to files."
+  },
+  "R55": {
+   "file": "full-file-paths.md",
+   "rule": "Use an absolute path only for files located outside the repo, such as the scratchpad."
+  },
+  "R56": {
+   "file": "full-file-paths.md",
+   "rule": "When listing multiple files, give each file its own complete path, even if they share a folder and even in a long list."
+  },
+  "R57": {
+   "file": "full-file-paths.md",
+   "rule": "In every reply to the user, give exactly one complete relative path per file mentioned, always wrapped in backticks."
+  },
+  "R58": {
+   "file": "headless-session-tools.md",
+   "rule": "Launch headless `claude -p` sessions with `--permission-mode auto` and a `--disallowedTools` deny-list covering paid and publishing actions, rather than an `--allowedTools` allowlist."
+  },
+  "R59": {
+   "file": "headless-session-tools.md",
+   "rule": "Before running headless sessions at scale, test the auto-mode launch configuration on one short session first."
+  },
+  "R60": {
+   "file": "headless-session-tools.md",
+   "rule": "Use grep line-shape counting only as a fallback, and only for a headless session that truly has no interpreter available."
+  },
+  "R61": {
+   "file": "image-inspiration.md",
+   "rule": "Use Codex's built-in image generation for exploration, particularly for appealing camera angles and interesting visual presentation."
+  },
+  "R62": {
+   "file": "image-inspiration.md",
+   "rule": "Keep design invention (what a thing could be) separate from visual interpretation (how to see an existing thing compellingly)."
+  },
+  "R63": {
+   "file": "image-inspiration.md",
+   "rule": "When doing visual interpretation of an existing design, explore camera position/height/angle, framing, perspective, lighting, scale cues and staging without changing the underlying design."
+  },
+  "R64": {
+   "file": "image-inspiration.md",
+   "rule": "Establish the purpose, constraints and fixed features before exploring with image generation."
+  },
+  "R65": {
+   "file": "image-inspiration.md",
+   "rule": "After generating an image proposal, inspect it, identify its substantive contribution, develop useful discoveries in language, and then refine."
+  },
+  "R66": {
+   "file": "image-inspiration.md",
+   "rule": "Retain a written candidate; image-first is optional."
+  },
+  "R67": {
+   "file": "image-inspiration.md",
+   "rule": "Do not treat polished rendering or added decoration as evidence of a better idea."
+  },
+  "R68": {
+   "file": "image-inspiration.md",
+   "rule": "When exploring a view, retain approved identities, designs, location geometry and entity states."
+  },
+  "R69": {
+   "file": "image-inspiration.md",
+   "rule": "When exploring a view, check the actual angle, visibility and adjacent cuts for continuity."
+  },
+  "R70": {
+   "file": "image-inspiration.md",
+   "rule": "An attractive view must not silently change props or erase people."
+  },
+  "R71": {
+   "file": "image-inspiration.md",
+   "rule": "For exploration, use Codex without requiring prerequisite Luma retries."
+  },
+  "R72": {
+   "file": "image-inspiration.md",
+   "rule": "For final production, follow existing routing: use Luma original-image as the default with established exceptions, and Codex generative-edit as the default for generative edits."
+  },
+  "R73": {
+   "file": "image-inspiration.md",
+   "rule": "Do not treat an exploration as a production master automatically."
+  },
+  "R74": {
+   "file": "image-inspiration.md",
+   "rule": "Use small purposeful explorations under existing budget rules, not mandatory batches."
+  },
+  "R75": {
+   "file": "memory-sync.md",
+   "rule": "Always write memory to the auto-memory location, never directly to the repo's memory copies."
+  },
+  "R76": {
+   "file": "memory-sync.md",
+   "rule": "Put any private memory content in a file whose name starts with `private-` and ends with `.md`."
+  },
+  "R77": {
+   "file": "memory-sync.md",
+   "rule": "Keep every non-`private-*` memory file free of private detail, since it is published to GitHub in `memory/`."
+  },
+  "R78": {
+   "file": "memory-sync.md",
+   "rule": "Never link a `private-*` memory file name from a public memory file."
+  },
+  "R79": {
+   "file": "memory-sync.md",
+   "rule": "In public memory files, it is fine to merely mention that a personal episode (such as a mom episode) exists."
+  },
+  "R80": {
+   "file": "memory-sync.md",
+   "rule": "Run `scripts/check-memory-index.sh` after adding or deleting a memory file."
+  },
+  "R81": {
+   "file": "memory-sync.md",
+   "rule": "After editing memory through Bash, run `bash scripts/sync-memory.sh` manually when the repo copy must be current within the same turn."
+  },
+  "R82": {
+   "file": "parallel-sessions-git.md",
+   "rule": "When other sessions share the repo, always pass explicit paths after `--` on every commit command (`git commit -m \"…\" -- path1 path2`)."
+  },
+  "R83": {
+   "file": "parallel-sessions-git.md",
+   "rule": "When committing in a private project's own repo, commit only the episode folder that belongs to you."
+  },
+  "R84": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Coordinate changes to shared resources (fal credit, ElevenLabs voice slots and deletion, shared tool files) with other sessions by using SendMessage."
+  },
+  "R85": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Give each episode its own voice prefix (e.g. \"v2c_\")."
+  },
+  "R86": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Kill processes only by their PID."
+  },
+  "R87": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Never use `pkill -f <pattern>` to kill processes."
+  },
+  "R88": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Record the PIDs of every job you start."
+  },
+  "R89": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Kill only the recorded PIDs of jobs you started."
+  },
+  "R90": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Handle nested private repos separately from the parent worktree."
+  },
+  "R91": {
+   "file": "parallel-sessions-git.md",
+   "rule": "Do not create Git worktrees or reorganize existing productions without explicit authorization."
+  },
+  "R92": {
+   "file": "pure-improvement.md",
+   "rule": "Never make changes hastily, especially small \"improvements\"."
+  },
+  "R93": {
+   "file": "pure-improvement.md",
+   "rule": "Every change must be a pure improvement: do not make a change on which it behaves worse than what it replaces for any input, however narrow the edge case."
+  },
+  "R94": {
+   "file": "pure-improvement.md",
+   "rule": "Do not apply the pure-improvement rule to creative drafts (concepts, scripts, shot design, art direction); judge those by `bible/taste.md` and the critic pass instead."
+  },
+  "R95": {
+   "file": "pure-improvement.md",
+   "rule": "Before writing a change, analyse adversarially by listing the inputs where the change could be worse than the status quo."
+  },
+  "R96": {
+   "file": "pure-improvement.md",
+   "rule": "If any regression case exists for a change, do not write it; instead design a version that dominates, or leave things alone."
+  },
+  "R97": {
+   "file": "pure-improvement.md",
+   "rule": "When leaving things alone due to a regression case, present the trade-off for King to decide."
+  },
+  "R98": {
+   "file": "pure-improvement.md",
+   "rule": "Prefer no change over a change that is only a 90% improvement."
+  },
+  "R99": {
+   "file": "pure-improvement.md",
+   "rule": "Verify before the user asks: when asked whether something is good, the checking must already be done."
+  },
+  "R100": {
+   "file": "pure-improvement.md",
+   "rule": "Answer from completed verification; never discover flaws live and patch mid-answer."
+  },
+  "R101": {
+   "file": "pure-improvement.md",
+   "rule": "A fix is itself a change and must clear the same pure-improvement bar before being written."
+  },
+  "R102": {
+   "file": "pure-improvement.md",
+   "rule": "Before writing a fix, verify at the primary source (the code, the library's source, the raw doc), not from a summary, memory, or earlier turn."
+  },
+  "R103": {
+   "file": "pure-improvement.md",
+   "rule": "Never write an absolute (\"the only X\", \"always\", \"never\", \"first\") unless the whole scope was actually enumerated."
+  },
+  "R104": {
+   "file": "pure-improvement.md",
+   "rule": "After editing, re-read the surrounding context and every consumer of the claim."
+  },
+  "R105": {
+   "file": "pure-improvement.md",
+   "rule": "Treat \"I established that earlier\" as unverified; re-verify it before relying on it."
+  },
+  "R106": {
+   "file": "pure-improvement.md",
+   "rule": "Only suggest changes that move the needle."
+  },
+  "R107": {
+   "file": "pure-improvement.md",
+   "rule": "Triage review findings using the same needle-moving standard: only act on hard, totally broken, observed or certainly triggerable issues."
+  },
+  "R108": {
+   "file": "pure-improvement.md",
+   "rule": "Silently drop speculative findings (e.g., dependency changes, own-invariant changes, cosmetics on unreachable inputs) without presenting them as accept/decline decisions."
+  },
+  "R109": {
+   "file": "reasoning-effort.md",
+   "rule": "Assume King is present unless he has said otherwise."
+  },
+  "R110": {
+   "file": "reasoning-effort.md",
+   "rule": "When King is present or his presence is unspecified, use default reasoning effort for everything, including checking."
+  },
+  "R111": {
+   "file": "reasoning-effort.md",
+   "rule": "When King is present or unspecified, pass no `--effort` flag."
+  },
+  "R112": {
+   "file": "reasoning-effort.md",
+   "rule": "When King is away, use `--effort max` for checking: critic passes, reviews, bug and flaw hunting, and small pure improvements."
+  },
+  "R113": {
+   "file": "reasoning-effort.md",
+   "rule": "When King is away, use max effort for creative work: concepts, pitches, stories, scripts, design, art direction, and other creative development."
+  },
+  "R114": {
+   "file": "reasoning-effort.md",
+   "rule": "When King is away, use default effort for routine execution and production plumbing."
+  },
+  "R115": {
+   "file": "reasoning-effort.md",
+   "rule": "When King indicates he is back, return to default effort for everything."
+  },
+  "R116": {
+   "file": "reasoning-effort.md",
+   "rule": "Do not infer that King is away from his silence."
+  },
+  "R117": {
+   "file": "reasoning-effort.md",
+   "rule": "Apply the equivalent effort setting for the model or tool in use."
+  },
+  "R118": {
+   "file": "reasoning-effort.md",
+   "rule": "Do not hardcode a medium reasoning-effort setting for default; default means no explicit reasoning-effort override."
+  },
+  "R119": {
+   "file": "reasoning-effort.md",
+   "rule": "Do not automatically change media generation parameters based on the reasoning-effort rule."
+  },
+  "R120": {
+   "file": "reasoning-effort.md",
+   "rule": "Apply the presence rule to creative design and prompt development."
+  },
+  "R121": {
+   "file": "reasoning-effort.md",
+   "rule": "Never act on an unconfirmed reading of a rule."
+  },
+  "R122": {
+   "file": "reasoning-effort.md",
+   "rule": "When King's presence conflicts with another rule, presence wins."
+  },
+  "R123": {
+   "file": "reasoning-effort.md",
+   "rule": "Never run the planned max-versus-default creative test while King is present."
+  },
+  "R124": {
+   "file": "reasoning-effort.md",
+   "rule": "Before King goes away for a concept round, propose the planned max-versus-default test in one line."
+  },
+  "R125": {
+   "file": "reasoning-effort.md",
+   "rule": "Decide on the max-versus-default creative effort question only after several rounds, never after one."
+  },
+  "R126": {
+   "file": "reasoning-effort.md",
+   "rule": "Do not start the deferred research-effort experiment now, and do not change the effort policy."
+  },
+  "R127": {
+   "file": "reasoning-effort.md",
+   "rule": "A future research-effort test should distinguish information gathering from evidence evaluation, synthesis and verification."
+  },
+  "R128": {
+   "file": "reasoning-effort.md",
+   "rule": "A future research-effort test should assess factual and source accuracy as well as time and cost."
+  },
+  "R129": {
+   "file": "reasoning-effort.md",
+   "rule": "Before every launch, check whether King explicitly said he is away and has not indicated his return."
+  },
+  "R130": {
+   "file": "reasoning-effort.md",
+   "rule": "If King is present or unspecified, use default effort for everything."
+  },
+  "R131": {
+   "file": "reasoning-effort.md",
+   "rule": "If King is away, use max effort for creative development and checking, and default effort for routine execution."
+  },
+  "R132": {
+   "file": "reasoning-effort.md",
+   "rule": "After King announces his absence, do not ask for repeated confirmation."
+  },
+  "R133": {
+   "file": "taste-notes.md",
+   "rule": "Use one subject per image prompt."
+  },
+  "R134": {
+   "file": "taste-notes.md",
+   "rule": "Leave negative space in image prompts."
+  },
+  "R135": {
+   "file": "taste-notes.md",
+   "rule": "Do not over-describe texture in image prompts."
+  },
+  "R136": {
+   "file": "taste-notes.md",
+   "rule": "A/B test image prompts before running a batch."
+  },
+  "R137": {
+   "file": "taste-notes.md",
+   "rule": "A/B test image models before running a batch."
+  },
+  "R138": {
+   "file": "taste-notes.md",
+   "rule": "Judge image frames for elegance, not just photorealism."
+  },
+  "R139": {
+   "file": "taste-notes.md",
+   "rule": "Judge a character's face shot-to-shot in sequence when multiple models are used for it."
+  },
+  "R140": {
+   "file": "taste-notes.md",
+   "rule": "Use multiple image models within one film when they serve different styles or sequences."
+  },
+  "R141": {
+   "file": "taste-notes.md",
+   "rule": "Use Luma Uni-1 Max for original generation unless it truly cannot do something right."
+  },
+  "R142": {
+   "file": "taste-notes.md",
+   "rule": "Do not turn single-image test results into model routing rules."
+  },
+  "R143": {
+   "file": "taste-notes.md",
+   "rule": "Use Codex as the default generative editor."
+  },
+  "R144": {
+   "file": "taste-notes.md",
+   "rule": "Before pitching, list the 20 most predictable takes."
+  },
+  "R145": {
+   "file": "taste-notes.md",
+   "rule": "Ban the 20 most predictable takes from pitches."
+  },
+  "R146": {
+   "file": "taste-notes.md",
+   "rule": "Give every concept a formal invention in how it is told."
+  },
+  "R147": {
+   "file": "taste-notes.md",
+   "rule": "Draw on specific, odd human material rather than trends for concepts."
+  },
+  "R148": {
+   "file": "taste-notes.md",
+   "rule": "Read bible/taste.md before any concept work."
+  },
+  "R149": {
+   "file": "taste-notes.md",
+   "rule": "Make every concept pass the concept test and rubric in bible/taste.md §5."
+  },
+  "R150": {
+   "file": "taste-notes.md",
+   "rule": "Give every script a tempo map with contrast across all four pacing dials."
+  },
+  "R151": {
+   "file": "taste-notes.md",
+   "rule": "Include at least one acceleration, one hard stop, and one stillness or silence in every script's tempo map."
+  },
+  "R152": {
+   "file": "taste-notes.md",
+   "rule": "Give each episode a home register for each art aspect."
+  },
+  "R153": {
+   "file": "taste-notes.md",
+   "rule": "Vary the home register between sections of an episode."
+  },
+  "R154": {
+   "file": "taste-notes.md",
+   "rule": "Include at least one break the audience has not been taught to expect in each episode."
+  },
+  "R155": {
+   "file": "taste-notes.md",
+   "rule": "Do not turn one film's artistic choice into a binding rule for other films."
+  },
+  "R156": {
+   "file": "taste-notes.md",
+   "rule": "Let the home register dominate each episode."
+  },
+  "R157": {
+   "file": "taste-notes.md",
+   "rule": "Use one or two surprises per film."
+  },
+  "R158": {
+   "file": "taste-notes.md",
+   "rule": "When in doubt, cut a camera or editing move."
+  },
+  "R159": {
+   "file": "taste-notes.md",
+   "rule": "Judge every face for whether it looks scary."
+  },
+  "R160": {
+   "file": "taste-notes.md",
+   "rule": "Retake any face that looks scary."
+  },
+  "R161": {
+   "file": "taste-notes.md",
+   "rule": "Accept faces that are average or not pretty."
+  },
+  "R162": {
+   "file": "taste-notes.md",
+   "rule": "Avoid faces that look scary, such as deep creases or heavy spots, unless the look is intentional."
+  },
+  "R163": {
+   "file": "taste-notes.md",
+   "rule": "Choose the original-generation model and the editing model separately."
+  },
+  "R164": {
+   "file": "taste-notes.md",
+   "rule": "Keep existing model preferences for original image generation."
+  },
+  "R165": {
+   "file": "taste-notes.md",
+   "rule": "Use Codex's built-in image generation by default for generative edits, including corrections, reframing, and derived poses or views."
+  },
+  "R166": {
+   "file": "taste-notes.md",
+   "rule": "Do not require Luma retries before using the default Codex editor."
+  },
+  "R167": {
+   "file": "taste-notes.md",
+   "rule": "Start each edit from the clean, approved source best suited to that change."
+  },
+  "R168": {
+   "file": "taste-notes.md",
+   "rule": "Do not automatically pass the latest attempt into the next edit."
+  },
+  "R169": {
+   "file": "taste-notes.md",
+   "rule": "Use a later approved version as the edit source when it contains a necessary pose, composition, or intentional design change."
+  },
+  "R170": {
+   "file": "taste-notes.md",
+   "rule": "Keep edit chains short."
+  },
+  "R171": {
+   "file": "taste-notes.md",
+   "rule": "Combine compatible changes into one edit when practical."
+  },
+  "R172": {
+   "file": "taste-notes.md",
+   "rule": "Further edit an already-edited image only when its existing improvements matter and its quality remains intact."
+  },
+  "R173": {
+   "file": "taste-notes.md",
+   "rule": "Retain approved character, costume, and location references throughout all edits."
+  },
+  "R174": {
+   "file": "taste-notes.md",
+   "rule": "Do not let an edited shot silently replace approved character, costume, or location references."
+  },
+  "R175": {
+   "file": "taste-notes.md",
+   "rule": "Record intentional approved design changes."
+  },
+  "R176": {
+   "file": "taste-notes.md",
+   "rule": "Compare the whole image at full size with its input and the clean approved source when checking an edit."
+  },
+  "R177": {
+   "file": "taste-notes.md",
+   "rule": "Check neighboring shots for continuity, including after cross-model edits."
+  },
+  "R178": {
+   "file": "taste-notes.md",
+   "rule": "Reject degraded images instead of repeatedly repairing them."
+  },
+  "R179": {
+   "file": "taste-notes.md",
+   "rule": "Return to a clean source or regenerate when an image shows degradation, rather than building further work on the damaged result."
+  },
+  "R180": {
+   "file": "taste-notes.md",
+   "rule": "Use ordinary editing tools for exact operations."
+  },
+  "R181": {
+   "file": "taste-notes.md",
+   "rule": "Do not use generative repainting for cropping, resizing, or typography."
+  },
+  "R182": {
+   "file": "taste-notes.md",
+   "rule": "Preserve source pixels wherever practical."
+  },
+  "R183": {
+   "file": "taste-notes.md",
+   "rule": "Retain original images and version history."
+  },
+  "R184": {
+   "file": "taste-notes.md",
+   "rule": "Record which images were the actual inputs to each edit."
+  },
+  "R185": {
+   "file": "taste-notes.md",
+   "rule": "Do not regenerate existing episodes because the editing policy was remembered."
+  },
+  "R186": {
+   "file": "taste-notes.md",
+   "rule": "Use Codex original generation for a non-face subject only when it both commands viewer attention and has a highly elaborate design."
+  },
+  "R187": {
+   "file": "taste-notes.md",
+   "rule": "Do not qualify a non-face subject for Codex based on size, foreground position, prominence, beauty, or intricacy alone."
+  },
+  "R188": {
+   "file": "taste-notes.md",
+   "rule": "A large elaborate focal sculpture may qualify for Codex original generation."
+  },
+  "R189": {
+   "file": "taste-notes.md",
+   "rule": "Default a non-face subject to Luma when it does not meet both the attention and elaboration conditions."
+  },
+  "R190": {
+   "file": "taste-notes.md",
+   "rule": "Use Luma for architecture, including settings, skylines, cityscapes, buildings, and interiors."
+  },
+  "R191": {
+   "file": "taste-notes.md",
+   "rule": "Use Codex for an architectural showpiece only when the viewer is meant to inspect its mechanisms, carvings, or layered construction."
+  },
+  "R192": {
+   "file": "taste-notes.md",
+   "rule": "Do not qualify architecture for Codex based on grandeur alone."
+  },
+  "R193": {
+   "file": "taste-notes.md",
+   "rule": "Keep an ornate background building with Luma."
+  },
+  "R194": {
+   "file": "taste-notes.md",
+   "rule": "Use Codex for original generation of beauty-focused base faces."
+  },
+  "R195": {
+   "file": "taste-notes.md",
+   "rule": "Do not require failed Luma attempts before using a Codex original-generation exception."
+  },
+  "R196": {
+   "file": "taste-notes.md",
+   "rule": "Use Luma for ordinary objects and surrounding environments."
+  },
+  "R197": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "When a subagent or background job runs long, proactively check it for stalls instead of waiting for its completion notification."
+  },
+  "R198": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "When checking a long-running job for stalls, use real signals such as output file timestamps, running render and ffmpeg processes, and log tails."
+  },
+  "R199": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "Do not rely solely on the completion notification to learn that a long-running job has finished or stalled."
+  },
+  "R200": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "When delegating a long job, set a fallback check using ScheduleWakeup or a check after the next piece of work."
+  },
+  "R201": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "If a job's outputs have not changed in 10 or more minutes, inspect the job."
+  },
+  "R202": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "Tell delegated agents to wait on a PID or an output file, never on `pgrep -f <name>` when `<name>` appears in the waiting command itself."
+  },
+  "R203": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "Stall checks must watch the delegated session's own transcript file, found by its brief text, never the newest .jsonl in the project directory."
+  },
+  "R204": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "When a stage completes, stop its monitors immediately using TaskStop."
+  },
+  "R205": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "Never hand-install fal results by grabbing the first image URL in a fal_run log."
+  },
+  "R206": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "When getting a fal result URL, take it from the log's `response` field only, or re-run through the tool."
+  },
+  "R207": {
+   "file": "watch-delegated-jobs.md",
+   "rule": "Do not run luma_batch without `--only`, since it regenerates any entry it thinks is missing."
+  }
+ },
+ "map-gl__map-gl": {
+  "R1": {
+   "file": "feedback_bridge-architecture.md",
+   "rule": "Maintain fully independent bridge implementations for Mapbox and Maplibre; do not force them into a shared bridge abstraction."
+  },
+  "R2": {
+   "file": "feedback_bridge-architecture.md",
+   "rule": "Only put pure utility functions and intersection types in the shared package."
+  },
+  "R3": {
+   "file": "feedback_bridge-architecture.md",
+   "rule": "Only put truly shared code (such as deep-equal.ts, style-utils.ts, and basic type definitions) in the shared package."
+  },
+  "R4": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "Import maplibre-gl's CSS file (maplibre-gl/dist/maplibre-gl.css) explicitly at the application entry point; it does not load automatically."
+  },
+  "R5": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "When writing docs or examples for maplibre-gl, remind users they must import the CSS themselves."
+  },
+  "R6": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "Do not use headless Chrome screenshots to diagnose map rendering issues."
+  },
+  "R7": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "When diagnosing map rendering issues, check JS console errors, DOM structure (whether the canvas exists), and whether the CSS is loaded instead of relying on headless screenshots."
+  },
+  "R8": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "When visual verification of a map is needed, have the user check it in a real browser rather than headless Chrome."
+  },
+  "R9": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "To make a Popup close only via its X button, explicitly set closeOnClick to false."
+  },
+  "R10": {
+   "file": "feedback_debugging-lessons.md",
+   "rule": "When writing Popup documentation, explain that closeOnClick defaults to true."
+  },
+  "R11": {
+   "file": "feedback_maplibre-v5-migration.md",
+   "rule": "When upgrading to maplibre-gl v5, remove `antialias`, `preserveDrawingBuffer`, and `failIfMajorPerformanceCaveat` from the Map component's `INIT_OPTION_KEYS` array."
+  },
+  "R12": {
+   "file": "feedback_maplibre-v5-migration.md",
+   "rule": "When upgrading to maplibre-gl v5, add `canvasContextAttributes` to the Map component's `INIT_OPTION_KEYS` array."
+  },
+  "R13": {
+   "file": "feedback_maplibre-v5-migration.md",
+   "rule": "When upgrading to maplibre-gl v5, remove the optional chaining from `map.getProjection?.()` calls in the bridge class."
+  },
+  "R14": {
+   "file": "feedback_maplibre-v5-migration.md",
+   "rule": "When upgrading to maplibre-gl v5, remove the `@ts-ignore` comments on `map.setProjection?.()` calls in the bridge class."
+  },
+  "R15": {
+   "file": "feedback_maplibre-v5-migration.md",
+   "rule": "When designing features with markers on a maplibre-gl map, consider how marker clicks interact with the map's click event."
+  },
+  "R16": {
+   "file": "feedback_viewstate-reactivity.md",
+   "rule": "When a Map component's watch tracks a reactive object passed as a prop, the watch getter must explicitly access each inner field of that object (e.g. vs?.longitude) so Vue tracks nested changes."
+  },
+  "R17": {
+   "file": "feedback_viewstate-reactivity.md",
+   "rule": "Do not use flush: 'sync' in the Map component's watch; use the default flush ('pre') instead."
+  },
+  "R18": {
+   "file": "feedback_viewstate-reactivity.md",
+   "rule": "When viewState width or height is used to trigger resize sync, add a guard that only proceeds when width > 0 and height > 0."
+  },
+  "R19": {
+   "file": "feedback_viewstate-reactivity.md",
+   "rule": "Whenever the Map component watches prop changes to sync to the bridge, destructure every field of viewState in the watch getter."
+  },
+  "R20": {
+   "file": "feedback_viewstate-reactivity.md",
+   "rule": "Whenever the Map component watches prop changes to sync to the bridge, do not use flush: 'sync'."
+  },
+  "R21": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Do not use JSX syntax in Vue component render functions in .ts files; use the `h()` function instead."
+  },
+  "R22": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Write all Vue component render functions using the `h()` function."
+  },
+  "R23": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Write Vue component render sections in the `h(tag, attrs, children)` form."
+  },
+  "R24": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Do not access emit internals (such as `emit.$.args`) in Vue 3 components."
+  },
+  "R25": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Maintain a `CALLBACK_EVENTS: (keyof MapCallbacks)[]` static array and iterate over it to build callbacks."
+  },
+  "R26": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "In emit-bridging components like map.ts, always build callbacks from predefined static arrays."
+  },
+  "R27": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Use `emit('onError', ...)` directly for error handling instead of reading handlers from props."
+  },
+  "R28": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "When needing to emit events, do not try to read event handlers from props."
+  },
+  "R29": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "When passing an optional string prop as an argument, apply a `?? defaultValue` fallback."
+  },
+  "R30": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "Maintain an `INIT_OPTION_KEYS` constant array and extract the corresponding MapOptions init values from attrs to pass to the bridge class."
+  },
+  "R31": {
+   "file": "feedback_vue-component-patterns.md",
+   "rule": "When diagnosing build failures, fix ESM/CJS syntax errors first, then fix DTS type errors."
+  },
+  "R32": {
+   "file": "feedback_vue-lifecycle-timing.md",
+   "rule": "In overlay components that depend on Map context (Marker/Popup/Source/Layer/Control), do not read context directly in onMounted; instead use the useMapContext composable to wait for context availability before initializing."
+  },
+  "R33": {
+   "file": "feedback_vue-lifecycle-timing.md",
+   "rule": "In the Popup component, wrap popup.addTo(map.getMap()) in setTimeout(0) so the pending map click is processed before the closeOnClick handler is registered."
+  },
+  "R34": {
+   "file": "feedback_vue-lifecycle-timing.md",
+   "rule": "When implementing a Popup that opens on marker click, set closeOnClick to false and implement toggle behavior where clicking the same marker closes the popup."
+  },
+  "R35": {
+   "file": "plan-management.md",
+   "rule": "After exploring the codebase, update the detailed design (changed files, key decisions, implementation details) into the current task document under .claude/tasks/ before executing."
+  },
+  "R36": {
+   "file": "plan-management.md",
+   "rule": "Implement the task according to the design recorded in the task document."
+  },
+  "R37": {
+   "file": "plan-management.md",
+   "rule": "After completing a task, append a `## Summary` section at the end of the task document."
+  },
+  "R38": {
+   "file": "plan-management.md",
+   "rule": "In the Summary section, record the actually modified files, newly created files, deleted files, and key design decisions."
+  },
+  "R39": {
+   "file": "plan-management.md",
+   "rule": "At the start of each task, update the design into the task document."
+  },
+  "R40": {
+   "file": "plan-management.md",
+   "rule": "When a task is complete, append a summary to the same task document."
+  },
+  "R41": {
+   "file": "plan-management.md",
+   "rule": "Store all plans and tasks in the project-local .claude/ directory, never in the global Claude path."
+  },
+  "R42": {
+   "file": "plan-management.md",
+   "rule": "When creating a new plan, also update the PLAN.md index and memory."
+  },
+  "R43": {
+   "file": "plan-management.md",
+   "rule": "Put specific phase task lists, acceptance criteria and other details in the corresponding task files, not in the plan file, which serves only as an index."
+  },
+  "R44": {
+   "file": "plan-management.md",
+   "rule": "Name plan files as {sequence}-{name}.md (e.g. 00-init.md)."
+  },
+  "R45": {
+   "file": "plan-management.md",
+   "rule": "Name task files as {planName}-phase-{number}-{name}.md."
+  },
+  "R46": {
+   "file": "project_npm-publishing.md",
+   "rule": "To publish packages to npm, use `scripts/publish.sh` rather than publishing packages individually."
+  },
+  "R47": {
+   "file": "project_npm-publishing.md",
+   "rule": "Do not use `npm publish` directly; publish packages with `pnpm publish` so that `workspace:*` dependencies are resolved to real versions."
+  },
+  "R48": {
+   "file": "project_npm-publishing.md",
+   "rule": "When publishing scoped packages (`@map-gl/*`), pass `--access public`."
+  },
+  "R49": {
+   "file": "project_npm-publishing.md",
+   "rule": "When running `pnpm publish`, pass `--no-git-checks`."
+  },
+  "R50": {
+   "file": "project_npm-publishing.md",
+   "rule": "Ignore npm warnings about `--git-checks` being unknown CLI config; do not treat them as errors."
+  },
+  "R51": {
+   "file": "project_npm-publishing.md",
+   "rule": "Before publishing a package, bump its `version` in its `package.json`."
+  },
+  "R52": {
+   "file": "project_tooling-decisions.md",
+   "rule": "In Phase 0, configure only Prettier and do not set up ESLint; defer ESLint to later phases as needed."
+  },
+  "R53": {
+   "file": "project_tooling-decisions.md",
+   "rule": "Playground aliases must use absolute paths, not relative paths."
+  },
+  "R54": {
+   "file": "project_tooling-decisions.md",
+   "rule": "In vite.config.ts, build alias paths with `resolve(__dirname, '..')`."
+  },
+  "R55": {
+   "file": "project_tooling-decisions.md",
+   "rule": "Point vite.config.ts aliases to specific entry files such as `src/index.ts`, not to directories."
+  },
+  "R56": {
+   "file": "project_tooling-decisions.md",
+   "rule": "When modifying vite.config.ts aliases, always use `resolve(__dirname, '..')` to build paths."
+  }
+ },
+ "meanie-py__vibeos": {
+  "R1": {
+   "file": "bugfixes.md",
+   "rule": "When translating C code to Rust, convert `RtlZeroMemory`/`memset` byte counts to element counts before passing them to `core::ptr::write_bytes`."
+  },
+  "R2": {
+   "file": "bugfixes.md",
+   "rule": "To build the SYSTEM hive used by the ramdisk, run `ninja boot/bootdata/system`, not `ninja bootcd_hives`."
+  },
+  "R3": {
+   "file": "feedback_cgu1.md",
+   "rule": "Treat setting codegen-units = 1 as a coordinated change, not a drop-in toggle, when applying it to this project."
+  },
+  "R4": {
+   "file": "feedback_cgu1.md",
+   "rule": "Set codegen-units = 1 in Cargo.toml as part of the coordinated CGU=1 change."
+  },
+  "R5": {
+   "file": "feedback_cgu1.md",
+   "rule": "When applying the CGU=1 change, revert ObCreateObjectAddress_shim back to ObCreateObject_shim returning PVOID."
+  },
+  "R6": {
+   "file": "feedback_cgu1.md",
+   "rule": "When applying the CGU=1 change, merge IopFinishCreatedDeviceObject back into IoCreateDevice."
+  },
+  "R7": {
+   "file": "feedback_cgu1.md",
+   "rule": "When applying the CGU=1 change, merge IopFinishIoInitSystem back into IoInitSystem."
+  },
+  "R8": {
+   "file": "feedback_cgu1.md",
+   "rule": "When applying the CGU=1 change, revert the RTL string shims and use direct imports instead."
+  },
+  "R9": {
+   "file": "feedback_cgu1.md",
+   "rule": "When applying the CGU=1 change, remove the ARM64 #[inline(never)] attribute on PspCreateThread."
+  },
+  "R10": {
+   "file": "feedback_cgu1.md",
+   "rule": "After applying the CGU=1 change, test on all 3 architectures."
+  },
+  "R11": {
+   "file": "feedback_codex_cli.md",
+   "rule": "When running the Codex CLI for C-to-Rust translation, invoke it non-interactively with `codex exec --full-auto \"prompt\"`."
+  },
+  "R12": {
+   "file": "feedback_codex_cli.md",
+   "rule": "When using the Codex CLI, use the default model rather than o3, since o3 requires a paid API account."
+  },
+  "R13": {
+   "file": "feedback_codex_cli.md",
+   "rule": "When prompting the Codex CLI for C-to-Rust translation, include detailed translation rules in the prompt covering pool tag encoding, NT_ERROR vs NT_SUCCESS, extern \"system\", DUMMY_PSEH SEH handling, and addr_of_mut! for events."
+  },
+  "R14": {
+   "file": "feedback_codex_cli.md",
+   "rule": "After Codex CLI produces translation output, always run verify_constants.py on it to catch wrong constant values."
+  },
+  "R15": {
+   "file": "feedback_codex_cli.md",
+   "rule": "After integrating Codex CLI translation output, always manually add any missing extern declarations, constants, and type casts."
+  },
+  "R16": {
+   "file": "feedback_codex_cli.md",
+   "rule": "When prompting the Codex CLI for translation, point it at both the C source files and existing Rust patterns in the repo."
+  },
+  "R17": {
+   "file": "feedback_commits.md",
+   "rule": "Do not make a git commit just for retranslations or other intermediate progress."
+  },
+  "R18": {
+   "file": "feedback_commits.md",
+   "rule": "Only make a commit when smoke tests pass or when there is a meaningful working state change."
+  },
+  "R19": {
+   "file": "feedback_commits.md",
+   "rule": "Keep debugging a file until it actually works before committing."
+  },
+  "R20": {
+   "file": "feedback_commits.md",
+   "rule": "When retranslating a file, immediately proceed to activate it, test it, and debug any issues."
+  },
+  "R21": {
+   "file": "feedback_commits.md",
+   "rule": "After retranslating a file, commit only once it is working or once debugging is exhausted and the blocker needs to be documented."
+  },
+  "R22": {
+   "file": "feedback_extern_c_abi.md",
+   "rule": "When writing hand-written extern blocks for Windows kernel NTAPI functions, declare them with `extern \"system\"`, not `extern \"C\"`."
+  },
+  "R23": {
+   "file": "feedback_extern_c_abi.md",
+   "rule": "Declare only true C-runtime functions (such as sprintf, wcslen, memset) as `extern \"C\"`."
+  },
+  "R24": {
+   "file": "feedback_extern_c_abi.md",
+   "rule": "For NTAPI RTL string functions (such as RtlInitAnsiString, RtlAnsiStringToUnicodeString), use a shim or declare them with `extern \"system\"`, not `extern \"C\"`."
+  },
+  "R25": {
+   "file": "feedback_extern_c_abi.md",
+   "rule": "When enabling Rust modules on i386, audit all `extern \"C\"` blocks first by grepping for `extern \"C\"` and verifying each function's calling convention."
+  },
+  "R26": {
+   "file": "feedback_extern_c_abi.md",
+   "rule": "When unsure about a kernel function's calling convention, use the bindgen-generated imports from `ntkrnl_sys::ddk::`."
+  },
+  "R27": {
+   "file": "feedback_flexible_array.md",
+   "rule": "Never index a bindgen-generated flexible array member directly (e.g., `array[i]`) in Rust; access its elements via pointer arithmetic instead."
+  },
+  "R28": {
+   "file": "feedback_flexible_array.md",
+   "rule": "When reading elements of a bindgen flexible array, use pointer arithmetic (e.g., `core::ptr::addr_of_mut!((*ptr).field[0]).add(i)` to get the slot, then `*slot` to read) rather than indexing."
+  },
+  "R29": {
+   "file": "feedback_flexible_array.md",
+   "rule": "Alternatively, when accessing a bindgen flexible array element, use the `.as_ptr().add(i)` pattern rather than direct indexing."
+  },
+  "R30": {
+   "file": "feedback_flexible_array.md",
+   "rule": "When reviewing Rust kernel translations, search for array indexing on bindgen types (e.g., `Objects[`) and verify whether the underlying C struct has a flexible array member."
+  },
+  "R31": {
+   "file": "feedback_inline_never.md",
+   "rule": "Do not remove the `#[inline(never)]` annotations from functions in shim_exports.rs."
+  },
+  "R32": {
+   "file": "feedback_inline_never.md",
+   "rule": "Keep both `#[inline(never)]` and the guards/write_volatile defenses in shim_exports.rs; do not treat either as optional when the other is present."
+  },
+  "R33": {
+   "file": "feedback_llvm_workarounds.md",
+   "rule": "When fighting LLVM optimization on i386, do not use inline asm, read_volatile, or black_box as workarounds; go straight to structural fixes."
+  },
+  "R34": {
+   "file": "feedback_llvm_workarounds.md",
+   "rule": "For output-pointer functions on i386, prefer a C shim returning ULONG_PTR over a C shim returning PVOID, and prefer a C shim returning PVOID over inline asm."
+  },
+  "R35": {
+   "file": "feedback_llvm_workarounds.md",
+   "rule": "For large functions with multiple call sites that trigger the optimizer, split them into `#[inline(never)]` helpers."
+  },
+  "R36": {
+   "file": "feedback_llvm_workarounds.md",
+   "rule": "On i386, for the captures(none) cross-CGU issue, use integer return plus provenance reconstruction when a C shim alone is not sufficient."
+  },
+  "R37": {
+   "file": "feedback_llvm_workarounds.md",
+   "rule": "When diagnosing LLVM optimization problems, emit LLVM IR (`--emit=llvm-ir`), search for `unreachable` after the suspect call, and trace back to the bad assumption."
+  },
+  "R38": {
+   "file": "feedback_no_auto_commit.md",
+   "rule": "Do not create git commits without first asking the user for permission."
+  },
+  "R39": {
+   "file": "feedback_no_auto_commit.md",
+   "rule": "After completing work, stage the changes and describe what would be committed, then ask the user \"shall I commit?\" before running git commit."
+  },
+  "R40": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "Never use git checkout --, git restore, or delete files to discard uncommitted work."
+  },
+  "R41": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "Always use git stash to preserve uncommitted changes before discarding or temporarily reverting them."
+  },
+  "R42": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "When bisecting regressions or temporarily reverting changes, use git stash save \"description\" to preserve all uncommitted work first."
+  },
+  "R43": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "When bisecting regressions or temporarily reverting changes, use git stash push -m \"description\" -- file1 file2 to stash specific files."
+  },
+  "R44": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "Never use git checkout -- file or git restore file on work that was expensive to produce, such as LLM translations or subagent output."
+  },
+  "R45": {
+   "file": "feedback_no_blind_revert.md",
+   "rule": "After bisecting, use git stash pop or git stash apply to restore stashed changes."
+  },
+  "R46": {
+   "file": "feedback_verify_abi.md",
+   "rule": "After any translation, run tools/rustconv/rustconv/verify_abi.py to catch ABI bugs before they cause i386 ud2 crashes."
+  },
+  "R47": {
+   "file": "feedback_verify_abi.md",
+   "rule": "Add verify_abi.py to the rustconv post-integration checklist alongside verify_constants.py."
+  },
+  "R48": {
+   "file": "feedback_verify_abi.md",
+   "rule": "When verify_abi.py reports a stdcall mismatch, fix it by changing the function's extern block to extern \"system\"."
+  },
+  "R49": {
+   "file": "feedback_verify_abi.md",
+   "rule": "When verify_abi.py reports a fastcall mismatch, handle it with a C shim, because Rust has no stable extern \"fastcall\"."
+  },
+  "R50": {
+   "file": "feedback_volatile_static.md",
+   "rule": "Do not use `Volatile<T>` for `#[no_mangle] pub static` globals that are written to."
+  },
+  "R51": {
+   "file": "feedback_volatile_static.md",
+   "rule": "For `#[no_mangle] pub static` globals that are written to, use `read_volatile`/`write_volatile` on the raw `static mut` pointer instead of `Volatile<T>`."
+  },
+  "R52": {
+   "file": "feedback_volatile_static.md",
+   "rule": "`Volatile<T>` may be used for internal (non-exported) statics, or for statics that are only read."
+  },
+  "R53": {
+   "file": "feedback_volatile_static.md",
+   "rule": "For `#[no_mangle] pub static` globals that are written to, you may use `static mut X: Volatile<KIRQL>` as an alternative."
+  },
+  "R54": {
+   "file": "gotchas.md",
+   "rule": "Never read .png, .jpg, or .bmp image files with the Read tool during long debugging sessions."
+  },
+  "R55": {
+   "file": "gotchas.md",
+   "rule": "To check an image's metadata, run `file <path>` or `identify <path>` instead of reading the raw image file."
+  },
+  "R56": {
+   "file": "gotchas.md",
+   "rule": "If you must inspect a screenshot, delegate the inspection to a subagent so the image stays out of the main context."
+  },
+  "R57": {
+   "file": "io_subsystem_status.md",
+   "rule": "When arcname.rs (providing IopReassignSystemRoot/IopVerifyDiskSignature) is used alongside arcname.c (providing IopCreateArcNames), guard the overlapping code with `#define ARCNAME_RUST_REASSIGN` and `#ifndef` guards."
+  },
+  "R58": {
+   "file": "io_translation_status.md",
+   "rule": "Before starting any IO subsystem translation work, check the IO translation status file."
+  },
+  "R59": {
+   "file": "io_translation_status.md",
+   "rule": "After making changes to IO subsystem translation work, update the IO translation status file."
+  },
+  "R60": {
+   "file": "io_translation_status.md",
+   "rule": "When translating code to Rust, inline the C macro InitializeObjectAttributes rather than declaring it as an extern function."
+  },
+  "R61": {
+   "file": "io_translation_status.md",
+   "rule": "When sprintf/printf format strings are used in Rust byte arrays, include an explicit null terminator in each format string."
+  },
+  "R62": {
+   "file": "io_translation_status.md",
+   "rule": "When LLVM cross-CGU captures(none) eliminates output pointer writes, use C shims instead of relying on the Rust code path."
+  },
+  "R63": {
+   "file": "pool.md",
+   "rule": "Never combine `#[link_name = \"@Name@N\"]` with `extern \"fastcall\"`, because fastcall already adds its own decoration and the result is double-decorated."
+  },
+  "R64": {
+   "file": "pool.md",
+   "rule": "When declaring a fastcall function in Rust, use the actual function name directly in the `extern \"fastcall\"` block instead of a `#[link_name]` attribute."
+  },
+  "R65": {
+   "file": "pool.md",
+   "rule": "Export MiDumpPoolConsumers from Rust with `extern \"C\"`, not `extern \"system\"`, because the C declaration has no NTAPI and so uses cdecl."
+  },
+  "R66": {
+   "file": "ramdisk-debugging.md",
+   "rule": "When investigating a suspected bugcheck path on ARM64, add UART traces before that path runs."
+  },
+  "R67": {
+   "file": "ramdisk-debugging.md",
+   "rule": "For critical ARM64 traces, use direct PL011 MMIO writes to 0x09000000 so the output bypasses DbgPrint and BRK and is always visible."
+  },
+  "R68": {
+   "file": "ramdisk-debugging.md",
+   "rule": "Keep GT_TRACE always enabled in ARM64 QEMU builds."
+  },
+  "R69": {
+   "file": "ramdisk-debugging.md",
+   "rule": "When code allocates kernel virtual addresses dynamically on ARM64, ensure the PDE hierarchy exists for those addresses."
+  },
+  "R70": {
+   "file": "ramdisk-debugging.md",
+   "rule": "To synchronize QEMU's TCG JIT cache, use device-memory MMIO writes rather than standard barriers."
+  },
+  "R71": {
+   "file": "rustconv.md",
+   "rule": "Never use a `ddk::*` glob import when translating C to Rust, because it conflicts with `base::*`."
+  },
+  "R72": {
+   "file": "rustconv.md",
+   "rule": "Import only specific items from `ddk` instead of using glob imports."
+  },
+  "R73": {
+   "file": "rustconv.md",
+   "rule": "Declare callback functions with `extern \"system\"` when translating C to Rust."
+  },
+  "R74": {
+   "file": "rustconv.md",
+   "rule": "Cast the result of `PsGetCurrentProcess()` to `*mut _EPROCESS` before accessing its fields."
+  },
+  "R75": {
+   "file": "rustconv.md",
+   "rule": "Wrap function pointer values in `Some()` when assigning to `Option<unsafe extern fn>` fields."
+  },
+  "R76": {
+   "file": "rustconv.md",
+   "rule": "Use `core::ptr::addr_of_mut!()` to create raw pointers to struct fields."
+  },
+  "R77": {
+   "file": "rustconv.md",
+   "rule": "For LONG_PTR fields, use `InterlockedIncrementSizeT` and `InterlockedDecrementSizeT` for atomic increment and decrement."
+  },
+  "R78": {
+   "file": "rustconv.md",
+   "rule": "Restrict the post-processor (postprocess.py) to safe transforms only."
+  },
+  "R79": {
+   "file": "rustconv.md",
+   "rule": "Do not perform union field access transforms in the post-processor."
+  },
+  "R80": {
+   "file": "smoke-tests.md",
+   "rule": "Be skeptical of reports that smoke tests pass: a pass only means the weakened markers were hit, not that the desktop was reached."
+  },
+  "R81": {
+   "file": "smoke-tests.md",
+   "rule": "When using the Unix socket serial client, listen on the socket before starting QEMU (server-socket pattern)."
+  },
+  "R82": {
+   "file": "smoke-tests.md",
+   "rule": "For the i386 scratch qcow2 disk used for savevm/loadvm, configure it with `if=none` and no device to avoid the FreeLDR crash on an unpartitioned disk."
+  }
+ }
+}

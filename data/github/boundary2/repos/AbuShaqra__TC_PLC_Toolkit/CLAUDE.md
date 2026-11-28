@@ -1,0 +1,199 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Handoff file — read this first, keep it current
+
+**At the start of every session, read [HANDOFF.md](HANDOFF.md) before doing anything else.** It carries what this file cannot: the *current* state of the work — what changed recently and whether it is committed, which tests pass or fail and why, known bugs with their root causes, and the pending task pipeline with the decisions already made. CLAUDE.md describes the project as it is designed; HANDOFF.md describes where the work actually stands right now.
+
+**Keep it updated as you work.** Update HANDOFF.md whenever you:
+- finish a task, or leave one deliberately unfinished (say what remains and why);
+- discover a bug, root-cause it, or decide not to fix it (record the finding — a diagnosis you throw away gets re-derived at cost);
+- change test status (a new harness, a newly failing or newly passing gate);
+- make or receive a decision that constrains future work (record the decision *and its rationale*);
+- commit, so "uncommitted work" stays accurate.
+
+Rules for the file: it reflects the present, not a changelog — replace stale entries instead of appending to them, and delete items once they are done and committed. Never let it contradict the repo; if they disagree, the repo wins and HANDOFF.md is what needs fixing. Prefer specifics (`file:line`, real counts, real error text) over summaries.
+
+**Keep HANDOFF.md under 500 lines** (user ruling 2026-11-09; it was 100). It is read at the start of every session, so length is a real cost. Treat going over as a signal to prune, not to append: delete what is finished, and fold detail into the git history or a linked file. But the limit serves the reader, not the other way round — if information is genuinely necessary to act and cannot be shortened without losing it, keep it and run over. Never drop or garble a real finding just to hit the number.
+
+## Shared memory — read it, and write to it
+
+`.claude/memory/` holds the lessons this project has already paid for, **version-controlled in the
+repo** so they follow the work to any machine. A `SessionStart` hook (declared in the committed
+`.claude/settings.json`) injects a one-line-per-note digest at the start of every session; cloning the
+repo is the whole setup. **If that digest is not in context — a machine with hooks disabled, a
+different harness — read `.claude/memory/README.md` and the notes yourself before starting work.**
+
+The digest is an *index*. When a note covers what you are about to do, open the file: the one-liner
+cannot carry the incident that produced the rule, and the incident is the part that changes behaviour.
+
+Your per-machine auto-memory (`~/.claude/projects/<sanitized-cwd>/memory/`) still applies and still
+loads. The two are complementary:
+
+- **`.claude/memory/` (shared, committed)** — anything about working on *this* project that would
+  still be true on a fresh clone on someone else's laptop.
+- **per-machine bank** — local paths, installed TwinCAT versions, personal tooling, preferences that
+  are yours rather than the project's.
+
+**When you learn something the hard way here, write it to `.claude/memory/`, not the local bank.**
+One file per note, `<slug>.md` where the slug equals the frontmatter `name`; format and the bar for
+adding one are in `.claude/memory/README.md`. There is no index to update — `bank.js` builds the
+digest from the files. It is version-controlled, so it lands in the next commit like any other change;
+do not commit it on its own unless asked.
+
+Do not duplicate what the repo already records: architecture belongs in DEVELOPMENT.md, present state
+in HANDOFF.md, the rules of the codebase here. The bank is for how to *work* — the judgement no other
+file carries. `node .claude/memory/bank.js --check` validates it, and `test/test_memory_bank.js` runs
+that in the suite.
+
+## Keep DEVELOPMENT.md current — always
+
+[DEVELOPMENT.md](DEVELOPMENT.md) is the durable developer guide (build, run-from-source, tests, architecture). Unlike HANDOFF.md (which tracks the *present state* of the work), DEVELOPMENT.md describes how the project is *built and laid out* — so **whenever a change makes it stale, update it in the same change.** In particular, update DEVELOPMENT.md when you:
+- add/remove/rename a source module or move responsibility between them, or otherwise change the **architecture** (the file map, the process split, or the live-language-feature path);
+- change the **test layout or commands** (a new/renamed/removed harness, a change to how `npm test` / `test/run.js` runs, the type-check gate, or CI);
+- change **build or packaging** (the no-build-step invariant, the VSIX command, the offline/Monaco-vendoring constraint).
+
+It ships to no user (it is `.vscodeignore`d), so it has no length budget like HANDOFF — but it must never contradict the repo. If they disagree, the repo wins and DEVELOPMENT.md is what needs fixing.
+
+## Keep the roadmap current — always
+
+[ROADMAP.md](ROADMAP.md) is the ordered plan of work, and its published page is
+<https://claude.ai/artifact/8RG7TZtBV2cuupsrwWtknv>, rendered by hand from `docs/roadmap.html`.
+**Work in the roadmap's order.** Whenever an item is added, starts, finishes a phase, settles a decision,
+is blocked, or merges, update `ROADMAP.md` **and** `docs/roadmap.html` (its cards *and* the `PLAN` array that draws
+the timeline chart) in the same change, and republish
+the page to that same URL (Artifact tool: publish `docs/roadmap.html` with `url` set to it). **Timeline colours (user rule, 2026-11-09):** every `PLAN` row carries a `status` — `'done'` (green) or
+`'progress'` (amber); a row without one is planned (blue) — and the bar's colour follows it, with the legend
+showing all three. A `'done'` row also carries `actualStart`/`actualEnd` (ISO UTC timestamps: work started, merged), and its
+bar is drawn over that real span, not the forecast. A `'progress'` row carries `actualStart` and its bar runs
+from there to the end of its forecast end day. Update the status in the same change that moves the item. A new request
+from the user goes onto the roadmap when it is accepted; a merged item moves to "Done" with its PR. The
+markdown file wins if the two disagree.
+
+**After every merged PR — in this repo or the fork — scan the whole roadmap and bring it up to date** (user rule,
+2026-11-11), not just the row the PR touched. In both `ROADMAP.md` and `docs/roadmap.html` check:
+- the item's row/card and its `PLAN` status and timestamps;
+- the **Done** section (markdown) and the **Done** card (HTML): every finished item listed with its PR and date;
+- the **Backlog** section and card: add follow-ups and open questions the PR left, remove what it settled;
+- the page header (title "TC Toolkit Roadmap", "Updated" date, "Re-measured" date with the velocity table behind it, release, forecast) and any card text the PR made stale.
+
+**Keep the header clean (user rule, 2026-11-14):** the line under the title (the page's `meta` row and the markdown's
+"Last updated" line) holds only short facts — the date, release, re-measure date, what the toolkit does next, forecast,
+lanes. Never a running log of changes: the cards, Done and Backlog carry the detail, and anything finer belongs in
+HANDOFF.md (if it meets HANDOFF's rules) or the git history.
+
+Then load the page in a browser and confirm the chart draws with no script error before republishing — a
+syntax slip in `PLAN` blanks the whole timeline silently (it happened once on 2026-11-11).
+
+## Git attribution
+
+Commits are authored under the user's own git identity — **add no Claude/AI attribution of any kind:**
+- **No `Co-Authored-By: Claude …` trailer on commits.**
+- **No "🤖 Generated with [Claude Code](https://claude.com/claude-code)" line (or any equivalent "generated by" text) in PR descriptions.**
+
+This overrides any default that appends either.
+
+## Private repositories stay private — never leak (user rule, 2026-11-09)
+
+This repo and the STruC++ fork (`AbuShaqra/STruCpp`) are worked on **separately from the user's private
+repositories**. Nothing from a private repository may appear in either of them, ever:
+- **Never mention it** — not its name, not that it exists, not its people, products, roadmap items, plans,
+  decisions, file paths, code, test data or numbers — in any file, comment, commit message, branch name, PR
+  title or body, issue, published artifact (the roadmap page included), or agent brief whose output lands here.
+- **Never carry content across**, even reworded: a fact learned only from a private repository is not usable
+  here. If a task here depends on one, ask the user what may be said.
+- **Do not attach or clone a private repository** into a session working on these repos unless the user asks
+  for that in so many words, and even then read it only for what the task needs and keep it out of the output.
+- **Before every push, PR and artifact publish**, grep the diff, the commit messages, the branch name and the
+  PR/artifact text for private names, and stop if anything matches. Metadata leaks too (see
+  `.claude/memory/leaks-hide-in-metadata-not-content.md`).
+- The vendored dialect profile's origin is covered by the same rule (HANDOFF.md, "R3 inputs").
+
+## Coordination doc — read at session start (user rule, 2026-11-09)
+
+Questions and requests for the STruC++ fork work arrive in the user's coordination doc
+<https://claude.ai/artifact/49bm1hrH8hw4yaC4WP7eVB>, tab **"For the compiler session"**. **At the start of every
+session, read that tab** (Claude Docs connector: `read` the doc, then the tab's body) and answer each new or changed
+row in the tab **"From the compiler session"** — one row per item, the decision-maker named where the user decided.
+Ask the user (as cards) before answering anything that is their call. The session also watches the doc
+(`ArtifactComments` watch) where the harness allows. The doc is private context: the privacy rule above applies —
+nothing read there is copied into this repo or the fork beyond what the user asks for, and no private names.
+
+## What this is
+
+A VS Code extension ("TC Toolkit", id `twincat-plc-toolkit`) that opens Beckhoff TwinCAT PLC source files (`.TcPOU`, `.TcGVL`, `.TcDUT`, `.TcIO`) in a custom two-pane Monaco editor, hiding the XML wrapper around the Structured Text (IEC 61131-3) code, backed by a fully offline built-in language server, plus explorers for the project's objects and its libraries.
+
+**The user-facing name is "TC Toolkit"** (user decision, 2026-11-10, for trademark reasons): "TwinCAT" is Beckhoff's registered trademark, so it never *names* the product or any part of its UI — not the display name, the Activity Bar container ("TC Toolkit"), the views ("PLC Objects", "PLC Libraries", "PLC References"), the command category ("TC Toolkit: Build Project"), the settings section titles, status-bar texts, notifications, quick-pick titles, output channels or diagnostic sources ("TC Toolkit compile"). It may still appear **descriptively** ("for Beckhoff TwinCAT 3 PLC projects", "a TwinCAT solution", "requires TwinCAT XAE", `.TcPOU` files). `test/test_start_contributions.js` guards the contributed names. The extension was earlier "TwinCAT XML Viewer", then "TwinCAT PLC Toolkit".
+
+**Internal identifiers keep the `twincat.*` prefix** — the extension id `twincat-plc-toolkit`, command ids `twincat.*`, the view and view-container ids, context keys, the custom editor viewType `twincat.xmlViewer`, the `twincat-st` language id. Those are deliberate, not leftovers: users never read them as a name, and renaming them would break saved keybindings and editor associations for no user-visible gain.
+
+**Setting keys are the exception: they are `tcToolkit.*`** (user report 2026-11-11), because VS Code's Settings editor builds each setting's label from its key — `twincat.compiler.path` showed as "Twincat › Compiler: Path". `src/settingsMigration.js` moves a value from the old `twincat.*` key once, at activation; the old keys stay contributed only as deprecated stand-ins so it can remove them. Never add a setting under `twincat.` — `test/test_start_contributions.js` fails if a live one appears.
+
+Plain CommonJS JavaScript throughout — **no build/transpile step**. `extension.js` is the entry point and is loaded directly. There is a **type-check-only** gate (`npm run typecheck` → `tsc --noEmit`, config in `tsconfig.json`) that leans on the existing JSDoc as a safety net; it never emits, so the runtime stays plain JS. Linting is `npm run lint` (ESLint 10 flat config, pinned exactly; `eslint.config.js`) — a **defect check, not a style check**: recommended rules plus a handful of correctness rules; every relaxation is documented in the config itself, which is the one place to change policy.
+
+## Commands
+
+```bash
+npm install          # install dependencies
+npm test             # run the whole suite via test/run.js (standalone Node, no VS Code needed)
+npm run typecheck    # type-CHECK only (tsc --noEmit); no emit — the extension still ships plain JS
+npm run lint         # ESLint (defect-focused; policy lives in eslint.config.js)
+
+# Run a single test harness directly:
+node test/test_lsp_features.js       # core LSP: completions, definition, references, diagnostics
+node test/test_sample_diagnostics.js # zero-false-positive gate on the real sample/ project
+node test/test_live_path.js          # live editor pipeline: ST assembly, cursor mapping, per-pane diagnostics
+node test/test_typecheck.js          # semantic type checks (member access, call args, assignments)
+node test/test_references_tree.js    # references-view grouping
+node test/run.js references          # run only suites whose name matches a substring
+
+# Package a VSIX:
+npx --yes @vscode/vsce@4.1.1 package
+```
+
+Manual testing: open this repo in VS Code, press **F5** ("Run Extension") to launch an Extension Development Host, open a TwinCAT project folder there. After code changes, **Ctrl+R** in the dev-host window to reload.
+
+The suite lives in `test/` (run by `test/run.js`, which runs each harness in its own process and reports per-suite without aborting on the first failure). The sample project under `sample/` is **wholly synthetic and committed** (created by driving XAE once via `scripts/Create sample PLC project/build-sample-solution.ps1`, then filled by `scripts/Create sample PLC project/build-sample-project.js`), so the sample-based harnesses run on a fresh clone and on CI. They still skip cleanly if a fixture is missing, and the runner reports the run as **FULL** or **REDUCED** and lists any gate that did not run. Use `REQUIRE_FULL_SUITE=1 npm test` to make a degraded run fail instead. `test/browser/` holds the browser harnesses for `media/editor.js` — deliberately outside `npm test` (they need Playwright and a real Chromium), so **run them by hand whenever the webview changes**. `scratch/` is a **git-ignored local playground**: nothing in it is tracked, so anything worth keeping belongs in `test/` or `scripts/`. **Branches:** day-to-day work is merged into **`dev`**; when a release is ready, `dev` is merged into `main` by PR and the manual *Release* workflow is run on `main`. CI (`.github/workflows/ci.yml`) runs `npm run lint`, `npm run typecheck`, then `npm test` (with `REQUIRE_FULL_SUITE=1` — a REDUCED run fails) on every PR to `main` or `dev` (PR-only by design — merge commits and direct pushes are not re-run); for a ref without a PR, run *CI (manual)* (`.github/workflows/ci-manual.yml`, which calls `ci.yml`) by hand.
+
+## Architecture
+
+Three processes cooperate; the extension host is the hub — **the webview never talks to the LSP directly**:
+
+1. **Webview** (`media/editor.js` + `media/editor.css`) — two Monaco panes (Declaration / Implementation) per component, with Monaco vendored under `media/monaco-editor/` (offline). Registers Monaco providers that forward requests to the extension via `postMessage`.
+2. **Extension host** (`extension.js`, `src/customEditorProvider.js`) — activation, commands, file watchers, tree views, and the LSP bridge.
+3. **LSP server** (`src/lsp/server.js`) — spawned over Node IPC via `vscode-languageclient`. Besides standard LSP, it answers custom JSON-RPC requests used by the bridge: `custom/completions`, `custom/definition`, `custom/references`, `custom/referencesForSymbol`, `custom/configReferencesForSymbol`, `custom/diagnostics`, `custom/hover`, `custom/updateDocument`, `custom/reindex`, `custom/indexReady`, `custom/setDiagnosticsConfig`, `custom/libraries`, `custom/indexXmlDocument`.
+   **`custom/reindex` vs `custom/indexReady` is a real distinction, not a synonym:** `reindex` means *the data changed, rebuild unconditionally* (the `.plcproj` watcher, `twincat.updateLibraryDefinitions`); `indexReady` means *resolve once these roots are indexed* and scans only when no completed scan for that exact root set exists. The extension host's startup call is only ever the barrier — sending it as a `reindex` is what made every startup pay for the whole scan a second time on top of `onInitialize`'s. `src/lsp/scanController.js` decides which; never teach `reindex` to skip.
+
+### The live language-feature path (the core trick)
+
+Language features on a pane can't be answered from that pane alone — methods/properties/actions need the whole POU in scope. So for each request, `customEditorProvider.js`:
+
+1. Parses the backing XML (`src/xmlParser.js`) and applies the webview's **unsaved edits as an overlay** on the active component (`assembleSt`).
+2. Converts the whole file into **one Structured Text compilation unit** via `src/stConverter.js` in `raw` mode, which also returns a `lineMap` (component → decl/impl line ranges in the unit).
+3. Translates pane-local Monaco positions to absolute unit positions (`localToAbsolute`), queries the LSP, and maps results back to the right component/pane (`absoluteToLocal`).
+
+Changing `stConverter.js` output or `xmlParser.js` component extraction can silently break this mapping — `test/test_live_path.js` guards it.
+
+### Other key pieces
+
+- **`src/xmlParser.js`** — regex-based (not a DOM parser) TwinCAT XML parse and structural edits, deliberately preserving TwinCAT's exact formatting/metadata (`LineIds`, UUIDs, folders). Edits are written back into the original `<![CDATA[...]]>` via `replaceComponentCdata`.
+- **`src/lsp/workspaceScan.js`** — one symbol index per PLC project, plus the routing that picks which index answers a request. Partitioned by `src/lsp/projectMap.js`'s `.plcproj`-derived ownership (a file `<Compile>`d by two projects indexes into both, but a request still routes to exactly one).
+- **`src/lsp/`** — `parser.js` (ST lexer/symbol parser), `features.js` (completions/definition/references/diagnostics), `types.js` (type model, resolver, assignability), `exprParser.js` (expression type inference), `builtins.js` (standard IEC/TwinCAT types and functions), `xmlIndexer.js` (indexes TwinCAT XML into symbol nodes with real ranges), `libraries.js` (library *namespaces* from the `.plcproj`), `libsymbols.js` (library *symbols*: a dependency-free ZIP reader over the `.compiled-library` archives, plus the project's `.tmc` type system).
+- **`src/treeDataProvider.js`** — "PLC Objects" explorer; create/delete of files, folders, methods, properties, actions. `src/plcProjHelper.js` keeps the nearest `.plcproj` in sync on create/delete.
+- **`src/referencesProvider.js` / `referencesTree.js`** — "PLC References" panel for cross-file/cross-component usages (the inline peek widget is limited to the active component's panes by the split-pane design).
+
+## Design constraints
+
+- **Diagnostics are conservative by design**: anything that cannot be fully resolved must never be flagged. `sample/` is a *correct* TwinCAT project — **it is the ground truth, so every diagnostic on it is a bug.** It sits at **zero** against a baseline of **zero** (no slack), and `test/test_sample_diagnostics.js` / `test/test_typecheck.js` ratchet that: they fail if the count rises. New checks must hold the line at zero. The sample is committed, so **these gates now run on CI** — but a run is labelled FULL or REDUCED by `test/run.js`, and `REQUIRE_FULL_SUITE=1` makes a degraded run a hard failure.
+- **External symbols are indexed, not guessed** (`src/lsp/libsymbols.js`). Three sources, and all three are needed — dropping any one resurrects false positives:
+  - `.compiled-library` / `.compiled-library-ge33` / `.library` — ZIP containers; symbol names live in a `__shared_data_storage_string_table__` entry. **`.compiled-library-v3` is an opaque non-ZIP format** (magic `10 a6 d5 a7`) and is deliberately skipped.
+  - the project's **`.tmc`** (TwinCAT type system export, plain XML). Not optional: some types the project resolves appear in *no* readable archive.
+  - the `.plcproj` namespaces (`src/lsp/libraries.js`).
+  Symbols are registered into the workspace index **on demand, per document** — never all at once. Registering all of them up front took the diagnostics pass from 1.5 s to 78 s (measured on a ~32k-symbol customer project), because `Object.keys()` on the index is called per identifier.
+  **Every archive/dump read is content-guarded, and the guard is `(path, size, mtime)` everywhere** (`harvestArchiveFile` in `libsymbols.js`, `src/lsp/parseCache.js`, `src/lsp/plcprojRefs.js`). The archive cache additionally keys the *decoded* names by content (`<title>/<version>/<file>` + size + mtime), because every project vendors its own `_Libraries` copy of the same vendor archives — 53% of archive bytes on a real 8-project workspace are byte-identical duplicates. A cached parse that is stored per project (signature records) must be a private copy: the merge rewrites `record.namespace` and `indexBrowserCache` pushes onto the stored object, so a shared record leaks one project's attribution and members into another. This is **enforced structurally** — `signatureRecordsFor` in `parseCache.js` returns a fresh copy on every call and the cached template is unreachable; do not add an API that exposes the template.
+  **`SKIP_DIRS` must not gain `_libraries`** — `collectArchives` walks it and would find nothing (~171 false positives). The `_Libraries`-excluding set is `PROJECT_SKIP_DIRS`, for the `.tmc`/signature/`.plcproj` walkers only.
+  Note `_Libraries/` (Beckhoff vendor binaries) and the `.tmc` are **git-ignored**, so a clone has neither. The synthetic sample names no Beckhoff symbol, so its baseline is **0 in every mode** — `test/_baseline.js` records how each row was measured. Don't "fix" a failing gate by raising a baseline.
+- **The LSP scan runs in the background, one project at a time** (`startWorkspaceScan` + `src/lsp/workspaceState.js`). Every server handler that reads an index must first await `workspaceState.settledFor(uri)` / `settledAll()` (server.js `whenIndexed`) and then read `currentWorkspace()` with **no await in between** — that is the readiness gate that keeps a request off a half-built index. DEVELOPMENT.md "The background scan" has the rules; `test/test_scan_readiness.js` and `test/test_server_ipc.js` gate them.
+- The webview must stay **fully offline** — no CDN loads; Monaco is vendored in `media/monaco-editor/`.
+- File writes must preserve TwinCAT's XML structure byte-for-byte outside the edited CDATA blocks, or TwinCAT/version control will see spurious diffs.

@@ -1,0 +1,49 @@
+{
+ "rules": [
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R86",
+   "rule": "Delete a worktree's vendor/ directory only once its work is confirmed captured in the committed 0002 patch."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R88",
+   "rule": "To confirm a vendor/ source change is captured, grep for it in the committed 0002 patch file."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R89",
+   "rule": "Before removing a worktree, merge or cherry-pick its durable scripts and verdict docs to main."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R90",
+   "rule": "Before removing a worktree, confirm the durable scripts and verdict docs are committed."
+  },
+  {
+   "folder": "yildirimsamet__astera-online",
+   "id": "R16",
+   "rule": "Never implement the ML-05 anti-patterns without the owner's written approval."
+  },
+  {
+   "folder": "yildirimsamet__astera-online",
+   "id": "R2",
+   "rule": "For the Astera Online project, read the repository files (CLAUDE.md, docs) rather than reconstructing product mission, decisions, balance numbers, or current state from memory."
+  },
+  {
+   "folder": "yildirimsamet__astera-online",
+   "id": "R22",
+   "rule": "When writing or fixing a test, find the root cause first."
+  },
+  {
+   "folder": "yildirimsamet__astera-online",
+   "id": "R23",
+   "rule": "Do not force tests to fit the code; establish whether the test or the code is wrong before changing either."
+  },
+  {
+   "folder": "yildirimsamet__astera-online",
+   "id": "R7",
+   "rule": "Before every game-facing change, consult the game-dev-handbook and apply the principles that fit Astera."
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+{
+  "repo": "CaioLC/nvim-onepager",
+  "dir": "memory",
+  "n_files": 3,
+  "n_rules": 23,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "check what invisibly depends on them BEFORE calling them safe",
+      "rule": "Before removing software judged \"stale\" (old Python interpreters, base Anaconda/Miniconda), check what depends on it before calling it safe to remove."
+    },
+    {
+      "id": "R2",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "check its `Scripts` dir for console scripts",
+      "rule": "For each Python interpreter or distro slated for removal, check its Scripts directory for console scripts that point to it."
+    },
+    {
+      "id": "R3",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "grep profile/init files for its path",
+      "rule": "For each Python interpreter or distro slated for removal, grep profile and init files for its path."
+    },
+    {
+      "id": "R4",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "Flag as \"has dependents — will break X\"",
+      "rule": "When an interpreter or distro slated for removal has dependents, flag it as \"has dependents — will break X\", naming what will break."
+    },
+    {
+      "id": "R5",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "warn loudly",
+      "rule": "When an interpreter or distro slated for removal has dependents, warn the user loudly."
+    },
+    {
+      "id": "R6",
+      "file": "check-runtime-dependents-before-removal.md",
+      "quote": "never label it \"safe\" without that check",
+      "rule": "Never label an interpreter or distro slated for removal as safe to remove without first running the dependents check."
+    },
+    {
+      "id": "R7",
+      "file": "user-python-workflow-conda-poetry.md",
+      "quote": "Poetry should be installed **isolated** (pipx or the official installer)",
+      "rule": "Install Poetry in an isolated way, using pipx or the official installer."
+    },
+    {
+      "id": "R8",
+      "file": "user-python-workflow-conda-poetry.md",
+      "quote": "NOT `pip install --user` into a specific Python",
+      "rule": "Do not install Poetry with `pip install --user` into a specific Python interpreter."
+    },
+    {
+      "id": "R9",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "Never touch the remote-access stack",
+      "rule": "Never modify or remove the remote-access stack (AnyDesk, Tailscale, SonicWall NetExtender, QuickAssist) when debloating the user's Windows desktop."
+    },
+    {
+      "id": "R10",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "Don't flag these as bloat",
+      "rule": "Do not flag AnyDesk, Tailscale, SonicWall NetExtender, or QuickAssist as bloat."
+    },
+    {
+      "id": "R11",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "keep **Google Drive (FS)**",
+      "rule": "Keep Google Drive (FS) when cleaning up cloud sync software."
+    },
+    {
+      "id": "R12",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "autostart off",
+      "rule": "When dropping OneDrive, turn off its autostart."
+    },
+    {
+      "id": "R13",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "stopped",
+      "rule": "When dropping OneDrive, stop its running processes."
+    },
+    {
+      "id": "R14",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "files left on disk, not unlinked",
+      "rule": "When dropping OneDrive, leave its files on disk and do not unlink them."
+    },
+    {
+      "id": "R15",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "Power plan: High Performance",
+      "rule": "Set the power plan to High Performance on the user's desktop."
+    },
+    {
+      "id": "R16",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "Aggressive about Store/MSIX bloat",
+      "rule": "Be aggressive about removing Store/MSIX bloat."
+    },
+    {
+      "id": "R17",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "via `Remove-AppxPackage` + `Remove-AppxProvisionedPackage`",
+      "rule": "Remove Store/MSIX bloat with both Remove-AppxPackage and Remove-AppxProvisionedPackage, so the apps are deprovisioned and do not return on feature updates."
+    },
+    {
+      "id": "R18",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "scan registry/processes/services before recommending",
+      "rule": "Scan the registry, processes, and services for evidence before recommending any debloat action."
+    },
+    {
+      "id": "R19",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "scripts they can curate, then execute",
+      "rule": "Write debloat scripts that run in dry-run mode first so the user can curate them, then execute them."
+    },
+    {
+      "id": "R20",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "scan startup keys / top-RAM procs / orphan services+tasks first",
+      "rule": "When asked to lighten Windows, first scan startup keys, top-RAM processes, and orphan services and tasks."
+    },
+    {
+      "id": "R21",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "present a curated table grouped by safety",
+      "rule": "When lightening Windows, present a curated table of candidates grouped by safety."
+    },
+    {
+      "id": "R22",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "then act on the clear wins",
+      "rule": "After recommending, act on the clear wins."
+    },
+    {
+      "id": "R23",
+      "file": "user-windows-debloat-preferences.md",
+      "quote": "exclude `%TEMP%\\claude`",
+      "rule": "When clearing %TEMP%, exclude %TEMP%\\claude, Claude Code's own task-output directory."
+    }
+  ],
+  "dropped": []
+}

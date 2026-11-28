@@ -1,0 +1,262 @@
+{
+  "repo": "melodydashora/Vecto-Pilot",
+  "dir": ".claude/projects/-home-runner-workspace/memory",
+  "n_files": 6,
+  "n_rules": 41,
+  "n_dropped": 1,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_feature_dev_opus_override.md",
+      "quote": "always pass `model: \"opus\"` as an explicit argument",
+      "rule": "When invoking any feature-dev:* subagent (code-architect, code-explorer, code-reviewer) via the Agent tool, always pass model: \"opus\" as an explicit argument."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_feature_dev_opus_override.md",
+      "quote": "Every Agent tool call of the form `Agent(subagent_type: \"feature-dev:<name>\", ...)` must include `model: \"opus\"`.",
+      "rule": "Every Agent tool call with subagent_type \"feature-dev:<name>\" must include model: \"opus\"."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_feature_dev_opus_override.md",
+      "quote": "Does NOT apply to other agents",
+      "rule": "Do not add the model: \"opus\" override to agents other than the three feature-dev agents (project agents and other plugin agents are excluded)."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_feature_dev_opus_override.md",
+      "quote": "If `feature-dev` agents are still `sonnet`, the override is still needed.",
+      "rule": "If the feature-dev agents are still set to sonnet in their frontmatter, keep passing the model: \"opus\" override."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_feature_dev_opus_override.md",
+      "quote": "Mention this to Melody if she leans heavily on the feature-dev skill.",
+      "rule": "If the user relies heavily on the feature-dev skill, tell them that skill-internal dispatches of feature-dev agents will not receive the opus override and will default to sonnet."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_no_soft_failures.md",
+      "quote": "Never say \"these aren't fatal\" about production warnings that mean features are broken.",
+      "rule": "Never dismiss production warnings that mean features are broken as \"non-fatal\"; treat broken features as broken."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_no_soft_failures.md",
+      "quote": "if it's broken, call it broken and fix it.",
+      "rule": "When a feature is broken, call it broken and fix it rather than downplaying it."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_no_soft_failures.md",
+      "quote": "if something will cause a user-facing failure at runtime, escalate it to an error regardless of how the code currently classifies it.",
+      "rule": "When reviewing logs, validation output, or audit findings, escalate anything that will cause a user-facing runtime failure to an error, regardless of how the code currently classifies it."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_no_soft_failures.md",
+      "quote": "Think ahead, trace the consequence chain, and flag the root cause.",
+      "rule": "When reviewing logs, validation output, or audit findings, trace the consequence chain ahead and flag the root cause."
+    },
+    {
+      "id": "R10",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "point to this memory + the two linked ones",
+      "rule": "When someone re-asks whether all agents run Opus 4.7 with effort max, point them to the audit memory and its two linked memories."
+    },
+    {
+      "id": "R11",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "skip the audit",
+      "rule": "When someone re-asks whether all agents run Opus 4.7 with effort max, do not re-run the agent model audit."
+    },
+    {
+      "id": "R12",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "(a) a new plugin is installed",
+      "rule": "Rebuild the agent model/effort audit snapshot when a new plugin is installed."
+    },
+    {
+      "id": "R13",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "(b) `/reload-plugins` runs after a plugin update",
+      "rule": "Rebuild the agent model/effort audit snapshot when /reload-plugins runs after a plugin update."
+    },
+    {
+      "id": "R14",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "(c) a project-level agent is added under `.claude/agents/`",
+      "rule": "Rebuild the agent model/effort audit snapshot when a project-level agent is added under .claude/agents/."
+    },
+    {
+      "id": "R15",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "(d) Melody reports a subagent that feels off-model",
+      "rule": "Rebuild the agent model/effort audit snapshot when the user reports a subagent that feels off-model."
+    },
+    {
+      "id": "R16",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "Deliberately NOT modified: plugin cache files",
+      "rule": "Do not modify plugin cache files to fix agent model configuration."
+    },
+    {
+      "id": "R17",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "`.claude/settings.json` (no relevant knobs)",
+      "rule": "Do not modify .claude/settings.json to fix agent model configuration."
+    },
+    {
+      "id": "R18",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "CLAUDE.md (memory layer is the right home)",
+      "rule": "Do not modify CLAUDE.md to fix agent model configuration; use the memory layer instead."
+    },
+    {
+      "id": "R19",
+      "file": "project_agent_model_audit_2026_04_23.md",
+      "quote": "that's the assumption to revisit first",
+      "rule": "If a subagent's output feels lower-effort than expected, revisit the assumption that session-level /effort max propagates to subagents before anything else."
+    },
+    {
+      "id": "R20",
+      "file": "user_melody.md",
+      "quote": "push back on bad decisions",
+      "rule": "Push back on bad decisions when working as the agent on this project."
+    },
+    {
+      "id": "R21",
+      "file": "user_melody.md",
+      "quote": "think ahead",
+      "rule": "Think ahead about likely consequences and future needs when working on this project."
+    },
+    {
+      "id": "R22",
+      "file": "user_melody.md",
+      "quote": "trace root causes",
+      "rule": "Trace problems to their root causes instead of treating only their symptoms."
+    },
+    {
+      "id": "R23",
+      "file": "user_melody.md",
+      "quote": "never dismiss issues",
+      "rule": "Never dismiss issues raised by the user or discovered during work; address or explicitly flag them."
+    },
+    {
+      "id": "R24",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Only suggest when energy is high.",
+      "rule": "When suggesting high-frequency churn zones (such as Toyota HQ at lunch), only make the suggestion when the driver's energy is high."
+    },
+    {
+      "id": "R25",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Needs reminders not to let empathy pull into unprofitable deadhead traps.",
+      "rule": "Remind the driver not to let empathy for rural passengers pull them into unprofitable deadhead trips."
+    },
+    {
+      "id": "R26",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Changing tabs must NOT clear output",
+      "rule": "Do not clear output when the user changes tabs."
+    },
+    {
+      "id": "R27",
+      "file": "user_melody_driver_ops.md",
+      "quote": "AVOID: Deep Ellum",
+      "rule": "Avoid recommending Deep Ellum."
+    },
+    {
+      "id": "R28",
+      "file": "user_melody_driver_ops.md",
+      "quote": "AVOID: Waco/Oklahoma trips",
+      "rule": "Avoid recommending Waco or Oklahoma trips."
+    },
+    {
+      "id": "R29",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Prefers smooth movement (DNT) over shortest distance to avoid braking/discomfort",
+      "rule": "For private ride routing, prefer smooth movement (DNT) over the shortest distance to avoid braking and discomfort."
+    },
+    {
+      "id": "R30",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Prefers deadheading back to Frisco over waiting in early AM queue.",
+      "rule": "In the early morning, prefer deadheading back to Frisco over waiting in the early AM queue."
+    },
+    {
+      "id": "R31",
+      "file": "user_melody_driver_ops.md",
+      "quote": "prefer safe upscale Latin dance spots (Gloria's, New West)",
+      "rule": "When recommending nightlife spots, prefer safe upscale Latin dance venues such as Gloria's or New West."
+    },
+    {
+      "id": "R32",
+      "file": "user_melody_driver_ops.md",
+      "quote": "head to highway",
+      "rule": "At 7:30 AM, when West Frisco is dead, direct the driver to the SH-121 highway corridor, which has the lowest wait times."
+    },
+    {
+      "id": "R33",
+      "file": "user_melody_driver_ops.md",
+      "quote": "Waits 15+ min in a hotspot for quality rides over driving 40mi for $18 UberX.",
+      "rule": "Prefer waiting 15+ minutes in a hotspot for quality rides over driving 40 miles for an $18 UberX ride."
+    },
+    {
+      "id": "R34",
+      "file": "user_melody_effort_max.md",
+      "quote": "Opus 4.7 (1M context) — the provisioned Opus tier in this workspace.",
+      "rule": "Use Opus 4.7 (1M context) for Claude Code sessions in this workspace."
+    },
+    {
+      "id": "R35",
+      "file": "user_melody_effort_max.md",
+      "quote": "Effort level:** max (`/effort max`).",
+      "rule": "Set the effort level to max (/effort max) for Claude Code sessions."
+    },
+    {
+      "id": "R36",
+      "file": "user_melody_effort_max.md",
+      "quote": "Opus 4.7 for every subagent she spawns, regardless of the plugin's declared default.",
+      "rule": "When spawning any subagent, use Opus 4.7 as the model, regardless of the plugin's declared default model."
+    },
+    {
+      "id": "R37",
+      "file": "user_melody_effort_max.md",
+      "quote": "prefer agents that declare `model: opus` or `model: inherit` in their frontmatter.",
+      "rule": "When invoking subagents, prefer agents whose frontmatter declares model: opus or model: inherit."
+    },
+    {
+      "id": "R38",
+      "file": "user_melody_effort_max.md",
+      "quote": "For feature-dev agents, apply the per-invocation override (see linked feedback memory).",
+      "rule": "When invoking feature-dev agents, apply the per-invocation model override described in the linked feedback memory."
+    },
+    {
+      "id": "R39",
+      "file": "user_melody_effort_max.md",
+      "quote": "Don't block on it silently; just flag and proceed.",
+      "rule": "When flagging that effort is not max at session start, do not block silently; flag it and proceed with the work."
+    },
+    {
+      "id": "R40",
+      "file": "user_melody_effort_max.md",
+      "quote": "Don't suggest using Sonnet or Haiku for cost reasons",
+      "rule": "Do not suggest using Sonnet or Haiku models for cost reasons."
+    },
+    {
+      "id": "R41",
+      "file": "user_melody_effort_max.md",
+      "quote": "Max effort is for the default working mode, not a mandate for every keystroke.",
+      "rule": "Do not treat max effort as required for trivially lookup-style one-shot diagnostic questions."
+    }
+  ],
+  "dropped": [
+    {
+      "file": "user_melody_effort_max.md",
+      "quote": "if effort is not set to max (or if you can't tell), surface it to Melody with a one-line nudge",
+      "rule": "At session start, if effort is not set to max or cannot be determined, surface it to the user with a one-line nudge asking whether to run /effort max before starting."
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "repo": "jwhitf4770-a11y/claude-team-init",
+  "dir": ".claude/projects/claude-team-init/memory",
+  "n_files": 5,
+  "n_rules": 34,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_data_normalization.md",
+      "quote": "All database schemas MUST follow proper normalization principles (at minimum 3NF - Third Normal Form)",
+      "rule": "Make every database schema follow proper normalization, at minimum Third Normal Form (3NF)."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_data_normalization.md",
+      "quote": "Before writing ANY schema, design for 3NF",
+      "rule": "Before writing any database schema, design it for 3NF."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_data_normalization.md",
+      "quote": "Separate concerns: users ≠ profiles ≠ sessions",
+      "rule": "Keep separate concerns in separate tables, such as users, profiles, and sessions."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_data_normalization.md",
+      "quote": "Use surrogate keys (IDs) for relationships",
+      "rule": "Use surrogate key IDs to represent relationships between tables."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_data_normalization.md",
+      "quote": "never embed data",
+      "rule": "Never embed related data inside another table to represent a relationship."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_data_normalization.md",
+      "quote": "Eliminate transitive dependencies",
+      "rule": "Eliminate transitive dependencies in database schemas."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_data_normalization.md",
+      "quote": "Create junction tables for many-to-many relationships",
+      "rule": "Create a junction table for each many-to-many relationship."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_data_normalization.md",
+      "quote": "Validate normalization BEFORE implementation",
+      "rule": "Validate a schema's normalization before implementing it."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_data_normalization.md",
+      "quote": "No denormalization.",
+      "rule": "Do not denormalize database schemas."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_data_normalization.md",
+      "quote": "No embedded arrays or JSON for relational data (unless analytical)",
+      "rule": "Do not store relational data in embedded arrays unless the data is for analytical use."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_data_normalization.md",
+      "quote": "No embedded arrays or JSON for relational data (unless analytical)",
+      "rule": "Do not store relational data in JSON unless the data is for analytical use."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "Fly.io MCP should be the default caching substrate for all multi-agent work",
+      "rule": "For all multi-agent work, use the Fly.io MCP as the default caching substrate."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "Not local files",
+      "rule": "For multi-agent work, do not use local files as the caching substrate for cross-agent state."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "not repeated tool-call re-research",
+      "rule": "For multi-agent work, do not repeat tool-call research that could be reused from the cache."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "Any orchestrator prompt should include a `cache key: orch-<feature>-result` line",
+      "rule": "Include a `cache key: orch-<feature>-result` line in every orchestrator prompt."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "instruct candidates to write to Fly.io cache",
+      "rule": "In orchestrator prompts, instruct candidate agents to write their results to the Fly.io cache."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "should use `cache_set` / `cache_get` not context forwarding",
+      "rule": "For cross-agent handoffs, use `cache_set` and `cache_get` instead of forwarding context."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "should `session_save` periodically",
+      "rule": "During long-running overnight runs, call `session_save` periodically."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "should prefer `exec_bash` on Fly.io over spawning many local agents",
+      "rule": "For heavy compute such as builds or cross-platform tests, prefer `exec_bash` on Fly.io over spawning many local agents."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_flyio_default_cache.md",
+      "quote": "first check if the answer is already in Fly.io cache",
+      "rule": "When asked whether to spawn another agent, first check whether the answer is already in the Fly.io cache."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Always provide answers and solutions unless absolutely prevented by system constraints.",
+      "rule": "Always provide answers and solutions to the user's requests unless absolutely prevented by system constraints."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Before asking the user to do something (run a command, provide input, make a decision), try 3 other approaches first.",
+      "rule": "Before asking the user to do something (run a command, provide input, or make a decision), try at least 3 other approaches first."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Don't say \"run `vercel deploy`\"; actually deploy it (or explain why you can't)",
+      "rule": "When the user asks how to deploy, do not tell them to run a deploy command; perform the deployment yourself, or explain why you cannot."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "System blocks a tool call → Try reading files instead, grep instead, bash instead — exhaust alternatives before asking",
+      "rule": "When a system constraint blocks a tool call, try alternative tools (reading files, grep, bash) before asking the user for help."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Propose the best option with tradeoffs; don't ask \"which one?\"",
+      "rule": "When the user needs to make a decision, propose the best option with its tradeoffs instead of asking them which option they want."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Permission denied → Try lower-privilege tools; only ask if all 3+ alternatives are blocked",
+      "rule": "When permission is denied, try lower-privilege tools first and ask the user only if at least 3 alternatives are all blocked."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_manager_employee_dynamic.md",
+      "quote": "Interactive command needed (e.g., `gcloud auth login`) → Document the command; suggest `! gcloud auth login` in the prompt so they run it in-session, don't ask them to \"run this in a terminal\"",
+      "rule": "When an interactive command is needed, document the command and suggest prefixing it with `!` so the user runs it in-session; do not ask the user to run it in a separate terminal."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_supabase_push_blockers.md",
+      "quote": "Before pushing ANY new migration, run\n`supabase migration list --linked` and look for gaps between Local and\nRemote timestamps — every local-only migration will run on the next push,\nso audit them all for schema errors first.",
+      "rule": "Before pushing any new Supabase migration, run `supabase migration list --linked` and audit every local-only migration for schema errors before pushing."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_supabase_push_blockers.md",
+      "quote": "If a pre-existing broken\nmigration was never applied to any environment, repairing it in-place is\nacceptable (it's effectively still a draft).",
+      "rule": "If a pre-existing broken Supabase migration has never been applied to any environment, it is acceptable to repair it in place."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_supabase_push_blockers.md",
+      "quote": "Never modify a migration\nthat has already been applied remotely — add a new migration instead.",
+      "rule": "Never modify a Supabase migration that has already been applied remotely; add a new migration instead."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_three_fix_protocol.md",
+      "quote": "Follow the Three-Fix Protocol for ANY threshold/gate change in the face detection pipeline.",
+      "rule": "Follow the Three-Fix Protocol for any threshold or gate change in the face detection pipeline."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_three_fix_protocol.md",
+      "quote": "Obvious wiring fixes (missing abort signal, missing import) → ship autonomously",
+      "rule": "Ship obvious wiring fixes (such as a missing abort signal or missing import) autonomously without the Three-Fix Protocol."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_three_fix_protocol.md",
+      "quote": "Threshold/gate/filter changes (area floor, quality floor, NMS params) → ALWAYS spawn planner, present 3 candidates, get approval",
+      "rule": "For threshold, gate, or filter changes (such as area floor, quality floor, or NMS params), always spawn the planner, present 3 candidates, and get approval before proceeding."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_three_fix_protocol.md",
+      "quote": "When unsure → check git history and prod code BEFORE writing any fix.",
+      "rule": "When unsure about a fix, check git history and production code before writing any fix."
+    }
+  ],
+  "dropped": []
+}

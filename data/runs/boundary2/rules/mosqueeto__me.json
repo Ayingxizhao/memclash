@@ -1,0 +1,130 @@
+{
+  "repo": "mosqueeto/me",
+  "dir": ".claude/memory",
+  "n_files": 6,
+  "n_rules": 20,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_code_conventions.md",
+      "quote": "Use %d for int, %D for long.",
+      "rule": "When writing an mlwrite format string, use %d for int values and %D for long values; never use %ld, since mlwrite does not recognize the 'l' modifier."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_code_conventions.md",
+      "quote": "Any time writing an mlwrite format string with a long value, use %D.",
+      "rule": "When writing an mlwrite format string with a long value, use the %D format specifier."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_code_conventions.md",
+      "quote": "User-facing destination buffers (e.g. @buffername in pipe commands) must use flag=0.",
+      "rule": "When creating user-facing destination buffers (such as @buffername targets in pipe commands) via bfind(), pass flag=0 rather than BFTEMP."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_code_conventions.md",
+      "quote": "Only use BFTEMP for internal editor buffers like [List].",
+      "rule": "Use the BFTEMP flag with bfind() only for internal editor buffers such as [List]."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_cursor_stability.md",
+      "quote": "Auto-wrap operations (on insert and delete) must never move the cursor to a different position than where the user placed it.",
+      "rule": "Never move the cursor to a different position during automatic wrap operations on insert or delete; keep it where the user placed it."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_cursor_stability.md",
+      "quote": "Any wrap/reflow triggered automatically (not by M-q/M-Q) must be cursor-anchored.",
+      "rule": "Any automatically triggered wrap or reflow (not triggered by M-q or M-Q) must be anchored to the cursor."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_cursor_stability.md",
+      "quote": "fillpara must NOT be called from auto-wrap paths.",
+      "rule": "Do not call fillpara from automatic auto-wrap code paths."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_cursor_stability.md",
+      "quote": "Only call fillpara from explicit user commands (M-q, M-Q).",
+      "rule": "Only call fillpara in response to explicit user commands M-q or M-Q."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_git_memory.md",
+      "quote": "Always `git add` any new memory files created during a session when making commits.",
+      "rule": "When making commits, always git add any new memory files created during the session under .claude/memory/."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_git_memory.md",
+      "quote": "When staging files for a commit, include any new or modified files under `.claude/memory/`.",
+      "rule": "When staging files for a commit, include any new or modified files under .claude/memory/."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_git_memory.md",
+      "quote": "Don't let them accumulate as untracked files.",
+      "rule": "Do not let .claude/memory/ files accumulate as untracked files."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_versioning.md",
+      "quote": "Always update `VERSION_NAME` in `main.c` as part of any commit.",
+      "rule": "Update VERSION_NAME in main.c as part of every commit."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_versioning.md",
+      "quote": "increment the number (e.g. `ME2.08` → `ME2.09`) when committing a named release.",
+      "rule": "When committing a named release, increment the version number in VERSION_NAME (e.g. ME2.08 → ME2.09)."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_versioning.md",
+      "quote": "append \"X\" suffix (e.g. `ME2.09` → `ME2.09X`) when making changes that don't warrant a new version number.",
+      "rule": "When making informal changes that don't warrant a new version number, append an \"X\" suffix to VERSION_NAME (e.g. ME2.09 → ME2.09X)."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_versioning.md",
+      "quote": "Version bump is part of the commit checklist — do it before committing, not as a follow-up.",
+      "rule": "Perform the VERSION_NAME version bump before committing, not after as a follow-up."
+    },
+    {
+      "id": "R16",
+      "file": "project_lua_and_pipe_discussion.md",
+      "quote": "Pick up these threads when the user wants to continue.",
+      "rule": "When the user wants to continue the discussion, pick up the threads recorded in this memory file (Lua/config, GPG encryption, buffer piping, markdown rendering, macro library)."
+    },
+    {
+      "id": "R17",
+      "file": "project_lua_and_pipe_discussion.md",
+      "quote": "Don't re-litigate the Lua question",
+      "rule": "Do not re-litigate whether to embed Lua into the editor; that question is settled."
+    },
+    {
+      "id": "R18",
+      "file": "project_lua_and_pipe_discussion.md",
+      "quote": "GPG is additive, not a Blowfish replacement.",
+      "rule": "Treat GPG encryption as an addition alongside the existing Blowfish encryption path, not as a replacement for it."
+    },
+    {
+      "id": "R19",
+      "file": "project_wrap_reflow.md",
+      "quote": "only explicit keystrokes move the cursor",
+      "rule": "Only explicit user keystrokes may move the cursor; never move the cursor as a side effect of other operations."
+    },
+    {
+      "id": "R20",
+      "file": "project_wrap_reflow.md",
+      "quote": "Auto-wrap on insert and delete must be cursor-stable.",
+      "rule": "Auto-wrap triggered by inserting or deleting text must not move the cursor."
+    }
+  ],
+  "dropped": []
+}

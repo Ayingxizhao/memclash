@@ -1,0 +1,249 @@
+# Multi-Tenant Onboarding — what's done, what's left (2026-10-21)
+
+> Owner asked, "just curious," what it'd take to extend Meridian to a second trusted operator.
+> This is the answer, consolidated from re-reading the actual multitenant migration files +
+> `constants.js`'s live-registry plumbing + the memory files that already independently measured
+> pieces of this live — not a fresh design. **Read this before re-deriving any of it**, per
+> CLAUDE.md's "check whether an explanation already exists" rule.
+
+## The short version
+
+More is already built than the migration files' own cautionary comments suggest — those comments
+were accurate when written but have since been confirmed live by separate measurements. **Tenant
+isolation at the database layer is live, not just deployed.** What's actually missing is a short,
+concrete list: one schema fix, pull-script credential plumbing, and a user-provisioning path. Not
+a redesign.
+
+## Already done (and independently confirmed live — not just "should work")
+
+- **`tenant_id` + tenant-scoped RLS is live in production.** `supabase/schema-multitenant-phase1.sql`
+  added the column (`tenants` registry, `tenant_stores` loc→tenant map); `supabase/schema-
+  multitenant-phase2-rls.sql` is "the RLS flip" — replaces every loose `using(true)`/`auth.uid() is
+  not null` policy across ~70 tables with `tenant_id = public.current_tenant_id()`, via the
+  `set_tenant_id()` trigger on insert. The file's own header reads as "don't run until verified" —
+  **that verification already happened**: `project-rls-hardening-plan.md`'s 2026-08-20 pass measured
+  three things live against production (zero `using(true)` exceptions beyond one known case, RLS
+  enabled on all 87 public tables, anonymous callers correctly rejected by the tenant check) and
+  closed the anonymous-access question for good.
+- **Per-store isolation WITHIN a tenant is also live and tested end-to-end.** CLAUDE.md's RBAC
+  section (corrected 2026-10-16) — a throwaway restricted profile, real production data, anon key +
+  signed-in JWT (never service-role): `lifelenz_schedule` returned exactly the one assigned store's
+  rows, a different real store's loc came back `content-range: */0` (actively blocked), and
+  resetting `accessible_locs` to null correctly restored the full unrestricted set on the same
+  already-issued JWT. `my_locs()` is confirmed live via direct RPC probe
+  (`finding-rls-phase2-my-locs-2026-09-06.md`).
+- **The store/targets registry is NOT hard-coded to this owner's 27 stores the way `constants.js`
+  looks at a glance.** `STORE_NAMES`/`DEFAULT_TARGETS` are the *seed* (zero-Supabase-row fallback),
+  but `setLiveStoreNames()`/`setLiveDefaultTargets()` (constants.js, "Track-B onboarding plumbing")
+  mutate those same exported objects in place from `org_config`'s `store_registry` key — and
+  **this is already wired into the real login path**: `App.js`'s login sync calls
+  `loadOrgConfigs(['app_settings','store_registry','contact_registry','app_user_targets'])` and
+  feeds `remote.storeNames`/`remote.defaultTargets` straight into those setters. A second tenant's
+  store list would populate the UI without any app code change — once their `store_registry` row
+  can actually exist (see gap #1 below).
+
+## What's actually still open
+
+1. ✅ **Fix WRITTEN 2026-11-13, awaiting the owner's SQL-editor run** —
+   `supabase/schema-fix-org-config-tenant-pk-2026-11-13.sql`. `org_config`'s primary key was just
+   `key`, not `(key, tenant_id)` — flagged directly in `schema-multitenant-phase2-rls.sql`'s own
+   comment on the `org_config` policy block. Today a second tenant's `org_config` row (including
+   the `store_registry` key the mechanism above reads) would collide with the owner's single row
+   on the same key. **Re-scoped while writing this fix — a PK-only change does NOT actually solve
+   the collision.** `org_config`'s `tenant_id` column DEFAULTs to the owner's hardcoded literal
+   UUID with no `set_tenant_id_trg` trigger attached (that trigger table-list explicitly excludes
+   `profiles`/`org_config`, "handled specially... KEEP their default"). A column DEFAULT is
+   applied before any BEFORE INSERT trigger runs, so even after the PK changes, a second tenant's
+   insert with no explicit `tenant_id` would still land tagged as the OWNER's tenant — both
+   tenants' rows would carry the identical `tenant_id` value, so the composite key never actually
+   comes into play and the collision survives untouched. The migration therefore also drops that
+   default and attaches the standard trigger (same pattern ~70 other tables already use) —
+   confirmed safe to do (not just copying the pattern blindly) by grepping every real org_config
+   writer in the codebase: all of them are authenticated-session calls (none are service-role), so
+   `current_tenant_id()` always resolves to a real value for anyone able to write to this table at
+   all; there's no genuine bootstrap gap here the way there is for `profiles`' brand-new-signup
+   case. All 5 app-side `onConflict:'key'` upsert call sites updated to `'key,tenant_id'`
+   (`src/lib/supabase.js` ×4, `src/views/eom-supervisor.js` ×1); the other 2 org_config upserts in
+   the codebase pass no explicit `onConflict` at all, so they'll retarget the new PK automatically
+   with no code change needed.
+2. **The automated pull scripts (LifeLenz, QSRSoft EBOS/DAR/ops, email-parse, etc.) always stamp
+   the owner's tenant_id.** Also flagged directly in the same file: `set_tenant_id()`'s fallback is
+   the owner's tenant because service-role inserts (which is what every pull script uses) carry no
+   `auth.uid()`. A second operator needs their own LifeLenz/QSRSoft logins, their own GitHub Actions
+   secrets, and each pull script needs a tenant parameter so it stamps the right tenant_id instead
+   of silently landing on tenant #1's data. Realistically this means either a second parallel set of
+   scheduled workflows (one owner's credentials each) or generalizing the existing workflows to loop
+   over a credentials-per-tenant list.
+3. **New-user signup has no "which tenant" step.** `profiles.tenant_id` keeps its column DEFAULT
+   (deliberately — see the phase2 file's comment on why profiles/org_config kept theirs while every
+   other table's default was dropped) so a brand-new magic-link signup today auto-joins the owner's
+   tenant. A second operator's first users need an admin to explicitly set their `profiles.tenant_id`
+   after signup — there's no self-serve "pick your org" flow.
+4. **Unverified, not necessarily broken:** SAGE (`sage-chat`) and the other edge functions haven't
+   been exercised live under a second tenant — worth a real smoke test before trusting them, not a
+   known gap. Also worth naming plainly: this is one shared Supabase project, one Vercel project, one
+   Anthropic API key across both tenants — fine technically (that's what the RLS isolation is for),
+   but a real consideration if a second operator relationship is ever a paid one rather than a favor,
+   since there's no per-tenant cost attribution today.
+
+## If this ever becomes real, in order
+
+1. Owner runs `supabase/schema-fix-org-config-tenant-pk-2026-11-13.sql` — the app's upsert
+   targets are already updated, nothing else to do code-side once it runs.
+2. Insert the new `tenants` row + `tenant_stores` rows for their stores.
+3. Populate their `org_config.store_registry`/`app_settings` so the UI picks up their stores/targets
+   via the already-wired `setLiveStoreNames`/`setLiveDefaultTargets` path.
+4. Get their LifeLenz/QSRSoft credentials, parameterize the pull scripts + stand up their own
+   scheduled workflows (or generalize the existing ones), confirm each stamps the right tenant_id.
+5. Create their first admin user, manually set `profiles.tenant_id`, verify isolation live with
+   that real account the same way the throwaway-profile test already proved the mechanism works.
+6. Smoke-test SAGE and any other edge function under their login before calling it done.
+
+Nothing here contradicts `vision-and-roadmap.md`'s own roadmap, which already lists multi-tenant
+deployment as a later-stage item (P4) — this file is the concrete "what's actually left" version of
+that line, grounded in what's since shipped.
+
+## ⚠️ CORRECTION 2026-11-02 — a 5th open item, bigger than the other four, found while answering
+the owner's "bringing on a whole different organization" question
+
+The "already done" section above is still true for the **~70 tables the 2026-10-21 phase2 sweep
+actually touched** (`using(tenant_id = public.current_tenant_id())`, the dynamic function). But a
+direct grep done today (`grep -rl "tenant_id = '00000000-0000-0000-0000-000000000001'::uuid"
+supabase/*.sql`) found **51 OTHER schema files** — most added after the phase2 sweep, some before
+— whose RLS policy hardcodes the literal owner UUID instead of calling `current_tenant_id()`, and
+whose `tenant_id` COLUMN DEFAULT is the same hardcoded literal too. List (not exhaustive-checked
+beyond this grep, but grep is exact): `schema-yearly-targets.sql`, `schema-target-overrides.sql`,
+every `schema-security-rules*.sql` / `schema-security-findings*.sql` file, `schema-lifelenz-
+shift-assignments.sql`, `schema-lifelenz-attendance.sql`, `schema-lifelenz-punch-edits.sql`,
+`schema-lifelenz-forecast-captures.sql`, `schema-qsr-employee-tenure.sql`, `schema-qsr-punch-
+times.sql`, `schema-qsr-security-events.sql`, `schema-pay-events.sql`, `schema-coaching-cycles.sql`
++ `-notes.sql`, `schema-customer-complaints.sql`, `schema-store-assessments.sql`, plus the six
+tables this same session just built/touched (`schema-lifelenz-schedule-variance.sql`, `schema-
+lifelenz-compliance-audit.sql`, `schema-lifelenz-employee-performance.sql`, `schema-employee-pay-
+rate-changes.sql`, `schema-lifelenz-shift-pay.sql`, `schema-equipment-catalog-settings.sql`) — 51
+files total, see that grep for the complete list.
+
+**What this actually means in practice (worked through, not assumed):** these tables are not
+"leaky" in the sense of tenant #2 seeing tenant #1's rows through a mismatched check — the policy
+doesn't key off the real caller's tenant at all, so a tenant #2 query against one of these 51
+tables would never match the hardcoded literal and would correctly see nothing *as long as its
+own rows were correctly tagged with its own real tenant_id*. The real failure mode is the other
+direction: because the **column default** is also the hardcoded literal, any insert into one of
+these 51 tables that doesn't explicitly set `tenant_id` — which is every pull script, since they
+use the service-role key and (per open item #2 above) don't pass a tenant parameter at all today —
+lands tagged as **tenant #1's data**, visible in tenant #1's own views, regardless of which
+organization it actually came from. For a table like `schema-security-findings.sql` or `schema-
+employee-pay-rate-changes.sql`, that is a real cross-organization data-exposure risk, not a cosmetic
+gap — a second operator's security findings or payroll history could silently appear inside the
+owner's own security/pay-rate panels.
+
+**Not yet true today** (no second tenant exists), but this is now the **#1 priority fix** before
+any real second-organization onboarding — ahead of the four items already listed above, since
+those four are each one concrete, scoped task, while this one is "51 schema files share a
+copy-pasted pattern that predates/bypassed the phase2 standard." The fix itself is mechanical
+(replace the hardcoded literal with `public.current_tenant_id()` in both the column default and
+every policy in each file, same shape the phase2 sweep already proved out on ~70 other tables) —
+the discovery, not the fix, is the actual finding. Flagging it rather than fixing it unprompted:
+51 files is a large, easily-reviewable-but-not-trivially-small diff, and per this project's own
+"DDL needs the owner to run it in the SQL editor" constraint, correcting it still requires the
+owner's own action to apply — better to decide as one deliberate pass (possibly regenerating all
+51 at once) than discover mid-edit that some of the 51 have one-off differences worth preserving.
+
+## ✅ FIX WRITTEN 2026-11-03 (owner-authorized "knock this off the list preemptively") —
+`supabase/schema-fix-tenant-id-hardcode-2026-11-03.sql`, awaiting the owner's run
+
+Re-grepped live rather than trusting this file's own prose list above (which it explicitly
+flagged as possibly stale): the real count is **60 files** referencing the literal in some form,
+not 51. Of the extra 9: all are one-time `UPDATE ... WHERE tenant_id = '<literal>'` data-fix
+scripts (`schema-security-rules-phase1*.sql`, `-cash004-authority.sql`, `-min-stdev.sql`,
+`-plain-language.sql`) that correctly targeted the only tenant that has ever existed and have
+already run — nothing to fix there, not part of the 51/60 count either way. `schema-multitenant-
+phase1.sql`/`schema.sql`'s hardcoded defaults on `profiles`/`org_config` are **deliberate**
+bootstrap behavior (phase2-rls.sql's own comment: "profiles + org_config are handled specially
+... KEEP their default") — both tables' REAL RLS policies already correctly call
+`current_tenant_id()`, confirmed by reading phase2-rls.sql directly, so there was nothing broken
+there despite the column default also containing the literal.
+
+**The real scope ended up being 46 tables + 2 PII-reveal functions**, not a flat 51 — several
+tables' policies had been patched more than once by LATER files (role fixes, perf fixes) after
+their original creation, so the fix had to target each policy's CURRENT live text, not its
+original-file text. Two same-day-committed-file ties were resolved by reading content, not by
+timestamp: `security_rules: admin/supervisor write`'s live version is
+`schema-security-findings-rls-perf-fix.sql`'s perf-wrapped `(select get_my_role())` form (not
+`schema-security-rules.sql`'s original, slower, stale-role-list form); `qsr_security_events:
+gated read` and `security_findings: gated read`'s live versions are
+`schema-security-gm-role-fix-2026-10-28.sql`'s (later same day than its sibling
+`-supervisor-role-fix-2026-10-28.sql`, confirmed via `git log`'s second-level timestamps, and
+that file's own header comment explicitly states which policies were "already corrected" vs
+"still broken" at the time it was written — cross-checked against this, not assumed).
+
+One table turned out to be a **worse** shape than the other 45, found only because this pass
+read every table's current policies rather than just swapping the known literal:
+`org_assignment_audit` (schema-org-assignment-audit.sql) has **no tenant_id check in its
+policies at all**, only a role check — today a non-issue (one tenant), but once a second tenant
+exists this is a genuine cross-tenant READ LEAK (any admin/area_supervisor from ANY tenant would
+see every tenant's audit rows), not just the write-side mistagging risk the other 45 tables have.
+Fixed in the same migration by adding `tenant_id = public.current_tenant_id()` to its existing
+read/insert policies, not just a literal swap.
+
+Also fixed in the same pass, same root cause, discovered while tracing
+`qsr_security_events`/`security_findings`'s policy history: `reveal_employee_identity()` and
+`reveal_employee_identities_bulk()` (the two PII-reveal RPCs, `schema-security-gm-role-fix-
+2026-10-28.sql`) declare `v_tenant uuid := '00000000-...'::uuid` in their function bodies — same
+hardcoded-literal anti-pattern, just inside PL/pgSQL instead of a column default or a policy
+clause. Fixed to `v_tenant uuid := public.current_tenant_id();`, everything else in both
+functions (role list, gm/manager branch, NULL-safe reject path) preserved exactly.
+
+**Still not run** — this is a new file for the owner to execute in the Supabase SQL editor, same
+as every other DDL change in this repo. Once run, re-verify live the same way the throwaway-
+second-tenant-profile test already proved the ~70-table phase2 sweep works (set a test profile's
+`tenant_id` to something else, confirm these 46 tables' policies correctly resolve via
+`current_tenant_id()` rather than the dead literal) — don't just assume the SQL ran clean from a
+lack of an error message.
+
+## ✅ Owner decision, 2026-11-14 (task #70) — the account model for a new organization
+
+Asked directly: does a new operator get their own admin tier within their org, or does Fletcher
+manage their account for them? Owner's answer, verbatim: *"a new organization would be a separate
+business entirely and therefore would need their own access. I would need to retain access for
+developer purposes if you will, but they should have access to control Admin within an
+organization."*
+
+**What this actually resolves, worked against the real architecture above, not just restated:**
+
+1. **"Their own org, their own admin" is already what the existing model gives them, once the
+   remaining tenant-isolation fixes (items #1/#5 above) are run.** `admin`/`owner` (RBAC level 1)
+   already bypasses every `hasPermission()` app-level check — that's a role property, not scoped to
+   a tenant today, but it never needed to be: the real wall is Supabase RLS's
+   `tenant_id = current_tenant_id()` check on every table, which is a hard DB-layer boundary
+   independent of role. So a new org's own admin user, once their tenant exists and the 46-table
+   hardcode fix + org_config PK fix are both run, already gets full control (every permission,
+   every panel) **strictly within their own tenant's data** — they could never see or touch
+   Fletcher's stores regardless of their role, because RLS blocks it before any app-level
+   permission check even runs. No new role needs inventing for this half.
+2. **"I would need to retain access for developer purposes" is the genuinely open half — this
+   does NOT exist today and needs purpose-built work.** There is currently no user-facing account
+   or role that can see across tenants at all. The only thing that crosses the RLS wall today is
+   the `SUPABASE_SERVICE_ROLE_KEY` (used by pull scripts/edge functions, never tied to a logged-in
+   person, exported to the owner's shell only per CLAUDE.md's PII/credential rules) — that's an
+   infrastructure credential, not a "developer" user Fletcher could log in as to look at a second
+   org's account for support purposes. Building this means one of:
+   - A new boolean (e.g. `profiles.is_platform_developer`) that a small number of RLS policies
+     special-case with an `OR` alongside the `tenant_id = current_tenant_id()` check — narrow,
+     auditable, but means re-touching the same ~120 tables' policies a third time.
+   - A separate "support session" mechanism: Fletcher's own login can explicitly switch its
+     `current_tenant_id()` context to a chosen tenant it's been granted cross-tenant access to,
+     logged every time it's used (who, which tenant, when) — more auditable, but more plumbing
+     (a session-scoped "acting as tenant X" flag the RLS functions read instead of just the JWT's
+     own tenant_id).
+   Neither is built. This is real design/schema work, not a quick flag flip, and it touches every
+   RLS-protected table in the system — **not started without the owner's sign-off on which shape**
+   (special-case boolean vs. an explicit audited "acting as" switch), consistent with this repo's
+   own Tier-C-never-unattended rule for anything touching RLS/tenant isolation.
+
+**Net effect:** nothing changes about what ships for item #1 above (org_config PK + tenant_stores
+plumbing) — that work already assumed per-tenant admins, correctly. What changes is that "developer
+cross-tenant access" is now a named, scoped, *undecided-shape* work item rather than an assumption
+that service-role access would quietly cover it — it won't, because service-role access isn't a
+user login Fletcher could use day-to-day, and isn't audited per-use the way a real support-access
+mechanism should be if other people's business data is on the line.

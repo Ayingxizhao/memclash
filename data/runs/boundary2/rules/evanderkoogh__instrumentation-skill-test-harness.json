@@ -1,0 +1,1018 @@
+{
+  "repo": "evanderkoogh/instrumentation-skill-test-harness",
+  "dir": "memory",
+  "n_files": 21,
+  "n_rules": 168,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "use these defaults; he only names an app/model/flag when he wants to deviate",
+      "rule": "When the user says \"do a test run\" or \"run it\" without qualifiers, use the default test run shape (all apps, parallel, 4-minute check-ins) unless the user names an app, model, or flag."
+    },
+    {
+      "id": "R2",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "all applications (`all`), not a single app.",
+      "rule": "For a test run, run all applications (`all`) rather than a single app."
+    },
+    {
+      "id": "R3",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "**Concurrency:** `--parallel`.",
+      "rule": "For a test run, run the apps concurrently using `--parallel`."
+    },
+    {
+      "id": "R4",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "whatever he specifies for that run (no standing default)",
+      "rule": "For a test run, use whatever model the user specifies for that run; do not assume a standing default model."
+    },
+    {
+      "id": "R5",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "check progress every ~4 minutes until every app completes, without being re-asked each time.",
+      "rule": "During a test run, check progress about every 4 minutes until every app completes, without waiting to be asked each time."
+    },
+    {
+      "id": "R6",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "Always wrap in `caffeinate -dimsu`",
+      "rule": "Always wrap test runs in `caffeinate -dimsu`."
+    },
+    {
+      "id": "R7",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "Launch the run in the background under caffeinate",
+      "rule": "Launch a test run in the background under caffeinate."
+    },
+    {
+      "id": "R8",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "schedule a ~240s wakeup to re-check, repeating until all apps finish",
+      "rule": "After launching a test run, schedule a wakeup about 240 seconds later to re-check progress, repeating until all apps finish."
+    },
+    {
+      "id": "R9",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "then report the combined pass/fail summary",
+      "rule": "When all apps in a test run finish, report the combined pass/fail summary."
+    },
+    {
+      "id": "R10",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "not just \"still running.\"",
+      "rule": "Do not give a test run check-in that only says the run is still running."
+    },
+    {
+      "id": "R11",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "Each check-in should give an overview of what's happening now + anything interesting in the last few minutes",
+      "rule": "Each test run check-in should give an overview of what is happening now and anything notable from the last few minutes."
+    },
+    {
+      "id": "R12",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "Local: `tmp/run-progress.<app>.log`, PID files, `docker ps`/`docker stats` (liveness), `logs/<app>/`.",
+      "rule": "During a test run, check local progress logs, PID files, `docker ps`/`docker stats`, and `logs/<app>/` to confirm each app is still alive and progressing."
+    },
+    {
+      "id": "R13",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "query the `<app>-instrumentation` stream (agent behavior, `gen_ai.*`) scoped by `harness.run_id`/`gen_ai.conversation.id`",
+      "rule": "For an active test run, query the `<app>-instrumentation` Honeycomb stream scoped by `harness.run_id` or `gen_ai.conversation.id` to see what the agent is currently doing."
+    },
+    {
+      "id": "R14",
+      "file": "feedback-default-4min-run-checkins.md",
+      "quote": "Surface notable things: phase transitions, errors/retries, what the agent is currently working on, cost/token burn.",
+      "rule": "In test run check-ins, surface notable items such as phase transitions, errors and retries, what the agent is currently working on, and cost or token burn."
+    },
+    {
+      "id": "R15",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "contain **only** two kinds of content",
+      "rule": "Limit the preamble to general, app-agnostic framing of the instrumentation task and app-specific facts needed to start (app identity, language/framework, service name, how to reach it, OTLP endpoint)."
+    },
+    {
+      "id": "R16",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "must **never** contain instrumentation *instructions*",
+      "rule": "Never put instrumentation instructions (techniques, attribute choices, fixes, gotchas, how to avoid problems) in the preamble."
+    },
+    {
+      "id": "R17",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "All such guidance belongs in the skill",
+      "rule": "Place all instrumentation guidance in the SKILL.md skill file, not in the preamble."
+    },
+    {
+      "id": "R18",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "You may **suggest** a preamble change and **ask for explicit permission**",
+      "rule": "When a preamble change seems warranted, suggest it and ask the user for explicit permission before making it."
+    },
+    {
+      "id": "R19",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "**ask for explicit permission**, but never add instrumentation",
+      "rule": "Never add instrumentation instructions to a preamble on your own, without the user's explicit permission."
+    },
+    {
+      "id": "R20",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "is to put it in the skill, not to ask to add it to the preamble",
+      "rule": "If a proposed fix is instrumentation guidance, put it in the skill rather than proposing to add it to the preamble."
+    },
+    {
+      "id": "R21",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "make *exactly* that change and nothing adjacent",
+      "rule": "When the user explicitly requests a specific preamble edit, make exactly that change and no adjacent changes."
+    },
+    {
+      "id": "R22",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "If a companion change seems warranted, call it out",
+      "rule": "When a companion change to a preamble edit seems warranted, call it out to the user and let them decide rather than folding it into the requested edit."
+    },
+    {
+      "id": "R23",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "into the SKILL.md — never the preamble",
+      "rule": "When a run reveals something the agent should do during instrumentation, generalize it into SKILL.md, never into the preamble."
+    },
+    {
+      "id": "R24",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "Keep preambles to minimal app context + start-up facts only.",
+      "rule": "Keep preambles to minimal app context and start-up facts only."
+    },
+    {
+      "id": "R25",
+      "file": "feedback-no-preamble-edits.md",
+      "quote": "Harness config (`config.sh`) and evaluation (`evaluation.ts`, `EVALUATION.md`) changes are fine",
+      "rule": "Make changes to harness config (config.sh) and evaluation files (evaluation.ts, EVALUATION.md) without asking for permission."
+    },
+    {
+      "id": "R26",
+      "file": "feedback-no-scoring-changes-without-permission.md",
+      "quote": "Never change the scoring attributes for an application without explicit permission from Erwin.",
+      "rule": "Never change an application's scoring attributes without explicit permission from Erwin."
+    },
+    {
+      "id": "R27",
+      "file": "feedback-no-scoring-changes-without-permission.md",
+      "quote": "do not edit these on my own initiative even when a failure looks\nlike a tooling/library limitation rather than a skill defect.",
+      "rule": "Do not edit scoring/eval config or logic on your own initiative, even when a failure looks like a tooling or library limitation rather than a skill defect."
+    },
+    {
+      "id": "R28",
+      "file": "feedback-no-scoring-changes-without-permission.md",
+      "quote": "Suggest-and-ask",
+      "rule": "When scoring/eval changes seem needed, suggest them and ask for approval rather than making them."
+    },
+    {
+      "id": "R29",
+      "file": "feedback-no-scoring-changes-without-permission.md",
+      "quote": "report it and propose a\nwaiver — then wait for explicit approval before touching `config.sh` / criteria.",
+      "rule": "When a bucket fails on something the agent cannot fix, report it and propose a waiver, then wait for explicit approval before touching config.sh or criteria."
+    },
+    {
+      "id": "R30",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "double-check it is **genuinely impossible** for the app to comply",
+      "rule": "Before recommending a semconv/weaver waiver, verify that the app genuinely cannot comply."
+    },
+    {
+      "id": "R31",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "Do not conclude \"library limitation → waiver\" from the pinned version alone.",
+      "rule": "Do not conclude that a waiver is needed based only on the library's pinned version."
+    },
+    {
+      "id": "R32",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "emits the stable conventions (or gains the opt-in) before proposing",
+      "rule": "When instrumentation emits deprecated or old semconv, check whether a newer version of the instrumentation library emits the stable conventions or gains the opt-in before proposing a waiver."
+    },
+    {
+      "id": "R33",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "Upgrading the dependency is a valid, preferred compliance strategy.",
+      "rule": "Treat upgrading the instrumentation dependency as a valid, preferred compliance strategy."
+    },
+    {
+      "id": "R34",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "no released version can comply is a waiver the right call.",
+      "rule": "Recommend a waiver only after confirming that no released version of the library can comply."
+    },
+    {
+      "id": "R35",
+      "file": "feedback-verify-compliance-impossible-before-waiver.md",
+      "quote": "never edit scoring config on\nmy own initiative",
+      "rule": "Never edit scoring configuration on your own initiative."
+    },
+    {
+      "id": "R36",
+      "file": "full-run-report-spec.md",
+      "quote": "use it by default whenever a report/overview of a run is requested",
+      "rule": "When a report or overview of an instrumentation run is requested, use the standard run-report format by default."
+    },
+    {
+      "id": "R37",
+      "file": "full-run-report-spec.md",
+      "quote": "Produce ONE self-contained HTML file (inline CSS/JS, no external deps)",
+      "rule": "Produce the run report as one self-contained HTML file with inline CSS and JS and no external dependencies."
+    },
+    {
+      "id": "R38",
+      "file": "full-run-report-spec.md",
+      "quote": "built entirely from that run's telemetry in Honeycomb",
+      "rule": "Build the run report entirely from that run's telemetry in Honeycomb."
+    },
+    {
+      "id": "R39",
+      "file": "full-run-report-spec.md",
+      "quote": "Scope everything to the run via `gen_ai.conversation.id` = the runId",
+      "rule": "Scope all run-report queries to the run by filtering on gen_ai.conversation.id equal to the runId."
+    },
+    {
+      "id": "R40",
+      "file": "full-run-report-spec.md",
+      "quote": "Sections, in this order:",
+      "rule": "Include the run report sections in the order they are specified."
+    },
+    {
+      "id": "R41",
+      "file": "full-run-report-spec.md",
+      "quote": "wall-clock time spent, tokens used (in / out / cache-read / cache-write), total cost, and pass rate",
+      "rule": "In the run-level metrics section, include wall-clock time, tokens used (input, output, cache-read, cache-write), total cost, and pass rate."
+    },
+    {
+      "id": "R42",
+      "file": "full-run-report-spec.md",
+      "quote": "Include the full per-criterion pass/fail table.",
+      "rule": "In the run-level metrics section, include the full per-criterion pass/fail table."
+    },
+    {
+      "id": "R43",
+      "file": "full-run-report-spec.md",
+      "quote": "`runs.jsonl` record (criteria, agent metrics, weaver) for the authoritative result",
+      "rule": "Use the runs.jsonl record as the authoritative source for the run's result."
+    },
+    {
+      "id": "R44",
+      "file": "full-run-report-spec.md",
+      "quote": "for EVERY failed criterion, investigate what went wrong and WHY — root cause, not just the symptom",
+      "rule": "For every failed criterion, investigate what went wrong and why, identifying the root cause rather than just the symptom."
+    },
+    {
+      "id": "R45",
+      "file": "full-run-report-spec.md",
+      "quote": "Read the relevant report (e.g. weaver `logs/<app>/weaver-report/live_check.json`), the failing telemetry, and the agent's own actions.",
+      "rule": "When investigating a failed criterion, read the relevant report, the failing telemetry, and the agent's own actions."
+    },
+    {
+      "id": "R46",
+      "file": "full-run-report-spec.md",
+      "quote": "Classify the cause:",
+      "rule": "Classify each failure's cause as either a skill defect, an upstream library lag, or a measurement artifact."
+    },
+    {
+      "id": "R47",
+      "file": "full-run-report-spec.md",
+      "quote": "State which, with evidence.",
+      "rule": "State which failure cause category applies to each failure, with supporting evidence."
+    },
+    {
+      "id": "R48",
+      "file": "full-run-report-spec.md",
+      "quote": "trace the skill's own phases and hand-offs",
+      "rule": "In the skill-phase overview, trace the skill's own phases and hand-offs, treating the run as a single agent with no sub-agents."
+    },
+    {
+      "id": "R49",
+      "file": "full-run-report-spec.md",
+      "quote": "and how many times the `otel-verification` skill was invoked",
+      "rule": "In the skill-phase overview, report how many times the otel-verification skill was invoked."
+    },
+    {
+      "id": "R50",
+      "file": "full-run-report-spec.md",
+      "quote": "Derive from the ordering/timestamps of `execute_tool` (incl. `Skill`) spans.",
+      "rule": "Derive the skill-phase overview from the ordering and timestamps of execute_tool spans, including Skill spans."
+    },
+    {
+      "id": "R51",
+      "file": "full-run-report-spec.md",
+      "quote": "Summarize from each `chat` turn's `gen_ai.output.messages` (the `reasoning`/`text` parts) + the tool calls it issued.",
+      "rule": "Write the high-level actions narrative by summarizing each chat turn's gen_ai.output.messages reasoning and text parts together with the tool calls it issued."
+    },
+    {
+      "id": "R52",
+      "file": "full-run-report-spec.md",
+      "quote": "every tool call AND every LLM call",
+      "rule": "In the full call table, include every tool call and every LLM call."
+    },
+    {
+      "id": "R53",
+      "file": "full-run-report-spec.md",
+      "quote": "chronological, each row with a short human-readable summary of what happened",
+      "rule": "Order the full call table chronologically, with each row containing a short human-readable summary of what happened."
+    },
+    {
+      "id": "R54",
+      "file": "full-run-report-spec.md",
+      "quote": "**Clicking a row expands it** to show ALL information for that call.",
+      "rule": "In the full call table, make clicking a row expand it to show all information for that call."
+    },
+    {
+      "id": "R55",
+      "file": "full-run-report-spec.md",
+      "quote": "Implement expand with a tiny inline `<details>`/JS toggle — still no external deps.",
+      "rule": "Implement the row expand behavior with an inline details element or JS toggle, without external dependencies."
+    },
+    {
+      "id": "R56",
+      "file": "full-run-report-spec.md",
+      "quote": "summarize in the row",
+      "rule": "Summarize large content attributes in the table row."
+    },
+    {
+      "id": "R57",
+      "file": "full-run-report-spec.md",
+      "quote": "keep full content in the collapsed detail",
+      "rule": "Keep the full content of large attributes in the collapsed detail section of the row."
+    },
+    {
+      "id": "R58",
+      "file": "full-run-report-spec.md",
+      "quote": "Write to `reports/agent-run-overview-<app>.html`",
+      "rule": "Write the run report to reports/agent-run-overview-<app>.html, substituting the app name."
+    },
+    {
+      "id": "R59",
+      "file": "full-run-report-spec.md",
+      "quote": "Per-app background agents that wait for the run to finish then build this are the working pattern",
+      "rule": "Build the run report with a per-app background agent that waits for the run to finish before building."
+    },
+    {
+      "id": "R60",
+      "file": "full-run-report-spec.md",
+      "quote": "poll `tmp/.run.<app>.pid` disappearing as the finished signal",
+      "rule": "Detect that the run has finished by polling for tmp/.run.<app>.pid to disappear."
+    },
+    {
+      "id": "R61",
+      "file": "genai-conventions-agent-telemetry.md",
+      "quote": "rebuild after editing",
+      "rule": "After editing src/agent-tracing.ts, rebuild the harness image so the change takes effect."
+    },
+    {
+      "id": "R62",
+      "file": "genai-conventions-agent-telemetry.md",
+      "quote": "which requires **`forwardSubagentText: true`** on the query",
+      "rule": "Set forwardSubagentText to true on the query so sub-agent text and thinking are forwarded and sub-agent spans nest correctly."
+    },
+    {
+      "id": "R63",
+      "file": "genai-conventions-agent-telemetry.md",
+      "quote": "NOT the deprecated `gen_ai.system`",
+      "rule": "Use the gen_ai.provider.name attribute for the provider, not the deprecated gen_ai.system attribute."
+    },
+    {
+      "id": "R64",
+      "file": "genai-conventions-agent-telemetry.md",
+      "quote": "the field is `response`, not `result`",
+      "rule": "In tool_call_response message parts, use the field name `response`, not `result`."
+    },
+    {
+      "id": "R65",
+      "file": "observing-a-run.md",
+      "quote": "To see everything a run did, combine local artifacts with Honeycomb telemetry.",
+      "rule": "To get the full picture of a harness run, combine local artifacts with Honeycomb telemetry."
+    },
+    {
+      "id": "R66",
+      "file": "observing-a-run.md",
+      "quote": "Filter on it to scope any query to a single run.",
+      "rule": "Filter queries by the runId to scope them to a single run."
+    },
+    {
+      "id": "R67",
+      "file": "observing-a-run.md",
+      "quote": "`tail -f tmp/run-progress.<app>.log`",
+      "rule": "To watch a run live, tail `tmp/run-progress.<app>.log`."
+    },
+    {
+      "id": "R68",
+      "file": "observing-a-run.md",
+      "quote": "Scope by `harness.run_id` (stamped by the app collector",
+      "rule": "When querying the instrumented app's telemetry dataset, scope by `harness.run_id`."
+    },
+    {
+      "id": "R69",
+      "file": "observing-a-run.md",
+      "quote": "Scope by `gen_ai.conversation.id`/`harness.run_id`.",
+      "rule": "When querying the agent's own instrumentation dataset, scope by `gen_ai.conversation.id` or `harness.run_id`."
+    },
+    {
+      "id": "R70",
+      "file": "observing-a-run.md",
+      "quote": "Filter `meta.signal_type = log`.",
+      "rule": "To retrieve `api_request_body` and `api_response_body` events, filter on `meta.signal_type = log`."
+    },
+    {
+      "id": "R71",
+      "file": "observing-a-run.md",
+      "quote": "slice by `Skill`/tool calls",
+      "rule": "When analyzing the `otel-verification` skill's activity in the agent telemetry, slice by `Skill`/tool calls."
+    },
+    {
+      "id": "R72",
+      "file": "open-harness-items-turn-analysis.md",
+      "quote": "set `thinking:{type:\"enabled\",budgetTokens:10000}` **only when the model matches /fable/i**",
+      "rule": "When configuring the instrumentation query options, set thinking to {type: \"enabled\", budgetTokens: 10000} only when the model name matches /fable/i."
+    },
+    {
+      "id": "R73",
+      "file": "open-harness-items-turn-analysis.md",
+      "quote": "do NOT pin them to a fixed budget",
+      "rule": "Do not pin Opus or Sonnet models to a fixed thinking budget; leave their adaptive thinking default in place."
+    },
+    {
+      "id": "R74",
+      "file": "open-harness-items-turn-analysis.md",
+      "quote": "Extend the guard if another model shows the same 400.",
+      "rule": "If another model returns the same 400 error about thinking.type.disabled, extend the fable-only thinking guard to cover that model."
+    },
+    {
+      "id": "R75",
+      "file": "project-goal-portable-skills.md",
+      "quote": "fix it in the **skill**",
+      "rule": "When instrumentation quality is poor, fix the problem in the instrumentation skill itself, not in the test harness."
+    },
+    {
+      "id": "R76",
+      "file": "project-goal-portable-skills.md",
+      "quote": "Do **not** suggest harness-side changes to *improve instrumentation quality*",
+      "rule": "Do not suggest harness-side changes (such as completion gates, verify-fix loops, or harness-generated traffic) intended to improve instrumentation quality."
+    },
+    {
+      "id": "R77",
+      "file": "project-goal-portable-skills.md",
+      "quote": "Harness changes are only appropriate to make the **measurement** more accurate/realistic",
+      "rule": "Suggest harness changes only when they make the measurement more accurate or realistic, such as simulating a real operator's environment, fixing eval criteria, or improving isolation."
+    },
+    {
+      "id": "R78",
+      "file": "project-two-box-skill-model.md",
+      "quote": "it must proceed autonomously from the preamble alone (no mid-run questions)",
+      "rule": "When running the otel-instrumentation skill in the non-interactive harness, proceed autonomously from the preamble alone and do not ask the user questions mid-run."
+    },
+    {
+      "id": "R79",
+      "file": "project-two-box-skill-model.md",
+      "quote": "No sub-agents;",
+      "rule": "Do not spawn sub-agents in the otel-instrumentation skill; hand off to verification by invoking the otel-verification Skill in the same context."
+    },
+    {
+      "id": "R80",
+      "file": "project-two-box-skill-model.md",
+      "quote": "run the app, generate traffic, or stand up a collector/weaver.",
+      "rule": "Do not run the application, generate traffic, or stand up a collector or weaver while performing otel-verification."
+    },
+    {
+      "id": "R81",
+      "file": "project-two-box-skill-model.md",
+      "quote": "judges against current OTel semconv (`search_semconv`/`get_semconv_attribute`) + any org registry",
+      "rule": "When verifying telemetry, judge it against current OTel semantic conventions (using search_semconv and get_semconv_attribute) and any organization registry."
+    },
+    {
+      "id": "R82",
+      "file": "project-two-box-skill-model.md",
+      "quote": "look for an existing registry in the repo first, reuse/extend it, else create one",
+      "rule": "When defining a weaver registry, first look for an existing registry in the repo; reuse or extend it if found, otherwise create one."
+    },
+    {
+      "id": "R83",
+      "file": "project-two-box-skill-model.md",
+      "quote": "validate **statically** with `weaver registry check`",
+      "rule": "Validate the weaver registry statically with `weaver registry check`, and do not run weaver live-check (the harness runs live-check itself)."
+    },
+    {
+      "id": "R84",
+      "file": "project-two-box-skill-model.md",
+      "quote": "if a manifest IS written it MUST declare `schema_url` (or `schema_base_url` + `semconv_version`)",
+      "rule": "If writing a registry_manifest.yaml, declare `schema_url` (or `schema_base_url` plus `semconv_version`) in it."
+    },
+    {
+      "id": "R85",
+      "file": "project-two-box-skill-model.md",
+      "quote": "must use the **Honeycomb MCP only**",
+      "rule": "The verifier must query Honeycomb only through the Honeycomb MCP."
+    },
+    {
+      "id": "R86",
+      "file": "project-two-box-skill-model.md",
+      "quote": "never hand-roll `curl` against the Honeycomb REST",
+      "rule": "Never make hand-rolled curl calls against the Honeycomb REST API."
+    },
+    {
+      "id": "R87",
+      "file": "project-two-box-skill-model.md",
+      "quote": "don't infer auth from `~/.claude/mcp-needs-auth-cache.json`",
+      "rule": "Do not infer Honeycomb authentication status from ~/.claude/mcp-needs-auth-cache.json."
+    },
+    {
+      "id": "R88",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "Remove `--include-unreferenced` once weaver ships a build where a proper `imports:` block (or plain references) credits standard/imported attributes at live-check without the flag",
+      "rule": "Once a weaver build credits standard/imported attributes at live-check without --include-unreferenced, remove --include-unreferenced from the harness's weaver registry live-check invocation."
+    },
+    {
+      "id": "R89",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "fix the skill's registry recipe to reference/import every emitted standard attr",
+      "rule": "Once a weaver build credits imported attributes without the flag, update the skill's registry recipe so it references or imports every emitted standard attribute."
+    },
+    {
+      "id": "R90",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "harness scoring wants the flag ON (crediting)",
+      "rule": "For harness scoring, run weaver registry live-check with --include-unreferenced so standard attributes are credited."
+    },
+    {
+      "id": "R91",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "There it **must NOT** pass `--include-unreferenced`",
+      "rule": "When running weaver registry live-check offline for the otel-verification skill, do not pass --include-unreferenced."
+    },
+    {
+      "id": "R92",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "the agent credits real conventions via `search_semconv` and flags only the genuinely-unknown remainder",
+      "rule": "When verifying, credit emitted attributes listed under seen_non_registry_attributes that are real semantic conventions (looked up via search_semconv), and flag only the genuinely unknown ones."
+    },
+    {
+      "id": "R93",
+      "file": "project-weaver-no-include-unreferenced.md",
+      "quote": "The registry still must declare its `dependencies:` correctly",
+      "rule": "Make sure the weaver registry declares its dependencies: correctly."
+    },
+    {
+      "id": "R94",
+      "file": "project_add_new_app.md",
+      "quote": "No fork required. Point directly at the upstream repo + a pinned commit SHA.",
+      "rule": "Do not fork the upstream repo for a new app; point the app directly at the upstream repo with a pinned full commit SHA."
+    },
+    {
+      "id": "R95",
+      "file": "project_add_new_app.md",
+      "quote": "Create `apps/<name>/config.sh`",
+      "rule": "When adding a new app, create apps/<name>/config.sh."
+    },
+    {
+      "id": "R96",
+      "file": "project_add_new_app.md",
+      "quote": "cmd_build() { ... }   # required",
+      "rule": "Define cmd_build() in apps/<name>/config.sh."
+    },
+    {
+      "id": "R97",
+      "file": "project_add_new_app.md",
+      "quote": "`cmd_start()` must wait for the server to be ready (poll a log file or health endpoint) before returning",
+      "rule": "Make cmd_start() wait until the server is ready (by polling a log file or health endpoint) before it returns."
+    },
+    {
+      "id": "R98",
+      "file": "project_add_new_app.md",
+      "quote": "write the PID to `$PID_FILE`",
+      "rule": "Have cmd_start() write the server PID to $PID_FILE."
+    },
+    {
+      "id": "R99",
+      "file": "project_add_new_app.md",
+      "quote": "MUST be unique across apps",
+      "rule": "Give each app an APP_HTTP_PORT that is unique across all apps."
+    },
+    {
+      "id": "R100",
+      "file": "project_add_new_app.md",
+      "quote": "give every app a unique `APP_HTTP_PORT` (and any other listener)",
+      "rule": "Give every app a unique port for APP_HTTP_PORT and for any other listener it opens."
+    },
+    {
+      "id": "R101",
+      "file": "project_add_new_app.md",
+      "quote": "`cmd_start` should reference these vars (not literals)",
+      "rule": "Have cmd_start() reference the APP_* port variables rather than hardcoded port literals."
+    },
+    {
+      "id": "R102",
+      "file": "project_add_new_app.md",
+      "quote": "store those files in `apps/<name>/files/`",
+      "rule": "When the upstream repo lacks harness-required files, store those files in apps/<name>/files/."
+    },
+    {
+      "id": "R103",
+      "file": "project_add_new_app.md",
+      "quote": "add a `cmd_setup()` that copies them in",
+      "rule": "When baseline files are stored in apps/<name>/files/, define cmd_setup() to copy them into the checkout."
+    },
+    {
+      "id": "R104",
+      "file": "project_add_new_app.md",
+      "quote": "Create `apps/<name>/traffic.sh`",
+      "rule": "When adding a new app, create apps/<name>/traffic.sh."
+    },
+    {
+      "id": "R105",
+      "file": "project_add_new_app.md",
+      "quote": "Curl all key routes.",
+      "rule": "Make traffic.sh send requests to all of the app's key routes."
+    },
+    {
+      "id": "R106",
+      "file": "project_add_new_app.md",
+      "quote": "Must not block — fire all requests and exit.",
+      "rule": "Make traffic.sh fire its requests without blocking and then exit."
+    },
+    {
+      "id": "R107",
+      "file": "project_add_new_app.md",
+      "quote": "Set the `APP_*` fact vars in `config.sh`",
+      "rule": "Set the APP_* fact variables in apps/<name>/config.sh instead of creating a per-app preamble file."
+    },
+    {
+      "id": "R108",
+      "file": "project_add_new_app.md",
+      "quote": "Keep these to **plain app facts only — no instrumentation how-to**",
+      "rule": "Keep APP_* fact variables limited to plain app facts, with no instrumentation how-to content."
+    },
+    {
+      "id": "R109",
+      "file": "project_add_new_app.md",
+      "quote": "the instrumentation skill must set `service.name` itself",
+      "rule": "Ensure the instrumentation skill sets service.name itself; the harness must not set OTEL_SERVICE_NAME."
+    },
+    {
+      "id": "R110",
+      "file": "project_add_new_app.md",
+      "quote": "don't put em-dashes or apostrophes inside a `${VAR:-default}` default in `harness.sh`",
+      "rule": "Do not put em-dashes or apostrophes inside ${VAR:-default} defaults in harness.sh."
+    },
+    {
+      "id": "R111",
+      "file": "project_add_new_app.md",
+      "quote": "use ASCII `-` and avoid apostrophes in those defaults",
+      "rule": "Use an ASCII hyphen instead of an em-dash in ${VAR:-default} defaults in harness.sh."
+    },
+    {
+      "id": "R112",
+      "file": "project_add_new_app.md",
+      "quote": "Create `apps/<name>/EVALUATION.md`",
+      "rule": "When adding a new app, create apps/<name>/EVALUATION.md as an app-specific evaluation checklist."
+    },
+    {
+      "id": "R113",
+      "file": "project_add_new_app.md",
+      "quote": "./harness.sh <name> download",
+      "rule": "Download an app's repo by running ./harness.sh <name> download."
+    },
+    {
+      "id": "R114",
+      "file": "project_add_new_app.md",
+      "quote": "Check the implementer skill has a guide for it.",
+      "rule": "When adding a new language or runtime, check that the otel-instrumentation-implementation skill has a reference guide for it."
+    },
+    {
+      "id": "R115",
+      "file": "project_add_new_app.md",
+      "quote": "decide whether to author a `references/<language>.md` guide and add it to the list",
+      "rule": "If the new language is not in the implementer skill's list of languages with guides, decide whether to author a references/<language>.md guide and add the language to that list."
+    },
+    {
+      "id": "R116",
+      "file": "project_add_new_app.md",
+      "quote": "a new language requires `docker/agent-<lang>.Dockerfile`",
+      "rule": "When adding a new language, create a docker/agent-<lang>.Dockerfile image based on harness-agent-base."
+    },
+    {
+      "id": "R117",
+      "file": "project_add_new_app.md",
+      "quote": "the new image must copy it as its **final layers, after the toolchain install**",
+      "rule": "In a new harness-agent-<lang> image, copy the harness source as the final layers, after the toolchain install."
+    },
+    {
+      "id": "R118",
+      "file": "project_add_new_app.md",
+      "quote": "Copy it verbatim from the existing python/go/java images",
+      "rule": "Copy the harness source COPY block verbatim from the existing python, go, or java agent images."
+    },
+    {
+      "id": "R119",
+      "file": "project_add_new_app.md",
+      "quote": "keep it LAST so a harness-code edit doesn't bust the toolchain cache",
+      "rule": "Keep the harness source COPY block as the last layers of the agent image."
+    },
+    {
+      "id": "R120",
+      "file": "project_add_new_app.md",
+      "quote": "`node` would also need its own image.",
+      "rule": "Give Node.js apps their own harness-agent-node Docker image."
+    },
+    {
+      "id": "R121",
+      "file": "project_add_new_app.md",
+      "quote": "Create `apps/<name>/files/start-site.sh`",
+      "rule": "For Java/Spring Boot apps, create start scripts in apps/<name>/files/ such as start-site.sh."
+    },
+    {
+      "id": "R122",
+      "file": "project_add_new_app.md",
+      "quote": "and install via `cmd_setup()`",
+      "rule": "Install Java start scripts into the checkout via cmd_setup()."
+    },
+    {
+      "id": "R123",
+      "file": "project_add_new_app.md",
+      "quote": "Start scripts must use the **exploded JAR** pattern (`jar -xf` + `-cp EXPLODED/...`) NOT `java -jar`",
+      "rule": "Make Java start scripts use the exploded JAR pattern (jar -xf plus -cp EXPLODED/...), not java -jar."
+    },
+    {
+      "id": "R124",
+      "file": "project_add_new_app.md",
+      "quote": "Add `OTEL_BSP_MAX_QUEUE_SIZE=10000` in the start script.",
+      "rule": "Set OTEL_BSP_MAX_QUEUE_SIZE=10000 in Java start scripts."
+    },
+    {
+      "id": "R125",
+      "file": "project_add_new_app.md",
+      "quote": "`build` runs `mvn clean install -DskipTests`",
+      "rule": "For Java apps, make the build step run mvn clean install -DskipTests."
+    },
+    {
+      "id": "R126",
+      "file": "project_add_new_app.md",
+      "quote": "Note the existing `.venv` in `APP_BUILD_HINT`",
+      "rule": "For Python apps, note the existing .venv in APP_BUILD_HINT so the agent does not re-run uv sync."
+    },
+    {
+      "id": "R127",
+      "file": "project_add_new_app.md",
+      "quote": "prefer 'uv add <pkg>' for new packages rather than re-syncing",
+      "rule": "For Python apps, prefer uv add <pkg> for new packages rather than re-running uv sync."
+    },
+    {
+      "id": "R128",
+      "file": "project_add_new_app.md",
+      "quote": "The agent is expected to `uv add` the OTel packages",
+      "rule": "For Python apps, the agent should add the OpenTelemetry packages with uv add."
+    },
+    {
+      "id": "R129",
+      "file": "project_add_new_app.md",
+      "quote": "To change framing for all apps, edit the template",
+      "rule": "To change framing shared by all apps, edit the shared instrument-preamble.template.md template."
+    },
+    {
+      "id": "R130",
+      "file": "project_add_new_app.md",
+      "quote": "to change one app's facts, edit its `config.sh`",
+      "rule": "To change one app's facts, edit that app's config.sh."
+    },
+    {
+      "id": "R131",
+      "file": "project_add_new_app.md",
+      "quote": "lives in that single template, not duplicated per app",
+      "rule": "Put cross-app framing in the single shared template, not duplicated per app."
+    },
+    {
+      "id": "R132",
+      "file": "project_broadleaf_startup.md",
+      "quote": "Use exploded JAR + `java -cp`",
+      "rule": "Run the Broadleaf DemoSite using the exploded JAR with `java -cp`."
+    },
+    {
+      "id": "R133",
+      "file": "project_broadleaf_startup.md",
+      "quote": "NOT `java -jar`",
+      "rule": "Do not run the Broadleaf DemoSite with `java -jar`."
+    },
+    {
+      "id": "R134",
+      "file": "project_broadleaf_startup.md",
+      "quote": "NOT `mvn spring-boot:run`",
+      "rule": "Do not run the Broadleaf DemoSite with `mvn spring-boot:run`."
+    },
+    {
+      "id": "R135",
+      "file": "project_broadleaf_startup.md",
+      "quote": "Always update `start-site.sh` and `start-admin.sh` in DemoSite/.",
+      "rule": "When changing Broadleaf startup behavior, always update `start-site.sh` and `start-admin.sh` in DemoSite/."
+    },
+    {
+      "id": "R136",
+      "file": "project_broadleaf_startup.md",
+      "quote": "run `./harness.sh broadleaf bootstrap` manually",
+      "rule": "If `start` fails with a schema error, run `./harness.sh broadleaf bootstrap` manually."
+    },
+    {
+      "id": "R137",
+      "file": "project_broadleaf_startup.md",
+      "quote": "Fix: `kill $(lsof -ti :8983)`",
+      "rule": "If the bootstrap fails with a stale Solr init error, kill the process listening on port 8983 with `kill $(lsof -ti :8983)`."
+    },
+    {
+      "id": "R138",
+      "file": "project_broadleaf_startup.md",
+      "quote": "`rm -rf /var/folders/sc/*/T/solr-8.11.3/`",
+      "rule": "If the bootstrap fails with a stale Solr init error, delete the Solr index directory with `rm -rf /var/folders/sc/*/T/solr-8.11.3/`."
+    },
+    {
+      "id": "R139",
+      "file": "project_broadleaf_startup.md",
+      "quote": "Site must fully start (Solr up) before admin.",
+      "rule": "Start the site application and wait for Solr to be up before starting the admin application."
+    },
+    {
+      "id": "R140",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "always run an image rebuild",
+      "rule": "After changing any harness file baked into the agent images, run an image rebuild."
+    },
+    {
+      "id": "R141",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "as part of the same change, without being asked",
+      "rule": "Run the image rebuild as part of the same change that edits a baked harness file, without waiting to be asked."
+    },
+    {
+      "id": "R142",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "base first, then the language images",
+      "rule": "When rebuilding images, rebuild the base image before the language images."
+    },
+    {
+      "id": "R143",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "docker build -f docker/agent-base.Dockerfile -t harness-agent-base .",
+      "rule": "Rebuild the base image with `docker build -f docker/agent-base.Dockerfile -t harness-agent-base .`."
+    },
+    {
+      "id": "R144",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "then the `agent-<lang>` images that derive from it",
+      "rule": "After rebuilding the base image, rebuild the agent-<lang> images that derive from it."
+    },
+    {
+      "id": "R145",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "Verify that on rebuild.",
+      "rule": "On rebuild, verify that the npm ci and language toolchain layers remain cached."
+    },
+    {
+      "id": "R146",
+      "file": "rebuild-images-after-harness-change.md",
+      "quote": "no rebuild needed for it",
+      "rule": "Do not rebuild the images after editing container.ts."
+    },
+    {
+      "id": "R147",
+      "file": "reference-sqlalchemy-instr-stable-db-semconv.md",
+      "quote": "Do NOT reach for a `db` waiver here.",
+      "rule": "For beaverhabits, do not add a `db` waiver to address the current_semconv or weaver_live_check_db failures."
+    },
+    {
+      "id": "R148",
+      "file": "reference-sqlalchemy-instr-stable-db-semconv.md",
+      "quote": "upgrading the instrumentation dependency is the correct fix",
+      "rule": "To fix the beaverhabits current_semconv and weaver_live_check_db failures, upgrade the opentelemetry-instrumentation-sqlalchemy dependency."
+    },
+    {
+      "id": "R149",
+      "file": "reference-sqlalchemy-instr-stable-db-semconv.md",
+      "quote": "even that should be re-checked against newer releases before treating the waiver as permanent.",
+      "rule": "For realworld-go, re-check the GORM `db` waiver against newer plugin releases before treating it as permanent."
+    },
+    {
+      "id": "R150",
+      "file": "reference-weaver-livecheck-crediting-unreleased.md",
+      "quote": "Remove it once #1267/#1442 ship.",
+      "rule": "Remove the `--include-unreferenced` flag from live-check runs once weaver PRs #1267 and #1442 have shipped in a released version."
+    },
+    {
+      "id": "R151",
+      "file": "reference-weaver-livecheck-crediting-unreleased.md",
+      "quote": "fix the skill's registry recipe (correct import targets)",
+      "rule": "After upgrading weaver to a build that includes #1267/#1442, fix the skill's registry recipe to use the correct import targets."
+    },
+    {
+      "id": "R152",
+      "file": "reference-weaver-registry-import-syntax.md",
+      "quote": "the `manifest.yaml` MUST use a top-level **`dependencies:`** list with `name` + `registry_path`",
+      "rule": "In a weaver custom registry's manifest.yaml, import upstream semantic conventions using a top-level `dependencies:` list with `name` and `registry_path` entries, not a `registries:` block."
+    },
+    {
+      "id": "R153",
+      "file": "reference-weaver-registry-import-syntax.md",
+      "quote": "`registry_path:` not `url:`",
+      "rule": "In a weaver manifest dependency entry, use the key `registry_path:` for the upstream location, not `url:`."
+    },
+    {
+      "id": "R154",
+      "file": "reference-weaver-registry-import-syntax.md",
+      "quote": "**schema_url must be app-specific**, not `https://opentelemetry.io/schemas/...`",
+      "rule": "Set the weaver manifest's schema_url to an app-specific URL, not an opentelemetry.io/schemas URL."
+    },
+    {
+      "id": "R155",
+      "file": "reference-weaver-registry-import-syntax.md",
+      "quote": "self-check *with* the flag.",
+      "rule": "When self-checking a weaver registry with live-check, pass `--include-unreferenced` to mirror the harness."
+    },
+    {
+      "id": "R156",
+      "file": "run-under-caffeinate.md",
+      "quote": "Always launch `run.ts` (any app, especially `all --parallel`) wrapped in macOS `caffeinate`:",
+      "rule": "Launch run.ts for any app, including `all --parallel`, wrapped in macOS `caffeinate` so the machine cannot sleep during the run."
+    },
+    {
+      "id": "R157",
+      "file": "run-under-caffeinate.md",
+      "quote": "prepend `caffeinate -dimsu` to every harness run launched in the background.",
+      "rule": "Prepend `caffeinate -dimsu` to every harness run launched in the background."
+    },
+    {
+      "id": "R158",
+      "file": "run-under-caffeinate.md",
+      "quote": "If a run is found mid-flight after a sleep, kill it",
+      "rule": "If a harness run is found to have been interrupted by a sleep, kill it, including its related processes."
+    },
+    {
+      "id": "R159",
+      "file": "run-under-caffeinate.md",
+      "quote": "and re-run",
+      "rule": "After killing a harness run that was interrupted by sleep, re-run it from the start."
+    },
+    {
+      "id": "R160",
+      "file": "trunk-based-dev.md",
+      "quote": "Commit and push directly to `main` — do **not** create a feature branch first.",
+      "rule": "In the instrumentation-skill-test-harness repo, commit and push directly to main without creating a feature branch first."
+    },
+    {
+      "id": "R161",
+      "file": "trunk-based-dev.md",
+      "quote": "Commit there, not to `main`.",
+      "rule": "In the agent-skill repo, commit to the current long-running feature branch, not to main."
+    },
+    {
+      "id": "R162",
+      "file": "trunk-based-dev.md",
+      "quote": "don't switch to or push `main`",
+      "rule": "In the agent-skill repo, do not switch to or push main."
+    },
+    {
+      "id": "R163",
+      "file": "trunk-based-dev.md",
+      "quote": "Still only commit/push when explicitly asked.",
+      "rule": "Only commit or push changes when explicitly asked to do so."
+    },
+    {
+      "id": "R164",
+      "file": "trunk-based-dev.md",
+      "quote": "run `git branch` to confirm",
+      "rule": "In the agent-skill repo, run git branch to confirm the current feature branch before committing."
+    },
+    {
+      "id": "R165",
+      "file": "user_erwin.md",
+      "quote": "Prefers production-accurate setups over convenient dev shortcuts",
+      "rule": "Prefer production-accurate setups over convenient dev shortcuts."
+    },
+    {
+      "id": "R166",
+      "file": "user_erwin.md",
+      "quote": "Wants terse responses",
+      "rule": "Keep responses terse."
+    },
+    {
+      "id": "R167",
+      "file": "user_erwin.md",
+      "quote": "does not need summaries of what was just done",
+      "rule": "Do not summarize what was just done."
+    },
+    {
+      "id": "R168",
+      "file": "user_erwin.md",
+      "quote": "Comfortable pushing directly to `clean` branch for non-instrumentation harness changes",
+      "rule": "You may push directly to the `clean` branch for non-instrumentation harness changes."
+    }
+  ],
+  "dropped": []
+}

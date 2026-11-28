@@ -1,0 +1,4168 @@
+{
+  "repo": "Slicon123/JARVIS",
+  "dir": "memory",
+  "n_files": 77,
+  "n_rules": 693,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback-ask-before-better-idea.md",
+      "quote": "it does what he asked and then proposes the idea as a question. Claude acts on it only\nafter he agrees.",
+      "rule": "When Claude has a better idea than what the user asked for, do exactly what was asked first, then propose the idea as a question and act on it only after the user agrees."
+    },
+    {
+      "id": "R2",
+      "file": "feedback-ask-before-better-idea.md",
+      "quote": "Don't\nfold the idea into the work in advance",
+      "rule": "Do not fold a better-idea suggestion into the requested work in advance; keep the work to the literal request until the user approves."
+    },
+    {
+      "id": "R3",
+      "file": "feedback-ask-before-better-idea.md",
+      "quote": "don't count an earlier yes as approval for a new idea.",
+      "rule": "Do not treat the user's earlier approval of one suggestion as approval for a new suggestion; ask again for each new idea."
+    },
+    {
+      "id": "R4",
+      "file": "feedback-ask-before-better-idea.md",
+      "quote": "finish the literal request, then add one short line: \"Aku ada saran: … Mau aku kerjakan?\"",
+      "rule": "After completing the literal request, add one short line proposing the idea and asking whether to do it (e.g., \"Aku ada saran: … Mau aku kerjakan?\")."
+    },
+    {
+      "id": "R5",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "A film session stops once the mp4, cover and `upload.md` are done and pass their checks, then reports their paths.",
+      "rule": "When working on a film session, stop once the mp4, cover, and upload.md are done and pass their checks, then report their paths."
+    },
+    {
+      "id": "R6",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "It does not run `unggah-sekitar`",
+      "rule": "Do not run `unggah-sekitar` during a film session."
+    },
+    {
+      "id": "R7",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "does not open YouTube, TikTok, Instagram, Facebook or Meta Business Suite to post or schedule",
+      "rule": "Do not open YouTube, TikTok, Instagram, Facebook, or Meta Business Suite to post or schedule a film."
+    },
+    {
+      "id": "R8",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "does not call `pipeline_update` with stage `upload`",
+      "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+    },
+    {
+      "id": "R9",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "Write the rule into every film brief you hand to a new session.",
+      "rule": "Include the no-upload rule in every film brief handed to a new session."
+    },
+    {
+      "id": "R10",
+      "file": "feedback-bryan-uploads-films.md",
+      "quote": "Only his own explicit request in chat for one specific upload overrides it, and only for that upload.",
+      "rule": "Perform an upload or scheduling action only when Bryan explicitly requests it in chat for that one specific upload, and treat that permission as covering only that upload."
+    },
+    {
+      "id": "R11",
+      "file": "feedback-camera-blur-dizzy.md",
+      "quote": "It is written in the `sekitar` skill and `Frame` now defaults to `smear={false}`.",
+      "rule": "Do not apply blur to any camera move in any film."
+    },
+    {
+      "id": "R12",
+      "file": "feedback-camera-blur-dizzy.md",
+      "quote": "when using `smear={false}`, also slow the moves and shorten long travel",
+      "rule": "When using Frame smear={false}, also slow camera moves and shorten long travel distances."
+    },
+    {
+      "id": "R13",
+      "file": "feedback-duplicate-means-exact-copy.md",
+      "quote": "make a byte-for-byte copy\nand stop there.",
+      "rule": "When Bryan asks for a new file that is a duplicate of an example so he can edit it, make a byte-for-byte copy of the example and stop there."
+    },
+    {
+      "id": "R14",
+      "file": "feedback-duplicate-means-exact-copy.md",
+      "quote": "Don't fill in data, delete or rename sheets, or add anything, even when you already know what\nshould go in it.",
+      "rule": "When making a duplicate of an example file for Bryan, do not fill in data, delete or rename sheets, or add anything to the copy, even if you already know what should go in it."
+    },
+    {
+      "id": "R15",
+      "file": "feedback-duplicate-means-exact-copy.md",
+      "quote": "If he wants guidance, give guidance; if he wants a copy, give a copy.",
+      "rule": "When Bryan asks for guidance, give guidance; when he asks for a copy, give a copy."
+    },
+    {
+      "id": "R16",
+      "file": "feedback-duplicate-means-exact-copy.md",
+      "quote": "Offer the fill-in as a\nseparate step and wait for a yes",
+      "rule": "When Bryan asks for a copy of a file, offer any fill-in of its contents as a separate step and wait for his explicit yes before doing it."
+    },
+    {
+      "id": "R17",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Write every script with the Write tool and change it with Edit.",
+      "rule": "Create each script with the Write tool and modify it with the Edit tool, not with sed or inline Python."
+    },
+    {
+      "id": "R18",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Don't patch it with `sed` or inline Python",
+      "rule": "Do not patch scripts with sed or inline Python."
+    },
+    {
+      "id": "R19",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Start Excel through a helper that closes it and kills its PID in `finally`.",
+      "rule": "Start Excel through a helper that closes Excel and kills its process ID in a finally block."
+    },
+    {
+      "id": "R20",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "kill only PIDs you started.",
+      "rule": "When killing Excel processes, kill only the PIDs you started, never Bryan's own Excel instances."
+    },
+    {
+      "id": "R21",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "`FormatConditions.Add` must take positional args `(2, None, formula)`.",
+      "rule": "When calling FormatConditions.Add through COM, pass positional arguments (2, None, formula), not keyword arguments."
+    },
+    {
+      "id": "R22",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "run one feasibility test that covers every formatting trick the design relies on.",
+      "rule": "Before building an Excel file, run one feasibility test that covers every formatting trick the design relies on."
+    },
+    {
+      "id": "R23",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "When generating formulas, wrap every comparison in parentheses: `2*(X=0)`, never `2*X=0`.",
+      "rule": "When generating Excel formulas, wrap every comparison in parentheses (for example 2*(X=0), not 2*X=0)."
+    },
+    {
+      "id": "R24",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Check `paperSize` in the saved XML instead of chasing the PDF size.",
+      "rule": "When a PDF's page size looks wrong, check paperSize in the saved XML instead of investigating the PDF size."
+    },
+    {
+      "id": "R25",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Tell him before the render step starts.",
+      "rule": "Before the render step starts, tell Bryan that each ExportAsFixedFormat call will show Excel's visible Publishing progress window."
+    },
+    {
+      "id": "R26",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Verify on every sheet, hidden and protected ones included, through `UsedRange.Value`.",
+      "rule": "Verify cell values on every sheet, including hidden and protected sheets, by reading UsedRange.Value."
+    },
+    {
+      "id": "R27",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Work on a copy and assert that the cells you write are still empty.",
+      "rule": "Work on a copy of Bryan's file and assert that the cells you intend to write are still empty."
+    },
+    {
+      "id": "R28",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Before replacing his file, check it isn't open (`~$` lock)",
+      "rule": "Before replacing Bryan's file, check that it is not open by looking for its ~$ lock file."
+    },
+    {
+      "id": "R29",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "that it's byte-identical to your backup",
+      "rule": "Before replacing Bryan's file, check that it is byte-identical to your backup."
+    },
+    {
+      "id": "R30",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Then diff every sheet you didn't mean to touch.",
+      "rule": "After editing, diff every sheet you did not intend to change against the original."
+    },
+    {
+      "id": "R31",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "check every code range that assumed the old limit.",
+      "rule": "When raising a capacity limit, check every code range that assumed the old limit."
+    },
+    {
+      "id": "R32",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Leave a spacer row.",
+      "rule": "When writing below an Excel table, leave a spacer row so auto-expand does not absorb the cell."
+    },
+    {
+      "id": "R33",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Don't toggle AutoCorrect, because that setting persists into his own Excel.",
+      "rule": "Do not toggle AutoCorrect settings, because they persist into Bryan's own Excel."
+    },
+    {
+      "id": "R34",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Write dates as serial numbers through `Value2`.",
+      "rule": "Write dates to Excel as serial numbers through Value2, not as Python datetimes."
+    },
+    {
+      "id": "R35",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "In pywin32, call `GetCharacters(start, n)`, not `Characters(...)`.",
+      "rule": "In pywin32, call GetCharacters(start, n) rather than Characters(...)."
+    },
+    {
+      "id": "R36",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "set it through `TextFrame2` after any `ChartArea.Font` change.",
+      "rule": "When setting chart title size, set it through TextFrame2 after any ChartArea.Font change."
+    },
+    {
+      "id": "R37",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Create a static one, then set `Names(\"Print_Area\").RefersTo` to an OFFSET formula.",
+      "rule": "To create a dynamic print area, first create a static one, then set Names(\"Print_Area\").RefersTo to an OFFSET formula."
+    },
+    {
+      "id": "R38",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "`Names.Add` converts it to static.",
+      "rule": "Do not use Names.Add to set a dynamic print area, because it converts the area to static."
+    },
+    {
+      "id": "R39",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Format each row's merge area separately.",
+      "rule": "When applying HorizontalAlignment across per-row merges, format each row's merge area separately, not the whole one-column range."
+    },
+    {
+      "id": "R40",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Write each cell on its own.",
+      "rule": "When writing formulas to a column with per-row merges, write each cell individually, not as an array."
+    },
+    {
+      "id": "R41",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Call it before setting Zoom",
+      "rule": "Call ResetAllPageBreaks before setting PageSetup.Zoom, because it resets Zoom to 100."
+    },
+    {
+      "id": "R42",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "check `scale=` in the saved XML",
+      "rule": "After setting print zoom, check the scale= value in the saved XML."
+    },
+    {
+      "id": "R43",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "A thin white CF border does hide them.",
+      "rule": "To hide static medium borders, use a thin white conditional-format border."
+    },
+    {
+      "id": "R44",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "`Range.CopyPicture(2, -4147)`, paste into a temporary chart, then `Chart.Export(png)`.",
+      "rule": "To render without a PDF, call Range.CopyPicture(2, -4147), paste into a temporary chart, then export the chart with Chart.Export(png)."
+    },
+    {
+      "id": "R45",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Hide the chart's border line first.",
+      "rule": "Before exporting a rendered temporary chart, hide the chart's border line."
+    },
+    {
+      "id": "R46",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "coloured area and inspect it at 4–6x.",
+      "rule": "After any build or edit with coloured cells in a bordered grid, crop the coloured area and inspect it at 4–6x."
+    },
+    {
+      "id": "R47",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Say plainly which views you verified.",
+      "rule": "When reporting verification, state plainly which views (normal view, Print Preview, PDF, etc.) you verified."
+    },
+    {
+      "id": "R48",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Don't claim Print Preview is fine from a PDF render.",
+      "rule": "Do not claim Print Preview looks correct based only on a PDF render."
+    },
+    {
+      "id": "R49",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Check the path he looks through.",
+      "rule": "When verifying output, check the view or path Bryan actually looks through."
+    },
+    {
+      "id": "R50",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Probe the Width/ColumnWidth ratio on a scratch sheet",
+      "rule": "Before sizing columns, probe the Width/ColumnWidth ratio on a scratch sheet."
+    },
+    {
+      "id": "R51",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "set widths cumulatively",
+      "rule": "When replicating a form's column widths, set the widths cumulatively."
+    },
+    {
+      "id": "R52",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "trim narrow columns from one measured test print.",
+      "rule": "Trim narrow columns based on one measured test print."
+    },
+    {
+      "id": "R53",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "size columns for print.",
+      "rule": "Size columns for print rather than for screen."
+    },
+    {
+      "id": "R54",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Undo the scale using the frame lines before overlaying on the scan.",
+      "rule": "Before overlaying a replica on a scan, undo the print scale using the frame lines."
+    },
+    {
+      "id": "R55",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Don't change `MapPaperSize`, because it persists into his Excel.",
+      "rule": "Do not change MapPaperSize, because it persists into Bryan's Excel."
+    },
+    {
+      "id": "R56",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Check `VPageBreaks`.",
+      "rule": "When columns are wider than the printable width, check VPageBreaks for unexpected page breaks."
+    },
+    {
+      "id": "R57",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Place shapes at the same fraction of the column/row they sit in on paper",
+      "rule": "Place shapes at the same fraction of the column or row they sit in on paper, since they print relative to their cells."
+    },
+    {
+      "id": "R58",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "A red/cyan overlay of the replica on the 300 dpi scan is the check that matters",
+      "rule": "Verify a form replica with a red/cyan overlay on the 300 dpi scan."
+    },
+    {
+      "id": "R59",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "plus every cell value read back.",
+      "rule": "Verify a form replica by reading back every cell value."
+    },
+    {
+      "id": "R60",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "test it with `Range.Validation.Value`.",
+      "rule": "Test data validation with Range.Validation.Value, because COM writes skip validation."
+    },
+    {
+      "id": "R61",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "so set `@` on label cells first.",
+      "rule": "Before writing labels such as \"1.\", set the number format to @ on those label cells."
+    },
+    {
+      "id": "R62",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "a pixel diff against the original form render works as a check.",
+      "rule": "Use a pixel diff against the original form render as a check on the replica."
+    },
+    {
+      "id": "R63",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "`AddPicture` a blank PNG, then set `DrawingObject.Formula = \"=Sheet!$C$35\"`.",
+      "rule": "For a linked picture without the clipboard, AddPicture a blank PNG, then set DrawingObject.Formula to the source cell reference."
+    },
+    {
+      "id": "R64",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "make the source transparent (no fill, no borders) and draw the dividers with CF on the cells underneath.",
+      "rule": "For a linked picture, make the source transparent and draw dividers with conditional formatting on the cells underneath."
+    },
+    {
+      "id": "R65",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Pin `xdr:from`/`xdr:to` to exact cells in the drawing XML.",
+      "rule": "When shapes land on the wrong cells, pin xdr:from and xdr:to to exact cells in the drawing XML."
+    },
+    {
+      "id": "R66",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Run `python -I` only on untrusted files",
+      "rule": "Run Python with the -I flag only on untrusted files, because it hides user-site packages such as PIL."
+    },
+    {
+      "id": "R67",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Never name a script `inspect.py`",
+      "rule": "Never name a script inspect.py, because it shadows the standard library module."
+    },
+    {
+      "id": "R68",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "render the output after each build",
+      "rule": "Render the output after each build."
+    },
+    {
+      "id": "R69",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "test several input scenarios",
+      "rule": "Test several input scenarios for each Excel build."
+    },
+    {
+      "id": "R70",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "scan every sheet for formula errors.",
+      "rule": "Scan every sheet for formula errors."
+    },
+    {
+      "id": "R71",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "Run through this before any Excel build or COM edit.",
+      "rule": "Run through this checklist before any Excel build or COM edit."
+    },
+    {
+      "id": "R72",
+      "file": "feedback-excel-com-checklist.md",
+      "quote": "the time to cut is the avoidable re-runs above, not these checks.",
+      "rule": "Do not cut the render, multi-scenario, or formula-error checks to save time; cut avoidable re-runs instead."
+    },
+    {
+      "id": "R73",
+      "file": "feedback-ig-fb-one-caption.md",
+      "quote": "a film with no Facebook product has a single `## Instagram & Facebook` section",
+      "rule": "For a film with no Facebook product, write a single `## Instagram & Facebook` section in upload.md instead of separate Instagram and Facebook sections."
+    },
+    {
+      "id": "R74",
+      "file": "feedback-ig-fb-one-caption.md",
+      "quote": "there is no separate `## Facebook` block",
+      "rule": "For a film with no Facebook product, do not add a separate `## Facebook` block in upload.md."
+    },
+    {
+      "id": "R75",
+      "file": "feedback-ig-fb-one-caption.md",
+      "quote": "Only a product film keeps `## Instagram` and `## Facebook` apart",
+      "rule": "For a product film, keep the `## Instagram` and `## Facebook` sections separate in upload.md."
+    },
+    {
+      "id": "R76",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "**Address him as \"Bryan.\"**",
+      "rule": "Address the user as \"Bryan\" (not \"sir\") when operating in the JARVIS persona."
+    },
+    {
+      "id": "R77",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "**Mirror his language.** English when he writes English, Bahasa Indonesia when he writes\n  Indonesian",
+      "rule": "Reply in English when the user writes in English, and in Bahasa Indonesia when the user writes in Indonesian, following their code-switching without remarking on it."
+    },
+    {
+      "id": "R78",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "Casual register in\n  Indonesian (aku/kamu, not saya/Anda).",
+      "rule": "When replying in Bahasa Indonesia in the JARVIS persona, use the casual register: address the user as \"kamu\" and refer to yourself as \"aku\", never \"saya\" or \"Anda\"."
+    },
+    {
+      "id": "R79",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "**Friend, not staff.** Dry and understated rather than deferential.",
+      "rule": "Keep a dry, understated, friend-like tone rather than a deferential one when operating in the JARVIS persona."
+    },
+    {
+      "id": "R80",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "drop the formality and the constant suit metaphors.",
+      "rule": "Avoid formal phrasing and constant suit or butler-style metaphors when operating in the JARVIS persona."
+    },
+    {
+      "id": "R81",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "willingness to push back once",
+      "rule": "Push back on the user once when warranted when operating in the JARVIS persona."
+    },
+    {
+      "id": "R82",
+      "file": "feedback-jarvis-persona.md",
+      "quote": "This layers on top of, and never overrides, [[feedback-self-correct-and-verify]]",
+      "rule": "Apply the JARVIS persona only as a register layered on top of the self-correct-and-verify feedback rules, never letting the persona override them."
+    },
+    {
+      "id": "R83",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "For every @rupanya.gini film that carries a Facebook product, I make the Shopee affiliate link myself before delivering",
+      "rule": "For every @rupanya.gini film that carries a Facebook product, make the Shopee affiliate link yourself before delivering it."
+    },
+    {
+      "id": "R84",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "pick the item whose bottle/shape matches the 3D object in the film",
+      "rule": "When searching Shopee for the affiliate link, pick the product whose bottle or shape matches the 3D object in the film."
+    },
+    {
+      "id": "R85",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "Buat Link (Pakai Tag: Tidak)",
+      "rule": "When creating the Shopee affiliate link, click Buat Link with Pakai Tag set to Tidak."
+    },
+    {
+      "id": "R86",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "read the `s.shopee.co.id` short link from the textbox",
+      "rule": "Read the s.shopee.co.id short link from the textbox after creating the Shopee affiliate link."
+    },
+    {
+      "id": "R87",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "Put it on the Facebook keranjang line of upload.md",
+      "rule": "Put the Shopee affiliate link on the Facebook keranjang line of upload.md."
+    },
+    {
+      "id": "R88",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "name the product (title, price, sold, commission) in Pengaturan",
+      "rule": "Name the product's title, price, sold count, and commission in Pengaturan."
+    },
+    {
+      "id": "R89",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "Never ship `<link afiliasi Shopee>` as a placeholder.",
+      "rule": "Never deliver a film with the placeholder `<link afiliasi Shopee>` in place of the actual Shopee affiliate link."
+    },
+    {
+      "id": "R90",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "do it during step 7 (Deliver) of `sekitar`, before pasting upload.md",
+      "rule": "Make the Shopee affiliate link during step 7 (Deliver) of sekitar, before pasting upload.md."
+    },
+    {
+      "id": "R91",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "Pick the product that matches the film's object over a slightly higher commission.",
+      "rule": "Choose the Shopee product that matches the film's object over one with a slightly higher commission."
+    },
+    {
+      "id": "R92",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "Skip oil-based \"lem korea\" style traps",
+      "rule": "Skip oil-based products of the \"lem korea\" style when choosing a Shopee product for the affiliate link."
+    },
+    {
+      "id": "R93",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "check the item is really the thing the film explains",
+      "rule": "Check that the chosen Shopee item is really the thing the film explains before using its link."
+    },
+    {
+      "id": "R94",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "ask Bryan to clear it, then continue",
+      "rule": "If Shopee shows an anti-bot check or a login page, ask Bryan to clear it."
+    },
+    {
+      "id": "R95",
+      "file": "feedback-make-affiliate-link.md",
+      "quote": "ask Bryan to clear it, then continue",
+      "rule": "After Bryan clears a Shopee anti-bot check or login page, continue making the affiliate link."
+    },
+    {
+      "id": "R96",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "Every finished sekitar film's last message must paste the whole upload.md",
+      "rule": "When a sekitar film is finished, the chat's final message must paste the full out/<slug>/upload.md word for word, without being asked."
+    },
+    {
+      "id": "R97",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "Also when the report is cut short by a usage limit, when the film finished in an earlier turn, and after a re-render that changed the text.",
+      "rule": "Also paste the full upload.md in the final message when the report was cut short by a usage limit, when the film finished in an earlier turn, or after a re-render that changed the text."
+    },
+    {
+      "id": "R98",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "paste it per platform, each under its own heading with its own copy block",
+      "rule": "Paste upload.md per platform, with each platform under its own heading and its own copy block."
+    },
+    {
+      "id": "R99",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "YouTube title and description as two blocks",
+      "rule": "Present the YouTube title and the YouTube description as two separate copy blocks."
+    },
+    {
+      "id": "R100",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "never the whole file inside one wrapping code block",
+      "rule": "Never paste the whole upload.md inside one wrapping code block."
+    },
+    {
+      "id": "R101",
+      "file": "feedback-paste-upload-text.md",
+      "quote": "When I run film chats from here, check each final report has the text; if not, tell that chat to paste it.",
+      "rule": "When running film chats, check that each final report contains the upload.md text; if it does not, tell that chat to paste it."
+    },
+    {
+      "id": "R102",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Ask first about anything odd in the source",
+      "rule": "Ask the user about anything odd in the source PDF (such as wrong numbering, overlapping text, or another company's slogan) before rebuilding it."
+    },
+    {
+      "id": "R103",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "rebuild from the PDF's own data",
+      "rule": "Rebuild the Word file from the PDF's own data (PyMuPDF spans for text, fonts and baselines; drawings for shapes and line coordinates)."
+    },
+    {
+      "id": "R104",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Write raw WordprocessingML",
+      "rule": "Write the Word file as raw WordprocessingML."
+    },
+    {
+      "id": "R105",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Don't use Word's PDF import.",
+      "rule": "Do not use Word's PDF import when converting a PDF to Word."
+    },
+    {
+      "id": "R106",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "spacing-before = (original baseline − 0.8×L) − bottom of the previous paragraph",
+      "rule": "When using Exactly line spacing L, set spacing-before to (original baseline − 0.8×L) − bottom of the previous paragraph."
+    },
+    {
+      "id": "R107",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "shrink its L instead of pushing it down",
+      "rule": "If a one-line paragraph would overlap the paragraph above it, shrink its line spacing L instead of pushing it down."
+    },
+    {
+      "id": "R108",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "End each page with a next-page section break instead",
+      "rule": "Do not use pageBreakBefore to start a new page; end each page with a next-page section break instead."
+    },
+    {
+      "id": "R109",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Use explicit line breaks wherever the original breaks differ",
+      "rule": "Insert explicit line breaks wherever the line breaks differ from the original."
+    },
+    {
+      "id": "R110",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "go in as page-anchored drawings at the original coordinates",
+      "rule": "Insert header/footer logos, lines and flowchart shapes as page-anchored drawings at the original coordinates."
+    },
+    {
+      "id": "R111",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Put a photo behind the text (behindDoc)",
+      "rule": "Place a photo behind the text (behindDoc) so its white margin does not hide nearby text."
+    },
+    {
+      "id": "R112",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Verify by exporting through Word COM",
+      "rule": "Verify the result by exporting it through Word COM."
+    },
+    {
+      "id": "R113",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "compare probe baselines (aim for ≤1 pt)",
+      "rule": "Compare probe baselines against the original, aiming for a difference of 1 pt or less."
+    },
+    {
+      "id": "R114",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "line-end words",
+      "rule": "Compare line-end words against the original."
+    },
+    {
+      "id": "R115",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "side-by-side page PNGs",
+      "rule": "Compare side-by-side page PNGs against the original."
+    },
+    {
+      "id": "R116",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "grep for old names and typos",
+      "rule": "Grep the output for old names and typos."
+    },
+    {
+      "id": "R117",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "`Quit()` takes no arguments",
+      "rule": "In PowerShell, call Quit() with no arguments, because Quit(0) throws an error."
+    },
+    {
+      "id": "R118",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "Stop only the WINWORD PID you started.",
+      "rule": "Stop only the WINWORD process whose PID you started, not other WINWORD processes."
+    },
+    {
+      "id": "R119",
+      "file": "feedback-pdf-to-word-replica.md",
+      "quote": "use this for any \"jadikan Word / bikin persis kayak PDF ini\" request",
+      "rule": "Use this method for any request to turn a PDF into a Word file that matches it exactly (e.g. \"jadikan Word\" or \"bikin persis kayak PDF ini\")."
+    },
+    {
+      "id": "R120",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "Retry a no-verdict command at most once.",
+      "rule": "When a shell command gets a \"no verdict\" from the auto-mode permission check, retry that same command at most once."
+    },
+    {
+      "id": "R121",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "do work that needs no shell",
+      "rule": "While the auto-mode permission check is returning \"no verdict\", do work that does not need the shell in between retries."
+    },
+    {
+      "id": "R122",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "create spec/data files with Write rather than shell heredocs",
+      "rule": "Create spec or data files with the Write tool rather than shell heredocs."
+    },
+    {
+      "id": "R123",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "Batch shell work into fewer, fuller commands (build + verify in one run)",
+      "rule": "Batch shell work into fewer, fuller commands that combine build and verify steps in one run."
+    },
+    {
+      "id": "R124",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "Keep his real file untouched until everything is verified in the scratchpad",
+      "rule": "Keep the user's real file untouched until all changes are verified in the scratchpad."
+    },
+    {
+      "id": "R125",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "write it with ONE short command: lock-file check, hash-before check, copy, hash-after check.",
+      "rule": "When writing the verified result to the user's real file, use one short command that performs a lock-file check, a hash-before check, the copy, and a hash-after check."
+    },
+    {
+      "id": "R126",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "If that last step is blocked, stop",
+      "rule": "If the final write to the user's real file is blocked, stop working."
+    },
+    {
+      "id": "R127",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "stop and say plainly what is done",
+      "rule": "If the final write is blocked, tell the user plainly what has been done."
+    },
+    {
+      "id": "R128",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "that his file is still the old version",
+      "rule": "If the final write is blocked, tell the user that their file is still the old version."
+    },
+    {
+      "id": "R129",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "where the verified result sits",
+      "rule": "If the final write is blocked, tell the user where the verified result is located."
+    },
+    {
+      "id": "R130",
+      "file": "feedback-permission-check-outage.md",
+      "quote": "\"lanjut\" resumes",
+      "rule": "If the final write is blocked, tell the user that replying \"lanjut\" resumes the work."
+    },
+    {
+      "id": "R131",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "Default to plain language outside his own domains.",
+      "rule": "Default to plain language when explaining things outside the user's own domains."
+    },
+    {
+      "id": "R132",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "Spell out any acronym the first time or drop it entirely.",
+      "rule": "When using an acronym, spell it out the first time it appears or drop it entirely."
+    },
+    {
+      "id": "R133",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "Prefer short paragraphs and numbered steps over tables of jargon;",
+      "rule": "Prefer short paragraphs and numbered steps over tables of jargon."
+    },
+    {
+      "id": "R134",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "keep tables for simple like-for-like comparisons.",
+      "rule": "Use tables only for simple like-for-like comparisons."
+    },
+    {
+      "id": "R135",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "Give the conclusion in words before the arithmetic.",
+      "rule": "Give the conclusion in plain words before showing the arithmetic."
+    },
+    {
+      "id": "R136",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "This does not mean shorter or less rigorous",
+      "rule": "Plain-language explanations must not become shorter or less rigorous; the research and real figures still must be included, just stated plainly."
+    },
+    {
+      "id": "R137",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "It also does not apply to his\nprofessional documents in Bahasa Indonesia, where the technical register is the deliverable.",
+      "rule": "Do not apply plain-language simplification to the user's professional documents in Bahasa Indonesia, where the technical register is the deliverable."
+    },
+    {
+      "id": "R138",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "For class\nanswers, explain each technical term in plain words, with an everyday comparison, alongside\nthe answer.",
+      "rule": "For class answers, explain each technical term in plain words with an everyday comparison, alongside the answer."
+    },
+    {
+      "id": "R139",
+      "file": "feedback-plain-language-explanations.md",
+      "quote": "That applies even when the answer itself stays in the lecturer's vocabulary.",
+      "rule": "Explain technical terms in plain words even when the answer itself stays in the lecturer's vocabulary."
+    },
+    {
+      "id": "R140",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Before regex-fixing text, dump the raw run XML of the target paragraphs.",
+      "rule": "Before regex-fixing text in a .pptx file, dump the raw run XML of the target paragraphs first."
+    },
+    {
+      "id": "R141",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Don't assume every text box uses normAutofit; some are noAutofit and must fit by size alone.",
+      "rule": "Do not assume a text box in a .pptx uses normAutofit; check whether it is noAutofit and, if so, make the text fit by adjusting size alone."
+    },
+    {
+      "id": "R142",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Measure fit with PowerPoint itself over COM (`TextFrame2.AutoSize = 0`, then `TextRange.BoundHeight`), not a font-metrics estimate",
+      "rule": "Measure text fit in .pptx files using PowerPoint over COM (set TextFrame2.AutoSize = 0, then read TextRange.BoundHeight), not a font-metrics estimate."
+    },
+    {
+      "id": "R143",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "probe all candidate widths in one run rather than several.",
+      "rule": "When measuring fit for candidate box widths, probe all candidate widths in a single run rather than across several runs."
+    },
+    {
+      "id": "R144",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "When resizing a box, reset its stored `fontScale` / `lnSpcReduction`",
+      "rule": "When resizing a text box in a .pptx file, reset its stored fontScale and lnSpcReduction values."
+    },
+    {
+      "id": "R145",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Finish with an overflow audit of every text box on every slide",
+      "rule": "Finish .pptx edits with an overflow audit of every text box on every slide."
+    },
+    {
+      "id": "R146",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "a text diff proving only the intended paragraphs changed",
+      "rule": "Verify .pptx edits with a text diff proving only the intended paragraphs changed."
+    },
+    {
+      "id": "R147",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "and a render of each changed slide.",
+      "rule": "Render each changed slide of a .pptx file to verify it."
+    },
+    {
+      "id": "R148",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Chain commands so a failed build step can't feed a later one",
+      "rule": "Chain build commands so that a failed build step cannot feed into a later step."
+    },
+    {
+      "id": "R149",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "When filtering text for a review, don't drop shapes by pattern",
+      "rule": "When filtering text for a review, do not drop shapes based on a text pattern."
+    },
+    {
+      "id": "R150",
+      "file": "feedback-pptx-edit-checklist.md",
+      "quote": "Run this list before reporting any PowerPoint edit as done.",
+      "rule": "Run this checklist before reporting any PowerPoint edit as done."
+    },
+    {
+      "id": "R151",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "copy the structure of the dosen's earlier tugas: the same petunjuk block, numbering, question wording and sub-parts",
+      "rule": "When making latihan soal or a practice test for a course, copy the structure of the dosen's earlier tugas: the same petunjuk block, numbering, question wording and sub-parts."
+    },
+    {
+      "id": "R152",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "Change only the numbers, names and context.",
+      "rule": "When writing practice tests that mirror the dosen's tugas, change only the numbers, names and context, leaving the rest of the structure and wording unchanged."
+    },
+    {
+      "id": "R153",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "The answer key follows his own jawaban files: Diketahui → Ditanya → Langkah → Jawaban akhir",
+      "rule": "Structure the answer key of practice tests according to the dosen's own jawaban files, using the sequence Diketahui → Ditanya → Langkah → Jawaban akhir."
+    },
+    {
+      "id": "R154",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "plus a Penjelasan note that is not copied onto paper",
+      "rule": "Include a Penjelasan note in the answer key of practice tests, but do not copy that note onto the paper version of the test."
+    },
+    {
+      "id": "R155",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "If a topic has never appeared in a tugas, base it on the exercises and examples in the slides, and tell him that's what you did.",
+      "rule": "When a topic has never appeared in a tugas, base the practice question on the exercises and examples in the slides, and tell the user that this is the source."
+    },
+    {
+      "id": "R156",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "Work within any limit he gives on sub-parts, e.g. \"maksimal a, b\".",
+      "rule": "Respect any limit the user sets on sub-parts of practice questions (e.g. \"maksimal a, b\")."
+    },
+    {
+      "id": "R157",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "Read the soal PDFs and jawaban files under the course's `Tugas\\` folder before writing a single question.",
+      "rule": "Before writing any practice question, read the soal PDFs and jawaban files in the course's Tugas folder."
+    },
+    {
+      "id": "R158",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "Verify every computed answer.",
+      "rule": "Verify every computed answer in practice tests before delivering them."
+    },
+    {
+      "id": "R159",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "List the source tugas number for each question so he can check.",
+      "rule": "List the source tugas number for each practice question so the user can check it."
+    },
+    {
+      "id": "R160",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "Slide-only question types were dropped.",
+      "rule": "Do not include slide-only question types in practice tests that are meant to mirror the tugas."
+    },
+    {
+      "id": "R161",
+      "file": "feedback-practice-tests-mirror-tugas.md",
+      "quote": "when he says something \"ke ubah\", re-read the file and fix only the damage, such as text accidentally cut and pasted mid-line",
+      "rule": "When the user asks for a change (\"ke ubah\"), re-read the file and fix only the damage, such as text accidentally cut and pasted mid-line, without making other changes."
+    },
+    {
+      "id": "R162",
+      "file": "feedback-remind-materials-after-class.md",
+      "quote": "check whether Bryan's most recent scheduled class (per [[project-uksw-digital-business]], or the live Google Calendar on `bryanputra2710@gmail.com`) has already ended for the day",
+      "rule": "At the start of every new conversation, check whether the user's most recent scheduled class has already ended for the day, using the class schedule in project-uksw-digital-business or the live Google Calendar."
+    },
+    {
+      "id": "R163",
+      "file": "feedback-remind-materials-after-class.md",
+      "quote": "If it has, and he hasn't uploaded/pasted that class's materials to Claude yet, remind him at the start of the reply to send the materials from that class.",
+      "rule": "If the most recent class has ended and the user has not yet uploaded or pasted that class's materials, remind the user at the start of the reply to send the materials from that class."
+    },
+    {
+      "id": "R164",
+      "file": "feedback-remind-materials-after-class.md",
+      "quote": "Compare current WIB time against the class schedule in [[project-uksw-digital-business]]",
+      "rule": "Compare the current WIB time against the class schedule in project-uksw-digital-business to determine which class, if any, just ended."
+    },
+    {
+      "id": "R165",
+      "file": "feedback-remind-materials-after-class.md",
+      "quote": "Once he supplies materials for a given class in a session, stop reminding for that class — only remind again after the *next* class ends.",
+      "rule": "Once the user supplies materials for a given class in a session, stop reminding about that class and only remind again after the next class ends."
+    },
+    {
+      "id": "R166",
+      "file": "feedback-remind-materials-after-class.md",
+      "quote": "Keep the reminder to one short line; don't block on it if he's clearly asking about something unrelated.",
+      "rule": "Keep the materials reminder to one short line, and do not block on it if the user is clearly asking about something unrelated."
+    },
+    {
+      "id": "R167",
+      "file": "feedback-say-time-before-long-steps.md",
+      "quote": "say up front roughly how long it will take and what he'll get at the end",
+      "rule": "Before starting any step that runs for more than a minute or two (such as video exports, full review passes, or big batch jobs), tell the user up front roughly how long it will take and what they will get at the end."
+    },
+    {
+      "id": "R168",
+      "file": "feedback-say-time-before-long-steps.md",
+      "quote": "one line before the step (\"rendering now, about 4 minutes\")",
+      "rule": "Before a long-running step, give the user a single line announcing it and its approximate duration (e.g., \"rendering now, about 4 minutes\")."
+    },
+    {
+      "id": "R169",
+      "file": "feedback-say-time-before-long-steps.md",
+      "quote": "always run build.mjs before export.mjs",
+      "rule": "For the animate skill, always run build.mjs before export.mjs."
+    },
+    {
+      "id": "R170",
+      "file": "feedback-search-before-building.md",
+      "quote": "Before building any new skill, tool, script or small app from scratch, first search",
+      "rule": "Before building any new skill, tool, script, or small app from scratch, search GitHub (and Hugging Face for models/agents) for an existing one first."
+    },
+    {
+      "id": "R171",
+      "file": "feedback-search-before-building.md",
+      "quote": "Also search the Higgsfield skills catalog (https://higgsfield.ai/skills)",
+      "rule": "When searching for an existing skill, tool, or script, also search the Higgsfield skills catalog at https://higgsfield.ai/skills."
+    },
+    {
+      "id": "R172",
+      "file": "feedback-search-before-building.md",
+      "quote": "never connect it",
+      "rule": "Never connect Higgsfield without Bryan's explicit yes."
+    },
+    {
+      "id": "R173",
+      "file": "feedback-search-before-building.md",
+      "quote": "log in or spend credits without his yes",
+      "rule": "Never log in to Higgsfield without Bryan's explicit yes."
+    },
+    {
+      "id": "R174",
+      "file": "feedback-search-before-building.md",
+      "quote": "spend credits without his yes",
+      "rule": "Never spend Higgsfield credits without Bryan's explicit yes."
+    },
+    {
+      "id": "R175",
+      "file": "feedback-search-before-building.md",
+      "quote": "Report what was found in one or two lines",
+      "rule": "Report search findings in one or two lines, covering the name, link, licence, last update, and how much of the job it covers."
+    },
+    {
+      "id": "R176",
+      "file": "feedback-search-before-building.md",
+      "quote": "Report what fits and what it would",
+      "rule": "For Higgsfield results, report what fits the task and what it would cost."
+    },
+    {
+      "id": "R177",
+      "file": "feedback-search-before-building.md",
+      "quote": "audit it before installing",
+      "rule": "Audit a good-fit tool before installing it."
+    },
+    {
+      "id": "R178",
+      "file": "feedback-search-before-building.md",
+      "quote": "read every file that runs: scripts, hooks,",
+      "rule": "When auditing a tool, read every file that runs, including scripts, hooks, and install steps."
+    },
+    {
+      "id": "R179",
+      "file": "feedback-search-before-building.md",
+      "quote": "look for network calls, credential reads, obfuscated code",
+      "rule": "When auditing a tool, look for network calls, credential reads, and obfuscated code."
+    },
+    {
+      "id": "R180",
+      "file": "feedback-search-before-building.md",
+      "quote": "a SOURCES.md like `humanizer` does",
+      "rule": "Credit an adopted good-fit source in a SOURCES.md file, as the humanizer skill does."
+    },
+    {
+      "id": "R181",
+      "file": "feedback-search-before-building.md",
+      "quote": "trim it with `skill-audit`",
+      "rule": "Trim an adopted good-fit skill using skill-audit."
+    },
+    {
+      "id": "R182",
+      "file": "feedback-search-before-building.md",
+      "quote": "reuse the useful part",
+      "rule": "For a partial fit, reuse the useful part of the existing tool."
+    },
+    {
+      "id": "R183",
+      "file": "feedback-search-before-building.md",
+      "quote": "build only the gap",
+      "rule": "For a partial fit, build only the part the existing tool does not cover."
+    },
+    {
+      "id": "R184",
+      "file": "feedback-search-before-building.md",
+      "quote": "build from scratch",
+      "rule": "If nothing usable is found, build from scratch."
+    },
+    {
+      "id": "R185",
+      "file": "feedback-search-before-building.md",
+      "quote": "say the search came up empty",
+      "rule": "If nothing usable is found, state that the search came up empty."
+    },
+    {
+      "id": "R186",
+      "file": "feedback-search-before-building.md",
+      "quote": "Skip the search only for tiny one-off scripts or when Bryan says to build it himself.",
+      "rule": "Skip the search only for tiny one-off scripts or when Bryan says to build it himself."
+    },
+    {
+      "id": "R187",
+      "file": "feedback-search-before-building.md",
+      "quote": "ask before installing",
+      "rule": "Ask before installing any tool found in the search."
+    },
+    {
+      "id": "R188",
+      "file": "feedback-search-before-building.md",
+      "quote": "make the search the first step of any \"bikin skill / tool / script\" request",
+      "rule": "For any request to make a skill, tool, or script, make the search the first step."
+    },
+    {
+      "id": "R189",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "the only approval a `sekitar` film waits for is the **look check-in**",
+      "rule": "For a sekitar film, wait for Bryan's approval only at the look check-in (the every=3 board shown before rendering); do not wait for approval on any other step."
+    },
+    {
+      "id": "R190",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "The script no longer waits for a yes: write it, show it with its source table and hook check, then\ngo straight on to voice and 3D.",
+      "rule": "For a sekitar film, do not wait for approval of the script; after writing it, show it with its source table and hook check, then proceed directly to voice and 3D."
+    },
+    {
+      "id": "R191",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "Set the log status to `dipilih` once\nthe script is written",
+      "rule": "For a sekitar film, set the log status to `dipilih` once the script is written."
+    },
+    {
+      "id": "R192",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "in a film chat, never stop for script approval",
+      "rule": "In a film chat, never stop to ask for script approval."
+    },
+    {
+      "id": "R193",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "stop once at the board and\nwait for his yes, then render",
+      "rule": "In a film chat, stop once at the every=3 board, wait for Bryan's approval, then render."
+    },
+    {
+      "id": "R194",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "Still never upload",
+      "rule": "Never upload films."
+    },
+    {
+      "id": "R195",
+      "file": "feedback-sekitar-approve-look-only.md",
+      "quote": "still\npaste upload.md at the end",
+      "rule": "At the end of a film, paste the upload.md text."
+    },
+    {
+      "id": "R196",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Keep critically re-examining answers instead of treating a \"final\" answer as truly final — keep questioning and self-correcting rather than settling prematurely.",
+      "rule": "Keep critically re-examining your answers and self-correcting; do not treat a答案 as final or settle prematurely."
+    },
+    {
+      "id": "R197",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Search/verify specific factual claims (specs, dates, figures) before answering instead of guessing from memory.",
+      "rule": "Search or verify specific factual claims (specs, dates, figures) before answering; do not guess from memory."
+    },
+    {
+      "id": "R198",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Be efficient — he is cost/usage-conscious, so don't pad responses.",
+      "rule": "Be efficient and do not pad responses."
+    },
+    {
+      "id": "R199",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Budget tool calls and bail out of dead ends",
+      "rule": "Budget tool calls and bail out of dead-end methods."
+    },
+    {
+      "id": "R200",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "switch method once",
+      "rule": "When repeating one method keeps failing (e.g. 403s, JS-rendered pages, a summarising fetch refusing copyrighted text), switch to a different method once before handing the gap back to the user."
+    },
+    {
+      "id": "R201",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "read the HTML myself instead of asking a summarising fetch to repeat it",
+      "rule": "When a summarising fetch keeps failing, curl the raw page into the scratchpad and read the HTML directly instead of re-asking the summarising fetch."
+    },
+    {
+      "id": "R202",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "matching its figures to the source is not enough: test whether\n   each claim follows from the data, including what the draft chooses to highlight.",
+      "rule": "When reviewing a report, do not stop at matching figures to the source; test whether each claim follows from the data, including what the draft chooses to highlight."
+    },
+    {
+      "id": "R203",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Before stating a spec, date, or figure, look it up rather than recalling it.",
+      "rule": "Before stating a spec, date, or figure, look it up rather than recalling it."
+    },
+    {
+      "id": "R204",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "After reaching a conclusion, take one more pass to look for what's wrong with it, and say so if something is.",
+      "rule": "After reaching a conclusion, take one more pass looking for what is wrong with it, and say so if something is."
+    },
+    {
+      "id": "R205",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Cut preamble, summaries of what you just did, and restatements of the question.",
+      "rule": "Cut preamble, summaries of what you just did, and restatements of the question from responses."
+    },
+    {
+      "id": "R206",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "Set an implicit call budget before starting a lookup",
+      "rule": "Set a tool-call budget before starting a lookup."
+    },
+    {
+      "id": "R207",
+      "file": "feedback-self-correct-and-verify.md",
+      "quote": "treat two consecutive failed fetches as a signal to change method, not to try a third site.",
+      "rule": "After two consecutive failed fetches, change method rather than trying a third site."
+    },
+    {
+      "id": "R208",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "Web work runs in a subagent with `model: \"sonnet\"` (Sonnet 5.5), never on the main session's model.",
+      "rule": "Run all web work in a subagent with model set to \"sonnet\", never on the main session's model."
+    },
+    {
+      "id": "R209",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "Brief the subagent with exactly what to find or do, and have it return only the facts, URLs and dates.",
+      "rule": "When briefing a web subagent, specify exactly what to find or do, and have it return only facts, URLs and dates."
+    },
+    {
+      "id": "R210",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "Claude itself still judges and writes the result: idea blocks, scripts, reports.",
+      "rule": "Do the judging and writing of results (idea blocks, scripts, reports) yourself rather than delegating it to the web subagent."
+    },
+    {
+      "id": "R211",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "Before the first web step in any skill (riset-sekitar, riset-produk, sekitar's link step, unggah-sekitar, sosmed-audit, deep research), spawn the subagent with `model: \"sonnet\"`.",
+      "rule": "Before the first web step in any skill, spawn the subagent with model set to \"sonnet\"."
+    },
+    {
+      "id": "R212",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "When starting a side session whose work is mostly web, pass a Sonnet `model` too.",
+      "rule": "When starting a side session whose work is mostly web, pass a Sonnet model setting."
+    },
+    {
+      "id": "R213",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "Group several lookups into one subagent so it doesn't start cold many times.",
+      "rule": "Group several web lookups into one subagent instead of spawning separate subagents for each."
+    },
+    {
+      "id": "R214",
+      "file": "feedback-web-work-cheaper-model.md",
+      "quote": "A web-fetch agent type with no model setting counts as web work too, so give it `model: \"sonnet\"`.",
+      "rule": "When using a web-fetch agent type, set model to \"sonnet\" even if no model setting is otherwise required."
+    },
+    {
+      "id": "R215",
+      "file": "project-animate-skill.md",
+      "quote": "Don't steer it toward his clips.",
+      "rule": "Do not steer the animate skill toward the clips for the content-clipping automation project."
+    },
+    {
+      "id": "R216",
+      "file": "project-animate-skill.md",
+      "quote": "measure its syllables/s and adjust `tools/speech.mjs` if a comfortable read exceeds it.",
+      "rule": "After the first real Indonesian voice take, measure its syllables per second and adjust tools/speech.mjs if a comfortable read exceeds the current pace limit."
+    },
+    {
+      "id": "R217",
+      "file": "project-animate-skill.md",
+      "quote": "Pieces go in `C:\\Bryan De Great\\Animasi\\`",
+      "rule": "Place animation pieces in C:\\Bryan De Great\\Animasi\\."
+    },
+    {
+      "id": "R218",
+      "file": "project-animate-skill.md",
+      "quote": "never in the JARVIS repo (public)",
+      "rule": "Never place animation pieces in the JARVIS repo."
+    },
+    {
+      "id": "R219",
+      "file": "project-animate-skill.md",
+      "quote": "when he asks for an animation, use the skill",
+      "rule": "When the user asks for an animation, use the animate skill."
+    },
+    {
+      "id": "R220",
+      "file": "project-animate-skill.md",
+      "quote": "ask the language if unclear",
+      "rule": "If the language for an animation piece is unclear, ask the user which language to use."
+    },
+    {
+      "id": "R221",
+      "file": "project-animate-skill.md",
+      "quote": "estimates (the Indonesian pace, the flash approximation)",
+      "rule": "When reporting animation review checks, state which checks are estimates, such as the Indonesian pace and the flash approximation."
+    },
+    {
+      "id": "R222",
+      "file": "project-animate-skill.md",
+      "quote": "Write memory files with the Write tool, not shell heredocs\nor Python strings",
+      "rule": "Write memory files with the Write tool, not shell heredocs or Python strings."
+    },
+    {
+      "id": "R223",
+      "file": "project-approval-material-forms.md",
+      "quote": "if asked for another Persetujuan Material, first confirm which format is wanted",
+      "rule": "When asked for another Persetujuan Material form, first confirm with the user which format is wanted (Sinergi page-1 style or Icon+ FSS style) before mapping anything."
+    },
+    {
+      "id": "R224",
+      "file": "project-approval-material-forms.md",
+      "quote": "Reuse the build approach in [[feedback-excel-com-checklist]]",
+      "rule": "When building another Persetujuan Material form, reuse the build approach in the feedback-excel-com-checklist note, item 13."
+    },
+    {
+      "id": "R225",
+      "file": "project-approval-material-forms.md",
+      "quote": "See [[feedback-duplicate-means-exact-copy]] and [[feedback-ask-before-better-idea]].",
+      "rule": "Consult the feedback-duplicate-means-exact-copy and feedback-ask-before-better-idea notes when working on Persetujuan Material forms."
+    },
+    {
+      "id": "R226",
+      "file": "project-approval-material-forms.md",
+      "quote": "they must be signed fresh",
+      "rule": "Do not copy the signatures or stamp from the scanned Genset form; leave them to be signed fresh."
+    },
+    {
+      "id": "R227",
+      "file": "project-approval-material-forms.md",
+      "quote": "No cell border may touch a window's edge",
+      "rule": "Do not let any cell border touch the edge of a signature window in the Input sheet."
+    },
+    {
+      "id": "R228",
+      "file": "project-ats-fire-simulator-idea.md",
+      "quote": "sequence timings/logic must come from actual specs/standards,\nnot recalled/invented",
+      "rule": "When building or documenting the ATS/fire-suppression sequence simulator, source sequence timings and interlock logic from actual specs or standards, never from recall or invention."
+    },
+    {
+      "id": "R229",
+      "file": "project-ats-fire-simulator-idea.md",
+      "quote": "bring it up once, briefly — don't nag if he's clearly moved on to something else.",
+      "rule": "If the user hasn't mentioned the ATS fire simulator project after being reminded, raise it once, briefly, and do not repeat the reminder if the user has clearly moved on to something else."
+    },
+    {
+      "id": "R230",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "don't start a PPT until he asks",
+      "rule": "Do not start building a PowerPoint presentation for the Bahasa Inggris presentation project until the user explicitly asks for it."
+    },
+    {
+      "id": "R231",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "ask him for it when naming the file",
+      "rule": "When naming the Bahasa Inggris presentation slide file, ask the user for their NIM first, since it is not stored in memory."
+    },
+    {
+      "id": "R232",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "Match the week to the meeting number.",
+      "rule": "When answering questions about the Bahasa Inggris class, map the current week to the corresponding meeting number."
+    },
+    {
+      "id": "R233",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "Remember meeting 14 has no class and meeting 15 is the graded presentation.",
+      "rule": "Remember that meeting 14 of the Bahasa Inggris class has no class and meeting 15 is the graded presentation when answering schedule questions."
+    },
+    {
+      "id": "R234",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "Re-anchor if a week gets skipped.",
+      "rule": "If a week of the Bahasa Inggris class gets skipped, re-anchor the meeting-number-to-date mapping before answering schedule questions."
+    },
+    {
+      "id": "R235",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "ask for it before submitting",
+      "rule": "Ask for the grading rubric before submitting any Bahasa Inggris project or assignment."
+    },
+    {
+      "id": "R236",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "Keep all submission and assessment documentation",
+      "rule": "Keep all submission and assessment documentation for Bahasa Inggris assignments and grades."
+    },
+    {
+      "id": "R237",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "calculate your own mark before disputing a grade",
+      "rule": "Calculate your own mark before disputing a Bahasa Inggris grade."
+    },
+    {
+      "id": "R238",
+      "file": "project-bahasa-inggris-db105c.md",
+      "quote": "Remember meeting 14 has no class",
+      "rule": "Do not treat meeting 14 of the Bahasa Inggris class as a class meeting."
+    },
+    {
+      "id": "R239",
+      "file": "project-content-clipping-automation.md",
+      "quote": "favor unattended/scheduled operation over interactive tooling",
+      "rule": "When building the clipping pipeline in this project, favor unattended/scheduled operation over interactive tooling."
+    },
+    {
+      "id": "R240",
+      "file": "project-content-clipping-automation.md",
+      "quote": "keep the Indonesian-first source selection in mind for transcription and caption choices",
+      "rule": "When building the clipping pipeline in this project, keep the Indonesian-first source selection in mind when making transcription and caption choices."
+    },
+    {
+      "id": "R241",
+      "file": "project-denah-3d-rumah.md",
+      "quote": "with me deciding colours/output and asking only if needed",
+      "rule": "Decide the colours and output format yourself, and ask Bryan only when a decision is genuinely needed."
+    },
+    {
+      "id": "R242",
+      "file": "project-denah-3d-rumah.md",
+      "quote": "if Bryan gives real heights, a roof type or other changes, edit the data block in the source HTML",
+      "rule": "When Bryan gives real heights, a roof type, or other changes to the house plan, edit the data block in the source HTML."
+    },
+    {
+      "id": "R243",
+      "file": "project-denah-3d-rumah.md",
+      "quote": "republish with the artifact URL",
+      "rule": "After editing the house plan, republish it to the existing artifact URL."
+    },
+    {
+      "id": "R244",
+      "file": "project-denah-3d-rumah.md",
+      "quote": "read it first in a new session",
+      "rule": "Read the existing artifact first in a new session before republishing it."
+    },
+    {
+      "id": "R245",
+      "file": "project-denah-3d-rumah.md",
+      "quote": "Keep the client's name and address out of this public repo.",
+      "rule": "Keep the client's name and address out of the public repo."
+    },
+    {
+      "id": "R246",
+      "file": "project-electronics-course.md",
+      "quote": "Teach as a professor explaining from first principles",
+      "rule": "When teaching Bryan electronics in this course thread, explain from first principles as a professor would."
+    },
+    {
+      "id": "R247",
+      "file": "project-electronics-course.md",
+      "quote": "analogies, diagrams, step-by-step build-up, comprehension checks before moving on",
+      "rule": "When teaching Bryan in this course thread, use analogies, diagrams, step-by-step build-up, and comprehension checks before moving on."
+    },
+    {
+      "id": "R248",
+      "file": "project-electronics-course.md",
+      "quote": "Stay in Bahasa Indonesia for this thread.",
+      "rule": "Conduct the electronics course thread with Bryan in Bahasa Indonesia."
+    },
+    {
+      "id": "R249",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Only at creation: Facebook > Buat reel > upload > screen Pengaturan > **Tambahkan produk**",
+      "rule": "Add a product tag to a Facebook Reel only at creation, on the Pengaturan screen after upload (Facebook > Buat reel > upload > Pengaturan > Tambahkan produk)."
+    },
+    {
+      "id": "R250",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Don't re-upload a film just for a tag (duplicate risk).",
+      "rule": "Do not re-upload a film just to add a product tag, because of the duplicate risk."
+    },
+    {
+      "id": "R251",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "pin it as the first comment",
+      "rule": "For an old film that cannot be tagged, make an affiliate link in affiliate.shopee.co.id and pin it as the first comment."
+    },
+    {
+      "id": "R252",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "One film file for all platforms",
+      "rule": "Use one film file for all platforms."
+    },
+    {
+      "id": "R253",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "only films whose topic has a natural product get a tag.",
+      "rule": "Add a product tag only to films whose topic has a natural product."
+    },
+    {
+      "id": "R254",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Don't shift the posting schedule for Facebook.",
+      "rule": "Do not change the posting schedule for Facebook because of the affiliate plan."
+    },
+    {
+      "id": "R255",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Skip 1000V gloves",
+      "rule": "Skip the 1000V gloves when picking products for the Kesetrum film."
+    },
+    {
+      "id": "R256",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Check the shop badge (Mall/Star) on the product page first.",
+      "rule": "Before picking a product, check the shop badge (Mall/Star) on its product page."
+    },
+    {
+      "id": "R257",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "check it and fix via Coretax Perubahan Data if still 47901",
+      "rule": "Check the KLU on the Coretax data; if it still shows 47901, fix it via Coretax Perubahan Data."
+    },
+    {
+      "id": "R258",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "scroll the sorted list instead",
+      "rule": "In the Coretax KLU picker, scroll the sorted list instead of using the Kode filter."
+    },
+    {
+      "id": "R259",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the saved row needs the \"kode ekonomi utama\" checkbox ticked",
+      "rule": "Tick the \"kode ekonomi utama\" checkbox on the saved Coretax KLU row."
+    },
+    {
+      "id": "R260",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "check that page for the status turning valid or rejected",
+      "rule": "Check the Shopee Pengaturan Pembayaran page for whether the status has turned valid or rejected."
+    },
+    {
+      "id": "R261",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "check which names differ (bank name vs NPWP/KTP name, usually a shortened or missing name)",
+      "rule": "When Shopee rejects bank or tax info, check which names differ between the bank name and the NPWP/KTP name."
+    },
+    {
+      "id": "R262",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "and that the new row turns valid",
+      "rule": "After resubmitting, check that the new Shopee payment row turns valid."
+    },
+    {
+      "id": "R263",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the Facebook text of a product film never carries the words \"(link afiliasi)\" or another affiliate label",
+      "rule": "Never include \"(link afiliasi)\" or any other affiliate label in the Facebook text of a product film."
+    },
+    {
+      "id": "R264",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the keranjang line is followed by the link alone",
+      "rule": "In the Facebook text of a product film, place the bare link directly after the keranjang line."
+    },
+    {
+      "id": "R265",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "every new idea block now carries a \"Produk Facebook\" section",
+      "rule": "Include a \"Produk Facebook\" section in every new idea block."
+    },
+    {
+      "id": "R266",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "TikTok keranjang stays paused.",
+      "rule": "Keep the TikTok keranjang paused."
+    },
+    {
+      "id": "R267",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the stock keeps at least 2 product ideas",
+      "rule": "Keep at least 2 product ideas in the stock."
+    },
+    {
+      "id": "R268",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "when fewer, riset-sekitar first runs the new `riset-produk` skill",
+      "rule": "When the product stock has fewer than 2 ideas, run the riset-produk skill first in riset-sekitar."
+    },
+    {
+      "id": "R269",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "which opens by reminding him to type `@browser`",
+      "rule": "Open riset-produk by reminding the user to type @browser."
+    },
+    {
+      "id": "R270",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "reads Shopee Affiliate > Penawaran Produk, shopee.co.id trends and Google Trends ID in Chrome",
+      "rule": "In riset-produk, read Shopee Affiliate > Penawaran Produk, shopee.co.id trends and Google Trends ID in Chrome."
+    },
+    {
+      "id": "R271",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "saves a 14-day shortlist `Animasi\\sekitar\\ide\\produk-<tanggal>.md` with a film angle per product",
+      "rule": "Save a 14-day product shortlist file with a film angle per product."
+    },
+    {
+      "id": "R272",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the 3D object is built identical to the item behind the affiliate link",
+      "rule": "In a film carrying a Facebook product, build the 3D object identical to the item behind the affiliate link."
+    },
+    {
+      "id": "R273",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Still no logo, brand name or printed text in the picture",
+      "rule": "Do not show a logo, brand name or printed text in the product film picture."
+    },
+    {
+      "id": "R274",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "the script never names it",
+      "rule": "Never name the product in the film script."
+    },
+    {
+      "id": "R275",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "every pick (model, price, commission, sold, `product_offer` id) comes from affiliate.shopee.co.id > Penawaran Produk through Chrome in the Sonnet subagent",
+      "rule": "Take every product pick's model, price, commission, sold count and product_offer id from affiliate.shopee.co.id > Penawaran Produk via Chrome in the Sonnet subagent."
+    },
+    {
+      "id": "R276",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "no Tokopedia, Lazada or other marketplace for price or sold count",
+      "rule": "Do not use Tokopedia, Lazada or any other marketplace for product price or sold count."
+    },
+    {
+      "id": "R277",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "brand pages only for specs",
+      "rule": "Use brand pages only for product specs."
+    },
+    {
+      "id": "R278",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Without Chrome, write \"belum dicek di Shopee Affiliate\" instead of an outside pick",
+      "rule": "If Chrome is unavailable, write \"belum dicek di Shopee Affiliate\" instead of picking a product from outside Shopee Affiliate."
+    },
+    {
+      "id": "R279",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "when he makes the next film, ask whether it has a product that fits",
+      "rule": "When the user makes the next film, ask whether it has a product that fits."
+    },
+    {
+      "id": "R280",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "put the tag in at Buat reel",
+      "rule": "Put the product tag in at Buat reel."
+    },
+    {
+      "id": "R281",
+      "file": "project-facebook-affiliate-shopee.md",
+      "quote": "Add these numbers to the sosmed-audit.",
+      "rule": "Add the affiliate numbers to the sosmed-audit."
+    },
+    {
+      "id": "R282",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "Always rerun `lookahead-analysis` after any strategy change",
+      "rule": "After any strategy change, rerun the `lookahead-analysis` check."
+    },
+    {
+      "id": "R283",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "and show him the table",
+      "rule": "After rerunning `lookahead-analysis` following a strategy change, show Bryan the resulting table."
+    },
+    {
+      "id": "R284",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "change one at a time",
+      "rule": "When Bryan asks to change a trading rule, change only one rule at a time."
+    },
+    {
+      "id": "R285",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "warn about overfitting",
+      "rule": "When Bryan asks to change a trading rule, warn him about overfitting."
+    },
+    {
+      "id": "R286",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "After any config or bat change, restart the robots",
+      "rule": "After any config or bat change, restart the dry-run robots."
+    },
+    {
+      "id": "R287",
+      "file": "project-freqtrade-turtle-swing.md",
+      "quote": "check both logs for heartbeat and Telegram errors",
+      "rule": "After any config or bat change, check both robots' logs for heartbeat and Telegram errors."
+    },
+    {
+      "id": "R288",
+      "file": "project-fss-ats-documentation.md",
+      "quote": "Write documents in Bahasa Indonesia.",
+      "rule": "Write all documents in Bahasa Indonesia."
+    },
+    {
+      "id": "R289",
+      "file": "project-fss-ats-documentation.md",
+      "quote": "Use correct flowchart symbol semantics — terminators, decision diamonds, predefined process symbols, document shapes — not generic boxes",
+      "rule": "When creating flowcharts, use the correct flowchart symbols (terminators, decision diamonds, predefined process symbols, document shapes) according to their meaning, not generic boxes."
+    },
+    {
+      "id": "R290",
+      "file": "project-fss-ats-documentation.md",
+      "quote": "Verify NFPA clause references rather than recalling them",
+      "rule": "Verify NFPA clause references against a source instead of recalling them from memory."
+    },
+    {
+      "id": "R291",
+      "file": "project-fss-ats-documentation.md",
+      "quote": "Look up every clause number, agent concentration, and panel spec",
+      "rule": "Look up every clause number, agent concentration, and panel specification instead of assuming them."
+    },
+    {
+      "id": "R292",
+      "file": "project-fss-ats-documentation.md",
+      "quote": "flag explicitly where a real engineer needs to confirm a value before the document goes out",
+      "rule": "Explicitly flag any value in a document that a real engineer needs to confirm before the document is released."
+    },
+    {
+      "id": "R293",
+      "file": "project-guitar-presets-gp100.md",
+      "quote": "Use the GP-100's actual block and parameter names — PRE, DST, AMP, NR, CAB, EQ, MOD, DLY, RVB",
+      "rule": "When discussing the Valeton GP-100 signal chain, use its actual block and parameter names (PRE, DST, AMP, NR, CAB, EQ, MOD, DLY, RVB)."
+    },
+    {
+      "id": "R294",
+      "file": "project-guitar-presets-gp100.md",
+      "quote": "never generic pedal terms",
+      "rule": "Never use generic pedal terms when discussing the Valeton GP-100 signal chain."
+    },
+    {
+      "id": "R295",
+      "file": "project-guitar-presets-gp100.md",
+      "quote": "Verify parameter behavior against the actual firmware version rather than assuming.",
+      "rule": "Verify GP-100 parameter behavior against the actual firmware version instead of assuming it."
+    },
+    {
+      "id": "R296",
+      "file": "project-guitar-presets-gp100.md",
+      "quote": "don't move it",
+      "rule": "Do not move the GP-100 editor installed at C:\\Bryan De Great\\GP-100\\, because its shortcuts point there."
+    },
+    {
+      "id": "R297",
+      "file": "project-gym-hypertrophy.md",
+      "quote": "Keep sessions to ~60 min and respect the Mon/Tue/Thu/Fri days",
+      "rule": "When planning or proposing hypertrophy training sessions, keep each session to roughly 60 minutes and schedule them only on Mon/Tue/Thu/Fri."
+    },
+    {
+      "id": "R298",
+      "file": "project-gym-hypertrophy.md",
+      "quote": "check [[project-uksw-digital-business]] before proposing any schedule change",
+      "rule": "Before proposing any change to the training schedule, check the project-uksw-digital-business memory note."
+    },
+    {
+      "id": "R299",
+      "file": "project-gym-hypertrophy.md",
+      "quote": "Program for a returning lifter, not a novice or an advanced one.",
+      "rule": "When designing the training program, program for a returning lifter, not a novice or an advanced lifter."
+    },
+    {
+      "id": "R300",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "Check whether the catering service sells a 3-meals-per-day package before proposing anything he'd have to buy separately.",
+      "rule": "Before proposing any food he would have to buy separately, check whether the catering service sells a 3-meals-per-day package."
+    },
+    {
+      "id": "R301",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "price anything new in rupiah per calorie before recommending it",
+      "rule": "Before recommending any new food, price it in rupiah per calorie."
+    },
+    {
+      "id": "R302",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "say plainly that the figures are rough and worth checking locally",
+      "rule": "When giving price figures, say plainly that they are rough and worth checking locally."
+    },
+    {
+      "id": "R303",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "Ask for the Sunday weight once a couple of weeks have passed",
+      "rule": "Once a couple of weeks have passed, ask the user for his Sunday weight."
+    },
+    {
+      "id": "R304",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "If it is\nflat, add food",
+      "rule": "If the Sunday weight is flat, add food to the diet."
+    },
+    {
+      "id": "R305",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "do not change the training",
+      "rule": "If the Sunday weight is flat, do not change the training."
+    },
+    {
+      "id": "R306",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "Ask whether he actually refilled.",
+      "rule": "Ask the user whether he actually refilled the susu."
+    },
+    {
+      "id": "R307",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "Don't nag about the deferred items",
+      "rule": "Do not nag the user about deferred items."
+    },
+    {
+      "id": "R308",
+      "file": "project-gym-nutrition-bulking.md",
+      "quote": "Keep the explanations plain",
+      "rule": "Keep explanations plain."
+    },
+    {
+      "id": "R309",
+      "file": "project-iom-genset-sss.md",
+      "quote": "for small edits, edit the Word file directly.",
+      "rule": "When making small edits to the IOM Word file, edit the .docx file directly rather than rebuilding it."
+    },
+    {
+      "id": "R310",
+      "file": "project-iom-genset-sss.md",
+      "quote": "For a new conversion like this, follow\n[[feedback-pdf-to-word-replica]].",
+      "rule": "When doing a new PDF-to-Word conversion like the genset IOM, follow the guidance in the feedback-pdf-to-word-replica memory."
+    },
+    {
+      "id": "R311",
+      "file": "project-iom-genset-sss.md",
+      "quote": "Don't restore any of it.",
+      "rule": "Do not restore the p.12 engine/generator spec box, the \"Data Engine & Generator\" header title, or the previously removed content in the IOM document."
+    },
+    {
+      "id": "R312",
+      "file": "project-jadwal-pekerjaan-template.md",
+      "quote": "edit the template in Excel (COM), not by rebuilding.",
+      "rule": "When changing the Schedule Pemeliharaan workbook, edit the existing file in Excel via COM; do not rebuild it from scratch."
+    },
+    {
+      "id": "R313",
+      "file": "project-jadwal-pekerjaan-template.md",
+      "quote": "Keep it that way, because coworkers' laptops may use other locales.",
+      "rule": "Do not add typed date entry cells to the schedule workbook; use dropdown and number fields for dates so it works on laptops with other locales."
+    },
+    {
+      "id": "R314",
+      "file": "project-jadwal-pekerjaan-template.md",
+      "quote": "he didn't want it called a template.",
+      "rule": "Do not refer to the Schedule Pemeliharaan workbook as a template."
+    },
+    {
+      "id": "R315",
+      "file": "project-jadwal-pekerjaan-template.md",
+      "quote": "Bryan wants it generic for any contract and any start day.",
+      "rule": "Keep the start-date and period handling generic so it works for any contract and any start day."
+    },
+    {
+      "id": "R316",
+      "file": "project-kaos-kantor-sinergi.md",
+      "quote": "`python buat_kaos.py` in `Kaos Kantor\\_Sumber\\` rebuilds the chosen-design board",
+      "rule": "To rebuild the chosen-design board, run `python buat_kaos.py` from the `Kaos Kantor\\_Sumber\\` folder."
+    },
+    {
+      "id": "R317",
+      "file": "project-kaos-kantor-sinergi.md",
+      "quote": "add `--3opsi` for the",
+      "rule": "To rebuild the 3-option set instead of the chosen-design board, add the `--3opsi` flag to the `buat_kaos.py` command."
+    },
+    {
+      "id": "R318",
+      "file": "project-kaos-kantor-sinergi.md",
+      "quote": "so move old ones to `_Arsip\\` first",
+      "rule": "Before rebuilding the kaos boards with `buat_kaos.py`, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+    },
+    {
+      "id": "R319",
+      "file": "project-kaos-kantor-sinergi.md",
+      "quote": "or pass a folder to test elsewhere",
+      "rule": "To test `buat_kaos.py` output without overwriting existing files, pass a folder as an argument to the script."
+    },
+    {
+      "id": "R320",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "TOR sections that Lengkap left out stay out (SLA, sanksi, kualifikasi, BoQ, lokasi, jangka waktu, ToC, lampiran).",
+      "rule": "Keep TOR sections that the Lengkap Pusat deck left out (SLA, sanksi, kualifikasi, BoQ, lokasi, jangka waktu, ToC, lampiran) out of the KOM Gandul & DRC Bandung deck."
+    },
+    {
+      "id": "R321",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "is the old 7 Oct example, ignore it.",
+      "rule": "Ignore the file `schedule PM Kelistrikan DC 2026-2027.xlsx` in the KOM Gandul folder when building the schedule."
+    },
+    {
+      "id": "R322",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "shown as she made them",
+      "rule": "Show the Gandul schedule (periods 1–4) exactly as Mbak Didi made it, without correcting its legend or row inconsistencies."
+    },
+    {
+      "id": "R323",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "not raised with her or the client",
+      "rule": "Do not raise the schedule legend or row inconsistencies with Mbak Didi or the client."
+    },
+    {
+      "id": "R324",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "To change this deck, edit the spec and rebuild",
+      "rule": "To change the KOM Gandul deck, edit its kom-spec.json and rebuild the deck from it."
+    },
+    {
+      "id": "R325",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "swap the result in with file-audit's `install`.",
+      "rule": "Install a rebuilt KOM Gandul deck into place using file-audit's `install`."
+    },
+    {
+      "id": "R326",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "The deck follows the scope text.",
+      "rule": "When the TOR scope text and equipment list disagree on cubicle types or DRC genset and UPS ratings, follow the scope text in the deck."
+    },
+    {
+      "id": "R327",
+      "file": "project-kom-gandul-2026.md",
+      "quote": "The deck's teal style is kept.",
+      "rule": "Keep the deck's teal style when rebuilding slide 25 (struktur organisasi)."
+    },
+    {
+      "id": "R328",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "pass `--engine gemini` explicitly",
+      "rule": "Always pass `--engine gemini` explicitly when generating voice for a film."
+    },
+    {
+      "id": "R329",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "never fall back to edge-tts, even for drafts",
+      "rule": "Never fall back to edge-tts for voice, even for drafts."
+    },
+    {
+      "id": "R330",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "if Gemini fails, stop and tell him.",
+      "rule": "If Gemini voice generation fails, stop and tell Bryan instead of using another engine."
+    },
+    {
+      "id": "R331",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "so the skill now uses `--takes 2`",
+      "rule": "Generate voice with `--takes 2` (two takes per film)."
+    },
+    {
+      "id": "R332",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Every film must say \"Rupanya gini.\"",
+      "rule": "Every film must include the sign-off \"Rupanya gini.\""
+    },
+    {
+      "id": "R333",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "at the end of the hook, starting by second 8, no effect on top of it.",
+      "rule": "Place the \"Rupanya gini.\" sign-off at the end of the hook, starting by second 8, with no visual or sound effect on top of it."
+    },
+    {
+      "id": "R334",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "in the skill as its own line with `\"hold\": 0.6`",
+      "rule": "Give the \"Rupanya gini.\" sign-off its own line in the skill with \"hold\": 0.6."
+    },
+    {
+      "id": "R335",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "a hold may only stretch a pause the narrator really left",
+      "rule": "Use a hold only to stretch a pause the narrator actually left in the take; prefer takes that have such a pause."
+    },
+    {
+      "id": "R336",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Don't commit `claude-config/skills/sekitar/`",
+      "rule": "Don't commit the sekitar skill to git until Bryan asks."
+    },
+    {
+      "id": "R337",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "or `claude-config/skills/riset-sekitar/` until he asks.",
+      "rule": "Don't commit the riset-sekitar skill to git until Bryan asks."
+    },
+    {
+      "id": "R338",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "the skill must not use their brand or \"kita bedah\".",
+      "rule": "The sekitar skill must not use the reference account's brand or the phrase \"kita bedah\"."
+    },
+    {
+      "id": "R339",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "never state it as fact.",
+      "rule": "Never state as fact that the reference account uses Remotion; it is unconfirmed."
+    },
+    {
+      "id": "R340",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "schedule, never bulk-post",
+      "rule": "Schedule uploads one at a time; never bulk-post."
+    },
+    {
+      "id": "R341",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "never assign an upload time from a film's position in `jadwal.md`'s list.",
+      "rule": "Never assign a film's upload time from its position in jadwal.md; decide it from the films already made and uploaded or scheduled."
+    },
+    {
+      "id": "R342",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "a new film takes the next free slot after the latest scheduled one, and empty slots are skipped.",
+      "rule": "Give a new film the next free upload slot after the latest scheduled one, skipping empty slots."
+    },
+    {
+      "id": "R343",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Keep that count current in this memory.",
+      "rule": "Keep the upload-slot count in the memory file current after each film is made or scheduled."
+    },
+    {
+      "id": "R344",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "AI label off on TikTok and Instagram",
+      "rule": "Leave the AI label off when uploading to TikTok and Instagram."
+    },
+    {
+      "id": "R345",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "YouTube's \"altered content\" stays No.",
+      "rule": "Keep YouTube's \"altered content\" setting at No."
+    },
+    {
+      "id": "R346",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "So crf 18 stays the default.",
+      "rule": "Keep crf 18 as the default encoding setting for film renders."
+    },
+    {
+      "id": "R347",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "keeps at least 10 unused no-product ideas ready until he turns it back on",
+      "rule": "While affiliate is paused, keep at least 10 unused no-product ideas ready in riset-sekitar."
+    },
+    {
+      "id": "R348",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "it counts unused blocks in `Animasi\\sekitar\\ide\\saran-*.md` first and researches only the shortfall.",
+      "rule": "Count unused blocks in Animasi\\sekitar\\ide\\saran-*.md first, and research only the shortfall."
+    },
+    {
+      "id": "R349",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "ideas logged in `Animasi\\sekitar\\ide\\log.md`.",
+      "rule": "Log ideas in Animasi\\sekitar\\ide\\log.md."
+    },
+    {
+      "id": "R350",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "video shows advantages only, weaknesses reported to him",
+      "rule": "When affiliate returns, make the video show only advantages and report weaknesses to Bryan instead."
+    },
+    {
+      "id": "R351",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "categories listrik & elektronik, rumah & dapur, motor & kendaraan (no health/beauty)",
+      "rule": "When affiliate returns, limit product categories to listrik & elektronik, rumah & dapur, and motor & kendaraan; exclude health and beauty."
+    },
+    {
+      "id": "R352",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "recheck before advising.",
+      "rule": "Recheck platform monetisation rules before advising Bryan on them."
+    },
+    {
+      "id": "R353",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Start with Shopee/TikTok Shop affiliate.",
+      "rule": "Start monetisation with Shopee/TikTok Shop affiliate."
+    },
+    {
+      "id": "R354",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "He wants the small habits repeated at every new video",
+      "rule": "Repeat the small habits (play outside VS Code, leave the laptop alone during the render, internet for research and voice) at every new video."
+    },
+    {
+      "id": "R355",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "so avoid cubes, cutaway marks and yellow as his brand.",
+      "rule": "Avoid cubes, cutaway marks and yellow in the logo and brand design."
+    },
+    {
+      "id": "R356",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Record real view counts per film before adding rules.",
+      "rule": "Record real view counts per film before adding any new rules."
+    },
+    {
+      "id": "R357",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "when he gives a content idea, use the skill: facts and script check-in first.",
+      "rule": "When Bryan gives a content idea, use the sekitar skill and do the facts and script check-in first."
+    },
+    {
+      "id": "R358",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "warn before the render.",
+      "rule": "Warn Bryan before starting the render."
+    },
+    {
+      "id": "R359",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "check which films already have a `script.json` before reaching for the list.",
+      "rule": "When Bryan says \"yang udah di-plan\", check which films already have a script.json before using the idea list."
+    },
+    {
+      "id": "R360",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "no comment until it is live.",
+      "rule": "Don't post a first comment on a scheduled upload until it is live."
+    },
+    {
+      "id": "R361",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "so render one at a time next batch.",
+      "rule": "Render films one at a time, not in parallel."
+    },
+    {
+      "id": "R362",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "re-rendered with its own TEMP, rule added to the skill.",
+      "rule": "Give each render its own TEMP folder so parallel renders don't share temp files."
+    },
+    {
+      "id": "R363",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "space it a few days from minyak-terbakar, telur-dicuci, kertas-gorengan, pedas-cabai.",
+      "rule": "Space kitchen films a few days apart from each other."
+    },
+    {
+      "id": "R364",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "For the next vehicle film, build its recognisable parts from the start.",
+      "rule": "For a vehicle film, build its recognisable parts (wheels, fork, headlight, mirrors, engine, exhaust) from the start."
+    },
+    {
+      "id": "R365",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "Seven days after each goes out, ask for views for its `src/pieces/<slug>/LOG.md`.",
+      "rule": "Seven days after each film goes out, ask Bryan for its views and record them in src/pieces/<slug>/LOG.md."
+    },
+    {
+      "id": "R366",
+      "file": "project-konten-edukasi-sekitar.md",
+      "quote": "read Shopee Affiliate clicks/orders for the 3 product films.",
+      "rule": "On 25 Nov 2026, read Shopee Affiliate clicks and orders for the three product films."
+    },
+    {
+      "id": "R367",
+      "file": "project-kurva-s-template.md",
+      "quote": "Use the Bitmap format if the paste target isn't Office.",
+      "rule": "When pasting Grafik A1:O47 into a paste target that isn't Office, use the Bitmap format."
+    },
+    {
+      "id": "R368",
+      "file": "project-kurva-s-template.md",
+      "quote": "If she asks again, explain that you type the % of the item (half done = 50%), not the bobot.",
+      "rule": "If the coworker asks again about realisasi input, explain that she types the % of the item done (e.g., half done = 50%), not the bobot."
+    },
+    {
+      "id": "R369",
+      "file": "project-kurva-s-template.md",
+      "quote": "keep %",
+      "rule": "Do not switch the realisasi input to bobot-point entry; keep entering the % of the item done."
+    },
+    {
+      "id": "R370",
+      "file": "project-kurva-s-template.md",
+      "quote": "Revisit only if he or the coworker brings RAB or contract weights.",
+      "rule": "Revisit the duration-based bobot only if Bryan or the coworker brings RAB or contract weights."
+    },
+    {
+      "id": "R371",
+      "file": "project-kurva-s-template.md",
+      "quote": "so edit them in Excel",
+      "rule": "Edit the Kurva S files directly in Excel."
+    },
+    {
+      "id": "R372",
+      "file": "project-kurva-s-template.md",
+      "quote": "A rebuild isn't needed.",
+      "rule": "Do not rebuild the Kurva S files."
+    },
+    {
+      "id": "R373",
+      "file": "project-kurva-s-template.md",
+      "quote": "diff against his current version before changing anything",
+      "rule": "Before changing a Kurva S file, diff it against Bryan's current version."
+    },
+    {
+      "id": "R374",
+      "file": "project-kurva-s-template.md",
+      "quote": "Never copy RAB prices or HPP into this repo.",
+      "rule": "Never copy RAB prices or HPP into this repo."
+    },
+    {
+      "id": "R375",
+      "file": "project-layout-ruang-ups-pln.md",
+      "quote": "treat the drafter's Opsi-1 as the reference for this room from now on",
+      "rule": "For this PLN panel/UPS/battery room, treat the hired drafter's Opsi-1 layout as the reference from now on."
+    },
+    {
+      "id": "R376",
+      "file": "project-layout-ruang-ups-pln.md",
+      "quote": "don't push my Opsi A/B/C\nagain unless asked.",
+      "rule": "Do not push the Opsi A/B/C layout again unless the user asks for it."
+    },
+    {
+      "id": "R377",
+      "file": "project-layout-ruang-ups-pln.md",
+      "quote": "If asked to review it, check aisle and work-space widths the same way",
+      "rule": "When asked to review the room layout, check aisle and work-space widths."
+    },
+    {
+      "id": "R378",
+      "file": "project-layout-ruang-ups-pln.md",
+      "quote": "entrances at both ends of\npanel aisles",
+      "rule": "When reviewing the room layout, check that each panel aisle has an entrance at both ends."
+    },
+    {
+      "id": "R379",
+      "file": "project-layout-ruang-ups-pln.md",
+      "quote": "battery not hugging walls",
+      "rule": "When reviewing the room layout, check that the battery is not placed against walls."
+    },
+    {
+      "id": "R380",
+      "file": "project-marvel-doomsday-watchlist.md",
+      "quote": "If he brings up Marvel or Doomsday, ask how far he's got through this list",
+      "rule": "When the user brings up Marvel or Avengers: Doomsday, ask how far they have got through the watch list before doing anything else."
+    },
+    {
+      "id": "R381",
+      "file": "project-marvel-doomsday-watchlist.md",
+      "quote": "before recommending anything new.",
+      "rule": "Do not recommend any new Marvel titles until you have asked the user how far they have got through the watch list."
+    },
+    {
+      "id": "R382",
+      "file": "project-marvel-doomsday-watchlist.md",
+      "quote": "Delete this memory after Doomsday releases.",
+      "rule": "Delete this memory file after Avengers: Doomsday releases."
+    },
+    {
+      "id": "R383",
+      "file": "project-matematika-logika-db103a.md",
+      "quote": "Match the week to the pertemuan number to know the current topic.",
+      "rule": "When asked about the current class topic, match the calendar week to the pertemuan number to determine the topic."
+    },
+    {
+      "id": "R384",
+      "file": "project-matematika-logika-db103a.md",
+      "quote": "Default to Bahasa Indonesia and Munir's terminology when explaining.",
+      "rule": "When explaining Matematika Logika material, default to Bahasa Indonesia and use the terminology from Munir's Matematika Diskrit."
+    },
+    {
+      "id": "R385",
+      "file": "project-matematika-logika-db103a.md",
+      "quote": "Tanya kalau ada tugas baru.",
+      "rule": "Ask Bryan when a new assignment (tugas) appears, rather than assuming its status."
+    },
+    {
+      "id": "R386",
+      "file": "project-matematika-logika-db103a.md",
+      "quote": "Next step if asked: build the slides from that table.",
+      "rule": "If asked to continue the Tugas Kelompok work, build the presentation slides from the tabel-bedah-jurnal.md table."
+    },
+    {
+      "id": "R387",
+      "file": "project-matematika-logika-db103a.md",
+      "quote": "check Tabel 14 PDF before saying A* CPU is higher than Dijkstra in some routes",
+      "rule": "Before stating that A* uses more CPU time than Dijkstra on some routes, check Tabel 14 in the journal PDF."
+    },
+    {
+      "id": "R388",
+      "file": "project-openverse-music-test.md",
+      "quote": "keep that video until then",
+      "rule": "Keep the private test video \"tes openverse drakkar\" until the 16 Nov recheck is done."
+    },
+    {
+      "id": "R389",
+      "file": "project-openverse-music-test.md",
+      "quote": "recheck the Restrictions column of the private video \"tes openverse drakkar\" on 16 Nov",
+      "rule": "On 16 Nov, recheck the Restrictions column of the private video \"tes openverse drakkar\"."
+    },
+    {
+      "id": "R390",
+      "file": "project-openverse-music-test.md",
+      "quote": "`sekitar` films never use it",
+      "rule": "Never use Openverse music in `sekitar` films."
+    },
+    {
+      "id": "R391",
+      "file": "project-openverse-music-test.md",
+      "quote": "Use Openverse music only when Bryan asks.",
+      "rule": "Use Openverse music only when Bryan asks for it."
+    },
+    {
+      "id": "R392",
+      "file": "project-openverse-music-test.md",
+      "quote": "Each track gets its own 3-minute check first",
+      "rule": "Before using any Openverse track, run its own 3-minute check first."
+    },
+    {
+      "id": "R393",
+      "file": "project-openverse-music-test.md",
+      "quote": "a short clip with that track, uploaded Private to @rupanya.gini",
+      "rule": "For each track's check, make a short clip with that track and upload it as Private to @rupanya.gini."
+    },
+    {
+      "id": "R394",
+      "file": "project-openverse-music-test.md",
+      "quote": "then read the Initial check step in Studio",
+      "rule": "After uploading the check clip, read the Initial check step in YouTube Studio."
+    },
+    {
+      "id": "R395",
+      "file": "project-openverse-music-test.md",
+      "quote": "use it on ONE film at a time",
+      "rule": "Until the 16 Nov recheck is clean, use Openverse music on only one film at a time."
+    },
+    {
+      "id": "R396",
+      "file": "project-openverse-music-test.md",
+      "quote": "never across a parallel batch",
+      "rule": "Until the 16 Nov recheck is clean, never use Openverse music across a parallel batch of films."
+    },
+    {
+      "id": "R397",
+      "file": "project-openverse-music-test.md",
+      "quote": "Update this file with each track's result.",
+      "rule": "Update the project-openverse-music-test.md file with each track's check result."
+    },
+    {
+      "id": "R398",
+      "file": "project-pendidikan-agama-kristen.md",
+      "quote": "Jangan tagih lagi.",
+      "rule": "Do not ask Bryan again about the Pendidikan Agama Kristen makalah section 2.1, because it was confirmed completed on 18 October 2026."
+    },
+    {
+      "id": "R399",
+      "file": "project-pendidikan-agama-kristen.md",
+      "quote": "lanjutkan dari draf di folder itu",
+      "rule": "When Bryan mentions Pendidikan Agama Kristen (PAK), continue from the existing draft in the Makalah folder."
+    },
+    {
+      "id": "R400",
+      "file": "project-pendidikan-agama-kristen.md",
+      "quote": "tanya deadline dan bagian mana yang belum",
+      "rule": "When Bryan mentions Pendidikan Agama Kristen (PAK), ask about the deadline and which makalah section is still unfinished."
+    },
+    {
+      "id": "R401",
+      "file": "project-pendidikan-agama-kristen.md",
+      "quote": "geser kalau ada minggu libur",
+      "rule": "When estimating the Pendidikan Agama Kristen class schedule, shift the estimated meeting dates if a holiday week occurs."
+    },
+    {
+      "id": "R402",
+      "file": "project-pengantar-teknologi-informasi.md",
+      "quote": "assume this baseline and answer in Bahasa Indonesia unless he switches",
+      "rule": "When Bryan asks about Pengantar Teknologi Informasi (PTI), assume the course baseline recorded in this memory and answer in Bahasa Indonesia unless he switches language."
+    },
+    {
+      "id": "R403",
+      "file": "project-pengantar-teknologi-informasi.md",
+      "quote": "Don't guess what it covered.",
+      "rule": "Do not guess the content of Chapter 2 of PTI, since it has not been uploaded."
+    },
+    {
+      "id": "R404",
+      "file": "project-pengantar-teknologi-informasi.md",
+      "quote": "don't write the content or build the files",
+      "rule": "For the TTS & TAS group assignment, do not write its content or build its files; give review and advice only."
+    },
+    {
+      "id": "R405",
+      "file": "project-pengantar-teknologi-informasi.md",
+      "quote": "keep the two figures clearly apart",
+      "rule": "When reporting the Rp6,89 M 12-month total laba and the Rp6,45 M from the 8 sangat-baik months, keep the two figures clearly separated."
+    },
+    {
+      "id": "R406",
+      "file": "project-pengantar-teknologi-informasi.md",
+      "quote": "never call 32,1% \"rata-rata\"",
+      "rule": "Never describe the 32,1% margin as \"rata-rata\" (average), because it is a whole-year margin and not the average of the monthly margins."
+    },
+    {
+      "id": "R407",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "Word SaveAs dulu, lalu ekspor PDF dari docx hasil Word itu",
+      "rule": "When rebuilding the PDF of this report, first save the document in Word (SaveAs), then export the PDF from that Word-saved docx."
+    },
+    {
+      "id": "R408",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "`ExportAsFixedFormat` butuh `IncludeDocProps=$true` (argumen posisi ke-9)",
+      "rule": "When exporting to PDF with ExportAsFixedFormat, pass IncludeDocProps=$true as the 9th positional argument so the title and author stay in the PDF metadata."
+    },
+    {
+      "id": "R409",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "edit kecil berikutnya lebih aman lewat Word COM daripada build ulang",
+      "rule": "For small edits to this report, make them through Word COM rather than rebuilding the document with build.js."
+    },
+    {
+      "id": "R410",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "tawarkan langkah itu kalau Bryan mau",
+      "rule": "If Bryan wants, offer to run the humanizer skill on the report text."
+    },
+    {
+      "id": "R411",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "Cek waktu pastinya di flearn.",
+      "rule": "Check the exact submission deadline time on the flearn platform before relying on the approximate date."
+    },
+    {
+      "id": "R412",
+      "file": "project-pmb-problem-solving-impor-murah.md",
+      "quote": "jadi rujuk PDF BPK",
+      "rule": "When citing Permendag 19/2026 article numbers, refer to the BPK PDF rather than the pasal.id summary, because the summary misnumbers some articles."
+    },
+    {
+      "id": "R413",
+      "file": "project-pmb-problem-solving-mitra-ojol.md",
+      "quote": "Tanyakan ke Bryan.",
+      "rule": "Ask Bryan whether the case 1 and case 2 reports are submitted in one flearn assignment (max 2 files) or separately, since this is not yet clear."
+    },
+    {
+      "id": "R414",
+      "file": "project-pmb-problem-solving-mitra-ojol.md",
+      "quote": "Jangan pernah mematikan WINWORD milik Bryan",
+      "rule": "Never terminate Bryan's WINWORD (Microsoft Word) processes."
+    },
+    {
+      "id": "R415",
+      "file": "project-pmb-problem-solving-mitra-ojol.md",
+      "quote": "matikan hanya PID yang dimulai skrip",
+      "rule": "When stopping Word processes, terminate only the PIDs that the script itself started."
+    },
+    {
+      "id": "R416",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "sebutkan kalau dia bertanya",
+      "rule": "If Bryan asks about the self-chosen inputs (motor and car per-km fees, fare caps, 8% platform cut, app name, starting capital), mention that they were chosen by the agent."
+    },
+    {
+      "id": "R417",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "Dokumen ditulis atas nama Bryan saja",
+      "rule": "Write the document under Bryan's name only, not as a group submission."
+    },
+    {
+      "id": "R418",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "ringkas 2–3 halaman",
+      "rule": "Keep the Word document to 2–3 pages."
+    },
+    {
+      "id": "R419",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "Spasinya 1,15 dengan margin 3 cm",
+      "rule": "Format the document with 1.15 line spacing and 3 cm margins."
+    },
+    {
+      "id": "R420",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "Rakit dengan `python tools.py assemble content.js build.js`",
+      "rule": "Assemble the document by running `python tools.py assemble content.js build.js`."
+    },
+    {
+      "id": "R421",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "jalankan `npm install docx@9.11.0` di scratchpad",
+      "rule": "Install docx@9.11.0 with npm in the scratchpad directory before building, since the package is not installed globally."
+    },
+    {
+      "id": "R422",
+      "file": "project-pmb-tahapan-usaha-nebeng.md",
+      "quote": "`NODE_PATH=<scratch>/node_modules node build.js out.docx`",
+      "rule": "Build the Word file by running `NODE_PATH=<scratch>/node_modules node build.js out.docx`, with <scratch> set to the scratchpad path."
+    },
+    {
+      "id": "R423",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "AI allowed only for grammar, not\nfor writing the research content.",
+      "rule": "Use AI only for grammar checking of the journal article, never for writing its research content."
+    },
+    {
+      "id": "R424",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "Bryan does the interview and writes the content himself.",
+      "rule": "Do not conduct the interview or write the research content; leave both to Bryan."
+    },
+    {
+      "id": "R425",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "Never invent interview data.",
+      "rule": "Never invent or fabricate interview data for the research."
+    },
+    {
+      "id": "R426",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "He asked for questions that aren't complicated but still match the PDF",
+      "rule": "Write interview questions that are simple and uncomplicated but still match the requirements in the assignment guide PDF."
+    },
+    {
+      "id": "R427",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "Keep anything else I make for this task (template, checklist) just\nas plain.",
+      "rule": "Keep any other materials made for this task, such as templates and checklists, plain."
+    },
+    {
+      "id": "R428",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "interview guide, observation sheet",
+      "rule": "Prepare an interview guide and an observation sheet for the research."
+    },
+    {
+      "id": "R429",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "Word template in the required format",
+      "rule": "Prepare a Word template that follows the required paper format."
+    },
+    {
+      "id": "R430",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "verified references with DOI",
+      "rule": "Provide only verified references, each with its DOI."
+    },
+    {
+      "id": "R431",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "transcription (see [[reference-local-transcription]])",
+      "rule": "Transcribe the interview recording into text, following the procedure in [[reference-local-transcription]]."
+    },
+    {
+      "id": "R432",
+      "file": "project-pmb-tas-mini-riset.md",
+      "quote": "rubric/format/APA/EYD checks",
+      "rule": "Check the paper against the assessment rubric, the required format, APA 7 citation style, and EYD V spelling rules."
+    },
+    {
+      "id": "R433",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "(salin dulu sebagai cadangan)",
+      "rule": "Before editing a revised assignment file in the \"File terpisah (tidak diunggah)\" folder, first copy the file as a backup."
+    },
+    {
+      "id": "R434",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "buat ulang gabungan + PDF-nya",
+      "rule": "After editing any individual assignment file, rebuild the merged document and its PDF."
+    },
+    {
+      "id": "R435",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "jangan tambah catatan kaki",
+      "rule": "Do not add footnotes when revising the assignment answers."
+    },
+    {
+      "id": "R436",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "Kalau satu tugas direvisi, gabungannya harus dibuat ulang.",
+      "rule": "If any one assignment is revised, the merged file must be rebuilt."
+    },
+    {
+      "id": "R437",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "jangan pernah taruh di repo JARVIS",
+      "rule": "Never place the assignment files, which contain the student's NIM and date of birth, in the JARVIS repository."
+    },
+    {
+      "id": "R438",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "jangan dipakai",
+      "rule": "Do not use the outdated non-humanized draft stored in the _Arsip folder."
+    },
+    {
+      "id": "R439",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "harus dihapus setiap kali gabungan dibuat ulang",
+      "rule": "Delete the empty paragraph left at the end of the file by Word InsertFile every time the merged document is rebuilt."
+    },
+    {
+      "id": "R440",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "Gabungan harus 10 + 9 + 11 =",
+      "rule": "Ensure the merged document totals 30 pages, made up of 10 pages for Task 2, 9 for Task 3, and 11 for Task 4."
+    },
+    {
+      "id": "R441",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "nomor halaman mulai 1 lagi di tiap tugas",
+      "rule": "Restart page numbering at 1 for each task in the merged document."
+    },
+    {
+      "id": "R442",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "Author diisi nama Bryan, jejak PptxGenJS dihapus",
+      "rule": "In generated files, set the author field to Bryan and remove any PptxGenJS traces."
+    },
+    {
+      "id": "R443",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "catatan kaki** soal kesalahan handout",
+      "rule": "Do not include footnotes about errors in the professor's handout in the answers."
+    },
+    {
+      "id": "R444",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "Jawaban ikut kerangka handout tapi pakai aturan yang benar",
+      "rule": "Follow the handout's framework when writing answers, but use the correct regulations and facts rather than the handout's errors."
+    },
+    {
+      "id": "R445",
+      "file": "project-pmb-tugas-badan-usaha.md",
+      "quote": "jangan klaim 8% menaikkan pendapatan pengemudi",
+      "rule": "Do not claim that the 8% commission cap raises ride-hailing drivers' income."
+    },
+    {
+      "id": "R446",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "When helping with course/elective selection, internship search, or certification planning during his degree, steer toward this target",
+      "rule": "When helping Bryan with course or elective selection, internship search, or certification planning during his degree, steer toward the Business Development / Bid & Proposal Manager target in electrical & fire safety systems."
+    },
+    {
+      "id": "R447",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "rather than generic Digital Business defaults (digital marketing, e-commerce)",
+      "rule": "When advising Bryan on course, elective, internship, or certification choices, do not default to generic Digital Business options such as digital marketing or e-commerce."
+    },
+    {
+      "id": "R448",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "Revisit/update this if his stated career interest changes.",
+      "rule": "Revisit and update this career-target memory if Bryan's stated career interest changes."
+    },
+    {
+      "id": "R449",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "Confirm the eligibility route before treating it as a goal",
+      "rule": "Before treating SKTTK certification as a goal, confirm the eligibility route with Bryan."
+    },
+    {
+      "id": "R450",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "need revisiting with him",
+      "rule": "Revisit with Bryan the SKTTK step and his technical-depth gap, since both were reasoned from a wrong premise about his field experience."
+    },
+    {
+      "id": "R451",
+      "file": "project-post-graduation-career-target.md",
+      "quote": "mind that tender content itself is client-confidential",
+      "rule": "When recording Bryan's tender contributions, do not include the client-confidential tender content itself."
+    },
+    {
+      "id": "R452",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "edit `Kode Embed\\*.html`",
+      "rule": "When Bryan asks to change an embed, edit the matching file in `Kode Embed\\*.html`."
+    },
+    {
+      "id": "R453",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "harness.html at laptop and phone widths",
+      "rule": "After changing an embed, re-check it with render.py through harness.html at both laptop and phone widths."
+    },
+    {
+      "id": "R454",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "test any new embed at its real phone height, not a fixed one.",
+      "rule": "Test any new embed at its real phone height, not at a fixed height."
+    },
+    {
+      "id": "R455",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "prefix `RM=1` to capture the Ungaran embed in its finished state",
+      "rule": "To capture the Ungaran embed in its finished state, prefix the render command with RM=1."
+    },
+    {
+      "id": "R456",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "Render through harness.html, not the page directly",
+      "rule": "Render embeds through harness.html, never by rendering the page directly."
+    },
+    {
+      "id": "R457",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "rerun build-panduan.py",
+      "rule": "After changing an embed, rerun build-panduan.py to rebuild the guide."
+    },
+    {
+      "id": "R458",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "republish the artifact (by URL from a new session)",
+      "rule": "Republish the guide artifact by its URL from a new session."
+    },
+    {
+      "id": "R459",
+      "file": "project-pti-google-sites-jejak-bryan.md",
+      "quote": "Internet photos are of places only, never presented as him.",
+      "rule": "Use internet photos only of places, and never present them as photos of Bryan."
+    },
+    {
+      "id": "R460",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "before 15.00 research, facts and scripts for the 5 films that publish tomorrow (no Gemini)",
+      "rule": "Before 15.00 WIB, do research, facts, and scripts for the 5 films that publish tomorrow, without using Gemini."
+    },
+    {
+      "id": "R461",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "at 15.00 check the guard's counter rolled to a new day",
+      "rule": "At 15.00 WIB, check that the guard's counter has rolled over to a new day before running a voice batch."
+    },
+    {
+      "id": "R462",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "after that render, check, schedule for 07/10/13/16/19 the next day",
+      "rule": "After the voice batch, render and check the films, then schedule them for 07, 10, 13, 16, and 19 the next day."
+    },
+    {
+      "id": "R463",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "evening report to me",
+      "rule": "Send Bryan an evening report."
+    },
+    {
+      "id": "R464",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "drop the last slot first (19.00)",
+      "rule": "When short on time or quota, drop the last slot (19.00) first."
+    },
+    {
+      "id": "R465",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "never fact-checking or quality",
+      "rule": "When short on time or quota, never drop fact-checking or quality."
+    },
+    {
+      "id": "R466",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Gemini failure = stop and tell him",
+      "rule": "When a Gemini request fails, stop and tell Bryan."
+    },
+    {
+      "id": "R467",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "no edge-tts",
+      "rule": "Do not fall back to edge-tts when Gemini fails."
+    },
+    {
+      "id": "R468",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "bau-elpiji voice at 15.00 (takes 16.00 if scheduled before then, else 19.00)",
+      "rule": "On 2 Nov 2026, voice bau-elpiji at 15.00 WIB; if it is scheduled before then, voice it at 16.00 instead, otherwise at 19.00."
+    },
+    {
+      "id": "R469",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "3 Nov publishes only films voiced in the 2 Nov 15.00 to 3 Nov 14.59 quota day (at most 4 more)",
+      "rule": "On 3 Nov 2026, publish only films voiced during the quota day from 2 Nov 15.00 to 3 Nov 14.59 WIB, at most 4 more."
+    },
+    {
+      "id": "R470",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "full rhythm from 3 Nov 15.00 for 4 Nov",
+      "rule": "From 3 Nov 2026 at 15.00 WIB, follow the full daily rhythm for 4 Nov."
+    },
+    {
+      "id": "R471",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "if the first request still gets 429, record the real reset time here",
+      "rule": "If the first Gemini request at 15.00 on 2 Nov 2026 still gets a 429, record the real quota reset time in the schedule file."
+    },
+    {
+      "id": "R472",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Don't raise it again unless the free limit becomes the thing blocking him.",
+      "rule": "Do not raise the paid Gemini tier again unless the free limit is blocking Bryan."
+    },
+    {
+      "id": "R473",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Log every Gemini use",
+      "rule": "Log every Gemini use so the used and remaining requests are known."
+    },
+    {
+      "id": "R474",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "requests sent any other way get `quota.py add 1 \"<why>\"`",
+      "rule": "For Gemini requests sent any way other than voice.py, run `quota.py add 1 \"<why>\"` with the reason."
+    },
+    {
+      "id": "R475",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Before and after each voice batch, tell him used and left.",
+      "rule": "Before and after each voice batch, tell Bryan how many Gemini requests are used and how many are left."
+    },
+    {
+      "id": "R476",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Until then, run one voice batch at a time.",
+      "rule": "Until a voice lock exists, run only one voice batch at a time."
+    },
+    {
+      "id": "R477",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "Measure before and after on the usage page.",
+      "rule": "Measure Claude usage on the usage page before and after any change to the production workflow."
+    },
+    {
+      "id": "R478",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "the 5 film chats may run side by side",
+      "rule": "The 5 film chats may run in parallel."
+    },
+    {
+      "id": "R479",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "renders go one at a time",
+      "rule": "Render films one at a time."
+    },
+    {
+      "id": "R480",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "first ready first rendered",
+      "rule": "Render films in the order they become ready."
+    },
+    {
+      "id": "R481",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "through `sekitar/tools/render_queue.py`",
+      "rule": "Submit renders through `sekitar/tools/render_queue.py`."
+    },
+    {
+      "id": "R482",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "If disk fills again, look at `%TEMP%` first.",
+      "rule": "If the disk fills again, check `%TEMP%` first."
+    },
+    {
+      "id": "R483",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "at session start on a film day, check the clock against the 15.00 anchor",
+      "rule": "At session start on a film day, check the clock against the 15.00 anchor."
+    },
+    {
+      "id": "R484",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "the guard file `~/.claude/sekitar-gemini-usage.json`",
+      "rule": "At session start on a film day, check the guard file `~/.claude/sekitar-gemini-usage.json`."
+    },
+    {
+      "id": "R485",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "start the voice batch only for finished scripts",
+      "rule": "Start the voice batch only for scripts that are finished."
+    },
+    {
+      "id": "R486",
+      "file": "project-sekitar-daily-rhythm.md",
+      "quote": "fill the table in `jadwal.md` (\"Permintaan Gemini terpakai\") as films finish",
+      "rule": "Fill in the \"Permintaan Gemini terpakai\" table in `jadwal.md` as each film finishes."
+    },
+    {
+      "id": "R487",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "edit there, then `/reload-plugins`, no reinstall",
+      "rule": "After editing the sekitar-pipeline mod source in its local-mods folder, run /reload-plugins to apply the changes; do not reinstall the mod."
+    },
+    {
+      "id": "R488",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "An idea goes on the panel only when Bryan has its block pasted into its own film chat",
+      "rule": "Add an idea to the sekitar panel only when Bryan has pasted that idea's block into its own film chat."
+    },
+    {
+      "id": "R489",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "(or tells me to set up the film chats)",
+      "rule": "Add an idea to the sekitar panel when Bryan tells you to set up the film chats."
+    },
+    {
+      "id": "R490",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "never from `riset-sekitar`, the stock or a new suggestion",
+      "rule": "Never add an idea to the sekitar panel based on riset-sekitar output, the stock, or a new suggestion."
+    },
+    {
+      "id": "R491",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "A film with every stage ticked is never removed by itself",
+      "rule": "Never remove a film from the panel on its own when all of its stages are ticked."
+    },
+    {
+      "id": "R492",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "I ask him first",
+      "rule": "Ask Bryan for confirmation before removing a finished film from the panel."
+    },
+    {
+      "id": "R493",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "`stage: \"hapus\"` only on his yes",
+      "rule": "Set a film's stage to \"hapus\" only after Bryan confirms yes."
+    },
+    {
+      "id": "R494",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "the panel lives only in the main chat",
+      "rule": "Show the sekitar panel only in the main chat, never in the film sub-chats."
+    },
+    {
+      "id": "R495",
+      "file": "project-sekitar-pipeline-mod.md",
+      "quote": "check the mod is installed in that session first",
+      "rule": "If the sekitar panel stays empty, first check that the sekitar-pipeline mod is installed in the current session."
+    },
+    {
+      "id": "R496",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "run `python buat_seragam.py` in `Seragam\\_Sumber\\` to rebuild every file",
+      "rule": "To rebuild all the design files, run `python buat_seragam.py` in the `Seragam\\_Sumber\\` folder."
+    },
+    {
+      "id": "R497",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "so move old ones to `_Arsip\\` first",
+      "rule": "Before running `buat_seragam.py`, move existing output files with the same names to `_Arsip\\`, because the script overwrites them."
+    },
+    {
+      "id": "R498",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "or pass a folder to test elsewhere",
+      "rule": "When testing the build script, pass a folder as an argument so the output goes somewhere other than the main folder."
+    },
+    {
+      "id": "R499",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "a vector file for the konveksi with the text converted to curves",
+      "rule": "Once a design is chosen, create a vector file for the konveksi with all text converted to curves."
+    },
+    {
+      "id": "R500",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "\"hi-vis style\" unless its fabric and tape are ISO 20471 certified",
+      "rule": "Describe Design 3 (Hi-Vis Tropis) only as \"hi-vis style\" unless its fabric and tape are ISO 20471 certified."
+    },
+    {
+      "id": "R501",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "no polyester blends for electrical work",
+      "rule": "For electrical-work uniform designs, do not specify polyester blends in the fabric."
+    },
+    {
+      "id": "R502",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "Every board says the shirt is a base layer",
+      "rule": "Every design board must state that the shirt is a base layer and that energized work still needs arc-rated clothing over it."
+    },
+    {
+      "id": "R503",
+      "file": "project-seragam-lapangan-sinergi.md",
+      "quote": "so don't raise it again unless he does",
+      "rule": "Do not raise the FR-wearpack spec and design offer again unless Bryan raises it first."
+    },
+    {
+      "id": "R504",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "ask whether it's a side box like Admin/K3 or sits between PM and Leader",
+      "rule": "When a 5th core role is needed for the Struktur Organisasi Pekerjaan template, ask Bryan whether it is a side box like Admin/K3 or sits between PM and Leader."
+    },
+    {
+      "id": "R505",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "don't use Center Across Selection",
+      "rule": "When editing the Struktur Organisasi Pekerjaan template, do not use Center Across Selection."
+    },
+    {
+      "id": "R506",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "Read Input before writing",
+      "rule": "Before writing to the Struktur Organisasi Pekerjaan template, read its Input sheet first."
+    },
+    {
+      "id": "R507",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "fill only empty cells",
+      "rule": "When filling the Struktur Organisasi Pekerjaan template, write only into empty cells."
+    },
+    {
+      "id": "R508",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "so don't retry",
+      "rule": "Do not retry reading the KTP photos for names, since that access was blocked as PII."
+    },
+    {
+      "id": "R509",
+      "file": "project-sinergi-struktur-organisasi.md",
+      "quote": "ask him instead",
+      "rule": "When names need to come from KTP photos, ask Bryan for them instead of reading the photos."
+    },
+    {
+      "id": "R510",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Do not let him skip Phase 0",
+      "rule": "Do not let the user skip Phase 0 of the skincare plan."
+    },
+    {
+      "id": "R511",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "ramp faster than the schedule",
+      "rule": "Do not let the user ramp up skincare products faster than the schedule allows."
+    },
+    {
+      "id": "R512",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "check the INCI list of every product before recommending it.",
+      "rule": "Check the INCI list of every skincare product before recommending it."
+    },
+    {
+      "id": "R513",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "no parfum/fragrance in anything for his face, rinse-off included",
+      "rule": "Never recommend any product containing parfum or fragrance for the face, including rinse-off products."
+    },
+    {
+      "id": "R514",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "treat botanical extracts as a lesser but real risk",
+      "rule": "Treat botanical extracts in skincare products as a lesser but real irritation risk."
+    },
+    {
+      "id": "R515",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "This also rules out Azarine Hydrasoothe sunscreen",
+      "rule": "Do not recommend Azarine Hydrasoothe sunscreen."
+    },
+    {
+      "id": "R516",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "The barrier gets repaired before anything active goes on.",
+      "rule": "Repair the skin barrier before any active ingredient is introduced."
+    },
+    {
+      "id": "R517",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "repair only, no acne treatment",
+      "rule": "During weeks 1–2 from 20 September 2026, use repair products only and no acne treatment."
+    },
+    {
+      "id": "R518",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Morning = water rinse only.",
+      "rule": "In the morning during Phase 0, rinse the face with water only."
+    },
+    {
+      "id": "R519",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Max twice-daily washing",
+      "rule": "Limit facial washing to a maximum of twice daily during Phase 0."
+    },
+    {
+      "id": "R520",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "nothing that tingles",
+      "rule": "During Phase 0, use no products that tingle."
+    },
+    {
+      "id": "R521",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Watch for white cast from the zinc on his skin tone",
+      "rule": "Watch for white cast from zinc sunscreen on the user's skin tone."
+    },
+    {
+      "id": "R522",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "if he won't wear it, find another rather than let him go without",
+      "rule": "If the user will not wear a zinc sunscreen, find another sunscreen rather than let him go without sun protection."
+    },
+    {
+      "id": "R523",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "5 minutes then rinse",
+      "rule": "Use benzoyl peroxide as a short-contact treatment: leave on for 5 minutes, then rinse."
+    },
+    {
+      "id": "R524",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "every other night, building to leave-on by week 5",
+      "rule": "Apply benzoyl peroxide every other night, building to leave-on use by week 5."
+    },
+    {
+      "id": "R525",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "only if his skin has been calm for 2 straight weeks",
+      "rule": "Start adapalene only if the user's skin has been calm for 2 straight weeks."
+    },
+    {
+      "id": "R526",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Pea-size for the whole face, sandwiched between moisturizer",
+      "rule": "Apply adapalene as a pea-sized amount for the whole face, sandwiched between moisturizer layers."
+    },
+    {
+      "id": "R527",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "2 nights/week ramping to nightly over 8 weeks",
+      "rule": "Use adapalene 2 nights per week, ramping to nightly over 8 weeks."
+    },
+    {
+      "id": "R528",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Warn again about the week 2–6 purge",
+      "rule": "Warn the user about the adapalene purge during weeks 2–6."
+    },
+    {
+      "id": "R529",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Judge the whole thing 13 December 2026, not before",
+      "rule": "Judge the overall skincare plan on 13 December 2026, not before."
+    },
+    {
+      "id": "R530",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Photos every two weeks, same spot",
+      "rule": "Have the user take progress photos every two weeks at the same spot and in the same light."
+    },
+    {
+      "id": "R531",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Countered with hydrocolloid patches as a replacement behaviour",
+      "rule": "Counter the user's picking habit with hydrocolloid patches as a replacement behaviour, not a bare instruction to stop."
+    },
+    {
+      "id": "R532",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "wash hair first",
+      "rule": "When washing hair, wash the hair first."
+    },
+    {
+      "id": "R533",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "rinse with head tilted back",
+      "rule": "When rinsing hair, rinse with the head tilted back."
+    },
+    {
+      "id": "R534",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "wash face last",
+      "rule": "When washing hair and face, wash the face last."
+    },
+    {
+      "id": "R535",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "don't revisit it",
+      "rule": "Do not revisit the ingrown-hair explanation for the mouth and chin bumps."
+    },
+    {
+      "id": "R536",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Ask *when* it ran out",
+      "rule": "Ask the user when their milk ran out."
+    },
+    {
+      "id": "R537",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "6+ weeks with no change means dairy is not his driver and he should never bother restricting it",
+      "rule": "If there is no change after 6+ weeks without milk, conclude dairy is not the driver and never recommend restricting dairy."
+    },
+    {
+      "id": "R538",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Never let a skin suggestion cut his calories.",
+      "rule": "Never let a skin-care suggestion reduce the user's calorie intake."
+    },
+    {
+      "id": "R539",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "don't add products",
+      "rule": "Do not add new skincare products to the plan."
+    },
+    {
+      "id": "R540",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "one new thing at a time, two weeks apart, is the rule",
+      "rule": "Introduce only one new skincare product at a time, two weeks apart."
+    },
+    {
+      "id": "R541",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Escalate to a real dokter kulit only if 12 consistent weeks produce nothing, or if nodules, pits, or true scarring appear",
+      "rule": "Escalate to a dermatologist only if 12 consistent weeks produce no result, or if nodules, pits, or true scarring appear."
+    },
+    {
+      "id": "R542",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Keep the explanations plain",
+      "rule": "Keep skincare explanations plain and easy to understand."
+    },
+    {
+      "id": "R543",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "Update that URL rather than publishing a new page",
+      "rule": "Update the existing published artifact at its URL rather than publishing a new page when the plan changes."
+    },
+    {
+      "id": "R544",
+      "file": "project-skincare-acne-plan.md",
+      "quote": "keep the embedded brief in its script in step with any change made here",
+      "rule": "Keep the embedded brief in the artifact's script in step with any change made to the plan."
+    },
+    {
+      "id": "R545",
+      "file": "project-sosmed-audit.md",
+      "quote": "Only @rupanya.gini.",
+      "rule": "Audit only the @rupanya.gini accounts."
+    },
+    {
+      "id": "R546",
+      "file": "project-sosmed-audit.md",
+      "quote": "don't open, search or mention them",
+      "rule": "Do not open, search for, or mention Bryan's personal accounts."
+    },
+    {
+      "id": "R547",
+      "file": "project-sosmed-audit.md",
+      "quote": "After the stats, always give the best plan for what's next.",
+      "rule": "After reporting the stats, always give the best plan for what to do next."
+    },
+    {
+      "id": "R548",
+      "file": "project-sosmed-audit.md",
+      "quote": "reports as local files in `C:\\Bryan De Great\\Konten\\Sosmed Audit\\`",
+      "rule": "Write audit reports as local files in C:\\Bryan De Great\\Konten\\Sosmed Audit\\."
+    },
+    {
+      "id": "R549",
+      "file": "project-sosmed-audit.md",
+      "quote": "Read Studio pages through Claude in Chrome",
+      "rule": "Read YouTube Studio pages through Claude in Chrome instead of taking screenshots."
+    },
+    {
+      "id": "R550",
+      "file": "project-sosmed-audit.md",
+      "quote": "connects Chrome before anything else",
+      "rule": "Connect Chrome before doing anything else in the audit."
+    },
+    {
+      "id": "R551",
+      "file": "project-sosmed-audit.md",
+      "quote": "waits for `@browser` rather than falling back to a public-only report",
+      "rule": "Wait for @browser to be used rather than falling back to a public-only report."
+    },
+    {
+      "id": "R552",
+      "file": "project-sosmed-audit.md",
+      "quote": "Read-only, reading pace",
+      "rule": "Read the Studio pages in read-only mode, at reading pace."
+    },
+    {
+      "id": "R553",
+      "file": "project-sosmed-audit.md",
+      "quote": "stop at any captcha or login",
+      "rule": "Stop whenever a captcha or login appears."
+    },
+    {
+      "id": "R554",
+      "file": "project-sosmed-audit.md",
+      "quote": "read numbers with `find`",
+      "rule": "Read Instagram numbers using the find tool."
+    },
+    {
+      "id": "R555",
+      "file": "project-sosmed-audit.md",
+      "quote": "retry the zoom on its own",
+      "rule": "When a screenshot times out after a scroll, retry the zoom on its own."
+    },
+    {
+      "id": "R556",
+      "file": "project-sosmed-audit.md",
+      "quote": "Treat it as an account hold",
+      "rule": "Treat the TikTok zero-view problem as an account hold, not a film or scheduling fault."
+    },
+    {
+      "id": "R557",
+      "file": "project-sosmed-audit.md",
+      "quote": "keep posting normally",
+      "rule": "Keep posting normally while the TikTok account hold is unresolved."
+    },
+    {
+      "id": "R558",
+      "file": "project-sosmed-audit.md",
+      "quote": "no deletes or re-uploads",
+      "rule": "Do not delete or re-upload films during the TikTok account hold."
+    },
+    {
+      "id": "R559",
+      "file": "project-sosmed-audit.md",
+      "quote": "recheck on 8 Nov",
+      "rule": "Recheck the TikTok account status on 8 Nov."
+    },
+    {
+      "id": "R560",
+      "file": "project-sosmed-audit.md",
+      "quote": "Don't delete or re-upload until known.",
+      "rule": "Do not delete or re-upload the TikTok Minyak terbakar film until its zero-view cause is known."
+    },
+    {
+      "id": "R561",
+      "file": "project-sosmed-audit.md",
+      "quote": "Ask him on 9 Nov whether it stays",
+      "rule": "Ask Bryan on 9 Nov whether the follow line in captions stays."
+    },
+    {
+      "id": "R562",
+      "file": "project-sosmed-audit.md",
+      "quote": "Don't push it as a routine or count it as a missed step",
+      "rule": "Do not push first comments as a routine, and do not count a missing first comment as a missed step."
+    },
+    {
+      "id": "R563",
+      "file": "project-sosmed-audit.md",
+      "quote": "suggest it only on films already breaking out (optional)",
+      "rule": "Suggest a first comment only on films already breaking out, and mark it as optional."
+    },
+    {
+      "id": "R564",
+      "file": "project-sosmed-audit.md",
+      "quote": "say it as \"the 'Follow buat…' sentence at the end of the caption\" in later reports",
+      "rule": "In later reports, refer to the follow line as \"the 'Follow buat…' sentence at the end of the caption\"."
+    },
+    {
+      "id": "R565",
+      "file": "project-sosmed-audit.md",
+      "quote": "Don't raise it again without new evidence.",
+      "rule": "Do not raise the shorter films (45 to 55 s) idea again without new evidence."
+    },
+    {
+      "id": "R566",
+      "file": "project-sosmed-audit.md",
+      "quote": "a \"Monetisation progress\" section in every report",
+      "rule": "Include a \"Monetisation progress\" section in every report."
+    },
+    {
+      "id": "R567",
+      "file": "project-sosmed-audit.md",
+      "quote": "never switch Google accounts for him.",
+      "rule": "Never switch Google accounts on Bryan's behalf."
+    },
+    {
+      "id": "R568",
+      "file": "project-sosmed-audit.md",
+      "quote": "read TikTok Studio's monetisation menu and Instagram's Professional dashboard",
+      "rule": "Read TikTok Studio's monetisation menu and Instagram's Professional dashboard, then replace the blog-based monetisation figures with them."
+    },
+    {
+      "id": "R569",
+      "file": "project-sosmed-audit.md",
+      "quote": "keep it in a user environment variable, never in this public repo",
+      "rule": "If the YouTube Data API key is used, store it in a user environment variable, never in the public repo."
+    },
+    {
+      "id": "R570",
+      "file": "project-sosmed-audit.md",
+      "quote": "no private analytics without OAuth",
+      "rule": "Do not fetch private analytics without OAuth."
+    },
+    {
+      "id": "R571",
+      "file": "project-sosmed-audit.md",
+      "quote": "fix it on the first run",
+      "rule": "Fix the untested Business Suite insights row in SKILL.md on the first run."
+    },
+    {
+      "id": "R572",
+      "file": "project-sosmed-audit.md",
+      "quote": "go to the `@rupanya_gini` channel URL directly",
+      "rule": "Go directly to the @rupanya_gini channel URL in Studio rather than letting it open a personal channel."
+    },
+    {
+      "id": "R573",
+      "file": "project-sosmed-audit.md",
+      "quote": "never read the other",
+      "rule": "Never read any channel other than @rupanya_gini."
+    },
+    {
+      "id": "R574",
+      "file": "project-sosmed-audit.md",
+      "quote": "TikTok list is virtual, scroll in steps.",
+      "rule": "Scroll the TikTok list in steps, because it is virtualized."
+    },
+    {
+      "id": "R575",
+      "file": "project-sosmed-audit.md",
+      "quote": "scroll in short steps",
+      "rule": "Scroll in short steps during long scroll loops, because long loops detach the tab."
+    },
+    {
+      "id": "R576",
+      "file": "project-sosmed-audit.md",
+      "quote": "Compare each at 1 day against the medians when you next run the audit.",
+      "rule": "When running the audit, compare each Kesetrum follow-up film at 1 day against the medians."
+    },
+    {
+      "id": "R577",
+      "file": "project-sosmed-audit.md",
+      "quote": "Treat anything under 7 days or 10 films as a hint.",
+      "rule": "Treat any audit covering under 7 days or 10 films as a hint, not a conclusion."
+    },
+    {
+      "id": "R578",
+      "file": "project-sosmed-audit.md",
+      "quote": "next rerun 15 Nov 2026",
+      "rule": "Rerun the audit on 15 Nov 2026."
+    },
+    {
+      "id": "R579",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "Copies of the same size print from the same file.",
+      "rule": "Print copies of the same banner size from the same single file; do not create separate files for each copy."
+    },
+    {
+      "id": "R580",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "Both overwrite same-named files, so move old versions to\n   `_Arsip\\` first.",
+      "rule": "Before running the build scripts, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+    },
+    {
+      "id": "R581",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "Pass a folder as an argument to test elsewhere.",
+      "rule": "When testing the build scripts, pass a folder as an argument to direct output to that location instead of the default."
+    },
+    {
+      "id": "R582",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "\"PT.\" in the company name (the company's own documents use it)",
+      "rule": "Keep \"PT.\" in the company name on banners."
+    },
+    {
+      "id": "R583",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "the SSS logo\nmirrors K3 where both appear.",
+      "rule": "Where the SSS logo and the K3 logo both appear on the same banner, mirror the SSS logo to match the K3 logo."
+    },
+    {
+      "id": "R584",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "SSS\nisn't repeated there because it is already top-left.",
+      "rule": "Do not repeat the SSS logo in the bottom partner-logo row of the ANDA MEMASUKI KAWASAN TERTIB K3 banner, since it already appears top-left."
+    },
+    {
+      "id": "R585",
+      "file": "project-spanduk-k3-sinergi.md",
+      "quote": "ask\nfor their original file if a sharper one is needed.",
+      "rule": "If a sharper TAB Solutions logo is needed, ask the team for their original file rather than using the upscaled raster."
+    },
+    {
+      "id": "R586",
+      "file": "project-stiker-helm-sinergi.md",
+      "quote": "so move old versions to `_Arsip\\` first",
+      "rule": "Before running the sticker build script, move the existing sticker versions to the `_Arsip\\` folder so they are not overwritten."
+    },
+    {
+      "id": "R587",
+      "file": "project-stiker-helm-sinergi.md",
+      "quote": "`python buat_stiker.py` in `Stiker\\_Sumber\\` rebuilds all three files",
+      "rule": "To rebuild the three sticker files, run `python buat_stiker.py` from the `Stiker\\_Sumber\\` folder."
+    },
+    {
+      "id": "R588",
+      "file": "project-stiker-helm-sinergi.md",
+      "quote": "Pass a folder as an argument to test elsewhere.",
+      "rule": "To test the sticker build script in another location, pass that folder as an argument to the script."
+    },
+    {
+      "id": "R589",
+      "file": "project-stiker-helm-sinergi.md",
+      "quote": "If the team measures a real sticker, change `SINERGI_TINGGI` or `K3_SISI`",
+      "rule": "If the team measures a real sticker, change the `SINERGI_TINGGI` or `K3_SISI` value in the build script to match the measurement."
+    },
+    {
+      "id": "R590",
+      "file": "project-stiker-helm-sinergi.md",
+      "quote": "a Preview JPG with shadows that is for viewing only",
+      "rule": "Use the Preview JPG only for viewing, never for printing."
+    },
+    {
+      "id": "R591",
+      "file": "project-uksw-digital-business.md",
+      "quote": "Treat these class blocks as fixed when planning anything time-bound",
+      "rule": "When planning anything time-bound for Bryan, treat his Semester 1 class blocks as fixed."
+    },
+    {
+      "id": "R592",
+      "file": "project-uksw-digital-business.md",
+      "quote": "Assume coursework help may be wanted in Bahasa Indonesia.",
+      "rule": "When offering coursework help to Bryan, assume he may want it in Bahasa Indonesia."
+    },
+    {
+      "id": "R593",
+      "file": "project-uksw-digital-business.md",
+      "quote": "Save new materials and tugas straight there,",
+      "rule": "Save new coursework materials and tugas for Bryan directly in C:\\Bryan De Great\\Kuliah\\."
+    },
+    {
+      "id": "R594",
+      "file": "project-uksw-digital-business.md",
+      "quote": "never into `JARVIS\\kuliah\\`",
+      "rule": "Never save Bryan's coursework materials or tugas into JARVIS\\kuliah\\."
+    },
+    {
+      "id": "R595",
+      "file": "project-valorant-connection.md",
+      "quote": "Time TCP connects to",
+      "rule": "When measuring latency to `dynamodb.ap-southeast-1.amazonaws.com:443` in place of `ec2.ap-southeast-1.amazonaws.com`, which does not answer ICMP, time TCP connects to `dynamodb.ap-southeast-1.amazonaws.com:443` instead of using ping."
+    },
+    {
+      "id": "R596",
+      "file": "project-valorant-connection.md",
+      "quote": "use a time-based loop",
+      "rule": "When timing TCP connects to `dynamodb.ap-southeast-1.amazonaws.com:443`, use a time-based loop."
+    },
+    {
+      "id": "R597",
+      "file": "project-valorant-connection.md",
+      "quote": "first check he's actually on Ethernet 3",
+      "rule": "If lag returns, first check that the user is actually on Ethernet 3."
+    },
+    {
+      "id": "R598",
+      "file": "project-valorant-connection.md",
+      "quote": "nothing is downloading",
+      "rule": "If lag returns, check that nothing is downloading before continuing the diagnosis."
+    },
+    {
+      "id": "R599",
+      "file": "project-valorant-connection.md",
+      "quote": "re-run the\n60 s cable test above and compare",
+      "rule": "If lag returns and the user is on Ethernet 3 with nothing downloading, re-run the 60-second cable test and compare the results to the earlier run."
+    },
+    {
+      "id": "R600",
+      "file": "project-valorant-connection.md",
+      "quote": "Don't re-suggest the hotspot or Wi-Fi tuning.",
+      "rule": "Do not re-suggest the phone hotspot relay for the Valorant connection."
+    },
+    {
+      "id": "R601",
+      "file": "project-valorant-connection.md",
+      "quote": "Don't re-suggest the hotspot or Wi-Fi tuning.",
+      "rule": "Do not re-suggest Wi-Fi tuning for the Valorant connection."
+    },
+    {
+      "id": "R602",
+      "file": "reference-agent-reach.md",
+      "quote": "never PyPI: that package is an impostor",
+      "rule": "Never install Agent Reach from PyPI; install it from the GitHub release zip."
+    },
+    {
+      "id": "R603",
+      "file": "reference-agent-reach.md",
+      "quote": "→ keep WebSearch.",
+      "rule": "For web searches, use WebSearch rather than Agent Reach."
+    },
+    {
+      "id": "R604",
+      "file": "reference-agent-reach.md",
+      "quote": "→ keep WebFetch.",
+      "rule": "For normal web pages, use WebFetch rather than Agent Reach."
+    },
+    {
+      "id": "R605",
+      "file": "reference-agent-reach.md",
+      "quote": "→ use Agent Reach.",
+      "rule": "For Tokopedia search pages, use Agent Reach rather than WebFetch."
+    },
+    {
+      "id": "R606",
+      "file": "reference-agent-reach.md",
+      "quote": "→ use it.",
+      "rule": "For Ultimate Guitar sheets, use Agent Reach rather than WebFetch."
+    },
+    {
+      "id": "R607",
+      "file": "reference-agent-reach.md",
+      "quote": "→ Chrome stays.",
+      "rule": "For Shopee, YouTube Studio, and Facebook pages that hit a login wall, use Chrome rather than Agent Reach."
+    },
+    {
+      "id": "R608",
+      "file": "reference-agent-reach.md",
+      "quote": "only a fallback",
+      "rule": "Use Agent Reach's bundled yt-dlp only as a fallback; prefer the yt-dlp already installed in the user's Python."
+    },
+    {
+      "id": "R609",
+      "file": "reference-agent-reach.md",
+      "quote": "Run agent-reach from the shell",
+      "rule": "Run agent-reach from the shell, not from a subprocess started by the MSIX Python."
+    },
+    {
+      "id": "R610",
+      "file": "reference-agent-reach.md",
+      "quote": "pipe into Python",
+      "rule": "Pipe agent-reach's output into Python rather than having Python run agent-reach as a subprocess."
+    },
+    {
+      "id": "R611",
+      "file": "reference-auralys-music-app.md",
+      "quote": "see [[reference-upload-route]] before uploading as @rupanya.gini",
+      "rule": "Before uploading anything as the @rupanya.gini account, read the reference-upload-route memory file."
+    },
+    {
+      "id": "R612",
+      "file": "reference-auralys-music-app.md",
+      "quote": "I can't change firewall myself, he runs it",
+      "rule": "Do not change Windows Firewall rules yourself; leave the admin PowerShell firewall commands for the user to run."
+    },
+    {
+      "id": "R613",
+      "file": "reference-calendar-connector-timezone.md",
+      "quote": "pass `timeZone: \"Asia/Jakarta\"` on every create/update",
+      "rule": "Pass timeZone: \"Asia/Jakarta\" on every Google Calendar create or update call, even though the tool says to leave timeZone unset."
+    },
+    {
+      "id": "R614",
+      "file": "reference-calendar-connector-timezone.md",
+      "quote": "check the returned `start` shows `+07:00` in Asia/Jakarta",
+      "rule": "After creating or updating a Google Calendar event, check that the returned start time shows +07:00 in Asia/Jakarta."
+    },
+    {
+      "id": "R615",
+      "file": "reference-calendar-connector-timezone.md",
+      "quote": "To move one class meeting, update that instance's id (`<recurringId>_<date>`)",
+      "rule": "To move a single class meeting in a recurring Google Calendar series, update that instance's id in the form <recurringId>_<date>, not the series itself."
+    },
+    {
+      "id": "R616",
+      "file": "reference-catering-tracker.md",
+      "quote": "When he asks \"sisa berapa?\", read it from there instead of guessing.",
+      "rule": "When Bryan asks \"sisa berapa?\" (how many remain), read the answer from the catering tracker artifact's data instead of guessing."
+    },
+    {
+      "id": "R617",
+      "file": "reference-catering-tracker.md",
+      "quote": "read the `db` out",
+      "rule": "Before Bryan loses access to his current Claude account, read the catering tracker artifact's `db` out."
+    },
+    {
+      "id": "R618",
+      "file": "reference-catering-tracker.md",
+      "quote": "move it before he loses access",
+      "rule": "Before Bryan loses access to his current Claude account, move the catering tracker artifact's data to his other account."
+    },
+    {
+      "id": "R619",
+      "file": "reference-catering-tracker.md",
+      "quote": "He wants it counted **per menu**",
+      "rule": "Count catering usage per menu, not per payment or per day."
+    },
+    {
+      "id": "R620",
+      "file": "reference-catering-tracker.md",
+      "quote": "simply isn't recorded",
+      "rule": "Do not record a day in the catering tracker when the catering does not arrive, and do not add a separate non-delivery status."
+    },
+    {
+      "id": "R621",
+      "file": "reference-expense-tracker.md",
+      "quote": "edit there",
+      "rule": "Make source changes for the Dompet Bryan app in apps/dompet-bryan/ in this repo."
+    },
+    {
+      "id": "R622",
+      "file": "reference-expense-tracker.md",
+      "quote": "`npm test`",
+      "rule": "Run npm test after editing the Dompet Bryan app source."
+    },
+    {
+      "id": "R623",
+      "file": "reference-expense-tracker.md",
+      "quote": "publish with `url` set to the link above",
+      "rule": "Publish the Dompet Bryan app with url set to https://claude.ai/artifact/6xN8zfA4fNfVA1LVdsJR1D."
+    },
+    {
+      "id": "R624",
+      "file": "reference-expense-tracker.md",
+      "quote": "read `months/<YYYY-MM>` and work it out",
+      "rule": "When asked how much was spent in a month, read months/<YYYY-MM> from the Dompet Bryan db and calculate the total from that data."
+    },
+    {
+      "id": "R625",
+      "file": "reference-expense-tracker.md",
+      "quote": "Don't guess.",
+      "rule": "Do not guess at Dompet Bryan spending or balance figures; calculate them from the db."
+    },
+    {
+      "id": "R626",
+      "file": "reference-expense-tracker.md",
+      "quote": "Never copy his balances or amounts into memory",
+      "rule": "Never copy Dompet Bryan balances or amounts into memory files."
+    },
+    {
+      "id": "R627",
+      "file": "reference-expense-tracker.md",
+      "quote": "If the db doesn't match what he says he recorded, ask whether the page shows",
+      "rule": "If the Dompet Bryan db doesn't match what the user says he recorded, ask whether the page shows \"perubahan belum terkirim\" before assuming a mistake."
+    },
+    {
+      "id": "R628",
+      "file": "reference-expense-tracker.md",
+      "quote": "`deleted: true` is a tombstone (ignore it).",
+      "rule": "Ignore Dompet Bryan transactions whose deleted field is true."
+    },
+    {
+      "id": "R629",
+      "file": "reference-expense-tracker.md",
+      "quote": "Reports leave out transfers, `adjust` (balance corrections) and `debt` movements",
+      "rule": "When calculating Dompet Bryan spending reports, leave out transfers, adjust entries and debt movements."
+    },
+    {
+      "id": "R630",
+      "file": "reference-expense-tracker.md",
+      "quote": "transfer `fee` as spending in category `admin`",
+      "rule": "When calculating Dompet Bryan spending reports, count transfer fees as spending in category admin."
+    },
+    {
+      "id": "R631",
+      "file": "reference-folder-layout.md",
+      "quote": "save it straight into the matching folder",
+      "rule": "When you create or download a file for Bryan, save it directly into the matching folder in his folder layout under C:\\Bryan De Great, not in Downloads or the root."
+    },
+    {
+      "id": "R632",
+      "file": "reference-folder-layout.md",
+      "quote": "check the two logs before guessing",
+      "rule": "If Bryan asks where a file went after the reorganization, check the two move logs (the non-kuliah CSV and the Kuliah CSV) before guessing."
+    },
+    {
+      "id": "R633",
+      "file": "reference-folder-layout.md",
+      "quote": "**Never move it.**",
+      "rule": "Never move the GP-100\\ folder, which holds the installed GP-100 editor app."
+    },
+    {
+      "id": "R634",
+      "file": "reference-folder-layout.md",
+      "quote": "Older versions go in an `_Arsip\\` subfolder next to the current one.",
+      "rule": "In Laporan Sinergi, store older versions of a file in an _Arsip\\ subfolder placed next to the current version."
+    },
+    {
+      "id": "R635",
+      "file": "reference-headless-webgl-screenshots.md",
+      "quote": "An artifact file has no doctype/head, so wrap it in a small test page first.",
+      "rule": "Before screenshotting an artifact file, wrap it in a small test page that has a doctype and head."
+    },
+    {
+      "id": "R636",
+      "file": "reference-headless-webgl-screenshots.md",
+      "quote": "Parallel runs need separate `--user-data-dir`s",
+      "rule": "When running headless Chrome screenshots in parallel, give each run its own --user-data-dir."
+    },
+    {
+      "id": "R637",
+      "file": "reference-headless-webgl-screenshots.md",
+      "quote": "For phone checks, put the page in a 390×844 `<iframe>` and screenshot that.",
+      "rule": "For phone-width checks, place the page in a 390×844 iframe and screenshot the iframe, not a 390px window-size."
+    },
+    {
+      "id": "R638",
+      "file": "reference-headless-webgl-screenshots.md",
+      "quote": "Use a bare `#token` hash to open a specific view",
+      "rule": "To open a specific view of an artifact page, use a bare #token hash in the URL."
+    },
+    {
+      "id": "R639",
+      "file": "reference-local-transcription.md",
+      "quote": "`numpy.frombuffer(..., float32)`, and pass the array instead.",
+      "rule": "When transcribing a file with faster-whisper on this laptop, decode the audio with ffmpeg (`ffmpeg -i <file> -ac 1 -ar 16000 -f f32le -`), load the bytes with numpy.frombuffer as float32, and pass the resulting array to model.transcribe() instead of the file path."
+    },
+    {
+      "id": "R640",
+      "file": "reference-local-transcription.md",
+      "quote": "pull `ppt/media/*.mp4` out of the zip first",
+      "rule": "When transcribing lecture videos embedded in a PowerPoint file, first extract the ppt/media/*.mp4 files from the .pptx zip archive."
+    },
+    {
+      "id": "R641",
+      "file": "reference-local-transcription.md",
+      "quote": "so \"small\" is the best",
+      "rule": "When transcribing Indonesian audio offline on this laptop, use the cached \"small\" faster-whisper model, since it is the best option available without downloading another model."
+    },
+    {
+      "id": "R642",
+      "file": "reference-upload-route.md",
+      "quote": "the working procedure is the `unggah-sekitar` skill",
+      "rule": "For uploading and scheduling @rupanya.gini films, use the `unggah-sekitar` skill as the working procedure."
+    },
+    {
+      "id": "R643",
+      "file": "reference-upload-route.md",
+      "quote": "Split the mp4 with `split -n <k> -d` into ~5 MB parts in the scratchpad",
+      "rule": "When a film file is over 10 MB, split the mp4 with `split -n <k> -d` into ~5 MB parts in the scratchpad."
+    },
+    {
+      "id": "R644",
+      "file": "reference-upload-route.md",
+      "quote": "upload one part per call",
+      "rule": "When uploading a film to a platform in chunks, upload one part per browser call."
+    },
+    {
+      "id": "R645",
+      "file": "reference-upload-route.md",
+      "quote": "then set it on the site's own file input through `DataTransfer` and dispatch `change`",
+      "rule": "After rebuilding a chunked film in the page, set it on the site's own file input through `DataTransfer` and dispatch a `change` event."
+    },
+    {
+      "id": "R646",
+      "file": "reference-upload-route.md",
+      "quote": "compare its SHA-256 with `sha256sum` of the original",
+      "rule": "Before setting a rebuilt film on a site, compare its SHA-256 with `sha256sum` of the original file."
+    },
+    {
+      "id": "R647",
+      "file": "reference-upload-route.md",
+      "quote": "Check the avatar is the orange \"r.\" / Rupanya Gini before uploading",
+      "rule": "Before uploading to YouTube, check that the channel avatar is the orange \"r.\" / Rupanya Gini channel."
+    },
+    {
+      "id": "R648",
+      "file": "reference-upload-route.md",
+      "quote": "or go straight to `studio.youtube.com/channel/UCwBcNfWiZ7y3tolo-hnanuw/videos/upload?d=ud`",
+      "rule": "To upload to YouTube, go straight to studio.youtube.com/channel/UCwBcNfWiZ7y3tolo-hnanuw/videos/upload?d=ud."
+    },
+    {
+      "id": "R649",
+      "file": "reference-upload-route.md",
+      "quote": "pick \"(GMT+0700) Local Time\"",
+      "rule": "When scheduling a YouTube upload, pick \"(GMT+0700) Local Time\" as the time zone."
+    },
+    {
+      "id": "R650",
+      "file": "reference-upload-route.md",
+      "quote": "Type title/description with the type action",
+      "rule": "Enter the YouTube title and description with the type action."
+    },
+    {
+      "id": "R651",
+      "file": "reference-upload-route.md",
+      "quote": "compare SHA-256 of `#textbox` text with the upload.md block",
+      "rule": "After typing the YouTube title and description, compare the SHA-256 of the `#textbox` text with the upload.md block."
+    },
+    {
+      "id": "R652",
+      "file": "reference-upload-route.md",
+      "quote": "click it with JS",
+      "rule": "When the TikTok Save button sits above the viewport in a short window, click it with JavaScript."
+    },
+    {
+      "id": "R653",
+      "file": "reference-upload-route.md",
+      "quote": "settle everything before pressing Schedule",
+      "rule": "Settle every TikTok post detail before pressing Schedule, because scheduled posts cannot be edited."
+    },
+    {
+      "id": "R654",
+      "file": "reference-upload-route.md",
+      "quote": "Meta Business Suite is now the scheduling route",
+      "rule": "Schedule Instagram posts through Meta Business Suite, not instagram.com."
+    },
+    {
+      "id": "R655",
+      "file": "reference-upload-route.md",
+      "quote": "`stage.js` intercepts the click to avoid the native picker",
+      "rule": "When uploading an Instagram video through Add Video, have `stage.js` intercept the click to avoid the native picker."
+    },
+    {
+      "id": "R656",
+      "file": "reference-upload-route.md",
+      "quote": "click the \"Upload image\" tab, then the \"Upload image\" link inside it",
+      "rule": "For an Instagram thumbnail, click the \"Upload image\" tab, then the \"Upload image\" link inside it."
+    },
+    {
+      "id": "R657",
+      "file": "reference-upload-route.md",
+      "quote": "click each and type `07`, `00`",
+      "rule": "Set Instagram schedule time spinbuttons by clicking each field and typing the values, such as `07` and `00`."
+    },
+    {
+      "id": "R658",
+      "file": "reference-upload-route.md",
+      "quote": "read back with `aria-valuenow`",
+      "rule": "Verify Instagram schedule time spinbuttons by reading their `aria-valuenow`."
+    },
+    {
+      "id": "R659",
+      "file": "reference-upload-route.md",
+      "quote": "Fix: youtube.com avatar → Switch account → Rupanya Gini",
+      "rule": "If YouTube Studio says \"you don't have permission\", switch the youtube.com account to Rupanya Gini via the avatar → Switch account."
+    },
+    {
+      "id": "R660",
+      "file": "reference-upload-route.md",
+      "quote": "pick Original",
+      "rule": "When the instagram.com Create → Post crop is not 9:16, pick Original."
+    },
+    {
+      "id": "R661",
+      "file": "reference-upload-route.md",
+      "quote": "is the reliable length check",
+      "rule": "Use the caption counter under the Instagram box, not the DOM text, as the caption length check."
+    },
+    {
+      "id": "R662",
+      "file": "reference-upload-route.md",
+      "quote": "open the comments panel, then click the box itself before typing",
+      "rule": "To post a first comment on TikTok, open the comments panel, then click the comment box itself before typing."
+    },
+    {
+      "id": "R663",
+      "file": "reference-upload-route.md",
+      "quote": "so close them first",
+      "rule": "Close TikTok like-notification toasts before typing a comment, since they cover the comment box."
+    },
+    {
+      "id": "R664",
+      "file": "reference-upload-route.md",
+      "quote": "Click Cancel by ref, never by coordinate",
+      "rule": "When dismissing the Instagram comment menu, click Cancel by ref, never by coordinate."
+    },
+    {
+      "id": "R665",
+      "file": "reference-upload-route.md",
+      "quote": "reload to verify rather than posting twice",
+      "rule": "If the Instagram comment panel still says \"No comments yet\" after posting, reload the page to verify rather than posting again."
+    },
+    {
+      "id": "R666",
+      "file": "reference-upload-route.md",
+      "quote": "check the row's icon first",
+      "rule": "Before opening a published row's detail page to add a first comment, check the row's platform icon."
+    },
+    {
+      "id": "R667",
+      "file": "reference-upload-route.md",
+      "quote": "untick the Instagram row",
+      "rule": "When posting a Facebook-only reel through Business Suite's Create reel, untick the Instagram row in the Post to dropdown."
+    },
+    {
+      "id": "R668",
+      "file": "reference-upload-route.md",
+      "quote": "for a named frame use Upload image",
+      "rule": "For a Facebook reel thumbnail on a named frame, use Upload image rather than Choose suggested."
+    },
+    {
+      "id": "R669",
+      "file": "reference-upload-route.md",
+      "quote": "use its \"View reel on Facebook\" button",
+      "rule": "To add a first comment to a Facebook reel from Business Suite, use its \"View reel on Facebook\" button."
+    },
+    {
+      "id": "R670",
+      "file": "reference-upload-route.md",
+      "quote": "PowerShell `Shell.Application` → Namespace(17) → \"Bryan's A36\" → Internal storage → Movies → `CopyHere`",
+      "rule": "To copy films to the phone, use PowerShell `Shell.Application` → Namespace(17) → \"Bryan's A36\" → Internal storage → Movies → `CopyHere`."
+    },
+    {
+      "id": "R671",
+      "file": "reference-upload-route.md",
+      "quote": "check `ExtendedProperty(\"System.Size\")` against the original bytes",
+      "rule": "After copying a film to the phone, check `ExtendedProperty(\"System.Size\")` against the original file's bytes."
+    },
+    {
+      "id": "R672",
+      "file": "reference-windows-video-error-fxsound.md",
+      "quote": "Check this before re-encoding a video that \"won't play\".",
+      "rule": "When a video \"won't play\" on Bryan's Windows laptop, check whether the default audio output is the FxSound virtual device (and change it in Windows Sound settings if so) before re-encoding the video."
+    },
+    {
+      "id": "R673",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "to come up whenever he asks what tasks he has left",
+      "rule": "When Bryan asks what tasks he has left, include \"pendaftaran voice UKSW\" in the answer."
+    },
+    {
+      "id": "R674",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "list it as a reminder",
+      "rule": "When Bryan asks about remaining tasks, list \"pendaftaran voice UKSW\" as a reminder."
+    },
+    {
+      "id": "R675",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "separate from real coursework",
+      "rule": "Keep \"pendaftaran voice UKSW\" separate from real coursework items when listing remaining tasks."
+    },
+    {
+      "id": "R676",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "Don't treat it as a deadline item",
+      "rule": "Do not treat \"pendaftaran voice UKSW\" as a deadline item."
+    },
+    {
+      "id": "R677",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "don't go looking for details unless he gives them",
+      "rule": "Do not search for details about \"pendaftaran voice UKSW\" unless Bryan provides them."
+    },
+    {
+      "id": "R678",
+      "file": "reminder-pendaftaran-voice-uksw.md",
+      "quote": "If he later shares details or says he registered, update or delete this file.",
+      "rule": "When Bryan shares details about \"pendaftaran voice UKSW\" or says he registered, update or delete the reminder file."
+    },
+    {
+      "id": "R679",
+      "file": "user-bryan-profile.md",
+      "quote": "Verify every specification, code reference, and number rather than recalling it, and say when you are unsure",
+      "rule": "When helping Bryan with work documents, verify every specification, code reference, and number rather than recalling it from memory, and state explicitly when you are unsure."
+    },
+    {
+      "id": "R680",
+      "file": "user-bryan-profile.md",
+      "quote": "Explain the underlying technical concept rather than assuming he already holds it — he will not ask.",
+      "rule": "When helping Bryan, explain the underlying technical concept behind the material rather than assuming he already understands it, since he will not ask for clarification."
+    },
+    {
+      "id": "R681",
+      "file": "user-bryan-profile.md",
+      "quote": "Don't attribute either to him",
+      "rule": "Do not attribute a design background or a finance background to Bryan."
+    },
+    {
+      "id": "R682",
+      "file": "user-claude-account-context.md",
+      "quote": "Don't assume terminal-only features (status line, `!` bash shortcut, tab completion) are visible to him",
+      "rule": "Do not assume Bryan can see terminal-only features (status line, `!` bash shortcut, tab completion) in his VS Code setup."
+    },
+    {
+      "id": "R683",
+      "file": "user-claude-account-context.md",
+      "quote": "check or ask first",
+      "rule": "Before relying on a terminal-only feature, check or ask Bryan whether it is visible to him."
+    },
+    {
+      "id": "R684",
+      "file": "user-claude-account-context.md",
+      "quote": "never ask him to type it",
+      "rule": "Never ask Bryan to type @browser to connect Claude in Chrome in the desktop app Code tab."
+    },
+    {
+      "id": "R685",
+      "file": "user-claude-account-context.md",
+      "quote": "if Chrome won't connect, say so and wait.",
+      "rule": "If Claude in Chrome won't connect in the desktop app Code tab, tell Bryan it isn't connected and wait."
+    },
+    {
+      "id": "R686",
+      "file": "user-claude-account-context.md",
+      "quote": "Don't tell him Claude Code is unavailable on his phone or that \"it isn't possible\"",
+      "rule": "Do not tell Bryan that Claude Code is unavailable on his phone or that it isn't possible."
+    },
+    {
+      "id": "R687",
+      "file": "user-claude-account-context.md",
+      "quote": "anything worth keeping should live in files/memory, not only in chat history",
+      "rule": "When Bryan talks about usage limits or continuity of work across accounts, store anything worth keeping in files/memory, not only in chat history."
+    },
+    {
+      "id": "R688",
+      "file": "user-investing-approach.md",
+      "quote": "Bryan wants stock research that is global and geography-unbiased",
+      "rule": "When doing stock research for Bryan, make it global and geography-unbiased."
+    },
+    {
+      "id": "R689",
+      "file": "user-investing-approach.md",
+      "quote": "not defaulting to US names",
+      "rule": "When doing stock research for Bryan, do not default to US-listed names."
+    },
+    {
+      "id": "R690",
+      "file": "user-investing-approach.md",
+      "quote": "His screen is fundamentals-driven: ROIC, ROE, margins, debt levels, dividend/buyback history, moat strength, and resilience through recessions and inflation.",
+      "rule": "When screening stocks for Bryan, base the screen on fundamentals: ROIC, ROE, margins, debt levels, dividend/buyback history, moat strength, and resilience through recessions and inflation."
+    },
+    {
+      "id": "R691",
+      "file": "user-investing-approach.md",
+      "quote": "structured as tiered portfolio construction — max quality / risk-adjusted / broad diversified",
+      "rule": "When giving stock recommendations to Bryan, structure the output as tiered portfolio construction: max quality, risk-adjusted, and broad diversified."
+    },
+    {
+      "id": "R692",
+      "file": "user-investing-approach.md",
+      "quote": "with an explicit bear case and self-critique for each pick",
+      "rule": "When giving stock recommendations to Bryan, include an explicit bear case and a self-critique for each pick."
+    },
+    {
+      "id": "R693",
+      "file": "user-investing-approach.md",
+      "quote": "Exact figures kept out of this public repo; ask him.",
+      "rule": "Do not record Bryan's exact personal financial figures in this public repo; ask him for them when they are needed."
+    }
+  ],
+  "dropped": []
+}

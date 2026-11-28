@@ -1,0 +1,1030 @@
+{
+  "repo": "infonl/podiumd-minikube",
+  "dir": ".claude/memory",
+  "n_files": 9,
+  "n_rules": 170,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "comments-and-help-texts.md",
+      "quote": "Say only what the code cannot: the why, a constraint, a non-obvious fact",
+      "rule": "In comments, state only what the code cannot express, such as the why, a constraint, or a non-obvious fact."
+    },
+    {
+      "id": "R2",
+      "file": "comments-and-help-texts.md",
+      "quote": "Never restate what the code does.",
+      "rule": "Never write a comment that restates what the code does."
+    },
+    {
+      "id": "R3",
+      "file": "comments-and-help-texts.md",
+      "quote": "One sentence where one sentence does;",
+      "rule": "Use one sentence in a comment or message where one sentence is enough."
+    },
+    {
+      "id": "R4",
+      "file": "comments-and-help-texts.md",
+      "quote": "no \"now/new/changed\"",
+      "rule": "Do not write \"now\", \"new\", or \"changed\" in comments or messages."
+    },
+    {
+      "id": "R5",
+      "file": "comments-and-help-texts.md",
+      "quote": "no references to a session.",
+      "rule": "Do not reference a session in comments or messages."
+    },
+    {
+      "id": "R6",
+      "file": "comments-and-help-texts.md",
+      "quote": "no history",
+      "rule": "Do not include history in comments or messages."
+    },
+    {
+      "id": "R7",
+      "file": "comments-and-help-texts.md",
+      "quote": "History and the reasoning behind a fix belong in `.claude/plans/plan.md`, not in the code.",
+      "rule": "Put history and the reasoning behind a fix in `.claude/plans/plan.md`, not in the code."
+    },
+    {
+      "id": "R8",
+      "file": "comments-and-help-texts.md",
+      "quote": "one line stating what it returns or does, in the imperative",
+      "rule": "Write each docstring as one line, in the imperative mood, stating what the function returns or does."
+    },
+    {
+      "id": "R9",
+      "file": "comments-and-help-texts.md",
+      "quote": "ruff D401",
+      "rule": "Make docstrings satisfy ruff D401."
+    },
+    {
+      "id": "R10",
+      "file": "comments-and-help-texts.md",
+      "quote": "Add a second paragraph only for a real constraint or edge case.",
+      "rule": "Add a second docstring paragraph only for a real constraint or edge case."
+    },
+    {
+      "id": "R11",
+      "file": "comments-and-help-texts.md",
+      "quote": "what the option does and its default, in under one line",
+      "rule": "In usage and help texts, state what the option does and its default, in under one line."
+    },
+    {
+      "id": "R12",
+      "file": "comments-and-help-texts.md",
+      "quote": "no examples unless the syntax is unclear.",
+      "rule": "Do not include examples in usage or help texts unless the syntax is unclear."
+    },
+    {
+      "id": "R13",
+      "file": "comments-and-help-texts.md",
+      "quote": "the fact, the object and the fix in one line",
+      "rule": "Write errors, warnings, and skip reasons as the fact, the object, and the fix, in one line."
+    },
+    {
+      "id": "R14",
+      "file": "comments-and-help-texts.md",
+      "quote": "name the real object, field, command or limit;",
+      "rule": "Name the real object, field, command, or limit in messages instead of vague references."
+    },
+    {
+      "id": "R15",
+      "file": "comments-and-help-texts.md",
+      "quote": "no \"some\", \"various\", \"etc.\", hedges or filler.",
+      "rule": "Do not use \"some\", \"various\", \"etc.\", hedges, or filler in comments or messages."
+    },
+    {
+      "id": "R16",
+      "file": "comments-and-help-texts.md",
+      "quote": "Same term for the same thing everywhere (one word, one meaning).",
+      "rule": "Use the same term for the same thing everywhere, with one word for one meaning."
+    },
+    {
+      "id": "R17",
+      "file": "comments-and-help-texts.md",
+      "quote": "Existing long comments are trimmed when the code around them changes",
+      "rule": "Trim existing long comments when the code around them changes."
+    },
+    {
+      "id": "R18",
+      "file": "comments-and-help-texts.md",
+      "quote": "not in a separate sweep.",
+      "rule": "Do not trim existing long comments in a separate sweep."
+    },
+    {
+      "id": "R19",
+      "file": "comments-and-help-texts.md",
+      "quote": "Before committing, reread each new comment and message and cut every word",
+      "rule": "Before committing, reread each new comment and message and cut every word that does not change the meaning."
+    },
+    {
+      "id": "R20",
+      "file": "env-ledger.md",
+      "quote": "for every agent: book a shared",
+      "rule": "Every agent must book a shared test environment (minikube or kees00) before using it."
+    },
+    {
+      "id": "R21",
+      "file": "env-ledger.md",
+      "quote": "`$E check ENV --for ...`",
+      "rule": "Before any deploy, reset, chart test, test run beyond smoke or single reruns, or disruptive step on minikube or kees00, run the ledger check command for that environment."
+    },
+    {
+      "id": "R22",
+      "file": "env-ledger.md",
+      "quote": "`$E book ENV --agent podiumd-minikube --what \"...\" --for ...`",
+      "rule": "Before any deploy, reset, chart test, test run beyond smoke or single reruns, or disruptive step on minikube or kees00, book that environment in the ledger with the agent, purpose, and time window."
+    },
+    {
+      "id": "R23",
+      "file": "env-ledger.md",
+      "quote": "Book as soon as the work is planned, not when it starts.",
+      "rule": "Book the environment as soon as the work is planned, not when it starts."
+    },
+    {
+      "id": "R24",
+      "file": "env-ledger.md",
+      "quote": "book your slot after theirs in the same step",
+      "rule": "When another agent deploys or rebuilds on your behalf, book your slot after theirs in the same step."
+    },
+    {
+      "id": "R25",
+      "file": "env-ledger.md",
+      "quote": "A deploy is `--disruptive`",
+      "rule": "Book a deploy with the --disruptive flag."
+    },
+    {
+      "id": "R26",
+      "file": "env-ledger.md",
+      "quote": "a reset is `--disruptive --resets`",
+      "rule": "Book a reset with the --disruptive and --resets flags."
+    },
+    {
+      "id": "R27",
+      "file": "env-ledger.md",
+      "quote": "`heartbeat` at least every 20 minutes",
+      "rule": "During long work, send a ledger heartbeat at least every 20 minutes."
+    },
+    {
+      "id": "R28",
+      "file": "env-ledger.md",
+      "quote": "`done`",
+      "rule": "After the work finishes, mark the booking done in the ledger."
+    },
+    {
+      "id": "R29",
+      "file": "env-ledger.md",
+      "quote": "Every podiumd Helm deploy: `$E log ENV --kind deploy --target",
+      "rule": "Log every podiumd Helm deploy in the ledger with --kind deploy, --target helm/podiumd, and a summary of the form \"rev N #PR\"."
+    },
+    {
+      "id": "R30",
+      "file": "env-ledger.md",
+      "quote": "`rev N FAILED` on failure",
+      "rule": "When a podiumd Helm deploy fails, log it with the summary \"rev N FAILED\"."
+    },
+    {
+      "id": "R31",
+      "file": "env-ledger.md",
+      "quote": "On a conflict, message the agent that holds the booking.",
+      "rule": "On a booking conflict, message the agent that holds the booking."
+    },
+    {
+      "id": "R32",
+      "file": "env-ledger.md",
+      "quote": "Never `--force`",
+      "rule": "Never use the --force flag on a ledger booking unless the user explicitly says so."
+    },
+    {
+      "id": "R33",
+      "file": "env-ledger.md",
+      "quote": "The locks stay",
+      "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+    },
+    {
+      "id": "R34",
+      "file": "laptop-resources.md",
+      "quote": "keep usage as low as possible without\n  changing behaviour",
+      "rule": "Keep the memory and CPU usage of the podiumd-minikube laptop environment as low as possible without changing behaviour."
+    },
+    {
+      "id": "R35",
+      "file": "laptop-resources.md",
+      "quote": "meeting them never ends the search\n  for savings",
+      "rule": "Do not stop looking for savings just because the memory budgets are met."
+    },
+    {
+      "id": "R36",
+      "file": "laptop-resources.md",
+      "quote": "Every new component states its memory\n  request/limit and its measured settled usage in plan.md.",
+      "rule": "When adding a new component to the laptop environment, state its memory request/limit and its measured settled usage in plan.md."
+    },
+    {
+      "id": "R37",
+      "file": "laptop-resources.md",
+      "quote": "one replica everywhere",
+      "rule": "Run one replica of every component in the laptop environment."
+    },
+    {
+      "id": "R38",
+      "file": "laptop-resources.md",
+      "quote": "the\n  smallest worker/process counts that keep behaviour identical",
+      "rule": "Use the smallest worker/process counts that keep behaviour identical to production."
+    },
+    {
+      "id": "R39",
+      "file": "laptop-resources.md",
+      "quote": "heap sizes\n  set explicitly for JVM/Elasticsearch.",
+      "rule": "Set heap sizes explicitly for JVM and Elasticsearch components."
+    },
+    {
+      "id": "R40",
+      "file": "laptop-resources.md",
+      "quote": "Keep production behaviour that tests depend on (auth, TLS, edge buffering,\n  limits)",
+      "rule": "Keep the production behaviour that tests depend on, such as auth, TLS, edge buffering and limits."
+    },
+    {
+      "id": "R41",
+      "file": "laptop-resources.md",
+      "quote": "shrink only capacity",
+      "rule": "Shrink only capacity settings (replicas, heaps, pools, caches, retention), never production behaviour."
+    },
+    {
+      "id": "R42",
+      "file": "laptop-resources.md",
+      "quote": "Optional profiles stay off by default",
+      "rule": "Keep optional profiles disabled by default."
+    },
+    {
+      "id": "R43",
+      "file": "laptop-resources.md",
+      "quote": "heavy ones (Elasticsearch, monitoring,\n  Frank!Gateway/OpenBao) are opt-in",
+      "rule": "Enable the heavy profiles (Elasticsearch, monitoring, Frank!Gateway/OpenBao) only on an opt-in basis."
+    },
+    {
+      "id": "R44",
+      "file": "laptop-resources.md",
+      "quote": "it is cheap to run only the profiles\n  a test needs.",
+      "rule": "Run only the profiles that a given test needs."
+    },
+    {
+      "id": "R45",
+      "file": "laptop-resources.md",
+      "quote": "When a change adds memory or CPU, propose ways to offset it before adding",
+      "rule": "When a change adds memory or CPU, propose ways to offset it before adding it."
+    },
+    {
+      "id": "R46",
+      "file": "laptop-resources.md",
+      "quote": "measure before and after (`docker stats minikube --no-stream`)",
+      "rule": "When a change adds memory or CPU, measure usage before and after with `docker stats minikube --no-stream`."
+    },
+    {
+      "id": "R47",
+      "file": "laptop-resources.md",
+      "quote": "Proactively propose savings with measured numbers, ranked by memory saved\n  and by risk to production fidelity",
+      "rule": "Proactively propose savings with measured numbers, ranked by memory saved and by risk to production fidelity."
+    },
+    {
+      "id": "R48",
+      "file": "laptop-resources.md",
+      "quote": "never cut what the tests exercise.",
+      "rule": "Never cut anything that the tests exercise."
+    },
+    {
+      "id": "R49",
+      "file": "memory-tuning.md",
+      "quote": "Each one changes capacity only, never behaviour.",
+      "rule": "When changing a memory-tuning setting, change only its capacity, never its behaviour."
+    },
+    {
+      "id": "R50",
+      "file": "memory-tuning.md",
+      "quote": "go through the checks below",
+      "rule": "Before changing a memory-tuning setting or adding a component, go through the memory-tuning checks."
+    },
+    {
+      "id": "R51",
+      "file": "memory-tuning.md",
+      "quote": "Refresh the baseline only after an intended change, on a settled cluster",
+      "rule": "Refresh the memory baseline only after an intended change, on a settled cluster."
+    },
+    {
+      "id": "R52",
+      "file": "memory-tuning.md",
+      "quote": "after podiumd-tests' full",
+      "rule": "Refresh the memory baseline only after podiumd-tests' full tier has run."
+    },
+    {
+      "id": "R53",
+      "file": "memory-tuning.md",
+      "quote": "`pytest tests/test_memory.py --update-memory-baseline`",
+      "rule": "To refresh the memory baseline, run `pytest tests/test_memory.py --update-memory-baseline`."
+    },
+    {
+      "id": "R54",
+      "file": "memory-tuning.md",
+      "quote": "Never 1 x 1: an app that calls itself would block",
+      "rule": "Never configure uWSGI with 1 process and 1 thread."
+    },
+    {
+      "id": "R55",
+      "file": "memory-tuning.md",
+      "quote": "A GC change is measured per app after a warm-up (the suite)",
+      "rule": "Measure a GC change per app, after a warm-up (the suite) and 5 idle minutes."
+    },
+    {
+      "id": "R56",
+      "file": "memory-tuning.md",
+      "quote": "state its request/limit and settled usage in plan.md",
+      "rule": "When adding a new component, state its request/limit and settled usage in plan.md."
+    },
+    {
+      "id": "R57",
+      "file": "memory-tuning.md",
+      "quote": "an explicit heap for a JVM",
+      "rule": "When adding a new JVM component, set an explicit heap for it."
+    },
+    {
+      "id": "R58",
+      "file": "memory-tuning.md",
+      "quote": "check what it sizes from the CPU count",
+      "rule": "When adding a new component, check what it sizes from the CPU count."
+    },
+    {
+      "id": "R59",
+      "file": "memory-tuning.md",
+      "quote": "First `podiumd-minikube show-cluster-status`",
+      "rule": "When checking memory, first run `podiumd-minikube show-cluster-status` and compare node and container memory against the budget and baseline."
+    },
+    {
+      "id": "R60",
+      "file": "memory-tuning.md",
+      "quote": "exactly one `-XX:+Use*GC` may be on, else the JVM does not start",
+      "rule": "For every JVM, verify that exactly one `-XX:+Use*GC` flag is enabled."
+    },
+    {
+      "id": "R61",
+      "file": "memory-tuning.md",
+      "quote": "`java -Xlog:os+container=debug -version` in the container must not say",
+      "rule": "For every JVM, run `java -Xlog:os+container=debug -version` in the container and verify it does not say \"disabled at kernel level\"."
+    },
+    {
+      "id": "R62",
+      "file": "memory-tuning.md",
+      "quote": "`_nodes/os` shows `allocated_processors` 1",
+      "rule": "For Elasticsearch, verify that `_nodes/os` shows `allocated_processors` 1."
+    },
+    {
+      "id": "R63",
+      "file": "memory-tuning.md",
+      "quote": "Celery: `ps`/`/proc/*/cmdline` in the worker shows `-c 1`",
+      "rule": "For Celery workers, verify with `ps` or `/proc/*/cmdline` that the worker shows `-c 1`."
+    },
+    {
+      "id": "R64",
+      "file": "memory-tuning.md",
+      "quote": "uWSGI: count the",
+      "rule": "For uWSGI, count the `uwsgi` processes in the web pod and verify the expected number."
+    },
+    {
+      "id": "R65",
+      "file": "python-checks.md",
+      "quote": "Run `./run_python_checks` right before each commit, after the last edit.",
+      "rule": "Run ./run_python_checks right before each commit, after the last edit."
+    },
+    {
+      "id": "R66",
+      "file": "python-checks.md",
+      "quote": "Judge it by its exit code or its last line `=== all checks passed ===`,",
+      "rule": "Judge the result of ./run_python_checks by its exit code or its last line '=== all checks passed ===', never by ruff's early 'All checks passed!'."
+    },
+    {
+      "id": "R67",
+      "file": "python-checks.md",
+      "quote": "never by ruff's early \"All checks passed!\".",
+      "rule": "Never judge the result of ./run_python_checks by ruff's early 'All checks passed!' message."
+    },
+    {
+      "id": "R68",
+      "file": "python-checks.md",
+      "quote": "Never pipe the checks into a chained commit or push",
+      "rule": "Never pipe ./run_python_checks into a chained commit or push command."
+    },
+    {
+      "id": "R69",
+      "file": "python-checks.md",
+      "quote": "never commit with `--no-verify`.",
+      "rule": "Never commit with --no-verify."
+    },
+    {
+      "id": "R70",
+      "file": "python-checks.md",
+      "quote": "Chain `git add <paths> && git commit`: a failed `git add` must stop the\n  commit.",
+      "rule": "Chain git add with git commit using && so that a failed git add stops the commit."
+    },
+    {
+      "id": "R71",
+      "file": "python-checks.md",
+      "quote": "Check `git diff --cached` first;",
+      "rule": "Check git diff --cached before committing."
+    },
+    {
+      "id": "R72",
+      "file": "python-checks.md",
+      "quote": "a file with other pending edits\n  is committed after those edits, or only the fix is staged.",
+      "rule": "When a file has other pending edits, commit it only after those edits are made, or stage only the fix."
+    },
+    {
+      "id": "R73",
+      "file": "python-checks.md",
+      "quote": "Run the full checks once per commit, not after every edit:",
+      "rule": "Run the full checks once per commit, not after every edit."
+    },
+    {
+      "id": "R74",
+      "file": "python-checks.md",
+      "quote": "run other heavy local\n  commands (test suites, builds) the same way.",
+      "rule": "Run other heavy local commands (test suites, builds) with nice -n 10 and at most 4 workers, the same way run_python_checks does."
+    },
+    {
+      "id": "R75",
+      "file": "python-checks.md",
+      "quote": "When in doubt about a flag, wording or structure, copy\n  its version",
+      "rule": "When in doubt about a check flag, wording or structure, copy the version from podiumd-tests' run_python_checks setup."
+    },
+    {
+      "id": "R76",
+      "file": "python-checks.md",
+      "quote": "deviate only\n  for a project difference, and say so in the commit.",
+      "rule": "Deviate from the shared check setup only for a project difference, and state that difference in the commit message."
+    },
+    {
+      "id": "R77",
+      "file": "reference-environments.md",
+      "quote": "podiumd-minikube delivers an environment as identical as possible to the one",
+      "rule": "Make the podiumd-minikube environment as identical as possible to the environments deployed by podiumd-infra and ExternalsPodiumD."
+    },
+    {
+      "id": "R78",
+      "file": "reference-environments.md",
+      "quote": "In case of doubt, ExternalsPodiumD takes\nprecedence.",
+      "rule": "When in doubt about how to configure the environment, follow ExternalsPodiumD over podiumd-infra."
+    },
+    {
+      "id": "R79",
+      "file": "reference-environments.md",
+      "quote": "look up how both projects configure it in their values\n  files, and match it.",
+      "rule": "Before changing an app setting, a client id, a token, a Job or a wiring between components, look up how both podiumd-infra and ExternalsPodiumD configure it in their values files, and match it."
+    },
+    {
+      "id": "R80",
+      "file": "reference-environments.md",
+      "quote": "Name what each does in the change and in `plan.md`.",
+      "rule": "When changing such a setting, name what each project does both in the change and in `plan.md`."
+    },
+    {
+      "id": "R81",
+      "file": "reference-environments.md",
+      "quote": "Include such optional functionality anyway (the\n  podiumd-infra way), so broader tests can run.",
+      "rule": "Include optional functionality that podiumd-infra has but ExternalsPodiumD does not, so broader tests can run."
+    },
+    {
+      "id": "R82",
+      "file": "reference-environments.md",
+      "quote": "Where both configure the same\n  thing differently, ExternalsPodiumD's way wins.",
+      "rule": "Where both projects configure the same thing differently, follow ExternalsPodiumD's way."
+    },
+    {
+      "id": "R83",
+      "file": "reference-environments.md",
+      "quote": "Deviate where minikube cannot do the same",
+      "rule": "Deviate from the reference projects only where minikube cannot do the same (single node, no Azure, no cloud operators, no public DNS)."
+    },
+    {
+      "id": "R84",
+      "file": "reference-environments.md",
+      "quote": "or where it serves minikube's own purposes",
+      "rule": "Deviate from the reference projects where the deviation serves minikube's own purposes: low footprint, very fast bootstrap and (re)deploy, debug facilities, and developer suitability."
+    },
+    {
+      "id": "R85",
+      "file": "reference-environments.md",
+      "quote": "Never where it makes the tests prove something the estates do\n  not do.",
+      "rule": "Never deviate from the reference projects in a way that makes the tests prove something the real estates do not do."
+    },
+    {
+      "id": "R86",
+      "file": "reference-environments.md",
+      "quote": "Record each deviation with its reason in `values.yaml` or the code,\n  and in `plan.md`.",
+      "rule": "Record each deviation from the reference projects with its reason in `values.yaml` or the code, and in `plan.md`."
+    },
+    {
+      "id": "R87",
+      "file": "reference-environments.md",
+      "quote": "How it is deployed follows ExternalsPodiumD's pipelines",
+      "rule": "Deploy the environment following ExternalsPodiumD's pipelines: Helm releases `podiumd` (namespace `podiumd`) and `monitoring-logging` (namespace `monitoring`), their Helm flags and its one-shot Job list."
+    },
+    {
+      "id": "R88",
+      "file": "reference-environments.md",
+      "quote": "\"Exactly\" is too\n  much (the user, 2026-10-28): the deviations above stay.",
+      "rule": "Do not aim for an exact copy of the deployment; keep the permitted deviations."
+    },
+    {
+      "id": "R89",
+      "file": "reference-environments.md",
+      "quote": "Requests from podiumd-tests are checked against both projects the same way.",
+      "rule": "Check requests from podiumd-tests against both podiumd-infra and ExternalsPodiumD in the same way."
+    },
+    {
+      "id": "R90",
+      "file": "reference-environments.md",
+      "quote": "where they differ, follow the reference projects and\n  tell podiumd-tests.",
+      "rule": "When a podiumd-tests request differs from what the reference projects configure, follow the reference projects and tell podiumd-tests."
+    },
+    {
+      "id": "R91",
+      "file": "remove-unused.md",
+      "quote": "Anything that\nnothing uses is removed, not kept \"just in case\"",
+      "rule": "Remove anything that nothing uses (code in src/, unit_tests/ and tests/, templates, values.yaml overrides, vendored files, fixtures, helpers, constants, comments and doc sections) instead of keeping it \"just in case\"."
+    },
+    {
+      "id": "R92",
+      "file": "remove-unused.md",
+      "quote": "remove it in the same change and say so in the commit message.",
+      "rule": "When a check, deploy or investigation shows something is never used, remove it in the same change and state the removal in the commit message."
+    },
+    {
+      "id": "R93",
+      "file": "remove-unused.md",
+      "quote": "vulture covers Python code.",
+      "rule": "Use vulture to check Python code for unused parts."
+    },
+    {
+      "id": "R94",
+      "file": "remove-unused.md",
+      "quote": "check by hand which template, script or test reads\n  them.",
+      "rule": "For templates, values overrides, vendored files and docs, check by hand which template, script or test reads them before deciding they are unused."
+    },
+    {
+      "id": "R95",
+      "file": "remove-unused.md",
+      "quote": "keep it even when\n  no test here reads it",
+      "rule": "Keep a values.yaml setting that matches what ExternalsPodiumD or podiumd-infra deploy, even when no test here reads it."
+    },
+    {
+      "id": "R96",
+      "file": "remove-unused.md",
+      "quote": "Only drop such a\n  setting when the reference projects drop it, or when it has no effect in\n  the rendered manifest.",
+      "rule": "Drop a values.yaml environment setting only when the reference projects drop it or it has no effect in the rendered manifest."
+    },
+    {
+      "id": "R97",
+      "file": "remove-unused.md",
+      "quote": "Copying a reference file is no reason to keep a part of it that has no\n  effect here.",
+      "rule": "When copying a reference file, do not keep any part of it that has no effect here."
+    },
+    {
+      "id": "R98",
+      "file": "remove-unused.md",
+      "quote": "Code needed only for an older podiumd release gets a `podiumd<X.Y:`\n  comment (X.Y the first release without the need).",
+      "rule": "Mark code needed only for an older podiumd release with a comment of the form `podiumd<X.Y:`, where X.Y is the first release without the need."
+    },
+    {
+      "id": "R99",
+      "file": "remove-unused.md",
+      "quote": "raise `OLDEST_PODIUMD` in\n  `unit_tests/test_release_leftovers.py` and remove what it lists.",
+      "rule": "When a podiumd release stops being deployed, raise OLDEST_PODIUMD in unit_tests/test_release_leftovers.py and remove what it lists."
+    },
+    {
+      "id": "R100",
+      "file": "remove-unused.md",
+      "quote": "Never\n  pin a podiumd image tag in `values.yaml`",
+      "rule": "Never pin a podiumd image tag in values.yaml."
+    },
+    {
+      "id": "R101",
+      "file": "remove-unused.md",
+      "quote": "our own components take podiumd's images (`chart.bundled_image_sets`).",
+      "rule": "Have our own components take podiumd's images via chart.bundled_image_sets."
+    },
+    {
+      "id": "R102",
+      "file": "reuse-existing-logic.md",
+      "quote": "Name the concept, not the function",
+      "rule": "Before writing new code, name the concept it implements (e.g., \"the hosts of the Ingresses\"), not the function."
+    },
+    {
+      "id": "R103",
+      "file": "reuse-existing-logic.md",
+      "quote": "List the low-level calls the new code would make",
+      "rule": "Before writing new code, list the low-level calls the new code would make (e.g., `helm template`, `kubectl get`, `requests.get`)."
+    },
+    {
+      "id": "R104",
+      "file": "reuse-existing-logic.md",
+      "quote": "grep every caller of each",
+      "rule": "For each low-level call the new code would make, grep every existing caller of that call."
+    },
+    {
+      "id": "R105",
+      "file": "reuse-existing-logic.md",
+      "quote": "do not write a second one.",
+      "rule": "If an existing caller already computes the same thing, extend that caller instead of writing a second one."
+    },
+    {
+      "id": "R106",
+      "file": "reuse-existing-logic.md",
+      "quote": "Use the shared entry point when one exists",
+      "rule": "When a shared entry point exists for a concept, use it instead of writing new code."
+    },
+    {
+      "id": "R107",
+      "file": "reuse-existing-logic.md",
+      "quote": "starting any external process (kubectl, helm, minikube, docker) | `podiumd_minikube.process`",
+      "rule": "To start any external process (kubectl, helm, minikube, docker), use `podiumd_minikube.process`."
+    },
+    {
+      "id": "R108",
+      "file": "reuse-existing-logic.md",
+      "quote": "a command | a function in `cli.py`, listed in `COMMANDS`",
+      "rule": "Implement a new command as a function in `cli.py` listed in `COMMANDS`."
+    },
+    {
+      "id": "R109",
+      "file": "reuse-existing-logic.md",
+      "quote": "logic in its own module",
+      "rule": "Put a command's logic in its own module."
+    },
+    {
+      "id": "R110",
+      "file": "reuse-existing-logic.md",
+      "quote": "`bin/` holds only symlinks to `bin/.stub`",
+      "rule": "Keep `bin/` containing only symlinks to `bin/.stub`."
+    },
+    {
+      "id": "R111",
+      "file": "reuse-existing-logic.md",
+      "quote": "kubectl and helm against minikube, whatever the current context | `process.run`/`spawn` add it",
+      "rule": "For kubectl and helm against minikube, use `process.run` or `spawn`, which add the minikube context."
+    },
+    {
+      "id": "R112",
+      "file": "reuse-existing-logic.md",
+      "quote": "a test that calls subprocess wraps its argv in `process.pinned`",
+      "rule": "In a test that calls subprocess, wrap its argv in `process.pinned`."
+    },
+    {
+      "id": "R113",
+      "file": "reuse-existing-logic.md",
+      "quote": "kubectl calls, the edge IP, a pod | `podiumd_minikube.kube`",
+      "rule": "For kubectl calls, the edge IP, or a pod, use `podiumd_minikube.kube`."
+    },
+    {
+      "id": "R114",
+      "file": "reuse-existing-logic.md",
+      "quote": "waiting for a condition | `polling.wait_until` (never a bare sleep)",
+      "rule": "To wait for a condition, use `polling.wait_until`, never a bare sleep."
+    },
+    {
+      "id": "R115",
+      "file": "reuse-existing-logic.md",
+      "quote": "a phase's duration in the deploy log | `timing.timed`",
+      "rule": "To log a phase's duration in the deploy log, use `timing.timed`."
+    },
+    {
+      "id": "R116",
+      "file": "reuse-existing-logic.md",
+      "quote": "node/container memory and CPU, running profiles, problem pods | `podiumd_minikube.status`",
+      "rule": "For node/container memory and CPU, running profiles, or problem pods, use `podiumd_minikube.status`."
+    },
+    {
+      "id": "R117",
+      "file": "reuse-existing-logic.md",
+      "quote": "changing the shared cluster | `lock.holding`/`lock.held` (commands), `podiumd-minikube cluster-lock` (by hand)",
+      "rule": "When changing the shared cluster, use `lock.holding` or `lock.held` in commands, or `podiumd-minikube cluster-lock` by hand."
+    },
+    {
+      "id": "R118",
+      "file": "reuse-existing-logic.md",
+      "quote": "the rendered manifest, with all local fixups | `deploy.Options.render`",
+      "rule": "To get the rendered manifest with all local fixups, use `deploy.Options.render`."
+    },
+    {
+      "id": "R119",
+      "file": "reuse-existing-logic.md",
+      "quote": "a new fixup is one more step in `manifests.fix_up`",
+      "rule": "Add a new local manifest fixup as one more step in `manifests.fix_up`."
+    },
+    {
+      "id": "R120",
+      "file": "reuse-existing-logic.md",
+      "quote": "a fixup every object needs at its creation (Jobs, first pod start) | one more step in `manifests.post_render`",
+      "rule": "Add a fixup that every object needs at its creation (Jobs, first pod start) as one more step in `manifests.post_render`."
+    },
+    {
+      "id": "R121",
+      "file": "reuse-existing-logic.md",
+      "quote": "YAML sections that may be null, a resource's name | `manifests.section`, `manifests.name_of`",
+      "rule": "For YAML sections that may be null or a resource's name, use `manifests.section` or `manifests.name_of`."
+    },
+    {
+      "id": "R122",
+      "file": "reuse-existing-logic.md",
+      "quote": "the type of a Kubernetes object or parsed YAML/JSON mapping | `podiumd_minikube.objects.Doc` (the one `Any`)",
+      "rule": "Type a Kubernetes object or parsed YAML/JSON mapping with `podiumd_minikube.objects.Doc`."
+    },
+    {
+      "id": "R123",
+      "file": "reuse-existing-logic.md",
+      "quote": "parsing or writing one YAML document (libyaml) | `objects.parse_yaml`, `objects.serialize_yaml`",
+      "rule": "To parse or write one YAML document, use `objects.parse_yaml` or `objects.serialize_yaml`."
+    },
+    {
+      "id": "R124",
+      "file": "reuse-existing-logic.md",
+      "quote": "a stream: `manifests.documents`, `objects.serialize_yaml_all`",
+      "rule": "For a YAML stream, use `manifests.documents` to read it or `objects.serialize_yaml_all` to write it."
+    },
+    {
+      "id": "R125",
+      "file": "reuse-existing-logic.md",
+      "quote": "a file in a chart tarball | `chart.member_text`, `chart.member_names` (one read per tarball and process)",
+      "rule": "To read a file in a chart tarball, use `chart.member_text` or `chart.member_names`, reading each tarball once per process."
+    },
+    {
+      "id": "R126",
+      "file": "reuse-existing-logic.md",
+      "quote": "a rendered object by kind and name | `manifests.find`, `Render.named`",
+      "rule": "To find a rendered object by kind and name, use `manifests.find` or `Render.named`."
+    },
+    {
+      "id": "R127",
+      "file": "reuse-existing-logic.md",
+      "quote": "the `*.local` hosts of all Ingresses | `podiumd_minikube.hosts`",
+      "rule": "For the `*.local` hosts of all Ingresses, use `podiumd_minikube.hosts`."
+    },
+    {
+      "id": "R128",
+      "file": "reuse-existing-logic.md",
+      "quote": "what the last deploy applied, running containers per chart | `podiumd_minikube.deployed`",
+      "rule": "For what the last deploy applied or running containers per chart, use `podiumd_minikube.deployed`."
+    },
+    {
+      "id": "R129",
+      "file": "reuse-existing-logic.md",
+      "quote": "podiumd chart version and `charts/*.tgz` sync | `podiumd_minikube.dependency`",
+      "rule": "For the podiumd chart version and `charts/*.tgz` sync, use `podiumd_minikube.dependency`."
+    },
+    {
+      "id": "R130",
+      "file": "reuse-existing-logic.md",
+      "quote": "a single setting from `values.yaml` | `podiumd_minikube.values`",
+      "rule": "To read a single setting from `values.yaml`, use `podiumd_minikube.values`."
+    },
+    {
+      "id": "R131",
+      "file": "reuse-existing-logic.md",
+      "quote": "facts from the vendored tarballs (objecten shape) | `podiumd_minikube.chart`",
+      "rule": "For facts from the vendored tarballs (objecten shape), use `podiumd_minikube.chart`."
+    },
+    {
+      "id": "R132",
+      "file": "reuse-existing-logic.md",
+      "quote": "the monitoring-logging CRDs | `crds.apply_monitoring_logging_crds`",
+      "rule": "To apply the monitoring-logging CRDs, use `crds.apply_monitoring_logging_crds`."
+    },
+    {
+      "id": "R133",
+      "file": "reuse-existing-logic.md",
+      "quote": "podiumd's `scripts/` (openbao-activate.sh, migrate-objecttypen-tokens.sh) | `dependency.podiumd_script`",
+      "rule": "To access podiumd's `scripts/` (openbao-activate.sh, migrate-objecttypen-tokens.sh), use `dependency.podiumd_script`."
+    },
+    {
+      "id": "R134",
+      "file": "reuse-existing-logic.md",
+      "quote": "a pod's fsGroup on minikube's hostPath volumes | `podiumd_minikube.volumes`",
+      "rule": "For a pod's fsGroup on minikube's hostPath volumes, use `podiumd_minikube.volumes`."
+    },
+    {
+      "id": "R135",
+      "file": "reuse-existing-logic.md",
+      "quote": "steps before podiumd's upgrade to Open Object | `podiumd_minikube.objecten`",
+      "rule": "Put steps before podiumd's upgrade to Open Object in `podiumd_minikube.objecten`."
+    },
+    {
+      "id": "R136",
+      "file": "reuse-existing-logic.md",
+      "quote": "unit-test fakes for processes and tarballs | fixture `fake_run`, `make_tgz` in `unit_tests/conftest.py`",
+      "rule": "For unit-test fakes for processes and tarballs, use the fixtures `fake_run` and `make_tgz` in `unit_tests/conftest.py`."
+    },
+    {
+      "id": "R137",
+      "file": "reuse-existing-logic.md",
+      "quote": "PV/PVC pre-provisioning for an app | `templates/storage-hooks.yaml`",
+      "rule": "For PV/PVC pre-provisioning for an app, use `templates/storage-hooks.yaml`."
+    },
+    {
+      "id": "R138",
+      "file": "reuse-existing-logic.md",
+      "quote": "a database and user for an app | the init SQL in `templates/postgres`",
+      "rule": "For a database and user for an app, add them to the init SQL in `templates/postgres`."
+    },
+    {
+      "id": "R139",
+      "file": "reuse-existing-logic.md",
+      "quote": "the existing `templates/<name>` Deployment; never a subchart's bundled copy",
+      "rule": "For Mailpit, use the existing `templates/<name>` Deployment and never a subchart's bundled copy."
+    },
+    {
+      "id": "R140",
+      "file": "reuse-existing-logic.md",
+      "quote": "common labels | `podiumd-minikube.labels` in `templates/_helpers.tpl`",
+      "rule": "For common labels, use `podiumd-minikube.labels` in `templates/_helpers.tpl`."
+    },
+    {
+      "id": "R141",
+      "file": "reuse-existing-logic.md",
+      "quote": "an optional profile switch | `podiumd.<name>.enabled` in `values.yaml`, set by `--full` (`chart.FULL_PROFILE_SETS`)",
+      "rule": "Implement an optional profile switch as `podiumd.<name>.enabled` in `values.yaml`, set by `--full` via `chart.FULL_PROFILE_SETS`."
+    },
+    {
+      "id": "R142",
+      "file": "reuse-existing-logic.md",
+      "quote": "kubectl from tests | `kubectl` in `tests/conftest.py`",
+      "rule": "To run kubectl from tests, use `kubectl` in `tests/conftest.py`."
+    },
+    {
+      "id": "R143",
+      "file": "reuse-existing-logic.md",
+      "quote": "edge address, pod list, enabled profiles | fixtures `edge_ip`, `pods`, `enabled_profiles`",
+      "rule": "For the edge address, pod list, or enabled profiles in tests, use the fixtures `edge_ip`, `pods`, or `enabled_profiles`."
+    },
+    {
+      "id": "R144",
+      "file": "reuse-existing-logic.md",
+      "quote": "HTTP to an ingress host from tests | `host_url`",
+      "rule": "For HTTP to an ingress host from tests, use `host_url`."
+    },
+    {
+      "id": "R145",
+      "file": "reuse-existing-logic.md",
+      "quote": "the CNI (Cilium), its values and start flags | `podiumd_minikube.cni`",
+      "rule": "For the CNI (Cilium), its values and start flags, use `podiumd_minikube.cni`."
+    },
+    {
+      "id": "R146",
+      "file": "reuse-existing-logic.md",
+      "quote": "the edge's routes, Gateway and certificate | `podiumd_minikube.gateway`",
+      "rule": "For the edge's routes, Gateway and certificate, use `podiumd_minikube.gateway`, deriving routes from the rendered Ingresses."
+    },
+    {
+      "id": "R147",
+      "file": "reuse-existing-logic.md",
+      "quote": "Logic lives in `src/podiumd_minikube/` with unit tests in `unit_tests/`",
+      "rule": "Put logic in `src/podiumd_minikube/` and its unit tests in `unit_tests/`."
+    },
+    {
+      "id": "R148",
+      "file": "reuse-existing-logic.md",
+      "quote": "`cli.py` only parses arguments and calls it.",
+      "rule": "Keep `cli.py` limited to parsing arguments and calling the logic."
+    },
+    {
+      "id": "R149",
+      "file": "reuse-existing-logic.md",
+      "quote": "A near-copy of existing code is merged in the same change",
+      "rule": "When adding a near-copy of existing code, merge it with the original in the same change, even if the copies differ only in a detail."
+    },
+    {
+      "id": "R150",
+      "file": "reuse-existing-logic.md",
+      "quote": "A split or move of code also merges the pieces that do the same thing",
+      "rule": "When splitting or moving code, also merge the pieces that do the same thing."
+    },
+    {
+      "id": "R151",
+      "file": "reuse-existing-logic.md",
+      "quote": "never leave a wrapper that only forwards",
+      "rule": "Never leave a wrapper that only forwards to another function."
+    },
+    {
+      "id": "R152",
+      "file": "reuse-existing-logic.md",
+      "quote": "`bin/<command>` keeps the old command names working, as symlinks to the single `bin/.stub`",
+      "rule": "Keep `bin/<command>` as symlinks to `bin/.stub` so old command names keep working."
+    },
+    {
+      "id": "R153",
+      "file": "reuse-existing-logic.md",
+      "quote": "A value that several places need (a host, a URL, a port, a credential) comes from one place",
+      "rule": "A value that several places need (a host, a URL, a port, a credential) must come from one place."
+    },
+    {
+      "id": "R154",
+      "file": "reuse-existing-logic.md",
+      "quote": "comes from one place: `values.yaml`, or one generated list.",
+      "rule": "Source a shared value from `values.yaml` or one generated list."
+    },
+    {
+      "id": "R155",
+      "file": "reuse-existing-logic.md",
+      "quote": "`./run_python_checks` passes, including jscpd (copied code) and vulture.",
+      "rule": "Before committing, ensure `./run_python_checks` passes, including jscpd and vulture."
+    },
+    {
+      "id": "R156",
+      "file": "reuse-existing-logic.md",
+      "quote": "New comments, help texts and messages are reviewed against",
+      "rule": "Review new comments, help texts and messages against [[comments-and-help-texts]] before committing."
+    },
+    {
+      "id": "R157",
+      "file": "reuse-existing-logic.md",
+      "quote": "Review the diff for \"where else is this computed?\"",
+      "rule": "Before committing, review the diff for where else the same concept is computed."
+    },
+    {
+      "id": "R158",
+      "file": "reuse-existing-logic.md",
+      "quote": "for each new function, script or template, search for the same concept by its low-level calls",
+      "rule": "For each new function, script or template, search for the same concept by its low-level calls."
+    },
+    {
+      "id": "R159",
+      "file": "reuse-existing-logic.md",
+      "quote": "preferably with a review subagent that has not seen the change being written.",
+      "rule": "Preferably do that duplicate search with a review subagent that has not seen the change being written."
+    },
+    {
+      "id": "R160",
+      "file": "reuse-existing-logic.md",
+      "quote": "The commit message names the existing helpers that were checked",
+      "rule": "Name in the commit message the existing helpers that were checked, and which one was extended or why none fit."
+    },
+    {
+      "id": "R161",
+      "file": "test-scope.md",
+      "quote": "They do not test how PodiumD's applications behave",
+      "rule": "Do not write tests that check how PodiumD's applications behave."
+    },
+    {
+      "id": "R162",
+      "file": "test-scope.md",
+      "quote": "A new live test asserts something this project's code makes true",
+      "rule": "Make each new live test assert something this project's code makes true, such as a fixup applied, a Job or Secret the deploy creates, a limit set, or the edge's routes."
+    },
+    {
+      "id": "R163",
+      "file": "test-scope.md",
+      "quote": "one HTTP call into an app is fine when it is the only way to see",
+      "rule": "In a live test, a single HTTP call into an application is allowed when it is the only way to verify something this project's code makes true."
+    },
+    {
+      "id": "R164",
+      "file": "test-scope.md",
+      "quote": "never a functional scenario",
+      "rule": "Never write a functional scenario against a PodiumD application in a live test."
+    },
+    {
+      "id": "R165",
+      "file": "test-scope.md",
+      "quote": "goes to podiumd-tests: send it to its session",
+      "rule": "Send an application check (login flows, API behaviour, mail, forms, app health) to podiumd-tests instead of adding it to this project's tests."
+    },
+    {
+      "id": "R166",
+      "file": "test-scope.md",
+      "quote": "After a deploy, `podiumd-tests run --env minikube --tier smoke`",
+      "rule": "After a deploy, run `podiumd-tests run --env minikube --tier smoke` to check that the applications answer."
+    },
+    {
+      "id": "R167",
+      "file": "test-scope.md",
+      "quote": "Every object has one\nmanager",
+      "rule": "Ensure every object has exactly one managing repository, and never let two repositories both create or prune the same object."
+    },
+    {
+      "id": "R168",
+      "file": "test-scope.md",
+      "quote": "podiumd-minikube: the components and their wiring",
+      "rule": "Manage the components and their wiring, the edge and its routes, the Keycloak clients and client roles in the realm config, the Open Notificaties kanalen in values.yaml, and the opt-in Frank!Gateway with OpenBao in this project."
+    },
+    {
+      "id": "R169",
+      "file": "test-scope.md",
+      "quote": "podiumd-minikube creates none of these.",
+      "rule": "Do not create test users, test clients and tokens, realm roles, the DigiD/eHerkenning OIDC configuration, Open Inwoner CMS pages and contact form, Open Formulieren test forms, or further kanalen."
+    },
+    {
+      "id": "R170",
+      "file": "test-scope.md",
+      "quote": "Neither: eSuite (external) and Alertmanager routes.",
+      "rule": "Do not manage eSuite or Alertmanager routes from either repository."
+    }
+  ],
+  "dropped": []
+}

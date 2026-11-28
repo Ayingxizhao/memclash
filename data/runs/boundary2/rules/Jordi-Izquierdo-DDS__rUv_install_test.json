@@ -1,0 +1,1474 @@
+{
+  "repo": "Jordi-Izquierdo-DDS/rUv_install_test",
+  "dir": "memory",
+  "n_files": 23,
+  "n_rules": 244,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "List every `.md` file in `memory/`",
+      "rule": "List every .md file in the memory/ folder, excluding _PROMPT_RESTORE_MEMORY.md and MEMORY.md, when restoring memories."
+    },
+    {
+      "id": "R2",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Sort alphabetically.",
+      "rule": "Sort the list of memory files to restore alphabetically."
+    },
+    {
+      "id": "R3",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Read the file's full contents exactly as bytes on disk.",
+      "rule": "Read each memory file's full contents exactly as bytes on disk."
+    },
+    {
+      "id": "R4",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Parse the frontmatter block (between the two `---` fences) to extract:",
+      "rule": "Parse the frontmatter block between the two --- fences of each memory file to extract its name, description, and type."
+    },
+    {
+      "id": "R5",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Use the SAME filename as the source file.",
+      "rule": "Save each restored memory under the same filename as its source file."
+    },
+    {
+      "id": "R6",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Save it as a new memory entry using the auto-memory system's",
+      "rule": "Save each memory as a new entry using the auto-memory system's Write tool against the canonical memory path for the current project."
+    },
+    {
+      "id": "R7",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "The content written must match byte-for-byte what was read",
+      "rule": "Ensure the written content matches the source file byte-for-byte, including frontmatter, blank lines, and trailing newline."
+    },
+    {
+      "id": "R8",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Confirm success before moving to the next file.",
+      "rule": "Confirm each file was saved successfully before moving to the next file."
+    },
+    {
+      "id": "R9",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "After ALL memory files are saved, write `MEMORY.md` last.",
+      "rule": "Write MEMORY.md only after all memory files have been saved."
+    },
+    {
+      "id": "R10",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Copy its contents byte-for-byte from `memory/MEMORY.md`.",
+      "rule": "Copy MEMORY.md's contents byte-for-byte from memory/MEMORY.md without modification."
+    },
+    {
+      "id": "R11",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT edit content.",
+      "rule": "Do not edit memory content when restoring."
+    },
+    {
+      "id": "R12",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT shorten descriptions.",
+      "rule": "Do not shorten memory descriptions when restoring."
+    },
+    {
+      "id": "R13",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT merge\n  duplicates.",
+      "rule": "Do not merge duplicate memories when restoring."
+    },
+    {
+      "id": "R14",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT rename files.",
+      "rule": "Do not rename memory files when restoring."
+    },
+    {
+      "id": "R15",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT update dates.",
+      "rule": "Do not update dates in memory files when restoring."
+    },
+    {
+      "id": "R16",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT add memories that aren't in the folder.",
+      "rule": "Do not add memories that are not present in the memory/ folder."
+    },
+    {
+      "id": "R17",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT create a MEMORY.md from scratch — only copy the existing one.",
+      "rule": "Do not create MEMORY.md from scratch; only copy the existing memory/MEMORY.md."
+    },
+    {
+      "id": "R18",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "retry once, then report\n  it as a discrepancy.",
+      "rule": "If unsure whether a save succeeded, retry once, then report it as a discrepancy."
+    },
+    {
+      "id": "R19",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Never assume success.",
+      "rule": "Never assume a save succeeded without confirming it."
+    },
+    {
+      "id": "R20",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Work sequentially",
+      "rule": "Restore memory files sequentially, one file at a time."
+    },
+    {
+      "id": "R21",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "No batching.",
+      "rule": "Do not batch memory file reads or saves."
+    },
+    {
+      "id": "R22",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "Do NOT silently skip.",
+      "rule": "Do not silently skip any file that fails; report it by name and exact error."
+    },
+    {
+      "id": "R23",
+      "file": "_PROMPT_RESTORE_MEMORY.md",
+      "quote": "name the file and\n     the error exactly.",
+      "rule": "When a discrepancy occurs, name the file and the error exactly in the final report."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_ablate_before_claim_root_cause.md",
+      "quote": "**Rule:** When a fix combines multiple changes (X + Z) and the result works, you have NOT identified which change actually fixed the bug. Before declaring root cause, **ablate**: revert one change at a time and verify whether the bug returns.",
+      "rule": "When a fix combining multiple changes works, do not declare which change fixed the bug until you have ablated: revert one change at a time and verify whether the bug returns."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_ablate_before_claim_root_cause.md",
+      "quote": "After any multi-change fix where the bug \"works now,\" explicitly ablate the changes that aren't obviously load-bearing.",
+      "rule": "After any multi-change fix where the bug works now, explicitly ablate the changes that are not obviously load-bearing."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_ablate_before_claim_root_cause.md",
+      "quote": "If you can't ablate (e.g., destructive/hard-to-revert), say so explicitly in the report: \"Cannot rule out [other change] as the actual fix.\"",
+      "rule": "If you cannot ablate a change (e.g., because it is destructive or hard to revert), say so explicitly in the report and state that the other change cannot be ruled out as the actual fix."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_ablate_before_claim_root_cause.md",
+      "quote": "When committing a fix that depends on multiple changes, PROVE in the commit message which one is load-bearing (with ablation evidence) — not just which one you wrote last.",
+      "rule": "When committing a fix that depends on multiple changes, state in the commit message which change is load-bearing, supported by ablation evidence, rather than the change written last."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_ablate_before_claim_root_cause.md",
+      "quote": "when ablation reveals a change was NOT needed, REMOVE it (don't keep \"for diagnosability\" unless you have a concrete future use case).",
+      "rule": "When ablation shows a change was not needed, remove it rather than keeping it, unless there is a concrete future use case for it."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "replace **every non-alphanumeric character** (except existing dashes) with `-`",
+      "rule": "When deriving the Claude Code project directory key from an absolute path, replace every non-alphanumeric character, except existing dashes, with `-`, not just forward slashes."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "`path.replace(/[^a-zA-Z0-9-]/g, '-')`",
+      "rule": "When computing the Claude Code project directory key from a path, use path.replace(/[^a-zA-Z0-9-]/g, '-')."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "use the `[^a-zA-Z0-9-]` regex",
+      "rule": "When writing code that reads from ~/.claude/projects/<key>/memory/, use the regex [^a-zA-Z0-9-] to derive the project key."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "never just `/`",
+      "rule": "When writing code that reads from ~/.claude/projects/<key>/memory/, never derive the project key by replacing only forward slashes."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "first check that the computed path matches what Claude Code actually uses",
+      "rule": "When debugging symptoms of AutoMemory importing 0 entries, first check that the computed memory path matches the directory Claude Code actually uses."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_claude_code_project_hash.md",
+      "quote": "Always compare `resolveAutoMemoryDir(process.cwd())` output against `ls ~/.claude/projects/`",
+      "rule": "Always compare the output of resolveAutoMemoryDir(process.cwd()) against the listing of ~/.claude/projects/."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "the four-axis mapping must be explicit and unambiguous",
+      "rule": "For every L3 (ruflo) hook handler and every learning-cycle step, state an explicit and unambiguous four-axis mapping (phase, loop, tier, upstream symbol)."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "one of `CAPTURE`, `RETRIEVE`, `APPLY`, `JUDGE`, `DISTILL`, `STORE`, `REINFORCE`, `FORGET`.",
+      "rule": "Assign each hook handler and learning-cycle step a phase from this set: CAPTURE, RETRIEVE, APPLY, JUDGE, DISTILL, STORE, REINFORCE, FORGET."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "which temporal cadence runs it:",
+      "rule": "Assign each hook handler a loop: A (per inference, under 10ms), B (background, about every 30s), or C (session-end)."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "which serving tier handles it (for phases 1–3 only)",
+      "rule": "For handlers in phases 1–3, assign a serving tier: reactive, adaptive, or deliberative."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "Phases 4–8 are not tier-routed",
+      "rule": "Do not assign a serving tier to handlers in phases 4–8."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "with a gitnexus-verified `file:line` from the upstream source tree",
+      "rule": "Each hook handler's upstream symbol must be an exact function or class with a gitnexus-verified file:line from the upstream source tree."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "Not a stub, not a placeholder, not a wrapper that reinvents the behaviour.",
+      "rule": "Do not use a stub, placeholder, or wrapper that reinvents upstream behaviour as a hook handler's upstream symbol."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "No hook fires without that full mapping.",
+      "rule": "Do not let a hook fire unless its full four-axis mapping is defined."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "No phase is \"canonical\" until upstream is verified.",
+      "rule": "Do not label a phase as canonical until its upstream implementation is verified."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "fill in the 4-axis mapping (phase, loop, tier, upstream `file:line`)",
+      "rule": "Before adding a new hook handler, fill in its four-axis mapping (phase, loop, tier, upstream file:line)."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "cite it in the code comment",
+      "rule": "Cite a new hook handler's four-axis mapping in its code comment."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "If any axis is unknown, the code doesn't land",
+      "rule": "If any axis of a hook handler's mapping is unknown, do not land the code."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "resolve it via the §2 protocol in ADR-000-DDD first",
+      "rule": "Resolve any unknown mapping axis via the §2 protocol in ADR-000-DDD before landing the code."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "confirm its mapping is still valid against the current upstream",
+      "rule": "When modifying an existing hook handler, confirm its mapping is still valid against the current upstream."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "re-verify via gitnexus on each touch",
+      "rule": "Re-verify a hook handler's upstream file:line via gitnexus on each touch."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "reject any handler that can't trace all four axes in under 10 seconds of reading",
+      "rule": "When reviewing code, reject any hook handler whose four axes cannot be traced in under 10 seconds of reading."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "ask the catalog / pi-brain / upstream source before inventing a bypass",
+      "rule": "When upstream lacks a function for a phase, consult the catalog, pi-brain, or upstream source before inventing a bypass."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_cycle_phases_no_ambiguity.md",
+      "quote": "Every scoped ADR (001, 002, …) that touches a phase must update or cite that table.",
+      "rule": "Every scoped ADR that touches a phase must update or cite the canonical phase table in doc/adr/000-DDD.md §3.4."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_daemon_vs_hook_cache.md",
+      "quote": "you MUST restart the daemon for the change to take effect",
+      "rule": "After patching a JavaScript file loaded by a long-running daemon, restart that daemon so the change takes effect, since writing the file to disk is not enough."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_daemon_vs_hook_cache.md",
+      "quote": "must follow up with either:",
+      "rule": "After editing a daemon-resident file, follow up with either a full /exit and Claude Code restart, or `bash .claude/helpers/daemon-manager.sh restart`."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_daemon_vs_hook_cache.md",
+      "quote": "Edit a hook script → no restart needed",
+      "rule": "After editing a hook script, do not restart any daemon, because the next hook invocation will pick up the change."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_daemon_vs_hook_cache.md",
+      "quote": "Compare daemon start time (from `ps -p <pid> -o lstart=`) with file mtime (from `stat -c %y <file>`)",
+      "rule": "To check whether a running daemon has stale code, compare the daemon's start time from `ps -p <pid> -o lstart=` with the file's mtime from `stat -c %y <file>`."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "Never ask the operator technical/design questions.",
+      "rule": "Never ask the operator technical or design questions; instead analyze the surface (code, memory, precedents, docs) and decide the best option yourself."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "Analyze the surface (code, memory, precedents, docs) and decide the best option yourself.",
+      "rule": "When faced with a technical or design choice, analyze the surface (code, memory, precedents, docs) and decide the best option yourself."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "Report the decision + reasoning in the update, not as a question.",
+      "rule": "Report technical decisions and their reasoning in the update, not as a question to the operator."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "fix the impacted/related code in the SAME scope/commit — do not postpone \"cleanup\" or \"swap targets\" to a future pass.",
+      "rule": "When a change modifies existing behavior, contracts, or files, fix the impacted or related code in the same scope/commit; do not postpone cleanup or target swaps to a future pass."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "If a newly-added Cargo dep obsoletes a workaround, replace the workaround now.",
+      "rule": "When a newly added Cargo dependency makes an existing workaround obsolete, replace the workaround in the same change."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "If a renamed symbol breaks callers (gitnexus_impact shows d=1), fix the callers in the same commit.",
+      "rule": "When a renamed symbol breaks callers, fix the callers in the same commit."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "If a new env var needs README update, do it now.",
+      "rule": "When a new environment variable needs a README update, update the README in the same change."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "Don't leave `// TODO swap once deps land`.",
+      "rule": "Do not leave TODO comments deferring a workaround swap until dependencies land; update the code in the same integration commit."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_decide_and_expand_scope.md",
+      "quote": "When a path truly cannot compile, report + halt.",
+      "rule": "When a path truly cannot compile, report the blocker and halt rather than proceeding."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "use GitNexus MCP tools FIRST",
+      "rule": "For questions about code ownership, call chains, cross-repo patterns, upstream divergence, or who calls what, use GitNexus MCP tools before grep or find."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "Only fall back to grep/Read for",
+      "rule": "Fall back to grep or Read for code investigation only when the target is a .mjs local helper that is not deeply indexed, a file not in any indexed repo, or when the literal source text is needed instead of the graph."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "load via `ToolSearch({query: \"gitnexus query context\"})`",
+      "rule": "Load the deferred GitNexus tools via ToolSearch before calling them."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "memorize their use cases",
+      "rule": "Memorize the use cases of the primary GitNexus tools (list_repos, query, context, impact, xref)."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "Always specify `repo:` param",
+      "rule": "Always specify the repo parameter when calling GitNexus tools, since multiple repos are indexed."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "Refresh after commits — run `npx gitnexus analyze`",
+      "rule": "Run npx gitnexus analyze to refresh the GitNexus graph after commits."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_gitnexus_first.md",
+      "quote": "For local helpers, fall back to Read.",
+      "rule": "For local .mjs helpers whose symbols GitNexus cannot resolve, use Read instead of GitNexus context()."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Claude Code hooks are a *data-source* for upstream self-learning, **not** the learning system itself.",
+      "rule": "Do not treat Claude Code hooks as the self-learning system; they are only a data source that feeds events to upstream."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "translate Claude-Code JSON → event;",
+      "rule": "In the L3 layer, translate Claude Code hook JSON into an event."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "run scope-survivor concerns (pre-bash regex, prompt cleaning)",
+      "rule": "In the L3 layer, run the scope-survivor concerns (pre-bash regex and prompt cleaning)."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "feed the event to an upstream orchestrator",
+      "rule": "In the L3 layer, feed each event to an upstream orchestrator."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "render what it emits",
+      "rule": "In the L3 layer, render what the upstream orchestrator emits."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "write local export artefacts",
+      "rule": "In the L3 layer, write local export artefacts."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Target ~180 LOC total.",
+      "rule": "Aim for the v4 L3 implementation to total about 180 lines of code."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "is a MAP of what upstream does internally — not a TODO list of things to wire",
+      "rule": "Treat the §3.4 phase matrix as a map of upstream internals, not as a checklist of phases to wire up."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "The single substrate call for Loop B/C background learning is `SonaEngine.tick()`",
+      "rule": "Use SonaEngine.tick() as the single substrate call for Loop B/C background learning."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "NOT event-driven from `SessionEnd` / `Stop`",
+      "rule": "Do not trigger consolidation from SessionEnd or Stop events."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "If that question has no answer, only THEN consider L3 wiring.",
+      "rule": "Before wiring anything at L3, check whether an IntelligenceEngine, NeuralSubstrate, or SonaEngine method exposes it; consider L3 wiring only if none does."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Refuse to wire phases upstream owns.",
+      "rule": "Do not wire phases that upstream owns."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "If a new IPC command in ruvector-daemon.mjs is named after one of them, reject it as invention.",
+      "rule": "Reject any new IPC command in ruvector-daemon.mjs named after FORGET, PRUNE, CONSOLIDATE, DISTILL, or JUDGE as invention."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Measure daemon LOC as debt.",
+      "rule": "Track daemon lines of code as technical debt."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Publish it alongside KPIs.",
+      "rule": "Publish the daemon LOC metric alongside the KPIs."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "`file:line` citations are delegation evidence, not wire-permission.",
+      "rule": "Do not treat file:line citations to upstream code as permission to expose and call that code from hooks."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Vendor overlays (`vendor/*.node`) are regression signals.",
+      "rule": "Treat vendor overlays (vendor/*.node) as regression signals."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Goal: empty `vendor/` after proper adoption.",
+      "rule": "Aim to empty the vendor/ directory after proper upstream adoption."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "Don't schedule consolidation from hooks.",
+      "rule": "Do not schedule consolidation from hooks."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_hooks_are_data_source_not_system.md",
+      "quote": "No `forceLearn`, no `session_end`, no `consolidate`, no `prune`, no `forget`.",
+      "rule": "Do not call forceLearn, session_end, consolidate, prune, or forget in the orchestration loop."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_measurement_discipline.md",
+      "quote": "Never patch an MCP call, SQL query, or hook path based on a single-shot latency measurement.",
+      "rule": "Never patch an MCP call, SQL query, or hook path based on a single-shot latency measurement."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_measurement_discipline.md",
+      "quote": "Always collect ≥10 samples, drop the first 2 as warmup, and report p50 (median) — not average or worst-case.",
+      "rule": "When measuring latency for a performance decision, collect at least 10 samples, drop the first 2 as warmup, and report p50 (median), not average or worst-case."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_measurement_discipline.md",
+      "quote": "Before proposing a performance patch, measure with this node snippet:",
+      "rule": "Before proposing a performance patch, measure latency using the provided node snippet."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_measurement_discipline.md",
+      "quote": "// Run ≥10 iterations, drop first 2, sort, take middle = p50",
+      "rule": "When running the latency snippet, run at least 10 iterations, drop the first 2, sort the results, and take the middle value as p50."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_napi_simple.md",
+      "quote": "The daemon MUST use the napi_simple API:",
+      "rule": "When writing SONA daemon code, use the napi_simple API, not the napi.rs TrajectoryBuilder API."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_napi_simple.md",
+      "quote": "`sona.beginTrajectory(embedding)` → returns `u32` (NOT TrajectoryBuilder)",
+      "rule": "Call sona.beginTrajectory(embedding) in SONA daemon code and treat its return value as a u32 trajectory ID, not a TrajectoryBuilder."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_napi_simple.md",
+      "quote": "`sona.addTrajectoryStep(id, activations, attention, reward)` (NOT `builder.addStep()`)",
+      "rule": "Add trajectory steps in SONA daemon code with sona.addTrajectoryStep(id, activations, attention, reward), not builder.addStep()."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_napi_simple.md",
+      "quote": "`sona.endTrajectory(id, quality)` (NOT `sona.endTrajectory(builder, quality)`)",
+      "rule": "End trajectories in SONA daemon code with sona.endTrajectory(id, quality), passing the integer ID rather than a builder object."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_napi_simple.md",
+      "quote": "Before writing SONA daemon code, check `lib.rs` to see which NAPI module is compiled.",
+      "rule": "Before writing SONA daemon code, check lib.rs to confirm which NAPI module is compiled."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_napi_simple.md",
+      "quote": "Use GitNexus `context({name: \"SonaEngine\", file_path: \"crates/sona/src/napi_simple.rs\"})` to see the actual API.",
+      "rule": "To see the actual SONA NAPI API, call GitNexus context({name: \"SonaEngine\", file_path: \"crates/sona/src/napi_simple.rs\"})."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "ALWAYS show the fallback level and quality percentage for each layer FIRST",
+      "rule": "When analysing a system with graceful degradation, show the fallback level and quality percentage for each layer before any other metrics."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "Speed, uptime, and \"it returns JSON\" are secondary.",
+      "rule": "When reporting a system's status, do not lead with speed, uptime, or whether it returns data; report those after layer quality."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "show `advertised tier → actual tier → fallback tier → quality %`",
+      "rule": "For every layer of a system being analysed, show its advertised tier, actual tier, fallback tier, and quality percentage, in that order."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "If quality is 0% or degenerate, say so BEFORE reporting speed",
+      "rule": "If a layer's quality is 0% or degenerate, state that before reporting its speed."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "If a system \"reports\" features it crashed loading, flag the misleading report",
+      "rule": "If a system reports features that failed to load, flag that report as misleading."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "If confidence is flat across all inputs, that IS the quality signal",
+      "rule": "If a confidence value is the same across all inputs, treat that constancy as a quality signal."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "don't present it as \"high confidence\"",
+      "rule": "Do not present a confidence value that is flat across all inputs as high confidence."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_never_hide_degradation.md",
+      "quote": "Lead with \"fast at returning garbage\" when that's the truth",
+      "rule": "When a system is fast but returns poor-quality output, lead the report with that fact."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "Ruflo v4 must NOT include `/mnt/data/dev/ruvector_brain_src/` or `/home/jordi/.ruvector/pi-brain/` as Cargo path dependencies.",
+      "rule": "Do not add `/mnt/data/dev/ruvector_brain_src/` or `/home/jordi/.ruvector/pi-brain/` as Cargo path dependencies in Ruflo v4."
+    },
+    {
+      "id": "R112",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "Do NOT uncomment `ruvllm = { path = ... }` / `sona = { path = ... }` / `ruvector-* = { path = ... }` in `crates/ruvflo-ruvllm-ext/Cargo.toml`.",
+      "rule": "Do not uncomment the ruvllm, sona, or ruvector-* path dependencies in `crates/ruvflo-ruvllm-ext/Cargo.toml`."
+    },
+    {
+      "id": "R113",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "Runtime NAPI must come from the PUBLISHED `@ruvflo/ruvllm-ext` npm package",
+      "rule": "Source the runtime NAPI from the published `@ruvflo/ruvllm-ext` npm package."
+    },
+    {
+      "id": "R114",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "Any new NAPI surface that requires sona/ruvllm crates directly (e.g. `JsLoopCoordinator` wrapping `sona::LoopCoordinator`) is BLOCKED until this deferral lifts",
+      "rule": "Do not add any new NAPI surface that requires the sona or ruvllm crates directly until the deferral is lifted."
+    },
+    {
+      "id": "R115",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "document in `doc/adr/002-ruvector-brain-deferred.md`",
+      "rule": "Document the blocked NAPI surface in `doc/adr/002-ruvector-brain-deferred.md`."
+    },
+    {
+      "id": "R116",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "mark the stubs clearly",
+      "rule": "Mark any blocked NAPI stubs clearly."
+    },
+    {
+      "id": "R117",
+      "file": "feedback_no_ruvector_brain_path_dep.md",
+      "quote": "`JsReasoningBank` (store/consolidate/stats — plus `search` + `default()` once published), `JsVerdictAnalyzer`, `JsPatternConsolidator`, `JsQualityScoring`, `JsPattern::fromTrajectory` (if the published npm exposes it).",
+      "rule": "Deliver the capabilities JsReasoningBank, JsVerdictAnalyzer, JsPatternConsolidator, JsQualityScoring, and JsPattern::fromTrajectory (if the published npm exposes it) via the published NAPI package."
+    },
+    {
+      "id": "R118",
+      "file": "feedback_no_rvf.md",
+      "quote": "must NOT be included in ruflo architecture guides, integration proposals, or dependency maps",
+      "rule": "Do not include RVF (RuVector Format, including cognitive containers, MicroVm, RvfStore, EbpfCompiler/EbpfManager, .rvf files, and eBPF symbols) in ruflo architecture guides, integration proposals, or dependency maps."
+    },
+    {
+      "id": "R119",
+      "file": "feedback_no_rvf.md",
+      "quote": "Don't mention RVF, MicroVm, RvfStore, or eBPF-in-RVF symbols in Phase 3 / Phase 4 / Phase 5 proposals for ruflo",
+      "rule": "Do not mention RVF, MicroVm, RvfStore, or eBPF-in-RVF symbols in Phase 3, Phase 4, or Phase 5 proposals for ruflo."
+    },
+    {
+      "id": "R120",
+      "file": "feedback_no_rvf.md",
+      "quote": "When pulling foxRef content (Part01 L58–105, L233, Part02 L227–238, L661, L673), filter RVF sections out",
+      "rule": "When pulling foxRef content from the specified line ranges, filter out RVF sections."
+    },
+    {
+      "id": "R121",
+      "file": "feedback_no_rvf.md",
+      "quote": "Witness chains / SHAKE-256 can still be referenced when they come from `prime-radiant::WitnessSource`",
+      "rule": "Witness chains and SHAKE-256 may be referenced when they come from prime-radiant::WitnessSource."
+    },
+    {
+      "id": "R122",
+      "file": "feedback_no_rvf.md",
+      "quote": "π brain memories about RVF (e.g., *\"RVF Cognitive Container - Sealed WASM Container\"*) are informational only, not architecture we adopt",
+      "rule": "Treat π brain memories about RVF as informational only, and do not adopt them as architecture."
+    },
+    {
+      "id": "R123",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "Patch `ruvector/dist/core/onnx-embedder.js` exports before creating AdaptiveEmbedder:",
+      "rule": "Before creating AdaptiveEmbedder, patch the exports of ruvector/dist/core/onnx-embedder.js to use the @xenova/transformers pipeline instead of the missing bundled ONNX WASM files."
+    },
+    {
+      "id": "R124",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "Load `@xenova/transformers` pipeline (model cached at `@xenova/transformers/.cache/`)",
+      "rule": "Load the @xenova/transformers pipeline when patching the ONNX embedder, using the model cached at @xenova/transformers/.cache/."
+    },
+    {
+      "id": "R125",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "Override `isOnnxAvailable`, `initOnnxEmbedder`, `embed`, `embedBatch`",
+      "rule": "When patching the ONNX embedder, override the isOnnxAvailable, initOnnxEmbedder, embed, and embedBatch functions."
+    },
+    {
+      "id": "R126",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "Verify: embed('test') returns >50% non-zero values (dense = real ONNX, sparse = hash poison)",
+      "rule": "Verify the patched embedder by checking that embed('test') returns more than 50% non-zero values, and treat sparse output as hash poison rather than real ONNX."
+    },
+    {
+      "id": "R127",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "Always verify daemon logs show \"real ONNX confirmed\" not \"hash fallback\".",
+      "rule": "Always verify that daemon logs show \"real ONNX confirmed\" rather than \"hash fallback\"."
+    },
+    {
+      "id": "R128",
+      "file": "feedback_onnx_xenova.md",
+      "quote": "If sparse, the learning is garbage.",
+      "rule": "If embeddings are sparse, do not trust the resulting learning, since it is garbage."
+    },
+    {
+      "id": "R129",
+      "file": "feedback_single_writer.md",
+      "quote": "NEVER write SQL directly from hook scripts",
+      "rule": "Never write SQL directly from any hook script; hook scripts must not write to the database themselves."
+    },
+    {
+      "id": "R130",
+      "file": "feedback_single_writer.md",
+      "quote": "NEVER open memory.db from node -e debug scripts while MCP server is running.",
+      "rule": "Never open memory.db from node -e debug scripts while the MCP server is running."
+    },
+    {
+      "id": "R131",
+      "file": "feedback_single_writer.md",
+      "quote": "NEVER be the \"third writer\"",
+      "rule": "Never act as an additional writer to memory.db when the MCP server owns the database."
+    },
+    {
+      "id": "R132",
+      "file": "feedback_single_writer.md",
+      "quote": "if the MCP server owns the DB, ALL access goes through MCP.",
+      "rule": "When the MCP server owns the database, route all database access through MCP tools."
+    },
+    {
+      "id": "R133",
+      "file": "feedback_single_writer.md",
+      "quote": "Hook files: ALL data writes go through `callMcp()` to MCP tools",
+      "rule": "In hook files, send all data writes through callMcp() to MCP tools."
+    },
+    {
+      "id": "R134",
+      "file": "feedback_single_writer.md",
+      "quote": "Only exception: `hook-bridge.cjs` stale cleanup at SessionStart (runs BEFORE MCP starts, inside transaction)",
+      "rule": "The only permitted direct database write from a hook is stale cleanup in hook-bridge.cjs at SessionStart, which runs before the MCP server starts and inside a transaction."
+    },
+    {
+      "id": "R135",
+      "file": "feedback_single_writer.md",
+      "quote": "Debug queries: use MCP tools, or STOP the MCP server first, then query, then restart",
+      "rule": "For debug queries against memory.db, use MCP tools, or stop the MCP server first, query, then restart it."
+    },
+    {
+      "id": "R136",
+      "file": "feedback_single_writer.md",
+      "quote": "If you need to inspect memory.db: `callMcp('hooks_intelligence', {})` or similar MCP tool",
+      "rule": "To inspect memory.db, call an MCP tool such as callMcp('hooks_intelligence', {}) rather than querying the database directly."
+    },
+    {
+      "id": "R137",
+      "file": "feedback_single_writer.md",
+      "quote": "NEVER `require('better-sqlite3')`",
+      "rule": "Never require better-sqlite3 to inspect or access memory.db."
+    },
+    {
+      "id": "R138",
+      "file": "feedback_single_writer.md",
+      "quote": "**The rule: 1 WRITER. Always. No exceptions.**",
+      "rule": "Only one writer may access memory.db at any time, always, with no exceptions."
+    },
+    {
+      "id": "R139",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "every call that crosses a boundary (I/O, IPC, upstream library, filesystem, network) MUST be wrapped in try/catch whose catch branch writes the error to a centralized log file",
+      "rule": "In daemons, MCP servers, and hooks, wrap every call that crosses a boundary (I/O, IPC, upstream library, filesystem, network) in try/catch, and have the catch branch write the error to a centralized log file."
+    },
+    {
+      "id": "R140",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Silent failure is prohibited.",
+      "rule": "Never let a failure at a runtime boundary in daemons, MCP servers, or hooks fail silently."
+    },
+    {
+      "id": "R141",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "propagate a structured error value (e.g. `{ ok: false, error: msg }` for IPC) rather than throwing raw",
+      "rule": "When a function cannot continue after a boundary error, return a structured error value (e.g. `{ ok: false, error: msg }` for IPC) instead of throwing the raw error."
+    },
+    {
+      "id": "R142",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "if it can continue with partial data (observability endpoints), return the partial data plus an error field.",
+      "rule": "When an observability endpoint can continue with partial data after an error, return the partial data plus an error field."
+    },
+    {
+      "id": "R143",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "wrap internal data collection so a partial-broken sub-component returns a partial response with an error field rather than crashing the whole ping. Acceptable.",
+      "rule": "In observability endpoints, wrap internal data collection so a broken sub-component returns a partial response with an error field instead of crashing the whole ping."
+    },
+    {
+      "id": "R144",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "wrap each resource's shutdown independently so one failure does not block the others.",
+      "rule": "In lifecycle cleanup (session_end, SIGTERM handlers), wrap each resource's shutdown independently so one failure does not block the others."
+    },
+    {
+      "id": "R145",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "wrap so an unavailable daemon is logged rather than silently breaking the session.",
+      "rule": "In spawn and daemon-start paths, wrap the code so an unavailable daemon is logged rather than silently breaking the session."
+    },
+    {
+      "id": "R146",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Use the direct call; let try/catch capture any real fault.",
+      "rule": "Call contract-guaranteed upstream methods directly and do not guard them with typeof checks; let try/catch capture any real fault."
+    },
+    {
+      "id": "R147",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Silent fallbacks like `return null` or `return {}` without logging.",
+      "rule": "Do not return null or {} as a silent fallback without logging the error."
+    },
+    {
+      "id": "R148",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "If you catch, you LOG. Period.",
+      "rule": "Whenever you catch an error, log it."
+    },
+    {
+      "id": "R149",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Swallowing errors so tests pass.",
+      "rule": "Do not swallow errors just to make tests pass."
+    },
+    {
+      "id": "R150",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "If an error appears in test output, fix the root cause.",
+      "rule": "When an error appears in test output, fix its root cause rather than hiding it."
+    },
+    {
+      "id": "R151",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Introducing ad-hoc sentinel values (e.g. `-1`, `'error'`) as \"was-this-ok\" flags.",
+      "rule": "Do not introduce ad-hoc sentinel values (e.g. -1 or 'error') as was-this-ok flags."
+    },
+    {
+      "id": "R152",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "Return `{ok: false, error: msg}` or equivalent structured form.",
+      "rule": "Signal success or failure with a structured form such as `{ok: false, error: msg}` rather than sentinel values."
+    },
+    {
+      "id": "R153",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "catch blocks must not attempt to retry by opening a parallel writer.",
+      "rule": "Do not retry from a catch block by opening a parallel writer."
+    },
+    {
+      "id": "R154",
+      "file": "feedback_try_catch_observability.md",
+      "quote": "every wrapped boundary call still traces 4-axis (phase × loop × tier × upstream).",
+      "rule": "Map every wrapped boundary call to the 4-axis (phase × loop × tier × upstream) even though it is wrapped in try/catch."
+    },
+    {
+      "id": "R155",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "It calls upstream directly and trusts the returned results exactly as they come.",
+      "rule": "Call upstream directly and trust its returned results exactly as they come, without transforming them."
+    },
+    {
+      "id": "R156",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Never synthesise formulas, aggregations, thresholds, or mappings that transform upstream's contract into something \"nicer\".",
+      "rule": "Never synthesise formulas, aggregations, thresholds, or mappings that transform upstream's output contract into something \"nicer\"."
+    },
+    {
+      "id": "R157",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "pass a **neutral default** and move on",
+      "rule": "When an upstream symbol requires an input the caller does not meaningfully possess, pass a neutral default and move on."
+    },
+    {
+      "id": "R158",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "add a **detection log** if the returned shape is ever worth observing",
+      "rule": "Add a detection log when an upstream returned shape is worth observing."
+    },
+    {
+      "id": "R159",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Adding new upstream helpers (via local Rust rebuild + `#[napi]`) to paper over a missing convenience is ALSO invention",
+      "rule": "Do not add new upstream helpers (via local Rust rebuild + #[napi]) to paper over a missing convenience."
+    },
+    {
+      "id": "R160",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "**USE WHAT UPSTREAM PROVIDES, as much as possible**",
+      "rule": "Use what upstream provides, as much as possible."
+    },
+    {
+      "id": "R161",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "ADOPT IT",
+      "rule": "Adopt an upstream export when it improves the quality of what we have."
+    },
+    {
+      "id": "R162",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "\"we don't need it\"",
+      "rule": "Do not reject an upstream export because \"we don't need it\"."
+    },
+    {
+      "id": "R163",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "\"our use case is different\"",
+      "rule": "Do not reject an upstream export because \"our use case is different\" without first checking whether it applies."
+    },
+    {
+      "id": "R164",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "\"it's a different domain\"",
+      "rule": "Do not reject an upstream export because \"it's a different domain\"; check whether the domain composes with ours."
+    },
+    {
+      "id": "R165",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "\"too many knobs\"",
+      "rule": "Do not reject an upstream export because of \"too many knobs\"; ignore the knobs you don't use and adopt what is load-bearing."
+    },
+    {
+      "id": "R166",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "NEVER reject because \"it's too much\" or \"we haven't used it before\".",
+      "rule": "Never reject an upstream export because \"it's too much\" or \"we haven't used it before\"."
+    },
+    {
+      "id": "R167",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "We already have the exact same capability covered by another upstream path AND they can't meaningfully compose.",
+      "rule": "Skip an upstream export only if the exact same capability is already covered by another upstream path and the two cannot meaningfully compose."
+    },
+    {
+      "id": "R168",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "The export's domain is **provably unrelated** to our use case",
+      "rule": "Skip an upstream export only when its domain is provably unrelated to our use case."
+    },
+    {
+      "id": "R169",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "It's an internal primitive that a higher-level export already composes for us (transitively covered).",
+      "rule": "Skip an upstream export that is an internal primitive already composed by a higher-level export."
+    },
+    {
+      "id": "R170",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "When in doubt: evaluate empirically — ablate with real data, observe returned values, decide based on evidence.",
+      "rule": "When in doubt about an upstream export, evaluate it empirically: ablate with real data, observe returned values, and decide based on evidence."
+    },
+    {
+      "id": "R171",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "use everything upstream gives us, exactly as it gives it to us, without adding glue logic between.",
+      "rule": "Use everything upstream gives us exactly as it is given, without adding glue logic between."
+    },
+    {
+      "id": "R172",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "y delegar en (creerse) upstream results, como llegan",
+      "rule": "Delegate to upstream and trust its results as they arrive."
+    },
+    {
+      "id": "R173",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Como MAXIMO, puedes añadir un fallback neutral junto con algun mecanismo/log que te permita detectar si hay problemas con upstream",
+      "rule": "At most, add a neutral fallback together with a mechanism or log that detects problems with upstream."
+    },
+    {
+      "id": "R174",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "investigar el RootCause real y fixearlo",
+      "rule": "When an upstream result is unexpected, null, or empty, investigate the real root cause and fix it."
+    },
+    {
+      "id": "R175",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "NO AÑADIR MAS funciones de UPSTREAM ocultas por debajo",
+      "rule": "Do not add more hidden upstream functions underneath to work around an unexpected upstream result."
+    },
+    {
+      "id": "R176",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "If yes, do that.",
+      "rule": "Before proposing an adapter-layer change, if you can pass what you have directly to upstream, neutral-default the rest and do that."
+    },
+    {
+      "id": "R177",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Source-read.",
+      "rule": "When an upstream result is unexpected, read the upstream source to locate where it is computed."
+    },
+    {
+      "id": "R178",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Cite `file:line`.",
+      "rule": "Cite the upstream file:line where the unexpected result is computed."
+    },
+    {
+      "id": "R179",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "the fix is upstream-only — not adapter-side synthesis",
+      "rule": "If the upstream logic causes the unexpected result, make the fix upstream-only, not adapter-side synthesis."
+    },
+    {
+      "id": "R180",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Legitimate: reading the correct upstream field name",
+      "rule": "Reading the correct upstream field name is a legitimate adapter-side fix."
+    },
+    {
+      "id": "R181",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Invention: computing a value upstream was supposed to provide.",
+      "rule": "Do not compute a value that upstream was supposed to provide."
+    },
+    {
+      "id": "R182",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "Forbidden unless operator explicitly authorises it as a forcing-function closure",
+      "rule": "Do not add a new upstream wrapper (via rebuild + #[napi]) unless the operator explicitly authorises it as a forcing-function closure."
+    },
+    {
+      "id": "R183",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "wrapping boundary calls in try/catch + logging returned anomalies is ALLOWED and ENCOURAGED",
+      "rule": "Wrap boundary calls in try/catch and log returned anomalies."
+    },
+    {
+      "id": "R184",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "ablate it afterwards to confirm it's load-bearing",
+      "rule": "After adding adapter logic, ablate it to confirm it is load-bearing."
+    },
+    {
+      "id": "R185",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "If not load-bearing, remove.",
+      "rule": "Remove adapter logic that is not load-bearing."
+    },
+    {
+      "id": "R186",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "operator wants me to decide, not ask every technical question",
+      "rule": "Decide technical questions yourself rather than asking the operator about each one."
+    },
+    {
+      "id": "R187",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "But \"invent or not\" is a scope/governance decision, worth confirming.",
+      "rule": "Confirm with the operator any decision about whether something counts as invention."
+    },
+    {
+      "id": "R188",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "would upstream's author recognise this as a natural use of their API, or as me patching around their design?",
+      "rule": "Before proposing a change, ask whether upstream's author would recognise it as a natural use of their API or as a patch around their design."
+    },
+    {
+      "id": "R189",
+      "file": "feedback_upstream_trust_no_invention.md",
+      "quote": "If the latter, it's invention.",
+      "rule": "If a proposed change patches around upstream's design, treat it as invention and do not make it."
+    },
+    {
+      "id": "R190",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "use `@ruvector/sona::SonaEngine` directly with externally-computed embeddings",
+      "rule": "In the v4 daemon, use @ruvector/sona::SonaEngine directly with externally computed embeddings."
+    },
+    {
+      "id": "R191",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "Do NOT use `@ruvector/ruvllm::SonaCoordinator` for trajectory recording, extraction, or retrieval.",
+      "rule": "In the v4 daemon, do not use @ruvector/ruvllm::SonaCoordinator for trajectory recording, extraction, or retrieval."
+    },
+    {
+      "id": "R192",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "Do NOT reimplement upstream logic in JS under any circumstance.",
+      "rule": "Never reimplement upstream logic in JavaScript, under any circumstance."
+    },
+    {
+      "id": "R193",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "const sona = new SonaEngine(384);` — no config invention, no override.",
+      "rule": "Construct the engine as `new SonaEngine(384)` without inventing configuration or overriding defaults."
+    },
+    {
+      "id": "R194",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "If upstream doesn't produce expected results with canonical calls, REPORT IT — do not patch around it.",
+      "rule": "If upstream does not produce expected results with canonical calls, report it; do not patch around it."
+    },
+    {
+      "id": "R195",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "No bypass",
+      "rule": "Do not bypass upstream."
+    },
+    {
+      "id": "R196",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "no threshold overrides",
+      "rule": "Do not override upstream thresholds."
+    },
+    {
+      "id": "R197",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "no custom extraction",
+      "rule": "Do not write custom extraction logic in place of upstream extraction."
+    },
+    {
+      "id": "R198",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "no concatenation heuristics",
+      "rule": "Do not use concatenation heuristics."
+    },
+    {
+      "id": "R199",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "no confidence formulas",
+      "rule": "Do not invent confidence formulas."
+    },
+    {
+      "id": "R200",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "no step-type regex",
+      "rule": "Do not use step-type regex."
+    },
+    {
+      "id": "R201",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "Use Integer IDs (see `feedback_napi_simple.md`).",
+      "rule": "Use integer IDs for trajectories and steps when calling SonaEngine."
+    },
+    {
+      "id": "R202",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "Arrays (not scalars) for activations/attention.",
+      "rule": "Pass activations and attention weights as arrays, not scalars."
+    },
+    {
+      "id": "R203",
+      "file": "feedback_v4_embedder_bypass.md",
+      "quote": "Do NOT bypass upstream or reimplement extraction — supply raw vectors to upstream, let upstream do everything else.",
+      "rule": "Do not bypass upstream or reimplement extraction; supply raw vectors to upstream and let upstream do everything else."
+    },
+    {
+      "id": "R204",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "Never add a `scripts/patches/NNN-PATCH-*.sh` for changes to `viz/`.",
+      "rule": "Never add a scripts/patches/NNN-PATCH-*.sh file for changes to the viz/ directory."
+    },
+    {
+      "id": "R205",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "Viz is a separate add-on consumer, not part of the bootstrap pipeline.",
+      "rule": "Treat viz/ as a separate add-on consumer, not part of the bootstrap pipeline."
+    },
+    {
+      "id": "R206",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "For viz changes: edit `viz/src/*.js` directly + commit.",
+      "rule": "For viz changes, edit viz/src/*.js files directly and commit them, without creating a patch file."
+    },
+    {
+      "id": "R207",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "No patch file. No sentinel. No verify-v2 invariant.",
+      "rule": "For viz changes, do not create a patch file, sentinel, or verify-v2 invariant."
+    },
+    {
+      "id": "R208",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "For bootstrap changes (daemon, hooks, MCP, helpers, settings, node_modules patches, etc.): use `scripts/patches/NNN-PATCH-*.sh` with sentinel + idempotency + drift anchor.",
+      "rule": "For bootstrap changes (daemon, hooks, MCP, helpers, settings, node_modules patches, etc.), implement them as scripts/patches/NNN-PATCH-*.sh files that include a sentinel, idempotency, and a drift anchor."
+    },
+    {
+      "id": "R209",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "If a viz change is needed alongside a bootstrap change, ship them in separate commits (or one commit with two distinct stanzas)",
+      "rule": "When a viz change accompanies a bootstrap change, ship them in separate commits, or in one commit with two distinct stanzas."
+    },
+    {
+      "id": "R210",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "but never via the patch pipeline for the viz part.",
+      "rule": "Never deliver the viz part of a combined change through the patch pipeline."
+    },
+    {
+      "id": "R211",
+      "file": "feedback_viz_not_in_bootstrap.md",
+      "quote": "For viz binaries / static assets distribution to fresh clones: that's a build-system concern (npm install / git clone), not a bootstrap patch.",
+      "rule": "Handle distribution of viz binaries and static assets to fresh clones through the build system (npm install / git clone), not as a bootstrap patch."
+    },
+    {
+      "id": "R212",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "changes go to scripts/, not .claude/",
+      "rule": "When making changes to this bootstrap kit project, put them in the scripts/ directory, not in .claude/."
+    },
+    {
+      "id": "R213",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "Test in v202, sync back to portable part + docs.",
+      "rule": "Test changes by installing into a fresh project (such as v202) before considering them done."
+    },
+    {
+      "id": "R214",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "Make changes in `scripts/` (the portable part)",
+      "rule": "Make all changes to the installer in the scripts/ directory (the portable part)."
+    },
+    {
+      "id": "R215",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "Test by installing into a fresh project (e.g., v202)",
+      "rule": "Test changes by installing into a fresh project such as v202 using the bootstrap script copied from scripts/."
+    },
+    {
+      "id": "R216",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "Once verified, sync documentation (README.md, gap analysis)",
+      "rule": "Once changes are verified, update the documentation (README.md and the gap analysis) to match."
+    },
+    {
+      "id": "R217",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "never edit it directly as the source of truth",
+      "rule": "Never edit .claude/helpers/ directly as the source of truth; update it only by re-running the bootstrap."
+    },
+    {
+      "id": "R218",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "If it needs updating, re-run the bootstrap.",
+      "rule": "If .claude/helpers/ needs updating, update it by re-running the bootstrap script."
+    },
+    {
+      "id": "R219",
+      "file": "project_bootstrap_workflow.md",
+      "quote": "`node_modules/`, `.swarm/`, `.ruvector/` — runtime artifacts, not part of the kit.",
+      "rule": "Do not make changes to node_modules/, .swarm/, or .ruvector/ as part of the kit, since they are runtime artifacts."
+    },
+    {
+      "id": "R220",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "check if `SonaEngine` / `IntelligenceEngine` already exposes the capability.",
+      "rule": "Before adding any new hook wiring, check whether SonaEngine or IntelligenceEngine already exposes the needed capability."
+    },
+    {
+      "id": "R221",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "Read `sona/examples/` (3 files, ~200 LOC)",
+      "rule": "Before adding new hook wiring, read the sona/examples/ directory to see the full SonaEngine method surface."
+    },
+    {
+      "id": "R222",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "if it's a phase name (consolidate/prune/distill/forget), reject as invention.",
+      "rule": "Reject any proposed new IPC command name that is a phase name (consolidate, prune, distill, forget) as invented orchestration."
+    },
+    {
+      "id": "R223",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "Legitimate IPC commands: `observe`, `status`, maybe `export`.",
+      "rule": "Limit IPC commands to observe, status, and possibly export."
+    },
+    {
+      "id": "R224",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "propose P1 (tick-driven daemon) as the first",
+      "rule": "When writing the ADR-009 candidate, propose P1 (tick-driven daemon) as the first 'delete wiring in favour of upstream call' ADR."
+    },
+    {
+      "id": "R225",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "move ruvector-catalog from step 4 to step 1-2 of CLAUDE.md §2 research protocol.",
+      "rule": "Move ruvector-catalog to steps 1-2 of the CLAUDE.md §2 research protocol, ahead of foxref and pi-brain deep dives."
+    },
+    {
+      "id": "R226",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "`setInterval(() => engine.tick(), 30_000)`",
+      "rule": "On daemon startup, call engine.tick() on a 30-second setInterval."
+    },
+    {
+      "id": "R227",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "`endTrajectory(builder, quality)` only",
+      "rule": "In the Stop and SubagentStop hook-handler branches, call only endTrajectory(builder, quality)."
+    },
+    {
+      "id": "R228",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "drop `forceLearn: true` flag",
+      "rule": "Do not pass the forceLearn: true flag in the Stop and SubagentStop hook-handler branches."
+    },
+    {
+      "id": "R229",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "drop `session_end` flush entirely",
+      "rule": "Do not perform a session_end flush."
+    },
+    {
+      "id": "R230",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "on first-run detection of empty pattern store, walk git log + file structure",
+      "rule": "On first-run detection of an empty pattern store, walk the git log and file structure."
+    },
+    {
+      "id": "R231",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "synthesize trajectories (`beginTrajectory/addStep/endTrajectory`)",
+      "rule": "Synthesize trajectories using beginTrajectory, addStep, and endTrajectory."
+    },
+    {
+      "id": "R232",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "then let `tick()` crystallise via Loop B",
+      "rule": "After synthesizing trajectories, let tick() crystallise patterns via Loop B."
+    },
+    {
+      "id": "R233",
+      "file": "project_tick_adoption_and_pretrain.md",
+      "quote": "inspect `ruvector/npm/packages/ruvector/bin/cli.js` for the signal-extraction algorithm before implementing",
+      "rule": "Before implementing the cold-start pretrain, inspect ruvector/npm/packages/ruvector/bin/cli.js for the signal-extraction algorithm."
+    },
+    {
+      "id": "R234",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "read in this order when designing upstream adoption",
+      "rule": "When designing upstream adoption, read the four ruvector upstream references in the order listed in the file."
+    },
+    {
+      "id": "R235",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "do not adopt the engine choice",
+      "rule": "Do not adopt the Q-learning engine/RvLite choice from ruvector's HOOKS.md; take only its CLI surface and concepts."
+    },
+    {
+      "id": "R236",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "**Use when:** designing daemon IPC surface, adopting Tier-1, answering \"what's the single substrate call for X?\"",
+      "rule": "Consult the ruvector sona/examples/ canonical SonaEngine usage when designing a daemon IPC surface, adopting Tier-1, or answering \"what's the single substrate call for X?\"."
+    },
+    {
+      "id": "R237",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "**Use when:** building user-facing CLI surface, designing cold-start bootstrap, adding self-healing diagnostics.",
+      "rule": "Consult ruvector's HOOKS.md when building a user-facing CLI surface, designing a cold-start bootstrap, or adding self-healing diagnostics."
+    },
+    {
+      "id": "R238",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "Implementation to inspect for pretrain algorithm:",
+      "rule": "When investigating the pretrain algorithm, inspect ruvector/npm/packages/ruvector/bin/cli.js."
+    },
+    {
+      "id": "R239",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "**Use when:** questioning whether a given orchestration belongs in hooks or in the daemon's main loop.",
+      "rule": "Consult agent-coordinator.ts when questioning whether a given orchestration belongs in hooks or in the daemon's main loop."
+    },
+    {
+      "id": "R240",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "Default from this reference: main loop, not hooks.",
+      "rule": "When deciding whether an orchestration belongs in hooks or in the daemon's main loop, default to the main loop, not hooks."
+    },
+    {
+      "id": "R241",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "**Use when:** designing a ruvector consumer, answering capability-mapping questions, running §2 research.",
+      "rule": "Consult the ruvector catalog's own src/catalog/ and SKILL.md when designing a ruvector consumer, answering capability-mapping questions, or running §2 research."
+    },
+    {
+      "id": "R242",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "`bun src/cli.ts search \"<query>\"` from catalog root, OR read `SKILL.md`",
+      "rule": "To access the ruvector catalog, run `bun src/cli.ts search \"<query>\"` from the catalog root, or read SKILL.md and src/catalog/data-cap-defaults.ts directly."
+    },
+    {
+      "id": "R243",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "promote to step 1-2",
+      "rule": "Move the ruvector-catalog check in the CLAUDE.md §2 research protocol from step 4 up to step 1-2."
+    },
+    {
+      "id": "R244",
+      "file": "reference_ruvector_catalog_canonical_refs.md",
+      "quote": "Put it at the top of the research funnel when the question is concrete",
+      "rule": "When a research question is concrete (\"which method?\") rather than abstract (\"which architecture?\"), consult the ruvector catalog at the top of the research funnel."
+    }
+  ],
+  "dropped": []
+}

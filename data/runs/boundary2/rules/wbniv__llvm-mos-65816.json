@@ -1,0 +1,556 @@
+{
+  "repo": "wbniv/llvm-mos-65816",
+  "dir": ".claude/memory",
+  "n_files": 13,
+  "n_rules": 91,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "never assume an 8-bit ambient",
+      "rule": "When measuring or reasoning about +mos-a16 codegen cost, never assume the ambient mode is 8-bit (M=1)."
+    },
+    {
+      "id": "R2",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "Build the pattern inside realistic 16-bit-heavy context (or a loop body)",
+      "rule": "When measuring +mos-a16 codegen, build the pattern inside realistic 16-bit-heavy context (or a loop body) rather than an isolated leaf function."
+    },
+    {
+      "id": "R3",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "dump the disasm",
+      "rule": "When measuring +mos-a16 codegen, dump the disassembly of the built pattern."
+    },
+    {
+      "id": "R4",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "check **empirically** whether a given `rep`/`sep` is attributable to the op under study",
+      "rule": "When measuring +mos-a16 codegen, empirically check whether a given rep/sep is attributable to the op under study or to the surrounding mode."
+    },
+    {
+      "id": "R5",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "Always build the real shape and diff bytes",
+      "rule": "When evaluating a codegen change, always build the real code shape and diff the bytes before deciding it is a win."
+    },
+    {
+      "id": "R6",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "then **gate** the native form to fire only where it wins",
+      "rule": "After measuring, gate the native 16-bit form so it fires only where it wins."
+    },
+    {
+      "id": "R7",
+      "file": "a16-codegen-mostly-16bit-mode.md",
+      "quote": "A gated, no-regression modest win **is** worth shipping",
+      "rule": "Ship a gated, no-regression modest win even if the gain is small."
+    },
+    {
+      "id": "R8",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "state **the single recommended value as\nthe instruction**",
+      "rule": "When telling the user to fill in a free-form field or make an open choice, state the single recommended value as the instruction rather than listing options."
+    },
+    {
+      "id": "R9",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "Do **not** say \"it's free-form / use\nanything / call it whatever, e.g. `indri-apt-upload`\".",
+      "rule": "Do not tell the user that a free-form field is arbitrary (e.g., \"use anything\" or \"call it whatever\") when giving the recommended value for it."
+    },
+    {
+      "id": "R10",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "pick the best value (follow existing naming conventions",
+      "rule": "When choosing a recommended value for a free-form field, pick the best value and follow existing naming conventions in the project."
+    },
+    {
+      "id": "R11",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "give it flat as the step",
+      "rule": "Give the recommended value flatly as the step instruction, without hedging."
+    },
+    {
+      "id": "R12",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "If it genuinely\nmust vary, still lead with the recommendation.",
+      "rule": "If a value genuinely must vary, still lead with the recommended value."
+    },
+    {
+      "id": "R13",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "Applies in scripts' on-screen\ninstructions too, not just chat.",
+      "rule": "Apply the recommended-value-as-instruction approach to on-screen instructions printed by scripts, not only to chat replies."
+    },
+    {
+      "id": "R14",
+      "file": "feedback-decisive-recommendations.md",
+      "quote": "lead with\nthe recommended option, don't front the weak one",
+      "rule": "Lead with the recommended option and do not front the weaker option when presenting choices."
+    },
+    {
+      "id": "R15",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "Just commit as a checkpoint and stay silent about push state.",
+      "rule": "When a checkpoint is reached, commit the work as a checkpoint and do not mention push or remote sync state."
+    },
+    {
+      "id": "R16",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "Push when asked, nothing to announce beyond that it's done.",
+      "rule": "Push only when the user explicitly asks, and when asked, report only that the push is done."
+    },
+    {
+      "id": "R17",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "Stop telling them about it practically every round",
+      "rule": "Do not repeat the commit/push standard operating procedure in every response."
+    },
+    {
+      "id": "R18",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "no \"Not pushed, you didn't ask\"",
+      "rule": "Do not state that changes are not pushed or note that the user did not ask for a push."
+    },
+    {
+      "id": "R19",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "no \"origin/main is N commits behind\"",
+      "rule": "Do not report how many commits origin/main is behind the local branch."
+    },
+    {
+      "id": "R20",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "no \"say the word and I'll fast-forward push\" sign-off",
+      "rule": "Do not end responses with offers to push or fast-forward push changes."
+    },
+    {
+      "id": "R21",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "Restating dirty-count or ahead-count is doubly redundant",
+      "rule": "Do not restate the count of dirty files or commits ahead of origin, since the status bar already shows them."
+    },
+    {
+      "id": "R22",
+      "file": "feedback-dont-narrate-git-sop.md",
+      "quote": "Keep turn summaries about the actual work (what changed, verification results), not git-state narration.",
+      "rule": "Keep turn summaries focused on the actual work, such as what changed and verification results, rather than git-state narration."
+    },
+    {
+      "id": "R23",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "do NOT keep pausing to ask which sub-path to take",
+      "rule": "When the user has stated a clear end goal, do not keep pausing to ask which sub-path to take."
+    },
+    {
+      "id": "R24",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "Pick the path, execute through to the deliverable, and report.",
+      "rule": "When the user has stated a clear end goal, pick a path, execute through to the deliverable, and then report."
+    },
+    {
+      "id": "R25",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "questions about *how* I'll reach it should be answered",
+      "rule": "Once the user's goal is unambiguous, answer questions about how to reach it by doing the work rather than asking."
+    },
+    {
+      "id": "R26",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "Surface a decision only if a step is irreversible/destructive or a",
+      "rule": "Surface a decision to the user only if a step is irreversible or destructive, or is a genuine fork in the goal."
+    },
+    {
+      "id": "R27",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "don't stop to \"checkpoint-report\" mid-way.",
+      "rule": "Do not stop mid-way to deliver a checkpoint report."
+    },
+    {
+      "id": "R28",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "keep going to the next phase without handing control back.",
+      "rule": "When finishing one phase of a multi-phase goal, keep going to the next phase without handing control back."
+    },
+    {
+      "id": "R29",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "*inline* (a line, a screenshot) and immediately keep building",
+      "rule": "When the goal has obvious remaining work, report progress inline (a line or a screenshot) and immediately keep building."
+    },
+    {
+      "id": "R30",
+      "file": "feedback-drive-to-the-goal.md",
+      "quote": "then report once at the end.",
+      "rule": "Keep driving until the whole goal is done or a genuine blocker or irreversible fork is hit, then report once at the end."
+    },
+    {
+      "id": "R31",
+      "file": "feedback-no-descoping-core-features.md",
+      "quote": "before declaring done, enumerate what \"complete\" means for the *thing itself*",
+      "rule": "Before declaring a task done, enumerate what \"complete\" means for the thing itself (e.g., what parts a real version of it has)."
+    },
+    {
+      "id": "R32",
+      "file": "feedback-no-descoping-core-features.md",
+      "quote": "build all of it",
+      "rule": "After enumerating what complete means for the deliverable, build all of those parts rather than a subset."
+    },
+    {
+      "id": "R33",
+      "file": "feedback-no-descoping-core-features.md",
+      "quote": "Only defer a genuinely-core feature with an explicit user OK.",
+      "rule": "Only defer a genuinely core feature if the user has explicitly approved deferring it."
+    },
+    {
+      "id": "R34",
+      "file": "feedback-no-descoping-core-features.md",
+      "quote": "Verified-but-incomplete ≠ done.",
+      "rule": "Do not treat work that is verified but incomplete as done."
+    },
+    {
+      "id": "R35",
+      "file": "feedback-no-descoping-core-features.md",
+      "quote": "don't shrink the scope either",
+      "rule": "Do not shrink the scope of a requested deliverable to make it easier to finish."
+    },
+    {
+      "id": "R36",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "does NOT want agents auto-proposing deletion of them",
+      "rule": "Do not automatically propose deleting the user's fork branches."
+    },
+    {
+      "id": "R37",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "Don't list fork-branch deletion as a recommended hygiene action.",
+      "rule": "Do not list deletion of fork branches as a recommended hygiene action."
+    },
+    {
+      "id": "R38",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "Leave them.",
+      "rule": "Leave the user's fork branches in place."
+    },
+    {
+      "id": "R39",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "Only delete on an explicit, case-by-case request from the user.",
+      "rule": "Delete fork branches only when the user explicitly requests it for that specific case."
+    },
+    {
+      "id": "R40",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "frame leftover fork branches as \"retained by preference,\"",
+      "rule": "When documenting upstream contribution state, describe leftover fork branches as \"retained by preference.\""
+    },
+    {
+      "id": "R41",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "not \"stale / safe to delete\"",
+      "rule": "Do not describe leftover fork branches as \"stale\" or \"safe to delete\" in upstream contribution docs."
+    },
+    {
+      "id": "R42",
+      "file": "keep-fork-branches-until-merged.md",
+      "quote": "so reclaim them",
+      "rule": "Reclaim the on-disk build/ and vendor/ duplicates of a retained branch or worktree, while keeping the branch ref and tracked diff."
+    },
+    {
+      "id": "R43",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "do rebase → resolve → `--ff-only` in **one\nbash call**, looping until it wins",
+      "rule": "When landing a commit on a hot shared main, perform the rebase, conflict resolution, and `--ff-only` merge in a single bash call, looping until the merge succeeds."
+    },
+    {
+      "id": "R44",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "`git add -A` is hook-blocked",
+      "rule": "Do not use `git add -A` when staging; stage specific files by name instead."
+    },
+    {
+      "id": "R45",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "Don't do the\nresolve across multiple tool calls",
+      "rule": "Do not split the rebase-resolve-merge landing sequence across multiple tool calls."
+    },
+    {
+      "id": "R46",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "TODO `## Done` = keep both entries (mine on top)",
+      "rule": "When resolving a conflict in TODO.md's `## Done` section during a landing rebase, keep both entries with my own entry placed on top."
+    },
+    {
+      "id": "R47",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "plan-index row = keep\nboth",
+      "rule": "When resolving a conflict in plan-index.md table rows during a landing rebase, keep both rows."
+    },
+    {
+      "id": "R48",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "plan-index **footer = take HEAD verbatim** (drop your own count edit",
+      "rule": "When resolving a conflict in the plan-index.md footer during a landing rebase, take the HEAD version verbatim and drop my own count edit."
+    },
+    {
+      "id": "R49",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "the new plan needs a `plan-index.md` row",
+      "rule": "When adding a new plan, add a corresponding row to docs/investigations/plan-index.md."
+    },
+    {
+      "id": "R50",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "after editing `vendor/`, the regenerated **`0001`** must also be applied to **main's\nvendor**",
+      "rule": "After editing vendor/ in a branch, apply the regenerated 0001 patch to main's vendor directory as well."
+    },
+    {
+      "id": "R51",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "then rebuild main's toolchain + re-run the gate",
+      "rule": "After landing the vendor change on main, rebuild main's toolchain and re-run the gate."
+    },
+    {
+      "id": "R52",
+      "file": "landing-on-hot-main-rebase-loop.md",
+      "quote": "land + `dev/worktree-teardown.sh <branch> --yes` once durable artifacts are on main, not retain",
+      "rule": "Once a branch's durable artifacts are on main, land it and tear down its worktree with `dev/worktree-teardown.sh <branch> --yes` rather than retaining the worktree."
+    },
+    {
+      "id": "R53",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "Modesty, rarity, and effort set PRIORITY (when/order), never go/no-go (whether).",
+      "rule": "Treat modesty, rarity, and effort of a gain only as priority or scheduling inputs, never as reasons to skip it."
+    },
+    {
+      "id": "R54",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "The only 'don't' is a measured net-negative.",
+      "rule": "Do not reject a gain unless it is a measured net-negative (a real regression)."
+    },
+    {
+      "id": "R55",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "weight even small/rare per-program gains as worth banking",
+      "rule": "Weight even small or rare per-program gains as worth banking."
+    },
+    {
+      "id": "R56",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "never dismiss a genuine win as too modest/rare/hard — schedule it.",
+      "rule": "Never dismiss a genuine win as too modest, too rare, or too hard; schedule it instead."
+    },
+    {
+      "id": "R57",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "the move is not to shelve the gain — it's to engineer the implementation that banks it cleanly",
+      "rule": "If a naive implementation regresses, engineer a clean implementation that banks the gain rather than shelving the gain."
+    },
+    {
+      "id": "R58",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "couldn't gate cleanly → build the right form instead",
+      "rule": "If a change cannot be gated cleanly, build the correct form instead of dropping it."
+    },
+    {
+      "id": "R59",
+      "file": "modest-gains-worth-doing.md",
+      "quote": "The only correct \"reject\" is a measured net-negative with",
+      "rule": "Reject a gain only when it is a measured net-negative with no clean form available."
+    },
+    {
+      "id": "R60",
+      "file": "release-verification-policy.md",
+      "quote": "do NOT propose or add a periodic/scheduled CI `release-smoke` job",
+      "rule": "Do not propose or add a periodic or scheduled CI `release-smoke` job for the llvm-mos-65816 compiler release verification."
+    },
+    {
+      "id": "R61",
+      "file": "release-verification-policy.md",
+      "quote": "keep the on-release gate + report intact",
+      "rule": "When touching release or packaging code for llvm-mos-65816, keep the on-release verification gate intact."
+    },
+    {
+      "id": "R62",
+      "file": "release-verification-policy.md",
+      "quote": "keep the on-release gate + report intact",
+      "rule": "When touching release or packaging code for llvm-mos-65816, keep the release verification report generation intact."
+    },
+    {
+      "id": "R63",
+      "file": "snes-demo-cookbook.md",
+      "quote": "read before implementing any new SNES ROM in the compiler stress-test battery",
+      "rule": "Before implementing any new SNES ROM in the compiler stress-test battery, read docs/snes-demo-cookbook.md."
+    },
+    {
+      "id": "R64",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "do **not** assume the defect is real",
+      "rule": "When a sweep records new XFAIL rows, do not assume the defect is real."
+    },
+    {
+      "id": "R65",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "rebuild the toolchain from the committed patches",
+      "rule": "Before trusting a freshly-recorded XFAIL, rebuild the toolchain from the committed patches."
+    },
+    {
+      "id": "R66",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "`dev/run.sh toolchain`",
+      "rule": "Rebuild the toolchain from the committed patches by running dev/run.sh toolchain."
+    },
+    {
+      "id": "R67",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "check `clang-23` mtime advanced",
+      "rule": "After rebuilding the toolchain, check that the clang-23 mtime advanced."
+    },
+    {
+      "id": "R68",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "re-run the row",
+      "rule": "After rebuilding the toolchain from the committed patches, re-run the XFAIL row."
+    },
+    {
+      "id": "R69",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "de-XFAIL to a positive",
+      "rule": "If a re-run XFAIL XPASSes on the clean build, de-XFAIL it to a positive gate."
+    },
+    {
+      "id": "R70",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "record the evidence",
+      "rule": "When de-XFAILing a stale XFAIL, record the evidence."
+    },
+    {
+      "id": "R71",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "no compiler change",
+      "rule": "When de-XFAILing a stale XFAIL, make no compiler change."
+    },
+    {
+      "id": "R72",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "treat a batch of new sweep XFAILs as *suspects*",
+      "rule": "Treat a batch of new sweep XFAILs as suspects until verified."
+    },
+    {
+      "id": "R73",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "re-run each before writing it into `xfails.tsv`/`KNOWN_ISSUES`",
+      "rule": "Do not write a suspect XFAIL into xfails.tsv or KNOWN_ISSUES before rebuilding from patches and re-running it."
+    },
+    {
+      "id": "R74",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "or opening a fix plan",
+      "rule": "Do not open a fix plan for a suspect XFAIL before rebuilding from patches and re-running it."
+    },
+    {
+      "id": "R75",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "worktree compiler == committed stack",
+      "rule": "Verify that the worktree compiler matches the committed patch stack before trusting sweep results."
+    },
+    {
+      "id": "R76",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "every `vendor/` edit maps to a committed patch",
+      "rule": "Ensure every vendor/ edit maps to a committed patch."
+    },
+    {
+      "id": "R77",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "use `dev/regen-patch.sh`",
+      "rule": "Use dev/regen-patch.sh to verify the worktree against the committed patches."
+    },
+    {
+      "id": "R78",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "cross-check delta files",
+      "rule": "Cross-check delta files when verifying the worktree against the committed patches."
+    },
+    {
+      "id": "R79",
+      "file": "sweep-xfails-may-be-stale-build.md",
+      "quote": "a non-reproducing finding is an answer, not backlog",
+      "rule": "Treat a non-reproducing finding as an answer, not as backlog."
+    },
+    {
+      "id": "R80",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "but never delete the core scripts used to determine things.",
+      "rule": "When tearing down a feature or investigation worktree, never delete the core scripts used to determine results."
+    },
+    {
+      "id": "R81",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "exactly what's needed to **reconstruct the test conclusion**",
+      "rule": "When tearing down a worktree, keep exactly what is needed to reconstruct the test conclusion, including the measurement/audit harnesses and the recorded verdicts."
+    },
+    {
+      "id": "R82",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "**retain worktrees until the work merges upstream**",
+      "rule": "Retain a worktree until its work merges upstream."
+    },
+    {
+      "id": "R83",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "do not tear a worktree down merely because its durable artifacts already landed on `main`",
+      "rule": "Do not tear down a worktree merely because its durable artifacts already landed on main."
+    },
+    {
+      "id": "R84",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "reclaim them even on a worktree you're keeping",
+      "rule": "Reclaim a kept worktree's build/ and vendor/ duplicates without removing the worktree itself."
+    },
+    {
+      "id": "R85",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "**`build/` is always safe to delete**",
+      "rule": "Treat a worktree's build/ directory as always safe to delete, since it contains only compiled output."
+    },
+    {
+      "id": "R86",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "only delete a worktree's `vendor/` once its work is confirmed captured in the committed `0002` patch",
+      "rule": "Delete a worktree's vendor/ directory only once its work is confirmed captured in the committed 0002 patch."
+    },
+    {
+      "id": "R87",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "Never delete `build/`/`vendor/` out from under a *live* worktree",
+      "rule": "Never delete build/ or vendor/ from a live worktree (one with recent build mtime or uncommitted changes)."
+    },
+    {
+      "id": "R88",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "The capture check is concrete: `grep MOSInsertREPSEP patches/llvm-mos/0002-*.patch`",
+      "rule": "To confirm a vendor/ source change is captured, grep for it in the committed 0002 patch file."
+    },
+    {
+      "id": "R89",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "(1) merge/cherry-pick the durable scripts + verdict docs to `main`",
+      "rule": "Before removing a worktree, merge or cherry-pick its durable scripts and verdict docs to main."
+    },
+    {
+      "id": "R90",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "(2) confirm they're committed",
+      "rule": "Before removing a worktree, confirm the durable scripts and verdict docs are committed."
+    },
+    {
+      "id": "R91",
+      "file": "worktree-teardown-keep-durable-artifacts.md",
+      "quote": "(3) only then remove the worktree",
+      "rule": "Remove the worktree only after the durable scripts and verdict docs are merged and committed."
+    }
+  ],
+  "dropped": []
+}

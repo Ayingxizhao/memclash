@@ -1,0 +1,3706 @@
+{
+  "repo": "OwlsNightCatch/ctipilot",
+  "dir": ".claude/memory",
+  "n_files": 31,
+  "n_rules": 616,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "attack-layer.md",
+      "quote": "**Never hardcode tactic/technique tables**",
+      "rule": "Never hardcode ATT&CK tactic or technique tables; derive them from the pinned dataset instead."
+    },
+    {
+      "id": "R2",
+      "file": "attack-layer.md",
+      "quote": "written ONLY by `tools/attack_data.py`",
+      "rule": "Write the pinned dataset file attack/enterprise-attack.json only via tools/attack_data.py, never by any other means."
+    },
+    {
+      "id": "R3",
+      "file": "attack-layer.md",
+      "quote": "the store is never rewritten when the pin moves",
+      "rule": "Never rewrite the store when the ATT&CK pin moves."
+    },
+    {
+      "id": "R4",
+      "file": "attack-layer.md",
+      "quote": "never a migration shim",
+      "rule": "Do not treat prose-based technique extraction as a migration shim; keep it as a permanent code path."
+    },
+    {
+      "id": "R5",
+      "file": "attack-layer.md",
+      "quote": "An audit may lift a single legacy entry via an `improvement` record, never the store.",
+      "rule": "When auditing, lift a single legacy entry only via an improvement record, never by rewriting the store."
+    },
+    {
+      "id": "R6",
+      "file": "attack-layer.md",
+      "quote": "do not map one",
+      "rule": "When no source states the access vector, do not map a technique for it."
+    },
+    {
+      "id": "R7",
+      "file": "attack-layer.md",
+      "quote": "the entry is describing too little to publish",
+      "rule": "If the honest technique mapping would be empty, do not publish the entry."
+    },
+    {
+      "id": "R8",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "For routine in-repo fixes (site/build.py, tools, prompt edits with version bump, docs), go end-to-end: sync main → stage specifics → commit → second sync → push with retry → poll auto-merge → poll deploy-site → live URL probe.",
+      "rule": "For routine in-repo fixes, carry the full publishing chain end-to-end (sync main, stage, commit, second sync, push with retry, poll auto-merge, poll deploy-site, probe the live URL) without stopping to ask."
+    },
+    {
+      "id": "R9",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "Never stop at \"ready to commit/push\" and ask.",
+      "rule": "Never stop at a \"ready to commit/push\" state to ask the user for permission before committing or pushing a routine in-repo fix."
+    },
+    {
+      "id": "R10",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "Include `.claude/memory/` in the staged list whenever memory was touched.",
+      "rule": "Whenever memory files were modified, include `.claude/memory/` in the staged files."
+    },
+    {
+      "id": "R11",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "Still pause for: destructive operations (force-push, branch/state-file deletion)",
+      "rule": "Pause and ask before performing destructive operations such as force-push or deleting branches or state files."
+    },
+    {
+      "id": "R12",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "shared-infrastructure changes (workflows, branch protection, CNAME)",
+      "rule": "Pause and ask before making shared-infrastructure changes such as editing workflows, branch protection, or CNAME."
+    },
+    {
+      "id": "R13",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "editorial-policy changes without a clear request",
+      "rule": "Pause and ask before making editorial-policy changes unless there is a clear request for them."
+    },
+    {
+      "id": "R14",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "**do not remove**",
+      "rule": "Do not remove the `.claude/settings.json` `permissions.defaultMode: \"bypassPermissions\"` setting or its memory-path allowlist."
+    },
+    {
+      "id": "R15",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "if a memory write ever prompts, widen the glob",
+      "rule": "If a memory write triggers a permission prompt, widen the allowlist glob in `.claude/settings.json` rather than accepting the prompt."
+    },
+    {
+      "id": "R16",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "Prefer `Write`/`Edit` tools for memory files.",
+      "rule": "Prefer the `Write` and `Edit` tools when modifying memory files."
+    },
+    {
+      "id": "R17",
+      "file": "auto-publish-routine-fixes.md",
+      "quote": "memory not committed to git did not happen.",
+      "rule": "Commit memory changes to git; memory that is not committed to git is treated as not saved, since the container is destroyed after every run."
+    },
+    {
+      "id": "R18",
+      "file": "changelog-hygiene.md",
+      "quote": "`prompts/CHANGELOG.md` is the ONLY place that records when a behaviour changed.",
+      "rule": "Record every change in behavior only in prompts/CHANGELOG.md, never in other files."
+    },
+    {
+      "id": "R19",
+      "file": "changelog-hygiene.md",
+      "quote": "Do NOT write \"(v2.53)\", \"NEW in v2.66\", \"removed in v2.64\" or similar into prompts, agent definitions, CLAUDE.md, docs, config comments, or tool output strings",
+      "rule": "Do not write version-history annotations (e.g., \"(v2.53)\", \"NEW in v2.66\", \"removed in v2.64\") into prompts, agent definitions, CLAUDE.md, docs, config comments, or tool output strings."
+    },
+    {
+      "id": "R20",
+      "file": "changelog-hygiene.md",
+      "quote": "put the history in the CHANGELOG entry and state the rule timelessly in the file itself.",
+      "rule": "Put version history in the CHANGELOG entry and state rules in the file itself without version framing."
+    },
+    {
+      "id": "R21",
+      "file": "changelog-hygiene.md",
+      "quote": "keep any operational rationale inline (e.g. dated incident references like the 2026-05-15 fabrication trace) — only the version framing is banned.",
+      "rule": "When editing a rule, keep operational rationale such as dated incident references inline; only remove version framing."
+    },
+    {
+      "id": "R22",
+      "file": "classification-policy.md",
+      "quote": "Every entry carries exactly one rating.",
+      "rule": "Every entry must carry exactly one rating."
+    },
+    {
+      "id": "R23",
+      "file": "classification-policy.md",
+      "quote": "Non-triage kinds: NATO Admiralty `classification: {reliability, credibility}`.",
+      "rule": "For non-triage entry kinds, include the NATO Admiralty `classification: {reliability, credibility}` block."
+    },
+    {
+      "id": "R24",
+      "file": "classification-policy.md",
+      "quote": "Triage kinds carry `org_triage` INSTEAD only while `config/org-profile.yaml` configures a triage scheme",
+      "rule": "For triage entry kinds, carry `org_triage` instead of the Admiralty block only while `config/org-profile.yaml` configures a triage scheme."
+    },
+    {
+      "id": "R25",
+      "file": "classification-policy.md",
+      "quote": "this deployment configures none, so vulnerability entries carry the Admiralty block too",
+      "rule": "When no triage scheme is configured, include the Admiralty block on vulnerability entries."
+    },
+    {
+      "id": "R26",
+      "file": "classification-policy.md",
+      "quote": "never hand-edit the rendered blocks",
+      "rule": "Never hand-edit the rule blocks rendered from config by `compose_prompts.py`."
+    },
+    {
+      "id": "R27",
+      "file": "classification-policy.md",
+      "quote": "A same-day press write-up of one lab report is NOT a second source.",
+      "rule": "Do not count a same-day press write-up of a single lab report as a second source."
+    },
+    {
+      "id": "R28",
+      "file": "classification-policy.md",
+      "quote": "open the second source and ask what it observed itself",
+      "rule": "When assessing independence, open the second source and check what it observed itself rather than counting sources."
+    },
+    {
+      "id": "R29",
+      "file": "classification-policy.md",
+      "quote": "the entry is `single-source`, credibility 2",
+      "rule": "If every fact in an entry traces back to the first source, mark the entry `single-source` with credibility 2."
+    },
+    {
+      "id": "R30",
+      "file": "classification-policy.md",
+      "quote": "still cite the write-up, just don't count it",
+      "rule": "Still cite a same-day press write-up that is not counted as a second source."
+    },
+    {
+      "id": "R31",
+      "file": "classification-policy.md",
+      "quote": "Genuine second sources perform their own determination",
+      "rule": "Count a second source as genuine only if it performs its own determination."
+    },
+    {
+      "id": "R32",
+      "file": "classification-policy.md",
+      "quote": "a KEV listing over a vendor advisory",
+      "rule": "Treat a KEV listing as a genuine second source relative to a vendor advisory."
+    },
+    {
+      "id": "R33",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "**Defensive role framing** at the top of the spawn message",
+      "rule": "Put defensive role framing at the top of a sub-agent spawn message."
+    },
+    {
+      "id": "R34",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Reframing the role is legitimate; hiding what the work is is not.",
+      "rule": "Do not hide what the work is when framing a sub-agent spawn; reframing the agent's role is acceptable."
+    },
+    {
+      "id": "R35",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Point at the coverage file instead of enumerating covered breach/actor names inline",
+      "rule": "When spawning a sub-agent, point it at the coverage file instead of listing covered breach or actor names inline."
+    },
+    {
+      "id": "R36",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "**Checkpoint findings YAML every 3–4 items**",
+      "rule": "Checkpoint the findings YAML every 3–4 items during a sub-agent spawn."
+    },
+    {
+      "id": "R37",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "record spawn terminations per fire",
+      "rule": "Record spawn terminations for each classifier fire."
+    },
+    {
+      "id": "R38",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Retry once",
+      "rule": "When a spawn is terminated by the classifier, retry it once."
+    },
+    {
+      "id": "R39",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "re-frame (framing + no quoted exploit prose + checkpointing)",
+      "rule": "If the retry is also tripped, re-frame the spawn using defensive framing, no quoted exploit prose, and checkpointing."
+    },
+    {
+      "id": "R40",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "record a failed spawn",
+      "rule": "If the re-framed spawn also fails, record it as a failed spawn."
+    },
+    {
+      "id": "R41",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "set `verification.confirmation_waived` only if it was the confirmation pass",
+      "rule": "Set verification.confirmation_waived only when the failed spawn was the confirmation pass."
+    },
+    {
+      "id": "R42",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "A failed spawn never counts as CLEAN.",
+      "rule": "Never count a failed spawn as CLEAN."
+    },
+    {
+      "id": "R43",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Never block the run",
+      "rule": "Never block the run because a spawn failed."
+    },
+    {
+      "id": "R44",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Report a trip as a classifier trip with retry count",
+      "rule": "Report a classifier trip as a classifier trip, including the retry count."
+    },
+    {
+      "id": "R45",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "never as \"the mechanism failed\"",
+      "rule": "Never report a classifier trip as \"the mechanism failed\"."
+    },
+    {
+      "id": "R46",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "record the category with the request id when the harness shows it",
+      "rule": "On 5.5 models, when a decline occurs, record the refusal category along with the request id when the harness shows it."
+    },
+    {
+      "id": "R47",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "Wait for the notification while the agent is still writing",
+      "rule": "Wait for the harness notification while a sub-agent is still writing instead of declaring it dead."
+    },
+    {
+      "id": "R48",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "stall = 60 min with no write under `work/<run-id>/` and no notification",
+      "rule": "Treat a spawn as stalled only after 60 minutes with no write under work/<run-id>/ and no notification."
+    },
+    {
+      "id": "R49",
+      "file": "classifier-trips-on-spawns.md",
+      "quote": "check that a recovery spawn can even advance the gate it exists to protect before starting it",
+      "rule": "Before starting a recovery spawn, check that it can advance the gate it exists to protect."
+    },
+    {
+      "id": "R50",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "Cite once per paragraph when the paragraph rests on one source",
+      "rule": "When a paragraph rests on one source, cite that source only once in the paragraph."
+    },
+    {
+      "id": "R51",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "measure with the gate's own method",
+      "rule": "Measure the main-analysis word count with the gate's own method (strip link markup with the MD_LINK_TEXT_RE substitution, then collapse whitespace)."
+    },
+    {
+      "id": "R52",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "draft the replacement in a scratch file and count before applying it",
+      "rule": "When replacing a changelog entry near the word bound, draft the replacement in a scratch file and count its words before applying it."
+    },
+    {
+      "id": "R53",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "must cut as many words as it adds",
+      "rule": "When rewriting a changelog entry already at 548 words, cut as many words as the rewrite adds."
+    },
+    {
+      "id": "R54",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "Re-point a citation to the page that carries the fact.",
+      "rule": "Cite the page that actually carries a given fact, not a related page."
+    },
+    {
+      "id": "R55",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "cite the table's URL for that row, not the entry's primary",
+      "rule": "When a deep read returns a claim table, cite the table's URL for that row rather than the entry's primary URL."
+    },
+    {
+      "id": "R56",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "Give each deep-read spawn its own `work/<run-id>/<tag>/` scratch directory.",
+      "rule": "Give each deep-read spawn its own work/<run-id>/<tag>/ scratch directory."
+    },
+    {
+      "id": "R57",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "restore it",
+      "rule": "When an update drops detail that the summary and actions[] still claim, restore that detail."
+    },
+    {
+      "id": "R58",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "never leave the summary asserting what the body no longer says",
+      "rule": "Never leave the summary asserting detail that the body no longer contains."
+    },
+    {
+      "id": "R59",
+      "file": "composition-traps-2026-11-25.md",
+      "quote": "keep the action on the entry that covers both cases",
+      "rule": "When two entries in the window carry the same action text, keep the action only on the entry that covers both cases."
+    },
+    {
+      "id": "R60",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "Read `affected`/`fixed`/patch-timing from **structured** fields, never the human-readable summary",
+      "rule": "Read affected, fixed, and patch-timing facts from structured fields in vulnerability records, never from the human-readable summary."
+    },
+    {
+      "id": "R61",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "`vulnerabilities[].product_status.{known_affected, fixed, known_not_affected, under_investigation}`",
+      "rule": "For CSAF records, determine affected and fixed status from the vulnerabilities[].product_status fields (known_affected, fixed, known_not_affected, under_investigation)."
+    },
+    {
+      "id": "R62",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "never conclude \"no fix\" without checking `remediations`",
+      "rule": "Never conclude that no fix exists for a CSAF vulnerability without checking its remediations[] array."
+    },
+    {
+      "id": "R63",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "`remediations[].category == vendor_fix`",
+      "rule": "Identify the real patch in CSAF records as the remediations[] entry whose category is vendor_fix."
+    },
+    {
+      "id": "R64",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "the row's `fix_state` is the verdict",
+      "rule": "For Red Hat package_state[] rows, use the row's fix_state field as the verdict on whether the product is affected."
+    },
+    {
+      "id": "R65",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "**In every format the enumeration is the scope of assessment and a sibling field is the verdict — transcribe the verdict.**",
+      "rule": "Transcribe the verdict field, not mere membership in an enumerated list, when recording a vulnerability's status."
+    },
+    {
+      "id": "R66",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "spot-check outliers",
+      "rule": "When a discloser's 'CNA score' value looks like an outlier, spot-check it against the CNA's own containers.cna.metrics."
+    },
+    {
+      "id": "R67",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "`cves[].cvss` carries the **BASE** score.",
+      "rule": "Store the CVSS BASE score in cves[].cvss."
+    },
+    {
+      "id": "R68",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "check the linked vector for `E:`/`RL:`/`RC:` before calling two scores contradictory",
+      "rule": "Before calling two CVSS scores contradictory, check the linked vector for E:, RL:, or RC: metrics, since a displayed score may be temporal."
+    },
+    {
+      "id": "R69",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "read every element of `cna.metrics`",
+      "rule": "Read every element of the CNA's cna.metrics array, not just the first."
+    },
+    {
+      "id": "R70",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "Never rank scores across CVSS versions.",
+      "rule": "Never rank CVSS scores across different CVSS versions."
+    },
+    {
+      "id": "R71",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "the number goes in `cves[].cvss`",
+      "rule": "When multiple legitimate CVSS figures exist, put the chosen number in cves[].cvss."
+    },
+    {
+      "id": "R72",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "the reconciliation (which body, which scale) in `sourcing_note`",
+      "rule": "When multiple legitimate CVSS figures exist, record the reconciliation (which body and which scale) in sourcing_note."
+    },
+    {
+      "id": "R73",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "OSV 404s on ecosystem-less products (Joomla extensions, firmware) are not unreachability",
+      "rule": "Do not treat an OSV 404 for an ecosystem-less product (such as a Joomla extension or firmware) as the CVE being unreachable."
+    },
+    {
+      "id": "R74",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "`cves[].epss` is the FIRST.org EPSS **probability**, a quoted decimal in `[0, 1]`",
+      "rule": "Store cves[].epss as the FIRST.org EPSS probability, a decimal in [0, 1]."
+    },
+    {
+      "id": "R75",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "It is NOT the percentile and NOT a percentage.",
+      "rule": "Never store an EPSS percentile or percentage in cves[].epss."
+    },
+    {
+      "id": "R76",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "Divide an EUVD figure by 100 before it enters the field",
+      "rule": "Divide an EUVD EPSS figure by 100 before storing it in the EPSS field."
+    },
+    {
+      "id": "R77",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "never paste a provenance suffix (`\"0.27 (EUVD)\"`) into a numeric field",
+      "rule": "Never put a provenance suffix such as '(EUVD)' into a numeric field."
+    },
+    {
+      "id": "R78",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "Take the API's `epss` field, never its `percentile` field.",
+      "rule": "Take the EPSS value from the API's epss field, never from its percentile field."
+    },
+    {
+      "id": "R79",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "A correction converts the units and preserves the entry's own as-of value",
+      "rule": "When correcting an EPSS entry, convert its units and preserve the entry's own as-of value."
+    },
+    {
+      "id": "R80",
+      "file": "csaf-msrc-transcription.md",
+      "quote": "it does not silently substitute today's number",
+      "rule": "Do not silently replace an EPSS entry's value with today's number when correcting it."
+    },
+    {
+      "id": "R81",
+      "file": "customization-framework.md",
+      "quote": "keep both in sync",
+      "rule": "Keep the shipped config/branding.yaml and the loader DEFAULTS in sync so the built site stays byte-identical."
+    },
+    {
+      "id": "R82",
+      "file": "customization-framework.md",
+      "quote": "the config list is the complete set (empty = none)",
+      "rule": "Treat the config list for feeds.sector_slices and trends.cohorts as the complete set, and treat an empty list as no entries."
+    },
+    {
+      "id": "R83",
+      "file": "customization-framework.md",
+      "quote": "Never reintroduce site-identity literals in `site/build.py`",
+      "rule": "Never put site-identity literals in site/build.py."
+    },
+    {
+      "id": "R84",
+      "file": "customization-framework.md",
+      "quote": "lens phrases in prompt prose outside ORG-PROFILE blocks",
+      "rule": "Never put lens phrases in prompt prose outside ORG-PROFILE blocks."
+    },
+    {
+      "id": "R85",
+      "file": "customization-framework.md",
+      "quote": "write \"the profiled constituency (§ Organization profile)\"",
+      "rule": "Where a lens phrase would otherwise appear in prompt prose outside ORG-PROFILE blocks, write \"the profiled constituency (§ Organization profile)\" instead."
+    },
+    {
+      "id": "R86",
+      "file": "customization-framework.md",
+      "quote": "Never write a concrete organization's name, estate, or affiliation into config, README, prompts, or memory",
+      "rule": "Never write a concrete organization's name, estate, or affiliation into config, README, prompts, or memory."
+    },
+    {
+      "id": "R87",
+      "file": "customization-framework.md",
+      "quote": "A lens change is a config edit + `compose_prompts.py --write`",
+      "rule": "Make a lens change by editing the config and running tools/compose_prompts.py --write."
+    },
+    {
+      "id": "R88",
+      "file": "customization-framework.md",
+      "quote": "never a code or prompt edit",
+      "rule": "Never make a lens change by editing code or prompts."
+    },
+    {
+      "id": "R89",
+      "file": "customization-framework.md",
+      "quote": "For byte-diff comparisons of build changes, build both sides with `PYTHONHASHSEED=0`",
+      "rule": "For byte-diff comparisons of build changes, build both sides with PYTHONHASHSEED=0."
+    },
+    {
+      "id": "R90",
+      "file": "dedup-store-wide-cve-index.md",
+      "quote": "Mechanical habit, every candidate CVE set before composing:",
+      "rule": "Before composing an entry, check every candidate CVE against the store-wide CVE index (state-summary.json cves ids), not only the 14-day prior_coverage read."
+    },
+    {
+      "id": "R91",
+      "file": "dedup-store-wide-cve-index.md",
+      "quote": "any hit ⇒ grep -rl \"<CVE>\" entries/, read the entry, decide update-vs-drop",
+      "rule": "When a candidate CVE hits the store-wide index, grep entries/ for that CVE, read the covered entry, and decide whether to record an update or drop the candidate."
+    },
+    {
+      "id": "R92",
+      "file": "dedup-store-wide-cve-index.md",
+      "quote": "**Read the covered entry's BODY, not just its `cves[].status`**",
+      "rule": "When evaluating a covered CVE, read the covered entry's body text, not only its cves[].status field."
+    },
+    {
+      "id": "R93",
+      "file": "design-system.md",
+      "quote": "= `config/branding.yaml` only",
+      "rule": "Limit branding changes to config/branding.yaml."
+    },
+    {
+      "id": "R94",
+      "file": "design-system.md",
+      "quote": "Fonts stay system-stack — no external webfont",
+      "rule": "Keep fonts on the system stack and never load an external webfont."
+    },
+    {
+      "id": "R95",
+      "file": "design-system.md",
+      "quote": "border-not-shadow",
+      "rule": "Separate elements with borders, not shadows."
+    },
+    {
+      "id": "R96",
+      "file": "design-system.md",
+      "quote": "small radii",
+      "rule": "Use small border radii."
+    },
+    {
+      "id": "R97",
+      "file": "design-system.md",
+      "quote": "no emoji",
+      "rule": "Never use emoji in the site."
+    },
+    {
+      "id": "R98",
+      "file": "design-system.md",
+      "quote": "no IOCs",
+      "rule": "Never include IOCs on the site."
+    },
+    {
+      "id": "R99",
+      "file": "design-system.md",
+      "quote": "one crimson accent",
+      "rule": "Use a single crimson accent colour."
+    },
+    {
+      "id": "R100",
+      "file": "design-system.md",
+      "quote": "mono = every machine fact",
+      "rule": "Render every machine fact in the monospace font."
+    },
+    {
+      "id": "R101",
+      "file": "design-system.md",
+      "quote": "dark-first analyst console",
+      "rule": "Design the interface dark-first."
+    },
+    {
+      "id": "R102",
+      "file": "design-system.md",
+      "quote": "Never re-enable `\"dlig\"`",
+      "rule": "Never re-enable \"dlig\" in heading font-feature-settings."
+    },
+    {
+      "id": "R103",
+      "file": "design-system.md",
+      "quote": "Keep `\"kern\",\"liga\"`",
+      "rule": "Keep \"kern\",\"liga\" in heading font-feature-settings."
+    },
+    {
+      "id": "R104",
+      "file": "design-system.md",
+      "quote": "need a `:not(.b)` guard",
+      "rule": "Add a :not(.b) guard to inline-token prose rules that share a class with a badge."
+    },
+    {
+      "id": "R105",
+      "file": "design-system.md",
+      "quote": "the running ISO week is partial and never compared",
+      "rule": "Never include the running (partial) ISO week in trends comparisons."
+    },
+    {
+      "id": "R106",
+      "file": "design-system.md",
+      "quote": "deltas = latest complete week vs prior",
+      "rule": "Compute trend deltas as the latest complete week compared with the prior week."
+    },
+    {
+      "id": "R107",
+      "file": "design-system.md",
+      "quote": "Verification flags render neutral",
+      "rule": "Render verification flags in a neutral colour."
+    },
+    {
+      "id": "R108",
+      "file": "design-system.md",
+      "quote": "red is reserved for priority/exploited",
+      "rule": "Use red only for priority or exploited indicators."
+    },
+    {
+      "id": "R109",
+      "file": "design-system.md",
+      "quote": "never re-hardcode doctrine",
+      "rule": "Never hardcode classification doctrine; take classification badges and scheme text from config via _load_classification_scheme()."
+    },
+    {
+      "id": "R110",
+      "file": "design-system.md",
+      "quote": "re-check them after any",
+      "rule": "After any site/build.py renderer edit, re-check the document contract invariants."
+    },
+    {
+      "id": "R111",
+      "file": "design-system.md",
+      "quote": "Exactly one `<h1>`",
+      "rule": "Emit exactly one <h1> per page, except redirect stubs and meta-refresh pages."
+    },
+    {
+      "id": "R112",
+      "file": "design-system.md",
+      "quote": "no skipped levels",
+      "rule": "Never skip heading levels on a page."
+    },
+    {
+      "id": "R113",
+      "file": "design-system.md",
+      "quote": "Embedded markdown never keeps its own level",
+      "rule": "Never let embedded markdown keep its own heading level; pin it with render_markdown(..., heading_base=N)."
+    },
+    {
+      "id": "R114",
+      "file": "design-system.md",
+      "quote": "Run notes pass `head_level`",
+      "rule": "Pass head_level when rendering run notes."
+    },
+    {
+      "id": "R115",
+      "file": "design-system.md",
+      "quote": "entry bodies pin to h3",
+      "rule": "Pin entry bodies to h3."
+    },
+    {
+      "id": "R116",
+      "file": "design-system.md",
+      "quote": "class=\"sect\">`, not divs.",
+      "rule": "Render day-brief section headers as <h2 class=\"sect\">, not divs."
+    },
+    {
+      "id": "R117",
+      "file": "design-system.md",
+      "quote": "Ids are unique per page and every `#anchor` resolves.",
+      "rule": "Keep ids unique within each page and make every #anchor resolve."
+    },
+    {
+      "id": "R118",
+      "file": "design-system.md",
+      "quote": "Heading anchors take `anchor_prefix` (run id)",
+      "rule": "Give heading anchors the run id as anchor_prefix."
+    },
+    {
+      "id": "R119",
+      "file": "design-system.md",
+      "quote": "`#update-<at>` is emitted only on the entry permalink",
+      "rule": "Emit #update-<at> anchors only on the entry permalink."
+    },
+    {
+      "id": "R120",
+      "file": "design-system.md",
+      "quote": "`anchor=False` everywhere else",
+      "rule": "Pass anchor=False everywhere except the entry permalink."
+    },
+    {
+      "id": "R121",
+      "file": "design-system.md",
+      "quote": "finding anchors use the entry id, not the slug",
+      "rule": "Build finding anchors from the entry id, not the slug."
+    },
+    {
+      "id": "R122",
+      "file": "design-system.md",
+      "quote": "gives the bare `#T…` to the first occurrence",
+      "rule": "Give the bare #T… anchor only to the first occurrence of an ATT&CK technique."
+    },
+    {
+      "id": "R123",
+      "file": "design-system.md",
+      "quote": "namespaces tactic repeats",
+      "rule": "Namespace repeated tactic anchors."
+    },
+    {
+      "id": "R124",
+      "file": "design-system.md",
+      "quote": "is a link only when its directory row exists.",
+      "rule": "Make a matrix cell a link only when its directory row exists."
+    },
+    {
+      "id": "R125",
+      "file": "design-system.md",
+      "quote": "AA contrast in BOTH themes, measured with alpha compositing",
+      "rule": "Measure contrast ratios against AA in both themes, with alpha compositing applied."
+    },
+    {
+      "id": "R126",
+      "file": "design-system.md",
+      "quote": "tints must be composited before the ratio means anything",
+      "rule": "Composite translucent tints before computing a contrast ratio."
+    },
+    {
+      "id": "R127",
+      "file": "design-system.md",
+      "quote": "it has to clear 4.5:1 on",
+      "rule": "Make --text-muted clear 4.5:1 on --bg, --bg-elev, --bg-elev-2 and --kbd-bg."
+    },
+    {
+      "id": "R128",
+      "file": "design-system.md",
+      "quote": "Never de-emphasise with `opacity`",
+      "rule": "Never de-emphasise text with opacity."
+    },
+    {
+      "id": "R129",
+      "file": "design-system.md",
+      "quote": "use `--text-muted`",
+      "rule": "Use --text-muted to de-emphasise text instead of opacity."
+    },
+    {
+      "id": "R130",
+      "file": "design-system.md",
+      "quote": "All metadata lives in the rail, labelled.",
+      "rule": "Put all entry metadata in the labelled rail."
+    },
+    {
+      "id": "R131",
+      "file": "design-system.md",
+      "quote": "The run-dashboard link belongs in Record, never under the title",
+      "rule": "Place the run-dashboard link in the Record section of the rail, never under the title."
+    },
+    {
+      "id": "R132",
+      "file": "design-system.md",
+      "quote": "Every table row is a `.frow`",
+      "rule": "Make every rail table row a .frow with __l label and __v value parts."
+    },
+    {
+      "id": "R133",
+      "file": "design-system.md",
+      "quote": "The rail never scrolls on its own",
+      "rule": "Never give the entry rail its own scrollbar."
+    },
+    {
+      "id": "R134",
+      "file": "design-system.md",
+      "quote": "is never sticky",
+      "rule": "Never make the entry rail sticky."
+    },
+    {
+      "id": "R135",
+      "file": "design-system.md",
+      "quote": "carries published + updated",
+      "rule": "Limit the stamps under the entry title to published and updated."
+    },
+    {
+      "id": "R136",
+      "file": "design-system.md",
+      "quote": "the updated stamp deep-links to the newest `#update-<at>`",
+      "rule": "Make the updated stamp deep-link to the newest #update-<at> anchor."
+    },
+    {
+      "id": "R137",
+      "file": "design-system.md",
+      "quote": "suppressed when it merely restates the title",
+      "rule": "Suppress the entry headline when it merely restates the title."
+    },
+    {
+      "id": "R138",
+      "file": "design-system.md",
+      "quote": "The stored `summary` is never repeated here",
+      "rule": "Never repeat the stored summary on the entry permalink header."
+    },
+    {
+      "id": "R139",
+      "file": "design-system.md",
+      "quote": "`margin-bottom: 34px`",
+      "rule": "Give .ehead margin-bottom: 34px rather than placing the margin on .immediate-action."
+    },
+    {
+      "id": "R140",
+      "file": "design-system.md",
+      "quote": "BOTH columns zero their first child",
+      "rule": "Zero the first child of both entry columns so their tops align."
+    },
+    {
+      "id": "R141",
+      "file": "design-system.md",
+      "quote": "live on `body.entry-detail` INSIDE the >=1100px query",
+      "rule": "Define --entry-col, --entry-rail and --entry-gap on body.entry-detail inside the >=1100px media query."
+    },
+    {
+      "id": "R142",
+      "file": "design-system.md",
+      "quote": "borrow `--entry-col` (fallback 100%)",
+      "rule": "Make .elede and .emeta use --entry-col, falling back to 100%."
+    },
+    {
+      "id": "R143",
+      "file": "design-system.md",
+      "quote": "Body order is actionable-first",
+      "rule": "Order entry body sections actionable-first."
+    },
+    {
+      "id": "R144",
+      "file": "design-system.md",
+      "quote": "every one an `.esec` with an `h2.esec-h`",
+      "rule": "Render every entry body section as an .esec containing an h2.esec-h."
+    },
+    {
+      "id": "R145",
+      "file": "design-system.md",
+      "quote": "A quote appears once.",
+      "rule": "Show each evidence quote only once on an entry page."
+    },
+    {
+      "id": "R146",
+      "file": "design-system.md",
+      "quote": "The immediate-action callout carries neither the first evidence quote",
+      "rule": "Keep the first evidence quote out of the immediate-action callout."
+    },
+    {
+      "id": "R147",
+      "file": "design-system.md",
+      "quote": "nor a link to the page it is already on",
+      "rule": "Keep a link to the current page out of the immediate-action callout."
+    },
+    {
+      "id": "R148",
+      "file": "design-system.md",
+      "quote": "No in-body ATT&CK section",
+      "rule": "Do not render an ATT&CK section in the entry body."
+    },
+    {
+      "id": "R149",
+      "file": "design-system.md",
+      "quote": "the name needs its own `.echip-t` span with `min-width: 0`",
+      "rule": "Wrap an entity chip's name in its own .echip-t span with min-width: 0."
+    },
+    {
+      "id": "R150",
+      "file": "design-system.md",
+      "quote": "`.echip` needs `max-width: 100%`",
+      "rule": "Give .echip max-width: 100%."
+    },
+    {
+      "id": "R151",
+      "file": "design-system.md",
+      "quote": "Affected-product chips link to the product entity",
+      "rule": "Link affected-product chips to the product entity."
+    },
+    {
+      "id": "R152",
+      "file": "design-system.md",
+      "quote": "minus the page's own product",
+      "rule": "Exclude the page's own product from the entity page's pivot row."
+    },
+    {
+      "id": "R153",
+      "file": "design-system.md",
+      "quote": "the permalink passes False",
+      "rule": "Pass with_provenance=False when rendering the entry permalink update blocks."
+    },
+    {
+      "id": "R154",
+      "file": "design-system.md",
+      "quote": "appear only in the Revision-history panel",
+      "rule": "Show the run link and raw changed-field names only in the Revision-history panel."
+    },
+    {
+      "id": "R155",
+      "file": "design-system.md",
+      "quote": "Day pages and feeds keep them",
+      "rule": "Keep the run link and raw changed-field names on day pages and feeds."
+    },
+    {
+      "id": "R156",
+      "file": "design-system.md",
+      "quote": "`.erail .erail-h` needs two classes",
+      "rule": "Give .erail .erail-h both of its classes so .view h2 does not override it."
+    },
+    {
+      "id": "R157",
+      "file": "design-system.md",
+      "quote": "needs `overflow-x: clip`, never `hidden`, on html/body.",
+      "rule": "Set overflow-x: clip on html and body for sticky headers; never use hidden."
+    },
+    {
+      "id": "R158",
+      "file": "design-system.md",
+      "quote": "Header is sticky at >=861px only",
+      "rule": "Make the header sticky only at widths of 861px and above."
+    },
+    {
+      "id": "R159",
+      "file": "design-system.md",
+      "quote": "anchors clear it via `html { scroll-padding-top:",
+      "rule": "Use html scroll-padding-top to keep anchors clear of the sticky header."
+    },
+    {
+      "id": "R160",
+      "file": "design-system.md",
+      "quote": "One gutter token `--gutter` (14/18/26px) pads topbar, subnav, AI bar, mobile seg, main and footer",
+      "rule": "Pad topbar, subnav, AI bar, mobile seg, main and footer with the --gutter token."
+    },
+    {
+      "id": "R161",
+      "file": "design-system.md",
+      "quote": "`.brand-mark svg` must be sized in CSS (22px)",
+      "rule": "Size the .brand-mark svg in CSS."
+    },
+    {
+      "id": "R162",
+      "file": "design-system.md",
+      "quote": "theme.js loads WITHOUT `defer`",
+      "rule": "Load theme.js without defer."
+    },
+    {
+      "id": "R163",
+      "file": "design-system.md",
+      "quote": "The AI bar ships visible in the HTML (no `hidden`)",
+      "rule": "Ship the AI bar visible in the HTML without the hidden attribute."
+    },
+    {
+      "id": "R164",
+      "file": "design-system.md",
+      "quote": "CSS hides it under `:root[data-ai-ack]`",
+      "rule": "Hide the AI bar via CSS under :root[data-ai-ack]."
+    },
+    {
+      "id": "R165",
+      "file": "design-system.md",
+      "quote": "Search modal is a real dialog",
+      "rule": "Implement the search modal as a real dialog."
+    },
+    {
+      "id": "R166",
+      "file": "design-system.md",
+      "quote": "focus trap",
+      "rule": "Trap focus inside the search modal."
+    },
+    {
+      "id": "R167",
+      "file": "design-system.md",
+      "quote": "scroll lock",
+      "rule": "Lock page scroll while the search modal is open."
+    },
+    {
+      "id": "R168",
+      "file": "design-system.md",
+      "quote": "focus returns to the opener",
+      "rule": "Return focus to the opener element when the search modal closes."
+    },
+    {
+      "id": "R169",
+      "file": "design-system.md",
+      "quote": "visible close button",
+      "rule": "Give the search modal a visible close button."
+    },
+    {
+      "id": "R170",
+      "file": "design-system.md",
+      "quote": "results list is static inside the panel",
+      "rule": "Keep the search results list static inside the panel."
+    },
+    {
+      "id": "R171",
+      "file": "design-system.md",
+      "quote": "never regex over already-escaped HTML",
+      "rule": "Never run regex over already-escaped HTML in Search.highlight; highlight in one pass over raw text."
+    },
+    {
+      "id": "R172",
+      "file": "design-system.md",
+      "quote": "carries a search icon next to the hamburger",
+      "rule": "Place a search icon next to the hamburger in the phone topbar."
+    },
+    {
+      "id": "R173",
+      "file": "design-system.md",
+      "quote": "the drawer closes on Escape / outside tap / opening search",
+      "rule": "Close the phone drawer on Escape, outside tap, or when opening search."
+    },
+    {
+      "id": "R174",
+      "file": "design-system.md",
+      "quote": "List filter chips are `<button aria-pressed>`, never spans",
+      "rule": "Render list filter chips as <button aria-pressed>, never spans."
+    },
+    {
+      "id": "R175",
+      "file": "design-system.md",
+      "quote": "every filtered list shows a `.filter-empty` line when nothing matches",
+      "rule": "Show a .filter-empty line in every filtered list when nothing matches."
+    },
+    {
+      "id": "R176",
+      "file": "design-system.md",
+      "quote": "Day page filters also hide TL;DR lines / alarm rows / action items via `data-entry-id`",
+      "rule": "Make day page filters hide TL;DR lines, alarm rows and action items via data-entry-id."
+    },
+    {
+      "id": "R177",
+      "file": "design-system.md",
+      "quote": "update section counts",
+      "rule": "Show update section counts such as \"1 of 2 items\"."
+    },
+    {
+      "id": "R178",
+      "file": "design-system.md",
+      "quote": "chips of emptied sections",
+      "rule": "Hide jump chips for sections emptied by filtering."
+    },
+    {
+      "id": "R179",
+      "file": "design-system.md",
+      "quote": "a closed filter panel is `visibility: hidden`",
+      "rule": "Set a closed filter panel to visibility: hidden so it leaves the tab order."
+    },
+    {
+      "id": "R180",
+      "file": "design-system.md",
+      "quote": "CVE links point at `entities/<CVE>/`",
+      "rule": "Point CVE links at entities/<CVE>/ rather than the /cves/<id>/ stub."
+    },
+    {
+      "id": "R181",
+      "file": "design-system.md",
+      "quote": "the graph's `--g-*` tokens drive the list label dot",
+      "rule": "Drive the list label dot and type donut colours from the graph --g-* tokens."
+    },
+    {
+      "id": "R182",
+      "file": "design-system.md",
+      "quote": "are handled by the registry's curated `ambiguous_labels` field",
+      "rule": "Handle common-word entity names through the registry's ambiguous_labels field."
+    },
+    {
+      "id": "R183",
+      "file": "design-system.md",
+      "quote": "Do not reintroduce a frequency guard in build.py.",
+      "rule": "Do not reintroduce a frequency guard in build.py for entity name matching."
+    },
+    {
+      "id": "R184",
+      "file": "design-system.md",
+      "quote": "Entry rail CVEs collapse past 6",
+      "rule": "Collapse entry rail CVEs past six."
+    },
+    {
+      "id": "R185",
+      "file": "design-system.md",
+      "quote": "exploited/KEV keep cards",
+      "rule": "Keep card display for exploited and KEV CVEs in the entry rail."
+    },
+    {
+      "id": "R186",
+      "file": "design-system.md",
+      "quote": "the rest are one-line rows in a `<details>`",
+      "rule": "Show the remaining entry rail CVEs as one-line rows inside a details element."
+    },
+    {
+      "id": "R187",
+      "file": "design-system.md",
+      "quote": "CVE card facts use a label/value grid.",
+      "rule": "Lay out CVE card facts as a label/value grid."
+    },
+    {
+      "id": "R188",
+      "file": "design-system.md",
+      "quote": "wrap their charts in `details.kb-stats[data-fold-on-phone]`",
+      "rule": "Wrap list page charts in details.kb-stats[data-fold-on-phone]."
+    },
+    {
+      "id": "R189",
+      "file": "design-system.md",
+      "quote": "the /cves/ table stacks into cards below 640px",
+      "rule": "Stack the /cves/ table into cards below 640px."
+    },
+    {
+      "id": "R190",
+      "file": "design-system.md",
+      "quote": "expands the last 7 days (`CHANGES_OPEN_DAYS`) and folds older days",
+      "rule": "Expand the last 7 days on /changes/ and fold older days."
+    },
+    {
+      "id": "R191",
+      "file": "design-system.md",
+      "quote": "Docs under /about/ use the reading measure.",
+      "rule": "Use the reading measure for docs under /about/."
+    },
+    {
+      "id": "R192",
+      "file": "design-system.md",
+      "quote": "dims non-matching cells by background + `--text-muted` (never opacity)",
+      "rule": "Dim non-matching /attack/ compare cells with background and --text-muted, never opacity."
+    },
+    {
+      "id": "R193",
+      "file": "design-system.md",
+      "quote": "the Navigator export reads the same `passingTechniques()` roll-up as the matrix",
+      "rule": "Make the Navigator export read the same passingTechniques() roll-up as the matrix."
+    },
+    {
+      "id": "R194",
+      "file": "design-system.md",
+      "quote": "The matrix box is viewport-capped with sticky tactic headers and the legend above it.",
+      "rule": "Cap the ATT&CK matrix box to the viewport with sticky tactic headers and the legend above it."
+    },
+    {
+      "id": "R195",
+      "file": "design-system.md",
+      "quote": "`touch-action: pan-y` until the canvas is tapped",
+      "rule": "Set touch-action: pan-y on the graph canvas until it is tapped."
+    },
+    {
+      "id": "R196",
+      "file": "design-system.md",
+      "quote": "a server-rendered type legend from the same `--g-*` tokens",
+      "rule": "Render the /graph/ type legend server-side from the --g-* tokens."
+    },
+    {
+      "id": "R197",
+      "file": "design-system.md",
+      "quote": "a device-neutral \"path to…\" action (no shift-click only)",
+      "rule": "Provide a device-neutral \"path to…\" action on /graph/ rather than shift-click only."
+    },
+    {
+      "id": "R198",
+      "file": "design-system.md",
+      "quote": "Internal links use →, external ↗.",
+      "rule": "Mark internal links with → and external links with ↗."
+    },
+    {
+      "id": "R199",
+      "file": "design-system.md",
+      "quote": "render plain text (`_source_ref`), never a 404",
+      "rule": "Render unknown source ids as plain text via _source_ref, never as a 404 link."
+    },
+    {
+      "id": "R200",
+      "file": "design-system.md",
+      "quote": "`var(--muted)` is NOT a token",
+      "rule": "Never use var(--muted); it is not a token."
+    },
+    {
+      "id": "R201",
+      "file": "design-system.md",
+      "quote": "unless it carries two classes",
+      "rule": "Give a class rule two classes when it must beat .view h2 or .brief-prose h2."
+    },
+    {
+      "id": "R202",
+      "file": "design-system.md",
+      "quote": "must account for classes built by concatenation",
+      "rule": "Account for concatenated class names before deleting any CSS in the orphan check."
+    },
+    {
+      "id": "R203",
+      "file": "entity-registry-graph.md",
+      "quote": "`source` (required) = the entry id whose cited reporting establishes the edge",
+      "rule": "Every relations[] edge must include a source field naming the entry id whose cited reporting establishes the edge."
+    },
+    {
+      "id": "R204",
+      "file": "entity-registry-graph.md",
+      "quote": "Symmetric types stored ONCE (mirror declaration = duplicate-edge FAIL)",
+      "rule": "Store an edge of a symmetric relation type once, and do not add a mirrored copy of it."
+    },
+    {
+      "id": "R205",
+      "file": "entity-registry-graph.md",
+      "quote": "directed types live on the SUBJECT",
+      "rule": "Store a directed relation edge on its subject entity, not on its object."
+    },
+    {
+      "id": "R206",
+      "file": "entity-registry-graph.md",
+      "quote": "attached from `affected_products[]` only (NEVER prose phrase-matching)",
+      "rule": "Attach product-type entities only from an entry's affected_products[] field, never by matching product names in prose."
+    },
+    {
+      "id": "R207",
+      "file": "entity-registry-graph.md",
+      "quote": "nothing points out of one except `documented-in`/`related-to`",
+      "rule": "Do not create outgoing edges from a product entity except of type documented-in or related-to."
+    },
+    {
+      "id": "R208",
+      "file": "entity-registry-graph.md",
+      "quote": "Relate only what a source states",
+      "rule": "Create a relation edge only when a cited source states that relationship."
+    },
+    {
+      "id": "R209",
+      "file": "entity-registry-graph.md",
+      "quote": "an overlap claim is `overlaps-with`, never upgraded",
+      "rule": "Record an overlap claim as an overlaps-with edge and never upgrade it to a stronger relation type."
+    },
+    {
+      "id": "R210",
+      "file": "entity-registry-graph.md",
+      "quote": "a suspected same-entity is an alias or a tombstone, not a relation",
+      "rule": "Record a suspected same-entity match as an alias or a tombstone, never as a relation edge."
+    },
+    {
+      "id": "R211",
+      "file": "entity-registry-graph.md",
+      "quote": "New corroboration ≠ new edge",
+      "rule": "Do not create a new edge when new corroboration arrives for an existing relationship."
+    },
+    {
+      "id": "R212",
+      "file": "entity-registry-graph.md",
+      "quote": "a materially evolved relationship updates the edge's `type`/`source`/`note` in place",
+      "rule": "When a relationship has materially evolved, update the existing edge's type, source, and note in place."
+    },
+    {
+      "id": "R213",
+      "file": "entity-registry-graph.md",
+      "quote": "Co-occurrence, entity↔CVE and entity↔technique edges are derived at render time, never stored.",
+      "rule": "Never store co-occurrence, entity-to-CVE, or entity-to-technique edges; they are derived at render time."
+    },
+    {
+      "id": "R214",
+      "file": "entity-registry-graph.md",
+      "quote": "`name` = concise canonical entity name only (never the reporting vendor, never a headline)",
+      "rule": "Set an entity's name to its concise canonical name only, never the reporting vendor's name or a headline."
+    },
+    {
+      "id": "R215",
+      "file": "entity-registry-graph.md",
+      "quote": "Composers still link `entities:` explicitly",
+      "rule": "When composing entries, explicitly link entities in the entities: field."
+    },
+    {
+      "id": "R216",
+      "file": "entity-registry-graph.md",
+      "quote": "`merged_into: <canonical-key>` tombstone (no chains; edges move to the canonical record)",
+      "rule": "When merging a duplicate entity, replace it with a merged_into: <canonical-key> tombstone, avoid chains of tombstones, and move its edges to the canonical record."
+    },
+    {
+      "id": "R217",
+      "file": "entity-registry-graph.md",
+      "quote": "never reference a tombstone in new entries",
+      "rule": "Do not reference a tombstone entity key in newly written entries."
+    },
+    {
+      "id": "R218",
+      "file": "entity-registry-graph.md",
+      "quote": "Orphan duplicates (zero references) may be deleted outright, names folded into aliases",
+      "rule": "An orphan duplicate entity with zero references may be deleted, with its names folded into the canonical entity's aliases."
+    },
+    {
+      "id": "R219",
+      "file": "entity-registry-graph.md",
+      "quote": "a referenced mistyped key gets a tombstone pointing at a new correctly-typed record",
+      "rule": "When a referenced entity key has the wrong type, replace it with a tombstone pointing to a new, correctly typed record."
+    },
+    {
+      "id": "R220",
+      "file": "entity-registry-graph.md",
+      "quote": "Research agents may return `relation_suggestions: [{subject, object, basis}]`",
+      "rule": "Expect research agents to return relation_suggestions as subject, object, and basis triples."
+    },
+    {
+      "id": "R221",
+      "file": "entity-registry-graph.md",
+      "quote": "the main agent maps onto the vocabulary and owns the write",
+      "rule": "As the main agent, map research relation suggestions onto the relation type vocabulary and perform the write yourself."
+    },
+    {
+      "id": "R222",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "Don't reintroduce a horizon filter",
+      "rule": "Do not reintroduce a horizon filter (such as build.operational_entries/strategic_entries or horizon checks in brief.js), because all entries now share the same shape."
+    },
+    {
+      "id": "R223",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "Developments/corrections/improvements = `updates[]` records + `## <Type> — <at>` sections ON the original entry.",
+      "rule": "Record developments, corrections, and improvements as updates[] records plus dated `## <Type> — <at>` sections on the original entry, not as new entries."
+    },
+    {
+      "id": "R224",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "`internal: true` = metadata-only fix: no section, never rendered, never moves `updated_at`.",
+      "rule": "Mark metadata-only fixes with `internal: true` and add no section for them."
+    },
+    {
+      "id": "R225",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "only identity (`id`/path, `discovered_at`, `run_id`, `migrated_from`) and the append-only `updates[]` records are untouchable",
+      "rule": "Never modify identity fields (id/path, discovered_at, run_id, migrated_from) or existing updates[] records."
+    },
+    {
+      "id": "R226",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "may all be revised in place when the modifying fire's record cleanly declares every change",
+      "rule": "Revise frontmatter, main analysis, and earlier section text in place only when the modifying fire's record cleanly declares every change (including fields and body)."
+    },
+    {
+      "id": "R227",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "ONE record per fire per entry",
+      "rule": "Write at most one updates[] record per entry per fire."
+    },
+    {
+      "id": "R228",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "`at` strictly later than the entry's last activity",
+      "rule": "Set the `at` of a new updates[] record strictly later than the entry's last activity."
+    },
+    {
+      "id": "R229",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "on an overtake re-read the entry on `origin/main` first",
+      "rule": "On an overtake, re-read the entry from origin/main before writing an update."
+    },
+    {
+      "id": "R230",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "`actions[]` is the CURRENT do-now set — replace, never accumulate.",
+      "rule": "Replace actions[] with the current do-now set; never accumulate actions across updates."
+    },
+    {
+      "id": "R231",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "`headline`/`summary` change only when a summary-only reader must now know something different.",
+      "rule": "Change headline or summary only when a summary-only reader must now know something different."
+    },
+    {
+      "id": "R232",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "A correction fixes the wrong text IN PLACE and adds the dated section",
+      "rule": "For a correction, fix the wrong text in place and add the dated section."
+    },
+    {
+      "id": "R233",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "grep the same fact across title/headline/summary/body/evidence/cves after",
+      "rule": "After a correction, grep the same fact across title, headline, summary, body, evidence, and cves."
+    },
+    {
+      "id": "R234",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "stage with `git add -u entries/`",
+      "rule": "When updating an entry outside entries/<RUN_DATE>/, stage the change with `git add -u entries/` before shipping."
+    },
+    {
+      "id": "R235",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "Bookkeeping that changes nothing a reader acts on is not a record",
+      "rule": "Do not create an updates[] record for bookkeeping that changes nothing a reader acts on."
+    },
+    {
+      "id": "R236",
+      "file": "entry-lifecycle-v4.md",
+      "quote": "`content_model.load_entry` must deep-copy `ENTRY_DEFAULTS`",
+      "rule": "Make content_model.load_entry deep-copy ENTRY_DEFAULTS so entries do not share mutable default lists such as updates."
+    },
+    {
+      "id": "R237",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "For every KEV addition, read the CVE record's references first",
+      "rule": "For every KEV addition, read the CVE record's references before judging whether the CVE is relevant or dropping it as borderline."
+    },
+    {
+      "id": "R238",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "read the CVE record's `references[]`, then search the vendor name plus CVE id plus the product's usual research firms before any borderline-drop",
+      "rule": "In Phase 2, for each KEV row, read the CVE record's references[] and search the vendor name, CVE id, and the product's usual research firms before dropping the CVE as borderline."
+    },
+    {
+      "id": "R239",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "Cite the research page or the vendor advisory, never the cveawg/NVD/MITRE record",
+      "rule": "Cite the research page or vendor advisory as the source, never the cveawg, NVD, or MITRE CVE record."
+    },
+    {
+      "id": "R240",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "a score or scope difference seen only there goes in `sourcing_note` as provenance",
+      "rule": "Record a score or scope difference that appears only in the cveawg, NVD, or MITRE record in the sourcing_note field as provenance, not as a cited source."
+    },
+    {
+      "id": "R241",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "never re-date their cites",
+      "rule": "Never re-date inline citations in sections written by earlier fires."
+    },
+    {
+      "id": "R242",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "a global string replace on a cite changes earlier fires' sections too, so restore them from `git show HEAD:<path>`",
+      "rule": "Do not apply a global string replace to a citation, since it changes earlier fires' sections; if that happened, restore those sections from git show HEAD:<path>."
+    },
+    {
+      "id": "R243",
+      "file": "kev-additions-read-the-cve-record.md",
+      "quote": "a live vendor page that moves during the run (Palo Alto hotfix counts) is better stated count-free (\"most hotfixes released\") outside the section that dates the reading",
+      "rule": "When a live vendor page may change during the run, state its figures count-free (e.g. \"most hotfixes released\") outside the section that dates the reading."
+    },
+    {
+      "id": "R244",
+      "file": "legacy-corpus.md",
+      "quote": "Treat any legacy entry as unverified until `state/legacy_review.json` marks it reviewed.",
+      "rule": "Treat any legacy entry as unverified until state/legacy_review.json marks it reviewed."
+    },
+    {
+      "id": "R245",
+      "file": "legacy-corpus.md",
+      "quote": "Never build on its claims (references, registry relations, dedup \"already covered\") without checking the primary.",
+      "rule": "Never build on a legacy entry's claims (references, registry relations, dedup \"already covered\" judgments) without checking the primary source."
+    },
+    {
+      "id": "R246",
+      "file": "legacy-corpus.md",
+      "quote": "`python3 tools/legacy_review.py --next 20`",
+      "rule": "When auditing legacy entries, take the next batch from the queue with `python3 tools/legacy_review.py --next 20`."
+    },
+    {
+      "id": "R247",
+      "file": "legacy-corpus.md",
+      "quote": "re-verify, correct or rewrite from sources, `--done <run-id> <ids>`.",
+      "rule": "When auditing legacy entries, re-verify each one, correct or rewrite it from sources, then mark it done with `--done <run-id> <ids>`."
+    },
+    {
+      "id": "R248",
+      "file": "legacy-corpus.md",
+      "quote": "Touching a legacy entry pulls it under current gates: it needs a classification and a non-empty `techniques[]` (kind permitting) in the same record.",
+      "rule": "When editing a legacy entry, include a classification and a non-empty techniques[] (where the entry's kind permits) in the same record."
+    },
+    {
+      "id": "R249",
+      "file": "legacy-corpus.md",
+      "quote": "are folded with `tools/fold_entries.py` after the survivor's record is written",
+      "rule": "Fold duplicate entries with tools/fold_entries.py only after the survivor's record is written."
+    },
+    {
+      "id": "R250",
+      "file": "legacy-corpus.md",
+      "quote": "deletion is only legal that way",
+      "rule": "Delete duplicate entries only through the fold mechanism (tools/fold_entries.py)."
+    },
+    {
+      "id": "R251",
+      "file": "legacy-corpus.md",
+      "quote": "When one side of a pair is already verified, put the reference there;",
+      "rule": "When one entry in a pair is already verified, add the references[] link on the verified entry, not the legacy one."
+    },
+    {
+      "id": "R252",
+      "file": "legacy-corpus.md",
+      "quote": "touching the legacy side means re-verifying it whole.",
+      "rule": "When touching the legacy side of a pair, re-verify the entire legacy entry."
+    },
+    {
+      "id": "R253",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "Claim the audit on `main` before the first spawn",
+      "rule": "Claim the audit on main before the first sub-agent spawn by writing work/<run-id>/audit.claim."
+    },
+    {
+      "id": "R254",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "stand down on a live claim under 48 h old",
+      "rule": "Stand down when a live audit claim on main is less than 48 hours old."
+    },
+    {
+      "id": "R255",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "stand down as `superseded` when a later audit claims over a paused one",
+      "rule": "Stand down as superseded when a later audit claims over a paused audit."
+    },
+    {
+      "id": "R256",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "At most 20 spawns per fire",
+      "rule": "Spawn at most 20 sub-agents per audit fire."
+    },
+    {
+      "id": "R257",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "logged in `budget.tsv`",
+      "rule": "Log every sub-agent spawn in budget.tsv."
+    },
+    {
+      "id": "R258",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "Findings on text the fire did not change are `(pre-existing)` advisories for the next audit",
+      "rule": "Label findings on text the audit fire did not change as (pre-existing) advisories for the next audit."
+    },
+    {
+      "id": "R259",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "except an unsupported fact (F4)",
+      "rule": "Do not downgrade an unsupported fact (F4) to a pre-existing advisory, even if the fire did not change that text."
+    },
+    {
+      "id": "R260",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "Legacy batches and the store-wide duplicate scan are secondary work.",
+      "rule": "Treat legacy batches and the store-wide duplicate scan as secondary work, not as part of the audit."
+    },
+    {
+      "id": "R261",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "In an interactive session, finish the audit and confirm it is live before doing any other work.",
+      "rule": "In an interactive session, finish the audit and confirm it is live before starting any other work."
+    },
+    {
+      "id": "R262",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "All other work should only be done when this is successfully pushed and live.",
+      "rule": "Do other work only after the audit has been successfully pushed and is live."
+    },
+    {
+      "id": "R263",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "focus on the primary work and that is auditing the previous week",
+      "rule": "Focus audits on their primary work: auditing the previous week."
+    },
+    {
+      "id": "R264",
+      "file": "operator-directive-2026-10-19-audit-budget.md",
+      "quote": "Ensure audits do not overrun their session limits anymore.",
+      "rule": "Ensure audits do not exceed their session limits."
+    },
+    {
+      "id": "R265",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "Read `prompts/cleanup-coordinator.md` on `main` and continue the store cleanup program.",
+      "rule": "To start or continue the cleanup program, read prompts/cleanup-coordinator.md on main and continue the store cleanup program from there."
+    },
+    {
+      "id": "R266",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "One wave per session, at most 20 spawns per wave.",
+      "rule": "Run only one cleanup wave per session, and spawn at most 20 sub-agents per wave."
+    },
+    {
+      "id": "R267",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "Each wave writes a `partial` claim, which the scheduled weekly audit ignores, and yields to the weekly audit's claim.",
+      "rule": "Each cleanup wave must write a partial claim, and it must yield to the weekly audit's claim."
+    },
+    {
+      "id": "R268",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "Each wave ships on its own `claude/cleanup-wave-*` branch, so the auto-merge lands it.",
+      "rule": "Ship each cleanup wave on its own claude/cleanup-wave-* branch so that auto-merge lands it."
+    },
+    {
+      "id": "R269",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "The reference branch `cleanup/2026-10-18-carry-forward` holds unverified drafts. It is never merged; ports are re-verified and re-recorded under the porting wave's run id.",
+      "rule": "Never merge the reference branch cleanup/2026-10-18-carry-forward; instead, re-verify and re-record any ported items under the porting wave's run id."
+    },
+    {
+      "id": "R270",
+      "file": "operator-directive-2026-10-20-cleanup-program.md",
+      "quote": "The program ends by retiring `quality-audit.md` § Secondary work and `tools/legacy_review.py`.",
+      "rule": "When the cleanup program ends, retire the Secondary work section of quality-audit.md and the tools/legacy_review.py file."
+    },
+    {
+      "id": "R271",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "Only a wave the tracker marks `ready`, whose `after` waves are done, and for which `python3 work/cleanup/render_status.py --check-lanes` passes.",
+      "rule": "Start a cleanup wave only if the tracker marks it `ready`, all waves in its `after` list are done, and `python3 work/cleanup/render_status.py --check-lanes` passes."
+    },
+    {
+      "id": "R272",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "Start a wave with \"Read `prompts/cleanup-coordinator.md` on `main` and run cleanup wave <NN>.\"",
+      "rule": "To start a cleanup wave, read `prompts/cleanup-coordinator.md` on `main` and run cleanup wave <NN>."
+    },
+    {
+      "id": "R273",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "The claim reads `partial <STARTED> wave=<NN>`.",
+      "rule": "Write the wave claim as `partial <STARTED> wave=<NN>`."
+    },
+    {
+      "id": "R274",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "The claim commit also marks the wave `in-flight <run-id>` and its rows `in-wave <NN>` in `work/cleanup/plan.json`",
+      "rule": "In the claim commit, mark the wave `in-flight <run-id>` and its rows `in-wave <NN>` in `work/cleanup/plan.json`."
+    },
+    {
+      "id": "R275",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "A wave touches only its own rows' entries.",
+      "rule": "A cleanup wave may modify only the entries belonging to its own rows."
+    },
+    {
+      "id": "R276",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "A legacy batch is its row's entry list, never `legacy_review.py --next`.",
+      "rule": "Define a legacy batch as the row's entry list; never use `legacy_review.py --next` to select a legacy batch."
+    },
+    {
+      "id": "R277",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "Shared-file conflicts go to `python3 tools/merge_state.py resolve`",
+      "rule": "Resolve shared-file conflicts by running `python3 tools/merge_state.py resolve`."
+    },
+    {
+      "id": "R278",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "Every wave keeps its 20-spawn cap",
+      "rule": "Every cleanup wave must keep its 20-spawn cap."
+    },
+    {
+      "id": "R279",
+      "file": "operator-directive-2026-10-21-parallel-waves.md",
+      "quote": "a rate-limited wave is cut, never retried in a loop.",
+      "rule": "When a cleanup wave is rate-limited, cut the wave; never retry it in a loop."
+    },
+    {
+      "id": "R280",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Metadata-only fixes (frontmatter/structured-field corrections with nothing to tell the reader) are `updates[]` records with `internal: true`",
+      "rule": "For metadata-only fixes with nothing to tell the reader, record them as updates[] entries with internal: true."
+    },
+    {
+      "id": "R281",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "no `## <Type> — <at>` section, never rendered on the site, changelog-only",
+      "rule": "Do not give internal: true update records a section, do not render them on the site; keep them changelog-only."
+    },
+    {
+      "id": "R282",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Composition-rationale narration in bodies (\"`actions[]` is empty because…\", \"`techniques[]` maps only…\", registry keys, \"this pipeline/store/run\") is a defect; the fix is deletion.",
+      "rule": "Never include composition-rationale or pipeline-internal narration (such as registry keys or references to the pipeline, store, or run) in entry bodies; delete it instead."
+    },
+    {
+      "id": "R283",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Only `type: update` moves `updated_at`.",
+      "rule": "Only type: update records may change updated_at; corrections and improvements must not re-float an entry."
+    },
+    {
+      "id": "R284",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "`updated_at` = last non-internal `type: update` record's `at`, null when none.",
+      "rule": "Set updated_at to the at value of the last non-internal type: update record, or null if there is none."
+    },
+    {
+      "id": "R285",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Reader-facing corrections keep their sections (rendered on the entry page and day-page § Updates by record `at`).",
+      "rule": "Keep sections for reader-facing corrections so they render on the entry page and in the day-page Updates section by record at."
+    },
+    {
+      "id": "R286",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Short, relevant, actionable beats more.",
+      "rule": "Prefer short, relevant, actionable content over longer content."
+    },
+    {
+      "id": "R287",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Completeness stays a hard duty ONLY for critical/high signal; below that, a marginal item is dropped or held to two sentences.",
+      "rule": "Aim for completeness only for critical or high-signal items; for marginal items below that bar, drop them or limit them to two sentences."
+    },
+    {
+      "id": "R288",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "The brief must save the team time — if they have to re-triage it, it failed.",
+      "rule": "Write briefs so they save the team time, so that they do not need to re-triage the content."
+    },
+    {
+      "id": "R289",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Non-English sources are quoted in English translation marked \"(translated from <language>)\"",
+      "rule": "Quote non-English sources in English translation marked \"(translated from <language>)\"."
+    },
+    {
+      "id": "R290",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "the verbatim original goes in `evidence[].original` (optional field, renderer ignores it)",
+      "rule": "Put the verbatim original non-English quotation in evidence[].original so it can be verified against the fetched page."
+    },
+    {
+      "id": "R291",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "**Model pins are the generic `sonnet` alias**, never a dated id",
+      "rule": "Pin models using the generic sonnet alias, never a dated model ID."
+    },
+    {
+      "id": "R292",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "heise-sec and inside-it-ch are operator-named critical sources** → `tier: essential` (attempted every fire)",
+      "rule": "Set tier: essential for heise-sec and inside-it-ch sources and attempt them on every run."
+    },
+    {
+      "id": "R293",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Entry content is modifiable when changelog-tracked",
+      "rule": "Entry content may be modified when the change is tracked in the changelog."
+    },
+    {
+      "id": "R294",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "main-agent default `effortLevel: xhigh` in `.claude/settings.json`; both sub-agent definitions carry `effort: xhigh`",
+      "rule": "Set the main agent's default effortLevel to xhigh in .claude/settings.json and give both sub-agent definitions effort: xhigh."
+    },
+    {
+      "id": "R295",
+      "file": "operator-directives-2026-08-28.md",
+      "quote": "Re-enable a plugin only when a task genuinely needs it.",
+      "rule": "Re-enable a disabled plugin only when a task genuinely needs it."
+    },
+    {
+      "id": "R296",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "every run must end",
+      "rule": "Ensure every run terminates; termination is guaranteed structurally (finite work lists, bounded continuations, retry and iteration caps, no self-re-spawning), not by a time limit."
+    },
+    {
+      "id": "R297",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "Remove the time limits and allow a run to take as long as it needs.",
+      "rule": "Do not impose time limits on runs or sub-agents; let a run take as long as it needs."
+    },
+    {
+      "id": "R298",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "60 minutes with no write under `work/<run-id>/` and no completion notification = stalled",
+      "rule": "Treat a run as stalled only after 60 minutes with no write under work/<run-id>/ and no completion notification."
+    },
+    {
+      "id": "R299",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "Sub-agents append a line to `work/<run-id>/<domain>.progress` (research) or `verify.iter<N>.progress` (verifier) per unit finished",
+      "rule": "Sub-agents must append a line to their progress file (work/<run-id>/<domain>.progress for research, verify.iter<N>.progress for verifier) for each unit of work finished."
+    },
+    {
+      "id": "R300",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "Do not force the runs to produce certain amount of entries.",
+      "rule": "Do not force runs to produce a certain number of entries."
+    },
+    {
+      "id": "R301",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "No entry is also okay",
+      "rule": "Zero entries is an acceptable outcome for a run."
+    },
+    {
+      "id": "R302",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "the agent can judge itself",
+      "rule": "Let the agent judge for itself how many items to produce and how to treat them, rather than following fixed counts."
+    },
+    {
+      "id": "R303",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "Deep-dive category rotation is a tie-breaker, never a reason to pass over the most deserving item.",
+      "rule": "Use deep-dive category rotation only as a tie-breaker; never pass over the most deserving item because of category rotation."
+    },
+    {
+      "id": "R304",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "never cut, rush or sample work because of elapsed time",
+      "rule": "Never cut, rush, or sample work because of elapsed time."
+    },
+    {
+      "id": "R305",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "never add a count-based rule",
+      "rule": "Never add a count-based rule."
+    },
+    {
+      "id": "R306",
+      "file": "operator-directives-2026-09-29.md",
+      "quote": "when a number appears in a prompt, read it as the typical case unless it is one of the termination bounds above",
+      "rule": "Read a number appearing in a prompt as the typical case, not a hard requirement, unless it is a termination bound."
+    },
+    {
+      "id": "R307",
+      "file": "permission-rules-edit-covers-write.md",
+      "quote": "Never re-add `Write(...)` permission rules — use `Edit(...)`.",
+      "rule": "Never add `Write(...)` permission rules to Claude Code settings; use `Edit(...)` rules instead to cover file-editing tools."
+    },
+    {
+      "id": "R308",
+      "file": "permission-rules-edit-covers-write.md",
+      "quote": "a `Write(path)` allow rule is never consulted and triggers a startup warning",
+      "rule": "Do not write `Write(path)` allow rules, since Claude Code never consults them and they trigger a startup warning."
+    },
+    {
+      "id": "R309",
+      "file": "product-entities.md",
+      "quote": "The entry is never rewritten.",
+      "rule": "Do not rewrite an entry's affected_products[] to a canonical product name; keep the release-precise spelling and resolve the product key at render time."
+    },
+    {
+      "id": "R310",
+      "file": "product-entities.md",
+      "quote": "Bare integers are never stripped.",
+      "rule": "When deriving a product key, never strip a bare trailing integer from a product name (e.g., keep \"Microsoft 365\" intact); strip only a 4-digit release year, a dotted version, a vN/rN suffix, or an edition word."
+    },
+    {
+      "id": "R311",
+      "file": "product-entities.md",
+      "quote": "Products never phrase-match prose.",
+      "rule": "Do not attach product entities to entries by phrase-matching their prose; attach them only from the entry's affected_products[] field."
+    },
+    {
+      "id": "R312",
+      "file": "product-entities.md",
+      "quote": "never the right move",
+      "rule": "Do not regenerate all of entities/registry.yaml with a full dump_yaml_subset re-dump to update products; update products with tools/sync_products.py, which rewrites only its marked block at the end of the file."
+    },
+    {
+      "id": "R313",
+      "file": "product-entities.md",
+      "quote": "Add the loser's spelling to the winner's `aliases` (or `merged_into`) and re-run",
+      "rule": "To merge two products, add the losing product's spelling to the winner's aliases (or set merged_into on the loser), then re-run tools/sync_products.py instead of migrating entries."
+    },
+    {
+      "id": "R314",
+      "file": "product-entities.md",
+      "quote": "`summary` is OPTIONAL on `product` records",
+      "rule": "Omit the summary field on product records when no analytical summary is warranted; do not fabricate one."
+    },
+    {
+      "id": "R315",
+      "file": "product-entities.md",
+      "quote": "and never become entities.",
+      "rule": "Do not create entities for vendor-only strings such as \"Microsoft\" or \"Linux\"; these are listed in PRODUCT_NON_ENTITIES and must be excluded."
+    },
+    {
+      "id": "R316",
+      "file": "product-entities.md",
+      "quote": "The row is suppressed on `type: product`",
+      "rule": "On product pages, do not show the \"Affected products\" row; show the CVEs and Releases covered rows instead."
+    },
+    {
+      "id": "R317",
+      "file": "product-entities.md",
+      "quote": "The alias line then shows only what the releases row did not",
+      "rule": "On product pages, show in the alias line only aliases that are not already listed in the Releases covered row."
+    },
+    {
+      "id": "R318",
+      "file": "product-entities.md",
+      "quote": "Non-product pages keep \"Affected products\" unchanged",
+      "rule": "On non-product pages, keep the \"Affected products\" row unchanged."
+    },
+    {
+      "id": "R319",
+      "file": "product-entities.md",
+      "quote": "capped at 24",
+      "rule": "On product pages, cap the CVEs row at 24 entries, listing exploited/KEV CVEs first."
+    },
+    {
+      "id": "R320",
+      "file": "product-entities.md",
+      "quote": "WARN, never FAIL",
+      "rule": "Make the product-entities check in check_run.py report unregistered product spellings as WARN, never FAIL."
+    },
+    {
+      "id": "R321",
+      "file": "routine-model-assignment.md",
+      "quote": "NEVER a dated id (operator directive 2026-08-28)",
+      "rule": "Sub-agent definitions must pin the generic `model: sonnet` alias, never a dated model ID."
+    },
+    {
+      "id": "R322",
+      "file": "routine-model-assignment.md",
+      "quote": "Never change effort unilaterally.",
+      "rule": "Never change the effort level unilaterally; effort changes must go through the operator and the generation baseline review."
+    },
+    {
+      "id": "R323",
+      "file": "routine-model-assignment.md",
+      "quote": "Never reintroduce an Opus pin or a second verifier definition.",
+      "rule": "Never reintroduce an Opus model pin for sub-agents, and never add a second verifier definition."
+    },
+    {
+      "id": "R324",
+      "file": "routine-model-assignment.md",
+      "quote": "never ask an agent to write out its reasoning (`reasoning_extraction` declines).",
+      "rule": "Never ask an agent to write out its reasoning."
+    },
+    {
+      "id": "R325",
+      "file": "routine-model-assignment.md",
+      "quote": "Quote it verbatim on the `**Model:**` line.",
+      "rule": "When recording model self-identification, quote the harness-injected model line from the agent's own system prompt verbatim on the `**Model:**` line."
+    },
+    {
+      "id": "R326",
+      "file": "routine-model-assignment.md",
+      "quote": "always carry the marker `— container default, env fallback`",
+      "rule": "When self-identifying via env vars (CLAUDE_FRIENDLY_NAME/CLAUDE_MODEL_ID), always include the marker `— container default, env fallback`."
+    },
+    {
+      "id": "R327",
+      "file": "routine-model-assignment.md",
+      "quote": "`Anthropic Claude (specific model not determined)` — never a training-data guess.",
+      "rule": "When the specific model cannot be determined, report `Anthropic Claude (specific model not determined)` and never guess the model from training data."
+    },
+    {
+      "id": "R328",
+      "file": "routine-model-assignment.md",
+      "quote": "a confirmation pass after a CLEAN receives nothing but the fact of the CLEAN.",
+      "rule": "A confirmation pass after a CLEAN verdict receives nothing but the fact of the CLEAN."
+    },
+    {
+      "id": "R329",
+      "file": "routine-model-assignment.md",
+      "quote": "an iteration after a NEEDS_FIXES receives the prior deltas block;",
+      "rule": "An iteration after a NEEDS_FIXES verdict receives the prior deltas block."
+    },
+    {
+      "id": "R330",
+      "file": "routine-model-assignment.md",
+      "quote": "never ask an agent to write out its reasoning",
+      "rule": "Do not ask agents to write out their reasoning."
+    },
+    {
+      "id": "R331",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "work off the gap to the last run",
+      "rule": "When assessing a scheduler gap, work off the gap to the last run."
+    },
+    {
+      "id": "R332",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "a changed cadence is never a finding",
+      "rule": "Never report a changed run cadence as a finding."
+    },
+    {
+      "id": "R333",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "surface big gaps",
+      "rule": "Surface large gaps in the run schedule."
+    },
+    {
+      "id": "R334",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "don't re-diagnose the repo",
+      "rule": "Do not re-diagnose the repo when a schedule gap is found."
+    },
+    {
+      "id": "R335",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Commit destructive work the moment it is coherent.",
+      "rule": "Commit destructive changes as soon as they form a coherent unit."
+    },
+    {
+      "id": "R336",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Before restoring anything that looks like corruption, run `git status`",
+      "rule": "Before restoring any files that look corrupted, run `git status`."
+    },
+    {
+      "id": "R337",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "look for staged deletions",
+      "rule": "When checking git status before restoring apparently corrupted files, look for staged deletions."
+    },
+    {
+      "id": "R338",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "`ListAgents` + `SendMessage` to the peer name is the coordination channel",
+      "rule": "Coordinate with a concurrent peer session using ListAgents and SendMessage to the peer's name."
+    },
+    {
+      "id": "R339",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "agree on path ownership up front",
+      "rule": "Agree with a concurrent peer session on path ownership before starting work."
+    },
+    {
+      "id": "R340",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "They are noise, not signal.",
+      "rule": "Treat untracked conflict copies in the working tree as noise, not as evidence of repo corruption."
+    },
+    {
+      "id": "R341",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Check `origin/main` at every phase boundary, not only Phase 6.",
+      "rule": "Check `origin/main` at every phase boundary, not only at Phase 6."
+    },
+    {
+      "id": "R342",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Dedup by **reading**, not by index",
+      "rule": "Deduplicate overtaken-run entries by reading their content, not by comparing index values."
+    },
+    {
+      "id": "R343",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Resolve a conflicted merge with `python3 tools/merge_state.py resolve`",
+      "rule": "Resolve a conflicted merge using `python3 tools/merge_state.py resolve`."
+    },
+    {
+      "id": "R344",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "check that entity",
+      "rule": "When merge_state prints a NOTE about an entity edited on both sides, check that entity."
+    },
+    {
+      "id": "R345",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "Check your *tooling* diffs by reading, not by merge",
+      "rule": "Check tooling diffs by reading them, not by merging them."
+    },
+    {
+      "id": "R346",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "its `at` must be later than that entry's last activity",
+      "rule": "Set a surviving duplicate's changelog record `at` later than the overtaking entry's last activity."
+    },
+    {
+      "id": "R347",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "re-read the target entry on `origin/main` for a newer record before appending yours",
+      "rule": "Before appending a changelog record, re-read the target entry on `origin/main` for a newer record."
+    },
+    {
+      "id": "R348",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "one record per fire",
+      "rule": "Append at most one changelog record per fire."
+    },
+    {
+      "id": "R349",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "`at` strictly increasing",
+      "rule": "Ensure each changelog record's `at` is strictly greater than the previous one."
+    },
+    {
+      "id": "R350",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "a second correction of the same defect is no record at all",
+      "rule": "Do not append a second changelog record correcting the same defect."
+    },
+    {
+      "id": "R351",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "A dropped entry's non-actionable extra fact goes to a correction-owed row in `state/coverage_backlog.md`.",
+      "rule": "Record a dropped entry's non-actionable extra fact as a correction-owed row in `state/coverage_backlog.md`."
+    },
+    {
+      "id": "R352",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "diff the row sets via `git show :1:/:2:/:3:`",
+      "rule": "When backlog rows appear duplicated after a merge, diff the row sets via `git show :1:/:2:/:3:`."
+    },
+    {
+      "id": "R353",
+      "file": "scheduler-and-workflow-races.md",
+      "quote": "if the finding names a mechanism, the mechanism is the work item.",
+      "rule": "When a verifier finding names a mechanism, treat fixing that mechanism as the work item."
+    },
+    {
+      "id": "R354",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "every pass answers for every claim in scope",
+      "rule": "Every verifier pass must answer for every claim in scope of the verification loop."
+    },
+    {
+      "id": "R355",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "an incomplete pass's CLEAN never counts",
+      "rule": "Never count a CLEAN result from an incomplete verifier pass."
+    },
+    {
+      "id": "R356",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "If the loop still does not converge, look at claim coverage first (`--coverage N`), not at adding passes.",
+      "rule": "If the verifier loop does not converge, check claim coverage first (with --coverage N) before adding verification passes."
+    },
+    {
+      "id": "R357",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "no vector/actor/behavior ⇒ routine, two sentences",
+      "rule": "Classify an incident with no identified vector, actor, or behavior as routine and write it in two sentences."
+    },
+    {
+      "id": "R358",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "Recounting unchanged source material is a `correction`, never an `update`",
+      "rule": "Record recounting of unchanged source material as a correction, never as an update."
+    },
+    {
+      "id": "R359",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "mandatory supersession sweep (Phase 4 § Updating step 4)",
+      "rule": "Run the supersession sweep (cti-run.md Phase 4, Updating step 4) whenever updating an entry."
+    },
+    {
+      "id": "R360",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "every row is published, struck, or held with a named, dated condition and a 14-day expiry",
+      "rule": "Every backlog row must be published, struck, or held with a named, dated condition that expires after 14 days."
+    },
+    {
+      "id": "R361",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "no carry-forward notes",
+      "rule": "Do not write carry-forward notes on backlog rows."
+    },
+    {
+      "id": "R362",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "Fix: `tools/merge_state.py` in the workflow, Phase 6 and session start.",
+      "rule": "Merge state files with tools/merge_state.py in the workflow, Phase 6, and session start instead of whole-file --ours/--theirs."
+    },
+    {
+      "id": "R363",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "every entry closes with `**Exposure:**`, `**Detection:**`, `**Triage:**` (honest only), `**Defender takeaway:**`",
+      "rule": "Every entry must close with the labeled fields Exposure, Detection, Triage, and Defender takeaway."
+    },
+    {
+      "id": "R364",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "`**Triage:**` (honest only)",
+      "rule": "Write the Triage field honestly, without overstating or understating triage status."
+    },
+    {
+      "id": "R365",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "heise bodies now read with `extract` (no reader).",
+      "rule": "Read heise article bodies with extract, not the reader tool."
+    },
+    {
+      "id": "R366",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "Tools now take \"now\" from the run id / `--now \"$STARTED\"` (verified clock)",
+      "rule": "Take the current time in tools from the run id or from --now \"$STARTED\" (verified clock), not from the local clock."
+    },
+    {
+      "id": "R367",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "the intel window anchors on `runs.last_intel_run`",
+      "rule": "Anchor the intel window on runs.last_intel_run."
+    },
+    {
+      "id": "R368",
+      "file": "setup-review-2026-09-29.md",
+      "quote": "a failed fetch no longer advances a source's rotation cursor",
+      "rule": "Do not advance a source's rotation cursor when its fetch fails."
+    },
+    {
+      "id": "R369",
+      "file": "site-landing-live-brief.md",
+      "quote": "Never reintroduce a full page there — one canonical URL for the brief.",
+      "rule": "Never serve a full page at /live/; keep /live/ as a noindex meta-refresh stub that redirects to /."
+    },
+    {
+      "id": "R370",
+      "file": "site-landing-live-brief.md",
+      "quote": "do not reintroduce them.",
+      "rule": "Do not reintroduce the retired .hero--live, .live-lede, and .rangebar blocks in build.py or the CSS."
+    },
+    {
+      "id": "R371",
+      "file": "site-landing-live-brief.md",
+      "quote": "do not reintroduce them.",
+      "rule": "Do not reintroduce § Do now, the ACT NOW card, or the window pulse panel in build.py, brief.js, or the CSS."
+    },
+    {
+      "id": "R372",
+      "file": "site-landing-live-brief.md",
+      "quote": "but a very short critical alarm.",
+      "rule": "Place nothing between the page head and the findings except a very short critical alarm."
+    },
+    {
+      "id": "R373",
+      "file": "site-landing-live-brief.md",
+      "quote": "It follows the WINDOW, never the chip filters.",
+      "rule": "Make the critical alarm follow the reading window, never the chip filters."
+    },
+    {
+      "id": "R374",
+      "file": "site-landing-live-brief.md",
+      "quote": "Hidden empty container when there is none.",
+      "rule": "Hide the critical alarm container when the window has no critical entries."
+    },
+    {
+      "id": "R375",
+      "file": "site-landing-live-brief.md",
+      "quote": "for notification hooks only.",
+      "rule": "Use the 7-day open_criticals span in data/alerts.json only for notification hooks, never for the on-page alarm."
+    },
+    {
+      "id": "R376",
+      "file": "site-landing-live-brief.md",
+      "quote": "The window is named by the `<select>` alone",
+      "rule": "Name the reading window only through the window <select> control, with no separate label."
+    },
+    {
+      "id": "R377",
+      "file": "site-landing-live-brief.md",
+      "quote": "\"load older\" past the preset choices appends a matching option so the control never lies.",
+      "rule": "When \"load older\" goes past the preset window choices, append a matching option to the window <select>."
+    },
+    {
+      "id": "R378",
+      "file": "site-landing-live-brief.md",
+      "quote": "never hijacks a text selection",
+      "rule": "Timeline row click handling must never hijack a text selection."
+    },
+    {
+      "id": "R379",
+      "file": "site-landing-live-brief.md",
+      "quote": "the full text stays in the DOM for agents.",
+      "rule": "When clamping summaries with CSS, keep the full summary text in the DOM."
+    },
+    {
+      "id": "R380",
+      "file": "site-landing-live-brief.md",
+      "quote": "not \"open ↗\"",
+      "rule": "Label the timeline CTA \"Full analysis →\", not \"open ↗\"."
+    },
+    {
+      "id": "R381",
+      "file": "site-landing-live-brief.md",
+      "quote": "UPD rows name \"first published …\" in the meta row.",
+      "rule": "Have UPD timeline rows name \"first published …\" in the meta row."
+    },
+    {
+      "id": "R382",
+      "file": "site-landing-live-brief.md",
+      "quote": "internal links to the brief use the page prefix alone (`prefix or \"./\"`)",
+      "rule": "Link to the brief using the page prefix alone (`prefix or \"./\"`)."
+    },
+    {
+      "id": "R383",
+      "file": "site-landing-live-brief.md",
+      "quote": "never `live/`.",
+      "rule": "Never link to the brief with a `live/` path."
+    },
+    {
+      "id": "R384",
+      "file": "site-landing-live-brief.md",
+      "quote": "briefbook.json URLs stay `../`-prefixed",
+      "rule": "Keep briefbook.json URLs prefixed with `../`."
+    },
+    {
+      "id": "R385",
+      "file": "site-landing-live-brief.md",
+      "quote": "stay branding-driven, no identity literals in build.py",
+      "rule": "Keep nav labels, hero text, and live_title branding-driven, with no identity literals in build.py."
+    },
+    {
+      "id": "R386",
+      "file": "site-landing-live-brief.md",
+      "quote": "don't mistake one for a regression when spot-checking.",
+      "rule": "Do not treat a missing index.md on a folded-entry redirect stub as a regression when spot-checking."
+    },
+    {
+      "id": "R387",
+      "file": "source-fetch-blocks.md",
+      "quote": "never demote a source for a 403 / anti-bot challenge / exhausted reader credit",
+      "rule": "Never demote a source because of a 403 response, an anti-bot challenge, or exhausted reader credit; treat a block as a transport problem."
+    },
+    {
+      "id": "R388",
+      "file": "source-fetch-blocks.md",
+      "quote": "Avoid `WebFetch` for article bodies `extract` reads",
+      "rule": "Do not use WebFetch to read article bodies that extract can read, because the summariser drops detail."
+    },
+    {
+      "id": "R389",
+      "file": "source-fetch-blocks.md",
+      "quote": "use it for walled hosts, liveness checks and link discovery",
+      "rule": "Use WebFetch for walled hosts, liveness checks, and link discovery."
+    },
+    {
+      "id": "R390",
+      "file": "source-fetch-blocks.md",
+      "quote": "`jina <URL>` only for `fetch_method: jina` hosts (none today) or after every other rung failed",
+      "rule": "Use jina only for hosts with fetch_method: jina, or after every other rung of the fetch ladder has failed."
+    },
+    {
+      "id": "R391",
+      "file": "source-fetch-blocks.md",
+      "quote": "bacs.admin.ch articles read with `extract`.",
+      "rule": "Read bacs.admin.ch articles with extract."
+    },
+    {
+      "id": "R392",
+      "file": "source-fetch-blocks.md",
+      "quote": "ICS: `cisa csaf-recent [N]` / `cisa csaf <icsa-id>`",
+      "rule": "For CISA ICS advisories, use `cisa csaf-recent [N]` for recent items and `cisa csaf <icsa-id>` for a specific advisory."
+    },
+    {
+      "id": "R393",
+      "file": "source-fetch-blocks.md",
+      "quote": "KEV = `cisa-kev` (own subcommand, no reader)",
+      "rule": "For CISA KEV data, use the `cisa-kev` subcommand, not a reader."
+    },
+    {
+      "id": "R394",
+      "file": "source-fetch-blocks.md",
+      "quote": "news, alerts, AA-series, directives: `WebFetch` with the outbound-links template",
+      "rule": "For CISA news, alerts, AA-series, and directives, use WebFetch with the outbound-links template."
+    },
+    {
+      "id": "R395",
+      "file": "source-fetch-blocks.md",
+      "quote": "OSV.dev: `osv query <ecosystem> <pkg>` / `osv vuln <GHSA-or-CVE>`",
+      "rule": "For GitHub Advisory DB data, use OSV.dev via `osv query <ecosystem> <pkg>` or `osv vuln <GHSA-or-CVE>`."
+    },
+    {
+      "id": "R396",
+      "file": "source-fetch-blocks.md",
+      "quote": "cite `github.com/advisories/<GHSA>`",
+      "rule": "Cite GitHub advisories as github.com/advisories/<GHSA>."
+    },
+    {
+      "id": "R397",
+      "file": "source-fetch-blocks.md",
+      "quote": "distro trackers: `ubuntu.com/security/CVE-…`, `security-tracker.debian.org/tracker/CVE-…` — count as `role: primary`",
+      "rule": "For kernel.org CVEs, use the distro trackers (ubuntu.com/security/CVE-… or security-tracker.debian.org/tracker/CVE-…) and count them as role: primary."
+    },
+    {
+      "id": "R398",
+      "file": "source-fetch-blocks.md",
+      "quote": "`feed https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml`",
+      "rule": "For ncsc-uk, read the feed at https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml, not the HTML listing."
+    },
+    {
+      "id": "R399",
+      "file": "source-fetch-blocks.md",
+      "quote": "JSON API `https://api.ransomware.live/v2/countryvictims/<CC>` — discovery only",
+      "rule": "Use the ransomware.live JSON API only for discovery."
+    },
+    {
+      "id": "R400",
+      "file": "source-fetch-blocks.md",
+      "quote": "leak-site claims stay single-source",
+      "rule": "Keep ransomware.live leak-site claims single-sourced."
+    },
+    {
+      "id": "R401",
+      "file": "source-fetch-blocks.md",
+      "quote": "`extract <url>` reads both pages in full via trafilatura-direct",
+      "rule": "Read NCSC-CH/BACS pages with extract <url>, which uses trafilatura-direct."
+    },
+    {
+      "id": "R402",
+      "file": "source-fetch-blocks.md",
+      "quote": "if you find them on `jina` again, that is the bug",
+      "rule": "If NCSC-CH/BACS pages are being fetched through jina, treat that as a bug to fix."
+    },
+    {
+      "id": "R403",
+      "file": "source-fetch-blocks.md",
+      "quote": "cite `security-hub.ncsc.admin.ch/#/posts/<id>`",
+      "rule": "Cite NCSC-CSH posts as security-hub.ncsc.admin.ch/#/posts/<id>."
+    },
+    {
+      "id": "R404",
+      "file": "source-fetch-blocks.md",
+      "quote": "select on CONTENT TYPE, never as a failure rung",
+      "rule": "Select PDF extraction (fetch_source.py pdf) based on content type, never as a fallback rung after a failure."
+    },
+    {
+      "id": "R405",
+      "file": "source-fetch-blocks.md",
+      "quote": "mirrors (media.defense.gov, ic3.gov) count as the same document",
+      "rule": "Treat mirrored PDF advisories (media.defense.gov, ic3.gov) as the same document."
+    },
+    {
+      "id": "R406",
+      "file": "source-fetch-blocks.md",
+      "quote": "RSS `https://labs.infoguard.ch/rss.xml`",
+      "rule": "For infoguard-labs, read the RSS feed at https://labs.infoguard.ch/rss.xml."
+    },
+    {
+      "id": "R407",
+      "file": "source-fetch-blocks.md",
+      "quote": "`feed https://www.heise.de/security/feed.xml N` → `extract <article>`",
+      "rule": "For heise-sec, list items with feed https://www.heise.de/security/feed.xml N, then read each article with extract <article>."
+    },
+    {
+      "id": "R408",
+      "file": "source-fetch-blocks.md",
+      "quote": "free articles only",
+      "rule": "For heise-sec, read only free (non-paywalled) articles."
+    },
+    {
+      "id": "R409",
+      "file": "source-fetch-blocks.md",
+      "quote": "stay `blocked`",
+      "rule": "Keep coe.int and downloads.seppmail.com marked blocked, since the reader cannot reach them."
+    },
+    {
+      "id": "R410",
+      "file": "source-fetch-blocks.md",
+      "quote": "add an id ONLY after direct AND jina AND bridge all fail",
+      "rule": "Add a host to TRANSPORT_BLOCKED_UNREACHABLE only after direct, jina, and bridge fetches have all failed."
+    },
+    {
+      "id": "R411",
+      "file": "source-fetch-blocks.md",
+      "quote": "never conclude \"pool exhausted\" from a sub-agent's stderr",
+      "rule": "Never conclude that the jina key pool is exhausted from a sub-agent's stderr."
+    },
+    {
+      "id": "R412",
+      "file": "source-fetch-blocks.md",
+      "quote": "check `jina-usage` (whole-pool report)",
+      "rule": "Check jina-usage (the whole-pool report) before deciding the jina pool is exhausted."
+    },
+    {
+      "id": "R413",
+      "file": "source-fetch-blocks.md",
+      "quote": "keys never in the repo",
+      "rule": "Never store jina API keys in the repository."
+    },
+    {
+      "id": "R414",
+      "file": "source-fetch-blocks.md",
+      "quote": "Quality audit runs `jina-usage` every fire.",
+      "rule": "Run jina-usage on every quality audit fire."
+    },
+    {
+      "id": "R415",
+      "file": "source-fetch-blocks.md",
+      "quote": "Never demote",
+      "rule": "When the jina pool is dead, never demote the affected sources."
+    },
+    {
+      "id": "R416",
+      "file": "source-fetch-blocks.md",
+      "quote": "probe direct alternatives and record them",
+      "rule": "When the jina pool is dead, probe direct alternatives for affected sources and record the results."
+    },
+    {
+      "id": "R417",
+      "file": "source-fetch-blocks.md",
+      "quote": "NEVER \"the document says nothing\"",
+      "rule": "Treat a PDF with no extractable text objects as not extractable, never as a document that says nothing."
+    },
+    {
+      "id": "R418",
+      "file": "source-fetch-blocks.md",
+      "quote": "A CMap-approximated decode is labelled an approximation",
+      "rule": "Label any CMap-approximated PDF decode as an approximation."
+    },
+    {
+      "id": "R419",
+      "file": "source-fetch-blocks.md",
+      "quote": "selection between decodes is by volume of recovered prose, not a ratio",
+      "rule": "When choosing between PDF decodes, select by the volume of recovered prose, not by a ratio."
+    },
+    {
+      "id": "R420",
+      "file": "source-fetch-blocks.md",
+      "quote": "test extractor changes against a genuine advisory, not only the synthetic suite",
+      "rule": "Test PDF extractor changes against a genuine advisory, not only the synthetic test suite."
+    },
+    {
+      "id": "R421",
+      "file": "source-fetch-blocks.md",
+      "quote": "Decode per font, never file-wide",
+      "rule": "Decode each PDF string with its own font's ToUnicode map, never with a file-wide map."
+    },
+    {
+      "id": "R422",
+      "file": "source-fetch-blocks.md",
+      "quote": "suspect a regression here first",
+      "rule": "If a PDF reads as letter-shifted gibberish or has no digits, suspect a regression in per-font decoding first."
+    },
+    {
+      "id": "R423",
+      "file": "source-fetch-blocks.md",
+      "quote": "A `coverage_gaps` recipe-gap note is a repair order, not a status",
+      "rule": "Treat a coverage_gaps recipe-gap note as a repair order to act on, not as a status."
+    },
+    {
+      "id": "R424",
+      "file": "source-fetch-blocks.md",
+      "quote": "publish first coverage with a sourcing note",
+      "rule": "When a fixed feed's backlog appears, publish the first coverage with a sourcing note."
+    },
+    {
+      "id": "R425",
+      "file": "source-fetch-blocks.md",
+      "quote": "A probe must assert the shape the recipe promises, never a proxy",
+      "rule": "A health probe must assert the output shape the recipe promises, never a proxy such as byte count, non-empty output, or HTTP 200."
+    },
+    {
+      "id": "R426",
+      "file": "source-fetch-blocks.md",
+      "quote": "a structured query API (SEC EDGAR, OSV) with a small or empty result set is working, not a shell",
+      "rule": "Do not classify a structured query API (such as SEC EDGAR or OSV) with a small or empty result set as a shell."
+    },
+    {
+      "id": "R427",
+      "file": "source-fetch-blocks.md",
+      "quote": "general news feeds (`content_scope: general-news`) need only one security term",
+      "rule": "For general news feeds (content_scope: general-news), require only one security term to judge relevance."
+    },
+    {
+      "id": "R428",
+      "file": "source-fetch-blocks.md",
+      "quote": "trafilatura's `date:` header is the fetch date on listing pages, never item freshness",
+      "rule": "Never use the trafilatura date: header on listing pages as item freshness."
+    },
+    {
+      "id": "R429",
+      "file": "source-fetch-blocks.md",
+      "quote": "judge them on raw HTML + extract",
+      "rule": "Judge listing pages on their raw HTML plus extract output, since extract alone yields only page chrome."
+    },
+    {
+      "id": "R430",
+      "file": "source-fetch-blocks.md",
+      "quote": "A national-CERT domain change also needs `NATIONAL_CERT_HOSTS` in `check_run.py`",
+      "rule": "When a national CERT's domain changes, update NATIONAL_CERT_HOSTS in check_run.py."
+    },
+    {
+      "id": "R431",
+      "file": "source-fetch-blocks.md",
+      "quote": "A \"reachable but stale\" verdict needs the RAW body read in document order",
+      "rule": "Before concluding a source is reachable but stale, read the raw body in document order, not a truncated read."
+    },
+    {
+      "id": "R432",
+      "file": "source-fetch-blocks.md",
+      "quote": "so it probes with `url --direct`",
+      "rule": "For tiny pages like swarmcha-se, probe with url --direct so the reader fallback does not hide the result."
+    },
+    {
+      "id": "R433",
+      "file": "source-fetch-blocks.md",
+      "quote": "Do not spend reader calls on it",
+      "rule": "Do not spend reader calls on ssd-disclosure.com."
+    },
+    {
+      "id": "R434",
+      "file": "source-fetch-blocks.md",
+      "quote": "re-test after the cache lapses before trusting a single read",
+      "rule": "Re-test a WebFetch-read host after its 15-minute cache lapses before trusting a single read."
+    },
+    {
+      "id": "R435",
+      "file": "source-fetch-blocks.md",
+      "quote": "ask the prompt for the exact sentence",
+      "rule": "When quoting from a WebFetch-only page, ask the prompt for the exact sentence."
+    },
+    {
+      "id": "R436",
+      "file": "source-fetch-blocks.md",
+      "quote": "quote only what comes back verbatim",
+      "rule": "Quote only text that comes back verbatim from WebFetch."
+    },
+    {
+      "id": "R437",
+      "file": "source-fetch-blocks.md",
+      "quote": "discovery is `WebSearch site:ssd-disclosure.com` (leads only)",
+      "rule": "Discover ssd-disclosure.com items with WebSearch site:ssd-disclosure.com, treating results as leads only."
+    },
+    {
+      "id": "R438",
+      "file": "source-fetch-blocks.md",
+      "quote": "`cisa-kev` and `cisa csaf-recent` stay on the bridge",
+      "rule": "Keep cisa-kev and cisa csaf-recent on the bridge rather than WebFetch."
+    },
+    {
+      "id": "R439",
+      "file": "source-fetch-blocks.md",
+      "quote": "the audit spot-checks them with WebFetch",
+      "rule": "The audit spot-checks WebFetch-only sources with WebFetch."
+    },
+    {
+      "id": "R440",
+      "file": "source-fetch-blocks.md",
+      "quote": "Read the JSON before writing anything about a hotfix's release state",
+      "rule": "Before writing about a Palo Alto hotfix's release state, read the JSON timeline at security.paloaltonetworks.com/json/CVE-…."
+    },
+    {
+      "id": "R441",
+      "file": "source-fetch-blocks.md",
+      "quote": "Print the full `value`, never a truncated slice.",
+      "rule": "Print the full timeline value when reading Palo Alto timeline JSON, never a truncated slice."
+    },
+    {
+      "id": "R442",
+      "file": "source-fetch-blocks.md",
+      "quote": "the reader (`jina <URL>`) renders it",
+      "rule": "Read HPE support.hpe.com docDisplay bulletins with jina, since in-container transports only get a JavaScript shell."
+    },
+    {
+      "id": "R443",
+      "file": "source-fetch-blocks.md",
+      "quote": "A claim absent from the CSAF/txt is not absent from the bulletin.",
+      "rule": "Do not conclude a claim is absent from an HPE bulletin just because it is missing from the CSAF or txt advisory."
+    },
+    {
+      "id": "R444",
+      "file": "state-file-serialization.md",
+      "quote": "never trust a remembered constant — derive it from the live file every time",
+      "rule": "Never rely on a remembered serialization constant for state files; derive the JSON format from the live file before every dump."
+    },
+    {
+      "id": "R445",
+      "file": "state-file-serialization.md",
+      "quote": "`head -3 <file> | cat -A`",
+      "rule": "Before dumping a state file, run `head -3 <file> | cat -A` on the live file to read its indentation."
+    },
+    {
+      "id": "R446",
+      "file": "state-file-serialization.md",
+      "quote": "check the last byte for a trailing newline",
+      "rule": "Before dumping a state file, check whether the live file's last byte is a trailing newline."
+    },
+    {
+      "id": "R447",
+      "file": "state-file-serialization.md",
+      "quote": "check whether non-ASCII is escaped",
+      "rule": "Before dumping a state file, check whether the live file escapes non-ASCII characters."
+    },
+    {
+      "id": "R448",
+      "file": "state-file-serialization.md",
+      "quote": "dump matching what you saw",
+      "rule": "After loading and mutating a state file, dump it using the same formatting observed in the live file."
+    },
+    {
+      "id": "R449",
+      "file": "state-file-serialization.md",
+      "quote": "`git diff --stat <file>`",
+      "rule": "After editing a state file, run `git diff --stat <file>` to verify the change size."
+    },
+    {
+      "id": "R450",
+      "file": "state-file-serialization.md",
+      "quote": "Whole-file churn ⇒ redump with the right flags.",
+      "rule": "If a state file's diff shows whole-file churn, redump it with the correct serialization flags."
+    },
+    {
+      "id": "R451",
+      "file": "state-file-serialization.md",
+      "quote": "`notes` is append-only",
+      "rule": "Only append to the `notes` field; never edit or remove existing notes entries."
+    },
+    {
+      "id": "R452",
+      "file": "state-file-serialization.md",
+      "quote": "Edit it textually instead",
+      "rule": "Edit sources/sources.json textually (regex on record blocks) instead of loading and dumping it."
+    },
+    {
+      "id": "R453",
+      "file": "state-file-serialization.md",
+      "quote": "insert new candidates before",
+      "rule": "When adding new candidates to sources/sources.json, insert them before the closing `]` of the candidates array, before the \"statuses\" section."
+    },
+    {
+      "id": "R454",
+      "file": "state-file-serialization.md",
+      "quote": "`state/cves_seen.json` still round-trips exactly at `indent=1, ensure_ascii=True` plus a trailing newline.",
+      "rule": "When dumping state/cves_seen.json, use indent=1, ensure_ascii=True, and a trailing newline."
+    },
+    {
+      "id": "R455",
+      "file": "state-file-serialization.md",
+      "quote": "an entry slug must match `^[a-z0-9][a-z0-9-]{0,59}$`",
+      "rule": "Ensure every entry slug matches the regex ^[a-z0-9][a-z0-9-]{0,59}$ (at most 60 characters)."
+    },
+    {
+      "id": "R456",
+      "file": "state-file-serialization.md",
+      "quote": "name the file before writing it",
+      "rule": "Check the entry slug's length against the 60-character cap before writing the entry file."
+    },
+    {
+      "id": "R457",
+      "file": "state-file-serialization.md",
+      "quote": "dump with a Dumper whose `increase_indent` forces `indentless=False` and `default_flow_style=None`",
+      "rule": "When writing the run record YAML, use a Dumper whose increase_indent forces indentless=False and default_flow_style=None, so block sequences are indented."
+    },
+    {
+      "id": "R458",
+      "file": "state-file-serialization.md",
+      "quote": "Bump `last_seen` and append new records by text edit inside the record block",
+      "rule": "Update state/cves_seen.json by textual edits within record blocks (bump last_seen, append new records) instead of loading and dumping it."
+    },
+    {
+      "id": "R459",
+      "file": "state-file-serialization.md",
+      "quote": "regex the three counters inside each `{ ... }` block",
+      "rule": "When updating sources.json bookkeeping, use regex to update the three counters inside each record's block."
+    },
+    {
+      "id": "R460",
+      "file": "state-file-serialization.md",
+      "quote": "append candidate blocks before the closing `]`",
+      "rule": "When adding candidate blocks to sources.json, append them before the array's closing `]`."
+    },
+    {
+      "id": "R461",
+      "file": "stix-export-layer.md",
+      "quote": "derived layer only (markdown store stays source of truth)",
+      "rule": "Treat the markdown store as the source of truth and keep the STIX export as a derived layer only."
+    },
+    {
+      "id": "R462",
+      "file": "stix-export-layer.md",
+      "quote": "bundle URLs only — NO TAXII surface",
+      "rule": "Do not build a TAXII surface for the STIX export; publish bundle URLs only."
+    },
+    {
+      "id": "R463",
+      "file": "stix-export-layer.md",
+      "quote": "actor → `intrusion-set`",
+      "rule": "Export actor objects as STIX intrusion-set objects."
+    },
+    {
+      "id": "R464",
+      "file": "stix-export-layer.md",
+      "quote": "pure STIX (property extension, no `x_opencti_*`)",
+      "rule": "Do not use x_opencti_* properties in the STIX export; use pure STIX with property extensions only."
+    },
+    {
+      "id": "R465",
+      "file": "stix-export-layer.md",
+      "quote": "don't \"fix\" those vectors without operator sign-off",
+      "rule": "Do not change the pinned literal uuid test vectors in test_build.py without operator sign-off."
+    },
+    {
+      "id": "R466",
+      "file": "stix-export-layer.md",
+      "quote": "(never the `SITE_URL` env override)",
+      "rule": "Derive STIX id namespaces from the canonical branding site.url, never from the SITE_URL environment override."
+    },
+    {
+      "id": "R467",
+      "file": "stix-export-layer.md",
+      "quote": "Never put mutable text (titles, summaries) in a uuid5 seed.",
+      "rule": "Never include mutable text such as titles or summaries in a uuid5 seed."
+    },
+    {
+      "id": "R468",
+      "file": "stix-export-layer.md",
+      "quote": "Relation collapse table `SPEC_REL_MAP` in stix_model.py: only uses / attributed-to (incl. incident, malware→authored-by) / variant-of(malware) keep their names; everything else → `related-to`",
+      "rule": "In STIX relationships, keep the relationship names uses, attributed-to, and variant-of (malware) and map every other relationship type to related-to."
+    },
+    {
+      "id": "R469",
+      "file": "stix-export-layer.md",
+      "quote": "with `original_type` in the extension",
+      "rule": "When collapsing a relationship type to related-to, record the original type in the original_type extension property."
+    },
+    {
+      "id": "R470",
+      "file": "stix-export-layer.md",
+      "quote": "don't re-emit custom strings",
+      "rule": "Do not emit custom relationship type strings in STIX bundles."
+    },
+    {
+      "id": "R471",
+      "file": "stix-export-layer.md",
+      "quote": "`report.object_refs` / `grouping.object_refs` are required non-empty",
+      "rule": "Ensure report and grouping objects have non-empty object_refs."
+    },
+    {
+      "id": "R472",
+      "file": "stix-export-layer.md",
+      "quote": "bare objects fall back to `[publisher identity id]`",
+      "rule": "When a report or grouping has no other objects to reference, set its object_refs to the publisher identity id."
+    },
+    {
+      "id": "R473",
+      "file": "stix-export-layer.md",
+      "quote": "STIX timestamps need ms precision — `stix_ts()` appends `.000`",
+      "rule": "Format STIX timestamps with millisecond precision by using stix_ts()."
+    },
+    {
+      "id": "R474",
+      "file": "stix-export-layer.md",
+      "quote": "All exported attack-patterns use MITRE's canonical ids",
+      "rule": "Use MITRE's canonical ids for all exported attack-pattern objects."
+    },
+    {
+      "id": "R475",
+      "file": "stix-export-layer.md",
+      "quote": "the uuid5 fallback exists\nonly for a pin written without the field",
+      "rule": "Use the uuid5 fallback for an attack-pattern id only when the ATT&CK pin lacks the stix_id field."
+    },
+    {
+      "id": "R476",
+      "file": "stix-export-layer.md",
+      "quote": "Report `modified` follows the latest changelog record of ANY type",
+      "rule": "Set a report's modified timestamp from the latest changelog record of any type."
+    },
+    {
+      "id": "R477",
+      "file": "stix-export-layer.md",
+      "quote": "stix2-validator is dev-only, never CI",
+      "rule": "Do not add stix2-validator to CI; use it only as a dev tool and keep the build stdlib-only."
+    },
+    {
+      "id": "R478",
+      "file": "stix-export-layer.md",
+      "quote": "validation there is the manual lint pattern",
+      "rule": "When pypi is blocked in the sandbox, validate STIX output with the manual lint pattern instead of stix2-validator."
+    },
+    {
+      "id": "R479",
+      "file": "triage-ready-entries.md",
+      "quote": "never bulk-rewritten",
+      "rule": "Never bulk-rewrite migrated v2 entries (entries where migrated_from is not null)."
+    },
+    {
+      "id": "R480",
+      "file": "triage-ready-entries.md",
+      "quote": "an audit may lift one via an `improvement` record",
+      "rule": "When auditing a migrated v2 entry, raise its fidelity only through an improvement record."
+    },
+    {
+      "id": "R481",
+      "file": "triage-ready-entries.md",
+      "quote": "the provenance flag never changes",
+      "rule": "Never change the provenance flag (migrated_from) of a migrated entry."
+    },
+    {
+      "id": "R482",
+      "file": "triage-ready-entries.md",
+      "quote": "attack flow as observable behavior in vendor-neutral telemetry classes",
+      "rule": "Describe the attack flow in triage-ready entries as observable behavior in vendor-neutral telemetry classes."
+    },
+    {
+      "id": "R483",
+      "file": "triage-ready-entries.md",
+      "quote": "ATT&CK complete in `techniques[]`",
+      "rule": "List the complete set of ATT&CK techniques in the techniques[] field of triage-ready entries."
+    },
+    {
+      "id": "R484",
+      "file": "triage-ready-entries.md",
+      "quote": "prose readable without T-numbers",
+      "rule": "Write triage-ready prose so it is readable without ATT&CK T-numbers."
+    },
+    {
+      "id": "R485",
+      "file": "triage-ready-entries.md",
+      "quote": "`affected_products[]` as official \"Vendor Product\" strings",
+      "rule": "Write affected_products[] values as official \"Vendor Product\" strings."
+    },
+    {
+      "id": "R486",
+      "file": "triage-ready-entries.md",
+      "quote": "`**Triage:**` benign-lookalike discriminator omitted-never-invented",
+      "rule": "Omit the Triage benign-lookalike discriminator when it is unknown; never invent it."
+    },
+    {
+      "id": "R487",
+      "file": "ui-writing-style.md",
+      "quote": "**Never an em dash (`—`) anywhere a reader sees it.**",
+      "rule": "Never use an em dash (—) in any text the site renders for a reader, including chrome strings, entry prose, headlines, summaries, and docs."
+    },
+    {
+      "id": "R488",
+      "file": "ui-writing-style.md",
+      "quote": "never type one into `site/build.py`, `config/branding.yaml`,",
+      "rule": "Never type an em dash into site/build.py, config/branding.yaml, the CSS, or the JS, because the build will fail."
+    },
+    {
+      "id": "R489",
+      "file": "ui-writing-style.md",
+      "quote": "use `·` (the `NO_VALUE` constant), not a dash of any kind",
+      "rule": "Use `·` (the NO_VALUE constant) for empty-value table cells, never any kind of dash."
+    },
+    {
+      "id": "R490",
+      "file": "verification-lessons.md",
+      "quote": "Aim late iterations explicitly at per-clause citation labels",
+      "rule": "When aiming late verifier iterations, explicitly target per-clause citation labels."
+    },
+    {
+      "id": "R491",
+      "file": "verification-lessons.md",
+      "quote": "re-derive every count/date in the notes from the structured block",
+      "rule": "Re-derive every count and date in the notes from the structured block."
+    },
+    {
+      "id": "R492",
+      "file": "verification-lessons.md",
+      "quote": "Leave ≥1 iteration completely unframed.",
+      "rule": "Leave at least one verifier iteration completely unframed."
+    },
+    {
+      "id": "R493",
+      "file": "verification-lessons.md",
+      "quote": "After a NEEDS_FIXES, give the next iteration the deltas block",
+      "rule": "After a NEEDS_FIXES result, give the next iteration the deltas block."
+    },
+    {
+      "id": "R494",
+      "file": "verification-lessons.md",
+      "quote": "a confirmation pass after a CLEAN gets nothing but the fact of the CLEAN",
+      "rule": "Give a confirmation pass after a CLEAN result nothing but the fact of the CLEAN."
+    },
+    {
+      "id": "R495",
+      "file": "verification-lessons.md",
+      "quote": "Aim ≥1 iteration at the structured blocks, not the prose.",
+      "rule": "Aim at least one verifier iteration at the structured blocks rather than the prose."
+    },
+    {
+      "id": "R496",
+      "file": "verification-lessons.md",
+      "quote": "Budget ≥2 iterations for a CLEAN publish.",
+      "rule": "Budget at least two verifier iterations before publishing after a CLEAN result."
+    },
+    {
+      "id": "R497",
+      "file": "verification-lessons.md",
+      "quote": "Re-test every finding that changes a claim, quote or attribution against a fresh fetch (`grep -F` on the cached primary under `work/<run-id>/src/`) BEFORE applying",
+      "rule": "Before applying any verifier finding that changes a claim, quote or attribution, re-test it against a fresh fetch (grep -F on the cached primary under work/<run-id>/src/)."
+    },
+    {
+      "id": "R498",
+      "file": "verification-lessons.md",
+      "quote": "Invert the instinct: scrutinise the additive ones.",
+      "rule": "Scrutinise verifier findings that merely add a caveat rather than accepting them uncritically."
+    },
+    {
+      "id": "R499",
+      "file": "verification-lessons.md",
+      "quote": "Record rebuttals in the run record with evidence",
+      "rule": "Record rebuttals of verifier findings in the run record, with evidence."
+    },
+    {
+      "id": "R500",
+      "file": "verification-lessons.md",
+      "quote": "count them in the residual",
+      "rule": "Count rebutted verifier findings in the residual."
+    },
+    {
+      "id": "R501",
+      "file": "verification-lessons.md",
+      "quote": "A verifier's \"no action recommended\" is advice, not a ruling.",
+      "rule": "Treat a verifier's \"no action recommended\" as advice, not a ruling."
+    },
+    {
+      "id": "R502",
+      "file": "verification-lessons.md",
+      "quote": "do not train reflexive scepticism",
+      "rule": "Do not develop reflexive scepticism toward verifier findings."
+    },
+    {
+      "id": "R503",
+      "file": "verification-lessons.md",
+      "quote": "carry the pattern, withhold example hostnames",
+      "rule": "When a vendor's detection rule describes a generation pattern, carry the pattern in the entry and withhold example hostnames."
+    },
+    {
+      "id": "R504",
+      "file": "verification-lessons.md",
+      "quote": "`grep` every control name, privilege level and version string on the page before writing the sentence.",
+      "rule": "Before writing a sentence, grep every control name, privilege level and version string on the source page."
+    },
+    {
+      "id": "R505",
+      "file": "verification-lessons.md",
+      "quote": "If a number is in your draft, it must be grep-able on the page.",
+      "rule": "Every number in a draft must be found by grep on the source page."
+    },
+    {
+      "id": "R506",
+      "file": "verification-lessons.md",
+      "quote": "Every value in a structured field needs a source like a sentence",
+      "rule": "Give every value in a structured field a supporting source, as with a sentence."
+    },
+    {
+      "id": "R507",
+      "file": "verification-lessons.md",
+      "quote": "Before commit, name the source sentence for every status flag.",
+      "rule": "Before committing, name the source sentence that supports every status flag."
+    },
+    {
+      "id": "R508",
+      "file": "verification-lessons.md",
+      "quote": "\"everyone knows\" is PD-1 recall, drop it",
+      "rule": "Do not keep a status flag that rests only on recall; drop it unless a fetched source supports it."
+    },
+    {
+      "id": "R509",
+      "file": "verification-lessons.md",
+      "quote": "`techniques[]` ids name behaviors the body describes AND a source supports",
+      "rule": "Only include technique ids whose behavior the body describes and a source supports."
+    },
+    {
+      "id": "R510",
+      "file": "verification-lessons.md",
+      "quote": "Verify quotes against the live page, never against the findings YAML quoting it.",
+      "rule": "Verify quotes against the live page, never against the findings YAML that quotes it."
+    },
+    {
+      "id": "R511",
+      "file": "verification-lessons.md",
+      "quote": "Strip HTML tags to the **empty string**, never a space",
+      "rule": "When stripping HTML tags from source text before quote checking, replace them with the empty string, never a space."
+    },
+    {
+      "id": "R512",
+      "file": "verification-lessons.md",
+      "quote": "NBSP (`U+00A0`) in the source is part of the quote",
+      "rule": "Treat a non-breaking space (U+00A0) in the source as part of the quote."
+    },
+    {
+      "id": "R513",
+      "file": "verification-lessons.md",
+      "quote": "whitespace-normalising before checking produces a \"quote\" that exists nowhere",
+      "rule": "Do not whitespace-normalise source text before checking a quote against it."
+    },
+    {
+      "id": "R514",
+      "file": "verification-lessons.md",
+      "quote": "quote short spans that genuinely hit, or paraphrase",
+      "rule": "For PDF extractions that break mid-word, quote only short spans that genuinely match the source, or paraphrase."
+    },
+    {
+      "id": "R515",
+      "file": "verification-lessons.md",
+      "quote": "fetch every cited primary to `work/<run-id>/src-*`",
+      "rule": "Fetch every cited primary source to work/<run-id>/src-* for the full quote sweep."
+    },
+    {
+      "id": "R516",
+      "file": "verification-lessons.md",
+      "quote": "substring-test every `evidence[]` quote after Unicode punctuation folding",
+      "rule": "Substring-test every evidence[] quote against its primary after Unicode punctuation folding."
+    },
+    {
+      "id": "R517",
+      "file": "verification-lessons.md",
+      "quote": "judge it, never auto-correct",
+      "rule": "When a page edited after publication makes a quote mismatch, judge the change; never auto-correct the quote."
+    },
+    {
+      "id": "R518",
+      "file": "verification-lessons.md",
+      "quote": "lift the source record in the same motion",
+      "rule": "When lifting a sentence from an existing entry, lift its sources[] record in the same edit."
+    },
+    {
+      "id": "R519",
+      "file": "verification-lessons.md",
+      "quote": "after every fix, grep the same fact across title/headline/summary/body/evidence/cves",
+      "rule": "After every fix, grep the same fact across title, headline, summary, body, evidence and cves."
+    },
+    {
+      "id": "R520",
+      "file": "verification-lessons.md",
+      "quote": "Re-derive every numeral and absolute (\"every\", \"all\", \"first\") from the body's own enumeration immediately before commit.",
+      "rule": "Immediately before commit, re-derive every numeral and absolute (every, all, first) from the body's own enumeration."
+    },
+    {
+      "id": "R521",
+      "file": "verification-lessons.md",
+      "quote": "One citation per clause",
+      "rule": "Give each clause one citation."
+    },
+    {
+      "id": "R522",
+      "file": "verification-lessons.md",
+      "quote": "cite the relay for reach + timing only",
+      "rule": "When citing a national-CERT relay, use it only for reach and timing, not for the vendor's content."
+    },
+    {
+      "id": "R523",
+      "file": "verification-lessons.md",
+      "quote": "read the page's own date field",
+      "rule": "Read a page's own date field to date it; do not infer the date from a URL slug."
+    },
+    {
+      "id": "R524",
+      "file": "verification-lessons.md",
+      "quote": "re-fetch before re-quoting",
+      "rule": "Re-fetch a vendor blog URL before re-quoting it, since such URLs change in place."
+    },
+    {
+      "id": "R525",
+      "file": "verification-lessons.md",
+      "quote": "check which artifact carries the clause",
+      "rule": "When a source has both a blog and a PDF, check which artifact carries the clause before citing it."
+    },
+    {
+      "id": "R526",
+      "file": "verification-lessons.md",
+      "quote": "an attribution no fetched source connects is not fixable by adding a plausible link",
+      "rule": "Drop an attribution that no fetched source connects, rather than adding a plausible link."
+    },
+    {
+      "id": "R527",
+      "file": "verification-lessons.md",
+      "quote": "fetch and cite that fuller original as primary",
+      "rule": "When a recap links a fuller original write-up, fetch it and cite it as the primary source."
+    },
+    {
+      "id": "R528",
+      "file": "verification-lessons.md",
+      "quote": "Re-verify every remediation against the primary in the *same* pass that applies it",
+      "rule": "Re-verify every remediation against the primary source in the same pass that applies it."
+    },
+    {
+      "id": "R529",
+      "file": "verification-lessons.md",
+      "quote": "re-read the exact sentence against the source text before moving on",
+      "rule": "After applying a fix, re-read the exact sentence against the source text before moving on."
+    },
+    {
+      "id": "R530",
+      "file": "verification-lessons.md",
+      "quote": "the next iteration existing to catch it is not a substitute for checking your own fix",
+      "rule": "Do not rely on a later verifier iteration to catch a defect in your own fix; check the fix yourself."
+    },
+    {
+      "id": "R531",
+      "file": "verification-lessons.md",
+      "quote": "Before publish, manually grep every entry for `[.]`/bracket-defanged strings and judge each",
+      "rule": "Before publishing, manually grep every entry for bracket-defanged strings and judge each one."
+    },
+    {
+      "id": "R532",
+      "file": "verification-lessons.md",
+      "quote": "attacker-registered C2/staging domains are not, however defanged",
+      "rule": "Do not name attacker-registered C2 or staging domains, even defanged."
+    },
+    {
+      "id": "R533",
+      "file": "verification-lessons.md",
+      "quote": "legitimate infrastructure the malware calls (a public relay directory, an impersonated real service) is fine to name",
+      "rule": "Naming legitimate infrastructure the malware calls, such as a public relay directory or an impersonated real service, is allowed."
+    },
+    {
+      "id": "R534",
+      "file": "verification-lessons.md",
+      "quote": "triage a `page-revised` quote by reading what the page says NOW, not by patching the quote text",
+      "rule": "Triage a page-revised quote by reading what the page now says, not by patching the quote text."
+    },
+    {
+      "id": "R535",
+      "file": "verification-lessons.md",
+      "quote": "re-read the title, summary, `immediate_action`, `actions[]` and the first paragraphs against the new state before moving on",
+      "rule": "When writing any record, re-read the title, summary, immediate_action, actions[] and first paragraphs against the new state before moving on."
+    },
+    {
+      "id": "R536",
+      "file": "verification-lessons.md",
+      "quote": "grep the whole file (title, headline, summary, sourcing_note, actions, cves[] status/affected/fixed, main analysis, every section) for present-tense status words",
+      "rule": "Before the first verifier spawn on an entry whose record changes its state, grep the whole file for present-tense status words."
+    },
+    {
+      "id": "R537",
+      "file": "verification-lessons.md",
+      "quote": "Date each hit to first publication or bring it to the new state",
+      "rule": "Date each present-tense status hit to first publication, or update it to the new state."
+    },
+    {
+      "id": "R538",
+      "file": "verification-lessons.md",
+      "quote": "When an evidence quote is split or translated, the same passage quoted in the body needs the same treatment in the same edit",
+      "rule": "When an evidence quote is split or translated, apply the same change to the matching body quote in the same edit."
+    },
+    {
+      "id": "R539",
+      "file": "verification-lessons.md",
+      "quote": "wrap record summaries with `break_on_hyphens=False`",
+      "rule": "Wrap record summaries with break_on_hyphens=False so hyphenated words do not split across lines."
+    },
+    {
+      "id": "R540",
+      "file": "verification-lessons.md",
+      "quote": "say in the record that no verifier pass read them",
+      "rule": "When fixing findings after the iteration cap, state in the record that no verifier pass read them."
+    },
+    {
+      "id": "R541",
+      "file": "verification-lessons.md",
+      "quote": "Never lower the residual count for them.",
+      "rule": "Never lower the residual count for findings fixed after the iteration cap."
+    },
+    {
+      "id": "R542",
+      "file": "verification-lessons.md",
+      "quote": "Frame it as \"the advisory as read on <date> says X; press says Y\", never as the entry's error",
+      "rule": "When a relay's wording differs from a vendor page, frame it as what the advisory says on the read date versus what the press says, not as an entry error."
+    },
+    {
+      "id": "R543",
+      "file": "verification-lessons.md",
+      "quote": "attribute each clause to the source that actually carries it",
+      "rule": "Attribute each clause to the source that actually carries it."
+    },
+    {
+      "id": "R544",
+      "file": "verification-lessons.md",
+      "quote": "A page's own revision history is not evidence that it has not changed",
+      "rule": "Do not treat a page's revision history as evidence that the page has not changed."
+    },
+    {
+      "id": "R545",
+      "file": "verification-lessons.md",
+      "quote": "when you edit an existing entry, re-check every `evidence[]` quote that stays, not just the new ones",
+      "rule": "When editing an existing entry, re-check every evidence[] quote that remains, not only the new ones."
+    },
+    {
+      "id": "R546",
+      "file": "verification-lessons.md",
+      "quote": "read the page's own `datePublished`/`dateModified` (or its case timeline), not the transport header",
+      "rule": "Before a developing-window or lookback argument rests on a page date, read the page's own datePublished or dateModified, not the reader transport header."
+    },
+    {
+      "id": "R547",
+      "file": "verification-lessons.md",
+      "quote": "re-fetch the live page, replace every quote the new text no longer carries",
+      "rule": "When a national-CERT alert is revised, re-fetch the live page and replace every quote the new text no longer carries."
+    },
+    {
+      "id": "R548",
+      "file": "verification-lessons.md",
+      "quote": "rewrite the title, Detection and takeaway where the guidance moved",
+      "rule": "When a national-CERT alert's guidance moves, rewrite the title, Detection and takeaway to match."
+    },
+    {
+      "id": "R549",
+      "file": "verification-lessons.md",
+      "quote": "so state the disagreement in the entry",
+      "rule": "When a relay keeps quoting an older version of a revised alert, state the disagreement in the entry."
+    },
+    {
+      "id": "R550",
+      "file": "verification-lessons.md",
+      "quote": "Fix the whole class in the neighbouring clauses in one edit, not the single flagged sentence",
+      "rule": "When fixing a verifier finding, fix the whole class in the neighbouring clauses in one edit, not only the flagged sentence."
+    },
+    {
+      "id": "R551",
+      "file": "verification-lessons.md",
+      "quote": "cut the word count elsewhere or correct the note in the same edit",
+      "rule": "When trimming an entry to fit the word limit, cut words elsewhere or correct any run note that the cut falsifies, in the same edit."
+    },
+    {
+      "id": "R552",
+      "file": "verification-lessons.md",
+      "quote": "Editing with `text.index(a):text.index(b)` slices is unsafe.",
+      "rule": "Do not edit file text by slicing between text.index(a) and text.index(b)."
+    },
+    {
+      "id": "R553",
+      "file": "verification-lessons.md",
+      "quote": "Replace short unique phrases with `assert text.count(old) == 1`",
+      "rule": "When replacing text in a file, use short unique phrases guarded by assert text.count(old) == 1."
+    },
+    {
+      "id": "R554",
+      "file": "verification-lessons.md",
+      "quote": "`git diff` or reread the file after any bulk Python edit",
+      "rule": "After any bulk Python edit, check the result with git diff or reread the file."
+    },
+    {
+      "id": "R555",
+      "file": "verification-lessons.md",
+      "quote": "re-spawn the same iteration with a note that earlier partial files are to be ignored",
+      "rule": "After a lost verifier spawn, re-spawn the same iteration and tell it to ignore earlier partial files."
+    },
+    {
+      "id": "R556",
+      "file": "verification-lessons.md",
+      "quote": "Pair verifier findings with dispositions in each findings file's own order, never in the order the verifier's summary message lists them",
+      "rule": "Pair verifier findings with dispositions in each findings file's own order, not the order of the verifier's summary message."
+    },
+    {
+      "id": "R557",
+      "file": "verification-lessons.md",
+      "quote": "Count it the same way (strip `[text](url)` to `text`) before writing",
+      "rule": "Before writing, count the entry body the way the word-cap check does: strip each [text](url) link to its text."
+    },
+    {
+      "id": "R558",
+      "file": "verification-lessons.md",
+      "quote": "`evidence[].publisher` must equal a `sources[].publisher` string",
+      "rule": "Make each evidence[].publisher value exactly match a sources[].publisher string."
+    },
+    {
+      "id": "R559",
+      "file": "verification-lessons.md",
+      "quote": "A living page (vendor statement, tracker, research post updated for days) is ONE `sources[]` record",
+      "rule": "Record a living page that is updated over several days as one sources[] record."
+    },
+    {
+      "id": "R560",
+      "file": "verification-lessons.md",
+      "quote": "dated to the date the cited text states and labelled \"updated through <date>\"",
+      "rule": "Date a living page's sources[] record to the date the cited text states, labelled updated through that date."
+    },
+    {
+      "id": "R561",
+      "file": "verification-lessons.md",
+      "quote": "Cite publication or last-updated date consistently inline",
+      "rule": "Cite the publication or last-updated date consistently inline."
+    },
+    {
+      "id": "R562",
+      "file": "verification-lessons.md",
+      "quote": "Rewrite the whole note to two or three provenance sentences.",
+      "rule": "When a verifier re-opens a sourcing note, rewrite the whole note as two or three provenance sentences."
+    },
+    {
+      "id": "R563",
+      "file": "verification-lessons.md",
+      "quote": "Entry slugs are capped at 60 characters",
+      "rule": "Keep entry slugs to 60 characters or fewer."
+    },
+    {
+      "id": "R564",
+      "file": "verification-lessons.md",
+      "quote": "name the file before the first `Write`",
+      "rule": "Name the file before the first Write of a new entry."
+    },
+    {
+      "id": "R565",
+      "file": "verification-lessons.md",
+      "quote": "When a fire updates a covered entry, re-read the pages its exploitation claims rest on",
+      "rule": "When updating a covered entry, re-read the pages its exploitation claims rest on."
+    },
+    {
+      "id": "R566",
+      "file": "verification-lessons.md",
+      "quote": "grep the live page for every quote of that source across the sibling entries",
+      "rule": "Grep the live page for every quote of a source across the sibling entries, not only the entries the fire modifies."
+    },
+    {
+      "id": "R567",
+      "file": "verification-lessons.md",
+      "quote": "A retraction is an `update`",
+      "rule": "Record a source retraction as an update to the entry."
+    },
+    {
+      "id": "R568",
+      "file": "verification-lessons.md",
+      "quote": "Run-record frontmatter lists must be indented under their key.",
+      "rule": "Indent run-record frontmatter lists under their key."
+    },
+    {
+      "id": "R569",
+      "file": "verification-lessons.md",
+      "quote": "dump with a `SafeDumper` subclass whose `increase_indent` forces `indentless=False`",
+      "rule": "Dump run-record YAML with a SafeDumper subclass whose increase_indent forces indentless=False."
+    },
+    {
+      "id": "R570",
+      "file": "verification-lessons.md",
+      "quote": "Add a general product blog as a candidate only with `content_scope: general-news`",
+      "rule": "Add a general product blog as a candidate only with content_scope set to general-news."
+    },
+    {
+      "id": "R571",
+      "file": "verification-lessons.md",
+      "quote": "Stamp a changelog record's `at` from `date -u` when you write it; never plan times ahead.",
+      "rule": "Stamp a changelog record's at field from date -u when writing it; never plan times ahead."
+    },
+    {
+      "id": "R572",
+      "file": "verification-lessons.md",
+      "quote": "Use `tools/entry_record.py add` (it stamps) or take `date -u` first",
+      "rule": "Use tools/entry_record.py add, or take date -u first, to stamp a changelog record."
+    },
+    {
+      "id": "R573",
+      "file": "verification-lessons.md",
+      "quote": "cite the listing page for the count and each per-item page for each per-item clause",
+      "rule": "Cite the listing page for a count and each per-item page for each per-item clause."
+    },
+    {
+      "id": "R574",
+      "file": "verification-lessons.md",
+      "quote": "Every added fact on an over-limit entry must be paid for in the same edit",
+      "rule": "Every fact added to an over-limit entry must be paid for by removal in the same edit."
+    },
+    {
+      "id": "R575",
+      "file": "verification-lessons.md",
+      "quote": "declare each removal in the record summary as \"Removed from the text: ...\" without the pipeline's reason",
+      "rule": "Declare each removal in the record summary as Removed from the text, without the pipeline's reason."
+    },
+    {
+      "id": "R576",
+      "file": "verification-lessons.md",
+      "quote": "Re-read vendor timelines (Palo Alto JSON, advisory tables) just before the commit",
+      "rule": "Re-read vendor timelines just before the commit."
+    },
+    {
+      "id": "R577",
+      "file": "verification-lessons.md",
+      "quote": "update every entry that carries it in one pass",
+      "rule": "When a fix list changes during a run, update every entry that carries it in one pass."
+    },
+    {
+      "id": "R578",
+      "file": "verification-lessons.md",
+      "quote": "look for it before citing the landing page",
+      "rule": "Look for a per-incident permalink before citing a status page's landing page."
+    },
+    {
+      "id": "R579",
+      "file": "verification-lessons.md",
+      "quote": "so do not switch to it",
+      "rule": "Do not switch to an anchored URL that answers 403 on every transport."
+    },
+    {
+      "id": "R580",
+      "file": "verification-lessons.md",
+      "quote": "Do the adversarial wording pass (superlatives, \"only\", \"after\", \"first\", causal order) on every clause the run added before the first spawn",
+      "rule": "Before the first verifier spawn, check every clause the run added for superlatives, only, after, first and causal order."
+    },
+    {
+      "id": "R581",
+      "file": "verification-lessons.md",
+      "quote": "Before writing such a summary, search the whole file for the old wording.",
+      "rule": "Before writing a record summary that says a statement is replaced, search the whole file for the old wording."
+    },
+    {
+      "id": "R582",
+      "file": "verification-lessons.md",
+      "quote": "the SUG API filter on `latestRevisionDate` is the way to see them",
+      "rule": "To detect Microsoft revisions, use the SUG API filter on latestRevisionDate."
+    },
+    {
+      "id": "R583",
+      "file": "verification-lessons.md",
+      "quote": "make the record non-internal with a short section instead",
+      "rule": "When an internal record would grow past its prose limit, make the record non-internal with a short section instead."
+    },
+    {
+      "id": "R584",
+      "file": "verification-lessons.md",
+      "quote": "Put a cue word within 80 characters (release, version, fixed, upgrade, build) in every field that carries one",
+      "rule": "Put a cue word (release, version, fixed, upgrade, build) within 80 characters of any version string in every field that carries one."
+    },
+    {
+      "id": "R585",
+      "file": "verification-lessons.md",
+      "quote": "When a rewrite re-cites an old source, fetch it.",
+      "rule": "When a rewrite re-cites an older source, fetch it first."
+    },
+    {
+      "id": "R586",
+      "file": "verification-lessons.md",
+      "quote": "the container reads github.com only through `WebFetch`",
+      "rule": "Read github.com pages only through WebFetch."
+    },
+    {
+      "id": "R587",
+      "file": "verification-lessons.md",
+      "quote": "State both accounts when sources disagree instead of picking the one that fits the headline.",
+      "rule": "When sources disagree, state both accounts instead of picking the one that fits the headline."
+    },
+    {
+      "id": "R588",
+      "file": "verification-lessons.md",
+      "quote": "Count with the gate's own `_MD_LINK_TEXT_RE` before the first gate run.",
+      "rule": "Count words with the gate's own _MD_LINK_TEXT_RE before the first gate run."
+    },
+    {
+      "id": "R589",
+      "file": "verification-lessons.md",
+      "quote": "`yaml.safe_dump` output fails `run-parse`; shift the nested lists by two spaces",
+      "rule": "Do not use yaml.safe_dump output for run records; indent nested lists two spaces deeper so run-parse accepts them."
+    },
+    {
+      "id": "R590",
+      "file": "verification-lessons.md",
+      "quote": "For a CNA record use the CVE record API for reading and GitHub's advisory pages through `WebFetch` for citing.",
+      "rule": "For a CNA record, read it through the CVE record API and cite GitHub advisory pages fetched through WebFetch."
+    },
+    {
+      "id": "R591",
+      "file": "verification-lessons.md",
+      "quote": "dump with a Dumper whose `increase_indent` is non-indentless and `width=100000`",
+      "rule": "When generating a run record from a script, use a Dumper whose increase_indent is non-indentless and whose width is 100000."
+    },
+    {
+      "id": "R592",
+      "file": "verification-lessons.md",
+      "quote": "a `fetch_failures[]` record for a bridge-allowlisted host needs `bridge:`-prefixed `attempted_methods`",
+      "rule": "Give a fetch_failures[] record for a bridge-allowlisted host bridge:-prefixed attempted_methods."
+    },
+    {
+      "id": "R593",
+      "file": "verification-lessons.md",
+      "quote": "`sources[].role` is only `primary` or `corroborating`",
+      "rule": "Set sources[].role only to primary or corroborating."
+    },
+    {
+      "id": "R594",
+      "file": "verification-lessons.md",
+      "quote": "`discovered_at` must not lie after the clock",
+      "rule": "Never set discovered_at to a time after the current clock."
+    },
+    {
+      "id": "R595",
+      "file": "verification-lessons.md",
+      "quote": "A product named only through `affected_products[]` stays out of `entities[]`",
+      "rule": "Do not add a product named only through affected_products[] to entities[]."
+    },
+    {
+      "id": "R596",
+      "file": "verification-lessons.md",
+      "quote": "After any cut, re-read the sentence's last citation against the facts it now follows.",
+      "rule": "After cutting words, re-read the sentence's last citation against the facts it now follows."
+    },
+    {
+      "id": "R597",
+      "file": "verification-lessons.md",
+      "quote": "Write `discovered_at` from the file's real creation time, never a guessed later minute.",
+      "rule": "Write discovered_at from the file's real creation time, never a guessed later minute."
+    },
+    {
+      "id": "R598",
+      "file": "verification-lessons.md",
+      "quote": "`date -u` before each Write fixes it",
+      "rule": "Run date -u before each Write to get the real timestamp."
+    },
+    {
+      "id": "R599",
+      "file": "verification-lessons.md",
+      "quote": "write the real clock",
+      "rule": "Write the run record's completed placeholder with the real clock; Phase 6 re-stamps it."
+    },
+    {
+      "id": "R600",
+      "file": "verification-lessons.md",
+      "quote": "A new entry's slug must match `^[a-z0-9][a-z0-9-]{0,59}$` (60 characters at most)",
+      "rule": "Make each new entry slug match ^[a-z0-9][a-z0-9-]{0,59}$."
+    },
+    {
+      "id": "R601",
+      "file": "verification-lessons.md",
+      "quote": "rename the file and every registry `relations[].source` that names it in the same step",
+      "rule": "When renaming an entry file, rename every registry relations[].source that names it in the same step."
+    },
+    {
+      "id": "R602",
+      "file": "verification-lessons.md",
+      "quote": "Do not subtract the previous two fires' attempts from a rotation slice when the cursor already ranks it.",
+      "rule": "Do not subtract previous fires' attempts from a rotation slice when the cursor already ranks it."
+    },
+    {
+      "id": "R603",
+      "file": "verification-lessons.md",
+      "quote": "rank on the cursor alone and say so in the run notes",
+      "rule": "Rank rotation slices on the cursor alone and say so in the run notes."
+    },
+    {
+      "id": "R604",
+      "file": "verification-lessons.md",
+      "quote": "survives only if the title, headline and summary keep it",
+      "rule": "Keep a source's hedge in the title, headline and summary as well as the body."
+    },
+    {
+      "id": "R605",
+      "file": "verification-lessons.md",
+      "quote": "check `runs/*` borderline-drop lines before re-litigating",
+      "rule": "Check the runs/* borderline-drop lines before re-litigating a re-surfaced lookback item."
+    },
+    {
+      "id": "R606",
+      "file": "verification-lessons.md",
+      "quote": "A single-quoted YAML scalar needs `''` for every apostrophe you insert",
+      "rule": "Double every apostrophe inserted into a single-quoted YAML scalar."
+    },
+    {
+      "id": "R607",
+      "file": "verification-lessons.md",
+      "quote": "After editing a quoted frontmatter field, re-parse with `yaml.safe_load`.",
+      "rule": "After editing a quoted frontmatter field, re-parse the file with yaml.safe_load."
+    },
+    {
+      "id": "R608",
+      "file": "verification-lessons.md",
+      "quote": "Internal records may change at most about 12 words of prose",
+      "rule": "Limit changes to an internal record's prose to about 12 words."
+    },
+    {
+      "id": "R609",
+      "file": "verification-lessons.md",
+      "quote": "Check a figure caption before accepting \"the text does not say so\"",
+      "rule": "Check a figure caption before accepting that the text does not say something."
+    },
+    {
+      "id": "R610",
+      "file": "verification-lessons.md",
+      "quote": "so a new citation must use that date",
+      "rule": "When a URL has multiple sources[] records, a new citation on it must use the date of the last record."
+    },
+    {
+      "id": "R611",
+      "file": "verification-lessons.md",
+      "quote": "Read a relayed bulletin at its origin before writing an update on it.",
+      "rule": "Read a relayed bulletin at its origin before writing an update on it."
+    },
+    {
+      "id": "R612",
+      "file": "verification-lessons.md",
+      "quote": "When a new reading supersedes a fact, grep the whole entry for the old fact, including the main analysis, not just the summary and the action you are editing.",
+      "rule": "When a new reading supersedes a fact, grep the whole entry for the old fact, including the main analysis."
+    },
+    {
+      "id": "R613",
+      "file": "verification-lessons.md",
+      "quote": "Re-read the vendor's announcement listing for newer builds when you name a fix.",
+      "rule": "When naming a fix, re-read the vendor's announcement listing for newer builds."
+    },
+    {
+      "id": "R614",
+      "file": "verification-lessons.md",
+      "quote": "A reboot instruction belongs only to the release the vendor attaches it to.",
+      "rule": "Include a reboot instruction only for the release the vendor attaches it to."
+    },
+    {
+      "id": "R615",
+      "file": "verification-lessons.md",
+      "quote": "trim in the same edit",
+      "rule": "When adding a citation that pushes the main analysis over its word bound, trim words in the same edit."
+    },
+    {
+      "id": "R616",
+      "file": "verification-lessons.md",
+      "quote": "Public record summaries state the development, never the edit",
+      "rule": "Write public record summaries to state the development, not the edit."
+    }
+  ],
+  "dropped": []
+}

@@ -1,0 +1,2008 @@
+{
+  "repo": "CodingButter/cardboard",
+  "dir": ".claude/memory",
+  "n_files": 33,
+  "n_rules": 333,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "README.md",
+      "quote": "Claude reads `MEMORY.md` and follows the linked rule files.",
+      "rule": "On a fresh machine, read the repo's memory `MEMORY.md` index and follow the rule files it links to."
+    },
+    {
+      "id": "R2",
+      "file": "README.md",
+      "quote": "treat the sync as a manual step when\nnew rules land.",
+      "rule": "Treat syncing memory files between the repo mirror and the auto-memory location as a manual step whenever new rules are written."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "every brief MUST assign each agent a distinct, currently-unused port",
+      "rule": "When dispatching worktree agents that may run a dev server, assign each agent a distinct, currently unused port in its brief."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Pick a range like `3010-3099` for agents",
+      "rule": "Choose agent dev server ports from a range such as 3010-3099."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "avoid `3000-3001` since those are the user's defaults",
+      "rule": "Do not assign ports 3000 or 3001 to agents."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Each agent brief gets one unique value.",
+      "rule": "Give each agent brief exactly one unique port value."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Tell the agent how to override the port.",
+      "rule": "Tell each agent in its brief how to override the dev server port."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "verify the convention before the dispatch and bake the exact invocation into the brief",
+      "rule": "Before dispatching agents, verify the port override convention and include the exact invocation in the brief."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Default the orchestrator's own dev server to a non-3001 port when bringing it up",
+      "rule": "When starting the orchestrator's own dev server, use a port other than 3001."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "For waves with N agents, allocate N+1 ports",
+      "rule": "For a wave of N agents, allocate N+1 ports, reserving one for the orchestrator's own verification server."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Do NOT use port 3001",
+      "rule": "Agents must not use port 3001 for their dev servers."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "Always note which port belongs to which worktree",
+      "rule": "Record which dev server port belongs to which worktree."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_agent_dev_server_ports.md",
+      "quote": "tear down or replace before re-screenshotting",
+      "rule": "Before re-screenshotting, tear down or replace any dev server still running from a previous worktree."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "they CANNOT all use Playwright",
+      "rule": "When dispatching parallel worktree agents that need to verify their work, do not have them all use Playwright."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "Default agent verification = NOT Playwright.",
+      "rule": "By default, verify agent work without using Playwright."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "`bun run typecheck` (cheap, always available)",
+      "rule": "Prefer running `bun run typecheck` to verify agent work."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "`bun build` (catches loader/transpile errors)",
+      "rule": "Prefer running `bun build` to verify agent work."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "Read the file back",
+      "rule": "Verify agent work by reading the changed file back."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "walk the JSX manually",
+      "rule": "Verify JSX changes by walking the JSX manually."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "reason about layout",
+      "rule": "Verify layout by reasoning about it instead of opening a browser."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "do the math (auto-fit minmax(40, 56) at 230px width = 5 columns of 40-46px = 5 brushes fit, etc.) instead of opening a browser",
+      "rule": "For dimension or responsive checks, calculate the expected dimensions instead of opening a browser."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "Do NOT spawn or use a Playwright session — the orchestrator owns the browser.",
+      "rule": "Tell each dispatched agent not to spawn or use a Playwright session, because the orchestrator owns the browser."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "Verify via typecheck + reasoning only.",
+      "rule": "Tell each dispatched agent to verify its work via typecheck and reasoning only."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "Run that wave **sequentially**, not parallel",
+      "rule": "When a wave needs Playwright verification per panel, run that wave's agents sequentially, not in parallel."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "have the agents emit verification SQL (panel size + visible-element queries)",
+      "rule": "As an alternative to parallel Playwright use, have agents emit verification SQL queries for panel size and visible elements."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "have the orchestrator run them in batch after the wave lands",
+      "rule": "Have the orchestrator run agents' verification SQL queries in a batch after the wave lands."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "pause the audit until the wave is fully merged",
+      "rule": "Pause the orchestrator's Playwright audit until the wave is fully merged."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "the cleanest fix is to NOT spin up dev servers in the agent at all",
+      "rule": "Do not have agents spin up dev servers for verification."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "rely on the orchestrator's running server post-merge",
+      "rule": "Rely on the orchestrator's running dev server after merge rather than starting dev servers in agents."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_agent_playwright_contention.md",
+      "quote": "they need distinct ports",
+      "rule": "If agents do spin up dev servers for verification, give each agent a distinct port."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_always_delegate.md",
+      "quote": "For any task beyond a trivial one-file edit, **delegate to an Agent subagent**.",
+      "rule": "For any task beyond a trivial one-file edit, delegate the work to an Agent subagent."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_always_delegate.md",
+      "quote": "Use Explore for read-only research",
+      "rule": "Use the Explore subagent for read-only research tasks."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_always_delegate.md",
+      "quote": "general-purpose (or a Vercel-specific specialist when it matches) for multi-file implementations",
+      "rule": "Use the general-purpose subagent (or a Vercel-specific specialist when one matches) for multi-file implementations."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_always_delegate.md",
+      "quote": "The main context exists for orchestration, decisions, and user-facing summaries — not for running greps, reading large source trees, or executing multi-file diffs.",
+      "rule": "Keep the main context for orchestration, decisions, and user-facing summaries; do not run greps, read large source trees, or execute multi-file diffs directly in it."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_always_delegate.md",
+      "quote": "Before doing any meaningful read/grep/edit pass, ask \"could a subagent do this and report back in under 200 words?\" If yes, delegate.",
+      "rule": "Before doing any meaningful read, grep, or edit pass, ask whether a subagent could do it and report back in under 200 words; if yes, delegate it."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_always_delegate.md",
+      "quote": "Bundle related work into a single dispatch — don't fragment one logical change across many small agent calls.",
+      "rule": "Bundle related work into a single subagent dispatch; do not split one logical change across many small agent calls."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_always_delegate.md",
+      "quote": "The prompt to the subagent must be self-contained (it doesn't see this conversation): include the plan docs to read, the exact file paths, the constraints, and the verification commands.",
+      "rule": "Make each subagent prompt self-contained, including the plan docs to read, exact file paths, constraints, and verification commands."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "For panel polish work, run a two-agent loop per panel",
+      "rule": "For panel polish work, run a two-agent loop per panel: a thorough audit agent first, then a focused fix agent that acts on the audit findings."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Sequential per panel.",
+      "rule": "Run the audit-then-fix loop sequentially for each panel, not in parallel across panels."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Orchestrator writes detailed briefs for both.",
+      "rule": "The orchestrator writes a detailed brief for both the audit agent and the fix agent."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Reports findings — does NOT modify any code.",
+      "rule": "The audit agent reports findings and must not modify any code."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Output format: a structured findings report — one finding per issue, with screenshot evidence.",
+      "rule": "The audit agent's output must be a structured findings report with one finding per issue, including screenshot evidence."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Commits + pushes to main directly.",
+      "rule": "The fix agent commits and pushes its fixes directly to main."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Verifies via Playwright (own tab).",
+      "rule": "The fix agent verifies its changes via Playwright in its own tab."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Uses Playwright on its own tab to navigate the editor.",
+      "rule": "The audit agent uses Playwright in its own tab to navigate the editor."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Verifies the panel doesn't break, lose content, scroll horizontally, or render unreadably at any reasonable size.",
+      "rule": "The audit agent must verify the panel does not break, lose content, scroll horizontally, or render unreadably at any reasonable size."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Validates they match the original intent.",
+      "rule": "The orchestrator validates audit findings against the original intent before acting on them."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "If the fix is solid, marks the panel done.",
+      "rule": "The orchestrator marks a panel done only after reviewing the fix and confirming it is solid."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "- Trivial single-line fixes: just do it directly in the orchestrator.",
+      "rule": "For trivial single-line fixes, the orchestrator applies the fix directly instead of using the audit-then-fix loop."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Broad sweeps that touch every panel (e.g. \"change tooltip timing across all panels\"): a single sweep agent or orchestrator-driven sed pattern.",
+      "rule": "For broad sweeps that touch every panel, use a single sweep agent or an orchestrator-driven sed pattern instead of the per-panel loop."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "Building NEW panel content from scratch: a single build agent is fine",
+      "rule": "When building new panel content from scratch, use a single build agent instead of the audit-then-fix loop."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "[[feedback-no-worktrees]] — both audit and fix run in main checkout.",
+      "rule": "Both audit and fix agents run in the main checkout, not in worktrees."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "orchestrator must confirm previous fix is fully merged before starting next panel's audit.",
+      "rule": "The orchestrator must confirm the previous panel's fix is fully merged before starting the next panel's audit."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_audit_then_fix_loop.md",
+      "quote": "audit and fix agents must each open their own Playwright tab.",
+      "rule": "The audit agent and the fix agent must each open their own Playwright tab."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_audits_parallel.md",
+      "quote": "Audits are read-only by nature. Dispatch them with\n`run_in_background: true` and IMMEDIATELY pick up the next piece of",
+      "rule": "When dispatching an audit, dispatch it with run_in_background set to true."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_audits_parallel.md",
+      "quote": "IMMEDIATELY pick up the next piece of\ndisjoint work (another audit, code edits in non-overlapping files,\ndoc updates, planning, memory hygiene) without waiting for the audit\nto finish.",
+      "rule": "After dispatching an audit, immediately pick up the next piece of disjoint work (another audit, code edits in non-overlapping files, doc updates, planning, memory hygiene) without waiting for the audit to finish."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_audits_parallel.md",
+      "quote": "ALWAYS parallelize them with other work",
+      "rule": "Always parallelize audits with other work (another audit, code edits in disjoint files, doc updates, planning)."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_audits_parallel.md",
+      "quote": "Never sit idle waiting for an audit to finish.",
+      "rule": "Never sit idle waiting for an audit to finish."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_audits_parallel.md",
+      "quote": "**When dispatching an audit, immediately decide what comes next**:",
+      "rule": "When dispatching an audit, immediately decide what comes next."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_audits_parallel.md",
+      "quote": "Always end an audit-dispatch turn with\n  parallel work already in motion.",
+      "rule": "Always end an audit-dispatch turn with parallel work already in motion."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_audits_parallel.md",
+      "quote": "**Hard avoid**: \"the audit is running, I'll wait for the result.\"",
+      "rule": "Do not wait for an audit's result while it is running; avoid the stance of 'the audit is running, I'll wait for the result.'"
+    },
+    {
+      "id": "R62",
+      "file": "feedback_audits_parallel.md",
+      "quote": "don't dispatch a FIX agent against the same\n  area the audit is auditing — wait for the findings.",
+      "rule": "Do not dispatch a FIX agent against the same area an audit is auditing; wait for the audit's findings first."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_audits_parallel.md",
+      "quote": "you CAN\n  do other work, including unrelated FIX agents, plan docs,\n  refactors in different file trees.",
+      "rule": "While an audit runs, other work is permitted, including unrelated FIX agents, plan docs, and refactors in different file trees."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_audits_parallel.md",
+      "quote": "Then idle-wait is acceptable.",
+      "rule": "When audit findings dictate the next step and no other work is queued, idle-waiting for the audit is acceptable."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_audits_parallel.md",
+      "quote": "check the task list\n  first — usually something IS queued.",
+      "rule": "Before idle-waiting on an audit, check the task list for queued work."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Every new editor action or setting MUST register via registerCommand / registerSetting",
+      "rule": "Register every new editor action with registerCommand and every new editor setting with registerSetting."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Agent briefs that introduce UI actions or settings must include the registration directive verbatim.",
+      "rule": "When writing an agent brief that introduces a UI action or setting, include the registration directive verbatim."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Any new action (button click, menu item, keybinding, etc.) MUST be registered via `registerCommand({ id, title, category, keywords?, keybinding?, icon?, run })`",
+      "rule": "Register every new action (button click, menu item, keybinding, etc.) via registerCommand with id, title, category, and run, and optionally keywords, keybinding, and icon."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Components register from `useEffect(() => registerCommand({...}), [...])` and return the unregister.",
+      "rule": "Register commands from a component inside a useEffect that returns the unregister function."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Any new user-tunable preference MUST be registered via `registerSetting({ id, title, category, type, default, scope?, ... })`",
+      "rule": "Register every new user-tunable preference via registerSetting with id, title, category, type, and default, and optionally scope."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Read/write through `useSettingsStore.getState().get(id)` / `.set(id, value)`.",
+      "rule": "Read and write settings only through useSettingsStore.getState().get(id) and .set(id, value)."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Settings reuse the existing source of truth (workspace store, project store, etc.)",
+      "rule": "Store setting values in the existing source of truth (such as the workspace store or project store), not in new storage."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_command_registry_required.md",
+      "quote": "the registry is the discovery layer, NOT a parallel storage system.",
+      "rule": "Do not use the settings registry as a separate storage system."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Categories: 'File' / 'Edit' / 'View' / 'Workspace' / 'Navigation' / 'Help'",
+      "rule": "Assign each registered command one of these categories: 'File', 'Edit', 'View', 'Workspace', 'Navigation', or 'Help'."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_command_registry_required.md",
+      "quote": "The button or menu handler that owns the action's existing UX MUST still work",
+      "rule": "Keep the existing button or menu handler for an action working when registering that action."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_command_registry_required.md",
+      "quote": "`registerCommand`'s `run` just CALLS the same handler.",
+      "rule": "Make a registered command's run function call the existing button or menu handler."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_command_registry_required.md",
+      "quote": "Don't create parallel implementations.",
+      "rule": "Do not create a second implementation of an action that already has a handler."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_command_registry_required.md",
+      "quote": "When in doubt, register it.",
+      "rule": "When unsure whether an action or setting should be registered, register it."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_dispatch_without_approval_gate.md",
+      "quote": "When the next step is clear, just dispatch and report in a one-line voice update.",
+      "rule": "When the next step is clear, dispatch immediately and report the dispatch in a one-line voice update."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_dispatch_without_approval_gate.md",
+      "quote": "Don't ask \"say go\" or \"approve the brief?\" before launching agents.",
+      "rule": "Do not ask the user for approval (e.g., \"say go\" or \"approve the brief?\") before launching agents."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_dispatch_without_approval_gate.md",
+      "quote": "Dispatch immediately when the decision is clear.",
+      "rule": "Dispatch immediately when the decision is clear, without pausing for approval."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_dispatch_without_approval_gate.md",
+      "quote": "Continue to confirm only when the call is genuinely ambiguous",
+      "rule": "Seek confirmation from the user only when the dispatch decision is genuinely ambiguous."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_dispatch_without_approval_gate.md",
+      "quote": "Routine briefs and panel picks just go.",
+      "rule": "Routine agent briefs and panel picks should be dispatched without seeking approval."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Never sit idle waiting for the user when no agent is working.",
+      "rule": "Never sit idle waiting for the user when no agent is working."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "schedule a self-wakeup 15 min out",
+      "rule": "When no agent is working and you would otherwise stop to ask the user something, schedule a self-wakeup 15 minutes out."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Check: is at least one agent in flight?",
+      "rule": "Before stopping to ask the user something, check whether at least one agent is in flight."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "standing by is fine; the work continues.",
+      "rule": "If at least one agent is in flight, it is fine to stand by while the work continues."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "turn after a brief status update.",
+      "rule": "If at least one agent is in flight, end the turn after a brief status update."
+    },
+    {
+      "id": "R89",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "NO → must dispatch.",
+      "rule": "If no agent is in flight, dispatch an agent rather than stopping."
+    },
+    {
+      "id": "R90",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "→ dispatch an agent for it.",
+      "rule": "If a clear next task exists (queued in TaskList, mentioned in the user's prior message, or implied by the last commit), dispatch an agent for it."
+    },
+    {
+      "id": "R91",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "pick one and go. Don't ask.",
+      "rule": "If multiple candidate next tasks exist, pick one and proceed without asking the user."
+    },
+    {
+      "id": "R92",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Schedule a self-wakeup 15 minutes (900 seconds) out via",
+      "rule": "When you would benefit from user input but must proceed, schedule a self-wakeup 15 minutes (900 seconds) out via ScheduleWakeup."
+    },
+    {
+      "id": "R93",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Send the user a brief text + voice describing what I'm",
+      "rule": "When you would benefit from user input, send the user a brief text and voice message describing the question and noting the 15-minute fallback is set."
+    },
+    {
+      "id": "R94",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Read the docs/plans/ tree + `MEMORY.md` + the current",
+      "rule": "When all planned work is done, read the docs/plans/ tree, MEMORY.md, and the current SESSION_STATE."
+    },
+    {
+      "id": "R95",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Pick something unimplemented. Dispatch it.",
+      "rule": "When all planned work is done, pick an unimplemented item from the docs and dispatch an agent for it."
+    },
+    {
+      "id": "R96",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "pick one and dispatch.",
+      "rule": "Instead of asking what to do next, pick one task and dispatch it."
+    },
+    {
+      "id": "R97",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "mention B in the commit message as a deferred alternative.",
+      "rule": "When choosing between alternatives A and B, ship A and mention B in the commit message as a deferred alternative instead of asking."
+    },
+    {
+      "id": "R98",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "dispatch first",
+      "rule": "Instead of waiting for the user to say go, dispatch first and then tell the user what was done and to flag it if the direction is wrong."
+    },
+    {
+      "id": "R99",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "schedule wakeup + dispatch a reasonable next thing.",
+      "rule": "When no agent is working and you would otherwise stand by for the user's call, schedule a wakeup and dispatch a reasonable next thing."
+    },
+    {
+      "id": "R100",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "End the turn quietly.",
+      "rule": "When multiple agents are in flight on tightly-coupled files, do not open a third stream; end the turn quietly."
+    },
+    {
+      "id": "R101",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Tests running in CI — wait for the result.",
+      "rule": "While tests are running in CI, wait for the result."
+    },
+    {
+      "id": "R102",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "wait, but schedule the wakeup as a safety net.",
+      "rule": "When a task is explicitly blocked on external state, wait, but schedule a wakeup as a safety net."
+    },
+    {
+      "id": "R103",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "Don't cut corners on verification just",
+      "rule": "Do not skip verification inside dispatched work just because you are picking tasks quickly."
+    },
+    {
+      "id": "R104",
+      "file": "feedback_never_idle_protocol.md",
+      "quote": "the text carries the same content + the wakeup time.",
+      "rule": "When scheduling a wakeup and texting the user, the text should carry the same content as the voice message plus the wakeup time."
+    },
+    {
+      "id": "R105",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "Category filter chips, tab strips for filter navigation, and similar small-discrete-navigation surfaces must NEVER horizontally scroll.",
+      "rule": "Never horizontally scroll category filter chips, filter tab strips, or similar small discrete navigation surfaces."
+    },
+    {
+      "id": "R106",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "**Wrap to multiple rows.** A 4-chip strip that doesn't fit on one row becomes 2 rows of 2. Flex-wrap is your friend.",
+      "rule": "When category chips don't fit on one row, wrap them onto multiple rows instead of scrolling."
+    },
+    {
+      "id": "R107",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "**Use smaller chips or icons** if real estate is tight.",
+      "rule": "When space is tight for category chips, use smaller chips or icons."
+    },
+    {
+      "id": "R108",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "switch to a single icon-only kebab or \"More…\" dropdown. But that's a last resort — wrap rows are almost always enough.",
+      "rule": "Only when category chips cannot fit even in two wrapped rows at very narrow widths (under about 140px), use a single icon-only kebab or \"More…\" dropdown as a last resort."
+    },
+    {
+      "id": "R109",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "**Where `<ScrollRow>` IS appropriate (it's not banned, just don't put it here):**",
+      "rule": "Use ScrollRow for long content lists, tag clouds where overflow into a \"more\" is acceptable, and horizontal carousels of large preview cards, but not for navigation chip strips."
+    },
+    {
+      "id": "R110",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "Are these chips a primary navigation surface (filters, tabs, modes)? → NO ScrollRow. Wrap rows.",
+      "rule": "Before putting chips in ScrollRow, if they are a primary navigation surface (filters, tabs, modes), do not use ScrollRow and wrap rows instead."
+    },
+    {
+      "id": "R111",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "Is the user expected to discover all options at a glance? → NO ScrollRow.",
+      "rule": "Do not use ScrollRow for chip strips where the user is expected to discover all options at a glance."
+    },
+    {
+      "id": "R112",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "Is the option count fixed and small (≤8)? → NO ScrollRow.",
+      "rule": "Do not use ScrollRow for chip strips with a fixed, small option count (8 or fewer)."
+    },
+    {
+      "id": "R113",
+      "file": "feedback_no_horizontal_scroll_for_categories.md",
+      "quote": "Is it a search-results-style overflow where seeing \"20 more\" makes sense to scroll? → ScrollRow is OK.",
+      "rule": "ScrollRow is acceptable for search-results-style overflow where scrolling to see additional items makes sense."
+    },
+    {
+      "id": "R114",
+      "file": "feedback_no_worktrees.md",
+      "quote": "Hard rule: no worktrees on this project.",
+      "rule": "Never use git worktrees on this project."
+    },
+    {
+      "id": "R115",
+      "file": "feedback_no_worktrees.md",
+      "quote": "Never pass `isolation: \"worktree\"` to the Agent tool.",
+      "rule": "Never pass isolation: \"worktree\" to the Agent tool; run agents in the main checkout instead."
+    },
+    {
+      "id": "R116",
+      "file": "feedback_no_worktrees.md",
+      "quote": "For overlapping work, serialize.",
+      "rule": "For overlapping work, serialize agent dispatches rather than running them in parallel."
+    },
+    {
+      "id": "R117",
+      "file": "feedback_no_worktrees.md",
+      "quote": "Don't dispatch 6 agents in parallel if two of them touch the same file",
+      "rule": "Do not dispatch agents in parallel when two of them touch the same file."
+    },
+    {
+      "id": "R118",
+      "file": "feedback_no_worktrees.md",
+      "quote": "Run them one at a time; each agent commits + pushes before the next begins.",
+      "rule": "Run overlapping agents one at a time, with each agent committing and pushing before the next begins."
+    },
+    {
+      "id": "R119",
+      "file": "feedback_no_worktrees.md",
+      "quote": "For non-overlapping work, parallel is still fine",
+      "rule": "For non-overlapping work, parallel agent dispatch is allowed."
+    },
+    {
+      "id": "R120",
+      "file": "feedback_no_worktrees.md",
+      "quote": "they must all operate against the same main checkout.",
+      "rule": "Parallel agents working on non-overlapping files must all operate against the same main checkout."
+    },
+    {
+      "id": "R121",
+      "file": "feedback_no_worktrees.md",
+      "quote": "don't run `git worktree remove --force` unsupervised",
+      "rule": "Do not run git worktree remove --force unsupervised to clean up leftover worktrees; leave that to the user."
+    },
+    {
+      "id": "R122",
+      "file": "feedback_no_worktrees.md",
+      "quote": "orchestrator pre-stages the shared edits in a single commit FIRST, then dispatches per-panel agents that only touch their own panel file.",
+      "rule": "When panels share a file, the orchestrator must first stage the shared edits in a single commit before dispatching per-panel agents that touch only their own panel file."
+    },
+    {
+      "id": "R123",
+      "file": "feedback_no_worktrees.md",
+      "quote": "For \"fix\" waves where each agent edits ONE panel file: serialize them.",
+      "rule": "For fix waves where each agent edits one panel file, serialize the agents rather than running them in parallel."
+    },
+    {
+      "id": "R124",
+      "file": "feedback_no_worktrees.md",
+      "quote": "never dispatch next batch until previous merged + pushed cleanly.",
+      "rule": "Do not dispatch the next batch until the previous batch is merged and pushed cleanly."
+    },
+    {
+      "id": "R125",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "Every page must register 3-5 predefined layouts in `apps/editor/src/state/predefinedLayouts.ts` keyed by page id.",
+      "rule": "When building a page, register 3-5 predefined layouts for it in `apps/editor/src/state/predefinedLayouts.ts`, keyed by page id."
+    },
+    {
+      "id": "R126",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "Each layout has an id, a human label, a `SerializedDockview` JSON snapshot, and an optional description.",
+      "rule": "Give each predefined layout an id, a human-readable label, a `SerializedDockview` JSON snapshot, and optionally a description."
+    },
+    {
+      "id": "R127",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "also make sure any shared dock panels exist in the panel modal.",
+      "rule": "Make sure every shared dock panel is available in the panel modal."
+    },
+    {
+      "id": "R128",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "every page should expose additional opt-in panels via the Docks modal.",
+      "rule": "Expose page-specific opt-in dock panels on every page via the Docks modal, including panels that are not in the default layout."
+    },
+    {
+      "id": "R129",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "Pick 2-4 sensible ones and build stubs in Phase 1",
+      "rule": "Pick 2-4 sensible opt-in panels for each page and build stubs for them in Phase 1."
+    },
+    {
+      "id": "R130",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "bodies in a later wave.",
+      "rule": "Implement the bodies of opt-in panel stubs in a later wave, not in Phase 1."
+    },
+    {
+      "id": "R131",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "These panels must be registered in EVERY page's PANELS array.",
+      "rule": "Register every shared dock panel in every page's PANELS array."
+    },
+    {
+      "id": "R132",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "Factor a `SHARED_PANELS` constant in `apps/editor/src/views/sharedPanels.ts`",
+      "rule": "Define a `SHARED_PANELS` constant in `apps/editor/src/views/sharedPanels.ts`."
+    },
+    {
+      "id": "R133",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "that each page imports and spreads into its own PANELS array.",
+      "rule": "Have each page import `SHARED_PANELS` and spread it into its own PANELS array."
+    },
+    {
+      "id": "R134",
+      "file": "feedback_page_layouts_and_shared_docks.md",
+      "quote": "Persistence keys for page-scoped panels use the page id prefix (`cardboard.<page>.notes.text`).",
+      "rule": "Prefix persistence keys for page-scoped panels with the page id, e.g. `cardboard.<page>.notes.text`."
+    },
+    {
+      "id": "R135",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Every panel-body agent must design for that from the start.",
+      "rule": "Every panel-body agent must design for unpredictable panel sizes and shapes from the start."
+    },
+    {
+      "id": "R136",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "no native horizontal scrollbar",
+      "rule": "Never expose a native horizontal scrollbar on panels."
+    },
+    {
+      "id": "R137",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Use the hover-area pattern from `apps/editor/src/components/ui/TabStrip.tsx` (`scrollable={true}` mode)",
+      "rule": "Use the hover-area pattern from apps/editor/src/components/ui/TabStrip.tsx (scrollable={true} mode) for horizontal overflow."
+    },
+    {
+      "id": "R138",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Edge fades only appear when the content actually overflows the panel width",
+      "rule": "Show edge fades only when the content actually overflows the panel width, and hide them when content fits."
+    },
+    {
+      "id": "R139",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Hovering an edge fade triggers continuous auto-scroll in that direction.",
+      "rule": "Make hovering an edge fade trigger continuous auto-scroll in that direction."
+    },
+    {
+      "id": "R140",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Clicking a fade jumps to the extreme.",
+      "rule": "Make clicking an edge fade jump to the extreme of the content in that direction."
+    },
+    {
+      "id": "R141",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "When content fits, no fades, no chrome.",
+      "rule": "When content fits the panel, show no edge fades or scroll chrome."
+    },
+    {
+      "id": "R142",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "each row gets its own `<ScrollRow>` container; don't share a parent overflow.",
+      "rule": "Give each row of items its own ScrollRow container and do not share a parent overflow between rows."
+    },
+    {
+      "id": "R143",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "every tile / button must have a `min-w-*` that prevents collapse below something useful",
+      "rule": "Give every tile or button a min-w-* minimum width that prevents it from collapsing below a useful size."
+    },
+    {
+      "id": "R144",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Responsive logic is per-panel, not universal.",
+      "rule": "Design responsive logic per panel to fit that panel's contents, not as one universal reflow pattern."
+    },
+    {
+      "id": "R145",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "every panel should *think about* wide / tall / square dock shapes when its body is built.",
+      "rule": "Make every panel consider wide, tall, and square dock shapes when its body is built."
+    },
+    {
+      "id": "R146",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Per-panel agent briefs must call out",
+      "rule": "Per-panel agent briefs must call out the aspect ratios the panel might see and the agent's specific strategy for each."
+    },
+    {
+      "id": "R147",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "For button-or-icon grids specifically",
+      "rule": "For button-or-icon grids, use auto-fit with minmax reflow so the grid moves from vertical stack to horizontal row as the panel widens."
+    },
+    {
+      "id": "R148",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Document the choice in the panel's docstring.",
+      "rule": "Document the chosen layout or overflow approach in the panel's docstring when content is not a button or icon grid."
+    },
+    {
+      "id": "R149",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "native vertical scroll for long lists",
+      "rule": "Use native vertical scroll for long lists."
+    },
+    {
+      "id": "R150",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "native scrollbars are acceptable",
+      "rule": "Native vertical scrollbars are acceptable for vertical overflow."
+    },
+    {
+      "id": "R151",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "responsive design is a HEAVY focus; panel widths/heights are unpredictable. Use the TabStrip `scrollable` pattern from `apps/editor/src/components/ui/TabStrip.tsx` as the overflow affordance — never expose native scrollbars.",
+      "rule": "Every panel-body agent brief must state that responsive design is a heavy focus and that the TabStrip scrollable pattern from apps/editor/src/components/ui/TabStrip.tsx is the overflow affordance, never exposing native scrollbars."
+    },
+    {
+      "id": "R152",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "extract the pattern into a shared `<ScrollArea>` primitive under `apps/editor/src/components/ui/` rather than re-implement it inline.",
+      "rule": "When the first panel needs vertical-scroll behavior, extract the pattern into a shared ScrollArea primitive under apps/editor/src/components/ui/ instead of re-implementing it inline."
+    },
+    {
+      "id": "R153",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Future panels import that primitive.",
+      "rule": "Future panels must import the shared ScrollArea primitive rather than re-implementing scroll behavior."
+    },
+    {
+      "id": "R154",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Content density must adapt — short labels on narrow widths, full labels on wide.",
+      "rule": "Make content density adapt to panel width, using short labels on narrow widths and full labels on wide widths."
+    },
+    {
+      "id": "R155",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Use `@container` queries or `ResizeObserver` where Tailwind responsive breakpoints (window-width based) won't help",
+      "rule": "Use @container queries or ResizeObserver instead of window-width Tailwind breakpoints for panel-responsive layout."
+    },
+    {
+      "id": "R156",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Tile/button grids should use `grid-cols-[repeat(auto-fit,minmax(40px,1fr))]` or similar so the layout reflows naturally.",
+      "rule": "Use an auto-fit minmax grid such as grid-cols-[repeat(auto-fit,minmax(40px,1fr))] for tile or button grids so the layout reflows naturally."
+    },
+    {
+      "id": "R157",
+      "file": "feedback_panel_responsive_design.md",
+      "quote": "Avoid fixed-column-count grids unless the spec explicitly requires it",
+      "rule": "Avoid fixed-column-count grids unless the spec explicitly requires one."
+    },
+    {
+      "id": "R158",
+      "file": "feedback_parallel_agents.md",
+      "quote": "send all the `Agent` tool calls in a **single assistant message** so they run concurrently",
+      "rule": "When delegating multiple independent pieces of work to Agent subagents, send all the Agent tool calls in a single assistant message so they run concurrently."
+    },
+    {
+      "id": "R159",
+      "file": "feedback_parallel_agents.md",
+      "quote": "Don't dispatch one, wait for it, then dispatch the next when the second didn't need the first's output.",
+      "rule": "Do not dispatch an Agent subagent, wait for it to finish, and only then dispatch the next one when the next one does not need the first one's output."
+    },
+    {
+      "id": "R160",
+      "file": "feedback_parallel_agents.md",
+      "quote": "If no → bundle them all into one message.",
+      "rule": "If later Agent subagents need no output from earlier ones, bundle them all into one message."
+    },
+    {
+      "id": "R161",
+      "file": "feedback_parallel_agents.md",
+      "quote": "If yes → only serialise the dependent ones; everything else still parallelises.",
+      "rule": "If a later Agent subagent needs output from an earlier one, serialise only the dependent agents and still parallelise all the others."
+    },
+    {
+      "id": "R162",
+      "file": "feedback_parallel_agents.md",
+      "quote": "multiple independent implementation agents can fan out from one Explore result",
+      "rule": "Multiple independent implementation agents may be dispatched in parallel after a single Explore agent's result is returned."
+    },
+    {
+      "id": "R163",
+      "file": "feedback_playwright_screenshots_folder.md",
+      "quote": "always pass a `filename:` value that begins with `screenshots/`",
+      "rule": "When calling `mcp__playwright__browser_take_screenshot`, always pass a `filename` value that begins with `screenshots/`."
+    },
+    {
+      "id": "R164",
+      "file": "feedback_playwright_screenshots_folder.md",
+      "quote": "Every `browser_take_screenshot` call must set `filename` to `screenshots/<descriptive-name>.png`.",
+      "rule": "Every `browser_take_screenshot` call must set `filename` to `screenshots/<descriptive-name>.png`."
+    },
+    {
+      "id": "R165",
+      "file": "feedback_playwright_screenshots_folder.md",
+      "quote": "Never leave PNGs in repo root.",
+      "rule": "Never leave Playwright screenshot PNG files in the repository root."
+    },
+    {
+      "id": "R166",
+      "file": "feedback_playwright_screenshots_folder.md",
+      "quote": "always be explicit.",
+      "rule": "Always explicitly specify the screenshot filename rather than relying on the default output location (cwd or `.playwright-mcp/`)."
+    },
+    {
+      "id": "R167",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "All cross-panel state (selection, active tool, brush, layers, history, etc.) MUST work perfectly even when a panel is popped out into its own browser window.",
+      "rule": "Make all cross-panel state (selection, active tool, brush, layers, history, etc.) work correctly when a panel is popped out into its own browser window."
+    },
+    {
+      "id": "R168",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "design the wiring layer for cross-window communication from day one.",
+      "rule": "Design the wiring layer for cross-window communication from the start of the project."
+    },
+    {
+      "id": "R169",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Zustand stores wrap with `zustand/middleware/persist`, writing to localStorage under a scoped key.",
+      "rule": "Wrap state that should survive reloads in a Zustand store using `zustand/middleware/persist`, writing to localStorage under a scoped key."
+    },
+    {
+      "id": "R170",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "A `useEffect` in each store's hook attaches a `window.addEventListener(\"storage\", ...)` listener.",
+      "rule": "Attach a `window.addEventListener(\"storage\", ...)` listener in a `useEffect` in each persisted store's hook."
+    },
+    {
+      "id": "R171",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "When the storage event fires (from another window writing to the same key), it re-hydrates the store from the new value.",
+      "rule": "When a storage event fires from another window writing to the same key, re-hydrate the store from the new value."
+    },
+    {
+      "id": "R172",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Use the `BroadcastChannel` API",
+      "rule": "Use the `BroadcastChannel` API to propagate ephemeral state between windows."
+    },
+    {
+      "id": "R173",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Pair with a Zustand store that listens + writes to local state on receipt.",
+      "rule": "Pair each BroadcastChannel with a Zustand store that listens on the channel and writes received data to local state."
+    },
+    {
+      "id": "R174",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "**One store per concern**",
+      "rule": "Use one Zustand store per concern."
+    },
+    {
+      "id": "R175",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Each persists its relevant slice + subscribes to cross-window sync.",
+      "rule": "Have each store persist its relevant slice and subscribe to cross-window sync."
+    },
+    {
+      "id": "R176",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "**Avoid storing references**",
+      "rule": "Avoid storing references in stores."
+    },
+    {
+      "id": "R177",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "only serializable data (numbers, strings, plain objects, arrays)",
+      "rule": "Store only serializable data (numbers, strings, plain objects, arrays) in stores."
+    },
+    {
+      "id": "R178",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "throttle / debounce ephemeral broadcasts to ~30Hz, or only emit on cell-grid boundary crossings.",
+      "rule": "Throttle or debounce ephemeral broadcasts to ~30Hz, or emit them only on cell-grid boundary crossings."
+    },
+    {
+      "id": "R179",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "When testing Wave 3 wiring, ALWAYS test the popout path:",
+      "rule": "When testing Wave 3 wiring, always test the popout path."
+    },
+    {
+      "id": "R180",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Make a state change in the popout.",
+      "rule": "When testing the popout path, make a state change in the popout window."
+    },
+    {
+      "id": "R181",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Verify the change is reflected in the orchestrator window.",
+      "rule": "When testing the popout path, verify the change is reflected in the orchestrator window."
+    },
+    {
+      "id": "R182",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Reverse direction.",
+      "rule": "When testing the popout path, repeat the state change test in the reverse direction."
+    },
+    {
+      "id": "R183",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Reload both windows — verify state persists where it should.",
+      "rule": "When testing the popout path, reload both windows and verify state persists where it should."
+    },
+    {
+      "id": "R184",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Build new stores on top of this utility.",
+      "rule": "Build new stores on top of the cross-window sync utility module."
+    },
+    {
+      "id": "R185",
+      "file": "feedback_popout_state_sync.md",
+      "quote": "Do NOT build Wave 3 stores without the cross-window sync layer",
+      "rule": "Do NOT build Wave 3 stores without the cross-window sync layer."
+    },
+    {
+      "id": "R186",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "Apply to every interactive element where context-on-hover is useful.",
+      "rule": "Use the progressive tooltip as the hover affordance for every interactive element where context-on-hover is useful."
+    },
+    {
+      "id": "R187",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "2 seconds hover** → tooltip appears with the element's **short name / label**",
+      "rule": "Show a tooltip with the element's short name or label after a 2-second hover."
+    },
+    {
+      "id": "R188",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "5 seconds hover** → tooltip swaps to show the **short name AND a fuller description**",
+      "rule": "After a 5-second hover, swap the tooltip to show both the short name and a fuller description."
+    },
+    {
+      "id": "R189",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "Hover-away cancels both pending stages and hides the tooltip immediately.",
+      "rule": "When the cursor leaves the element, cancel any pending tooltip stages and hide the tooltip immediately."
+    },
+    {
+      "id": "R190",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "new interactive content should default to the staged pattern.",
+      "rule": "Default new interactive content to the staged two-stage tooltip pattern rather than a single-content tooltip."
+    },
+    {
+      "id": "R191",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "The single-`content` Tooltip mode is still supported and used for trivial labels (e.g. a close button)",
+      "rule": "Use the single-content Tooltip mode only for trivial labels, such as a close button."
+    },
+    {
+      "id": "R192",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "every interactive control's label and description should live on its fixture / config / manifest entry so the tooltip wraps it consistently.",
+      "rule": "Store every interactive control's label and description on its fixture, config, or manifest entry so its tooltip is wrapped consistently."
+    },
+    {
+      "id": "R193",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "every panel-build dispatch must include \"wrap interactive controls in `<Tooltip stages={...}>` per [[feedback-progressive-tooltips]]\".",
+      "rule": "When dispatching a panel-build agent brief, include the instruction to wrap interactive controls in `<Tooltip stages={...}>` per the progressive-tooltips standard."
+    },
+    {
+      "id": "R194",
+      "file": "feedback_progressive_tooltips.md",
+      "quote": "The 2s/5s timing is project-wide and shouldn't be tuned per-panel.",
+      "rule": "Do not tune the 2s and 5s tooltip delays per panel; keep them project-wide."
+    },
+    {
+      "id": "R195",
+      "file": "feedback_text_for_remote_sessions.md",
+      "quote": "Every response that uses voice MUST also include text that carries the same substantive content.",
+      "rule": "Whenever a response uses voice synthesis, also include text that carries the same substantive content."
+    },
+    {
+      "id": "R196",
+      "file": "feedback_text_for_remote_sessions.md",
+      "quote": "Voice is a *companion* to text, not a substitute for it.",
+      "rule": "Do not use voice as a substitute for text; voice must accompany text, never replace it."
+    },
+    {
+      "id": "R197",
+      "file": "feedback_text_for_remote_sessions.md",
+      "quote": "even if the voice has fully narrated the milestone, end with a 1-2 line text summary.",
+      "rule": "Even when voice has already narrated a milestone, end the turn with a 1-2 line text summary."
+    },
+    {
+      "id": "R198",
+      "file": "feedback_text_for_remote_sessions.md",
+      "quote": "Don't end on tool calls or pure voice.",
+      "rule": "Do not end a turn on tool calls or on voice alone; end with text."
+    },
+    {
+      "id": "R199",
+      "file": "feedback_tts_questions.md",
+      "quote": "Always TTS the question content when calling AskUserQuestion.",
+      "rule": "When calling AskUserQuestion, also speak the question content aloud via TTS."
+    },
+    {
+      "id": "R200",
+      "file": "feedback_tts_questions.md",
+      "quote": "Whenever calling `AskUserQuestion`, ALSO call `mcp__voice__synthesize` in the same turn with the question content.",
+      "rule": "Whenever calling AskUserQuestion, also call mcp__voice__synthesize in the same turn with the question content."
+    },
+    {
+      "id": "R201",
+      "file": "feedback_tts_questions.md",
+      "quote": "Don't rely on the visual UI alone",
+      "rule": "Do not rely solely on the visual UI to present questions; always provide the audio channel as well."
+    },
+    {
+      "id": "R202",
+      "file": "feedback_tts_questions.md",
+      "quote": "A short phrase indicating a question is being asked.",
+      "rule": "The voice TTS call paired with AskUserQuestion should include a short phrase indicating a question is being asked."
+    },
+    {
+      "id": "R203",
+      "file": "feedback_tts_questions.md",
+      "quote": "The substance of the question (not just \"I'm asking something\").",
+      "rule": "The voice TTS call paired with AskUserQuestion should include the substance of the question, not merely a generic statement that a question is being asked."
+    },
+    {
+      "id": "R204",
+      "file": "feedback_tts_questions.md",
+      "quote": "Optionally, the recommended option.",
+      "rule": "The voice TTS call paired with AskUserQuestion may include the recommended option."
+    },
+    {
+      "id": "R205",
+      "file": "feedback_tts_questions.md",
+      "quote": "**Always pair `AskUserQuestion` with a voice TTS call**",
+      "rule": "Always pair AskUserQuestion with a voice TTS call."
+    },
+    {
+      "id": "R206",
+      "file": "feedback_tts_questions.md",
+      "quote": "The voice carries content; the AskUserQuestion is the formal capture.",
+      "rule": "The voice TTS content carries the substantive question content, while AskUserQuestion serves as the formal capture of the question."
+    },
+    {
+      "id": "R207",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "verify it via\n`grep`, `Read`, or `git log` in the same turn",
+      "rule": "Before stating a factual claim about project state, verify it via grep, Read, or git log in the same turn."
+    },
+    {
+      "id": "R208",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "say so explicitly",
+      "rule": "If a factual claim about project state cannot be verified cheaply, say explicitly that it is unverified (e.g., \"I'd need to check\" or \"my guess is X but I haven't verified\")."
+    },
+    {
+      "id": "R209",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "Before sending any response, re-read the draft with the lens",
+      "rule": "Before sending any response, re-read the draft and check every factual claim in it by asking how to prove it is true."
+    },
+    {
+      "id": "R210",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "verify it BEFORE sending; rewrite if the claim turns out wrong.",
+      "rule": "If a factual claim in a draft can be verified cheaply (grep, Read, git, ls, typecheck), verify it before sending and rewrite it if it turns out wrong."
+    },
+    {
+      "id": "R211",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "→ hedge the claim explicitly",
+      "rule": "If a factual claim in a draft is expensive to verify, hedge it explicitly in the response (e.g., \"I think X but haven't verified\") or omit it."
+    },
+    {
+      "id": "R212",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "no verification needed; ship as-is.",
+      "rule": "Do not verify subjective recommendations or analysis; ship them as-is."
+    },
+    {
+      "id": "R213",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "run `git log --reverse --format='%ad %s' --date=short | head -3`",
+      "rule": "Before stating a duration (e.g., \"for weeks\", \"since Phase 2\"), check the dates with git log, such as git log --reverse --format='%ad %s' --date=short | head -3, or check the specific file's git log."
+    },
+    {
+      "id": "R214",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "grep + `wc -l` the actual matches.",
+      "rule": "Before stating a count (e.g., \"24 panels\"), grep and wc -l the actual matches."
+    },
+    {
+      "id": "R215",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "grep first.",
+      "rule": "Before quoting a file path or function/identifier name, grep for it first."
+    },
+    {
+      "id": "R216",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "Never quote a path or identifier from memory of \"what I think the codebase looks like.\"",
+      "rule": "Never quote a file path or identifier from memory of what you think the codebase looks like."
+    },
+    {
+      "id": "R217",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "verify the hash exists, run the check, or hedge.",
+      "rule": "Before stating a commit hash or status claim (e.g., \"tests pass\", \"tsc clean\"), verify the hash exists, run the check, or hedge the claim."
+    },
+    {
+      "id": "R218",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "the next tool call is a verification",
+      "rule": "When caught making a wrong factual claim, make the next tool call a verification (grep, Read, or git), not a defensive explanation."
+    },
+    {
+      "id": "R219",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "*\"The reason is...\"* without verifying first.",
+      "rule": "Do not give an explanation such as \"The reason is...\" for a wrong claim without verifying it first."
+    },
+    {
+      "id": "R220",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "say *\"a few days\"* rather than risking a wrong number.",
+      "rule": "In voice (TTS) responses, use approximate wording (e.g., \"a few days\") instead of a specific number you have not verified."
+    },
+    {
+      "id": "R221",
+      "file": "feedback_verify_before_asserting.md",
+      "quote": "verify BEFORE synthesizing.",
+      "rule": "In voice (TTS) responses, verify any fact that the substantive content depends on before synthesizing the audio."
+    },
+    {
+      "id": "R222",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "**voice synthesis must contain that content**",
+      "rule": "When a turn produces findings, a status report, a list of changes, or another meaningful result, the voice synthesis must contain that content, not a short placeholder intro like \"let me check\" or \"on it.\""
+    },
+    {
+      "id": "R223",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "If a turn has a single meaningful response, voice that response",
+      "rule": "When a turn has a single meaningful response, voice that response in the voice synthesis."
+    },
+    {
+      "id": "R224",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "the findings is what gets voiced",
+      "rule": "When a turn has both an intro action and a findings report, voice the findings."
+    },
+    {
+      "id": "R225",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "either skip the intro or roll it into the same voice call",
+      "rule": "When a turn has both an intro action and a findings report, you may skip the intro or combine it into the same voice call as the findings."
+    },
+    {
+      "id": "R226",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "the second voice carries the substantive content.",
+      "rule": "If you must voice more than once in a turn, make the second voice carry the substantive content."
+    },
+    {
+      "id": "R227",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "Don't truncate.",
+      "rule": "Do not truncate the spoken summary."
+    },
+    {
+      "id": "R228",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "The spoken summary should match the depth of the text response.",
+      "rule": "Make the spoken summary match the depth of the text response."
+    },
+    {
+      "id": "R229",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "the voice mentions the main ones",
+      "rule": "When the text response has many points, have the spoken summary mention the main ones rather than reducing it to a vague summary such as \"everything's fine.\""
+    },
+    {
+      "id": "R230",
+      "file": "feedback_voice_carries_content.md",
+      "quote": "One-line confirmations (\"audio delivered\", \"merged + pushed\") are fine when they ARE the substantive content",
+      "rule": "A one-line confirmation is acceptable as the voice content when it is the substantive content of the turn."
+    },
+    {
+      "id": "R231",
+      "file": "feedback_voice_chunks.md",
+      "quote": "When a voice response is long enough that a single synthesis would run past ~20 seconds, split it into multiple synthesize → pipe pairs and run them in sequence within the same turn.",
+      "rule": "When a voice response would take more than about 20 seconds to synthesize as one call, split it into multiple synthesize→pipe pairs and run them in sequence within the same turn."
+    },
+    {
+      "id": "R232",
+      "file": "feedback_voice_chunks.md",
+      "quote": "Don't try to cram a paragraph-plus into one call.",
+      "rule": "Do not cram a paragraph-plus of voice content into a single synthesize call."
+    },
+    {
+      "id": "R233",
+      "file": "feedback_voice_chunks.md",
+      "quote": "synthesize text under ~55 words / ~350 chars per call.",
+      "rule": "Keep the text for each voice synthesize call under about 55 words or 350 characters."
+    },
+    {
+      "id": "R234",
+      "file": "feedback_voice_chunks.md",
+      "quote": "split at natural sentence boundaries.",
+      "rule": "When splitting a long voice response into chunks, split at natural sentence boundaries."
+    },
+    {
+      "id": "R235",
+      "file": "feedback_voice_chunks.md",
+      "quote": "never split mid-sentence.",
+      "rule": "Never split a voice response chunk mid-sentence."
+    },
+    {
+      "id": "R236",
+      "file": "feedback_voice_chunks.md",
+      "quote": "Each chunk is a complete sentence (or two short sentences) that stands on its own",
+      "rule": "Make each voice chunk a complete sentence (or two short sentences) that stands on its own."
+    },
+    {
+      "id": "R237",
+      "file": "feedback_voice_chunks.md",
+      "quote": "strictly serial, never parallel:",
+      "rule": "Run voice synthesize→pipe pairs strictly serially, never in parallel."
+    },
+    {
+      "id": "R238",
+      "file": "feedback_voice_chunks.md",
+      "quote": "NEVER batch multiple `synthesize` calls in a single parallel tool-use block.",
+      "rule": "Never batch multiple synthesize calls in a single parallel tool-use block."
+    },
+    {
+      "id": "R239",
+      "file": "feedback_voice_chunks.md",
+      "quote": "the next pair only starts after the previous pipe returns.",
+      "rule": "Start the next synthesize→pipe pair only after the previous pipe call has returned."
+    },
+    {
+      "id": "R240",
+      "file": "feedback_voice_chunks.md",
+      "quote": "All synth+pipe pairs run BEFORE other tool calls per `[[feedback-voice-mcp-playback]]`.",
+      "rule": "Run all voice synth+pipe pairs before any other tool calls in the turn."
+    },
+    {
+      "id": "R241",
+      "file": "feedback_voice_chunks.md",
+      "quote": "every chunk should carry real findings, not filler.",
+      "rule": "Make every voice chunk carry real substance rather than filler."
+    },
+    {
+      "id": "R242",
+      "file": "feedback_voice_chunks.md",
+      "quote": "Don't pad to hit the 20s target; cut content if a chunk falls short of substance.",
+      "rule": "Do not pad voice chunks to reach the 20-second target; cut content from a chunk that lacks substance instead."
+    },
+    {
+      "id": "R243",
+      "file": "feedback_voice_chunks.md",
+      "quote": "When the response is genuinely short (one sentence), one chunk is correct — don't artificially split.",
+      "rule": "When a voice response is genuinely short, use a single chunk and do not artificially split it."
+    },
+    {
+      "id": "R244",
+      "file": "feedback_voice_first_response.md",
+      "quote": "For every response, lead with a `mcp__voice__synthesize` call",
+      "rule": "For every response, begin the turn with a mcp__voice__synthesize call before anything else."
+    },
+    {
+      "id": "R245",
+      "file": "feedback_voice_first_response.md",
+      "quote": "omit `play_local`, pipe the returned URL through the response's \"Recommended playback\" command in a background Bash",
+      "rule": "When calling mcp__voice__synthesize, omit the play_local parameter and pipe the returned URL through the response's \"Recommended playback\" command in a background Bash."
+    },
+    {
+      "id": "R246",
+      "file": "feedback_voice_first_response.md",
+      "quote": "Keep the spoken text to **one paragraph or less**",
+      "rule": "Keep the spoken text of each voice synthesis call to one paragraph or less."
+    },
+    {
+      "id": "R247",
+      "file": "feedback_voice_first_response.md",
+      "quote": "a concise summary of what's about to happen or what just finished",
+      "rule": "Make the spoken text a concise summary of what is about to happen or what just finished, not the full detailed response."
+    },
+    {
+      "id": "R248",
+      "file": "feedback_voice_first_response.md",
+      "quote": "Then write the full detailed text response below it.",
+      "rule": "After the voice call, write the full detailed text response below it."
+    },
+    {
+      "id": "R249",
+      "file": "feedback_voice_first_response.md",
+      "quote": "never the long detailed response itself",
+      "rule": "Never use the long detailed response itself as the spoken text in a voice synthesis call."
+    },
+    {
+      "id": "R250",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "Voice synthesize and the playback Bash are the FIRST TWO tool calls of every turn, in that order, BEFORE any other work.",
+      "rule": "At the start of every turn, make the voice synthesize tool call first and the playback Bash command second, before any other work."
+    },
+    {
+      "id": "R251",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "**First tool call**: `mcp__voice__synthesize` (omit `play_local`).",
+      "rule": "Make `mcp__voice__synthesize` the first tool call of each turn, omitting the `play_local` parameter."
+    },
+    {
+      "id": "R252",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "**WITHOUT `run_in_background`** so playback runs in the FOREGROUND and blocks until the audio finishes.",
+      "rule": "Run the recommended playback Bash command without `run_in_background` so playback runs in the foreground and blocks until the audio finishes."
+    },
+    {
+      "id": "R253",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "**THEN, and only then**: any other tool calls.",
+      "rule": "Make any other tool calls only after the synthesize and playback calls have been made."
+    },
+    {
+      "id": "R254",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "Nothing else goes between them.",
+      "rule": "Do not place any other tool call between the synthesize call and the playback Bash call."
+    },
+    {
+      "id": "R255",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "Do NOT parallel-batch synthesize with other tool calls.",
+      "rule": "Do not batch the synthesize call in parallel with other tool calls."
+    },
+    {
+      "id": "R256",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "Multiple voices in one turn: each one is synth → pipe foreground → next work, in series.",
+      "rule": "When producing multiple voice responses in one turn, run each as synthesize then foreground playback then next work, in series."
+    },
+    {
+      "id": "R257",
+      "file": "feedback_voice_mcp_playback.md",
+      "quote": "Pipe the substantive voice immediately even if late.",
+      "rule": "If the turn's voice output was missed or only an intro was voiced, pipe the substantive voice immediately even if it is late."
+    },
+    {
+      "id": "R258",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Never dispatch a new wave of agents until the previous wave's work is fully merged into main",
+      "rule": "Never dispatch a new batch of parallel worktree agents until the previous batch's work is fully merged into main."
+    },
+    {
+      "id": "R259",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Before dispatching ANY new batch of parallel worktree agents, the previous batch MUST be in this state:",
+      "rule": "Before dispatching any new batch of parallel worktree agents, verify the previous batch is fully merged, conflict-free, typechecked, pushed, and committed."
+    },
+    {
+      "id": "R260",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Every commit from the previous batch cherry-picked into `main`",
+      "rule": "Cherry-pick every commit from the previous batch into main (or merge it equivalently) before dispatching the next batch."
+    },
+    {
+      "id": "R261",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "All conflicts resolved",
+      "rule": "Resolve all cherry-pick or merge conflicts before dispatching the next batch."
+    },
+    {
+      "id": "R262",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "no abort/skip cherry-picks left dangling",
+      "rule": "Do not leave cherry-picks dangling in an aborted or skipped state before dispatching the next batch."
+    },
+    {
+      "id": "R263",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "`bun run typecheck` from `apps/editor/` exits 0",
+      "rule": "Run `bun run typecheck` from `apps/editor/` on the current main HEAD and confirm it exits 0 before dispatching the next batch."
+    },
+    {
+      "id": "R264",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "`git push origin main` succeeded",
+      "rule": "Run `git push origin main` and confirm it succeeds before dispatching the next batch."
+    },
+    {
+      "id": "R265",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "`git status` is clean",
+      "rule": "Confirm `git status` is clean (no uncommitted modifications or untracked files that should be tracked) before dispatching the next batch."
+    },
+    {
+      "id": "R266",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Only THEN dispatch the next wave.",
+      "rule": "Dispatch the next batch of agents only after all pre-dispatch conditions are met."
+    },
+    {
+      "id": "R267",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Prefer `git cherry-pick <sha>` over `git merge` for each agent's branch",
+      "rule": "Prefer `git cherry-pick <sha>` over `git merge` when integrating each agent's branch."
+    },
+    {
+      "id": "R268",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Always check `git log --oneline -5` to confirm what's actually on main before cherry-picking.",
+      "rule": "Always check `git log --oneline -5` to confirm what is on main before cherry-picking."
+    },
+    {
+      "id": "R269",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "If cherry-pick stalls with \"nothing to commit\" and is non-empty diff, investigate before continuing",
+      "rule": "If a cherry-pick stalls with \"nothing to commit\" despite a non-empty diff, investigate before continuing."
+    },
+    {
+      "id": "R270",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "`cd` back to the project root and retry",
+      "rule": "When a cherry-pick stalls because the working directory shifted into a worktree, cd back to the project root and retry."
+    },
+    {
+      "id": "R271",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "pre-stage the shared changes yourself in a single commit BEFORE dispatching the dependent agents",
+      "rule": "For shared files likely to conflict across agents, pre-stage the shared changes yourself in a single commit before dispatching the dependent agents."
+    },
+    {
+      "id": "R272",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "Never skip the gate \"because the agents need to start now.\"",
+      "rule": "Never skip the pre-dispatch gate because agents need to start now."
+    },
+    {
+      "id": "R273",
+      "file": "feedback_wave_merge_gate.md",
+      "quote": "If any check fails, FIX before dispatching.",
+      "rule": "If any pre-dispatch check fails, fix it before dispatching agents."
+    },
+    {
+      "id": "R274",
+      "file": "project_dnd_day_one.md",
+      "quote": "Don't dispatch 3.3 work until the DnD plan doc + payload contract + DropZone primitive + useAssetStore + useDragStore are at least specified, ideally also scaffolded.",
+      "rule": "Do not dispatch Wave 3.3 panel migration work until the DnD plan doc, payload contract, DropZone primitive, useAssetStore, and useDragStore are at least specified."
+    },
+    {
+      "id": "R275",
+      "file": "project_dnd_day_one.md",
+      "quote": "When migrating a panel in Wave 3.3, write it as a drag source AND/OR drop target depending on its role — see the integration matrix in the plan doc.",
+      "rule": "When migrating a panel in Wave 3.3, write it as a drag source and/or drop target depending on its role, following the integration matrix in the plan doc."
+    },
+    {
+      "id": "R276",
+      "file": "project_dnd_day_one.md",
+      "quote": "Each draggable kind gets its own MIME type prefix (`application/x-cardboard-*`) so drop zones can filter by `accepts`.",
+      "rule": "Give each draggable kind its own MIME type with the prefix `application/x-cardboard-*` so drop zones can filter by `accepts`."
+    },
+    {
+      "id": "R277",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Everything else — including our own editor — is a pack on top",
+      "rule": "Ship only the shell in Cardboard, and implement everything else, including the editor itself, as a pack on top of the shell."
+    },
+    {
+      "id": "R278",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Toolbars, layouts, the home screen, the project",
+      "rule": "Do not put toolbars, layouts, the home screen, the project picker, or scene tabs in the shell; place them in the core editor pack."
+    },
+    {
+      "id": "R279",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Every dock panel — ToolPalette, Brush, TilePresets, Layers,",
+      "rule": "Place every dock panel (such as ToolPalette, Brush, TilePresets, Layers) in the core editor pack, not in the shell."
+    },
+    {
+      "id": "R280",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Anything game-domain-specific — fixtures, hardcoded layer",
+      "rule": "Keep game-domain-specific code (fixtures, hardcoded layer taxonomies, hardcoded tile preset categories) out of the shell; put it in the core editor pack or a game-domain pack chained after it."
+    },
+    {
+      "id": "R281",
+      "file": "project_dogfooding_principle.md",
+      "quote": "No \"special editor APIs.\"",
+      "rule": "Do not create special APIs that only the editor can use."
+    },
+    {
+      "id": "R282",
+      "file": "project_dogfooding_principle.md",
+      "quote": "No hidden surfaces.",
+      "rule": "Do not create hidden surfaces that only the editor can access."
+    },
+    {
+      "id": "R283",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Same docs, same examples, same imports.",
+      "rule": "Give the editor the same docs, examples, and imports that third-party pack authors use."
+    },
+    {
+      "id": "R284",
+      "file": "project_dogfooding_principle.md",
+      "quote": "in the shell or as a published primitive.",
+      "rule": "When a third party could reasonably need a capability, put it in the shell or expose it as a published primitive."
+    },
+    {
+      "id": "R285",
+      "file": "project_dogfooding_principle.md",
+      "quote": "If no — it goes in the",
+      "rule": "When a third party would not reasonably need a capability, put it in the core editor pack."
+    },
+    {
+      "id": "R286",
+      "file": "project_dogfooding_principle.md",
+      "quote": "The shell should expose what we use.",
+      "rule": "If the editor uses a different mechanism than a third party would, expose that mechanism through the shell so third parties can use it too."
+    },
+    {
+      "id": "R287",
+      "file": "project_dogfooding_principle.md",
+      "quote": "Find a way to make it a normal primitive.",
+      "rule": "If a feature needs a hook only the editor has access to, redesign it as a normal primitive available to all packs."
+    },
+    {
+      "id": "R288",
+      "file": "project_dogfooding_principle.md",
+      "quote": "fix the API before shipping it.",
+      "rule": "If shipping an API would embarrass us in front of a community-pack author, fix the API before shipping it."
+    },
+    {
+      "id": "R289",
+      "file": "project_dogfooding_principle.md",
+      "quote": "we extend the shell — and EVERYONE benefits",
+      "rule": "When the editor needs something the shell does not expose, extend the shell instead of adding a private hook."
+    },
+    {
+      "id": "R290",
+      "file": "project_dogfooding_principle.md",
+      "quote": "`apps/editor/` shrinks to the shell.",
+      "rule": "Reduce apps/editor/ so that it contains only the shell."
+    },
+    {
+      "id": "R291",
+      "file": "project_dogfooding_principle.md",
+      "quote": "`packages/core-editor-pack/` (new workspace) holds everything",
+      "rule": "Move the editor views, panels, and page chrome from apps/editor/ into the packages/core-editor-pack/ workspace."
+    },
+    {
+      "id": "R292",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "those writes must land in IDB",
+      "rule": "When the user paints, edits scripts, or tweaks an entity, the resulting write must land in IDB."
+    },
+    {
+      "id": "R293",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "LS-backed Zustand stores can hold UI state (active tool, brush size) but NOT asset content.",
+      "rule": "Do not store asset content in LocalStorage-backed Zustand stores; they may hold only UI state."
+    },
+    {
+      "id": "R294",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "Don't confuse \"synced Zustand store\" with \"asset storage\"",
+      "rule": "Do not treat a synced Zustand store as asset storage; they are different layers."
+    },
+    {
+      "id": "R295",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "must be a **reactive view over IDB**, NOT a `createSyncedStore`",
+      "rule": "Any planned useAssetStore must be a reactive view over IDB, not a createSyncedStore."
+    },
+    {
+      "id": "R296",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "default to \"IDB-backed with BroadcastChannel for cross-window invalidation,\" not \"LS-backed Zustand.\"",
+      "rule": "When designing a new asset, script, or scene-content store, default to an IDB-backed store with BroadcastChannel cross-window invalidation, not an LS-backed Zustand store."
+    },
+    {
+      "id": "R297",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "the payload references an IDB record by id/path",
+      "rule": "When wiring DnD payloads, make the payload reference an IDB record by id or path."
+    },
+    {
+      "id": "R298",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "the drop handler reads from IDB to resolve",
+      "rule": "When handling a DnD drop, read the referenced record from IDB to resolve it."
+    },
+    {
+      "id": "R299",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "check whether its data lives in IDB",
+      "rule": "When migrating a Wave-3.3 panel that touches content, check whether its data lives in IDB."
+    },
+    {
+      "id": "R300",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "route reads/writes through `EditorProjectStore`",
+      "rule": "When a content panel reads or writes project data, route those reads and writes through EditorProjectStore."
+    },
+    {
+      "id": "R301",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "not through a new LS store",
+      "rule": "Do not route content reads or writes through a new LocalStorage store."
+    },
+    {
+      "id": "R302",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "Engine-side reads (playtest, export) MUST work without the editor running",
+      "rule": "Ensure engine-side reads for playtest and export work without the editor running."
+    },
+    {
+      "id": "R303",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "the IDB contract is owned by the engine package",
+      "rule": "Treat the IDB contract as owned by the engine package."
+    },
+    {
+      "id": "R304",
+      "file": "project_idb_source_of_truth.md",
+      "quote": "the editor's view layer adapts to it",
+      "rule": "Make the editor's view layer adapt to the engine-owned IDB contract."
+    },
+    {
+      "id": "R305",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "Don't render cubes/spheres for entities.",
+      "rule": "Do not render cubes or spheres for entities; represent entities as billboard sprites."
+    },
+    {
+      "id": "R306",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "There are NO 3D meshes for entities.",
+      "rule": "Do not use 3D meshes for entities."
+    },
+    {
+      "id": "R307",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "EntityPreviewPanel and similar previews must show sprites, not cubes/spheres.",
+      "rule": "Entity preview panels and similar previews must show sprites, not cubes or spheres."
+    },
+    {
+      "id": "R308",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "Render a single textured quad that billboards toward the camera.",
+      "rule": "For entity previews, render a single textured quad that billboards toward the camera."
+    },
+    {
+      "id": "R309",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "Even the placeholder should be a flat quad",
+      "rule": "Make entity placeholder geometry a flat quad, not a 3D shape."
+    },
+    {
+      "id": "R310",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "The MapCanvas placeholder geometry of \"walls\" is fine",
+      "rule": "Placeholder 3D geometry for walls in MapCanvas is allowed."
+    },
+    {
+      "id": "R311",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "that's allowed because it's a 3D PREVIEW of how the raycaster RESULT looks",
+      "rule": "The 3D PreviewPanel on the Scene page may show a perspective 3D view of the raycaster result."
+    },
+    {
+      "id": "R312",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "entity-specific previews (in the Prefabs page) should show the sprite asset, not a 3D mesh.",
+      "rule": "Entity-specific previews on the Prefabs page should show the sprite asset, not a 3D mesh."
+    },
+    {
+      "id": "R313",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "default to sprite-thinking unless explicitly working on the 3D Scene Preview.",
+      "rule": "When building entity-rendering surfaces, default to sprite-based rendering unless explicitly working on the 3D Scene Preview."
+    },
+    {
+      "id": "R314",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "Replace with a billboard sprite",
+      "rule": "Replace the cube/sphere rendering in EntityPreviewPanel with a billboard sprite."
+    },
+    {
+      "id": "R315",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "with the plane's rotation locked to face the camera via `mesh.quaternion.copy(camera.quaternion)` in the render loop",
+      "rule": "Lock the billboard plane's rotation to face the camera by copying the camera quaternion in the render loop."
+    },
+    {
+      "id": "R316",
+      "file": "project_raycaster_billboard_prefabs.md",
+      "quote": "Keep the orbit camera so the user can verify the billboard always faces them.",
+      "rule": "Keep the orbit camera in EntityPreviewPanel so the user can verify the billboard faces them."
+    },
+    {
+      "id": "R317",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Design the seams in the current sync.ts transport NOW even if implementation lands later",
+      "rule": "When working on the sync.ts transport, design its seams now, even if the network transport is implemented later."
+    },
+    {
+      "id": "R318",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "design D4–D7 of the DnD plan so PeerJS plugs in later without a retrofit",
+      "rule": "Design D4–D7 of the DnD plan so a PeerJS transport can be plugged in later without retrofitting."
+    },
+    {
+      "id": "R319",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Treat that as a transport INTERFACE.",
+      "rule": "Treat createSyncedStore's transport as an interface that a future PeerJS transport can satisfy."
+    },
+    {
+      "id": "R320",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "don't write code that pokes `localStorage` directly",
+      "rule": "Don't write code that accesses localStorage directly."
+    },
+    {
+      "id": "R321",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "or assumes `storage` event semantics",
+      "rule": "Don't write code that assumes `storage` event semantics."
+    },
+    {
+      "id": "R322",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Go through `createSyncedStore`'s API.",
+      "rule": "Go through createSyncedStore's API when reading or writing synced store state."
+    },
+    {
+      "id": "R323",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "If it's missing, extend the API rather than bypassing it.",
+      "rule": "If createSyncedStore's API lacks needed functionality, extend the API rather than bypassing it."
+    },
+    {
+      "id": "R324",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "all `set(...)` calls that originate from a remote peer should be flagged",
+      "rule": "Flag all set(...) calls that originate from a remote peer so the local window doesn't echo the write back over the network."
+    },
+    {
+      "id": "R325",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "not assuming all writes are local",
+      "rule": "Don't assume all store writes are local."
+    },
+    {
+      "id": "R326",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Heavy state (entities, cells, prefab refs) flows via WebRTC after handshake, NOT in the URL.",
+      "rule": "Keep heavy state (entities, cells, prefab refs) out of the URL; transfer it via WebRTC after the handshake."
+    },
+    {
+      "id": "R327",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "default existing panels to `mountable: {local: true, remote: false}`",
+      "rule": "When DockPanelDef is extended, default existing panels to mountable: {local: true, remote: false}."
+    },
+    {
+      "id": "R328",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Opt-in remotely only for panels that genuinely make sense.",
+      "rule": "Opt a panel into remote mountability only if it genuinely makes sense to mount remotely."
+    },
+    {
+      "id": "R329",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "Document it.",
+      "rule": "Document last-write-wins as the conflict policy for UI state (tool, brush, selection)."
+    },
+    {
+      "id": "R330",
+      "file": "project_remote_dock_via_qr.md",
+      "quote": "defer that decision until concrete use cases land",
+      "rule": "Defer the conflict-resolution decision for richer mutations until concrete use cases land."
+    },
+    {
+      "id": "R331",
+      "file": "reference_playwright_cardboard_apg.md",
+      "quote": "prefer the Downloads path",
+      "rule": "For drag-and-drop or file-input testing, prefer the ~/Downloads/Cardboard.apg path when loading a pack."
+    },
+    {
+      "id": "R332",
+      "file": "reference_playwright_cardboard_apg.md",
+      "quote": "use the game/public/packs path",
+      "rule": "For URL-based pack loading, use the apps/game/public/packs/Cardboard.apg path."
+    },
+    {
+      "id": "R333",
+      "file": "reference_playwright_cardboard_apg.md",
+      "quote": "Don't generate a new pack inside a Playwright run",
+      "rule": "Do not generate a new pack during a Playwright run; use the existing Cardboard.apg fixture instead."
+    }
+  ],
+  "dropped": []
+}

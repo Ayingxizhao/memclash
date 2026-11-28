@@ -1,0 +1,167 @@
+---
+name: project-rls-hardening-plan
+description: Phased plan to close the wide-open Supabase RLS (audit finding A1/C2/B2) before Meridian widens to more operators. Reviewed-before-implemented. Key safety fact — automation + edge functions use the service-role key (bypass RLS), client uses authenticated sessions — so tightening RLS only closes ANONYMOUS access and breaks nothing legitimate.
+metadata:
+  node_type: memory
+  type: project
+---
+
+# Supabase RLS Hardening Plan (owner-approved to draft, 2026-07-27)
+
+**CORRECTION, 2026-09-06 — the 2026-08-20 note below ("Phase 2... confirmed not applied") is
+stale.** Full measurement: `memory/finding-rls-phase2-my-locs-2026-09-06.md`. Short version: a
+newer, redesigned Phase 2 exists and is live in production — `public.my_locs()` (replacing the
+abandoned `can_see_loc()` design this file describes below) responds `HTTP 200` to a live RPC
+probe, while `can_see_loc()` now 404s (`PGRST202`, function not found). Whether the accompanying
+51 RESTRICTIVE per-loc policies (`supabase/schema-rls-phase2-loc.sql`) are actually attached is
+still unconfirmed — this environment cannot query `pg_policies` — and separately, **no real
+profile today is genuinely restricted to a subset of stores** (measured: 3 profiles total, 2 null/
+unrestricted, 1 with the complete 27-store list), so even a fully-applied Phase 2 has never been
+exercised against a real restricted account. See that finding file for the exact recommended
+next step (a `pg_policies` count + a live login test with a genuinely restricted profile).
+
+**MAJOR CORRECTION, 2026-08-20 — read this before anything below.** This plan's own premise
+(A1: ~30 tables wide open to anonymous access) was measured against **live production** today,
+via two purpose-built read-only diagnostics (`supabase/diagnose-schema-state.sql`,
+`supabase/diagnose-open-policies.sql`) — not assumed. The real picture is materially better than
+either this file's original "~30" or `backlog-master-2026-08-19.md` §14's later "92-107."
+
+**That 92-107 figure was itself real and correctly computed — but it measures the wrong thing,
+and this correction got that wrong on a first pass too (fixed before commit, not after).** It's
+a text-grep across **committed `supabase/*.sql` files** for the literal string `using(true)`
+(`grep -rEic "using\s*\(\s*true\s*\)" supabase/*.sql` → 107), i.e. how many times that pattern
+appears in schema files as *written*, including ones later superseded. It is not, and was never
+claimed to be, a live database query — `backlog-master-2026-08-19.md`'s own entry says so
+directly. The gap is that this repo's schema files are cumulative and some *replace* earlier
+policies outright (`schema-multitenant-phase2-rls.sql` explicitly drops-and-recreates the ones
+`schema-rls-phase1.sql`/the base `schema.sql` defined) — so a source-text count over-counts
+policies that were later superseded, in a way a live `pg_policies` query cannot. Today's live
+query is the operative ground truth from here forward; the 107 source-text count was never wrong,
+it was just answering "how much `using(true)` text exists across this repo's history," not "what's
+exposed right now." `plan-security-pii-architecture-2026-08-19.md` repeated the source-text
+number without this caveat — worth a one-line fix there, not urgent.
+
+**What's actually true, measured 2026-08-20:** a separate, already-applied "multitenant" RLS
+migration (`schema-multitenant-phase1.sql`/`schema-multitenant-phase2-rls.sql`, unrelated to
+*this* plan's `can_see_loc()` design — `can_see_loc()` itself is confirmed NOT applied) already
+replaced the wide-open policies on the vast majority of tables with `tenant_id = current_tenant_id()`
+checks. That function returns null for an anonymous caller (`auth.uid()` is null →
+`current_tenant_id()`'s `where id = auth.uid()` matches no row), and `x = null` is never true in
+SQL — so those policies **do** correctly block anonymous access, despite `pg_policies.qual`
+showing null for every one of them. That null is a structural artifact of `INSERT` policies (which
+use `WITH CHECK`, never `USING`, by Postgres design) — not evidence of an open policy. A first
+pass at this diagnostic was misread exactly this way (as "70 open policies," a live incident-level
+alarm) before the `WITH CHECK` clause was actually inspected; corrected same-day. The **one**
+genuinely open policy found (`qsrsoft_kb`, `SELECT`, `using(true)`, both anon+authenticated roles)
+is already known and intentional (CLAUDE.md documents it as a deliberate public-read reference
+table). **This plan's Phase 1 (closing the anonymous hole) already appears substantively done**,
+just via a different mechanism (the multitenant migration) than this plan originally specified.
+
+**CLOSED, same day — `supabase/diagnose-rls-disabled-tables.sql` (owner-run, 2026-08-20).** The
+one remaining question — whether every `public` table has RLS *enabled* at all, not just
+correctly policied — is answered: **all 87 ordinary tables in `public` have `relrowsecurity =
+true`, zero exceptions.** That's every table in the schema, not a sample — the query selects
+`relkind='r'` across all of `public` with no filter narrowing it down, and it returned exactly 87
+rows (matching `diagnose-schema-state.sql`'s "87 tables with RLS enabled" count precisely,
+confirming that number already WAS the total, not a subset). Combined with the policy-level
+finding above, **this closes the anonymous-access question completely**: every table has RLS on,
+and every policy except the one known-intentional `qsrsoft_kb` read correctly rejects anonymous
+callers. `rls_forced_on_owner` (`relforcerowsecurity`) is `false` on every table — expected, not
+a gap, since it lets the service-role key bypass RLS for automation exactly as this plan's own
+"why this is low-risk" section always assumed.
+
+**Phase 1 of this plan (closing the anonymous hole) is DONE — confirm this reading, then retire
+that phase from the plan rather than re-scoping it.** It shipped via the multitenant migration,
+not this plan's own design, but the outcome (no anonymous access) is real and measured, not
+assumed. **Phase 2 (`can_see_loc()`, per-loc isolation) genuinely has not shipped** — confirmed
+not applied — that part of this plan's original scope may still be real, separate from the
+anonymous-access question, and is the one piece of this plan's original scope still open. Re-scope
+only Phase 2 forward from here — do not re-litigate Phase 1, which is now measured closed, not
+re-derived from the original "~30" or the erroneous "92-107" figures.
+
+Addresses audit A1 (wide-open `using(true)` on ~30 tables), C2 (public buckets),
+B2 (client-only RBAC), M1 (review writes unscoped). **Nothing is changed until the
+owner reviews this plan.** *(Original framing below, kept for the record — see the correction
+above for what's actually true as of 2026-08-20.)*
+
+## ✅ Why this is LOW-RISK (verified)
+- **Every data-pull script uses `SUPABASE_SERVICE_ROLE_KEY`** (qsrsoft-dar/ebos/onhand/
+  variance/pull/email-parse, lifelenz-*). Service role **bypasses RLS entirely** → no
+  automation writes break, ever.
+- **Edge functions use service role** (ingest-report, sage-chat) or only trigger a
+  workflow (trigger-dar-sync, anon but no table writes).
+- **Client uses the anon key WITH an authenticated magic-link session** → runs as the
+  Postgres `authenticated` role, so `auth.uid()`-scoped policies work once logged in.
+- Therefore tightening `using(true)` only removes **anonymous** access. The single
+  behavior change: the app must be logged in (prod already is; only localhost-without-login dev is affected).
+- **Pre-req to confirm before Phase 1:** every write workflow passes `SUPABASE_SERVICE_ROLE_KEY`
+  (email-parse falls back to anon if the secret is missing — verify the secret is set).
+
+## Scoping key: `profiles.accessible_locs`
+`profiles(id=auth.uid(), role, accessible_locs)`. `accessible_locs` null = all stores
+(owner/admin); array = restricted to those store codes. This already drives client
+RBAC; we make it the RLS authority too. Loc-keyed tables (qsr_*, labor_rows, ops_rows,
+ctrl_rows, monthly_targets, sales_ledger/glimpse/cash, etc.) all carry a `loc` column.
+
+Add one SECURITY DEFINER helper (created once):
+```sql
+create or replace function public.can_see_loc(p_loc text)
+returns boolean language sql stable security definer set search_path=public as $$
+  select exists (
+    select 1 from public.profiles pr
+    where pr.id = auth.uid()
+      and (pr.accessible_locs is null
+           or p_loc = any (select jsonb_array_elements_text(pr.accessible_locs)))
+  );
+$$;
+```
+(Handle loc zero-padding: normalize `p_loc` and stored codes to the same form — most
+tables store unpadded NSN; qsr_* store 7-char zero-padded. The helper should compare
+`ltrim(p_loc,'0')` both sides, or store a normalized column.)
+
+## Phases (each its own reviewed, testable migration)
+
+### Phase 1 — Close the anonymous hole (fast, near-zero risk)
+Replace every `for all using (true)` / `for select using (true)` with
+`using (auth.uid() is not null)` (+ `with check (auth.uid() is not null)` on writes).
+Instantly stops anonymous read/write on all ~30 tables. No per-loc logic yet — any
+logged-in user still sees everything, but the internet no longer can. Ship + smoke-test
+the whole app logged in; confirm pulls still write (they will — service role). Keep the
+old policies commented for rollback.
+
+### Phase 2 — Per-loc isolation (the multi-operator fix)
+On loc-keyed tables, swap `auth.uid() is not null` → `public.can_see_loc(loc)` for
+select, and for write add `with check (public.can_see_loc(loc))`. Now operator B (users
+whose `accessible_locs` = their stores) cannot read/write operator A's rows; the owner
+(`accessible_locs is null`) still sees all. Test with a restricted test profile.
+- **District aggregates:** SAGE already exposes district totals to all roles server-side;
+  decide whether any UI needs a cross-loc read (if so, gate via role, not open RLS).
+
+### Phase 3 — Non-loc tables, review writes, storage
+- **Shared-config tables** (feature_requests, custom_signals, saved_correlations,
+  sage_prompts, org_config, review_templates): org-shared is fine → keep
+  `auth.uid() is not null`. (Multi-TENANT later may add an `org_id`; not needed for one org.)
+- **reviews (M1):** reads are already role/accessible_locs-scoped; scope WRITES the same
+  (`with check` on role+loc or owner), so a manager can't overwrite arbitrary reviews.
+- **PII tables** (employee_skills, smg_comments, reviews): loc-scope + confirm no anon.
+- **Storage buckets** (qsr-reports, reports, pending_reports): make private; replace
+  public read/insert with `auth.uid() is not null` (or service-role-only for the ingest
+  path, since email-parse reads them with service role). Remove public `update` on pending_reports.
+
+### Phase 4 — Defense-in-depth (from the audit medium list)
+- Back client RBAC decisions with RLS (falls out of Phases 1-2; treat permissions.js as UX only).
+- sage-chat: build the base system prompt server-side (don't accept it from the client) — C4.
+- Escape HTML in print/export `document.write` paths — C3 (separate small PR).
+
+## Testing / rollback
+- Apply per-phase in the Supabase SQL editor; each phase is idempotent (drop policy if
+  exists → create). Keep the prior policy text in a commented block for one-command rollback.
+- After each phase: (1) log in to the app, load every major panel (no empty/permission
+  errors); (2) run one data-pull workflow manually and confirm rows upsert; (3) with a
+  restricted test profile (accessible_locs = 2 stores), confirm cross-store data is hidden.
+- Roll out on a quiet window; Phase 1 first, bake a day, then Phase 2.
+
+## Deliverable when approved
+A single reviewed `supabase/schema-rls-hardening.sql` (phase-tagged, idempotent, with
+rollback blocks) + a checklist. Owner runs it phase-by-phase in the SQL editor (same as
+the other schema blocks), verifying the app between phases.

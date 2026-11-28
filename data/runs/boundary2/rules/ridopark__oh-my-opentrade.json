@@ -1,0 +1,172 @@
+{
+  "repo": "ridopark/oh-my-opentrade",
+  "dir": ".claude/projects/-home-ridopark-src-oh-my-opentrade/memory",
+  "n_files": 8,
+  "n_rules": 27,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "bug_eod_flatten_immediate.md",
+      "quote": "Check the order of currentBarTime.Store(minTime) vs EvalExitRules calls in the replay loop.",
+      "rule": "When debugging the EOD FLATTEN bug in daily screener backtest mode, check the order of currentBarTime.Store(minTime) relative to EvalExitRules calls in the replay loop."
+    },
+    {
+      "id": "R2",
+      "file": "bug_eod_flatten_immediate.md",
+      "quote": "verify Jan 20, 2026 is handled correctly by the NYSE calendar",
+      "rule": "When debugging the EOD FLATTEN bug, verify that Jan 20, 2026 is handled correctly by the NYSE calendar."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_no_rebuild_toml.md",
+      "quote": "Don't rebuild and restart omo-core when changes are only in TOML strategy configs (configs/strategies/*.toml).",
+      "rule": "Do not rebuild or restart omo-core when the only changes are to TOML strategy config files (configs/strategies/*.toml)."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_no_rebuild_toml.md",
+      "quote": "Only rebuild when Go source code changes.",
+      "rule": "Only rebuild omo-core when Go source code changes."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_no_rebuild_toml.md",
+      "quote": "only rebuild/restart after ENGINE_CHANGEs (Go code modifications).",
+      "rule": "During strategy tuning, rebuild and restart only after ENGINE_CHANGEs (Go code modifications)."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_no_rebuild_toml.md",
+      "quote": "For PARAM_CHANGEs (TOML edits), just run the backtest directly.",
+      "rule": "For PARAM_CHANGEs (TOML edits), run the backtest directly without rebuilding or restarting."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_omo_data_docker.md",
+      "quote": "Always rebuild and restart omo-data via `docker compose`.",
+      "rule": "Always rebuild and restart omo-data using `docker compose`."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_omo_data_docker.md",
+      "quote": "Never run omo-data as a local tmux process.",
+      "rule": "Never run omo-data as a local tmux process."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_omo_data_docker.md",
+      "quote": "Use `docker compose run --rm omo-data --run-once` for manual triggers.",
+      "rule": "When manually triggering omo-data, use `docker compose run --rm omo-data --run-once`."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_plan_before_engine_change.md",
+      "quote": "Always plan before implementing ENGINE_CHANGEs or strategy rewrites. Present the design for user review before writing code.",
+      "rule": "Before implementing ENGINE_CHANGEs or strategy rewrites, present the design for user review and do not write code until it is reviewed."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_plan_before_engine_change.md",
+      "quote": "For any significant code change (new strategy logic, engine modifications, multi-file refactors), use EnterPlanMode or present a structured plan and wait for approval before launching go-architect or writing code.",
+      "rule": "For any significant code change (new strategy logic, engine modifications, multi-file refactors), use EnterPlanMode or present a structured plan, and wait for approval before launching go-architect or writing code."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_tuning_params.md",
+      "quote": "only tune parameters that directly affect edge",
+      "rule": "When using the strategy tuning harness, only tune parameters that directly affect edge."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_tuning_params.md",
+      "quote": "Lock everything else at current defaults.",
+      "rule": "When using the strategy tuning harness, lock every parameter not designated for tuning at its current default value."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_tuning_params.md",
+      "quote": "**AVWAP v4.2 — Tune only 6:**",
+      "rule": "For AVWAP v4.2, tune only these 6 parameters: min_confluence_score, stop_bps, hold_bars, volume_mult, the stagnation minutes in exit_rules, and max_position_bps."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_tuning_params.md",
+      "quote": "**ORB Break & Retest — Tune only 4:**",
+      "rule": "For ORB Break & Retest, tune only these 4 parameters: min_rvol, stop_bps, max_retest_bars, and the stagnation minutes in exit_rules."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_tuning_params.md",
+      "quote": "Lock `orb_window_minutes` at 15",
+      "rule": "For ORB Break & Retest, lock orb_window_minutes at 15 and do not tune it."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_tuning_params.md",
+      "quote": "Lock everything else:",
+      "rule": "Lock at defaults, and do not tune, these parameter groups: entry type toggles, sub-params (such as pullback RSI and pinch bps), structural filters, timing windows, confluence weight toggles, AVWAP stop sub-params, swing stop sub-params, dynamic risk sub-params, VIX filters, options params, and regime overrides."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_tuning_params.md",
+      "quote": "restrict the DNA search space to only the 11 params listed above",
+      "rule": "When the strategy-tuner agent runs, restrict the DNA search space to only the 11 parameters listed in the tuning guidance."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_tuning_params.md",
+      "quote": "Require minimum 500 trades in any backtest before trusting results.",
+      "rule": "Require a minimum of 500 trades in any backtest before trusting its results."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_tuning_params.md",
+      "quote": "Use walk-forward validation (tune on 6 months, test on next 2, roll forward).",
+      "rule": "Validate strategy tuning with walk-forward validation: tune on 6 months, test on the next 2 months, and roll forward."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_tuning_params.md",
+      "quote": "treat correlated symbols as fewer independent samples",
+      "rule": "When assessing backtest sample size, treat correlated symbols as fewer independent samples."
+    },
+    {
+      "id": "R22",
+      "file": "project_whale_13f.md",
+      "quote": "verify against live EDGAR before production use",
+      "rule": "Verify the filer CIKs in sec/filer_config.go against live EDGAR before using them in production."
+    },
+    {
+      "id": "R23",
+      "file": "project_whale_13f.md",
+      "quote": "CLI backfill: `go run ./cmd/omo-backfill-13f --from-quarter 2023Q1 --user-agent \"Company email@example.com\"`",
+      "rule": "To backfill 13F filings, run `go run ./cmd/omo-backfill-13f` with `--from-quarter` set to the starting quarter and `--user-agent` set to a company name and contact email."
+    },
+    {
+      "id": "R24",
+      "file": "reference_ib_gateway_staging.md",
+      "quote": "NOT the main `ridopark` login",
+      "rule": "Do not set the TWS_USERID secret to the main ridopark login; use the paper account login username staging100."
+    },
+    {
+      "id": "R25",
+      "file": "reference_ib_gateway_staging.md",
+      "quote": "check `TWS_USERID`/`TWS_PASSWORD` are set in `.env`",
+      "rule": "When the IB Gateway login screen is stuck, check that TWS_USERID and TWS_PASSWORD are set in .env."
+    },
+    {
+      "id": "R26",
+      "file": "reference_ib_gateway_staging.md",
+      "quote": "by setting `ACCOUNT=${IBKR_ACCOUNT_ID}` in docker-compose",
+      "rule": "When the multi-account selector dialog blocks auto-login on IB Gateway staging, set ACCOUNT=${IBKR_ACCOUNT_ID} in docker-compose."
+    },
+    {
+      "id": "R27",
+      "file": "reference_ib_gateway_staging.md",
+      "quote": "by using the paper-specific login (`staging100`)",
+      "rule": "When the multi-account selector dialog blocks auto-login on IB Gateway staging, log in with the paper-specific login staging100 instead."
+    }
+  ],
+  "dropped": []
+}

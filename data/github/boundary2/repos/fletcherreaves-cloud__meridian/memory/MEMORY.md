@@ -1,0 +1,4720 @@
+# Meridian Project Memory — Master Index
+
+> Read this to discover what's documented. **Newest work is at the top.** When resuming a
+> session, read the most-recent handoff first, then the relevant thread files.
+
+## 🛑 BEFORE YOU THEORIZE ABOUT DATA — these questions are already answered
+
+**Added 2026-08-16 because rediscovery, not bugs, was the largest single cost of that day's work.**
+Three separate re-derivations in one day, each of an answer already sitting in this directory:
+`#243` re-proposed from scratch what `#327` then built (four days apart, same two atoms); a PM
+day-boundary theory was written into CLAUDE.md and refuted an hour later by a file from 08-07; and
+`#330`/`#331` were filed twice, twelve seconds apart, by two agents who couldn't see each other.
+
+None of that was carelessness. **`dar-vs-ops-reconciliation.md` was not in this index** — 43 of 124
+memory files weren't. The answer existed and nothing pointed at it.
+
+| If you are about to ask… | Read this FIRST | It already says |
+|---|---|---|
+| "Has the June McValue price increase been separated from the McValue traffic effect?" | [analysis-mcvalue-price-waves-2026-08-18.md](analysis-mcvalue-price-waves-2026-08-18.md) | **Yes — measured 08-18.** Price alone costs −1.17 to −1.46 pp of the full-window OK decline (gated, band-widened after a non-zero placebo). The clean six weeks (B1–B3, −3.14 pp) need no correction at all — lead with that number, not the full-window one |
+| "Is the DAR aligned to the 4am business day?" | [dar-vs-ops-reconciliation.md](dar-vs-ops-reconciliation.md) | **Yes — measured 08-07.** `hour_slot` runs `05:00→28:00` = 04:00→04:00. Boundary RULED OUT as the cause of DAR-vs-Ops deltas. Also: deltas are ~0.01% **only on days with a complete 24 slots** |
+| "Which labor % basis do we use, and does it include managers?" | [project-labor-pct-punched-vs-crew.md](project-labor-pct-punched-vs-crew.md) | Standardized on **Punched (all-hourly)** so FL and OK compare like-for-like. Crew Labor % silently includes salaried-manager $ where a store is configured that way (**FL is, OK isn't**). *"Read before touching any labor-basis code"* |
+| "What's the 4am cutover helper?" | `src/utils/date.js:101,117` (code, not memory) | `businessDate()` / `lastClosedBusinessDay()`. Consolidated after recurring **five times** as signature #4 — see [plan-data-integrity-sweep.md](plan-data-integrity-sweep.md). Never re-derive inline |
+| "Can I verify this from a sandbox session?" | [feedback-verification-in-sandbox.md](feedback-verification-in-sandbox.md) | The working Playwright/Chromium recipe, the CORS hard stop, and the merge-resolution class the suite does NOT catch |
+| "Is this metric averaged correctly?" | [weighted-rollup-audit.md](weighted-rollup-audit.md) | Full average-of-averages sweep — what was fixed, what was already right, what was left alone and why |
+| "Does the hourly projection have a known bias?" | [project-hourly-projection-accuracy.md](project-hourly-projection-accuracy.md) | Corroborates the 4am/`hour_slot` mapping independently (`:81`) |
+
+**The discipline this encodes:** CLAUDE.md's *"check whether an affordance already exists before
+adding one"* covers code. It applies just as hard to **explanations**. Search `memory/` and
+`src/utils/` before writing a mechanism into any durable doc — the grep that refutes you costs
+seconds, and the theory that survives one costs a PR.
+
+### Dispatch files come in TWO naming conventions — grep for the NUMBER, not a filename
+
+A missed pairing here reads as an unindexed file and invites a pointless "fix" (this exact
+confusion cost a PM pass on 2026-08-21). Both shapes exist on purpose:
+
+| Shape | What it is | Example |
+|---|---|---|
+| `dispatch-NN.md` | the **PM brief** — the spec handed to the engineer, written before the work | `dispatch-52.md` |
+| `dispatchNN-topic.md` | the **engineer writeup** — what actually shipped, written after | `dispatch44-cash003-count-rule.md` |
+
+Most briefs are linked from this index directly. **Measured 2026-08-21, exactly four are not**,
+and each for a reason:
+
+- **`dispatch-44.md` / `dispatch-45.md` / `dispatch-46.md`** — the engineer writeup carries the
+  durable content and *is* linked (`dispatch44-…`, `dispatch45-…` + `dispatch45b-…`,
+  `dispatch46-…`); the briefs are cited in prose instead. Not drift.
+- **`archive/dispatch-32.md`** — **superseded the day it was written**, deliberately kept with a
+  correction notice on top. Read `dispatch32-pipeline-contract.md` instead.
+
+Everything else, #20 through #54, has a linked entry. A few dispatches also carry a second file
+for their implementation pass (`dispatch-48-inv003-inv005-identity-vault.md`,
+`dispatch-50-implementation.md`).
+
+**One genuine hole: dispatch #47 has NO memory file at all.** The number was used — #47 was the
+Register Audit response-key diagnostic (the DEBUG-gated key-name log in
+`scripts/qsrsoft-register-audit-pull.mjs`) and the CASH-003 manual-report check — and #48's and
+#49's briefs both cite it, but its own brief was never committed, so those citations are dangling
+pointers. This is exactly CLAUDE.md's *"never end a session with an uncommitted memory file"* rule
+being violated once and the cost landing later. Recover #47's intent from
+`dispatch-48-inv003-inv005-identity-vault.md:174`, `dispatch-48.md:151`, and `dispatch-49.md:44`
+— not from a file, because there isn't one.
+
+**So: `grep -rn "dispatch.\?NN" memory/` — never conclude a dispatch is undocumented, or that the
+index has drifted, from one filename missing.**
+
+### Standing rule, added 2026-08-22 (this was the second same-day add/add collision): only the PM creates `dispatch-NN.md`
+
+Two `dispatch-NN.md` add/add merge conflicts landed the same day (#69, #70) — both sides
+independently writing to the same fresh path, unaware of each other, because a brief and its
+completion record are separate acts by separate roles racing on one filename. Structural fix,
+**not** a new filename pattern (a `dispatch-NN-result.md` split was considered and rejected — it
+just relocates the race to "which file is canonical," and this repo already has a working pattern
+for records that live at their own path: `dispatchNN-topic.md` above):
+
+- **Only the PM creates `dispatch-NN.md`.** It always exists before the engineer's session starts.
+- **The engineer never creates a fresh `dispatch-NN.md`.** Append a `## Resolution` section to the
+  existing brief instead (see `dispatch-71.md` for the pattern this session already used
+  independently, before this rule was written down). If a dispatch number's brief genuinely isn't
+  on `main` yet when picked up, fetch `main` first to check — don't assume absence from a stale
+  local checkout, which is exactly how both same-day collisions happened.
+- A dispatch whose engineer writeup is substantial enough to want its own file still uses
+  `dispatchNN-topic.md` — that convention is unchanged and doesn't collide, since only the engineer
+  ever writes that name.
+
+## ⭐ READ FIRST — latest handoff & vision
+- **New Store Launch Planner (2026-11-06/07) — [project-new-store-launch-planner.md](project-new-store-launch-planner.md), PRs #1706/#1707/#1708.** Reusable day-by-day (and now hour-by-hour) sales-ramp planning tool for a newly opening/relocating store, built when the owner asked "where did we put the projections" for Lindsay (44689, opens 2026-11-14, grand opening 2026-11-17, 24-HOUR year one) and the honest answer was nowhere real yet — `DEFAULT_TARGETS['44689']` was a placeholder copy of predecessor 18213's old targets. Seeded from `src/engine/new-store-ramp.js`'s comparable-store ramp model (Tishomingo + Ponce de Leon, real `qsr_daily_activity` data) and editable in-app (`src/views/launch-planner.js`, panel id `launch-planner`). Real finding: both comparables show a **grand-opening BUMP, not a slow ramp** — days 1-7 ran 0.96x-1.81x mature, not below it. Hourly breakdown added same day (`hourlyShapeFor`/`blendHourlyShapes`, confirmed `qsr_daily_activity`'s `hour_slot` is genuinely hourly-only, 24 slots) with an overnight-comparability guard. **Known dangling reference, not yet fixed**: `launch-planner.js` cites a `launch_planner_guide` KB key that doesn't exist in `KB_ARTICLES` (flagged by PR #1710, task #75).
+  - **⚠️ CORRECTED 2026-11-07 — the hourly breakdown's "quarter-hour: not available" conclusion was wrong.** It only checked `qsr_daily_activity` (genuinely hourly-only). A SEPARATE, real, live, backfilled quarter-hour table — `qsr_sales_quarter_hour` — already existed from the unrelated "Record Hour" feature (`memory/finding-record-hour-quarter-hour-pull.md`, 2026-10-12/13): confirmed 96 distinct 15-min slots/store/day, backfilled to 2024-01-01. Being wired into the Launch Planner now (quarter-hour `hourlyShapeFor`/`blendHourlyShapes` equivalents) — check this file's own history or `git log` for the merged PR before re-deriving.
+- **HME Cloud + Squadle integration research (2026-11-06) — [finding-hme-squadle-integration-2026-11-06.md](finding-hme-squadle-integration-2026-11-06.md), PR #1709 (docs-only).** Owner got access to both systems (HME Cloud = DT timer/timing data all locations; Squadle = food-safety-checklist tablet app) and sent live curl captures of both. HME Cloud: clean REST API at `portal-service.hmecloud.com` confirmed working (store directory, dashboard data, day-comparison export); its embedded Power BI "Trends Dashboard" is a dead end for automation (embed-token plumbing, not a stable target). Squadle: clean Firebase Auth (Google Identity Toolkit) — `verifyPassword`/`getAccountInfo`/refresh-token exchange all confirmed live — cleaner than any other integration in this repo, no Playwright fallback needed; its dashboard export buttons are client-side-only (`datatables.net-buttons`, serializes the rendered DOM table, no network call fires on click) so report data has to come from the real data-loading endpoint instead, not the export button. Task #105 in the tracker: blocked on two more owner captures (HME's Custom-Dates+Hour report request + its own login/token-mint request; Squadle's real data-loading endpoint) before `scripts/hme-cloud-pull.mjs`/`scripts/squadle-pull.mjs` can be built.
+- **Pricing Engine data-pull unlock (2026-08-28) — dispatches #182-185, from 4 owner-captured live
+  DevTools requests.** Owner sent a morning burst of real eBOS network captures
+  (`prod.ebos.qsrsoft.com`) closing real gaps from
+  `memory/finding-legacy-pricing-workbook-structure-2026-08-27.md`. All four dispatched in
+  parallel; #182/#183 shipped code fixes, #185 was correctly investigation-only, #184 shipped a
+  new pull with one bug caught and fixed during PM verification.
+  - **✅ SHIPPED (v5.224): [Dispatch #182 — `avgCheck`'s DAR-based derive now outranks
+    `laborRows` specifically](dispatch-182.md), PR #881.** Last unaddressed row in #165's audit
+    table (`avgCheck` was "flagged low-risk to reorder" but never fixed). PM's own dispatch doc
+    found the "reorder" framing was wrong: `metricSeriesWithSource()`'s shared `_derive()` only
+    fills a day AFTER every `srcs` entry has been checked, unconditionally — a plain array
+    reorder can't make the derive outrank `laborRows`, and touching the shared mechanism would
+    move priority for every other `derive`-using metric (`oepe`, `r2p`, `laborPct`, `spph`,
+    `cashOSPct`, `discPct`, `tRedAPct`/`tRedBPct`, `fobPct`, more). Engineer found the clean
+    narrow answer: a `key === 'avgCheck'` early return routing to a dedicated `_avgCheckSeries`
+    helper (precomputed-minus-`laborRows` → derive → `laborRows` last), reusing `spec.derive.fn`
+    verbatim so the math can't drift. Every other metric falls through to the untouched generic
+    path. 11 new tests; **zero test outside the new file changed behavior** — the exact
+    leak-detection bar the dispatch itself set. 293/293 files, 3048/3048 tests, build clean.
+  - **✅ SHIPPED (v5.225): [Dispatch #183 — real Meridian-side bug found and fixed for #181's
+    store-clustered emp/mgr-meal gap](dispatch-183.md →
+    finding-audit-rows-registertype-duplication-2026-08-28.md), PR #883.** Chased #181's own
+    named lead (some stores match audit data to the penny, others off $85-158/day, every sampled
+    day) to two compounding bugs: (1) `audit_rows`' Manager-type and Preparer-type register-audit
+    API calls return IDENTICAL meal-$ values to each other (redistributed across different
+    employee names within the day — a QSRSoft report-shape quirk, confirmed via real row-level
+    inspection with actual employee names/values, not just aggregates) — Cashier-type alone
+    already matches `qsr_cash_sheet` almost exactly; (2) `metric-source.js` was ALSO treating
+    `audit_rows` (one row per loc/date/employee/register-type) like every other store-day-grain
+    source, silently returning one arbitrary employee's value as the whole store total. Fixed via
+    a new optional `'sum'` aggregation mode on a `srcs` tuple (`_resolveLeg()` helper, fully
+    backward-compatible — every existing 2/3-element tuple defaults to identical prior
+    behavior), with `empMealAmt`/`mgrMealAmt`/`mgrMealCnt`'s `auditRows` leg now cashier-only +
+    summed-across-employees. **Verified against real data: 71.1%→98.0% (empMealAmt), 67.4%→97.8%
+    (mgrMealAmt)**, 26/27 stores ≥90%. Engineer confirmed cashier-only ALONE (without summing)
+    would have REGRESSED the match rate to 24%/10% — caught before shipping, not after.
+    **Flagged, not fixed — a real, separate, security-relevant lead**: the same Manager==Preparer
+    duplication was also measured on `pos_over_amt`, which `register-audit.js`'s
+    `analyzeRegisterAudit` currently sums across register types for the live Security panel
+    (CASH-003 reads it) — if it behaves the same way, displayed totals are inflated. Future
+    dispatch. 294/294 files, 3057/3057 tests, build clean.
+  - **✅ SHIPPED (v5.226): [Dispatch #184 — wire the eBOS `raw_info/{itemId}` endpoint: recipe/
+    serving-factor BOM, combo composition, current distributor cost](dispatch-184.md), PR #884.**
+    Owner-captured live DevTools request against the "Raw Item Detail Information" button.
+    Extends the already-working `raw_detail` pull in `scripts/qsrsoft-variance-pull.mjs` with a
+    sibling `raw_info` call for the SAME top-50 actionable-WRIN set (dispatch #179) — both calls
+    now fire CONCURRENTLY per item (`Promise.allSettled`) to keep the per-store loop's wall time
+    close to baseline instead of ~doubling it. New table `qsr_raw_item_info`
+    (`supabase/schema-qsr-raw-item-info.sql`), keyed `(loc, wrin)` only (current-state snapshot,
+    not a per-period forensic log like its sibling `qsr_raw_item_detail`) — `tenant_id` +
+    tenant-scoped RLS set up directly (brand-new empty table, no phase1/phase2 split needed).
+    **Real live verification**: triggered an actual `workflow_dispatch` run against production
+    (no eBOS credentials in-session) — all 38 actionable WRINs for store 3708 succeeded on both
+    `raw_detail` (unaffected, same row count as before) and the new `raw_info` call, confirming
+    the concurrent-fetch design is genuinely concurrent (not accidentally sequential). Real timing
+    extrapolation to all 27 stores: ~620s (~10.3 min), ~17% of the 60-min workflow timeout.
+    **✅ Bug found and fixed during PM verification**: `mapRawItemInfo()`'s `recipeItem` field
+    checked `=== true || === 'Y'`, but the owner's own captured sample sends this as the JSON
+    integer `1` — the check would have silently read every real item as `false`. The shipped
+    test used a synthetic `true` fixture that happened to pass despite the bug. Fixed (widened to
+    accept `1`/`'1'` too) and the test corrected to use the REAL captured value; revert-checked
+    (fails without the fix, passes with it).
+    **⚠️ Pending user action — schema not yet applied**: `supabase/schema-qsr-raw-item-info.sql`
+    has not been run against production (no mechanism exists for an agent session to execute DDL
+    directly — every `schema-*.sql` in this repo is human-run-via-SQL-editor by design). Until
+    then, the pull runs successfully but lands 0 rows every time (`upsert()`'s existing
+    catch-and-warn behavior, confirmed non-fatal — the rest of the pull, including the unaffected
+    `raw_detail` path, still completes). **Owner needs to run this file once in the Supabase SQL
+    editor.** `stream-freshness.js`'s `STREAMS` array was measured, not silently skipped, as a
+    non-fit — the whole EOM/variance table family (this table's own sibling included) sits
+    outside the `ds`/`STREAMS` architecture entirely, a separate, larger, out-of-scope
+    architecture question.
+    Scoped to pull + storage only, per both dispatch docs — no Pricing Engine UI/panel/analysis in
+    either #184 or #185 yet.
+  - **✅ INVESTIGATED, NO FIX (docs-only): [Dispatch #185 — `menu_item_activity2`/
+    `menu_item_activity_cost` (per-item daily waste + $ cost) blocked on ID enumeration]
+    (dispatch-185.md → finding-menu-item-id-enumeration-2026-08-28.md), PR #882.** Two more
+    owner-captured endpoints (per-menu-item daily `waste`/`emp_meal`/`mgr_meal`/`promo` counts,
+    and per-menu-item daily `food_cost`/`paper_cost`/`total_cost`), keyed by `store_menuitem_id`
+    — a DIFFERENT internal ID space than `raw_info`'s WRIN-based `item_number`. All three named
+    candidates for enumerating this ID checked and ruled out: dispatch #184's `raw_info` response
+    doesn't carry it; `qsrsoft_kb` confirms the "Menu Items" UI page exists but has no API
+    schema; no already-pulled table (`qsr_product_mix`, `qsr_waste`, `qsr_variance_stat`) carries
+    an ID in this space (checked the full 113-table schema). **Next step, concrete**: one more
+    owner DevTools capture — the Menu Items landing page's list-loading request almost certainly
+    returns every item's `store_menuitem_id` in one call. A related `menu_item_activity_breakdown`
+    endpoint (15-min granularity, same ID family) was also captured and explicitly NOT pulled —
+    noted for a future dispatch needing intraday detail, not needed for Pricing Engine cost work.
+- **Closing out #165's stream-redundancy audit (2026-08-27/28) — dispatches #180-181, the last two
+  items on that list.** PM-initiated (not owner-requested) continuation of the backlog-clearing
+  work after the EOM audit wrapped, picking the two remaining flagged-not-fixed items from
+  `audit-emailed-stream-redundancy-2026-08-27.md`.
+  - **✅ SHIPPED (v5.223): [Dispatch #180 — `promoAmt`/`promoPct` finish "API over
+    email"](dispatch-180.md), PR #875.** The last remaining item from #165's audit that already
+    had a clean measured 97-98% field match (`glimpseRows.promoAmt` vs
+    `qsr_cash_sheet.metrics.promo_amt`) — same fix shape as dispatch #175's already-shipped
+    cashOS/posOver fix. `loadOpsCashSheet` gained `promoAmt` (straight alias) and `promoPct`
+    (net-sales-weighted derive, copying `discPct`'s exact pattern, since `qsr_cash_sheet` has no
+    `promo_pct` column — only `cash_over_or_short`-style fields had a precomputed %).
+    `metric-source.js`'s `promoAmt`/`promoPct` chains got `opsCashRows` as the first source, email/
+    manual kept as fallback. 18 new tests, 292/292 files, 3037/3037 tests, build clean (552.72 KB
+    eager, 297.28 KB under budget).
+  - **✅ INVESTIGATED, NO FIX (docs-only): [Dispatch #181 — `empMealAmt`/`mgrMealAmt`(+counts)
+    reconciliation](dispatch-181.md → finding-emp-mgr-meal-reconciliation-2026-08-28.md), PR
+    #876.** #165's audit had explicitly flagged this pair as NOT yet reconciliation-tested (unlike
+    promo/posOver) — this dispatch measured it before touching anything, per that instruction.
+    **Two-layer finding.** (1) The comparison as originally posed is unanswerable:
+    `daily_glimpse_daily.emp_meal_amt`/`mgr_meal_amt`/`emp_meal_cnt`/`mgr_meal_cnt` have been
+    **0 for 100% of the table's history** (1,431/1,431 rows) — confirmed by downloading 4 real
+    CSVs spanning the pipeline's full operating history (2026-07-31 through 2026-08-26): none
+    contain a `Meal`/`Discount` column at all. **This directly contradicts
+    `supabase/schema-glimpse-meals.sql`'s comment that the owner confirmed both fields are in the
+    Daily Glimpse report** (Notes 60, 2026-08-08) — whatever was true then isn't true of any file
+    this pipeline has actually ingested since. Not a Meridian parsing bug (no wrong header to fix,
+    the columns simply aren't present) — a QSRSoft report-subscription config question, flagged as
+    an owner action item. Nothing in the app is currently broken by this: the affected chains use
+    `mode:'pos'` (requires `v>0`), so glimpse's structural 0 is already correctly rejected and
+    falls through to `ctrlRows`/`auditRows`, verified directly not assumed.
+    (2) Substituted `audit_rows` (register audit, itself auto-pulled) as independent ground truth
+    against `qsr_cash_sheet`: **71.3% (empMeal) / 67.5% (mgrMeal) match** at $1 tolerance, 647
+    store-days, all 27 stores. Day-boundary hypothesis tested directly and refuted (same-day match
+    75%/72% far exceeds a ±1-day shift at 20%/9%). Mismatch is **store-clustered, not random** —
+    some stores (6178, 6838) match to the penny every sampled day, others (6972, 5183, 5985) are
+    off $100+ every sampled day — a real, measured gap, not a one-line header-name bug like #172
+    found for cash O/S. Below the dispatch's own ~90% bar to wire a chain — **no `METRIC_SOURCES`
+    change shipped**, chains keep their existing `glimpseRows` (inert, harmless) → `ctrlRows` →
+    `auditRows` order. Two follow-up leads written up for whoever picks this back up: the owner
+    checking QSRSoft's Daily Glimpse column-selection config, and investigating what the
+    high-gap-vs-clean-match stores have in common.
+  - **✅ SHIPPED (v5.224): [Dispatch #183 — chased #181's store-clustered gap, found and FIXED a
+    real Meridian-side bug](dispatch-183.md →
+    finding-audit-rows-registertype-duplication-2026-08-28.md), PR TBD.** Picked up #181's
+    "investigate what the high-gap-vs-clean-match stores have in common" lead. Reproduced #181's
+    own measurement first (71.1%/67.4%, matching #181's 71.3%/67.5%) to confirm the same real
+    population. Register-type coverage (lead 1) ruled out — all 27 stores carry all three types.
+    Channel mix (lead 2) showed a moderate but not decisive signal. **Lead 3 (POS/config) found
+    the real cause:** `audit_rows`' Manager-type and Preparer-type register-audit API calls return
+    IDENTICAL meal $ totals to each other (redistributed across different employee names within
+    the day, not real incremental register activity) — confirmed via row-level inspection, not
+    just aggregates. **Two compounding Meridian-side bugs, both fixed:** `metricDaily`/
+    `metricSeriesWithSource` (`metric-source.js`) were (1) not filtering `auditRows` to the
+    correct (Cashier) register type, and (2) — a second bug found while implementing the fix —
+    only ever returning ONE employee's row as if it were the whole store's day total, since
+    `auditRows` is one row per (loc,date,EMPLOYEE,register_type), unlike every other source in
+    that chain. Fixed together via a new `'sum'` aggregation mode on a `srcs` tuple (cashier-only,
+    summed across employees) — verified 98.0%/97.8% match against `qsr_cash_sheet` (up from
+    71.1%/67.4%), clearing the ~90% bar decisively. 9 new tests, confirmed 8/9 fail on revert per
+    CLAUDE.md's revert-check rule. Full suite 3046/3046, build clean (552.84 KB eager, 297.16 KB
+    under budget). **Flagged, NOT fixed:** the same Manager==Preparer duplication was also found
+    on `pos_over_amt`, which `register-audit.js`'s `analyzeRegisterAudit` currently SUMS across
+    register types for the live Register Audit / Security panel (CASH-003 reads it) — a real,
+    separate, security-relevant lead for a future dispatch, not independently verified beyond a
+    store-level total comparison here.
+- **EOM/inventory-count pending-items audit (2026-08-27, owner-requested ahead of the 3-day
+  physical count starting Sat 2026-08-29) — dispatches #176-179, all shipped or honestly closed
+  out same-day.** PM ran a verified sweep of every panel/engine file touching EOM/inventory/FOB
+  (not a memory-file trust pass — every "pending" claim cross-checked against live code/data
+  first), found 5 items, owner triaged all 5 in one message (#1+#2 fix now, #3 best-effort, #4
+  widen to top-50, #5 owner's own task). All four engineering items dispatched in PARALLEL
+  (independent files, one shared file between #176/#177 that auto-merged clean as predicted).
+  - **✅ SHIPPED (v5.222): [Dispatch #176 — `fob-components` EOM diagnosis check never fired,
+    for any store, ever](dispatch-176.md), PR #871.** Two stacked bugs, both confirmed by reading
+    the code before drafting: (1) `eom-report-build.js`'s `buildEomReport()` used its `targets`
+    param for the narrative FOB line but never included it in the `data:` object passed to
+    `runDiagnosis()`, so `ctx.data.targets` was always `{}`; (2) even with that fixed, the check's
+    own component list used long-form keys (`compWaste` etc.) to index targets, but the REAL
+    `DEFAULT_TARGETS` field names (per the already-working `FOB_COMPONENTS`/`fobComponentDeltas()`
+    sibling) are `tCompWaste` etc. — `t[key]` was always `undefined` regardless of bug 1. Fixed by
+    extending `FOB_COMPONENTS` with a 4th tuple element (the long-form key) as the single source
+    of truth both the check and `fobComponentDeltas()` now read — no more independently-drifting
+    copies. **Bonus bug found and fixed during verification** (would have masked the whole fix):
+    `buildEomReport()`'s default `checks` fallback used `checksConfig()` — a `run`-less shape
+    built for an editable-registry UI — which silently error-swallows EVERY check (not just this
+    one) for every current caller (the public EOM share view, 100% of them). Swapped to
+    `DEFAULT_CHECKS`; the in-app EOM Dashboard path (`applyChecksConfig()`) was already correct
+    and unaffected. Also caught: a pre-existing test had been passing on synthetic wrong-shape
+    target keys matching the bug's own broken lookup — fixed to use real `DEFAULT_TARGETS` shape.
+    4 new tests (positive/negative at both the `runDiagnosis()` and end-to-end `buildEomReport()`
+    layers, plus a narrative-line regression guard). 291/291 files, 3021/3021 tests, build clean.
+  - **✅ INVESTIGATED, NO FIX (docs-only): [Dispatch #177 — `purchases-posted` EOM check is a
+    permanent stub](dispatch-177.md → finding-purchases-posted-endpoint-2026-08-27.md), PR #872.**
+    No pulled table carries invoice posted/pending status. Investigation found the REAL eBOS
+    endpoint (`GET /api/inv/{nsn}/purchase?purchase_status=Pending`, same auth token as the daily
+    `store_ledger` pull) by adding DEBUG-gated request/response logging to the production pull
+    script and re-running it live via `workflow_dispatch` (no QSRSoft credentials in the agent
+    session itself) — but all 27 stores read 0 pending invoices right now, so the item SHAPE for
+    the actual failing case is still unverified, and `purchase_status=Approved` (the natural
+    guess at the complementary status) confirmed invalid (HTTP 400). Correctly declined to
+    fabricate field names for a financial-integrity check two days before a physical count.
+    `pending:true` left unchanged — already fails safe (excluded from the run path, shown as
+    "awaiting data," never a false clean pass). Diagnostic instrumentation left on the unmerged
+    investigation branch only, gated behind off-by-default flags (verified: the scheduled cron
+    trigger has no `inputs`, so both new/existing debug flags are inert on every normal run) —
+    NOT on `main`, since it never shipped a code change. Precise handoff written for whoever picks
+    this up next (exact endpoint/auth/params, what's still needed, two ways to get a real sample).
+  - **✅ INVESTIGATED, NO FIX (docs-only): [Dispatch #178 — Inventory Intelligence panel has zero
+    cloud automation](dispatch-178.md → finding-inventory-summary-automation-2026-08-27.md), PR
+    #869.** `qsr_inventory_summary` has no producer (panel already shows "☁ no cloud data yet" +
+    manual-upload fallback, confirmed unaffected). Lead A (a real "Inventory Usage" QSRSoft report
+    — KB article is a field-for-field match to the target schema) is credential-blocked: this
+    session had ZERO QSRSoft credentials (confirmed via a full 137-var env dump), and every prior
+    endpoint-discovery finding in this repo required an owner DevTools capture — not a dead end,
+    an unfinished one. Lead B (derive from `qsr_onhand`+`qsr_raw_item_detail`) measured feasible
+    for only ~9% of one store's WRIN catalog (27 of 288 WRINs, selection-biased toward the
+    highest-variance subset) — correctly judged too thin to relabel as the real table two days
+    before a full physical count. Best-effort ask, honestly closed out rather than forced.
+  - **✅ SHIPPED (v5.221): [Dispatch #179 — widen Item Journey forensic pull from top-20 to
+    top-50 WRINs/store](dispatch-179.md), PR #870.** `scripts/qsrsoft-variance-pull.mjs`'s
+    `.slice(0, 20)` → `.slice(0, 50)`; `|$| >= 50` filter and `hasItemId` requirement unchanged.
+    The existing code comment framed the cap as bounding REQUEST VOLUME, so this needed a real
+    measurement, not just a number change — the agent had no eBOS credentials either, so it
+    instead read this exact workflow's own GitHub Actions run history (21 scheduled runs) and 3
+    full job logs to isolate the real 27-store fetch-loop time from CI overhead: worst observed
+    day (287.7s loop) projects to ~646s at 2.5× the requests — still >4× under the 60-minute
+    workflow timeout, no 429s observed in any log. Shipped as-is, no reduced interim number
+    needed. Three downstream code comments that cited "top ~20" as their reason
+    `qsr_raw_item_detail` under-covers Condiments were updated to top-50 for accuracy (the
+    underlying point — a dollar-filtered subset, not the full item universe — holds either way).
+- **✅ SHIPPED (2026-08-27, v5.220): [Dispatch #175 — cash-handling metrics finish "API over
+  email" for cashOS/posOver](dispatch-175.md), PR #866.** Owner's own follow-up question after
+  #172: *"is this not data that we're auto pulling through script now as well? Could it just be
+  rewired to the auto pull rather than the email pull?"* Measured live before drafting: `qsr_cash_
+  sheet` (`ds.opsCashRows`, the API-pulled table from `qsrsoft-ops-pull.mjs`) is fresh
+  (`content-range: 0-0/25043`, latest `dt` = today) and already carries `cash_over_or_short` and
+  `overring_amt`/`overring_qty` — everything the just-fixed email pipeline needs. Turned out to be
+  a per-metric picture, not all-or-nothing: `cashRefAmt`/`cashlessRefAmt` (and counts) already led
+  with `opsCashRows`; `cashOSAmt`/`cashOSPct` had it registered but listed THIRD, behind both
+  emailed sources (backwards from the standing rule, more clearly so post-#172); `posOverAmt`/
+  `posOverCnt` had NO auto source wired at all — a gap dispatch #165's own PR body had already
+  flagged and explicitly deferred ("a same-shape fix to the one just shipped, left separate to
+  keep this PR's blast radius contained"), never done.
+  **Fix**: `loadOpsCashSheet` (`src/lib/supabase.js`) gained the missing `posOverAmt`/`posOverCnt`
+  camelCase aliasing (`overring_amt`/`overring_qty`) — every sibling field already had this, these
+  two were the one pair missed. `metric-source.js`: `cashOSAmt`/`cashOSPct` moved `opsCashRows` to
+  the FRONT of the chain (email sources kept as fallback, not removed — #172 already made them
+  correct, still useful for any (loc, date) the ops-pull hasn't reached); `posOverAmt`/`posOverCnt`
+  gained `opsCashRows` as the first source (verified `parseCtrlData` does emit these fields before
+  keeping `ctrlRows` as the last-resort manual fallback). Fixed a stale comment that misdescribed
+  the `cashOSAmt` chain's actual array order even before this change.
+  13 new tests (`dispatch-175-cash-auto-first.test.js`): per-day auto-first precedence for both
+  metrics, per-day (not all-or-nothing) mixed resolution, `'any'`-mode 0/negative preservation,
+  and a regression check that an email-only device (no `opsCashRows` at all — #271's original bug
+  class) still resolves both metrics unchanged. 291/291 test files, 3017/3017 tests. Build clean,
+  eager total 552.59→552.65 KB, 297.35 KB under the 850 KB budget. `promoAmt`/`promoPct` (also
+  flagged reconciling well by #165) deliberately left out of scope — future dispatch if wanted.
+- **✅ SHIPPED (2026-08-27, v5.219): [Dispatch #172 — cash-handling field discrepancy root-caused
+  and fixed](dispatch-172.md), PR #863.** Follow-up to dispatch #165's audit
+  (`audit-emailed-stream-redundancy-2026-08-27.md`), which found `glimpseRows.cashOS` reconciling
+  against `qsr_cash_sheet.cash_over_or_short` at only 1/135 (0.7%), `cashRows.cashRefAmt` at 44/135
+  (44%), and `cash_os`/`posOverAmt` at 75-79% — while promo/channel-mix fields from the same
+  streams reconciled at 97-98%+ — and explicitly deferred investigating why. **This dispatch found
+  and fixed THREE independent, narrow, mechanical bugs that fully explain every number in that
+  table — no real data discrepancy, no day-boundary mismatch** (that hypothesis was directly
+  tested and ruled out).
+  1. `daily_glimpse_daily.cash_os`/`cash_os_pct` were **0 on all 1,431 rows in the table's entire
+     history** — `parseDailyGlimpse`'s header candidates (`"Cash Over/Short $"` etc.) never
+     matched the real Daily Glimpse column, confirmed from a real ingested CSV pulled from the
+     `qsr-reports` bucket: it's actually `"Over/Short $"`/`"Over/Short %"`.
+  2. `cash_sheet_daily`'s refund fields + `posOverCnt` were also always 0 — `parseCashSheet`
+     searched singular `"Refund"+"Count/Cnt"` but the real Cash Sheet Extract header (also
+     confirmed from a real CSV) is plural `"Refunds"+"Qty"`.
+  3. The residual mismatch concentrated almost entirely on one date (2026-08-12, 25-26/27
+     stores) — a THIRD bug: a `cash_sheet_extract_weekly_*.csv` rollup file has no per-row Date
+     column (one row per store = the week's total), so `parseCashSheet` falls back to a
+     filename-derived week-start date and the whole week's total ($1,925,318.54 vs a normal
+     ~$260-313K) silently overwrote that week's correct daily row via `upsert(onConflict:
+     loc,date)`. **This exact failure mode already had an explicit skip-guard for
+     `daily-glimpse`** in `scripts/qsrsoft-email-parse.mjs` — `cash-sheet` was simply never added
+     to it. **9 corrupted week-start dates found across the pipeline's full history** (~17% of
+     `cash_sheet_daily`'s rows, 2026-06-24 through 2026-08-19). Sales Ledger's weekly variant was
+     checked and confirmed NOT affected — it carries a real per-row Date column.
+  **Fix**: rollup skip-guard extended from `daily-glimpse`-only to also cover `cash-sheet`; real
+  header names added as primary candidates in both parsers (old candidates kept as fallback, in
+  case QSRSoft ever renames back). New `cash-handling-header-match.test.js` (12 tests) built from
+  real header text observed live — revert-checked (stashing the fix locally reproduced 7/12
+  failures, confirming the tests are load-bearing). Full write-up:
+  `finding-cash-handling-discrepancy-2026-08-27.md`.
+  **Version-collision with #171/#174** (all three branches independently claimed `5.217`, all
+  dispatched from the same pre-#171 `main`) — renumbered to `v5.219` during verification. 290/290
+  test files, 3005/3005 tests. Build clean, eager total 552.58→552.59 KB, 297.41 KB under budget.
+  **⚠️ NOT done — needs an explicit owner go-ahead, not attempted by the PM session either:** the
+  9 already-corrupted historical dates in `cash_sheet_daily` were NOT repaired live. The code fix
+  only stops NEW corruption going forward. The engineer's own attempt at a scoped, read-verified
+  repair (re-parsing only the already-confirmed-correct daily CSVs for the 9 known dates) was
+  **blocked by this environment's own auto-mode permission classifier before any write occurred**
+  — correctly treated as a signal that live production-data mutation is outside an investigation
+  dispatch's authority, not something to route around. The PM session verifying this PR treated
+  that block as a standing boundary too, not something to bypass via a direct Supabase write —
+  this is a genuinely different risk class from the CLAUDE.md backfill standing-authorization rule
+  (which covers PULLING absent history, not OVERWRITING existing live rows). Recommended repair
+  (from the finding doc): `node scripts/qsrsoft-email-parse.mjs --days=70` — verified mechanically
+  safe/idempotent once the guard fix is on `main` (each week's correct daily file re-upserts its
+  correct values, and the now-skipped weekly file no longer follows it to overwrite them) — or a
+  narrower repair scoped to just the 9 known dates. **Needs the owner's explicit go-ahead before
+  anyone runs it.**
+- **✅ SHIPPED (2026-08-27, v5.218): [Dispatch #174 — Performance Review Sales actual
+  (`mo.salesVsTgt`) manual-only, silently blanking past July](dispatch-174.md), PR #861.**
+  Owner-reported LIVE bug, follow-up to the same symptom #159 was supposed to fix: *"performance
+  reviews are still only populating through June when I auto populate."* **A real, different bug
+  from #159/#161 — neither touched `salesVsTgt`.** Root cause, measured live
+  (`SUPABASE_SERVICE_ROLE_KEY`): `autoPopulateKPIs()` set `mo.salesVsTgt` unconditionally from
+  `sum(lr,'sales')` — hand-filtering ONLY the manual `ds.laborRows` stream, zero auto/cloud
+  fallback, unlike `oepe`/`r2p`/`kvs`/`laborPct` three lines below (already auto-first per
+  dispatch #109 item #3) or `foodOB` (switched to the auto `qsr_fob` stream by dispatch #161).
+  Confirmed live: `labor_rows`' most recent upload is `report_date: 2026-07-23` — nearly 5 weeks
+  stale — so any month past it went silently blank. Compounding effect: `mo.foodOBTgt` derives
+  FROM `mo.salesVsTgt` (`officialTgts.tFOBTarget * mo.salesVsTgt`), so this one bug also blanked
+  the FOB dollar TARGET even though dispatch #161 already fixed the FOB *actual*.
+  **Fix**: `mo.salesVsTgt` now sums `metric-source.js`'s already-registered auto-first `sales`
+  chain (`qsrActSummaryRows` sales/allNetSales, THEN `ds.laborRows` last) via
+  `Object.values(metricSeries(ds, loc, range, 'sales')).reduce(...)` — the same pattern already
+  used in `sage.js`/`store-analytics.js` — falling back to the old manual `lr`-based sum only
+  when the auto path resolves nothing for the month. Same auto-then-manual precedence direction
+  as `foodOB`. `mo.foodOBTgt` needed no code change — it just starts resolving once
+  `salesVsTgt` does. Confirmed, not assumed: the separate, already-dead `salesTgt`/`laborTgt`
+  manual-only TARGET fallback (dispatch #142) is untouched — different fields.
+  7 new tests (`dispatch-174-review-sales-auto-source.test.js`): real regression case (auto-only,
+  no manual row), manual-only non-regression, per-day auto-vs-manual precedence, per-day blend,
+  cross-store leak guard, dead-field guard, `foodOBTgt` resolving once `salesVsTgt` does.
+  **Version-collision with #171 below** (both branches independently claimed `5.217`, since both
+  were dispatched from the same pre-#171 `main`) — renumbered to `v5.218` during verification
+  (merged cleanly, no code-side conflict — only the changelog files collided). 289/289 test files,
+  2993/2993 tests. Build clean, entry chunk gzip 480.63→480.65 KB, eager total 552.56→552.58 KB,
+  still 297.42 KB under the 850 KB budget.
+- **✅ SHIPPED (2026-08-27, v5.217): [Dispatch #171 — Projections vs Actuals custom date-range
+  picker](dispatch-171.md), PR #860.** Live Feature Request read from Supabase `feature_requests`:
+  *"Add date range picker... Ex: I would like to be able to select an entire month."*
+  `ProjectionVsActualsReport` (`src/views/analytics.js`) previously had only three fixed
+  `[2,4,6]`-weeks-back presets; `runBacktest()` is fundamentally week-shaped (only ever evaluates
+  complete Wed-Tue business weeks), which the dispatch flagged as needing an explicit rule since a
+  calendar month never divides evenly onto Wed-Tue weeks. **Design decision, made and documented
+  during implementation**: Option A (weeks that OVERLAP the picked range) over Option B (only
+  weeks fully CONTAINED) — Option B would silently drop the partial weeks at a range's start/end,
+  exactly the FR's own "select an entire month" example. Verified concretely: picking July 2026
+  resolves to exactly 5 Wed-Tue business weeks, the last running to Aug 4 — past the picked end
+  date, by design, and now stated explicitly on-screen ("Evaluated N business weeks... "), not
+  left implicit in the table's column headers.
+  New `resolvePvsaCustomWeeks()` routes through the shared `weekStartOf()` helper (not hand-rolled
+  `getDay()` arithmetic — this file already made that exact mistake once, #367, and
+  `week-start.test.js` ratchets the hand-rolled-boundary count). Capped at 26 weeks (half a year)
+  as a safety limit against a fat-fingered multi-year range hanging the 27-store compute; the UI
+  states plainly when a pick got capped. UI is a plain `<input type="date">` pair matching the same
+  file's `DateRangeReport` precedent, deliberately NOT the shared `DateRangeControl` component
+  (checked `panel-contract.md` first — that component's day-count presets don't fit this
+  week-granular backtest engine). `[2,4,6]`-week presets unchanged and regression-tested; a
+  latent pre-existing bug also fixed in the same pass — the "Weeks Analyzed" KPI tile was reading
+  the stale preset value unconditionally instead of the actual resolved week count.
+  `dispatch-171-pvsa-custom-range.test.js` renders the real exported component. 288/288 test files,
+  2986/2986 tests (measured on the pre-#174 branch; see #174's entry above for the post-merge
+  289/2993 count). Build clean, entry chunk gzip 480.60→480.62/63 KB, eager total unaffected
+  (`analytics.js` is lazy-loaded).
+- **✅ INVESTIGATED, NO FIX (2026-08-27): [Dispatch #173 — #327's 10.2% laborPct derive mismatch,
+  numerator disagreement confirmed pervasive, root cause still open]
+  (finding-laborpct-numerator-mismatch-2026-08-27.md), PR #859 (docs-only).** Continuation of the
+  investigation `metric-source.js`'s `laborPct` chain comment already documented (582/648, 89.8%
+  match; 66/648, 10.2% mismatch; mean signed diff +0.0050, mostly runs high; 25/27 stores
+  affected; day-boundary hypothesis already refuted by dispatch #164). Reconstructed the original
+  648-store-day comparison from scratch (the original mismatch list was never preserved anywhere)
+  via live Supabase reads — reproduced the documented numbers **exactly**, confirming the
+  reconstructed set is the real population, not a fresh sample that happens to look similar.
+  **All four prioritized leads chased and REFUTED as the explanation:**
+  1. Job-code/pay-type scope (QSRSoft's own "ambiguous" crew-vs-manager JTC codes) — measured
+     against real `qsr_punch_times`: ambiguous-code hour share on mismatched days (26.3%) is
+     essentially identical to matched-day control (24.7%), correlations near zero.
+  2. Correction/revision lag — the ideal test (did a value change between an early and a later
+     pull) isn't answerable (no pull-history log survives); the testable proxy (relative
+     `updated_at` staleness) showed mismatched days are NOT staler, and the "labor pulled before
+     Glimpse" rate is actually LOWER on mismatched days (53.0%) than matched (63.6%) — the
+     opposite of what the lag hypothesis predicts.
+  3. Scale-dependent rounding — mismatch rate is flat (8.6–11.7%) across all four sales-volume
+     quartiles; no correlation with sales or crew dollars.
+  4. Generalizing the single-day store-31357 deep-dive (which had ruled out both candidate sales
+     denominators for that one day) across all 66 mismatched days — **CONFIRMED**: 0/66 days have
+     ANY of 5 independently-sourced sales candidates reconciling the implied denominator within
+     $5. This is a numerator disagreement on every sampled day, not a denominator-picking problem,
+     and not specific to that one store/date. A follow-up check found the numerator gap itself
+     doesn't correlate with OT dollars, gross dollars, or salaried-manager dollars either, and
+     isn't a clean per-hour rate artifact.
+  **What remains open**: what Daily Glimpse's `labor_pct` numerator actually is internally isn't
+  derivable from any field this environment can read — `daily_glimpse_daily` only ever carries the
+  precomputed `labor_pct` itself, and no `qsrsoft_kb` article documents Glimpse's internal
+  labor-$ calculation. Per the dispatch's own scope discipline, `laborPct`'s chain/derive/comment
+  were left untouched — no unambiguous, narrow, confirmed cause was found, so no fix landed.
+  Docs-only PR, no code/test/build changes.
+- **✅ SHIPPED (2026-08-27, v5.216): [Dispatch #170 — Product Mix Cloud tab never populates:
+  `loadPmixRows` was fetching ~2.5M rows on every open](dispatch-170.md), PR #853.** Owner-
+  reported LIVE bug, same session dispatch #169 shipped: *"everytime I have tried the cloud data,
+  it has not populated after waiting several minutes."* **Not the earlier-fixed wiring bug**
+  (v5.187/188 — confirmed by reading the live code first: `ProductMixPanel` still correctly calls
+  `ensureLazyFill`). Root cause, measured live (not assumed): `loadPmixRows(daysBack=400)` was the
+  SOLE loader for `ds.pmixRows`, called with no args. `qsr_product_mix`'s real data starts
+  2026-01-01, so 400 days back was not "the last 400 days" — it was the entire table:
+  `content-range: 0-0/2526181`, 2.5M+ rows and growing ~11K/day (two pulls/day × 27 stores ×
+  hundreds of items, the exact volume dispatch #169 itself measured an hour earlier). A real
+  paginated fetch at 7/14/30-day windows measured a consistent **~18,000 rows/sec** throughput
+  under `_pagedParallel`'s real `_MAX_INFLIGHT=6` concurrency cap (already present, already
+  correct — the "2,500+ parallel requests" hazard flagged in the dispatch doc turned out to
+  already be handled, confirmed by reading the code rather than assumed broken); extrapolated to
+  the old 2.5M-row default: **~140s (~2.3 min) — this IS "waited several minutes,"** not a
+  hypothetical or a genuine infinite hang.
+  **Fix — two-tier bounded/wide split**, deliberately mirroring the pattern dispatch #169 itself
+  just established for the Scanner's item coverage (bounded-by-default, explicit opt-in for the
+  expensive path) rather than inventing a new shape: `loadPmixRows`'s own default trimmed 400→40
+  days (measured: ~436K rows, ~24s — comfortably covers `ProductMixPanel`'s own 7D/30D quick-view
+  default). New parallel WIDE lazy-fill tier in `metric-source.js`
+  (`ensureLazyFillWide`/`isLazyFillWidePending`/`isLazyFillWideLoaded`/`isLazyFillWideError`, a
+  `wideLoaders` map alongside the existing `loaders` map on the same `configureLazyFill` hook) —
+  once resolved it REPLACES THE SAME `ds.pmixRows` field, so every pre-existing reader
+  (`signal-registry.js`, `events.js`, `store-dash.js`) needed zero changes. `App.js` registers
+  `wideLoaders:{pmixRows:()=>loadPmixRows(400)}` — the OLD default, unchanged, since it was already
+  measured to cover the table's real history. Dispatch #169's `ItemPicker` and the Scanner's "Item
+  Mix" toggle switched from `ensureLazyFill` to `ensureLazyFillWide` (they need breadth, not the
+  bounded default — shipped just before this bug was reported, and this fix was written
+  specifically not to regress it). `ProductMixPanel`: 7D/30D stay bounded; 90D/180D/All now
+  trigger the wide fetch on selection and show an explicit "Loading Full History…"/error state
+  until it resolves — **never silently render the bounded 40-day set under a "180D"/"All Time"
+  label** (the dispatch's own explicit anti-pattern warning, honored).
+  **A real race found and hardened DURING verification, not by the engineer**: the bounded and
+  wide fetches are two independent async operations with no ordering guarantee between them. In
+  the overwhelming common case the bounded fetch (smaller, starts on mount) resolves first — but
+  under unlucky timing the wide fetch could resolve FIRST, and the bounded fetch's later-arriving,
+  smaller result would then silently overwrite `ds.pmixRows` back down to 40 rows while
+  `isLazyFillWideLoaded()` (and therefore the panel's own "full history loaded" UI state) still
+  claimed the wide range was ready — reproducing the exact "range option lies about what it shows"
+  bug the dispatch explicitly warned against, just via a timing race instead of a design gap.
+  Fixed in the verification pass: the bounded resolve handler now checks
+  `_lazyWideState[src]==='loaded'` before writing, skipping the stale write entirely. New
+  regression test added and sanity-checked by reverting the guard first and confirming the test
+  fails (`sets.length` goes 1→2), then restoring it and confirming it passes — proof the test
+  exercises the actual guard, not just a coincidentally-correct end state.
+  287/287 test files, 2982/2982 tests (net +4 from the merged PR, +1 more from the verification-
+  pass hardening). Build clean, entry chunk gzip 480.59→480.60 KB (negligible — no new static
+  top-level import), eager total 552.42→552.53 KB, still 297.47 KB under the 850 KB budget.
+  **Documented, real, out-of-scope trade-off** (engineer's own honest flag, not glossed over):
+  `signal-registry.js`'s Pricing metrics (`pxDaysSince`/`pxItemsChanged`/`pxMeanStepPct`) read
+  `ds.pmixRows` unconditionally in `scanAllPairs`, not gated behind the wide opt-in — if only
+  `ProductMixPanel`'s bounded tier has loaded before a Scanner run without "Item Mix" checked,
+  their effective window narrows from ~237 days to 40. Pre-existing incidental coupling (Pricing
+  predates #169's opt-in pattern), flagged for a future dispatch, not fixed here.
+- **✅ SHIPPED (2026-08-27, v5.215): [Dispatch #169 — product-mix item correlations in Signal
+  Lab / Scanner](dispatch-169.md), PR #850.** Notes 28 #5's field-note anchor: *"Filet-O-Fish
+  sells more on Fridays and around Easter... once product-mix data is available, correlate
+  item-level sell-through against day-of-week/calendar/weather."* The unblocked slice of the
+  Product Mix → Pricing Engine backlog item — owner's explicit split this session: dispatch this
+  now, hold the Pricing Engine itself for the owner's spreadsheet (see the finding above/below).
+  **Measured first, not assumed**: a 20-date/27-store stratified sample of live `qsr_product_mix`
+  (207,966 rows, since full-table server-side aggregation isn't available — PostgREST has
+  aggregates disabled) found **699 distinct items**, concentrated (top 150 by volume ≈ 87% of
+  units sold) — ruled out a static per-item registry entry (would bloat `METRIC_FLAT` ~20x and
+  blow up the Scanner's O(n²) sweep) in favor of a **dynamic per-item resolver**. New `pmixItem:
+  <code>` key shape in `signal-registry.js`: `findMetric()`/`extractMetricValues()` synthesize the
+  metric definition on the fly (real label via `desc_`, `soldQty` correctly SUMMED across price
+  tiers per the `(loc,date,item,price)` grain — not truncated to one row) — reuses the
+  `__calendar`/`__priceEvents` "derived, no static source table" pattern already in the file. New
+  `ItemPicker` in Signal Lab (search/select from the real item list, not a 700+-entry dropdown) on
+  both X/Y axes. Scanner: items capped to top 150 by volume, paired ONLY against Calendar/Weather
+  (never against each other or the rest of the registry), **off by default** behind an explicit
+  "Item Mix" checkbox (daily-only, disabled on Monthly) — a plain "Run scan" has byte-identical
+  pair count/timing to before, regression-tested. `allowZero:true` set deliberately (a 0-sold day
+  is real signal, not missing data) with an honest documented caveat: `qsrsoft-pmix-pull.mjs`
+  already filters `soldQty<=0` rows as "catalog placeholders" before upsert, so a literal zero
+  never actually reaches `ds.pmixRows` today — the setting is correct/forward-compatible but
+  currently inert, stated plainly rather than glossed over. **A real pre-existing bug found and
+  fixed along the way**: Calendar (`calFri`/`calWeekend`/`calMon`) and Pricing
+  (`pxDaysSince`/etc.) metrics had NEVER actually reached `scanAllPairs`'s sweep since Calendar
+  shipped in v4.533 — the presence-check gated every metric on `ds[m.source]` being a non-empty
+  array, which is always `undefined` for these two derived-no-table sources, so they were
+  silently skipped every single scan; `SEEDED_SIGNALS`'s "Friday lift" entry masked this because
+  it calls `computeCustomSignal` directly, bypassing the buggy loop. Reproduced pre-fix
+  (`metricsUsed: 2→5`, `tested: 1→7` on an obvious Fri/Sat/Sun dataset), fixed by special-casing
+  the two derived sources, regression-tested — exactly the "engine right but unused" shape
+  CLAUDE.md's dispatch16 rule warns about (every prior Calendar/Pricing test exercised
+  `extractMetricValues`/`computeCustomSignal` directly, never the Scanner sweep itself). **Real-
+  data acceptance test, not just plumbing**: pulled the FULL captured history for Filet-O-Fish
+  (menuItemNumber 5926, 7,916 rows, all 27 stores) as a fixture, hand-aggregated by day-of-week
+  FIRST (Friday mean 568.8 units/day district-wide vs. 396–495 every other day — Friday is the
+  single highest day, reproducing the Notes 28 #5 claim from raw numbers before any registry code
+  ran), then reproduced through the actual `computeCustomSignal` engine: **r=+0.145, n=6,305,
+  p≈0**. 284/284 test files, 2967/2967 tests (net +51). Build clean, entry chunk gzip
+  479.81→480.59 KB (+0.78 KB; `signal-registry.js` is eagerly imported via `App.js`'s
+  `computeAllCustomSignals`, so the registry's growth reaches the entry chunk, not just the
+  `signals.js` lazy chunk). Full measurement notes (item universe, concentration curve, the
+  allowZero pipeline finding, the scanAllPairs bug) committed to `finding-pmix-item-correlations-
+  2026-08-27.md` in the same PR. Full diff read directly during verification (not trusted from the
+  PR body) — the price-tier-summing correctness, the Scanner's opt-in gate, and the
+  `computeScheduleRollup`-style reuse pattern all confirmed line-by-line.
+- **📋 (2026-08-27): [Finding — legacy pricing workbook structure](finding-legacy-pricing-workbook-
+  structure-2026-08-27.md).** Owner uploaded `Menu_Management__071917.xlsm`, their own 2008-2017
+  hand-built pricing/recipe-costing/elasticity tool — the foundation spreadsheet Notes 25 #1 named
+  as a prerequisite for the Pricing Engine backlog item. Read for STRUCTURE only (all data is
+  8-10 years stale, explicitly not usable). Documents the real pipeline: per-store item pricing →
+  Martin Brower distributor cost feed → per-ingredient recipe costing (QCR: Serving Factors × MB
+  Price List case cost → food cost % per menu item) → four rolling PMIX snapshots → a BRK/REG
+  "Pricing Impact" simulator (the actual analog of "Pricing Engine" — models gain/loss from a
+  price change against trailing PMIX volume, held constant as a static-elasticity assumption).
+  **5 concrete data-pull gaps** identified against Meridian's current schema: (1) distributor
+  ingredient cost — the big one, zero current source at all, no per-item margin possible without
+  it; (2) recipe/BOM data (which ingredients go into each item) — check if QSRSoft exposes this
+  before assuming a manual seed is needed; (3) per-item waste quantity — may be an unmapped field
+  in the existing pull, cheap to check; (4) combo/EVM composition — likely fine as a small
+  hand-maintained config table, same pattern as `constants.js`'s `operators`/`supervisorGroups`;
+  (5) item-code stability across menu relaunches (the legacy sheet's Xref field existed for this
+  exact reason) — unconfirmed either way for `qsr_product_mix.item`, worth checking before leaning
+  on it for trend work (dispatch #169 above included). **Not a dispatch** — the real Pricing
+  Engine build stays queued behind source-recon on gap #1 in particular (does Martin Brower have a
+  usable Sync API/export, per Notes 25's own "possible new data sources" list).
+- **✅ SHIPPED (2026-08-27, v5.214): [Dispatch #168 — extend At-A-Glance's per-tile "As of"
+  date-span label to Store Dashboard](dispatch-168.md), PR #846.** Inferred scope (no live FR for
+  this one, unlike #167 below — CLAUDE.md's own "'As of [date]' labels on tiles" line is generic,
+  not panel-scoped). Measured first: At-A-Glance already ships this (`_spanTag()`, v4.837, 8 call
+  sites, shows each tile's real date SPAN + a ⚠ note when it fell back to a 30-day default); a
+  tree-wide grep confirmed no other panel had the equivalent, and Store Dashboard — the other major
+  KPI-tile panel — had zero per-tile freshness labeling. **A real error in the dispatch brief's own
+  file reference was caught and self-corrected before writing any code**: the dispatch named
+  `src/views/store-dash.js` as the Store Dashboard panel; the engineer confirmed via `App.js`'s
+  `lazyPanel()` wiring that the actual panel component is `StoreDash` in `src/views/
+  store-analytics.js` (`store-dash.js` is a component library that one imports scorecards from,
+  not the panel itself) and applied the change to the real file. **Part 1 (refactor, At-A-Glance
+  unchanged)**: extracted `_spanTag`'s pure half (date-range-from-rows + label/tooltip formatting,
+  not the parts closed over At-A-Glance's own local state) into `spanTagInfo(rows, today, opts)` in
+  `src/utils/date.js` (checked for an existing equivalent first, per CLAUDE.md's "check whether a
+  helper exists before writing one" — none found); At-A-Glance's own `_spanTag` is now a thin
+  wrapper, all 8 existing call sites untouched, verified byte-identical (existing tests pass
+  unchanged + a new test pins the exact rendered text/tooltip/color for both branches). **Part 2
+  (new coverage)**: Store Dashboard's OEPE/TPPH/Labor %/Cash O/S KPI cards each get their own span
+  tag, sourced from their OWN rows via `metric-source.js`'s `metricSeries` (never raw ops/ctrl/
+  labor arrays directly, per the data-sourcing standing rule) rather than the toolbar `dateRange` —
+  these four are `compute6wk`'s fixed 6-week trailing window and were never toolbar-scoped, so
+  tagging them with the toolbar range would misstate what they show; the ⚠ fallback still applies
+  against each metric's own rows using the same 30-day semantics, reused as-is (not a new
+  threshold). Period Sales/Ops Score/Controls/T2W Trend deliberately left untagged — composites or
+  forecast-blended figures with no single rows set to span, the dispatch's own "skip tiles with no
+  natural rows concept" instruction, not a gap. 281/281 test files, 2937/2937 tests (net +1 file).
+  Build clean, eager-payload total 550.78→551.64 KB gzip (+0.86 KB, budget 850 KB). A real version
+  collision with #167 below (both claimed `5.213`) — renumbered to v5.214 during verification; full
+  diff read directly (not trusted from the PR body) — `spanTagInfo`'s extraction confirmed byte-
+  identical to the original inline logic, both pre-existing imports (`metricSeries`,
+  `lastClosedBusinessDay`) confirmed already present rather than assumed.
+- **✅ SHIPPED (2026-08-27, v5.213): [Dispatch #167 — Scheduled TPPH target in Smart Targets +
+  Projections](dispatch-167.md), PR #845.** FR "TPPH - Calculate TPPH targets automatically"
+  (`feature_requests`, created 2026-07-16 — read live from Supabase, not just CLAUDE.md's
+  compressed one-liner) turned out to be mostly already built: `src/engine/schedule-summary.js`'s
+  `rollup()` already computes `tpmh = fcstGC / schedHrsOf(r)` — LifeLenz's own forecast transaction
+  count over scheduled hourly-only ("Punched") hours, correctly weighted at the district level
+  (ratio-of-aggregates, never average-of-averages), already reconciled to a real LifeLenz
+  screenshot (Schd TPMH 4.92 for the DeFuniak Springs fixture). This dispatch surfaces that
+  existing, already-correct computation in the two places the FR asked for — **additive only, no
+  new derivation, no formula change**. New `currentScheduleWeekRange(now)` helper in
+  `schedule-summary.js` centralizes the Wed→Tue week-anchor math for callers outside that file.
+  `computeSmartTargets` (`smart-targets.js`) gained an optional `now` param and now attaches
+  `results.tpph.scheduled` via the EXISTING `computeScheduleRollup` (reused, not re-derived) for
+  the current LifeLenz business week; `SmartTargetPanel`'s TPPH grid cell shows a `Sched X.XX` line
+  alongside the existing trailing-history figure without a click (per the "say the number AND the
+  decision... never hidden behind a click" voice rule), and the detail panel gets a distinctly-
+  colored "SCHEDULED TARGET · THIS WEEK" box next to the unchanged "TREND TARGET" box — both kept,
+  neither replaces the other, same posture as the sales-forecast-model precedent. `projections.js`
+  (`ProjectionWorkflow`) — a genuinely new integration point, confirmed by grep that nothing in the
+  file previously read `computeSmartTargets` or `schedule-summary.js` — gets a new `ScheduledTPPHRow`
+  sub-row mirroring the existing `GCARow`/`DaypartRow` pattern, gated by `settings.
+  showScheduledTPPH!==false` matching that existing settings-flag convention, correctly scoped to
+  whatever period is on screen (week/month/custom) via `projDays`. New test file reconciles
+  `computeSmartTargets(...).tpph.scheduled.tpmh` against the same DeFuniak Springs fixture
+  `schedule-summary.test.js` already reconciles to the real LifeLenz screenshot, to full float
+  precision, PLUS render-based tests against the real `SmartTargetPanel` and real
+  `ProjectionWorkflow` (not the math in isolation). 280/280 test files, 2934/2934 tests. Build
+  clean, entry chunk gzip 479.32→479.82 KB (+0.50 KB). Out of scope, correctly left alone: the raw
+  LifeLenz `lifelenz_schedule.tpmh` field and its 13 existing call sites (LifeLenz's own possibly-
+  different formula — a different thing from this file's locally-computed, already-reconciled
+  value); the trailing-history TPPH Smart Target itself. Full diff read directly during
+  verification — the reuse of `computeScheduleRollup` (pre-existing, exported before this PR)
+  confirmed, not assumed from the PR body's own claim.
+- **✅ SHIPPED (2026-08-27, v5.212): [Dispatch #166 — DO (+OM scaffold) tier on Leadership
+  One-Pager scope dropdown](dispatch-166.md), PR #841.** The corrected follow-up to #158's DO/OM/
+  Owner investigation, which (per v5.211's entry below) was conducted against the wrong file.
+  Distinguishes itself deliberately from #158's own explored architecture: #158 investigated
+  `staff_assignments`/`assignment-graph.js`'s `resolveScope`/`whoOversees` (still zero rows in
+  production, confirmed a blocking prerequisite for THAT approach) — #166 does not depend on it at
+  all, instead mirroring the already-shipped, already-working `operators`/`supervisorGroups`
+  flat-map pattern that powers `one-pager.js`'s EXISTING Owner/Supervisor dropdown (itself never
+  `staff_assignments`-backed). `DEF_SETTINGS.doGroups` seeded with the owner's directly-confirmed
+  real assignment (2026-08-27): Hugh Bonner → all 20 Oklahoma stores (union of the 5 OK
+  `supervisorGroups` patches), Brad Denley → all 7 Florida stores — a dual role, since he's also
+  Supervisor for a 3-store subset of those same 7 (intentional overlap, same pattern `operators`'
+  own Ryan Thorley comment already documents; not reconciled, per the dispatch). `omGroups` seeded
+  empty (`{}`) — scaffold only, no OM names invented. `one-pager.js`'s Scope row gets DO/OM
+  `<select>`s using the identical `applyScope(label, list, level)`/empty-guard pattern as the
+  existing Owner/Supervisor tiers (row order: Owner → DO → Supervisor → OM, top-down org-chart
+  order). New shared `GroupsEditor({S, onUpdate, field, title, note})` component in
+  `management.js` reproduces the `'🏢 Operators'` section's add/rename/remove-row UI + "Sync from
+  defaults" reset exactly, parameterized by settings field — backs new `'🏛 DOs'`/`'⚙ OMs'`
+  Settings sections without a second hand-rolled implementation; Operators' own render code
+  untouched. Two new render-based tests against the REAL components (not the data layer in
+  isolation): `dispatch-166-onepager-do-scope.test.js` drives the actual `OnePagerPanel` — DO
+  dropdown lists both names, picking "Hugh Bonner" sets `locs` to exactly the 20 OK store ids
+  (verified via scope label, store count, AND which store pills render "on"), OM dropdown does not
+  render while empty; `dispatch-166-management-do-om-sections.test.js` drives the real `Settings`
+  component through a state-holding harness — an edited store-list, an added row, and a removed
+  row all round-trip through `onUpdate` back into the same rendered tree. 279/279 test files,
+  2928/2928 tests (net +2 files/+12 tests). Build clean, entry chunk gzip 478.92→479.32 KB
+  (+0.40 KB), eager total 550.78 KB (still 299.22 KB headroom under the 850 KB budget). A real
+  version collision with #160's PR (both claimed `5.211`) — renumbered to v5.212 during
+  verification. Full diff read directly during verification (not trusted from the PR body) —
+  `constants.js`'s seed data, `one-pager.js`'s dropdown wiring, and `management.js`'s
+  `GroupsEditor` extraction all matched the dispatch spec exactly.
+- **✅ SHIPPED (2026-08-27, v5.211): [Dispatch #160 — panel-contract adoption pass on the two
+  One-Pager panels](dispatch-160.md), PR #837.** **Corrects a mislabeling from the dispatch brief
+  itself**, caught while tracing the real wiring rather than trusting the brief: `above-store-
+  onepager.js` maps to registry id `above-store` ("Above-Store One-Pager"), NOT `leader-one-pager`
+  — that id resolves to `one-pager.js`'s `OnePagerPanel` ("📋 Leadership One-Pager"). Both panels
+  got the pass, correctly scoped once re-traced. **Shell**: both converted from a hand-rolled
+  `position:fixed` backdrop to `RoutePanelShell` — `ratchet-modal-backdrop-bypass.test.js` CEILING
+  76→75 (only `above-store-onepager.js` matched the ratchet's regex; `one-pager.js`'s identical
+  anti-pattern had a `zIndex:4000` sitting inside the match window, so the regex missed it even
+  though the fix is the same — noted in the test file so a future re-measurement isn't confused by
+  the asymmetry). **Date mode**: unchanged on both — already period-anchored presets+custom,
+  matching the panel-contract's period-anchored carve-out. **Scope**: `above-store-onepager.js`
+  converted to `LocationSelector` (its scope is a flat single string, same shape as
+  `report-subscriptions.js`); `one-pager.js`'s own richer preset-plus-per-store-pill scope
+  deliberately left unconverted — `LocationSelector` can't represent "preset X, but I've also
+  toggled store Y off" without deleting real capability (same posture as `labor-allocation.js`'s
+  documented `DAYS_BACK` exception). **route:true**: both converted (`panel-registry.test.js`
+  route-panel ratchet 13→15); `one-pager.js`'s five "produce a document" buttons (Print/Discussion
+  sheet/Weekly Review/Download Word filled/blank) collapsed into one `ActionMenu`. **Mobile
+  scroll**: both already compliant, no change. 274/274 test files, 2878/2878 tests (net +2
+  files/+12 tests), confirmed twice under this session's heavy shared-sandbox CPU contention (the
+  only flakes were pre-existing, unrelated `PerformanceReviewsPanel` timeout tests, isolated-
+  rerun-clean both times). Build clean; entry chunk gzip unchanged at 476.20 KB; both panels' lazy
+  chunks got SMALLER (`above-store-onepager.js` 11.02→10.89 KB gzip, `one-pager.js` 14.05→13.92 KB
+  gzip) — the removed hand-rolled markup outweighed the new shared-component imports. A real
+  version collision with #163's PR (both claimed `5.206`) — renumbered to v5.211 during
+  verification (re-merged onto post-v5.210 `main`, re-ran full suite clean: 277/277 files,
+  2922/2922 tests). **Consequence of the mislabeling, reported to the owner directly**: the actual
+  code fixes (FOB scope/week-picker, v5.203) were unaffected since they touched shared engine
+  code; but dispatch #158's DO/OM/Owner-dropdown investigation was conducted against
+  `above-store-onepager.js`'s flat dropdown instead of `one-pager.js`'s real two-tier Owner/
+  Supervisor one — see dispatch #166 below, the corrected follow-up.
+- **✅ SHIPPED (2026-08-27, v5.210): [Dispatch #162 — Performance Review continuity, build item
+  #6: departure/termination handling](dispatch-162.md), PR #836.** Owner's exact mechanism (plan
+  doc's "Second-pass gap review," resolved item B): *"Do the auto finalize but require approval in
+  the ability to override it. The approval and potential override should come from a job title
+  code qualified to perform the review or above."* New `src/engine/departure.js`:
+  `detectDeparture()` (two triggers only — `termination_entry_date`/inactive status, OR a still-
+  active GM/AM/DM/SM job code that no longer classifies into that ladder; a role CHANGE within
+  those four is a transfer/promotion, already handled by #154's segmented scoring, never a
+  departure), `applyDepartureAutoFinalize()` (calls the EXISTING `transitionReview()` — #157 —
+  never a second writer of `review.periods`), `isDepartureHandled()` (walks `statusHistory`
+  backward — a Reopen after an auto-finalize reports NOT handled even with an earlier auto-
+  finalize entry). New `canApproveDeparture` in `permissions.js`: reuses decision #4's
+  `canOverrideLockedActual` primitives (`levelsAbove`/`REVIEW_ROLE_TO_LADDER`/the admin escape
+  hatch) verbatim but at a `>=1` rung threshold instead of `>=2` — answers a different question
+  (the person's own normal reviewer, one rung up) than "who may override a locked actual."
+  `canOverrideLockedActual` itself is untouched. New `auto_finalized` status value (own badge
+  color, only reachable from `applyDepartureAutoFinalize`, never a human click) — chosen over
+  reusing `'approved'`+a note because the plan doc requires the distinction be "visible in the UI,
+  not just the data"; `statusHistory` notes also carry a machine-greppable `[AUTO-FINALIZE]`
+  prefix for the audit trail. `PerformanceReviewsPanel` runs the sweep in a `useEffect` keyed on
+  `ds.tenureRows`' identity over every this-year review the moment tenure data lands — no manual
+  step, per the owner's "no manual step needed for the routine case." New `loadEmployeeTenure()`
+  (`src/lib/supabase.js`, narrow column selection, no PII) wired into `ds.tenureRows` in `App.js` —
+  grep-confirmed nothing in `src/` read `qsr_employee_tenure` client-side before this. Job-code
+  classification (`GM_JOB_CODES` etc.) extracted from `scripts/backfill-staff-assignments-2026.mjs`
+  into new `src/engine/tenure-roles.js` so detection and the backfill share one definition instead
+  of drifting; the backfill script re-exports from the new path, its own test unchanged.
+  **Documented limits, not hidden**: AS/OM/DO departure has zero coverage (`qsr_employee_tenure`
+  is geid-keyed; those roles use a name-string identity per decision #5 — `detectDeparture`
+  correctly reports "not departed," never a false claim of coverage); a promotion from GM/AM/DM/SM
+  into AS/OM currently looks identical to a departure from job-code data alone (AS/OM have no
+  roster code at all) — the owner's own design already covers this via Reopen. Explicitly out of
+  scope: new-manager notification panel (#7, confirmed zero matches for `NewManagerPanel` in
+  `src/`), job-code config table (#8), email wiring (#9), multi-role-per-person (#10), populating
+  `staff_assignments` in production. 275/275 test files, 2910/2910 tests (net +37: departure-
+  detection.test.js ×22, departure-auto-finalize-ui.test.js ×7, permissions.test.js ×8), confirmed
+  clean post-renumber-and-merge onto `main`. Build clean, entry chunk 476.22→476.45 KB gzip (+0.23
+  KB). A real version collision with #163/#165/#161/#164's PRs (all independently claimed `5.206`
+  from the same base commit) — renumbered to v5.210 during verification.
+- **✅ SHIPPED (2026-08-27, v5.209): [Dispatch #164 — confirm `compType:'calendar'` on
+  `labor-summary` is 4am-business-day aligned, #330 resolved](dispatch-164.md), PR #835.**
+  CLAUDE.md's 4am-boundary section named this the one remaining open question: the DAR
+  (`compType:'trading'`) was already confirmed business-day aligned
+  (`dar-vs-ops-reconciliation.md`), but `compType:'calendar'` on QSRSoft's `labor-summary` (feeds
+  `qsr_labor_summary` → `laborDollar`/`laborPct` in `metric-source.js`) was unconfirmed — and
+  `laborPct`'s `derive:{kind:'ratio'}` divides a `calendar`-sourced numerator by a DAR-sourced
+  (`trading`) denominator, exactly the "silently mixes two boundaries" bug class CLAUDE.md warns
+  about, IF the two actually differ. No live QSRSoft credentials in this sandbox, so re-used
+  `dar-vs-ops-reconciliation.md`'s own method against data already in Supabase: re-bucketed raw
+  clock punches from `qsr_punch_times` (#124 — ingested with NO `compType` and no derivation at
+  all, independent ground truth) two ways — plain midnight vs. the 4am ABC boundary — against
+  `qsr_labor_summary.crew_labor_hours`, after first subtracting unpaid-meal time from shift spans
+  (without this correction both cuts overshot by an identical ~10 hrs/day and the comparison was
+  uninformative — the same "definitional gap swamps the boundary question" trap the original DAR
+  reconciliation had to rule out). **Result: the 4am cut matched to 0.000 mean absolute difference
+  across 83 store-days/5 stores (81/83 within 0.1 hr); the midnight cut never won a single
+  store-day (0/83), typically off by 2-3+ hrs.** Conclusion: `compType:'calendar'`, despite the
+  name, is 4am-aligned — the SAME boundary as `trading`. No live bug. This also REFUTES (not just
+  leaves open) the calendar-vs-business-day hypothesis `metric-source.js`'s `laborPct` comment
+  carried for #327's unexplained 10.2% Daily-Glimpse mismatch — comment corrected to record the
+  measured finding instead of the refuted theory (that 10.2% gap's real cause stays open, out of
+  this dispatch's scope). Also checked every other cross-source ratio in the registry
+  (`tRedAPct`/`tRedBPct`/`discPct`/`cashOSPct`) — all divide by `netSalesAmt`, same
+  `opsCashRows`-only source, no boundary risk; `laborPct` was the only cross-source ratio, closing
+  the boundary question for the whole registry. **A duplicate agent was accidentally spawned for
+  this same dispatch** (PM tooling mistake, not an engineer error) and produced a second,
+  contradictory PR (#838: extrapolated from a different endpoint, `qsr_sales_mix`, to a different
+  conclusion — that `calendar` governs LY-comparison basis, not the intraday boundary). Adjudicated
+  in #835's favor and #838 closed with an explanation: #835 directly measured the actual target
+  endpoint (`qsr_labor_summary`) against independent raw-punch ground truth; #838 measured a
+  different endpoint and extrapolated. Investigation only — no engine/schema/UI change beyond the
+  comment correction. 272/272 test files, 2866/2866 (matches main's post-v5.205 baseline exactly —
+  no new test files, doc/comment-only diff). Build clean, unchanged eager payload.
+- **✅ SHIPPED (2026-08-27, v5.208): [Dispatch #161 — Performance Review FOB $ actual now sources
+  auto `qsr_fob`, not manual `ds.fobRows`](dispatch-161.md), PR #834.** The approved follow-up
+  from dispatch #159 (owner clicked "I am good with this" on the suggested task). **Reconciliation
+  measured FIRST, per the dispatch's explicit stop/proceed gate**: 6 real store-months, manual
+  `fob_rows.fob_dollar` vs. auto `fobByRange()`'s `.fob$` via live service-role Supabase reads —
+  every pair matched to the penny (float-precision-only deltas, ~2e-11). Not a coincidence: for a
+  full calendar-month range (what `autoPopulateKPIs`' `monthRange(m)` always passes),
+  `fobByRange`'s `segStart` equals the month start, so `baseSnap` stays null and the result IS that
+  month's settled cumulative snapshot — the same once-a-month-settle total the manual workbook
+  figure was built from. Reconciled cleanly, so the swap proceeded. **Fix**:
+  `review-engine.js`'s `autoPopulateKPIs` now imports the SAME canonical `fobByRange()` both
+  One-Pagers use (fixed there in v5.203) instead of a re-derived formula; pre-filters
+  `ds.qsrFobRows` to the review's own loc (same v5.203 no-`locs`-param pattern); per month, if
+  `fobByRange(...)[loc].prodSales > 0` (the function's own "this range has data" convention) uses
+  its `fob$` directly, else falls through to the old manual `ds.fobRows` sum — now an explicit
+  last-resort fallback instead of the unconditional primary source. Checked
+  `MANUAL_ONLY_METRICS` — `foodOB` was never in that list (always a hand-rolled path specific to
+  this function), nothing to remove. New `dispatch-161-review-fob-auto-source.test.js`: auto wins
+  over a deliberately diverging manual figure (proves the source actually switched, not just that
+  they happen to agree today); falls back correctly when auto has nothing for that month; no
+  cross-store leakage. Existing `review-target-autofill.test.js` fixtures (no `ds.qsrFobRows`)
+  still pass via the fallback path. 273/273 test files, 2870/2870 tests (net +1 file/+4 tests).
+  Build clean, entry chunk gzip 476.24→478.71 KB (+2.47 KB — `fobByRange`'s import pulls
+  `one-pager-data.js` and its own deps into the eager entry chunk for the first time, since
+  `review-engine.js` is itself a static `App.js` import; still 299.89 KB headroom under the 850 KB
+  budget). A real version collision with #163/#165/#164/#162's PRs (all claimed `5.206`) —
+  renumbered to v5.208 during verification.
+- **✅ SHIPPED (2026-08-27, v5.207): [Dispatch #165 — audit emailed-stream redundancy, #260
+  resolved](dispatch-165.md), PR #833.** Audited the three emailed QSRSoft streams
+  (`daily_glimpse_daily`/`sales_ledger_daily`/`cash_sheet_daily`) against their API-pulled siblings
+  from `qsrsoft-ops-pull.mjs`. Full findings + exact live measurements (credential + observation
+  named, per the standing rule) in `audit-emailed-stream-redundancy-2026-08-27.md`. Reproduced
+  #347's pattern live: `daily_glimpse_daily`/`cash_sheet_daily` both missing all 27 stores for
+  2026-07-02..07-04, while `sales_ledger_daily` and every API-pulled sibling (floor 2024-01-01)
+  have full coverage for those exact days — the emailed streams are the ones with gaps, not the
+  data itself. **One genuine, contained bug fixed while auditing**: `dtMixPct` had ZERO auto/API
+  fallback — `salesLedgerRows` was its sole non-manual source. `opsSalesMixRows` (`qsr_sales_mix`)
+  reconciles byte-exact against it on every shared day sampled, so it now gets a
+  `derive:{kind:'ratio'}` fallback via new `dtSalesAmt`/`mixNetSalesAmt` metric-source entries
+  (`src/lib/supabase.js`'s `loadOpsSalesMix` extended to alias `net_sales_amt`/
+  `net_sales_dthru_amt` — confirmed genuinely real fields via existing usage in
+  `loadOpsCashSheet`). Other findings flagged as future work, not acted on (audit-and-report was
+  the scope): promo/POS-over reconcile near-exactly but are unwired; cash O/S and refund fields
+  reconcile poorly (44-79%, a real open discrepancy); `laborPct` stays Glimpse-led since its derive
+  alternative only matches 89.8%. No stream, pull script, or table touched/deprecated. 272/272 test
+  files, 2868/2868 tests. Build clean, entry chunk gzip 476.25 KB. Regenerated the loader field map
+  (`gen-loader-emits.mjs --write`, live against Supabase) for the new `opsSalesMixRows` loader
+  fields. A real version collision with #163/#161/#164/#162's PRs (all claimed `5.206`) —
+  renumbered to v5.207 during verification.
+- **✅ SHIPPED (2026-08-27, v5.206): [Dispatch #163 — #171 pooled-freshness bug already fixed;
+  corrected stale docs](dispatch-163.md), PR #832.** Investigated CLAUDE.md's own #171 concern
+  (pooled `Math.max` freshness hiding one dead stream behind any fresh sibling — the mechanism the
+  6-day undetected LifeLenz outage exploited). **Measured, not assumed**: read
+  `at-a-glance.js`/`analytics.js` directly first. Found `src/engine/stream-freshness.js` (added
+  v5.034/dispatch15, refined v5.058) already checks each of 10 auto/emailed streams
+  INDEPENDENTLY (`streamFreshness()`/`worstStream()`, clamped to `<=asOf` so LifeLenz's
+  forward-published schedule can't read as fresher than it is), already wired into BOTH At-A-Glance's
+  Action Checklist (names the single worst stream by label+days-old) and Analytics' Data Manager
+  panel (full per-stream table, always reachable), and already tested at both the engine and
+  render layer. **So no code fix landed** — writing one would have duplicated an existing, tested
+  mechanism; this is the same "a rule describes code which no longer exists" trap CLAUDE.md itself
+  names for #61/#85, just for #171 instead. Fixed by correcting: (1) CLAUDE.md's own #171 mentions
+  to state the fix is done and repoint the "adding a new pull" checklist at "add the stream's
+  `dsField` to `STREAMS`" rather than "build per-stream freshness" from scratch; (2)
+  `sync-failure-watch.yml`'s header comment, which carried the identical stale "single Math.max
+  across five feeds" description. Also answered a related question the dispatch raised: would
+  `sync-failure-watch.yml` have caught the LifeLenz-class failure? **No** — it only reacts to
+  `workflow_run` `completed`/`failure` events; a run that reports success while writing nothing
+  (a token silently degrading mid-run), or one that never completes at all (queued on an offline
+  runner — `dispatch-65.md`'s documented failure mode), is invisible to it. Flagged as a follow-up
+  in the workflow's own updated comment, not built here (out of scope). One new render-based test
+  (`at-a-glance-checklist-freshness.test.js`): LifeLenz dark 30 days, all 9 siblings fresh —
+  asserts the checklist names "LifeLenz labor/schedule" specifically, reproducing the actual
+  Aug 6-11 incident shape at the render layer (an engine-only test can't tell wired-in from
+  unwired, per CLAUDE.md's "would this still pass if reverted" rule). 2867/2867 tests (main:
+  2866/2866; +1 new test). Build clean, entry chunk gzip 476.23 KB (effectively unchanged — docs +
+  workflow comment + one test file only).
+- **✅ SHIPPED (2026-08-27, v5.205): [Dispatch #159 — fix Performance Review Auto-fill
+  gated on the wrong readiness signal](dispatch-159.md).** Owner-reported: "Auto-fill from
+  Uploaded Data" populated OEPE/R2P/KVS/Labor% for a GM review through June only, even though
+  July/August had confirmed live DAR data (measured earlier the same session:
+  `qsr_daily_activity_rollup` has `content-range: 0-0/57` for that store's July+Aug window).
+  **Root cause, measured not guessed**: the Auto-fill button gated only on `ds?.loaded`, which
+  flips true from the near-instant local IDB restore — with NO dependency on App.js's separate
+  "T1" tiered Supabase load, which is what actually populates `ds.qsrActSummaryRows`/
+  `ds.glimpseRows`/`ds.opsServiceRows` (the exact 3 auto/cloud sources `metric-source.js`'s
+  `oepe`/`r2p`/`kvst`/`laborPct` chains check before the manual `ds.opsRows` fallback). A click
+  in the real window between those two ran `autoPopulateKPIs` against a `ds` missing the auto
+  streams entirely, silently falling through to whatever manual data was already IDB-resident
+  (this store's newest manual row: 2026-07-11) and nothing beyond — exactly the observed
+  Jan-Jun/Jul-Dec split. **Two of this dispatch's own hypotheses were disproven by direct
+  measurement rather than assumed**: `App.js` actually requests 60 days for the auto streams
+  (not the 35/45-day defaults the dispatch spec guessed from the loader functions' own
+  signatures — the app calls them with an explicit wider window), and `metric-source.js`'s math
+  is correct once a stream is actually present — ruling out both a window-sizing bug and a
+  resolver bug, leaving the real cause: a load-order race, not a data or math problem.
+  **Fix**: new `cloudStreamsReady` state in `App.js`, set true once T1's `Promise.all` resolves
+  (or immediately with no Supabase client configured, so dev/offline never wedges the gate),
+  threaded as `dataReady` through `PerformanceReviewsPanel → ReviewEditor → KPITab` (defaults
+  `true` for any caller not yet wired to it, so no other render path/test regressed). The button
+  now stays disabled with a "still loading live data" hint until ready, instead of silently
+  running against a partial `ds`. Two new tests: one drives the real `PerformanceReviewsPanel →
+  ReviewEditor → KPITab` chain and confirms the button's disabled state tracks `dataReady`
+  (verified via `git stash` to fail pre-fix); one calls the real `autoPopulateKPIs` with a `ds`
+  shaped like each side of the actual race, built from the real measured `ops_rows`/
+  `qsr_daily_activity_rollup` values, proving August resolves to `undefined` before the fix and
+  the real `123s` after.
+  **Follow-up flagged, not fixed here (spawned as a suggested task, approved by the owner —
+  next up)**: the review's FOB $ actual (`mo.foodOB`) reads `ds.fobRows` directly (manual-only)
+  instead of the auto `qsr_fob`/`fobByRange` path `one-pager-data.js` already uses elsewhere —
+  same "manual sourcing is always temporary" class, different mechanism (wrong source, not a
+  load-order race), left for separate work since the auto `qsr_fob` $ definition needs
+  reconciling against `fobRows`' own before it can safely replace it.
+  272/272 test files, 2866/2866 tests (main baseline 269/2858 pre both #158/#159; +3 test files
+  net new from #159 alone). Build clean, entry chunk 476.22→476.24 KB gzip (+0.02 KB — one new
+  prop + one new state hook). **A real version collision with dispatch #158's own PR** (both
+  independently claimed v5.204, launched in parallel from the same base commit) — renumbered to
+  v5.205 during verification, same pattern used repeatedly this session. Verified independently
+  in a fresh worktree before merging — the full `App.js`/`performance-reviews.js` diff read line
+  by line (the `cloudStreamsReady`/`dataReady` prop chain traced end to end, the `!supabase`
+  early-return edge case confirmed handled), both new test files read in full, both claimed
+  test/build numbers reproduced exactly post-renumbering.
+- **✅ SHIPPED (2026-08-27, v5.204): [Dispatch #158 — Leadership One-Pager custom date-range
+  picker; DO/OM/Owner scope tiers investigated, not built](dispatch-158.md).** Item 1: added a
+  4th "Custom" period pill to `AboveStoreOnePager` (previously only `mtd`/`lastweek`/
+  `lastmonth`), mirroring `one-pager.js`'s own already-shipped `rangeMode==='custom'` pattern —
+  two date inputs, defaulting to a trailing-7-closed-day seed. Zero engine changes needed: every
+  builder this panel calls (`buildCurrentState`/`buildReviewActuals`/`matchedVsLY`/`metricAvg`/
+  the FOB aggregates/`buildScheduleActuals`/`buildPerLocationRows`) already takes a plain `{s,e}`
+  range, confirmed by reading every signature. Hand-rolled rather than adopting the shared
+  `DateRangeControl` component — `memory/panel-contract.md`'s own date-mode table already carves
+  out this exact shape ("period-anchored" presets) as deliberately NOT converted to
+  `DateRangeControl` for `report-subscriptions.js`'s identical `mtd`/`lastweek`/`lastmonth`
+  picker, since `DateRangeControl`'s day-count presets would misrepresent "Month-to-date"; the
+  same reasoning applies here, and `one-pager.js` is the only existing precedent for
+  "period-anchored + custom" in this codebase.
+  **Item 2, investigated and correctly NOT built**: re-measured `staff_assignments` (dispatch
+  #150's reports-to graph, the natural home for DO/OM/Owner tiers via `assignment-graph.js`'s
+  already-existing `resolveScope`/`whoOversees`) — still **zero rows in production**
+  (`content-range: */0`), calibrated three ways in-session (same credential reads 208 real rows
+  on `qsrsoft_kb` and 15,199 on `lifelenz_schedule`; a bogus column returns Postgres `42703`, not
+  `*/0`). Also checked `org_config.org_roles` (DOES define `do`/`om` as a role *catalog*, but
+  `profiles` has only 3 rows, none assigned those roles) and the owner's own
+  `Organization_Structure.xlsx` (`Locations` sheet has no DO/OM column, and even its existing
+  Owner/Operator/Supervisor/GM columns aren't parsed into the app by `parseOrgStructure()` at
+  all — that parser only extracts the Scheduling Setup sheet's first-week date). **Correctly
+  reported as a blocking prerequisite rather than half-built against nothing**, per the
+  dispatch's own explicit instruction that this is an acceptable outcome. "Owner" needs no new
+  data model at all — single-owner deployment, so it's just the existing `'all'` scope with a
+  different label, not built standalone since item 2 as a whole is blocked.
+  270/270 test files, 2861/2861 tests (+3 net new). Build clean, entry chunk unchanged at 476.20
+  KB gzip; the panel's own lazy chunk +0.29 KB gzip (10.73→11.02 KB). Verified independently in a
+  fresh worktree before merging — the `staff_assignments` empty-table claim re-confirmed
+  directly (not trusted from the PR body) via the same service-role curl recipe plus the same
+  bogus-column calibration check, the date-range diff read in full, both claimed test/build
+  numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-27, v5.203): fix FOB tile ignoring scope selection + week-start-day
+  picker off-by-one.** Direct fix (small, well-diagnosed, pushed straight to `main` — not a
+  dispatch), owner-reported with three Ops Report exports for reference. **FOB %**: the shared
+  `buildCurrentState()` builder (the source of the header FOB tile on BOTH One-Pagers — Store
+  and Leadership) called `fobByRange(fobRows, range)` — which has NO `locs` parameter and
+  returns every store present in `fobRows` — and summed ALL of it regardless of the `locs` this
+  function was itself called with, silently ignoring its own parameter. Selecting any
+  scope/supervisor/store never changed the tile. A second, separate instance of the identical
+  bug was in `above-store-onepager.js`'s own vs-LY delta computation (rendered directly under
+  the FOB tile). Both fixed: filter `fobByRange`'s result to the requested `locs` before summing,
+  matching every other metric in the same function. **Week picker**: the CANONICAL
+  `weekStartOf()` helper (`src/utils/date.js`, used by 16 files across the app — not just one
+  panel) and `one-pager.js`'s own local duplicate both returned the PREVIOUS week when the
+  picked date was exactly the configured week-start weekday (Wednesday) itself. Root cause: a
+  bare `'YYYY-MM-DD'` string — exactly what `<input type="date">` returns — parses as UTC
+  midnight; every US timezone then reads `getDay()`/`getDate()` back as the previous LOCAL
+  calendar day, invisible most of the week but pushing the week-start calc a full 7 days back on
+  the boundary day. `dKey()` in the SAME file already carries an extensive comment documenting
+  this exact pitfall and guards against it; `weekStartOf()` (added later, 2026-08-08) never
+  inherited that guard — genuinely new finding, not previously known. Fixed by parsing a bare
+  date-only string as local midnight in both places. New tests pin the exact reported case
+  (2026-08-19, a Wednesday) plus a multi-loc FOB-scoping reproduction (two stores at 4%/8%,
+  selecting each individually returns the correct distinct number — the exact reported symptom).
+  269/269→272/272 test files across this session's later work; at ship time 269/269, 2858/2858
+  tests (+3 net new). Build clean, entry chunk unchanged at 476.20 KB gzip.
+- **✅ SHIPPED (2026-08-27, v5.202): [Dispatch #157 — Performance Review continuity Phase 4b +
+  5b UI (combined)](dispatch-157.md).** Fixes a confirmed **live, silent production regression**
+  left by dispatch #152 (v5.197), then surfaces dispatch #154's (v5.199) segmented-scoring
+  engine, which had shipped with zero UI. **The regression, independently verified by the PM
+  session itself (not just trusted from the dispatch or the engineer's PR body) by reading
+  `performance-reviews.js` directly against `review-engine.js`'s real exports**: #152 restructured
+  reviews to per-person-per-year (`periods.h1`/`periods.h2` each own status, `computeScores`
+  returning `{q1,q2,q3,q4,h1,h2,year}` instead of a `.half` key, `transitionReview(id, half,
+  newStatus, notes)` now 4-arg) but the editor was only patched enough to stop crashing.
+  Confirmed live, six ways: (1) `review.half` is `undefined` on every #152-era review, so
+  `halfMonths(review.half)` always fell through to H2 — no UI control could reach H1/quarters at
+  all; (2) `scores.half`/`review.status` no longer exist, so the status pill and score column
+  were permanently blank/Draft; (3) **the serious one** — `handleTransition(id,newStatus,notes)`
+  called `transitionReview(id,newStatus,notes)`, a 3-arg call against the engine's real 4-arg
+  signature, silently shifting `newStatus` into the `half` slot and writing every Submit/Approve/
+  Return/Reopen action to a garbage `review.periods['submitted']`-style key instead of
+  `periods.h1`/`h2` — confirmed directly at the exact call site before merging; (4) `ReviewList`'s
+  Period/Score columns and Half filter were all dead off the same `undefined` fields; (5)
+  `NewReviewForm`'s Period dropdown rendered, was interactive, did nothing; (6) the three print
+  functions derived the same broken `half` internally. **None of this threw** — the #152 crash-
+  guard test kept passing throughout — so it was silently wrong, not visibly broken, for every
+  review created since v5.197 shipped earlier the same day.
+  **Fix**: real `PERIOD_META` (Q1-Q4/H1/H2/Year) table drives `mths`/`qKeys` everywhere off
+  `computeScores`'s real shape (reuses `QUARTER_MONTHS`/`H1_MONTHS`/`H2_MONTHS` from
+  `review-engine.js`, not reinvented); `doTransition`/`handleTransition` now correctly thread
+  `half` through to the engine's 4-arg `transitionReview`; `ReviewList` shows real per-half status
+  side by side (`HalfStatusSummary`) and a real year-overall score; dead Period dropdown removed
+  outright; print functions take an explicit `period` parameter. **Bonus finding, same bug
+  family, fixed in the same pass**: `SummaryTab`'s `ScoreBreakdownPanel` read `bd.categories`
+  directly off `computeScoreBreakdown`'s return instead of indexing `[period]` first — silently
+  rendered nothing for every #152-era review; fixed alongside the six.
+  **Phase 5b**: new `SegmentedReviewSection` in `SummaryTab` calls `computeSegmentedReview` and
+  renders nothing at all (not even an empty wrapper) when `hasTransitions:false` — verified by the
+  PM session directly at the source (`if (!result || !result.hasTransitions) return null;`), not
+  just the PR's claim. When true, surfaces each segment's own role/store/scores plus the
+  provisional rollup with its engine-supplied "starting point, not final" framing text, and a
+  free-text reviewer-commentary field at `review.comments.segmentRollup.<period>` — a new leaf
+  under the review's existing `comments.*` pattern, no engine or `blankReview` change needed
+  (`ReviewEditor`'s generic `update(path,val)` already creates missing nested objects on write).
+  **New plumbing**: `loadStaffAssignments()` in `supabase.js` — the first client-side reader of
+  `staff_assignments` (dispatch #150's graph existed engine-side only until now) — maps the DB's
+  `start_date`/`end_date` columns to the `{start,end}` shape `assignment-graph.js` actually reads
+  (confirmed directly: `assignment-graph.js` reads `row.start`, not `row.start_date` — the mapping
+  is genuinely required, not decorative), wired into `App.js`'s existing T2 eager-load tier
+  alongside the sibling `coachingCycles` loader.
+  269/269 test files, 2855/2855 tests (+8 net new). Build clean, entry chunk 475.07→476.22 KB
+  gzip (+1.15 KB, version-bump/changelog only, no new eager import), `performance-reviews.js`'s
+  own **lazy** chunk 29.71→31.33 KB gzip (+1.62 KB — this dispatch's real weight, correctly
+  landing off the eager path) — `lazyPanel()` wrapping in `App.js` confirmed still intact.
+  **Given the severity of the regression finding, verified unusually thoroughly before merging**:
+  independently re-derived all six findings by reading the live pre-PR code directly (not
+  trusting the dispatch or PR body), traced the full `fire→doTransition→handleTransition→
+  transitionReview` call chain arg-by-arg, confirmed `review.half`/`scores.half` fully gone from
+  live code (only remaining in explanatory comments), confirmed the `loadStaffAssignments` field
+  mapping against `assignment-graph.js`'s actual field reads, read the Submit→Approve regression
+  test in full (asserts the real persisted `periods.h1.status`/`periods.h2.status` after driving
+  the actual UI buttons, and explicitly asserts no `periods.submitted`/`periods.approved` garbage
+  key exists — the exact shape that would catch a reintroduction of the bug), and reproduced both
+  the test and build numbers exactly in a fresh worktree.
+- **✅ SHIPPED (2026-08-27, v5.201): [Dispatch #156 — fix Custom-period panel-blanking bug in
+  `OperatorSummaryPanel`](dispatch-156.md).** Found (documented, not fixed) by dispatch #155's
+  own PR while writing an unrelated test. `OperatorSummaryPanel`'s single top-level gate
+  (`if(!ds||!ds.loaded||opStats.length===0) return <full-panel 'No Data Loaded' screen>`) folded
+  "nothing loaded at all" together with "the selected range resolves zero rows" — since
+  `cStart`/`cEnd` start as `''`, clicking the "Custom" period pill made `opStats` resolve to `[]`
+  *before either date input had a value*, blanking the entire panel (header, Period/Group/Focus/
+  Sort controls, both date inputs) with no way back except closing it entirely. **Confirmed the
+  sibling `LaborAnalyticsPanel` does NOT share this bug** — its own `hasData` gate is independent
+  of `range`/`locStats`, so selecting "Custom" there leaves the controls bar (rendered
+  unconditionally) untouched; an empty result degrades gracefully and locally instead. Fix split
+  `OperatorSummaryPanel`'s gate to match: a range-independent `hasData` check (every stream
+  `opStats` actually reads — `fobRows`/`qsrFobRows` directly, `laborRows`/`ctrlRows`/
+  `qsrActSummaryRows`/`opsLaborRows`/`glimpseRows`/`cashRows` via the `metricAvg`/`metricRate`
+  chains) gates the full-panel empty state; the "zero rows for this period" case now surfaces
+  only inside the results area via the panel's own pre-existing `sortedOps.length===0`
+  placeholder — previously unreachable dead code, now wired up as-is, no new UI string. No
+  behavior change for any non-custom period. `LaborAnalyticsPanel` untouched, confirmed
+  bug-free by direct read, not just restated from #155's test comment.
+  New render-based test (`dispatch-156-operator-summary-custom-period.test.js`) renders the real
+  panel, clicks "Custom", asserts the period pills and both date inputs stay present/interactive
+  — explicitly verified to fail pre-fix (stash/rerun/restore) and pass post-fix, per this
+  project's "would this verification still pass if reverted?" standing rule. Also added a
+  regression guard confirming `LaborAnalyticsPanel` keeps its controls visible on Custom today,
+  protecting the untouched sibling from a future accidental regression.
+  `ratchet-raw-metric-rows.test.js`'s `CEILING` raised 158→160 with a dated justifying comment —
+  the new `hasData` check reads `ds.laborRows`/`ctrlRows` twice, but as an **existence** check
+  (not a metric-value read), the same category `LaborAnalyticsPanel`'s own already-counted
+  `hasData` pattern already established as acceptable within this ratchet's baseline — verified
+  by reading the ratchet's own header comment ("PANELS must not source metrics from raw rows; it
+  was never that raw rows are untouchable anywhere") before accepting the bump.
+  267/267 test files, 2850/2850 tests (main baseline 266/2847). Build clean, entry chunk gzip and
+  eager total byte-identical before/after (475.07/546.44 KB) — zero size impact, as expected for
+  a pure gate restructure. Verified independently in a fresh worktree before merging — the exact
+  `labor-tools.js` diff read in full, the `hasData`/`sortedOps` claims cross-checked directly
+  against the live pre-PR code (confirmed the exact gate line, confirmed `ds.loaded` wasn't used
+  elsewhere so dropping it was safe, confirmed the placeholder already existed), the ratchet bump
+  reasoning independently checked against the ratchet file's own stated rule, both claimed
+  test/build numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-27, v5.200): [Dispatch #155 — extend the OEPE/R2P/TPPH completeness fix
+  (dispatch #153) to its other call sites](dispatch-155.md).** Direct follow-up closing out the
+  "~12 other call sites" list dispatch #153 explicitly deferred. **Not a blanket conversion** —
+  every call site was individually judged on whether its `range` can genuinely include the
+  current, still-open business day, per the dispatch's own required disposition table (reproduced
+  in the PR body): **converted** `review-engine.js`'s `autoPopulateKPIs` (`monthRange()` doesn't
+  clip the current month), `at-a-glance.js`'s district `tpph` tile (toolbar range can be
+  MTD/This-Week), `signals.js`'s `ParkOepeTab` (range end is literally `new Date()`),
+  `labor-tools.js`'s `OperatorSummaryPanel`/`LaborAnalyticsPanel` weekly summary (`'custom'`
+  period lets a user type today), `sage.js`'s `buildLaborSummary`/`buildOpsSummary`
+  (`_lastNDaysRange` also ends on `new Date()`), `store-dash.js`'s `RankingView` (a `'today'`
+  preset exists); **left alone** `morning-brief.js`'s `oepeNorm`, `labor-tools.js`'s `trendData`
+  weekly bucket (verified `wr.e = addDx(wEnd,-1)` — even the newest bucket ends yesterday),
+  `store-dash.js`'s `PerformanceCalculator`, and `above-store-onepager.js`'s `drilldownRows`
+  (its own range only offers `mtd`/`lastweek`/`lastmonth` — no `custom`/`today` option exists) —
+  each because its range is provably always historical/complete by construction, confirmed by
+  reading the caller's own range-construction code, not inferred from a variable name.
+  `above-store-onepager.js`'s panel-level figures needed no change at all — already inherited
+  #153's fix transitively through the shared `one-pager-data.js` builders.
+  **Shared helper relocated**: dispatch #153's private `rateMetric()` (in `one-pager-data.js`)
+  moved to `metric-source.js` and exported as **`metricRate`** — reused by every converted call
+  site above instead of duplicating the fallback logic per-file. Renamed (not kept as
+  `rateMetric`) specifically because `review-engine.js` already exports an unrelated,
+  already-shipped `rateMetric(actual, target, metricCfg)` 1-4 KPI-scoring function — same name,
+  different signature, would have collided the moment `autoPopulateKPIs` needed to import the
+  metric-source helper too.
+  **Discovered, explicitly NOT fixed, flagged as a follow-up candidate**: selecting "Custom" in
+  `labor-tools.js`'s `OperatorSummaryPanel`/`LaborAnalyticsPanel` blanks the entire panel —
+  `cStart`/`cEnd` start empty, `range` becomes `null`, the "No Data Loaded" gate hides the date
+  inputs and period buttons themselves with no way back except closing the panel. Worth its own
+  dispatch; not urgent.
+  264/264 test files, 2825/2825 tests (main baseline 258/2813; +6 net new test files). Build
+  clean, entry chunk 474.95→474.97 KB gzip (+0.02 KB), eager total +0.05 KB — effectively
+  unchanged, well within the 850 KB budget.
+  **Two real version/merge collisions this session, both resolved during independent
+  verification, not left to the merge button:** the engineer's changelog entry claimed `5.199.js`,
+  the same slot dispatch #154's engineer had already claimed (both dispatches launched in
+  parallel from the same base commit, unaware of each other) — GitHub reported
+  `mergeable_state:"dirty"`. Renumbered to `5.200.js` in a fresh verification worktree,
+  regenerated `changelog-latest.js`, and pushed the resolved merge commit directly onto the PR's
+  own branch (`claude/dispatch-155-oepe-r2p-tpph-rate-followup`) so GitHub's merge button worked
+  cleanly — `mergeable_state` moved to `"unstable"` (CI-pending, not conflicted) and then to
+  mergeable once the Vercel "Ignored Build Step" check reported success. Verified independently
+  in the same worktree before merging — the `metric-source.js`/`one-pager-data.js`/
+  `review-engine.js` diffs read in full, the `metricRate` naming-collision rationale confirmed by
+  directly checking `review-engine.js`'s pre-existing `rateMetric` export, two specific
+  per-call-site claims spot-checked against the real source (`attention-now.js`'s `dateRange`
+  prop, `labor-tools.js`'s `trendData` `wr.e` computation), both claimed test/build numbers
+  reproduced exactly.
+- **✅ SHIPPED (2026-08-27, v5.199): [Dispatch #154 — Performance Review continuity Phase 5a:
+  promotion/transfer segmented scoring](dispatch-154.md).** Eighth build phase, item #5. A
+  manager who transfers stores or is promoted mid-year now scores each period against the role
+  and store that were ACTUALLY true then, not one blended number. New
+  `personAssignmentTimeline()` lives in `assignment-graph.js` (not review-engine.js — pure
+  reports-to-graph data, no scoring concept, keeps resolution logic in one place per #150's own
+  rule), reconstructing a person's own role/store history across a date range with possibly
+  multiple transitions — none of the existing graph functions did this (all resolve one point in
+  time). `resolvePeriodAttribution()` implements majority-of-month (owner's own words: "awarded
+  based on the store data in which the manager worked the majority of the month"), deliberately
+  generalized to also run at the QUARTER grain since `behavioralRatings` has no month-level
+  resolution — the two granularities can legitimately disagree at a shared boundary month,
+  documented as a deliberate schema consequence, not a bug. `computeSegmentScores()`/
+  `computeSegmentedReview()` reuse `computeScores()`'s own scoring math verbatim (extracted
+  `_metricsScoreAcross`/`_behavQuarterScore`/`_avgOfVals` to module level — a pure refactor,
+  proven zero-behavior-change by the full suite passing unchanged). `provisionalSegmentRollup()`
+  weights by segment-length-in-MONTHS (not days — the whole pipeline resolves at monthly/quarterly
+  granularity already, so day-weighting would fabricate false precision), explicitly labeled a
+  starting point for the reviewer to adjust with commentary, never a rigid formula — matching the
+  plan doc's own HR-research conclusion that an overall rating "does not need to be an average."
+  **Two real findings, investigated and documented, not glossed over:**
+  (1) `staff_assignments.role` stores a ladder id, but scoring needs `ROLE_KEYS` — new
+  `LADDER_ROLE_TO_REVIEW_ROLE` resolves `gm`/`area_supervisor`/`om` unambiguously; only the
+  `sm_am_dm` rung is genuinely lossy (AM/DM/SM all collapse onto it) — resolved to `'AM'` as the
+  documented non-arbitrary stand-in (DM/SM have no default competency block at all; the owner's
+  own words already treat AM/DM as interchangeable). A real fix (a job-code config table) is
+  item #8, not this dispatch.
+  (2) **`autoPopulateKPIs` is confirmed NOT segment-aware** — it resolves `review.loc` ONCE for
+  the whole year, so a transferred segment's TARGETS get correctly re-resolved by this dispatch's
+  new code (cheap, since `mergedTargetsForLocMonth` was already loc-parameterized), but its
+  ACTUALS still reflect whichever store `review.loc` currently points to, for every month
+  including ones before the transfer. Explicitly NOT fixed here (real, nontrivial work threading
+  a per-month loc through ~15 lookups, not one of this dispatch's 4 scope items) — flagged
+  prominently in both the code and PR body for whoever picks it up next. A same-store role-only
+  promotion is entirely unaffected (loc never changes).
+  **Phase 5b (UI — surfacing segments, reviewer-adjustable rollup) explicitly NOT built**, flagged
+  as likely combining with #152's own still-pending Phase 4b UI work — both need the same
+  "more than one simple period to display" editor work; `computeSegmentedReview`'s
+  `opts.periodStart`/`periodEnd` hook exists specifically so a future H1/H2-only view needs zero
+  further engine changes. No live Supabase schema change (pure JS reading the already-existing
+  `staff_assignments` table). 260/260 test files, 2835/2835 tests (+22 net new, zero regressions).
+  Build clean, entry chunk 474.95→475.06 KB gzip (+0.11 KB). Verified independently in a fresh
+  worktree before merging — every new function read in full (`personAssignmentTimeline`,
+  `resolvePeriodAttribution`, `computeSegmentScores`, `computeSegmentedReview`,
+  `provisionalSegmentRollup`), confirmed `REVIEW_METRIC_TARGET_FIELD`/`mergedTargetsForLocMonth`
+  are genuinely pre-existing (not invented), both claimed test/build numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-27, v5.198): [Dispatch #153 — fix OEPE/R2P/TPPH blending an
+  in-progress business day into "current week" averages](dispatch-153.md).** The bug found by
+  the overnight parallel audit of the Leadership One-Pager, now fixed. Root cause: `metricAvg()`
+  is a flat mean-of-daily-values, and `qsr_daily_activity_rollup` always carries the full
+  24-`hour_slot` shape even mid-day (future hours zero-filled, not absent) — so an in-progress
+  "today" was structurally indistinguishable from a complete day and blended into "this week"
+  with full weight. Live-measured symptom: the week's only day so far sat at 70% of its own
+  projected volume yet read as the fastest OEPE/R2P/TPPH of the whole sampled window.
+  **Fix reuses an already-proven pattern instead of inventing a new completeness mechanism**:
+  `metricSumRatio()` (Σnumerator÷Σdenominator) already existed and was already used by `tpph`;
+  this dispatch extended the SAME `derive.kind:'ratio'` treatment to `oepe`/`r2p`, using raw
+  numerator/denominator legs (`_dtTotal/_dtStore/_dtHeldTime/_dtCars` for OEPE,
+  `_fcServe/_fcDrawer/_fcCnt` for R2P) that were **already being summed per-day** on
+  `qsrActSummaryRows` (confirmed by reading `src/lib/supabase.js` directly, not assumed) — a
+  low-volume in-progress day now naturally contributes proportionally less instead of being
+  averaged in as representative. **The dispatch's own hint had DT/FC backwards** (guessed
+  DT-fields for R2P) — the engineer caught this via live cross-check against the code's own
+  pre-existing, already-reconciled formula comments (r=0.9958 vs a real QSRSoft report) rather
+  than trusting the dispatch, and got it right: OEPE←DT(drive-thru), R2P←FC(front-counter).
+  Live cross-check on a known-complete day: existing formula 124s vs new Σ/Σ chain 124.37s
+  (OEPE), 129.65s vs 129.65s exact (R2P). Before/after on the real 8-day partial-week window:
+  OEPE mean-of-daily 158.13s→Σ/Σ 159.35s, R2P 178.87s→180.94s — the period rollup moves away
+  from the single-day artifact, closer to the 7 complete days' real range (the partial day's own
+  single-day reading is still fastest in isolation — unavoidable, aggregation-independent — the
+  fix is about the PERIOD figure, not making the partial day retroactively complete).
+  `mode:'any'` used deliberately for the new raw-leg metric keys (not `'pos'`) so a genuine
+  $0/zero-held-time day isn't silently dropped from the sum — same zero-discarding class already
+  fixed for park/kvsHealthy (#150/#178). Falls back to `metricAvg` only when `metricSumRatio` has
+  nothing to compute (never silently drops a number that used to display). Added a CLAUDE.md note
+  that `count(hour_slot)==24` does NOT detect an in-progress day (only a genuinely short/failed
+  pull) — closes the exact gap that let this bug go undetected despite that existing guidance.
+  **Scoped correctly, not swept broad**: only the 3 Leadership One-Pager call sites
+  (`buildCurrentState`/`buildMetricNow`/`buildPerLocationRows` in `one-pager-data.js`) were fixed;
+  ~12 other `metricAvg('oepe'/'r2p'/'tpph')` call sites elsewhere (morning-brief, review-engine,
+  at-a-glance, signals, labor-tools ×3, sage, store-dash ×3, attention-now, above-store-onepager)
+  were found and listed as follow-up candidates in the PR body, not touched — real, same-shape
+  bug likely present in some of those too, but out of THIS dispatch's scope; worth a future pass.
+  258/258 test files, 2813/2813 tests (+14 net new). Build clean, entry chunk unchanged at
+  474.95 KB gzip (eager total +0.15 KB). Verified independently in a fresh worktree before
+  merging — every diff read in full (the `metric-source.js`/`one-pager-data.js`/`CLAUDE.md`
+  changes), the raw-leg field claims cross-checked directly against `src/lib/supabase.js`'s real
+  code (not trusted from the PR body), both claimed test/build numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-27, v5.197): [Dispatch #152 — Performance Review continuity Phase 4a:
+  per-person-per-YEAR data model + scoring engine](dispatch-152.md).** Sixth build phase — the
+  biggest architectural change of the whole redesign series so far. Restructures reviews from
+  one-record-per-HALF (H1/H2 were two completely separate, unrelated Supabase rows for the same
+  person) to **one record per (person, year)**, holding all four quarters + both half-year
+  rollups + a new full-year rollup. `reviewId(person, year)` drops the `_H1`/`_H2` suffix;
+  `blankReview()` drops the `half` param entirely (`kpis.months` now all 12 months, was 6;
+  `behavioralRatings` all four `q1..q4`, was 2). **Two real design decisions made and documented:**
+  (1) the review's person-identity field **unifies** with the SAME identity space dispatch
+  #150/#151 already built for `staff_assignments.person`/`profiles.person` — new nullable `person`
+  field, defaults null, `reviewId` falls back to plain name so nothing breaks; explicitly did NOT
+  repurpose the narrow shift-attribution-only `geid` field. (2) Approval status moves from one
+  top-level `status` to `periods.h1`/`periods.h2` (each own `{status, statusHistory, statusNotes}`)
+  — a year isn't approved as one atomic event, its two real conversations are, at different points
+  in the year — matches the owner's own words exactly. `computeScores`/`computeScoreBreakdown` now
+  return `{q1,q2,q3,q4,h1,h2,year}` from one call, every level built by the SAME `combine()` step
+  (year = h1+h2 combined identically to how h1 already combines q1+q2) — proven with a concrete
+  numeric test using asymmetric quarter ratings, not just "it runs." One real UI crash found and
+  fixed (`NewReviewForm`'s stale 6-arg `blankReview` call, would corrupt `templateSnapshot` and
+  throw on Create) with its own regression test that was verified to actually catch the crash
+  (reverted the fix, confirmed the test failed, re-applied). Everything else UI-facing (period
+  selector, list columns, print, transition buttons) is real, non-crashing, deliberately deferred
+  breakage — documented in full in the PR body, not Phase 4b's job to fix here.
+  **A genuine, important finding from live measurement (not the plan doc's days-old claim):**
+  `reviews` had **3 real rows**, not 0 — `stacey_hyatt_2026_H1`, `gonzales_briann_2026_H1`,
+  `nick_rice_2026_H1` (the last is literally the plan doc's own motivating example — the owner's
+  own test entries, not real prod data). **The owner confirmed deletion was safe (2026-08-27
+  morning) and the PM session deleted all 3 directly via service-role REST, confirmed empty
+  afterward** — `reviews` is clean going into this schema change, no migration concern.
+  **⚠️ NOT YET APPLIED TO PRODUCTION SUPABASE** — SQL below.
+  **A real merge conflict, not just squash-history noise:** the engineer's own new changelog entry
+  collided on the SAME version number (`5.195.js`) as the same-night urgent FOB fix (v5.195,
+  shipped hours earlier while the engineer was mid-run, unaware of each other) — GitHub reported
+  `mergeable_state: "dirty"`, not mergeable. Resolved during verification: renumbered the
+  engineer's entry to v5.197 (next free slot after the FOB fix's own v5.195/v5.196), regenerated
+  `changelog-latest.js`, pushed the resolution onto the PR's own branch so GitHub's merge went
+  through cleanly. 258/258 test files, 2801/2801 tests (main baseline 2798; the engineer's own
+  measurement was 2799 before this session's 2 same-night FOB tests merged in on top — zero
+  regressions either way). Build
+  clean, entry chunk 474.69→474.96 KB gzip (+0.27 KB). Verified independently in a fresh worktree
+  before merging — full diff read (schema, `reviewId`/`blankReview`/`computeScores`/
+  `transitionReview` all read function-by-function, not skimmed), both claimed test/build numbers
+  reproduced, the year-rollup `combine()` reuse confirmed by reading the actual code.
+- **✅ SHIPPED (2026-08-27, v5.196): FOB fallback (v5.195) now applies per-segment across
+  multi-month windows too — owner directive.** A parallel 4-agent audit of the rest of the
+  Leadership One-Pager (Labor%, OEPE/R2P/TPPH, Sales/GC/Plan, Controls/Suggested-Actions) found
+  Labor/Sales/Controls all clean (genuinely per-day sources, verified live) but surfaced one
+  residual case of the v5.195 FOB bug: a week spanning a month boundary still zeroed out its
+  pre-boundary segment, since that fix was deliberately restricted to single-month windows. Owner
+  directive on hearing this: *"whatever the latest data pulled is the number that should be
+  used."* `fobByRange()` now applies the latest-pulled-total fallback unconditionally per month
+  segment, any window shape — `qsr_fob` can't support a true sub-month delta at all, so this is
+  correct everywhere, not just the single-month case. 256/256 test files, 2781/2781 tests (the
+  multi-month test was rewritten to assert the new behavior, not skipped). Build clean, entry
+  unchanged at 474.69 KB gzip. Direct push, no dispatch cycle, given the same-night urgency.
+  **⚠️ Separate, real, NOT-yet-fixed finding from the same audit:** OEPE/R2P/TPPH blend the
+  CURRENT, still-in-progress business day into "this week" averages with full unflagged weight —
+  measured live: the only day in the current work week (Aug 26) sat at 68% of its own projected
+  transaction volume yet read as the FASTEST OEPE and HIGHEST TPPH of the whole week. Root cause:
+  DAR always returns all 24 hour_slot rows, zero-filled for hours that haven't happened yet, so
+  the existing "count(hour_slot)==24" completeness check (cited elsewhere in this file/CLAUDE.md)
+  **cannot detect this** — a genuinely new gap in that guard, not a re-derivation. Needs a real
+  completeness signal reaching `metricAvg`/`buildCurrentState`/`buildPerLocationRows`/
+  `buildMetricNow` (all independently call the same sourcing) before it's fixed — architecturally
+  bigger than a same-night patch, intentionally NOT rushed. **Next session: this is real,
+  reproducible, and open — don't let it go stale before someone acts on it.**
+- **✅ SHIPPED (2026-08-27, v5.195): fix FOB %/Food $ showing blank on weekly-scoped panels —
+  urgent, owner-reported ("need this for in the morning"), fixed same night.** Leadership
+  One-Pager's "Week of Aug 19" tile showed FOB "—" and Food $ "$0" while its own YTD FOB % worked
+  fine. **Root cause, measured directly against production `qsr_fob` (not guessed):** the
+  underlying QSRSoft "Actual Food Over Base" report settles ONCE near each month's start and then
+  holds that EXACT SAME cumulative value for the rest of the month — confirmed one store held
+  282347.08 unchanged for all 26 days, Aug 1 through Aug 26; confirmed the same once-then-frozen
+  pattern going back through April-July for multiple stores before concluding this wasn't a
+  one-off. `fobByRange()` (`src/engine/one-pager-data.js`) isolates a window's own slice by
+  diffing two within-month snapshots (baseline = day before the window, end = window's last day)
+  — for ANY single-month window that starts after that month's settle date, both snapshots are
+  IDENTICAL by construction, so the diff is always exactly zero. Not a data-pull failure, not a
+  freshness gap — a structural mismatch between this source's once-a-month cadence and a sub-month
+  window; the pull itself is running fine (fresh rows appear daily, just with an unchanged value).
+  **Fix:** when the entire requested range sits inside a single calendar month and that month's
+  diff comes out non-positive despite the month having real settled data, fall back to the
+  month-to-date absolute total — the same number already shown correctly for a full-month/YTD
+  window, now also surfacing for a narrower window that genuinely can't be sliced any finer.
+  **Deliberately restricted to single-month windows only** — a multi-month-spanning window (e.g.
+  "last 7 days" straddling a month boundary) keeps its exact prior diffing behavior unchanged,
+  since applying the same fallback there would double-count whichever month the window only
+  partially covers (a dedicated test proves this guard holds). `fobByRange()` is shared by every
+  FOB-showing panel (At A Glance, Analytics, Signals, SAGE, Opportunity Dollars, the Leadership
+  One-Pager, and others per a `qsrFobRows` grep across 35 files) — this fix reaches all of them,
+  not just the one it was reported on. 256/256 test files, 2781/2781 tests (+2 new — one
+  reproducing the exact real-world frozen-source scenario, one proving the multi-month guard).
+  Build clean, entry chunk 474.62→474.71 KB gzip (+0.09 KB). Fixed and pushed directly (small,
+  well-understood, thoroughly tested against measured real data) rather than the full
+  dispatch/verify cycle, given the morning deadline.
+- **✅ SHIPPED (2026-08-26, v5.194): fix a second real bug found live minutes after v5.193
+  shipped — `area_supervisor`'s stale pre-#148 level made it outrank OM.** `area_supervisor`
+  already EXISTED in the org's persisted role list (not missing), so v5.193's
+  `mergeMissingDefaultRoles()` correctly left it alone — but it was still at its pre-ladder
+  **Level 3**, while dispatch #148 had re-leveled it to **Level 5** as part of the real ladder.
+  The stale level survived and made Area Supervisor outrank OM (Level 4) in Roles & Permissions —
+  backwards from the real AS → OM → DO → VP → Owner chain. Caught two ways in the same live
+  session: a screenshot showing "Area Supervisor · Level 3" tied with DO, and the owner
+  independently spotting "ops mgr and supervisor are reversed" from the real-world reporting
+  structure. Fix: new `reconcileLadderLevels()` — corrects ONLY the `level` field for the 7
+  official ladder role ids to their canonical `DEFAULT_ROLES` value (label/color/permissions and
+  any real customization on them are left untouched); `admin`/`manager` are excluded by design,
+  matching #148's explicit "kept exactly as it was" decision for those two utility roles. Also:
+  the orphaned custom `owner_0nct` role from v5.193's writeup was deleted live by the owner via
+  the Roles & Permissions "Delete" button once the deploy caught up — closed, no further action.
+  256/256 test files, 2779/2779 tests (+4 new). Build clean, entry chunk 474.62→474.69 KB gzip
+  (+0.07 KB). **Lesson for next session: after any role-system change, actually look at Roles &
+  Permissions with real production data, not just DEFAULT_ROLES in isolation** — both v5.193's and
+  v5.194's bugs were invisible to every unit test (which all construct roles from scratch) and
+  only surfaced against the org's real, years-old persisted `org_config` row.
+- **✅ SHIPPED (2026-08-26, v5.193): fix a real live bug found while verifying dispatch #151 in
+  production — a persisted org-configured role list was masking dispatch #148's entire 7-rung
+  ladder.** Confirmed via a live screenshot of the User Management panel: the role dropdown only
+  showed Admin/Owner/Area Supervisor/Manager — `vp`/`do`/`om`/`gm`/`sm_am_dm`/the real `owner`
+  were all missing. Root cause: `getOrgRoles()`/`syncOrgRolesFromSupabase()` (`permissions.js`)
+  always preferred a persisted `org_config`/localStorage role list **wholesale** over
+  `DEFAULT_ROLES`, so any org (this one included) that had already persisted a role list before
+  #148 shipped the ladder never saw any new ladder id appear anywhere — confirmed live: production's
+  persisted `org_roles` row predates #148 and only ever had `admin`/`area_supervisor`/`manager`
+  plus one stray custom role (`owner_0nct`, level 2, user-created by hand before #148 shipped the
+  real `owner` id at level 1 — **unassignable to any profile** since #148's CHECK constraint
+  doesn't allow that id; confirmed live via service-role query that zero profiles use it). Fix:
+  new `mergeMissingDefaultRoles()` — additive only, appends any `DEFAULT_ROLES` id missing from a
+  persisted list, never touches/reorders/removes an existing entry (the stray custom role survives
+  untouched, left for the org to clean up on its own via Roles & Permissions) — so the NEXT ladder
+  addition doesn't repeat this masking either. Small, well-understood, confirmed zero live
+  profiles affected before pushing — fixed and pushed directly to `main` (v5.193) rather than a
+  full dispatch cycle, per this project's standing practice for this class of fix. 256/256 test
+  files, 2775/2775 tests (+3 new). Build clean, entry chunk 474.54→474.62 KB gzip (+0.08 KB).
+  **Not yet resolved, the org's own call:** whether/how to clean up the orphaned `owner_0nct` role
+  via the Roles & Permissions UI, and whether to migrate any of that role's old permission-toggle
+  customizations onto the real `owner` role if they mattered.
+- **✅ SHIPPED (2026-08-26, v5.192): [Dispatch #151 — Performance Review continuity Phase 3b: wire
+  the assignment graph into `reviews` RLS](dispatch-151.md).** Fourth build phase — closes the RLS
+  wiring dispatch #150 deliberately deferred, and the write-scoping gap dispatch #148 explicitly
+  named this dispatch to fix. New `profiles.person` (text, nullable, admin-set — edited inline in
+  `admin.js` next to the existing role/`accessible_locs` editors) maps a Supabase login onto its
+  identity in the `staff_assignments` graph. New SQL function `person_oversees_loc()` mirrors
+  `whoOversees()`'s chain-walk for use inside RLS (which can't call JS directly — same constraint
+  #149 hit for `levelsAbove`); **deliberately diverges from the JS "throw on cycle" behavior** —
+  depth-capped at 10 rungs, silently returns `false` past the cap rather than throwing, since an
+  RLS predicate can't throw per-row without breaking every query on a malformed record. New JS
+  sibling `personOversees()` (thin wrapper around the existing `whoOversees()`) for client-side UI
+  gating — flagged as a SQL/JS pair that **can drift** if one changes without the other, same
+  caution as #149's ladder mirrors. `reviews` read RLS gets a new **additive** policy (never
+  replaces `accessible_locs` — a profile with no `person` mapping yet, which is every profile
+  today, keeps whatever access it already had); write RLS now routes through one shared
+  `reviews_write_allowed()` combining all three of the dispatch's named options with OR:
+  admin/owner unconditional, real hierarchy relationship via `person_oversees_loc()`, or an
+  `accessible_locs`-based fallback for a caller not yet mapped onto the graph.
+  **A genuine pre-existing bug found and fixed along the way, found by actually running the real
+  schema against a live local Postgres 16 instead of eyeballing it (CLAUDE.md's "measure it, don't
+  reason about it" rule earning its keep again):** the two untouched `"reviews: supervisor read"`/
+  `"reviews: manager read own locs"` policies (unchanged since #148) use
+  `reviewee_loc = any((select accessible_locs from profiles where id = auth.uid()))` — **Postgres
+  always parses a bare `ANY ((subquery))` as the quantified-subquery form, never array-membership**,
+  so this fails outright with `ERROR: operator does not exist: text = text[]` on real Postgres,
+  regardless of what type the subquery returns. Independently reproduced by the PM session too
+  (`select 'a'::text = any((select array['a','b']::text[]));` → identical error; the `::text[]`
+  cast fix resolves it) — **this is almost certainly the exact, previously-unexplained
+  `42883: operator does not exist: text = text[]` error the owner hit and screenshotted earlier
+  this same session** while applying dispatch #148's SQL. Fixed with a minimal `::text[]` cast; **a
+  human still needs to check live whether these two policies currently even exist in production**
+  — if the bug meant they silently failed to install the first time `schema.sql` was pasted in,
+  `area_supervisor`/`manager` logins may have had zero `reviews` read access via that path this
+  whole time (query in PR #805's body). **⚠️ NOT YET APPLIED TO PRODUCTION** — full SQL and the
+  live verification steps (including the specific test to run: map a test profile's `person`,
+  insert a synthetic `staff_assignments` row, confirm read/write access changes exactly as
+  expected, clean up) are in PR #805's body and `schema.sql`'s own new comments. 256/256 test
+  files, 2772/2772 tests (main baseline 2764, +8 net new, zero regressions). Build clean, entry
+  chunk 474.36→474.54 KB gzip (+0.18 KB). Verified independently in a fresh worktree before
+  merging — every diff read in full, the pre-existing-bug claim independently reproduced against a
+  live local Postgres (not just trusted), both claimed test/build numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-26, v5.191): [Dispatch #150 — Performance Review continuity Phase 3a:
+  effective-dated assignment graph + 2026 backfill](dispatch-150.md).** Third build phase, data
+  layer only (Phase 3b — wiring into `reviews` RLS — is a separate later dispatch). Extends
+  `staff_assignments` (previously a stub, zero code references anywhere) into a real general
+  reports-to graph: `{person, role, target_type: 'store'|'person', target, start}`. New
+  `src/engine/assignment-graph.js` generalizes `constants.js`'s `whoRan()`/`orgAssignments()`
+  "latest start ≤ date wins" rule — `resolveScope()` (recursive person→stores union, matching the
+  plan doc's AS/OM/DO mixed-level shape exactly) and `whoOversees()` (the inverse, store→chain of
+  people), both cycle-safe (`AssignmentCycleError`, never hangs). New
+  `scripts/backfill-staff-assignments-2026.mjs` reconstructs this year's real history from
+  `qsr_employee_tenure`. **Two real design decisions made and documented, not guessed:** (1)
+  `person` (text: a geid or a supervisor name string) replaces the old `profile_id` uuid FK —
+  most people this graph describes have no Meridian login at all, mirroring how `review.geid`
+  already solves the identical problem elsewhere; (2) `end_date` is kept but NOT consulted by
+  resolution — matches `orgAssignments()`'s own documented start-only convention, confirmed by
+  reading that function's header comment as instructed rather than guessed. **⚠️ NOT YET APPLIED
+  TO PRODUCTION** — exact SQL sent to the owner directly (also in PR #802's body). 256/256 test
+  files, 2763/2763 tests (main baseline 2717, +46 net new, zero regressions). Build clean, entry
+  chunk **unchanged** at 474.36 KB gzip (nothing new statically imported into any UI panel).
+  Verified independently in a fresh worktree before merging — every diff read in full, both
+  claimed numbers reproduced exactly.
+- **✅ SHIPPED (2026-08-26, v5.190): [Dispatch #149 — Performance Review continuity Phase 2: lock
+  auto-populated actuals, reason-required override](dispatch-149.md).** Second build phase
+  (`plan-performance-review-continuity-2026-08-26.md`, item #2), built on #148's role ladder.
+  Real fix, not a null-check: `autoPopulateKPIs` (review-engine.js) unconditionally overwriting
+  every `src:'auto'` actual on every run is **correct** behavior (freshest cloud data always) —
+  the actual bug was a correction had nowhere else to live. Fixed by giving corrections a
+  separate, append-only home: new `review_overrides` table/localStorage cache, resolved ONCE via
+  `applyReviewOverrides()` and handed to every consumer (scoring, `KPIGrid` display, print
+  exports) so none of them need their own override-awareness. `src:'auto'` actual cells are now
+  locked (read-only) with a pencil affordance opening the exact 3-option reason form the owner
+  specified (Inaccurate Data / Incomplete Data / Something Else, explanation required for the
+  third) — gated by `canOverrideLockedActual()` (`levelsAbove >= 2` PLUS unconditional
+  admin/owner). **Real enforcement, not just client-side**: new `review_overrides` RLS insert
+  policy mirrors the identical hierarchy rule server-side via two new SQL functions
+  (`role_level`/`review_role_to_ladder`) — flagged, real SQL/JS de-sync risk if either side
+  changes without the other. `overridden_by`/`overridden_by_role` are DB-set (`default
+  auth.uid()`/`get_my_role()`), so a caller can't spoof identity on an override record. No
+  UPDATE/DELETE policy exists — the table is a true append-only audit trail by construction.
+  **⚠️ NOT YET APPLIED TO PRODUCTION** — exact SQL sent to the owner directly (also in PR #799's
+  body and `schema.sql`'s new comments). 254/254 test files, 2717/2717 tests (main baseline
+  2680+, zero regressions), including a real DOM-rendered `KPIGrid` test and a regression test
+  proving why the old field-edit approach couldn't work. Build clean, entry chunk 473.38→474.36
+  KB gzip (+0.98 KB). Verified independently in a fresh worktree before merging (every diff read
+  in full, both claimed numbers reproduced exactly).
+- **✅ SHIPPED (2026-08-26, v5.189): [Dispatch #148 — Performance Review continuity Phase 1: real
+  7-rung role/level system](dispatch-148.md).** First build phase of the Performance Review
+  redesign (`plan-performance-review-continuity-2026-08-26.md`, build-sequencing item #1).
+  `src/engine/permissions.js`'s `DEFAULT_ROLES` extended from the old 3-tier stub (admin/
+  area_supervisor/manager) to the real ladder: `owner`(1) → `vp`(2) → `do`(3) → `om`(4) →
+  `area_supervisor`(5) → `gm`(6) → `sm_am_dm`(7); `admin`/`manager` kept fully unchanged (real live
+  `profiles.role` values depend on those exact strings elsewhere in `src/`). New pure
+  `levelsAbove(roleId, aboveRoleId, ladder)` resolver, not yet wired into any UI (needs the
+  assignment model, later dispatch). Also fixed 2 real `supabase/schema.sql` bugs: a
+  `'supervisor'`/`'area_supervisor'` string mismatch found in **4 places** (including the
+  `profiles.role` CHECK constraint, which never even allowed `'area_supervisor'` as a value —
+  meaning the "supervisor read" reviews policy has likely never matched a real supervisor login),
+  and the live open-write security gap (any authenticated user could insert/overwrite any review
+  row) — tightened to require one of the roles that could plausibly write a review.
+  **⚠️ NOT YET APPLIED TO PRODUCTION SUPABASE — this PR only changed the file in the repo.** The
+  exact SQL to run (and what to verify live afterward) is in dispatch #148's PR body (#794) and
+  `supabase/schema.sql`'s own new comments. Someone needs to actually run it against the live DB.
+  **⚠️ Open question left for the owner, not silently resolved:** should `admin` eventually
+  collapse into `owner` and `manager` into `gm` (closest functional matches), or stay separate
+  utility roles as this dispatch left them? Both are currently untouched precisely because real
+  live role data depends on those id strings — a rename needs an explicit owner decision, not a
+  guess. 252/252 test files, 2680/2680 tests passing (main baseline 2663+, zero regressions);
+  build clean, entry chunk 473.01→473.38 KB gzip (+0.37 KB). Verified independently in a fresh
+  worktree before merging (diff read in full, both claimed numbers reproduced exactly).
+- **📐 (2026-08-26): [Performance Review "yearly continuity" — full design synthesis,
+  `plan-performance-review-continuity-2026-08-26.md`](plan-performance-review-continuity-2026-08-26.md).**
+  Owner-driven redesign, started from "how do I see Nick Rice's H1+H2 review together." **Not yet
+  dispatched to an engineer — plan only, awaiting owner read-through before build work starts.**
+  Confirmed decisions: reviews become **per-person, per-YEAR records** (not per-half — real
+  restructure, no migration needed, zero real review data exists yet); **the review follows the
+  PERSON** via a new effective-dated `{person, role, loc, start}` assignment model, extending
+  `constants.js`'s existing `orgAssignments()`/`whoRan()` supervisor-org pattern rather than
+  inventing a new one; **promotion/transfer scoring splits into segments** (majority-of-month for
+  a mid-month store transfer, matching the owner's own historical practice; each role held scored
+  against its own KPI framework, not a blended formula — backed by actual HR-industry research,
+  not just recommended); **override authority for locked auto-populated actuals is a RELATIVE
+  hierarchy** ("2 levels above the reviewed person's own reviewer"), which requires new
+  infrastructure — a unified role ladder — since `ROLE_KEYS` (review roles) and the RBAC role list
+  don't currently map onto each other. **Job-title-code→review-role mapping is MEASURED, not
+  guessed**: live-pulled from `qsr_employee_tenure` (service-role key) — GM/DM/SM map cleanly to
+  real codes; AM has no distinct code (owner-confirmed: same job as DM, split by
+  `hourly_pay_rate` 0/null vs nonzero — verified against real rows); AS/OM/DO have zero roster
+  representation by design (above-store roles) and the roster pull is **never authoritative**
+  for them regardless — owner confirmed even GM-coded roster rows can be stale for someone
+  promoted above store level, so the app's own assignment record is the single source of truth
+  everywhere, with the roster code only ever a pre-fill suggestion. Also flags a real, currently
+  live, unrelated-to-this-plan bug: `autoPopulateKPIs` (review-engine.js) unconditionally
+  overwrites every `src:'auto'` actual value on every run — a manual correction someone makes
+  today gets silently clobbered the next time the review opens. Full suggested build sequencing
+  (6 phases) is in the doc.
+- **🐛 (2026-08-26, v5.187/v5.188): Two real bugs found and shipped in the same session — one was
+  making every full `vitest run` this session hang indefinitely.** Dispatch #147's own
+  `TargetCategoriesView` (yearly-projections.js) had an infinite-render-loop: its new
+  `onExportReady` effect depended on `ok`/`fl`, which were unmemoized `.filter()` calls (fresh
+  array reference every render, unlike the memoized `rows`/`byLoc` beside them) — every render
+  re-triggered the effect, which called a parent `setState`, which re-rendered, forever. This is
+  why every `npx vitest run --exclude ...` attempt this session died with an endless stream of
+  happy-dom `AbortError` teardown noise and no summary line, which looked like environment/
+  container flakiness (multiple container restarts, stray overlapping processes) until isolating
+  each of the 5 changed test files individually found the one that never returned
+  (`dispatch-107-yearly-projections-panel.test.js`, >120s vs. ~6s for the others). Fixed with
+  `useMemo(...,[rows])`. **Full suite immediately dropped from "never completes" to 49.96s,
+  2663/2663 passing** — verified twice more (independent fresh-worktree merges for both #147 and
+  the second fix below), consistently ~50s. Second, unrelated bug found the same session,
+  owner-reported: **Product Mix Dashboard's Cloud tab always showed "No Cloud Product Mix Data"**
+  despite `qsr_product_mix` genuinely having 2.5M+ fresh rows (confirmed live, service-role read).
+  `ProductMixPanel` (labor-tools.js) never called `ensureLazyFill('pmixRows')` — `pmixRows` is a
+  `LAZY_FILL_SOURCES` entry (dispatch17 #292 wired the loader into `configureLazyFill` but,
+  per that dispatch's own PR body, deliberately shipped with "no panel consumer yet" — that
+  consumer was never actually built until now) — so `ds.pmixRows` stayed permanently empty no
+  matter what Supabase held. Fixed with the same `ensureLazyFill`/`isLazyFillPending`/
+  `isLazyFillError` pattern `analytics.js`'s waste-discipline/audit-register panels already use.
+- **🎯 (2026-08-26, updated same day): [Complaints has a real API — `finding-complaints-propel-
+  api-2026-08-26.md`](finding-complaints-propel-api-2026-08-26.md) — the `/100K` denominator is
+  now confirmed.** Owner captured this live (logged into Propel, "a minute" between other things)
+  — `propel.mcd.com/api/customer-care?...action=getCustomerCareRestaurantCaseList` returns
+  per-store complaint cases: issue code/subcode (Service/Quality/Unspecified → Received Wrong
+  Ingredients, Speed of Service, etc.), incident/received dates, status, customer comments.
+  **Store 3708 alone: 60 cases YTD** — the first real measured complaint volume Meridian has ever
+  had. This is the ACTUAL-side source Performance Review's `complaints` metric (Complaint
+  Contacts/100K) has never had (`src:'manual'`, confirmed still true) — the target side was
+  already settled override-only (dispatch #132/#135, no real workbook column).
+  **✅ Owner-confirmed same day: the "/100K" denominator is guest count** — `(complaint count /
+  guest count) × 100,000`, and guest count is already a live Meridian metric elsewhere, so no new
+  pull needed for that half.
+  **Two real blockers remain, not guessed at:** (1) the Timeframe dropdown's real 5 options are
+  now captured (YTD/Baseline YTD/Trailing 3 Months/Baseline Trailing 3 Months/History,
+  `timeFrame=1`=YTD confirmed) — but **none of the five is a single calendar month**, so wiring a
+  monthly review figure likely needs a wide pull (`History`, once its numeric value is captured)
+  filtered client-side by date, not a direct per-month request; (2) same SSO+MFA constraint as
+  EcoSure — any real pull needs the identical on-demand Playwright+persistent-profile design
+  already established and owner-approved for that endpoint, not a quick auto-pull.
+  **`rowsPerPage`'s real cap was asked about directly and NOT actually measured** — the owner's
+  reply was an acknowledgment, not a test result; still treat as unconfirmed, matching the
+  EcoSure endpoint's own "don't trust a large `rowsPerPage`" caution until someone actually reads
+  back what a large request returns. Auth mechanism and the hierarchy-node identity chain are
+  directly reused from `finding-ecosure-propel-api-2026-08-22.md` — confirmed the same host/auth,
+  not re-derived.
+  **The owner's raw capture (including a live session cookie and full customer complaint text)
+  was NOT committed** — the finding file keeps only the endpoint shape, header names, and
+  paraphrased examples, matching the EcoSure file's own security discipline.
+- **✅ SHIPPED (2026-08-26, v5.187): [Dispatch #147 — Print/export for Yearly Projections,
+  Schedule Summary, Promo/Discount ROI](dispatch-147.md).** Owner unavailable (teaching a
+  scheduling class), approved opportunistic work. Re-swept `src/views/`: 9/57 panels now have
+  `ExportDropdown`. Filtered the gap list to 3 real, dense, currently-registered panels —
+  explicitly checked and excluded `performance-reviews.js` (already has a mature custom print
+  system, `printReview`/`printCheckpoint`/`printBlankForm`, not a gap) rather than assuming from
+  the `ExportDropdown` grep alone. Two background engineer attempts on this each stalled mid-run
+  (completed real, on-pattern implementation work but returned without finishing verification/
+  commit/push) — PM took over the wrap-up directly, found and fixed the infinite-loop bug this
+  same PR had introduced (see the entry above), then verified in an independent fresh worktree
+  before merging.
+- **✅ SHIPPED (2026-08-26, v5.186, direct fix, no dispatch): `store-dash.js`'s "By Patch" tab
+  fixed — the last leftover from dispatch #144.** #144's own PR body flagged this exact call site
+  (`OrgView`'s supervisor grouping) as still reading `settings.supervisorGroups` — the same
+  save-time-snapshot bug #139 fixed everywhere else — but out of that dispatch's named scope.
+  Picked up directly: swapped for live `supervisorGroups()`, mirroring #139's established pattern
+  exactly (no design decision needed). New test reassigns a real store via `setLiveAssignments`
+  (same repro `dispatch-139-supervisor-patch-live-source.test.js` uses) and confirms the "By
+  Patch" tab shows the new supervisor — no existing test had ever rendered this tab's populated
+  state. Full suite 2663/2663; build clean.
+  **⚠️ Complaints/Propel — flagged to the owner, cannot be advanced solo.** Owner said this
+  morning *"The complaints are on the propel site"* — checked `memory/` for prior research
+  (none exists) and confirmed via `finding-ecosure-propel-api-2026-08-22.md`'s own hard-won
+  conclusion that `propel.mcd.com` is SSO+MFA-gated: *"headless/unattended SSO authentication is
+  impossible."* Every prior Propel capture (EcoSure, CFV, RGR) required the owner to be logged in
+  and share the request/screenshot — same constraint applies here. Holding until the owner
+  captures whatever screen holds complaints data in Propel; not something to guess at or attempt
+  solo.
+- **✅ SHIPPED (2026-08-26, v5.185, direct fix, no dispatch): Delivery Wait target root-caused
+  and fixed — a merged-header split column, not a missing-data gap as first suspected.** Owner
+  sent a live screenshot: `yearly_targets`'s "McDelivery Restaurant Wait Time" is a MERGED
+  2-column header — the header text sits on the LEFT column, which holds a literal `<` for every
+  row; the real mm:ss value is one column to the right (*"It's in a split column so its the one
+  to the right of '<'"*). `parseYearlyTargets` was reading the `<` column itself
+  (`parseFloat('<')` = NaN), exactly matching the null-for-all-27-stores result measured live the
+  day before. Fixed: reads the value column, converts mm:ss (or h:mm:ss) → seconds via the
+  already-existing `hmsToSec` helper (`src/engine/people-reports.js`) — reused, not reinvented —
+  matching `restaurantTimeSec`'s (the ACTUAL side's) scale.
+  **Same message, same session: "let's wire in Star Rating as well."** Found the same bug family
+  — McDelivery Star Rating values are written as `">4.5"` (comparison prefix in one cell), so
+  plain `parseFloat` also returned NaN there. Fixed the parse, and added McDelivery Star Rating
+  as a new RGR metric: target real and now-fixed (`tMcdStars` → `yearly_targets.mcd_star_rating`),
+  actual manual (no data source exists anywhere in the app), `scored:false` — same reasoning
+  v5.184's 2nd Side Healthy Usage used (no live actuals to calibrate a threshold band against).
+  **`kpi-registry.test.js`'s stale guard updated, not worked around** — it asserted `mcdStars`
+  had no picker entry, written before this metric existed; `KPI_REGISTRY`'s own "flattens every
+  default-review metric" test already requires the opposite (any `DEFAULT_REVIEW_CONFIG` metric
+  is unconditionally picker-visible by design), so the old assertion was structurally
+  contradicted, not just outdated.
+  New parser tests (`yearly-targets-parser.test.js`) reproduce the exact merged-header/`>`-prefix
+  layout from the live screenshot. Full suite 2662/2662; build clean, +0.22 KB gzip.
+- **✅ SHIPPED (2026-08-26, v5.184, direct fix, no dispatch): Retention Rollup's "Labor % Δ" was
+  100x too big — owner caught it live within minutes of #146 shipping real data.** A
+  "22.02% → 21.75%" Before→Since pair (0.27pp) was rendering as "-27.43pp". Root cause: `laborPct`
+  is already percent-scale everywhere in `schedule-summary.js`/`schedule-retention.js` (the
+  former's own `// % scale` comment), so `laborPctDelta = b.laborPct - a.laborPct`
+  (`schedule-retention.js:618`) is already in percentage points — the rollup table AND its CSV
+  export both multiplied it by 100 again. The pure `aggregateRetentionRollup()` math was always
+  right (dispatch #141's tests already covered it); only the display layer was wrong, and no
+  existing render test ever populated the table (every dispatch-141 render test hits the empty
+  "no marks" state since Supabase isn't configured in tests) — so this shipped invisibly for
+  weeks and only surfaced the moment #146 gave it real marks to render. Fixed both call sites
+  (`src/views/schedule-retention.js:718,739`); added
+  `src/__tests__/schedule-retention-rollup-labor-delta-scale.test.js`, which mocks
+  `loadRetentionMarks` to actually populate the table (the exact gap that let this ship) and
+  checks the rendered pp text against the Before→Since cell's own values.
+  **Same session, same owner ask: "2nd Side Healthy Usage (%)" now auto-populates.** Owner: *"I
+  know I have 2nd Side Healthy Usage inactive for scoring atm, but we need to populate it as well
+  — it is KVS Usage metric. Target available in yearly targets under Healthy Use 2nd Side."*
+  Found both sides already real and just unwired: the actual reads from `metric-source.js`'s
+  already-registered `kvsHealthy` source (glimpse/opsService/qsrActSummary cloud-first, manual
+  `ds.opsRows.kvsu` fallback) via the same `metricAvg()` pattern the KVS Time metric right above
+  it already uses; the target is `parseYearlyTargets`'s real, already-persisted
+  `yearly_targets.kvs_usage_pct` (`t.tKvsu`), just missing a `REVIEW_METRIC_TARGET_FIELD` entry.
+  Both wired; `scored:false` (reference-only) left exactly as the owner specified — this only
+  fills the numbers, doesn't turn scoring on.
+  **Investigated, NOT fixed: "Delivery Wait (sec)" target.** The wiring (`delivWait: 'tMcdWait'`)
+  is already correct and generic — but live Supabase shows `yearly_targets.mcd_wait_time` is
+  `null` for **all 27 stores**, while neighboring McDelivery columns parsed from the same
+  workbook section (`mcd_gcrd`, `dig_app_gcrd`) are populated for every store. This is a strong
+  signal of a header-name mismatch in `parseYearlyTargets` (checks only 'McDelivery Restaurant
+  Wait Time'/'McDelivery Wait Time'), not a genuine data gap — but confirming the real header
+  text needs the current yearly targets workbook, which isn't in this session. Flagged to the
+  owner, not guessed at.
+- **✅ SHIPPED (2026-08-26, v5.183): Dispatch #146 merged — Retention Rollup workshop-week marks
+  now pre-populate from the Organization Structure workbook** (PR #770). Independently verified
+  before merge: fresh worktree merge onto `origin/main`, full suite **2659/2659 passing** (up
+  from 2645, +14 new tests), `npm run build` clean (entry gzip 469.89 KB, eager 541.07 KB —
+  matches the PR's claimed +1.01 KB). Uploading `data/org-structure/Organization_Structure.xlsx`
+  now calls `saveRetentionMark()` for every OK store whose `Scheduling Setup`!"1st Schedule Week"
+  date is ≤ today, skips future-dated rows, and never silently overwrites an existing manual
+  mark. **Independently re-derived the PR's headline claim rather than trusting it** — wrote a
+  fresh script against the real committed file and got the identical split the PR reported: **11
+  marked, 9 skipped-future, 0 no-date** (this differs from dispatch #146's own draft estimate of
+  "~15/~5", which the PR correctly attributed to being computed against a different reference
+  time — the dispatch itself called for re-verifying at build time, and both the engineer and
+  this independent check did). Confirmed via diff: `parseOrgStructure` reads `Scheduling Setup`'s
+  own column (not the `Locations` sheet's formula-cached-empty mirror, exactly as the dispatch
+  warned against), and `schedule-retention.js`'s rollup/aggregation logic has zero diff — this
+  is purely a new import path into the same table the manual UI already writes to.
+- **✅ SHIPPED (2026-08-26, v5.182): Dispatch #145 merged — EAP and EAD added to Performance
+  Review RGR** (PR #767). Independently verified before merge: fresh worktree merge onto
+  `origin/main`, full suite **2645/2645 passing**, `npm run build` clean (entry gzip 468.88 KB,
+  eager 540.06 KB — matches the PR's claimed +0.49 KB). Weight math independently re-summed from
+  `main`'s actual pre-change metric list (oepe .20+osat .10+epb2b .10+r2p .10+delivWait .10+kvs
+  .10+complaints .05+fsAudits .05+fsEcoSure .10+fsTablet .05 = **0.95**, confirmed), so eap
+  (.03) + ead (.02) genuinely closes the gap to exactly 1.00 rather than being asserted. `epb2b`
+  confirmed untouched (no diff on its own line); grepped the full diff for `osatB2B` — the only
+  hit is the changelog text stating none was added. The engineer's one deviation from the
+  dispatch's literal text (adding `eap: 'tEAPTarget'` to `REVIEW_METRIC_TARGET_FIELD` despite the
+  dispatch saying not to) checked out — `totalProfit`/`complaints`, the pattern the dispatch
+  itself pointed at, both have such an entry, and `target-overrides.test.js` enforces the sync.
+- **✅ RESOLVED (2026-08-26): `data/org-structure/Organization_Structure.xlsx` updated to the
+  owner's real 2026-08-25 copy — PM initially got this wrong, corrected after the owner pushed
+  back.** The owner said this session had already made a formula change to the workbook
+  "yesterday"; the PM's first response denied it (checked only `git log`/`git status`, which
+  showed no edit — true, but incomplete: it didn't check session upload/scratch directories). The
+  owner pushed back specifically enough (*"I believe it was yesterday... could've been a spawned
+  runner"*) to warrant a harder look, which found it: a real upload at
+  `/root/.claude/uploads/.../08787628-Organization_Structure.xlsx` (2026-08-25) and three
+  byte-identical scratchpad copies, one genuinely carrying a new cross-sheet formula on the
+  `Locations` sheet (`=IFERROR(INDEX('Scheduling Setup'!$L:$L,MATCH($A3,'Scheduling
+  Setup'!$A:$A,0)),"")`) pulling a real column, **"1st Schedule Week"**, that already existed in
+  the owner's own upload on the `Scheduling Setup` sheet. **Lesson: "I checked git and found
+  nothing" is not the same measurement as "I checked everywhere a prior session could have left
+  work" — a session's own upload/scratch directories are real state that git log doesn't cover.**
+  Owner confirmed this copy is current and OK to commit; now committed, replacing the stale
+  2026-08-23 version. Full detail (including why "1st Schedule Week" is a *better*, self-
+  validating signal than the previously-found "Schedule Workshop" column) in the updated
+  `data/org-structure/README.md`.
+- **📋 (2026-08-26): [Dispatch #146 — Pre-populate Retention Rollup workshop-week marks from the
+  Organization Structure sheet's "1st Schedule Week" column](dispatch-146.md) — REVISED, now READY
+  TO DISPATCH, both prior blockers resolved.** The source column changed from "Schedule Workshop"
+  (a training date) to `Scheduling Setup`'s **"1st Schedule Week"** (the date each store's first
+  live LifeLenz schedule week under the new process actually landed) — a more direct match for
+  what the Retention Rollup's before/since split needs. The "planned vs. confirmed" ambiguity that
+  blocked the original draft is now resolved **empirically, not by assumption**: every store whose
+  "1st Schedule Week" is ≤ today has real, filled-in engagement/notes fields on the same row;
+  every future-dated store has them blank — an airtight correlation across all 20 OK stores. The
+  `date ≤ today` import gate is therefore a confirmed-correct rule. Not yet sent to an engineer —
+  queued behind #145 (PR #767, awaiting verification) per the one-engineer-at-a-time cadence.
+- **✅ SHIPPED (2026-08-26, v5.181): Dispatch #144 merged — 2 of the 4 named panels converted to
+  LocationSelector** (PR #765). Independently verified before merge: fresh worktree merge onto
+  `origin/main`, full suite **2645/2645 passing**, `npm run build` clean (entry gzip 468.39 KB,
+  eager 539.57 KB — matches the PR's claimed +0.01 KB). The engineer's central claim — that
+  `labor-tools.js`/`store-dash.js` needed NO change because dispatch #139 already fixed their
+  live-data resolution, and because their "group by"/"rank by" controls are multi-mode grouping
+  dimensions (Company/Org/Operator/Patch; Stores/Patch/Operator/State — all groups render at
+  once) rather than single-scope pickers `LocationSelector` could represent — was independently
+  confirmed: `git show c54237e -- src/views/labor-tools.js` and `-- src/views/store-dash.js` both
+  show #139 already switched them to live `supervisorGroups()`/`supervisorOf()`; current `main`
+  still reads `supervisorGroups()` live at `labor-tools.js:1476` (`INV_ORG_COORDS` only as a
+  per-store fallback, not the primary source). `analytics.js`/`smg-voice.js`'s conversions to a
+  real `LocationSelector` (with UI-boundary translation helpers, `orgFilterToSelectorValue`/
+  `filterToSelectorValue`) confirmed present in the diff. Scope was genuinely narrower than the
+  dispatch's original framing — the PR flagged (not fixed) one adjacent stale-snapshot bug in
+  `store-dash.js`'s separate `OrgView` "By Patch" tab, worth a future dispatch, not touched here.
+- **✅ SHIPPED (2026-08-26, v5.180): Dispatch #143 merged — print/export for At A Glance,
+  Signals, Security Panel** (PR #762). Independently verified before merge: fresh worktree merge
+  of `origin/claude/dispatch-143-print-export-sweep` onto `origin/main`, full suite **2645/2645
+  passing**, `npm run build` clean (entry gzip 468.38 KB, eager 539.56 KB — matches the PR's
+  claimed +0.01 KB), and the diff spot-checked against the PR's specific claims: At A Glance's
+  leaderboard export reads the full `lbData.data` array while the on-screen table caps at
+  `data.slice(0,3)`/`slice(-3)` (`at-a-glance.js:2921`) — export is genuinely uncapped, not just
+  claimed to be; Signals' Scanner export reads `results` (all discovered pairs) not `shown`
+  (`results.slice(0,40)`); Security Panel's export `subjectLabelFor` uses the identical
+  `revealed[group.empToken] || 'This employee'` expression `SubjectRow` already renders
+  (`security-panel.js:646` vs `:808`), and the diff never touches `scopeMatches`/`supervisorOf`
+  (dispatch #139's fix). All confirmed real, not just asserted in the PR body.
+- **✅ RESOLVED (2026-08-26): OSAT B2B/EPB2B correction — owner is investigating it himself,
+  dispatch #145 revised down to EAP + EAD only.** The earlier claim that OSAT B2B was "fully auto
+  both sides, cleanest of the three" was disproven the same day (a real target screenshot showed
+  1.5%–8.5% targets vs. `yearly_targets.osat_b2b_pct`'s live 0.88–0.96 range, a ~22x mismatch —
+  the two are different concepts sharing a misleading column name). Reported to the owner, who
+  answered: *"On the EPB2B I don't think it's a mislabel even if the data looks similar. Let me
+  work through it to figure out what needs to be there and resolve any missing data so there are
+  no questions left — if needed we can pause on that work for now other than doing the ones where
+  there are no questions."* **`dispatch-145.md` has been rewritten to drop OSAT B2B entirely** —
+  it now covers only EAP + EAD (the two metrics with no open question). OSAT B2B and EPB2B both
+  stay untouched pending the owner's own investigation; do not guess at either in the meantime,
+  and do not re-propose OSAT B2B until the owner reports back.
+- **📋 (2026-08-26): [Dispatch #145 — Performance Review RGR: add EAP and EAD as new metrics —
+  OSAT B2B and EPB2B both held](dispatch-145.md).** Traced the real FullScale report headers
+  baked into `src/__tests__/smg-fullscale-dataonly.test.js` and found the report's actual
+  "Experienced a Problem (Yes)" question is the OVERALL section (no B2B qualifier), already
+  parsed into `smg_fullscale.overall_problem`, live with real data, never wired to a review
+  metric — that's a NEW metric the owner named **EAP**, not a rename of the existing `epb2b` key
+  (owner: keep EPB2B exactly as-is, dormant). **EAD** (Voice Execute As Designed) has a real,
+  already-parsed target (`yearly_targets.voice_ead_pct`) but a pre-existing guard test
+  (`kpi-registry.test.js`) already documents it has NO actual-data source anywhere in the
+  codebase (Pace Portal, not yet ingested) — wire the target now, leave the actual manual, same
+  as EPB2B. Dispatch explicitly warns against silently changing RGR's category weight balance
+  when adding 2 new weighted metrics — a real scoring decision, not mechanical. Not yet sent to
+  an engineer — queued behind #144 per the one-engineer-at-a-time cadence.
+- **📋 (2026-08-26): [Dispatch #146 — Pre-populate Retention Rollup workshop-week marks from the
+  Organization Structure sheet's "Schedule Workshop" column](dispatch-146.md) — DRAFTED, NOT YET
+  DISPATCHED, two open items pending the owner.** Owner, after being told the Retention Rollup was
+  empty because no store had a manual mark yet: *"Mark the scheduled weeks for training I can do
+  that when I'm at the computer, but we also updated the organization structure sheet which
+  already has those weeks on it. Could we not just pre-populate them from that sheet?"* Real,
+  verified finding: `data/org-structure/Organization_Structure.xlsx`'s `Locations` sheet genuinely
+  has a **"Schedule Workshop"** date column, populated for all 20 OK stores (FL blank — no
+  workshop scheduled there yet), live-decoded from the committed file's Excel serials (2026-08-26).
+  Converting a date to the mark's weekKey is trivial (`weekStartOf()`, already exported) and no
+  existing parser/upload path touches this workbook at all — genuinely new work, not a missed
+  wiring. **Two things block sending this to an engineer:** (1) the committed copy is dated
+  2026-08-23 and the owner said he updated it since — need the current file; (2) the sheet has no
+  paired "confirmed occurred" flag for this column (unlike its own "Mobile Training
+  Occurred"/"Scheduled" pair), and several dates in the committed copy are still in the future
+  (e.g. 3708/24471: 2026-09-03) — importing a future-dated mark would create a false before/since
+  split. Dispatch proposes a safe default (skip any date > today at import time) but flags it for
+  owner confirmation rather than assuming.
+- **✅ RESOLVED (2026-08-26): Op Supplies target-field label fixed** — was declared `src:'manual'`
+  in `review-engine.js`'s RGR metric config despite `autoPopulateKPIs` already unconditionally
+  filling it from the real, auto-pulled eBOS stream (`qsr_ebos_daily.ops_purchases`) — a stale
+  label hiding the UI's "★auto" indicator, not a missing pipeline. Owner confirmed: *"Op supplies
+  we actually already have through the ebos pull."* Fixed directly (PR #757, v5.179), no dispatch
+  needed — metadata-only, no computation change.
+- **⚠️ OPEN QUESTION (2026-08-26): EPB2B's real data source is disputed, do not wire without
+  resolving.** Owner suggested this morning it might already be in `smg_fullscale` (which does
+  have plausible `dt_problem`/`overall_problem` columns, live-checked). But `memory/notes-32-
+  queue.md` and `memory/backlog-master-2026-08-19.md` both record this SAME owner's prior intel
+  (2026-08-19) that EPB2B is sourced from **Pace Portal — a different, not-yet-ingested site**,
+  "likely manual for now." Two different sources, three weeks apart, from the same person —
+  flagged back to the owner rather than guessing which is current; do not dispatch this one until
+  resolved, and do not silently keep the older Pace Portal claim as newly-decided information.
+- **📋 (2026-08-26): [Dispatch #143 — Print/export for the 3 highest-value gaps: At A Glance,
+  Signals, Security Panel](dispatch-143.md)** and **[Dispatch #144 — Convert the 4 panels with
+  real correctness exposure (not just cosmetic inconsistency) to the standard
+  LocationSelector](dispatch-144.md).** Both owner-approved for today while traveling. #143 is
+  scoped to 3 of the ~17 print/export-less panels found in yesterday's sweep — the highest-value
+  ones, not all 17, to keep each dispatch a size one engineer can finish and verify well. #144 is
+  scoped to the 4 panels (`analytics.js`/`labor-tools.js`/`store-dash.js`/`smg-voice.js`) that
+  dispatch #139 flagged as having a real (if narrow) static-data-fallback gap even after its live-
+  source fix, not the full 47-panel cosmetic sweep — converting them to `LocationSelector` removes
+  the fallback path entirely rather than just standardizing the UI. Both instruct re-reading
+  current `main` first since #139 may have already closed part of the gap in some of these files.
+- **📋 (2026-08-25): [Dispatch #142 — Performance Review: Sales/Labor targets bypass the official
+  cascade, Voice OSAT never wired despite real data, yearly-target decimal display, re-confirm
+  Complaints](dispatch-142.md).** Screenshot showed monthly Sales scored "Exceeds" against a
+  target 4-14× too small to be real. **Root cause confirmed by reading the code**:
+  `review-engine.js`'s Sales/Labor metrics (~line 927-928) never use `officialTgts`
+  (`mergedTargetsForLocMonth`'s correct DEFAULT<yearly<monthly<override cascade, computed on the
+  line directly above and correctly used by every OTHER metric) — they instead `sum()`/`avg()` a
+  raw manual-upload field off `ds.laborRows` directly, a completely separate legacy path. Explains
+  three of the owner's items at once (wrong sales number, labor not respecting monthly target,
+  "monthly supersedes yearly" not applying) from one bug. Also: **Voice OSAT has real parsed data
+  (`tOsat`, confirmed live in the yearly-targets parser) that has simply never been added to
+  `REVIEW_METRIC_TARGET_FIELD`** — a genuinely missing one-line map entry, not a parser gap.
+  Decimal-display concern investigated as a display-only fix (parser already preserves full
+  precision correctly, never truncates). **Complaints/"customer contacts" re-confirmed as
+  already-correct** (dispatch #135's raw-count-vs-/100K-rate finding stands) — communicated back
+  to the owner in the dispatch rather than re-opened.
+- **📋 (2026-08-25): [Dispatch #141 — Training Retention: patch/operator/org/state rollup report
+  ("who is driving this")](dispatch-141.md).** New aggregate view across the per-store report
+  dispatch #140 covers. **Blocking prerequisite found by reading the code**: the per-store
+  "workshop week" mark (`markedWeekKey`) is `localStorage`-only, never synced to Supabase — a
+  rollup computed in any session can't see marks set on other devices, so this dispatch requires
+  migrating that mark to a real Supabase table FIRST, before the rollup can mean anything.
+  Grouping-dimension sourcing: Patch must use dispatch #139's live `supervisorGroups()` fix
+  (never the stale static field); Operator's live-vs-static status is explicitly flagged
+  unverified (measure, don't assume); Org/State are already-stable fields, safe to use directly.
+- **📋 (2026-08-25): [Dispatch #140 — Training Retention: move into the Scheduling hub, drop the
+  internal coaching note from view, week-anchored range picker, broaden the location selector,
+  per-metric sparklines](dispatch-140.md).** Grew across three owner follow-ups on the same
+  panel. Owner missed dispatch #134's Schedule Retention report because it shipped as a separate
+  top-level sidebar item instead of a tab alongside its sibling scheduling tools inside
+  `SchedulingHubPanel` (hand-maintained `SCHED_TABS` array in `App.js`, not registry-driven) —
+  same shape as dispatch #135's Targets Editor move, engineer instructed to follow that
+  precedent directly. Also: drop `buildNarrative()`'s "— worth a follow-up coaching visit" tail
+  (owner: doesn't want a store to see that language, on-screen or in print); convert the date
+  range from calendar-day to LifeLenz-week-anchored; broaden `LocationSelector` from `mode:
+  'store'` to `'progressive'` (coordinate with #141 on the broader-scope UX); and generalize the
+  existing Labor%-only sparkline into one per metric row (owner named Sched-vs-Fcst hours and
+  TPMH explicitly, "wouldn't mind seeing all of the fields"), with a layout pass shrinking the
+  narrative box to make room for a stacked chart layout.
+  **Also answered, no dispatch needed**: the owner's separate "holiday selector in Event Impact"
+  question — it shipped (dispatch #122), just in the differently-named "Events & Tags" panel
+  (`store-dash.js`'s `EventCalendar`), not `event-impact.js` ("Event Impact Registry") — two
+  similarly-named, unrelated panels. Confirmed live via code read, not a bug.
+- **📋 (2026-08-25): [Dispatch #139 — Supervisor patch data has two sources of truth; the static
+  one is stale ("Mary missing in Crew Schedule")](dispatch-139.md).** Confirmed root cause by
+  reading the code: `src/constants.js`'s `INV_ORG_COORDS[loc].sup` is a static, hardcoded
+  supervisor-per-store map (all FL stores still `sup:'Brad Denley'`) — separate from the LIVE,
+  Settings-editable, time-aware `supervisorGroups()`/`orgAssignments()` system that a new
+  supervisor ("Mary") actually gets written to. `src/components/PanelControls.js`'s
+  `buildLocationHierarchy()`/`LocationSelector` (used by Crew Schedule Lookup + 8 other panels)
+  builds its Patch tier ENTIRELY from the stale static map — that's why Mary is real in Settings
+  but invisible everywhere a `LocationSelector` patch tier is used. Confirmed blast radius via a
+  full-repo sweep: `PanelControls.js`/`security-panel.js`/`smg-voice.js` are fully static (never
+  show Mary); `analytics.js`/`labor-tools.js`/`store-dash.js` read live-first but silently fall
+  back to static (miss Mary only for stores not yet in a live assignment row); 8+ other panels
+  already correctly read live data (good precedent to copy). **Two related, larger findings from
+  the same sweep, deliberately NOT bundled into this dispatch (logged as backlog, not yet
+  dispatched — see below):** (1) only 9/56 `src/views` panels use the standardized
+  `LocationSelector` component; most of the other 47 already read live supervisor data correctly
+  via their own ad-hoc pills/selects, so this is a DRY/consistency gap, not a correctness one. (2)
+  Only 5/56 panels import `ExportDropdown`; ~15 more have their own bespoke print/export
+  mechanism; **~17 panels have no print/export at all** despite showing tabular/reportable data —
+  `at-a-glance.js`, `signals.js`, `security-panel.js`, and `dt-speedofservice.js` (pre-#136) are
+  the highest-value gaps. Owner has asked for print/export by default on future panel work going
+  forward; retrofitting the existing 17 is a separate, larger effort than this dispatch.
+- **📋 (2026-08-25): [Dispatch #138 — Time Punches: a real panel to view
+  qsr_punch_times](dispatch-138.md).** Owner: *"where do i find the time punches"* — there was
+  nowhere. Confirmed by grep: zero files under `src/views` reference `qsr_punch_times` or a
+  punch-times loader, even though the pull (dispatch #124, un-tokenized by #126) has been
+  running with real data (132,350 rows, 81,846 with a resolved name). Build a companion panel to
+  `crew-schedule-panel.js` (same `RoutePanelShell`/`LocationSelector`/un-tokenized-name shape,
+  same ordinary RBAC), plus a new `loadPunchTimes()` loader (none exists). Two real design
+  questions flagged for the engineer: no business-day `dt` column on this table (apply
+  `businessDate()` explicitly if bucketing by day), and `punch_type:'meal'` rows should visually
+  pair with their enclosing shift punch, not list as a sibling shift.
+- **✅ RESOLVED (2026-08-25): Dispatch #137 merged** — Crew Schedule names were showing as
+  "Employee #12345" district-wide; root-caused (not guessed) to a rejected GraphQL argument on
+  the LifeLenz roster query (every fetch failing) plus a separate Postgres upsert-conflict bug
+  silently zeroing most stores' saved rows. Fixed both in `scripts/lifelenz-pull.mjs`, validated
+  against the LIVE LifeLenz API before merge (dispatched the real sync workflow on the fix
+  branch): saved rows went from 472/13688 (0 resolved names) to 13101/13692 (~all resolved).
+  PR #745, v5.172. Full writeup: `dispatch137-crew-schedule-names-broken-roster-2026-08-25.md`.
+- **📋 (2026-08-25): [Dispatch #136 — Speed of Service print/export + Record Day location picker,
+  print/export, and recent-record highlighting](dispatch-136.md).** Two small, independent asks on
+  panels already touched this session, bundled for one engineer: (1) `dt-speedofservice.js` gets
+  print/export via the same `ExportDropdown`/full-content-printable pattern dispatches #122/#129/
+  #134 established — do not touch dispatch #128's just-shipped target-color-bar logic. (2)
+  `record-day.js` currently has **zero location filtering** (confirmed by reading the file, no
+  `LocationSelector` import) — add one (`mode:'progressive'`), thread the scope through print/
+  export, and add a recent-record-breaker highlight that reuses `RecentBreakersTab`'s existing
+  `windowDays` (never invent a second "how recent" definition) and must survive into the printed
+  output, not just the live DOM (see dispatch #129's `print-color-adjust` finding for the trap).
+- **📋 (2026-08-25): [Dispatch #135 — Targets Editor v2: add 6 missing metric fields, move into
+  Performance Review → Customize, re-verify Total Profit/Complaints workbook-source
+  claim](dispatch-135.md).** Owner pushed back directly on dispatch #132's finding that Total
+  Profit/Complaints have no workbook source — *"Please re-read these next lines carefully... all
+  found in Monthly and Yearly Targets."* The PM independently re-grepped the parser and got the
+  same "no match" result #132 got, but this is a **real, unresolved disagreement between the code
+  and the owner's stated belief, not something to silently re-assert** — the engineer must resolve
+  it with evidence (real header text if a naming mismatch, or a clear conceptual-mismatch
+  explanation), not just repeat the prior conclusion. Also: add the 6 remaining `src:'manual'`
+  metrics from `review-engine.js` that #132 didn't cover (EPB2B, FS Audits, FS EcoSure, FS Tablet
+  T-60, Shift Verifications by GM, Retention Prg — investigate each for a real workbook column
+  before assuming override-only), and move the standalone Targets Editor panel into Performance
+  Review's existing Customize tab per the owner's explicit *"this does not need it's own panel."*
+- **✅ RESOLVED (2026-08-25): Dispatch #133 merged** — Labor Analysis in-progress-week fix, PR
+  #739. See below for the original entry.
+- **✅ RESOLVED (2026-08-25): Dispatch #134 merged** — Schedule Retention training report, PR #742
+  (v5.170). See below for the original entry.
+- **📋 (2026-08-25): [Dispatch #134 — Schedule Summary: per-store training-retention report
+  (period, side-by-side weeks) + print/export](dispatch-134.md).** Owner wants a permanent,
+  per-location report to check whether stores retained training from a schedule workshop: pick a
+  period, see every week in it side by side, using the SAME metrics `Schedule Summary` already
+  computes (`src/engine/schedule-summary.js`'s `rollup()` — Labor %, Sched vs Fcst hours, TPMH,
+  Fixed/Floor %, per-station breakdown). The "bonus" ask (actual labor results once a week
+  completes) is **already in that same rollup** — `sales`/`laborPct` are actual-weighted once a
+  week posts real data, forecast-only before — no new pull needed, just call the existing
+  function once per week in the selected period instead of re-deriving anything. Period
+  selection is manual (owner will pick "4 weeks before + all weeks since" themselves) — no new
+  class-date data pipeline needed. Print/export + `route:true` from day one, reusing this
+  session's established patterns. **Companion, already-delivered spreadsheet**: an updated copy
+  of the owner's Organization Structure workbook with a live "1st Schedule Week" column added to
+  the Locations sheet (formula-sourced from the existing "Scheduling Setup" sheet, which already
+  had this exact data — not a new field) — delivered directly to the owner outside this repo, not
+  part of the dispatch.
+- **📋 (2026-08-25): [Dispatch #133 — Labor Analysis: absurd Labor % on the in-progress current
+  week](dispatch-133.md).** Owner: *"any chance we can work out the calculations to account for
+  an in-progress week."* Screenshot shows most stores at 200-1900% Labor % on the current
+  (in-progress) week. **A related fix already exists** (`deriveBand1FromSchedule`, 2026-08-05,
+  divides by full-week `salesFcst` instead of partial-coverage `salesForPct` specifically so an
+  incomplete week UNDER-states rather than OVER-states cost) — today's symptom is the *opposite*
+  of what that fix should produce, so this is either a different code path or a NEW, day-level
+  version of the same "two atoms, different boundaries" mistake: if LifeLenz computes today's
+  (in-progress day's) `labor_pct` as an intraday ratio (cost-so-far ÷ sales-so-far), multiplying
+  it by the FULL day's forecast sales would inflate that one day enough to blow up the whole
+  week's sum. Dispatch requires pulling real rows for an affected store before fixing — explicitly
+  do not guess from the code alone, per the standing measure-first rule.
+- **📋 (2026-08-25): [Dispatch #132 — Performance Review: wire already-captured yearly targets,
+  add Total Profit, build a Targets editor with scope-hierarchy overrides](dispatch-132.md).**
+  Owner sent 8 asks against one screenshot (delivery wait/complaints/digital+delivery GC-R-D/FOB/
+  total profit/shift cert+leader/headcount all "in yearly targets", plus a general request for an
+  in-app targets editor with company-wide/state/patch/store override). **Key finding: most of this
+  already exists** — `parsers/index.js`'s yearly-targets parser already captures `tMcdWait`,
+  `tDigAppGCRD`, `tMcdGCRD`, `tShiftLeaders`, `tHeadcount`, `tFOBTarget` per store from the
+  uploaded workbook; `review-engine.js`'s metric config just isn't reading most of them (hardcoded
+  `src:'manual'` + a magic-number note instead of `src:'auto', field:'...'`, the pattern the
+  already-working metrics use). Two items genuinely need investigation, not assumption: Complaints/
+  100K and "Shift Certified Managers" don't obviously map to an existing column. Total Profit has
+  no target field at all — interim rule (owner-stated): score it passing whenever positive, until a
+  real target is set via the new editor. FOB's target needs to prefer monthly over yearly (both
+  exist, owner confirmed monthly is authoritative). The new Targets editor is the one genuinely new
+  build — scope hierarchy should reuse the app's EXISTING state/patch/store taxonomy
+  (`LocationSelector`/`org_config`), not invent a new one, and should very likely write to a new
+  overlay table rather than mutating the workbook-sourced `yearly_targets` rows directly (real
+  architecture call, left to the engineer with reasoning required).
+- **📋 (2026-08-25): [Dispatch #131 — Performance Review monthly grid: stop truncating rating
+  labels to 3 letters](dispatch-131.md).** Owner: *"need better clarity on 'nee' and 'bel'... maybe
+  just spell it out."* Root cause confirmed by reading the exact line: NOT a data/abbreviation
+  problem — `RATING_LABELS` already holds the full words ('Exceeds'/'On Target'/'Below'/'Needs
+  Improvement'); `performance-reviews.js:1079-1080` hard-truncates them with `.slice(0,3)` for
+  display inside a narrow 78px month-column cell. Fix is display-only: stop truncating, make the
+  full word fit (wrap, widen the cell, or similar — engineer's call, must be always-visible, not
+  hover-only since this app is touch-first).
+- **📋 (2026-08-25): [Dispatch #130 — Record Day Intelligence: add reporting/print/export
+  (+ panel-contract sweep)](dispatch-130.md).** Owner: *"Record days needs reporting abilities and
+  print/export/pdf > all formatted per our schema."* Confirmed a real gap, not a broken feature:
+  `RecordDayPanel` (`record-day.js`) has zero print/export today and hand-rolls its own overlay +
+  close button instead of `ModalShell` — not `route:true` either. Scoped as print/export (reuse
+  `ExportDropdown`, follow the `StoreOnePager`/#122/#129 printable-view pattern) plus an
+  opportunistic panel-contract conformance pass, with a real design question left to the engineer
+  (per-tab print vs. one full multi-tab report) and a `route:true` conversion left as their call.
+- **📋 (2026-08-25): [Dispatch #129 — FOB Analysis: fix print output
+  (+ panel-contract check)](dispatch-129.md).** Owner: *"Food Cost (FOB Analysis) needs print
+  formatting appplied."* Root cause: NOT a missing feature — `FOBAnalysisPanel` already has a
+  print button, but dispatch #116 (this session) wrapped its content in one scrolled region for
+  mobile, so bare `window.print()` now only captures whatever happened to be scrolled into view —
+  the exact "print only grabs the visible viewport" trap dispatch #122 already diagnosed and fixed
+  for Events & Tags. Fix: build a real full-content printable view following the #122/`StoreOnePager`
+  pattern, not native `window.print()` against the scrolled container.
+- **📋 (2026-08-25): [Dispatch #128 — Speed of Service: real per-store target color bar + fix the
+  underlying metric](dispatch-128.md).** Owner asked for a per-location color bar, then (in
+  response to a design question) added two binding corrections: *"KVS and R2P are both part of
+  yearly targets... For OEPE throughout always remember to use the OEPE w/o park metric as that is
+  the one that is utilized."* Two real findings: (1) the panel's DT number is currently WRONG —
+  it sums raw `dt_untilserve/dt_trans_cnt` instead of the shared, reconciled `oepeSeconds()`
+  helper (`src/utils/oepe.js`, r=0.9958 against a real QSRSoft report, explicitly `tOepe`'s basis)
+  — fix the metric before coloring it; (2) only DT has interactive trend/daypart charts today, the
+  other 3 stations are static boxes — the owner's "unable to select other metrics" complaint.
+  Station→target mapping confirmed via `supabase.js`'s own field comments, not guessed: DT→`tOepe`,
+  Front Counter→`tR2p`, Kitchen/MFY→`tKvst`; Beverage has no per-store target (owner-confirmed) and
+  gets a visually-distinct fallback treatment, not a silently-guessed number. `tKvsu` (KVS
+  utilization, a 0-1 fraction) is explicitly NOT part of this — different metric class entirely.
+- **📋 (2026-08-25): [Dispatch #127 — At A Glance "Projections & Forecasting" tile: chart/badges
+  collide on mobile](dispatch-127.md).** Owner (mobile screenshot): *"need to fix chart all stacked
+  on top of each other."* Two real candidates in the code, deliberately left for the engineer to
+  reproduce-then-fix rather than guessed from the screenshot alone (per the standing "measure it,
+  don't reason about it" rule): the CI+drift-badges row's `.split(' ').pop()` store-name
+  truncation reading as run-together fragments, and/or the inline SVG bar chart's fixed
+  `viewBox`/`bw`/`gap` math not matching its responsive `width:'100%'` box at real mobile widths.
+- **✅ RESOLVED (2026-08-25): Dispatch #125/#126's policy reversal — both merged** (PR #725, PR
+  #727). Owner, directly, after #123/#124 shipped built
+  around the identity-vault: *"there is no reason to hide names for scheduling and punch times >
+  everyone can see this data as-is."* **This supersedes the tokenization requirement in #123/#124
+  below for THESE TWO FEATURES ONLY** — the identity-vault pattern itself, and its use elsewhere
+  (Register Audit, Security panel's reveal-gated findings), is unchanged; this was a scope call
+  specific to crew-schedule/punch-time data, not a repeal of the vault. #125: store the resolved
+  name directly instead of `emp_token` in `lifelenz_shift_assignments`, drop the panel's
+  click-to-reveal gate, re-decide RBAC (recommended: ordinary panel RBAC, not the identity-reveal-
+  specific gate). #126: resolve `qsr_punch_times.employee_name` via the existing
+  `qsr_employee_tenure` join (**not** by widening the risky punch endpoint's `SELECT_COLS` — that
+  SSN guard is unrelated and stays exactly as strict), plus a backfill for rows already collected
+  under PR #724 in production. If you're picking up #123 or #124's original text below, read
+  #125/#126 FIRST — the "route through the identity vault" instruction in both original dispatches
+  no longer applies to what they shipped.
+- **🔴 NEW FEATURE, PII-SENSITIVE (2026-08-25): [Dispatch #123 — Crew Schedule Lookup: search an
+  employee, see their upcoming schedule](dispatch-123.md) + [Dispatch #124 — actual punch times,
+  backend pull only](dispatch-124.md)** — owner explored "can we see actual crew/manager
+  schedules," confirmed feasible (LifeLenz already fetches `assignedEmploymentId` per shift but
+  discards it into aggregate role rollups; QSRSoft's `people/time-punches-matched` has real punch
+  times), owner chose the full build. **This is the first Meridian feature that searches/browses
+  individual NAMED employees** — both dispatches require routing any employee name through the
+  existing tokenized identity vault (`src/engine/identity-vault.js`, the same pattern Register
+  Audit already uses) and RBAC-gating who can see it, mirroring `security-panel.js`'s
+  `securityPanelAccess()`. **Dispatch #124 sits next to a QSRSoft endpoint that returns full SSNs
+  if queried carelessly** — `memory/finding-qsrsoft-time-punches-endpoint-2026-08-21.md` (read in
+  full before touching it) already logged the exact rules: never request `ssn` in `selectCols`,
+  never persist one, assert-guard the pull script. Split into two dispatches deliberately (LifeLenz
+  schedule + panel vs. QSRSoft punch pull, no file overlap) so they can build in parallel; wiring
+  punch data into the panel is an explicit later follow-up, not part of either.
+- **🔄 SUPERSEDED same day (2026-08-25): [Dispatch #125 — reverse the tokenization above for the
+  LifeLenz/PR #725 side](dispatch-125.md) + [Dispatch #126 — same reversal for the QSRSoft/PR #724
+  side](dispatch-126.md).** Owner, directly, after #123/#124 shipped tokenized: *"there is no
+  reason to hide names for scheduling and punch times > everyone can see this data as-is."* The
+  paragraph above — "requires routing any employee name through the existing tokenized identity
+  vault... mirroring `securityPanelAccess()`" — is now **history, not the shipped design**:
+  `lifelenz_shift_assignments.emp_token` was replaced with a plain `employee_name` column, the
+  Crew Schedule panel's click-to-reveal step is gone, and its RBAC gate moved from
+  `security.view`/`securityPanelAccess()` to ordinary `analytics.store` panel RBAC (nav visibility
+  + accessible_locs RLS, same as Labor Tools/Calendar Manager — no more panel-specific gate).
+  Identity-vault tokenization itself is UNCHANGED everywhere else (Register Audit, Security panel
+  findings) — this reversal is scoped to these two features only.
+- **📋 (2026-08-25): [Dispatch #122 — Events & Tags: holiday sub-filter + print shows full filtered list](dispatch-122.md)** —
+  Owner: *"for Holidays, once selected, add another selector for which holiday... for print, show
+  all results in one view."* `EventCalendar` (`store-dash.js`) — each holiday already carries a
+  stable name (`buildHolidays()`'s `label`, written into the event's `note` field on auto-tag), so
+  a second-level filter just needs to derive distinct holiday names from the already-filtered set,
+  no schema change. Print: confirmed the panel has NO print functionality today at all, and its
+  results list is `overflow:auto`-scrolled inside a `maxHeight:92vh` modal, so native browser print
+  would only capture the visible scroll region — needs a real full-list print view, following an
+  existing in-repo pattern (e.g. `visit-readiness-report.js`'s printable-HTML approach) rather than
+  inventing a new one.
+- **📋 (2026-08-25): [Dispatch #121 — Forecasting Reference: update content, remove byline, convert to a route page](dispatch-121.md)** —
+  Owner: *"Need to update to current... remove the line with my name and title... [title is]
+  Director of Strategy Planning and Improvement... convert to url page... last version update was
+  on v4.210."* `public/forecast-reference.html` (1470-line static doc) confirmed genuinely stale:
+  zero mentions of the `'simple'` T3M/T6W/T3W trailing model, first-class in `forecastDay()` since
+  v4.532 and the proven backtest winner (v4.483) — a real, major documentation gap, not assumed.
+  Byline (name/title/date) and a second wrong "District Manager" footer label both need fixing.
+  Currently shown in a small `ModalShell`+iframe with no `route:true` entry — convert per the
+  panel-contract standing rule, keeping the static HTML content (not a full React rewrite).
+- **📋 (2026-08-25): [Dispatch #120 — Security panel: mobile-unusable location pills, findings readability](dispatch-120.md)** —
+  Owner: *"Security > unusable on mobile with all the pulls for locations. Needs to be changed to
+  location selector and add date selector while in there as well... prior events selectable to go
+  to actual event or maybe... present findings in a table."* Confirmed: `security-panel.js` hand-
+  rolls its location scope as one flat ~30-pill row instead of using the shared `LocationSelector`
+  (`mode:'progressive'` already exists for exactly this, dispatch #104) — real panel-contract
+  violation. **The date-range control the owner asked for already exists and is already correct**
+  (`DateRangeControl`/`windowEndInRange`, dispatch #100 — filters only the already-loaded findings
+  for display, never re-scopes the underlying scan) — it's just buried below the pill sprawl and
+  easy to miss; do not duplicate it. Findings-readability (click-through to source vs. a table
+  layout) is left as a real open investigation, not prescribed.
+- **📋 (2026-08-25): [Dispatch #119 — Mobile: wide tables clipped with no horizontal scroll (Promo/Discount ROI + a ratchet)](dispatch-119.md)** —
+  Owner: *"Throughout environment > need to add side scroll to be able to see all data on mobile.
+  Reference Promo Discount ROI."* Confirmed real: `promo-roi.js`'s results table container leaves
+  the horizontal axis effectively `hidden` (shorthand `overflow:'hidden'` + only `overflowY`
+  overridden) around a `width:'100%'` table — wide rows clip on mobile with no way to scroll to
+  them. Fixes that panel, and adds a ratchet test (mirroring the existing
+  `ratchet-modal-backdrop-bypass.test.js`) for the same anti-pattern app-wide, seeded from a real
+  measurement on the fix branch — NOT the ~13-file loose grep this dispatch's own investigation
+  produced (explicitly flagged as an unverified heuristic, not a count to copy into a `CEILING`).
+- **📋 (2026-08-25): [Dispatch #118 — Visit Readiness: Days-Since-Last-Visit column + real column headers](dispatch-118.md)** —
+  Owner: *"add a column as well for Days since last visit... put the column headers over the
+  actual columns."* `src/views/visit-readiness.js` has two lists with this problem: the main
+  `StoreRow` list has no header row at all (each row repeats its own Speed/Accuracy/Quality/
+  Leadership labels inline) and no days-since-last-visit figure despite `s.lastVisit.ms` already
+  being on every store object; the Frequency-by-store block already computes `daysSinceLast` but
+  only names its columns in a plain-text caption, not real header cells. Presentation-only —
+  scoring/aggregation math untouched.
+- **📚 Standing rule added (2026-08-25): [Panel contract is now a per-dispatch opportunistic
+  check](panel-contract.md)** — owner: *"as we work in each panel, let's get the close (x) button
+  standardized... date pickers and location selectors... continue with the url page migration
+  while we are in there."* CLAUDE.md's Dev Rules now points here. Current numbers: hand-rolled-
+  backdrop ratchet `CEILING=77` (was 78); `route:true` adoption 13/101 panels (expected to stay
+  low for a long time, not a gap to close in one pass).
+- **🔴 NEWEST (2026-08-25): [Dispatch #113 — HIGH PRIORITY: Promo/Discount ROI's methodology is endogenous, currently live and misleading](dispatch-113.md)** —
+  `matchedLift()` splits days by promo/discount dollar intensity — a variable that is itself a
+  function of that day's sales (spend scales with traffic) — so at a TRUE effect of 0% it reports
+  **+16.5% mean lift, 27/27 stores "paying."** SAGE has already independently refused to trust this
+  screen twice, most recently self-diagnosing the exact reverse-causality bug. Already-shipped
+  dispatch #111 fixed an unrelated sourcing bug and did NOT touch this. Promising lead found: real
+  `type==='promo'` tags already exist in `org_events` with "solid coverage" per dispatch #108's own
+  measurement — investigate whether they're genuinely exogenous (tagged independent of the day's
+  outcome) before building day-of-week matching from scratch. `memory/finding-promo-roi-denominator-
+  bias-2026-08-23.md` is the authoritative writeup — already self-corrected once after an earlier
+  "fix" made the bias worse, not better, in a realistic simulation. Regression bar: must not
+  regress on that same realistic (spend-scales-with-traffic) simulation.
+- **📋 (2026-08-25): [Dispatch #117 — MBI vs LifeLenz Accuracy: guard against implausible LifeLenz actuals](dispatch-117.md)** —
+  Owner's live ask (mobile screenshot): a week showed LFZ variance **+3665.94%** on one day and
+  **"—"** on two others, with the week's `LFZ avg |var|` reading a nonsensical **734.38%**. Root
+  cause measured directly against production Supabase: `lifelenz_schedule.sales` for Aug 5 is
+  ~4% of forecast (partial capture) and `NULL` for Aug 6–7 (fully missed) across all 27 stores —
+  caused by a real 4-day pull outage (`lifelenz-pull.yml` runs Aug 7–10 all `conclusion:"failure"`,
+  matching the documented monthly-token-expiry pattern), whose Aug 11 manual recovery run's
+  default 3-day `LIFELENZ_SAFETY_DAYS` window never reached back far enough to re-pull Aug 5–7.
+  **Already backfilled as a data fix** (triggered `workflow_dispatch` with
+  `start_date=2026-08-05` directly, 2026-08-25 — do not redo). This dispatch is the remaining
+  CODE gap: `runAccuracy`/`groupAccByWeek` (`lifelenz.js`) treat any nonzero LifeLenz actual as
+  ground truth with no plausibility guard, so the next multi-day outage (this isn't the first —
+  CLAUDE.md already documents an earlier 6-day one) will reproduce the same misleading UI.
+- **📋 (2026-08-25): [Dispatch #116 — FOB Analysis: mobile users can't see the Contributors table below the fold](dispatch-116.md)** —
+  `FOBAnalysisPanel` (`analytics.js`) stacks the title bar + KPI cards + Root-Cause Priority Matrix
+  (up to 8 rows) + Waste-Entry Discipline (up to 8 rows) as fixed-height (`flexShrink:0`) blocks
+  above the one scrollable region (`flex:1,overflowY:'auto'`, the Contributors table), inside an
+  ancestor with `overflow:'hidden'`. On a short mobile viewport the fixed stack alone can exceed
+  the available height, squeezing the table to near-zero with no way to scroll to it — exactly the
+  owner-reported symptom. Owner offered two acceptable fixes (expandable-on-click sections, or
+  simply making the column scrollable) and said this doesn't have to jump the queue.
+- **📋 (2026-08-25): [Dispatch #112 — Weekly Count Cadence: count-day population, Last Count column, per-class F/C/P uncounted columns, full-class drilldown](dispatch-112.md)** —
+  Owner's live ask on `CadenceMonitor`/`cadenceFromOnHand` (`eom-dashboard.js`). Found
+  `count-cycle.js`'s `cycleCompliance()` already computes most of what's needed — real, tested
+  mid-month-Paper tracking (`paperThisMonth`/`paperMissing`, exactly the "P if mid month"
+  semantics), per-class counted/active tallies (`perClassCounted`), and a true-most-recent-session
+  concept (`lastAny`) — but `cadenceFromOnHand` never reuses any of it, computing its own narrower
+  Food/Condiment-only `missing` and omitting Paper entirely. "Count day" (`detectedWeekdayName`) is
+  derived only from fully-98%-qualifying sessions, which may be under-populating it — verify live
+  before assuming the fix, per this session's own standing rule. "Last count" has two different
+  existing candidate definitions (`lastAttempt`'s size-priority pick vs. `lastAny`'s pure recency)
+  that don't obviously agree — flagged for the engineer to resolve deliberately, not silently pick.
+- **📋 (2026-08-25): [Dispatch #114 — Wire Product Mix's already-auto-pulled cloud data into its panel](dispatch-114.md)** —
+  `scripts/qsrsoft-pmix-pull.mjs` is a real, scheduled auto-pull already lazy-filling
+  `ds.pmixRows` (`App.js`), but `ProductMixPanel` (`labor-tools.js`) only ever reads the
+  manual-upload `ds.pmixData` blob — confirmed by grep, zero references to `pmixRows` anywhere in
+  the panel. Violates the standing auto-first rule; blocks CLAUDE.md's "Product Mix → Pricing
+  Engine" next-candidate-area note. Scoped to the data-wiring gap only, not the Pricing Engine
+  itself.
+- **📋 (2026-08-25): [Dispatch #115 — Fix the Base Food % tolerance check's metric-definition mismatch](dispatch-115.md)** —
+  `tolerance-status.js`'s `baseFd` check compares `totalBaseFood/sales` (~23-28% real magnitude,
+  shaped like a broad food-cost ratio) against `tFOBBase` (~3.8-4.1% real per-store values — one of
+  FOB's six small variance components, not a broad measure) — a metric-definition mismatch that
+  fires a false CRITICAL on every store, every period, into the Coaching pipeline dispatch #94 just
+  shipped. Already surfaced and explicitly deferred by dispatch #94's own resolution ("flagged
+  prominently... not fixed here") — this dispatch is that deferred fix. Magnitude evidence points
+  toward `tFOBTotal` as the likely correct comparison target, but the dispatch requires tracing
+  `totalBaseFood`'s actual parser/field semantics to confirm, not just magnitude-matching.
+- **📋 (2026-08-25): morning backlog sweep — 3 items dispatched, all pre-verified ready (no owner input needed)** —
+  [Dispatch #98](dispatch-98.md) (Inventory Control summary tiles are EOM-only, don't swap to
+  Count Cycle's own data when that tab is active — brief already written when #97 landed, never
+  picked up; re-verified the root cause is still accurate against current
+  `eom-dashboard.js` line-for-line before dispatching), [Dispatch #41](dispatch-41.md) (two
+  independently-maintained Model Health Score implementations in `forecast.js` disagree — one
+  floors failing components to true 0, the other can't go below ~17/100 even for a store dead 900
+  days, both render on the same screen at once — fully-researched brief from 2026-08-20, re-verified
+  line numbers/function signatures unchanged before dispatching), and [Dispatch #111](dispatch-111.md)
+  (Promo/Discount ROI's discount lever sources `discAmt`/`discPct` from `ctrlRows` manual upload
+  only, never an auto stream — confirmed live in `promo-roi.js`'s row-builder; `metric-source.js`
+  already has the correct `opsCashRows`-first chain sitting unused; flagged as still-open in
+  `finding-promo-roi-denominator-bias-2026-08-23.md` after that finding's separate bias bug was
+  already fixed). All three engineers spawned in parallel, isolated worktrees.
+- **📋 (2026-08-25): [Dispatch #110 — Speed of Service: DT bar, bar-chart conversion, full date range, patch-selector bug fix](dispatch-110.md)** —
+  Owner's Notes 69 batch on `dt-speedofservice.js`. Corrects a mental-model detail: the "By Hour"
+  section is an HTML table with a hand-rolled `<div>` bar, not a Chart.js chart — adding an Avg-DT
+  bar there is a small table-cell change, not chart config. Only one REAL chart in the panel isn't
+  already a bar (`DtTrendChart`, weekly trend, `type:'line'`) — `DtDaypartChart` is already a bar.
+  Date range is genuinely capped at 30/60/90d (confirmed) — swap for the already-shared
+  `DateRangeControl`/`DATE_RANGE_PRESETS` (`PanelControls.js`, already used by Security/Form
+  Completions) instead of building a new one. **Real bug, root-caused**: the weekly trend goes
+  stale on patch selection because `useChart`'s redraw-effect dependency array
+  (`[weeks.join(','), series.length, mode]`) doesn't include the actual filtered series data — in
+  the default `avg` mode neither `weeks` nor `series.length` changes when only the *values* do, so
+  the Chart.js canvas never re-renders. **Explicitly out of scope**: "pick a metric, page adapts" —
+  investigation found this is a rearchitecture (the whole data layer is hardcoded to the DT/station
+  schema, never routed through `metric-source.js`'s generic `METRIC_SOURCES` registry other panels
+  already use), not a bounded feature — noted for a future, separate effort.
+- **📋 (2026-08-25): [Plan — Inventory Control calibration exercise, Notes 69](plan-inventory-control-calibration.md)** —
+  Owner-driven exercise, NOT a coding task yet. Owner is manually pulling August-MTD reports
+  (on hand/FOB/variance-stat/raw item/detail) and marking every issue they'd flag to a store, to
+  calibrate a future "Inventory Control" intelligence feature against their own judgment before any
+  engineering starts — explicitly the template for cash controls/schedule review/ops
+  performance/labor control too, once this one lands. **Do not build ahead of this** — wait for the
+  owner's findings (or their go-ahead to attempt it blind, the choice they explicitly left open).
+- **✅ RESOLVED (2026-08-24, v5.150): [Dispatch #109 — Performance Review: wire the gaps, fix the stale ones, confirm what already works](dispatch-109.md)** —
+  Delivery Wait Time (actual+target), Labor%/OEPE/R2P/KVS repointed onto the shared auto-first
+  `metric-source.js` helper (was bypassing it via raw `ds.laborRows`/`ds.opsRows`), Total Profit's
+  already-built `deriveTotalProfitVsTarget` now actually wired in, and a month-aware target lookup
+  (`mergedTargetsForLocMonth`) so targets stop leaking across months — all shipped. Digital App/
+  Delivery GC-R-D and Shift Cert/Headcount/Turnover actuals were already flowing (corrected the
+  owner's premise, didn't rebuild) — added their missing target mappings instead. The "no ingestion
+  path" structural concern was itself wrong (PM correction, confirmed independently by the
+  engineer): all 5 flagged Supabase tables hold real, current data via already-scheduled pulls.
+  Pre-April target-blending mechanics deliberately left open for an owner decision. Shift
+  Verifications/Retention Prg. untouched, as instructed.
+- **✅ RESOLVED (2026-08-24): [Dispatch #107 — Yearly Targets: persisted to Supabase, Planning > Yearly
+  panel rebuilt, dead-end editor retired](dispatch-107.md)** — Added a `yearly_targets` Supabase table
+  (`tenant_id` + RLS, mirrors `monthly_targets`'s shape one tier up) and
+  `saveYearlyTargets`/`loadYearlyTargets`/`loadAllYearlyTargets` in `supabase.js`, wired into every
+  `pipeline.js` upload branch and `App.js`'s T1 startup tier — `ds.targets` (OEPE/CSAT/Digital/People/
+  Labor-FOB) now survives a fresh session/device instead of requiring re-upload. Planning > Yearly
+  (`yearly-projections.js`) gained a "🎯 Target Categories" view (5 sub-tabs, per store, OK/FL/Grand
+  subtotals) alongside the unchanged Sales Pace view. Retired `store-dash.js`'s disconnected
+  `mf_targets_yearly_*` localStorage editor rather than wiring it in — reasoning in the dispatch file's
+  Resolution section. `mergedTargetsForLoc` (monthly-supersedes-yearly) was already correct and is
+  untouched; verified with a new `tOsatB2B` test case (a genuinely yearly-only field, no
+  `monthly_targets` column). Full detail, file list, and test/build numbers: the dispatch file's own
+  Resolution section.
+- **✅ SHIPPED (2026-08-24, v5.147 — sales lift; GC lift pending one owner SQL step): [Dispatch #108
+  — Event Impact Registry: measure the remaining event types, add GC lift](dispatch-108.md)** —
+  `event_impact` went from 26 rows (Sports only) to **189 rows** across sports/tax_free/
+  black_friday/small_biz_sat/cyber_monday/holiday/event/promo — the 4 retail types genuinely had
+  never been written (measured via `--dry` first, not assumed) despite the script existing; new
+  `scripts/measure-holiday-impact.mjs` (rule-derived from `HOLIDAY_MAP`) and
+  `scripts/measure-tagged-event-impact.mjs` (`event`/`promo`/`weather`, measured only against
+  whatever's already tagged in `org_events` — `weather` correctly wrote 0 rows, production has zero
+  tagged weather events, an honest result not a bug). GC lift: source confirmed
+  (`qsr_daily_activity_rollup.transactions`, backfilled 2024-01-01+, cross-validated against
+  `qsr_sales_mix`), `measureEventLift` generalized via `opts.valueKey` (byte-identical default
+  behavior), `EventImpactPanel` wired with GC columns — but the new `gc_*` columns
+  (`supabase/schema-event-impact-gc.sql`) could not be applied by this session (no DDL path — no
+  direct Postgres connection, no `exec_sql` RPC, both confirmed absent) so GC rows are computed,
+  spot-checked, and ready but not yet persisted. **Owner: run that SQL file once, then re-run the 3
+  scripts (no code change) to land GC lift.** Full Resolution + both hand-verified spot-checks in
+  `dispatch-108.md`.
+- **📋 (2026-08-24): [Dispatch #105 — CORRECTED: LifeLenz forecast data IS auto-pulled, Part 2 unblocked, name confirmed](dispatch-105.md)** —
+  ⚠️ **This dispatch's original premise was wrong and has been corrected in-file (owner caught it:
+  "Labor Analysis I thought was on auto pull, please check").** `scripts/lifelenz-pull.mjs` already
+  writes `fcst_sales`/`sales`/etc into `lifelenz_schedule` daily, automatically, 455 days back, and
+  `loadLifeLenzSchedule()` already maps it into the app. **Part 2 (dual MBI+LifeLenz historical
+  accuracy) is NOT blocked — it never was.** The real bug: `computeLifeLenzAdjustment`
+  (`src/features/lifelenz.js`) reads its `'direct'` source from `ds.laborRows` (manual upload) and
+  never from `ds.lifelenzSchedule` (auto-pulled), falling back to a `'pattern'` guess unnecessarily.
+  Fix folded into Part 1 scope: prefer `ds.lifelenzSchedule` first, satisfying owner's verbatim
+  **"No guessing."** **Confirmed final name: "MBI vs LifeLenz Accuracy"** (not the earlier
+  "Forecast Reconciliation" proposal — that's superseded, see dispatch #106 below). Also add
+  `route:true` to `lifelenz-bridge` in `panel-registry.js` (owner: "put in a url page while you
+  are at it"). Engineer (already in flight when the correction landed) has been notified with the
+  revised scope.
+- **📋 (2026-08-24): [Dispatch #106 — Forecast Accuracy weekly-cadence view, then merge with LifeLenz Bridge into one parent](dispatch-106.md)** —
+  **Phase A (ready now):** Forecast Accuracy already has a period picker (2wk...Custom) but no
+  week-by-week/day-by-day breakdown table like LifeLenz's own native reference screenshot — add
+  one, anchored on `settings.weekStartDay` (already `3`=Wednesday, McDonald's standard, already a
+  prop on this panel — not a new setting). **Phase B (sequenced after Phase A AND dispatch #105
+  Part 1 both ship):** merge Forecast Accuracy + the reworked LifeLenz Bridge into one parent panel
+  with an internal tab switcher — this app already has that pattern in production
+  (`eom-dashboard.js`'s mode tabs, `security-panel.js`'s domain tabs), no new registry-level
+  parent/child concept needed. Retire the two standalone nav entries in favor of one. Parent-category
+  name is still proposed/not owner-confirmed; **the "Forecast Reconciliation" report-name proposal
+  this dispatch references is superseded — use dispatch #105's confirmed "MBI vs LifeLenz Accuracy"
+  for that tab instead.**
+- **📋 (2026-08-24): [Dispatch #104 — Top/Bottom Performers: cleaner selectors, add FOB as a rankable category](dispatch-104.md)** —
+  Location selector is **already** the shared `LocationSelector` standard (same component dispatch
+  #100 used for Security) — not missing, just rendering All+State+Patch+Store (30+ pills) flat and
+  simultaneously; open question on whether "cleaner" means a progressive/hierarchical pill reveal
+  (stays inside CLAUDE.md's documented pill-style standard) or an actual dropdown (would deviate
+  from it) — confirm before implementing, don't guess. Metric-category picker → dropdown is
+  unambiguous. **FOB isn't rankable at all today** (only its sub-components are) — adding it needs
+  a new `metric-source.js` entry, and **must build on dispatch #102's fixed `qsr_fob` aggregation**
+  (or `fobSnapshotByStore`'s already-correct pattern), never the ~24×-inflated one #102 is fixing.
+- **📋 (2026-08-24): [Dispatch #103 — Record Day Intelligence can flag a same-day record before the day is over](dispatch-103.md)** —
+  Tecumseh's 95s OEPE "New Record" (2026-08-24) is real math over incomplete data, not a bug in the
+  formula: reproduced exactly by hand from live `qsr_daily_activity` rows, which only had data
+  through 15:00 (the DAR's last intraday pull) at check time. The owner's own later QSRSoft export
+  has real hours through 17:00 — both slower than 95s — that would very likely push the true
+  full-day OEPE worse once the day closes. **No completeness guard exists anywhere in
+  `record-day.js`** — every record type (sales/GC/breakfast/avg-check/OEPE/KVS/R2P, DOW variants
+  included) can flag a same-day, still-accumulating value as final. Fix: gate same-day records on
+  whether the business day has actually closed (`businessDate()`/`lastClosedBusinessDay()`,
+  `src/utils/date.js` — the existing shared helper, don't re-derive), defaulting to a visibly
+  provisional same-day record rather than silently hiding today's number, pending owner
+  confirmation if genuinely ambiguous. Also: 2-decimal dollar/percent formatting requested for this
+  panel specifically — scope to `record-day.js` only, do not change `f$`'s global default.
+- **🔴 (2026-08-24): [Dispatch #102 — FOB Analysis's cloud dollar totals are inflated ~24x](dispatch-102.md)** —
+  **Start here — real money, real decisions riding on wrong numbers.** Every dollar figure on the
+  FOB Analysis panel (Net Sales, every waste/condiment/meal/variance $) is inflated by roughly the
+  number of days elapsed in the selected month — measured **24.0× exactly, uniformly across every
+  category**, by direct comparison against the owner's own QSRSoft export (Aug 2026 MTD). Root
+  cause confirmed against live data: `qsr_fob` rows are correct, deliberate daily MTD-to-date
+  snapshots (same value re-published under every date pulled so far this month — verified live,
+  23 identical rows for one store in August); `computeFOBMetrics` (`src/views/analytics.js`) sums
+  `r.sales`/every dollar-weighted component **across every day's duplicate row** instead of taking
+  only the latest snapshot per store per month. `fobSnapshotByStore` (`eom-inventory.js`) already
+  does this correctly elsewhere in the same codebase — reuse that pattern. **Do not touch the pull
+  script** (correct by design, other consumers need the daily series) — the fix is entirely in the
+  panel's aggregation.
+- **📋 (2026-08-24): [Dispatch #101 — Form Completions: surface the detail already being pulled, add date + location selectors](dispatch-101.md)** —
+  **Independent of the #97-#100 chains** (different file, safe to run in parallel). `qsr_forms_completion`/
+  `loadQsrFormsCompletion()` already carries store/form/date/completion%/time-to-complete/completer-id
+  per occurrence — confirmed by grep, `forms-panel.js` never references `userId`, `completionRatio`,
+  `timeToCompleteMs`, `score`, `reviewedWith`, or `assignedTo` anywhere; the panel only ever renders
+  a form-level rollup (pass rate + store-days), discarding all per-occurrence detail after
+  aggregation. No location selector exists at all (loader already accepts `locs`); the only "date"
+  control is a relative 7/14/30-day window, not a real range. Fix: add a per-occurrence detail view,
+  resolve `userId` to a real name properly (check whether Security panel's `RevealName`/bulk-reveal
+  pattern applies, don't display a raw ID), and add the standard location selector + a real
+  date-range control, additive to what's already there.
+- **📋 (2026-08-24): [Dispatch #100 — Security panel: standard location selector + date-range controls](dispatch-100.md)** —
+  **Independent of the #97-#99 Inventory Control chain** (different file, safe to run in parallel).
+  `security-panel.js`'s `scopeMatches()` already implements the standard 4-level All→State→Org→
+  Store hierarchy (`feedback-selector-ui-standard.md`), but the rendered pill row only ever offers
+  All + State — Org and Store are silently unreachable despite the filter logic already supporting
+  them. Separately, `loadSecurityFindings()` takes no date parameter at all — loads every row,
+  unbounded — and the panel has no date-range control. Fix: add the missing Org/Store pills
+  (match an existing panel's pattern, don't invent a new one) and a date-range filter (resolve
+  which date field — `windowStart`/`windowEnd` vs `computedAt` — makes sense before implementing).
+- **📋 (2026-08-24): [Dispatch #97 — Inventory Control's Weekly Count Cadence widget uses a different, Condiment-blind engine than Count Cycle](dispatch-97.md)** —
+  **Start here.** Looks like a repeat of dispatch #96 (Condiment) but isn't — it's a *second*,
+  *separate* bug in a *different* panel. Inventory Control's 🗓 Weekly Count Cadence table
+  (`CadenceMonitor`, `eom-dashboard.js`) reads `qsr_raw_item_detail` (a top-~20-items-by-dollar
+  table) through the older `weekly-cadence.js` engine — not `qsr_onhand` through `count-cycle.js`
+  (which dispatch #96 fixed). Condiment is silently absent district-wide from that table (0 `C`-
+  class rows measured for all 3 flagged stores, matching a prior in-code comment that already
+  measured this district-wide), so the widget's "full Food + Condiment" claim is false in
+  practice — it only ever checks Food, against a narrow top-$ subset where a real, comprehensive
+  count can fall just under the 60% threshold by 1-2 items. **Reproduced live down to the exact
+  on-screen numbers** (Seminole 8/12·12d, OKC 8/13·11d, Tecumseh 8/14·10d — all three exact
+  matches). Fix: point this widget's completion/date logic at the same already-fixed
+  `count-cycle.js`/`qsr_onhand` basis Count Cycle uses; keep `weekly-cadence.js`'s
+  `itemVarianceWindows` (the between-count drill-down) untouched — different, still-valuable
+  feature. **Scope refined mid-flight** (owner, same day): weekly-count completion should be
+  graded like EOM already is (measured EOM's real thresholds — `CLASS_DONE_PCT=0.98`,
+  `BELIEVES_DONE_PCT=0.90` — both higher than the old `COVER_FRAC=0.75`), plus a specific
+  per-item "still uncounted" list per store (mirrors EOM's existing `diagnoseIncompleteCount()`)
+  so a GM can be told exactly what's left. **Queued follow-ups, same panel, sequenced strictly
+  after #97 (same file):** [Dispatch #98](dispatch-98.md) — the summary tiles (Stores Reporting /
+  Believe Done / Avg Count Complete / By Class) render unconditionally off EOM math no matter
+  which tab is active, so Count Cycle shows frozen EOM zeros instead of its own real data; make
+  them mode-aware. [Dispatch #99](dispatch-99.md) — the date control is a single-month dropdown
+  with no way to view a past day/week; `cycleCompliance`/`analyzeCountCadence` already accept an
+  arbitrary `asOf`, so this is mostly a UI + data-scope gap. **Do not run #98/#99 in parallel with
+  #97 or each other** — same file's date/mode plumbing, guaranteed collision.
+- **📋 (2026-08-24): [Dispatch #94 Phases 2+3 — district `tol` rollup + Coaching findings](dispatch-94.md)** —
+  **Start here.** Phase 1's per-metric absolute `tol` comparison (already live) is now rolled up
+  district-wide (**🎯 Tolerance Status** tile, At A Glance) and fed into `GMCoachingBrief`'s
+  findings pipeline. All the comparison math (`METRICS`/`SPEC`/`valuesForLoc`/`statusCol`) moved
+  verbatim into a new single source of truth, `src/engine/tolerance-status.js` — Store Dash, At A
+  Glance, and the Coaching pipeline all read from there now, nothing re-derived. Verified against
+  live district data: Phase 2's rollup is **190 green / 41 yellow / 39 red** across 270 resolved
+  store×metric checks, non-degenerate on every metric measured; Phase 3 verified end-to-end
+  through the real `buildStore`/`buildBrief` consumer (not the finding-generator in isolation) —
+  10 metrics that had **zero** finding coverage before this now do.
+  **⚠️ Caveat surfaced, not fixed, out of scope for this dispatch:** Base Food % reads red on
+  **27/27 stores** — its current value (`totalBaseFood/prodSalesAmt`, ~23–24%) and its official
+  target (`tFOBBase`, ~4.0–4.6%) look like they're not the same quantity (~5x gap), a pre-existing
+  Phase-1 wiring issue hitting real data for the first time, not something Phase 2/3 introduced.
+  Needs a metric-definition audit, not a tolerance-logic fix — flagged prominently rather than
+  silently patched without knowing which side is wrong.
+- **📋 (2026-08-24): [Dispatch #95 — security-events pull: wire-trace found nothing fixable, resilience shipped anyway](dispatch-95.md)** —
+  **Start here.** Track A: a wire-level trace (TLS session/cipher/connection-reuse/exact header
+  bytes, via `node:diagnostics_channel` — `tcpdump` isn't usable on the runner, no passwordless
+  `sudo`) across 3 live runs / 45 trials found **zero successes and no field that correlates with
+  the 403s** — a real, stronger negative result than dispatch #91's own mixed 403/200/200 split,
+  pointing at a backend-side cause outside this repo's reach. Track B shipped regardless: pull
+  frequency 1×/day → every 2 hours (run-level correlation confirmed first, no per-request retry
+  added), idempotency verified live against the real table before the frequency change, and a
+  **materially worse true picture surfaced**: `qsr_security_events` has **zero rows, right now**
+  — the one prior "success" in dispatch #91's history was re-examined via its job log and was the
+  pre-rebuild code's silent-zero-day bug (slash-dated `2026/08/22`, 0 rows, exit 0 green), not a
+  real pull. Real historical success rate is **0%, not ~10%**. Rolling per-day coverage
+  (`coveredDays/windowDays`, not min/max) is now visible in Data Manager. **Follow-up needed after
+  a few days on the new cadence:** confirm `coveredDays` has moved off 0.
+- **📋 (2026-08-24): [Dispatch #96 — Condiment class isn't recipe-bound at McDonald's; stop gating it on `active_in_recipe`](dispatch-96.md)** —
+  **Start here.** `active_in_recipe`/`recipe_item` read false for 986/996 Condiment rows
+  district-wide, with **zero exceptions ever true** — not a QSRSoft data bug, owner-confirmed
+  structural: condiments are never recipe-bound at McDonald's (costed by usage-per-1000, not a
+  recipe). The existing vacuous-coverage bypass (dispatch20) silently no-ops Condiment compliance
+  for 17/27 stores; 10/27 stores have exactly one stray `active:null` row that becomes their
+  *entire* Condiment universe — for Tecumseh that row is a stale $0 phantom last touched
+  2026-07-31, making Condiment weekly compliance permanently impossible for August despite 39 real
+  items counted 2026-08-21 (owner screenshot confirms). Fix: Condiment-class rows bypass the
+  `active`/`recipe_item` filter entirely — every other class (and the Topic 6 rescue) untouched.
+  Seminole/OKC's stale display dates are a **separate**, likely client-cache issue, not this bug —
+  still pending the owner's hard-refresh confirmation.
+- **📋 (2026-08-24): [Dispatch #95 — resolve the security-events pull without QSRSoft's help](dispatch-95.md)** —
+  **Start here.** Owner wants an actual resolution to the ~10%-success security-events pull, not
+  "accept the ceiling" — and QSRSoft support is ruled out (won't assist with automation). Two
+  tracks, run in parallel: **Track A** — a real controlled wire-level diff between succeeding and
+  failing requests (first check what tracing is actually feasible on the self-hosted runner —
+  true packet capture may need permissions CI doesn't have; `NODE_DEBUG=http,tls` or a logging
+  fetch wrapper is the realistic fallback) — looking for anything *we control* that differs.
+  **Track B** — resilience regardless of Track A's outcome: confirm whether failure is correlated
+  at the run level (today's evidence: 120/120 failed uniformly in one run) vs. per-request-random,
+  then adjust pull frequency accordingly, make real coverage visible (not just per-run pass/fail),
+  and confirm upserts are idempotent before increasing frequency.
+- **📋 (2026-08-24): [Dispatch #94 — wire up `tol:`, then roll it up district-wide and into Coaching](dispatch-94.md)** —
+  **Start here.** `store-dash.js` declares `tol:` on 24 metrics and nothing reads it — the KPI
+  table actually colors rows via a hardcoded 5%/15%-relative-to-target band (`statusCol`), which
+  treats every metric's scale the same regardless of what it measures. Owner-decided scope:
+  **Phase 1** replaces the relative band with `tol` as an absolute per-metric threshold (ship this
+  alone first); **Phase 2** rolls up a district-wide out-of-tolerance summary; **Phase 3** feeds it
+  into the Coaching engine's findings pipeline. Phase 1 must be correct and merged before 2/3 start.
+- **📋 (2026-08-24): [Dispatch #92 — SAGE's forecast-bias claim was unsupportable by its own tool](dispatch-92.md)** —
+  **Start here.** SAGE told the owner "-6.0%, 27 of 27 stores under" and recommended a
+  $42K–$85K/mo district-wide schedule correction on that basis. Measured false on both counts
+  (24/27, -2.50%, not 27/27 and -6.0%) — and the root cause is structural: `query_forecast_snapshots`
+  fetches `forecast_sales`/`actual_sales` and then discards them, aggregating only the unsigned
+  `mape` field. SAGE has never had signed-bias data available to answer a directional question
+  correctly. Fix: add signed bias + over/under counts to the tool, not just correct the number.
+- **📋 (2026-08-24): [Dispatch #93 — LifeLenz vs Controls need-model disagreement, full district](dispatch-93.md)** —
+  Extends dispatch #90's two-store spot check to all 27: district avg +2.9 h/day (Controls) vs
+  +43.7 h/day (LifeLenz), **8 of 27 stores flip direction entirely**, and where they agree the
+  ratio ranges 0.02×–12.6× (not fixed — rules out a correction factor for good). `vlh_guide` config
+  and OK/FL market both checked and ruled out as explanations. Investigation, not a scoped fix —
+  next candidates are per-store volume, other `store_vlh_config` fields, and whether `need_vlh` is
+  measuring a genuinely different quantity than the Controls basis rather than a miscalibrated
+  version of the same one.
+- **🔴 (2026-08-24): [Dispatch #91 — QSRSoft security-events 403](dispatch-91.md) — real production evidence: ~10% success. QSRSoft support is RULED OUT (owner-stated); real remaining options need a decision.**
+  Part 2: the token-injection probe ran 3 times, split 2 success/1 failure — read alone this
+  suggested a transient blip. **Part 3 overturns that reading.** The real `qsrsoft-security-events-pull.yml`
+  (not the probe) run today failed **120/120 units** before being cancelled; the last 10 real runs
+  (Aug 22–24) show **1 success**. ~10% real-world success rate, not "probably fine." **Part 4:
+  owner ruled out filing with QSRSoft support** (won't assist with data-pulling/automation) — do
+  not re-propose it. Whatever happens next has to work without vendor cooperation. Three real
+  options remain: (1) run the pull more often to opportunistically catch good windows, if the
+  failure is correlated at the run level rather than per-request-random (suggestive but not yet
+  proven); (2) still do the packet capture, not for a vendor ticket but to check whether
+  good-vs-bad requests differ in anything *we* control; (3) accept ~10% coverage as the ceiling.
+  **Owner's call which to pursue.**
+- **✅ SHIPPED & LIVE-VERIFIED (2026-08-24): [Dispatch #90 — SAGE's OT window mis-ranks stores; labor-% basis SETTLED](dispatch-90.md)** —
+  **NEWEST, fully closed.** SAGE's labor % (crew/punched, excluding salaried managers) is confirmed
+  CORRECT and matches `#327` — do not "fix" it to include managers. The real bug, now fixed: SAGE's
+  OT figure was a 60-day pull halved, which **mis-ranked stores** (Madill is actually #1 in
+  district OT, SAGE showed it 5th at 59% of real value; district total was fine, ranking wasn't).
+  New `query_labor_summary` tool (#647) queries the exact requested window instead; also fixed
+  Seminole (10915) missing from the under-staffed list (LifeLenz and Controls disagree in
+  *direction*, not just magnitude, for that store) and a `lifelenz_schedule.loc` padding bug.
+  Deployed and **live-verified against a real SAGE answer**: Madill #1 at $2,711, Marietta/Chickasha
+  present, district total $23,590 — all match the independently-measured Supabase figures exactly.
+  Also recorded: a measured (not-a-correction-factor) 2.7× gap between LifeLenz's `need_vlh` and
+  Controls' `Act vs Need` at Ada, with a full sign-flip at Seminole.
+- **🔑 (2026-08-24): [Supabase key rotation complete](handoff-2026-08-24-key-rotation.md)** —
+  Legacy API keys **disabled at `2026-08-24T14:53:50Z`**; everything is on
+  `sb_publishable_…` / `sb_secret_…`. The variable NAMES were kept (so 36 workflows + 3 edge
+  functions needed no edit) and therefore now describe their contents inaccurately. Site, SAGE and
+  the GitHub pulls all verified post-cutover. ✅ **UPDATE: the sage-chat deploy is DONE** (was
+  flagged open in this file's first version — do not re-raise). Verified against the actual
+  distinguishing test: a 30-day pre-deploy SAGE question truncated to ~1.5 days/store (matches
+  `1000 ÷ 648` rows exactly), post-deploy it returned full 30-day data for all 27 stores. The
+  earlier caution stands as a general lesson even though this instance is resolved: **a working
+  SAGE answer alone does NOT prove a truncation fix shipped** — a single-day question is only 648
+  rows, under the 1000-row cap either way, so it can't distinguish fixed from broken.
+- **🔑 HANDOFF (2026-08-24): [service-role key installed — two questions unblocked](handoff-2026-08-24-service-role.md)** —
+  **NEWEST. Start here if you are a fresh session.** The owner installed
+  `SUPABASE_SERVICE_ROLE_KEY`; a running session's environment is fixed at container start, so the
+  session that asked for it could never see it. Carries the two threads that were blocked on live
+  data, **with the SQL and the two traps that would silently break it** (loc zero-padding, hourly
+  grain): does `qsr_fob` reach August (decides whether #633 fixed the Food Cost bug or a backfill
+  is needed), and how big is the `avgCheck` product-sales-vs-net-sales basis gap. **Read its
+  operating rules before using the key — reads only, never echo the value.**
+- **📋 The 2026-08-23/24 arc, in order** — `dispatch-85` (SAGE 1000-row truncation) →
+  `dispatch-86` (Σ/Σ ratio rollups; **shipped as #628 under the #77 label**, banner at its top) →
+  `dispatch-87` (residual test gaps + the cite-anchors rule) → `dispatch-88` (three notes-67 bugs)
+  → `dispatch-89` (**the agent env cannot read live data**, and item 4's owner decision to install
+  the key). Two standing rules were added to CLAUDE.md across these: **cite anchors, not line
+  numbers** (589 `file:NNN` cites in this repo; correcting one mints another the next PR breaks)
+  and **an agent session's environment is fixed at container start**.
+- **✅ SHIPPED (2026-08-22): [Dispatch #73 — Visit Patterns' "overdue" amber fired on 87% of normal visits](dispatch-73.md)** —
+  **NEWEST.** A flat `daysSinceLast > 60` never measured against real data: on 190 real CFV
+  inter-visit intervals (all 27 stores, 2023-01→2026-08) it fired on 166/190 (87.4%) — a store
+  perfectly on cadence sat amber permanently, and the panel mixed CFV/EcoSure/RGR's very
+  different program cadences under one number by defaulting its type filter to `'all'`. Fixed
+  with a **per-instrument** threshold (`EXPECTED_CADENCE_DAYS × 1.5`: CFV=182d, EcoSure=273d,
+  RGR=548d, from the owner's stated 3/2/1 visits-per-store-per-year — NOT the measured 138d
+  median, which would have re-encoded today's lateness as the new normal) computed from each
+  store's own last-visit `reportType`, so the mixed-'all' view resolves correctly per row with
+  no separate suppress-when-mixed branch needed. The "don't flag new stores" requirement turned
+  out to need no separate code path either — Ponce de Leon and Tishomingo's real open dates
+  (found via existing code, `backtest.js`/`vs-ly.js`) confirmed the recalibrated threshold alone
+  stops the false flag the owner almost escalated. Revert-sensitive render test (real store
+  fixtures, gap values straddling 182d) — reverting the panel's condition alone (keeping the
+  engine fix) reproduces the exact false positive measured.
+- **✅ SHIPPED (2026-08-22): [Dispatch #72 — no-undef triage, all 25 (+3) sites fixed](dispatch-72-triage.md)**
+  (original brief: [dispatch-72.md](dispatch-72.md)) —
+  Every site from #563's `src/` no-undef sweep, sequenced A (unconditional throw) → B
+  (short-circuit-guarded) → C (needs-caller-read) → widen the guard, exactly as prescribed —
+  **the widened `src-no-undef.test.js` guard (ESLint no-undef over all of `src/**/*.js`) is now
+  permanent CI**, not just this PR's verification. Highlights: `OrgView` (store-dash.js) read a
+  sibling function's local unconditionally — an unconditional ReferenceError on every render of
+  Patch/Org, both nav views' every tab; App.js's "Escape always closes every modal" hatch threw
+  on its SECOND statement, silently aborting ~70 of its own setters on every press; an async
+  `lookupMissEvent` free variable turned into a silently-rejected promise a fire-and-forget
+  `onClick` never observed. **3 more sites surfaced when the widened guard first ran clean** (not
+  part of the original 25 — a sweep-tool coverage gap, not re-litigated further): a "📤 Pack"
+  button calling an unexported function, a stale model-assignment cache never invalidated on
+  "clear override," and `StoreDash`'s auto-calibration silently never persisting an improved
+  MAPE (a #366-shaped engine-vs-wiring gap — `onUpdateSettings` existed as App.js's real
+  `saveSettings` but never crossed the `h(StoreDash,{...})` prop boundary; caught only by a full
+  render test with `calibrateStore` mocked, since a static check can't tell "threaded
+  end-to-end" from "the call site forgot to pass it"). Every one of the 28 fixes carries its own
+  revert-sensitive test (stash → confirm exact original error reproduces → restore). 188 test
+  files / 2064 tests, build clean, no entry-chunk regression.
+- **✅ SHIPPED (2026-08-22): [Dispatch #71 — Form Completions pull silently no-op'd](dispatch-71.md)** —
+  Owner report ("Form Completions not populating") traced through **two genuinely
+  distinct defects** across 8 live `workflow_dispatch` runs, plus one incomplete fix — read the
+  Resolution section for the full honest arc before assuming the first plausible cause was the
+  real one. (1) The structural bug the brief named — the direct path could only escalate to
+  Playwright on a thrown `AUTH_FAILED` (401/403), never on a silent-empty 200 — was real, fixed
+  (`pullWithEscalation()`), and verified live, but **did not fix the outage**. (2) Playwright's own
+  login was ALSO broken (networkidle-race completion signal + header-sniff instead of the
+  localStorage ID token — found by diffing against the already-working sibling
+  `qsrsoft-forms-pull.mjs`), fixed and verified (real token captured) — **still did not fix it**.
+  (3) With a confirmed-valid token, rows were still zero, **refuting** the dispatch's own leading
+  auth-denial hypothesis. (4) The actual root cause, found via raw-response-body logging per the
+  brief's own fallback instruction: `completionDetail` wraps rows under `results` (plural) but the
+  parser read `result` (singular) — every response, on every auth path, silently parsed to an
+  empty array. (5) Fixing that surfaced a second, real, independent bug: a Postgres `ON CONFLICT`
+  batch-uniqueness collision from `scheduledAt`-null ad-hoc rows + Travel Path's 27–45×/store/day
+  scheduling. (6) The first dedup fix (plain string equality) was itself incomplete — timestamp
+  sub-second-precision and UUID-case variants slipped through — fixed by canonicalizing before
+  keying. **Verified live, not a green unit test**: run #8, 2,993 rows upserted across 27/27
+  stores. 2040/2040 tests (10 new), build clean, no entry-chunk change (script isn't in the client
+  bundle).
+- **✅ SHIPPED (2026-08-22): [Dispatch #69 — Visit Readiness overstates its own certainty, in both directions](dispatch-69.md)** —
+  Three owner-raised items from `notes-visit-readiness-backlog-2026-08-22.md`, one
+  theme. (1) The `FOODSAFETY` flag (`statVar`+`raw` waste/variance proxies) has **zero overlap**
+  with what an EcoSure Food Safety visit actually assesses (temps/pests/handwashing/shelf-life —
+  confirmed against the real PACE guide) and was mislabelled "Food Safety" throughout — renamed to
+  "Waste & variance." The real bug the mislabel hid: `buildVerdict()` let an elevated flag
+  **pre-empt** the store's actual band-driven coaching verdict as the headline, even for a `'ready'`
+  store (the two computations are independent by design) — displaced the real blocker on 10/27
+  stores; Ardmore-Broadway showed `FS elevated` while its real EcoSure audit scored 86/100. Now the
+  band verdict always leads; an elevated flag is a secondary note, never the headline. (2) The Model
+  Check caption asserted "Weak agreement so far" off a 27-visit sample whose own 95% CI (rank corr
+  −0.16 to 0.56) can't distinguish a useless model from a good one — evidence of a small sample, not
+  a weak model. Shipped a power-threshold countdown first (below 46 pairs — 80% power to detect
+  rank corr ≥0.4 — "27 of ~46 visits needed to tell"), then **same-day follow-up**:
+  `finding-cfv-predictability-ceiling-2026-08-22.md` measured (217 real CFV visits) that rank corr
+  ≥0.4 is ABOVE the achievable ceiling for any store-level predictor (ICC=0.087 → ceiling √ICC
+  ≈0.30), so the countdown itself was an unsafe promise, not just a hard-to-reach one — retired the
+  whole mechanism (no re-pointing at a lower threshold) in favor of showing the ceiling beside a
+  **per-instrument** estimate ("Part D0": split pairs by `reportType` first, since CFV/RGR have very
+  different pass rates and pooling them depresses ρ on its own). Also fixed the print/PDF report's
+  own separate, untouched-by-the-first-pass "Weak agreement" text to match. (3) The
+  "Report detail" toggle sat among the scope filter pills (which DO change the view) while only
+  affecting the print report — moved to a split dropdown on the Report button itself. Revert-
+  sensitive tests render the actual panel and the print HTML (a fixed per-store margin saturates
+  every store's score near the ceiling → zero-variance `r=null`, which would silently mask the
+  caption branch — varying the margin is what makes the test meaningful). 2040/2040 tests
+  (17 new/changed across both passes), build clean, no entry-chunk change.
+- **✅ SHIPPED (2026-08-22): [Dispatch #68 — `LaborAnalyticsPanel` was dropping every store, district-wide, right now](dispatch-68.md)** —
+  `data-sourcing-standard.md`'s exclusion list flagged this panel as suspicious after
+  #64 proved its sibling entry ("parallel-but-correct") was wrong — checked before writing
+  anything up, per the same standing rule #64's own correction states. Half the doc's premise was
+  stale: a prior dispatch (#324) already migrated `laborPct`/`tpph`/`otHrs`/`actVsNeed`/etc. to
+  `metric-source.js`'s auto-first chains, but the STORE-INCLUSION GATE (`if(!lRows.length&&
+  !cRows.length) return null`) was never updated to check them — still gating on raw manual
+  `laborRows`/`ctrlRows` presence. **Measured live**: manual `labor_rows`/`ctrl_rows` have been
+  **empty district-wide for 28+ days (0/27 stores)** while auto DAR + `opsLaborRows` cover all
+  27 — so the gate was dropping **every single store** from the default 4-week view, in
+  production, today. Also fixed: `totalSales` had no auto fallback despite `sales` already being
+  registered; a second, unrelated stale-comment bug in the same file (`dowStats`/`trendData`
+  both claimed `actVsNeed` "has no METRIC_SOURCES entry yet" — false, verified against
+  `metric-source.js` directly); and the top-level `hasData` all-or-nothing gate, which had the
+  same manual-only blind spot one layer up. `crewHrs` (genuinely no auto source) correctly stays
+  manual-only. Revert-sensitive test (3 new, renders the real panel) — stashed the fix, confirmed
+  the auto-only case fails exactly as expected, restored. Two structural ratchets (R1 raw-row
+  reads, R3 `.getDay()` count) needed their ceilings updated as a direct, expected, in-file-noted
+  consequence of the fix. 2030/2030 tests, build clean, no entry-chunk change. **Numbered #68, not
+  #67** — #67 was already claimed moments earlier by an unrelated, concurrent `event_details`
+  investigation thread; flagged rather than colliding.
+- **🟡 MEASURED, STILL OPEN (2026-08-22): [Dispatch #66 — the `event_details` SPA-minted-token test could not run](dispatch-66.md)** —
+  The Mac mini runner works (dispatch #65's architecture is live and picks up jobs).
+  Fixed a real bug in its own predecessor: `qsrsoft-security-events-pull.mjs`'s Playwright fallback
+  swallowed its navigation error and never logged the post-navigation URL, so "navigation failed"
+  and "navigated fine, no token" were printed identically — indistinguishable in every prior run's
+  log. Fixed by reusing `qsrsoft-register-audit-pull.mjs`'s own working pattern (log URL + nav
+  error + token state together) rather than reimplementing it. Triggered live on the Mac mini (run
+  `32584962388`): direct auth 403'd as expected (the known cell), and the fixed Playwright path
+  proved the navigation itself succeeded — but **no `x-auth-token` was ever observed on ANY host**,
+  so the actual test (retry `event_details` with an SPA-minted token) had no token to test with.
+  This is a genuinely new, previously-invisible finding, not a re-test of anything in dispatch
+  #63's elimination table: the working browser capture in `finding-qsrsoft-event-details-endpoint-
+  2026-08-21.md` came from **clicking into a specific audit-row cell**, not from the report page
+  merely loading — `event_details` may only mint/attach a token on that interaction, which this run
+  never performed. **Deliberately did not chase this further** (scripting a cell-click is a new,
+  untested variable) — the brief's own explicit warning is that this exact investigation has
+  already produced two wrong conclusions today from comparing cases that differ in more than one
+  variable at once. Reported the measured result and stopped; recommended next step (script an
+  actual cell-click, or ask the owner whether their own browser ever calls `event_details` without
+  one first) left for whoever picks this up. No token value/sub/eID/email/plaintext name anywhere.
+  2027/2027 tests, build clean.
+- **🟡 PARTIALLY SHIPPED (2026-08-22, code-side only, NOT live-verified): [Dispatch #65 — the `qsr_security_events` pull, on a self-hosted runner](dispatch-65.md)** —
+  Built from a sandboxed session with **no physical/self-hosted-runner access** — read
+  the dispatch file's own Resolution section before trusting anything below is verified. Shipped:
+  `scripts/qsrsoft-security-events-pull.mjs` (the actual daily pull, two-path auth mirroring
+  `qsrsoft-ops-pull.mjs` — direct token + plain fetch first, Playwright SPA-login fallback; one
+  POST per (store, date, event_token), empty registers/cashiers = ALL per #58's own measurement);
+  `.github/workflows/qsrsoft-security-events-pull.yml` (`runs-on: [self-hosted, macOS,
+  qsr-security]`, the label #65's own brief names); registered in `sync-failure-watch.yml`; 6 new
+  unit tests for the pull's pure helpers. **Also found and fixed a real, pre-existing bug**:
+  `schema-qsr-security-events.sql`'s unique index targets an EXPRESSION
+  (`coalesce(order_key,'')`), which PostgREST's `onConflict` cannot reference at all — the pull's
+  first write would have failed outright. Fix in `schema-qsr-security-events-upsert-fix.sql`
+  (`UNIQUE NULLS NOT DISTINCT` on plain columns) — **not yet applied to the live DB**, needs the
+  same "owner runs it in the SQL editor" step every schema file in this repo has always needed.
+  **Deliberately NOT shipped, not silently skipped:** the `stream-freshness.js` `STREAMS` wiring
+  (the OTHER half of the brief's "do BOTH" alarm requirement) — `qsr_security_events`' RLS is
+  **role-gated** (admin/supervisor always, manager only with a flag), and App.js has **zero
+  existing precedent** for a role-conditional eager load; wiring it the same way every other
+  stream is wired would manufacture a guaranteed critical-severity false alarm on every
+  GM/office-staff/DO/VP session, not a corner case. Left explicitly for the next session with a
+  concrete recommendation (gate on `userRole==='admin'||userRole==='supervisor'`) rather than
+  shipped blind. **Nothing in the verification bar was attempted** — no self-hosted runner, no
+  QSRSoft network access, no way to run the schema migration, the runner-offline test, or the
+  weekend endurance check from this session. 2027/2027 tests, build clean, zero entry-chunk
+  change (none of this touches the client bundle). The next session needs physical access to
+  `Fletchers-Mac-mini` (or the owner) to actually finish this.
+- **✅ SHIPPED (2026-08-22, v5.106): [Dispatch #64 — Visit Readiness now sources through the shared auto-first resolver](dispatch-64.md)** —
+  `visit-readiness.js` kept its own local `srcs` chains instead of calling
+  `metric-source.js`, and they had drifted strictly worse: `r2p`/`park`/`tpph` were manual-only
+  while auto sources already existed, `oepe`/`kvst` were each missing two auto fallbacks. Found
+  from a real coaching report for Ardmore-Cooper/12th (#24471) scored off an R2P value **38 days
+  stale** — and because R2P feeds Speed (35%) and TPPH feeds Leadership (15%), roughly half that
+  report's composite was frozen on a report whose whole purpose is same-day coaching. Phase 1
+  (deletion, not construction): `oepe`/`kvst`/`park`/`r2p`/`tpph`/`labor` now resolve through
+  `METRIC_SOURCES`, via a new `metricSeriesWithSource()` export (`metricSeries()` is now a thin
+  wrapper over it) that recovers WHICH source answered per day, not just the value — needed to
+  keep `SOURCE_META`'s provenance column (the thing that made this findable) honest. Phase 2:
+  `tRedA` remapped onto the already-correct `tRedAPct` chain; `comp`/`raw`/`statVar` gained new
+  `METRIC_SOURCES` derive entries computing a % from the auto-pulled `qsr_fob` $ amounts, behind
+  the manual FOB Excel's own %. `accB2B`/`problem`/`osat` (SMG, no API) and `schedGap` (already
+  auto via `schedRows`) deliberately left on the local resolver.
+  **Two things self-caught before/during this session, not by the dispatch brief**: monthly
+  metrics (SMG/FOB) had NO window cutoff in the old resolver at all, so reusing the 45-day daily
+  window would have silently broken "latest value on record" for anything >45 days old — fixed
+  with a ~3-year lookback instead. And a live-data run against Ardmore-Cooper surfaced a real bug
+  in this dispatch's OWN first draft: blanket-excluding `v===0` from the daily mean (carried over
+  from the old single-source resolver, where it never mattered) silently discarded EVERY day of
+  `park` once the auto chain's real 0% answer got there first — the exact **#150/#178
+  zero-discarding bug class**, reintroduced by the fix meant to close a different sourcing gap.
+  Removed; `metric-source.js`'s own `mode` already decides what counts as a value.
+  **Verification bar was the score itself, live**: both the pre-dispatch and the new engine run
+  against the SAME real service-role-pulled Ardmore-Cooper data — R2P moved from `{111.7s,
+  opsRows, as-of 2026-07-15}` to `{128.5s, qsrActSummaryRows, as-of 2026-08-22}`, composite
+  readiness moved **48.6 → 53.2**. 5 new revert-sensitive tests (stashed the fix, confirmed all 5
+  fail, restored) — auto-only fixtures the old chains could never read, the exact key/field traps
+  named in the brief (`labor→laborPct`, `tRedA→tRedAPct`, `park→glimpseRows.parkedPct`), a
+  no-DAR-coverage store still falling back to `opsRows`/`manual`, the missing-reason message
+  reading the LIVE chain not a stale local one, and the actual HTML/CSV report (not just the
+  engine) surfacing a migrated driver's real source. 2021/2021 tests, build clean, entry chunk
+  511.84→512.03 KB gzip (`visit-readiness.js` is lazy-loaded, not in the entry chunk). Out of
+  scope, untouched: weights, targets, bands, the food-safety flag.
+- **✅ SETTLED (2026-08-22): [Dispatch #63 — the `api.security` 403 is a QSRSoft entitlement gap, not a bug here](dispatch-63.md)** —
+  `event_details`'s 403 (an AWS IAM explicit-deny: credential accepted, principal
+  denied) survives every hypothesis this repo can test. Two tasks, both run in GitHub Actions
+  (`workflow_dispatch`, no owner needed): (1) `POST /security/video_provider` — the route the
+  owner's browser gets a 200 from, in the same module — also **403** with our token, so the
+  denial is **module-wide, not route-scoped**. (2) Retried `event_details` with a token minted by
+  driving the real SPA through Playwright (`USER_SRP_AUTH`, matching the browser's own login
+  flow, not `getFreshToken()`'s bare `USER_PASSWORD_AUTH`) — **still 403**, byte-identical
+  message. **The privacy-safe principal check (sha256 of `sub`/`eID`, no raw values ever
+  logged) proves both tokens are the SAME Cognito principal** — closing the "same email, two
+  principals" hypothesis for good, not just demoting it. Every one of nine hypotheses (bad
+  credential, wrong token type, non-admin, wrong app client, no-token, `valid_eID`, route-scoped,
+  auth-flow, two-principals) is eliminated by measurement, tabulated in the resolution section.
+  **Wrote the QSRSoft entitlement request**
+  (`memory/finding-qsrsoft-security-entitlement-request-2026-08-22.md` — ⚠️ SUPERSEDED, do NOT send: it is a SOURCE-IP restriction, one principal, see dispatch-63.md's CORRECTION) and stopped there per the
+  dispatch's own instruction — no retries, no scope widening, no UI-scraping fallback. Lives on
+  branch `claude/project-orientation-clarify-x61o5r` (PR #553, open as of this entry) — read the
+  dispatch file directly rather than this summary; its eliminated-hypotheses tables are the part
+  worth the most to whoever picks this up next.
+- **✅ SHIPPED (2026-08-22, v5.105 — Part A only): [Dispatch #62 — make the register-type dimension actually do something](dispatch-62.md)** —
+  **NEWEST.** Step 0's live measurement (service-role query, 7 days of `audit_rows`, all 27
+  stores) found **321 of 1,611 employee-days span more than one register type** — materially
+  non-zero, not disjoint. So `analyzeRegisterAudit` (keys `loc::emp`, correctly sums across types
+  per #59's audit) **was already blending Cashier/Manager/Preparer authority contexts** on the
+  live per-employee Register Audit panel, with nothing on screen saying so — Part A shipped as a
+  **correctness fix**, not an enhancement. `analyzeRegisterAudit` gained a `registerTypes` field
+  per employee (additive, existing totals untouched — accumulate/finalize pipeline extracted so a
+  new `registerTypeBreakdown()` export reuses the exact same math, keyed `loc::empToken` never
+  raw name). The panel gained a register-type filter pill (shown only when >1 type present), a
+  Register column ("Cashier" plain, or a clickable "Blended (n)" badge that expands a per-type
+  split), and a plain-language banner naming the decision — voice-by-role, not just an
+  analyst-only column. Revert-sensitive: the new render-the-actual-panel test fails 4/5
+  assertions with the UI wiring reverted, confirmed before restoring. **Part B (making
+  `opportunity_factor` load-bearing) deliberately NOT shipped** — 7 days of manager-register data
+  is far short of this project's own threshold bar (676 store-weeks for the swing alarm).
+  Recommendation left for the next session: register-scoped CASH-004 sibling over making
+  `opportunity_factor` a real engine input (cleaner blast radius); backfill via
+  `QSRSOFT_AUDIT_START_DATE`/`END_DATE` (standing authorization, not run — no QSRSoft credentials
+  in this sandbox) or let the daily pull accumulate a real distribution first.
+- **✅ SHIPPED (2026-08-22, v5.104): [Dispatch #61 — derive the Test Kitchen block from `panel.kind`](dispatch-61.md)** —
+  **NEWEST.** Promotion is now the one-field `kind:` flip CLAUDE.md's standing rule already
+  claimed it was. It wasn't: `shell.js`'s `⚗ TEST KITCHEN` was a hand-maintained literal
+  `navPBeta('id')` list, not derived, so promoting a panel meant flipping `kind:` **and** deleting
+  its `navPBeta` line — skipping the second edit rendered the panel **twice** (measured
+  2026-08-21 on `fcst-accuracy`). Membership had not drifted (11 call sites, 11
+  `kind:'test-kitchen'` panels, zero set difference), so this was a provable pure refactor.
+  Order was the real blocker `#55 Part A` deferred it behind: registry declaration order is
+  alphabetical, `shell.js`'s was curated, sharing no positions — fixed by an explicit `tkOrder`
+  field (1–11) on each `test-kitchen` entry plus a new `testKitchenPanels(can)` export
+  (`panel-registry.js`) that filters `kind==='test-kitchen'`, applies the permission check, and
+  sorts by `tkOrder`. `shell.js`'s block is now 4 lines calling it, replacing the 18-line literal
+  list. `forecast-audit`'s one per-item option (`{ disabled: !selStore }`) is now declarative —
+  `disabledWhen:'noStore'` on the registry entry, mapped to the real predicate in `shell.js`. The
+  commented-out `proj` prune record moved to `panel-catalog.md` since its line was deleted.
+  **Revert-sensitive, demonstrated**: reverting `shell.js`'s derivation back to the old hardcoded
+  list reproduces the double-render and fails 12 tests (confirmed, then restored).
+  `shell-nav-snapshot.test.js:62`'s exact-text-content snapshot and `:221`'s eleven-panel ratchet
+  both pass **unchanged** — zero nav motion. 2006/2006 tests, build clean, entry chunk +0.14 KB
+  gzip (net-neutral). Full resolution in `dispatch-61.md`.
+- **✅ SHIPPED (2026-08-22, v5.103): [Dispatch #59 — the role dimension the security rules already need](dispatch-59.md)** —
+  **NEWEST.** `audit_rows`' PK moved from `(loc, date, emp)` to `(loc, date, emp, register_type)`
+  (`schema-audit-rows-register-type.sql`, live-table migration, backfilled `'cashier'` via the
+  column default) so a Cashier + Manager row for the same employee-day no longer silently
+  overwrite each other. `qsrsoft-register-audit-pull.mjs` now calls the endpoint once per
+  register type (Cashier · Manager · Preparer) and concatenates, instead of hardcoding cashier —
+  both writers (the pull script and `src/lib/supabase.js`'s twin) moved together. **Consumer
+  audit found exactly the two sites the addendum predicted**: `src/utils/register-audit.js`'s
+  `days`/`cashOSDays`/`avgCashOS` were counting ROWS as a DAYS proxy (now a `Set` of distinct
+  calendar dates — dollar/count sums were already correct) and `security-baselines.js`'s
+  `personalBaseline()` (one rate per row → now collapsed to one rate per DAY, the decision
+  explicitly pinned: preserves existing meaning exactly on cashier-only data rather than silently
+  redefining every baseline). Everywhere else that sums `audit_rows` across rows — including
+  `security-rules-run.mjs`'s own aggregation — needed **no change**, confirmed empirically through
+  the real `computeFindingsForRule()` call site, not just by reading. **CASH-004's
+  `opportunity_factor` flips to TRUE** (`schema-security-rules-cash004-authority.sql`) — examined,
+  not assumed: `security-rules.js` has zero runtime readers for that flag today, so this is a
+  metadata correction matching the column's now-met precondition, not a behaviour change. Meal
+  rules stay explicitly OUT (dispatch #58's pull is still blocked on auth — untestable against an
+  empty source). Three fixes were each demonstrated to FAIL on a revert of their own code before
+  being trusted, per the standing rule. 2005/2005 tests (16 new), build clean.
+- **✅ SHIPPED (2026-08-22, v5.102): [Dispatch #57 — per-person employee tenure, storage half](dispatch-57.md)** —
+  **NEWEST.** Owner-approved reversal of a deliberate decision: `qsrsoft-employee-roster-pull.mjs`
+  used to discard every individual-employee field it fetched, persisting ONLY aggregate counts
+  (`roster_role_counts`, unchanged). New `qsr_employee_tenure` (one row per person, keyed on
+  `geid`, accessible_locs-scoped RLS — NOT the plain tenant-only pattern, since this table
+  carries a name and a pay rate) stores **both start dates distinctly**: `org_start_date`
+  (joined the organization) vs `store_start_date` (joined this store) — they diverge often and
+  hugely and neither reconstructs the other; never render either as an unqualified "start
+  date." `hourly_pay_rate` is stored per the owner's "do it all" but **deliberately not
+  surfaced in any panel** — the owner explicitly deferred role-gating pay visibility.
+  `orgStartDate` was not previously fetched at all — new field, added to `SELECT_COLS`
+  alongside `hourlyPayRate`. What stays permanently excluded (unchanged): ssn, dateOfBirth,
+  nationalOrigin, gender, federalMaritalStatus, address/contact fields — guarded by a new
+  `assertNoDeniedSelectCols()` that fails loudly at import time if a future edit ever widens
+  the allowlist. 1989/1989 tests (15 new), build clean, no client-bundle change. **No panel in
+  this dispatch** — storage and pull only, per its own explicit scope.
+- **✅ RESOLVED (2026-08-22, v5.100): [Dispatch #60 — the `hourCycle` fix is now guarded](dispatch-60-ci-node-parity.md)** —
+  `1ca02ee` merged on a clean local **1952/1952** and broke `main` for **seven consecutive commits**
+  (two from an unrelated session) until hotfix #540. Cause: `hour12:false` does not pin the
+  hourCycle, so `chicagoMidnightUTC`'s `'00:00'` string match rendered `"24:00"` on CI and threw on
+  every call. Shipped: (1) `src/__tests__/ratchet-intl-hourcycle.test.js` — a **source-level**
+  zero-tolerance guard (scans `src/` AND `scripts/`) asserting no `Intl.DateTimeFormat` requests
+  `hour` without an explicit `hourCycle`, and no call uses bare `hour12` — demonstrated to fail
+  naming the file:line with `hourCycle:'h23'` reverted, pass with it restored. (2) `ci.yml`'s
+  `verify` job now runs a **Node matrix `[20, 22]`**, not a single pin, so the whole ICU/Node-
+  version-divergence class is caught, not just this instance. (3) **Sweep found a second live
+  instance**: `scripts/qsrsoft-onhand-pull.mjs`'s `centralHour()` had the identical `hour12:false`-
+  without-`hourCycle` shape (currently latent — its business-hours window never spans midnight —
+  but fixed anyway). No other site in the codebase was affected; the display-only
+  `toLocaleTimeString`/`toLocaleDateString` calls elsewhere don't force a 24-hour cycle or compare
+  formatted output against a literal, so they're a different (unaffected) case. ⚠️ Also resolved:
+  `ci.yml` said **20**, hotfix `b72d377`'s comment said **24** — the job log's own "Environment
+  details" block confirms CI's real test Node is **20.20.2**; the hotfix's "Node 24" claim was
+  wrong (conflated the Actions runner's own JS-action Node with the pinned test Node) and has been
+  corrected in `forms-completion.js`'s comment. `chicagoMidnightUTC` itself is unchanged — the
+  string-matching refactor stays explicitly out of scope, per the dispatch.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #58 — schema, parser, panel shipped; the pull script's request-logic is deliberately blocked on a probe](dispatch58-part-e-status-2026-08-21.md)** —
+  Everything that doesn't depend on the dispatch's own "settle this first" empty-
+  registers/cashiers question is built: `supabase/schema-qsr-security-events.sql` (role-gated RLS,
+  copied from `security_findings`, NOT the plain tenant-only pattern), `src/engine/security-events.js`
+  (pure `parseSecurityEventRow()` — caught its own bug in its first test run: `isUsableRow()`
+  checked `raw.loc`, a field that isn't on the raw row at all, which would have silently dropped
+  every row), and `SubjectDrilldown`'s new "Matching events" section in `security-panel.js`
+  (reuses Part D's existing surface, per the dispatch's own instruction — time/register/daypart/
+  tender/amount, with the required "cash over/short has no drill-down at all" caveat rendered on
+  every load). **The daily pull script itself is NOT written** — its correctness depends on
+  whether empty `registers`/`cashiers` mean "all" (cheap) or are required filters (redesign), and
+  this sandbox has no QSRSoft credentials to test it. New
+  `scripts/qsrsoft-event-details-probe.mjs` + a `workflow_dispatch`-only Action (mirrors the
+  existing `lifelenz-ta-probe.yml` pattern) make that one comparison call and print a verdict —
+  run it, then write the pull. 1972/1972 tests, build clean (+0.28 KB, a new lazy-panel-only
+  loader). Full status in the linked file.
+- **[Dispatch #58 — Part E: register worked + time of event](dispatch-58.md)** — the PM brief this
+  dispatch shipped against. Schema/parser/panel shipped. 🔴 **The pull is BLOCKED ON AUTH, and the
+  empty-array question is NOT resolved** — the probe ran 2026-08-22 and returned **403 on both
+  calls**: `"explicit deny in an identity-based policy"`, which is AWS IAM for *credential accepted,
+  principal denied*, **not** "invalid token". **Nothing in this repo has ever successfully called
+  `api.security.myqsrsoft.com`**; the "token-only" finding came from a browser header panel, which
+  shows what the browser sent, not that OUR credential is accepted. Either the security host wants a
+  different token than `api.reports`, or `QSRSOFT_USERNAME` lacks the entitlement the owner's login
+  has — **30-second test: compare the first ~10 chars of `x-auth-token` on an `api.security` request
+  vs an `api.reports` one in the same DevTools session.** Do not write the pull until settled; the
+  probe answers the array question unchanged once auth works. Also holds the 8-token enumeration,
+  the `crew`/`mgr` PII → vault rule, and the `order_key` register-prefix ≠ `reg_num` non-join caveat.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`event_token` ENUMERATED — dispatch #56 Part E is unblocked](finding-qsrsoft-event-details-endpoint-2026-08-21.md)** —
+  **NEWEST.** Owner sweep of the Register Audit drill-downs. **8 tokens, 5 families:** `all_promo` ·
+  `t_red_before`/`t_red_after` · `cash_refund`/`cashless_refund` · **`employee_meal`/`manager_meal`** ·
+  `pos_overring`. Vocabulary is **global, not per-store**; four of five families are paired. **Two
+  of the eight were NOT predictable from `audit_rows`' metric list** — capture the rest, do not
+  extrapolate. Method worth reusing: the DevTools **Payload** tab shows the body with **no
+  credential in it**, so it needs no Terminal, no clipboard juggling and carries nothing sensitive.
+  🔴 **Two NEGATIVE results that constrain Part E:** **cash over/short is listed but has NO
+  drill-down** (it is a computed variance, not a discrete event) — so Part E **cannot** give
+  "which drawer, what time" for the biggest controls metric, and the panel must say so rather than
+  let absence of detail read as absence of a problem; and **discount is not a column on this report
+  at all**. Voids unconfirmed — `pos_void` is plausible, not found. 🎯 **`employee_meal`/`manager_meal`
+  appear in no `audit_rows` metric** — meal-comp abuse is a classic LP category and the role split is
+  the interesting half (a manager comping their own food has no second signature). Same shape as the
+  `registerType=cashier` gap: a class of controls activity no shipped rule can see.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Forms dashboard — Slice 3: the pull script, ALL THREE SLICES DONE](project-forms-dashboard-slice3.md)** —
+  **NEWEST.** Auth for `forms.home.myqsrsoft.com` resolved via the owner's DevTools
+  request-header panel: **token-only, no session cookie** — same shape as `api.security`, not
+  the DAR host. New `scripts/qsrsoft-forms-completion-pull.mjs` pulls `completionDetail` and
+  writes `qsr_forms_completion`; auth is `getFreshToken()` (direct Cognito mint, no Playwright
+  for the primary path — the SAME already-proven mechanism `qsrsoft-ops-pull.mjs` uses, not
+  `qsrsoft-forms-pull.mjs`'s older pre-#312 browser-scrape pattern) with a Playwright fallback
+  kept defensively. 🔴 **Two real bugs fixed first, owner-reproduced against the already-shipped
+  Slice 1/2 code:** (1) the literal `"noLocation"` (a real request member — submissions with no
+  store attached) normalized to the garbage loc `"0000NaN"` via `parseInt`; now an explicit
+  `'NOLOC'` sentinel, never dropped. (2) The store-day rollup's local-midnight boundary used a
+  **fixed UTC-5 offset**, correct only during CDT — every row misbucketed by a full day for the
+  entire CST half of the year, ~10 weeks from shipping. Fixed with a real `Intl.DateTimeFormat`
+  `America/Chicago` lookup, DST-aware by construction (all seven FL stores are Panhandle =
+  Central, not Eastern — worth stating since "Florida" misleads). The new pull script's own
+  request-window builder had the identical flaw and got the same fix before it ever shipped.
+  Regression tests: a CST case, a `noLocation` case, and a four-point sweep across both 2026 DST
+  transitions, verified against real `Intl` output before being hardcoded. `FormsCompletionPanel`
+  now shows its **own** per-stream freshness line ("Synced today" / "Last synced Nd ago") — never
+  pooled with anything else, the #171 lesson. New `qsrsoft-forms-completion-pull.yml` (twice-daily
+  cron) + `sync-failure-watch.yml` entry. **Manual-upload fallback deliberately NOT built** — this
+  data was never tracked on paper, so there's no existing workflow to protect, unlike FOB/Ops
+  Report/Controls. **Range cap on `completionDetail` still unmeasured** — the pull chunks to
+  3-day windows by default rather than risk a silent truncation on a larger backfill; do not
+  widen without measuring first. 1952/1952 tests. Build clean, entry chunk unchanged
+  (511.12 KB gzip). `forms-completion` stays `kind:'test-kitchen'` — promotion is the owner's
+  call once real data has synced.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Forms dashboard — Slice 2: the panel, done](project-forms-dashboard-slice2.md)** —
+  Second of three slices. New `computeFormStoreDayRollup()`/`computeFormSummary()` in
+  `src/engine/forms-completion.js` — store-day rollup judged on resolved occurrences only (`open`
+  rows excluded from both numerator and denominator, or the current day always reads red), bucketed
+  on the finding file's own measured local-midnight-UTC-5 boundary (deliberately NOT this codebase's
+  4am business-day boundary — different host, different cutover). `passRate` is Σcompleted/Σresolved,
+  never a mean of store-day rates (never-average-averages; 4.9% vs a wrong 51.25% on a worked
+  fixture). New `src/views/forms-panel.js` (`FormsCompletionPanel`, `kind:'test-kitchen'` pending
+  Slice 3): per-form 80%-default threshold (editable, per-device), pass-rate always beside the bar,
+  total-day attribution only. **Caught by its own render-based test, not the engine's unit tests**:
+  the panel was re-running the raw-payload normalizer on `loadQsrFormsCompletion()`'s
+  already-normalized output — a field-name mismatch (`raw.location` vs the loader's `loc`) that
+  silently dropped every row and would have shipped an always-empty panel with every engine test
+  green. Fixed by feeding the loader's output straight into the rollup. 1944/1944 tests (12 net
+  new). Build clean, entry chunk unchanged (lazy panel). **Slice 3** (pull script, gated on an owner
+  auth capture) is next, separate PR.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Forms dashboard — Slice 1: schema + normalizer, done](project-forms-dashboard-slice1.md)** —
+  First of three slices, structured so the one unverifiable piece (the Slice 3 pull
+  script's auth against `forms.home.myqsrsoft.com`) ships last, isolated. New
+  `supabase/schema-qsr-forms-completion.sql` — one row per scheduled occurrence from
+  `completionDetail` (not `completionByForm`, which has no denominator and can't answer "missed"),
+  `tenant_id` + RLS from day one matching `schema-product-mix.sql`'s current pattern.
+  `occurrence_key` (not `scheduled_at`, which can be null on 32 ad-hoc completed rows) is the key
+  column, falling back to `completed_on`. `status_state` is a real three-value column
+  (missed/open/completed, `check`-constrained) — the raw `status` field is polymorphic (string enum
+  OR float) and reading `"--"` as missed over-reports by 13%. `completed_by` (a plaintext name) is
+  deliberately not a column at all — `user_id` is the person key, so there's nothing to leak. New
+  `src/engine/forms-completion.js` — pure `normalizeFormsCompletionRow()`/`Rows()`, the one place
+  the polymorphic status gets read, everything downstream works off `statusState`/`completionRatio`.
+  1926/1926 tests (22 net new, **every fixture synthetic** — a dedicated test asserts the output has
+  no `completedBy` key and the fixture name never appears in the serialized result). Build flat
+  (module not wired into any panel yet). **Slice 2** (panel: per-form 80% threshold, resolved-
+  occurrences-only, total-day attribution — 0 of 3,886 missed rows carry a person) and **Slice 3**
+  (pull script, gated on an owner auth capture) are next, separate PRs.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [PR #537 review — two reproduced defects in the forms normalizer](review-537-forms-slices-1-2.md)** —
+  **(1) `"noLocation"` → the garbage loc `"0000NaN"`** — it is a genuine member of every request's
+  `locations` array, `parseInt` gives `NaN`, and the usable-row guard only checks non-null. Fix with
+  a sentinel (`'NOLOC'`), **not** by dropping the row — those are real unattached completions.
+  **(2) `LOCAL_MIDNIGHT_OFFSET_MS = 5h` hardcoded misbuckets a day for the whole CST half of the
+  year** — a completion at 23:30 local on Dec 20 lands on Dec 21, so a store shows a miss on day N
+  and a phantom completion on N+1. Silent. Fix with `Intl.DateTimeFormat('en-CA', {timeZone:
+  'America/Chicago'})`, verified across both DST transitions. **`America/Chicago` covers the whole
+  estate** — the seven FL stores are Panhandle-west-of-the-Apalachicola and therefore Central, which
+  is worth a comment since "Florida" reads as Eastern. Everything else passed: resolved-only
+  judging, Σ/Σ aggregation, no `completedBy` in the output, `timeToComplete` not derived.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #57 — persist per-person employee tenure (Part B)](dispatch-57.md)** —
+  **NEWEST.** 🔴 **Owner-approved reversal of a deliberate privacy decision**: the roster pull's own
+  header says *"No individual-employee data is stored anywhere"* — it already FETCHES the hire dates
+  and throws them away. Owner: *"reverse it… let's just do it all."* New `qsr_employee_tenure`
+  (per-person, per-store, PK `(tenant_id, loc, geid)`, RLS via `accessible_locs`), added to the
+  **existing** `qsrsoft-employee-roster-pull.mjs` — already watched, no new workflow.
+  🔴 **`orgStartDate` is NOT currently in `SELECT_COLS` and is half of Part B** — add it, plus
+  `hourlyPayRate`. **BOTH start dates, distinctly labelled** (owner: *"both are relevant"*); never
+  render a bare "start date"; surface the gap where they diverge. **The fetch-side allowlist STAYS**:
+  `ssn`, `dateOfBirth`, `nationalOrigin`, `gender`, `federalMaritalStatus`, address, contacts remain
+  excluded — protected-class attributes beside performance data let a metric split by race or age by
+  accident, which is not hypothetical in a system with an auto-correlating Scanner. Add a guard test
+  asserting they stay out. Pay ships in the table but is **surfaced in no panel** (role-gating
+  deferred by the owner — an unrendered column is easy to gate later, a rendered one is not).
+  Watch `"0000-00-00"`, the date null sentinel.
+- **🔴⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`regAudit` — we pull ONE THIRD of the Register Audit](finding-qsrsoft-event-details-endpoint-2026-08-21.md)** —
+  UI capture settles both knobs: **`registerType` = Cashier · Manager · Preparer**, and
+  **`resultType` = BY LOCATION · BY EMPLOYEE only — there is NO `byRegister`** (retracting a
+  shortcut I suggested for Part E; it still needs `event_token`). 🔴 **`qsrsoft-register-audit-pull.mjs:295`
+  hardcodes `registerType:'cashier'`, so `audit_rows` is missing Manager and Preparer entirely** —
+  and **manager** over/short, promo and discount activity is exactly what a controls rule most wants
+  to see. Real gap, but **not a one-line loop**: it changes `audit_rows`' grain, so PK, subject
+  grouping and existing aggregates all need checking. Scope it as its own work.
+  ⚠️ **Also a method miss worth remembering:** I wrote up "no Cookie on the DAR host" as a possible
+  correction to the Playwright rule — it was **already settled 2026-08-20 and documented in that
+  same script** (lines 335-342), and more precisely: the working request carries **no cookie AND no
+  token**, being scoped by `orgId`/`nsn` and validated on `Origin`/`Referer`. One `grep scripts/`
+  would have found it. What IS still open and narrower: `/data_layer/v1/service/…` is the only path
+  family where "needs Playwright" may still hold — `ops-pull` uses a direct token and `regAudit`
+  needs no credential, so **`CLAUDE.md`'s blanket claim about that host is too broad** and should be
+  narrowed to the path family it actually describes.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [The COMPLETE QSRSoft report catalog — 108 screens](finding-qsrsoft-report-menu-map-2026-08-21.md)** —
+  From an **unauthenticated static `menu.json`** on a **fourth host** (`api.sso.myqsrsoft.com`;
+  blocked by our egress proxy, so owner capture only). Every capture carries
+  `Referer: /reports/mcd/<path>`, so this is **the complete index of which screen to open** to
+  capture any endpoint — no more guessing whether a report exists. 🎯 **It lands directly on open
+  roadmap items:** `product/productMixDrillDown` + `productMixTrend` + **`menuPriceComparison`** are
+  the "Product Mix pull → Pricing Engine" candidate; **`service/voice`** could retire the MANUAL SMG
+  VOICE upload (standing rule: manual sourcing is always temporary); **`shift/shiftManagerSummary`**
+  is the missing leg of forms manager attribution and maybe cheaper than roster+punches;
+  **`people/newHires`** is Part B purpose-built; **`people/rosterStatistics`** may give roster
+  insight **without PII**, sidestepping the `employee-roster` allowlist problem — check it first.
+  Also unclaimed: `laborExceptions`, `overtimeAudit`, `turnoverReport`, **`studentPermitStatusCheck`**
+  (minor-labor compliance, a real legal-risk gap), `reportFinder`. ⚠️ **Overlaps to diff, not adopt:**
+  **`controlsLabor/vlhOverUnder`** (we compute VLH ourselves — diff the formulas first),
+  `scheduleVariance`, `laborSchedules`. And all three **emailed** streams (Glimpse / Sales Ledger /
+  Cash Sheet) have **API screens here**, which is the API-over-email rule's case for migrating them
+  since an API pull can backfill and email cannot.
+- **🔴⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`employee-roster` — Part B ANSWERED, and the most sensitive endpoint yet](finding-qsrsoft-employee-roster-endpoint-2026-08-21.md)** —
+  **NEWEST.** 🔴 **Returns SSN, home address, DOB, race (`nationalOrigin`), gender, marital status
+  and pay rate.** Worse than `time-punches`. The **`selectCols` allowlist is the security control** —
+  request only `geid`/dates/job-title/status fields; the pull script must assert none of the denied
+  fields are present, so a future edit fails loudly. Protected-class attributes must not be ingested
+  at all: having them next to performance data lets a metric split by race or age *by accident*.
+  🎯 **Dispatch #56 Part B is answered** — and "start date" is **two** fields: `orgStartDate` (joined
+  the org) vs `storeStartDate` (joined this store), which diverge often and hugely (one record: eight
+  years org, two months store). ✅ **Owner decision: "both are relevant" — ingest and surface BOTH,
+  distinctly labelled; never render a bare "start date".** The divergence itself is worth showing
+  ("8 years with the org, 2 months at this store" names a real coaching situation). `jobTitleCodeStartDate` (time in
+  role) may be the most coaching-relevant of the three. 🎯 Also **resolves the `time-punches`
+  `jobTitleCode` unknown** (45=GM, 647=Cert Swing Mgr, 648=Crew Trainer, 650=Crew, 671=Maintenance,
+  846=Dept Mgr II — partial, build from data) which is the missing piece for the **forms dashboard's
+  manager attribution**: roster says who is a manager, punches say who was on shift. Traps:
+  **`"0000-00-00"` is the date null sentinel** (third sentinel family after `emp_id='0'` and
+  `completedBy='--'`); `hasPunched` is a `"Yes"`/`"No"` string meaning "in the window", not ever;
+  **`nextReviewDate` is widely stale** and unusable as a schedule (though overdue-from-`lastReviewDate`
+  is a real candidate metric); `payrollID` is null — `geid` is the key.
+- **⭐⭐⭐ [LifeLenz ↔ QSRSoft roster field mapping](finding-lifelenz-qsrsoft-roster-field-mapping-2026-10-12.md)** —
+  Owner-provided CSV/xlsx pair compared field-by-field (no PII values recorded, field names only).
+  Confirms `orgStartDate`↔Hire Date / `storeStartDate`↔Restaurant Start Date from the finding above.
+  Store numbering schemes don't match (NSN vs Loc) and **no shared join key exists** across the two
+  systems besides name (fuzzy) or SSN (never to be used) — an open gap, not solved here.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [QSRSoft Forms — shift-checklist completion & the MISSED denominator](finding-qsrsoft-forms-completion-endpoint-2026-08-21.md)** —
+  **Owner-requested dashboard**, and it is **no longer blocked** — the full 4,714-row
+  `completionDetail` response is measured. A **third host family**, `forms.home.myqsrsoft.com`;
+  ✅ **auth RESOLVED 2026-08-21: token-only, no cookie** (DevTools header panel — `Cookie` absent
+  where it would sort, between `Content-Type` and `Origin`), so it behaves like `api.security`, **not**
+  the DAR host: a plain Node `fetch`, no Playwright. ⭐ **Build on `completionDetail`** (no `formIds`, one row per *scheduled
+  occurrence*, so a miss is a returned row); keep `completionByForm` as the denominator source, since
+  `completionDetail` gives a completion *ratio* with no question counts and ratios cannot be averaged.
+  🔴 **`status` is POLYMORPHIC — a string enum OR a float**, and there are **three** states, not two:
+  `"MISSED"` (3,886), `"--"` = **scheduled but still open, NOT a miss** (599), and a **number 0–1**
+  that is the completion fraction (229). `missed === (status==="MISSED")` on all 4,714 rows, so
+  branch on `missed`/`hasResponse` and only then read `status` as a number. 🔴 **The 4.9% estate
+  completion headline is a CADENCE ARTIFACT — do not ship it:** Travel Path is scheduled **27–45×
+  per store per day** and is 87% of all rows. Segment by cadence — daily pre-shifts (1/store/day) run
+  **25.5%**, a real and actionable number; **seven stores completed ZERO in three days** (5183, 6972,
+  18213, 29760, 33109, 34222, 38609), a superset of what `completionByForm` could see. Other measured
+  traps: **`scheduledAt` can be NULL** on completed ad-hoc rows (32), which kills the obvious
+  `(location, formId, scheduledAt)` PK; `timeToComplete` is **ms of ACTIVE time**, not wall-clock (one
+  row: 28.97 days elapsed, 109 s recorded); `score` and `reviewedWith` are unused on every row;
+  `completedBy` is a **plaintext name** so vault rules apply, but **`userId` is a UUID** and is the
+  better key. ❌ **My FL "stale assignment" hypothesis is REFUTED** — FL 38% vs OK 39% on the legacy
+  pre-shift, all 27 stores are assigned it, and the EA forms are scheduled at essentially one store.
+  The MISSED rows are real; there is no artifact to subtract. 🎯 It also **corrects the
+  `event_details` finding**: the security host's `storeRef` **is** the unpadded NSN (`29760` =
+  Duncan-Hwy 81), so dispatch #56 Part E needs no mapping hunt.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #56 Parts E and B — status after PR #534, nothing built this pass](finding-dispatch56-part-e-b-status-2026-08-21.md)** —
+  PR #534 (merged) resolved two of `event_details`'s
+  open questions: **`storeRef` is the plain unpadded NSN** (`29760` = Duncan-Hwy 81 — no `loc →
+  storeRef` mapping to hunt, the original finding was simply wrong, unchecked against `STORE_NAMES`)
+  and **auth is token-only** (no Playwright). Three more remain, and **none are answerable from
+  inside this coding session** — no `QSRSOFT_TOKEN` exists in this sandbox, checked directly, and
+  every `finding-qsrsoft-*.md` in this repo was an owner DevTools capture, never an agent's: the
+  `event_token` vocabulary (only `all_promo` captured; refunds/voids/over-rings/T-Reds/cash-O-S are
+  each presumably a different token and this is the finding file's own "single highest-value
+  unknown"), `remaining_amt`'s meaning, the `order_key`-vs-`reg_num` mismatch (a hypothesis, not a
+  finding), and camera/video linkage. Also unchecked: whether `event_details`' badge number is the
+  same identifier as `emp_id`/`geid` (provisionally a separate namespace — badges are two digits,
+  nowhere near the length bands — but unconfirmed). **Part B:** still no hire-date field anywhere;
+  `/reporting/v2/people/` (the path `time-punches-matched` lives under) is a real neighbourhood but
+  not yet a proven address — its own confirmed fields carry nothing hire-date-shaped. **No code
+  shipped this pass** — extends Part B's own "report before building" discipline to Part E's
+  remaining unknowns, since a pull built on a guessed `event_token` or an unconfirmed join key is
+  exactly the class of confident-sounding wrong answer this repo's standing rules exist to prevent.
+  Next step named concretely: one more owner capture round (refund/void/over-ring/T-Red/cash-O-S)
+  closes most of Part E at once; opening QSRSoft's People report menu answers Part B.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #56 Part D — is this an instance, a pattern, or a trend?](dispatch56-part-d.md)** —
+  *"A first-time flag and a fifth consecutive flag are completely different situations
+  and the panel currently presents them identically."* Two engine functions, both extending
+  `security-drilldown.js` (no new data source — everything from `security_findings` already
+  loaded): `buildSubjectTimeline()` flattens a subject's per-rule window history into one
+  oldest→newest cross-rule rollup ("flagged N of M evaluations since \<date\>"); `classifySubjectShape()`
+  answers instance/pattern/trend — a DIFFERENT, more precise question than dispatch #46's existing
+  `classifySubjectTrend()` (checked before building anything: that one only asks "is it still going
+  on," a two-state chronic/new/improving/clear story; this one asks how many times and in what
+  arrangement, with a 3-consecutive-window minimum before a directional "trend" claim is allowed —
+  the "do not label a shape from two windows" case dispatch #56 itself warns against). Renders
+  BESIDE the existing chronic/new line, not instead of it. Plus the corroboration_rules
+  finding-level cross-link — Part A already mapped the field and surfaced the static directory
+  half; `corroboratingFlags()` is the other half, showing when a corroborating rule ALSO fired for
+  the same subject. 1900/1900 tests (20 net new), build flat. **Same-day follow-up fix:**
+  `corroboratingFlags()` originally checked only whether a corroborating rule's LATEST verdict was
+  flagged at all, ignoring `windowStart`/`windowEnd` — two rules on different evaluation cadences
+  can have "latest" verdicts months apart, so a stale flag could look like it was corroborating an
+  unrelated later one forever. Added a window-overlap check; 1904/1904 tests (4 more, including the
+  stale-window regression case). Job C Batches 2+ deferred.
+- **🔴⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`time-punches-matched` — punch edits, and the geid answer (RETURNS SSNs)](finding-qsrsoft-time-punches-endpoint-2026-08-21.md)** —
+  **🔴 THIS ENDPOINT RETURNS SOCIAL SECURITY NUMBERS + full legal names. NEVER put `ssn` in
+  `selectCols`** — it is caller-chosen, so the field never has to leave QSRSoft. Never persist, never
+  log, never fixture. Beyond that it is valuable: real clock punches with `shift`/`meal` split,
+  `isPaidBreak`, and **`inModified`/`outModified` — a punch was EDITED**, a loss-prevention signal
+  Meridian has no visibility into today. 🎯 **Its `geid` answers the identity-vault question**: every
+  geid falls inside the matching `audit_rows.emp_id` length band, so those bands are **one global ID
+  space grown over time, not several systems** (correcting my own speculation in the G=2 note), and
+  `emp_id` is almost certainly the `geid` — a real person key for Phase 2, with an authoritative
+  name↔geid mapping. Badge (`event_details`) remains a **separate** namespace.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #124 implementation — the geid/emp_id space CONFIRMED live, boundary NOT confirmed](dispatch-124-punch-times-implementation.md)** —
+  Built the punch-times pull (`scripts/qsrsoft-punch-times-pull.mjs`, `qsr_punch_times` table).
+  Independently re-measured the finding's "almost certainly" geid/`audit_rows.emp_id` claim live
+  against 1000 rows each (not the finding's one-store-one-day sample) — **confirmed**, digit-length
+  bands match closely across 6/7/8/9-digit values. That does NOT license tokenizing `geid`
+  directly as dispatch #123's `emp_token` (a different, name-keyed space) — resolved via
+  `geid → qsr_employee_tenure.full_employee_name → get_or_create_employee_token()`, nullable,
+  `geid` as the always-present fallback join key. Business-day boundary left explicitly
+  unconfirmed (no live QSRSoft credentials this session) — table stores raw timestamps, no `dt`
+  column, no assumption baked in.
+  🔓 **Partially superseded by dispatch #126** — the identity-resolution PATH above is unchanged,
+  but the resolved name is now stored directly (`qsr_punch_times.employee_name`) instead of being
+  tokenized away by default; see `dispatch-126.md` below.
+- **[Dispatch #126 — reverse identity-vault tokenization for punch times, owner-directed](dispatch-126.md)**
+  — Owner, directly, after #124 shipped tokenized-only: *"there is no reason to hide names for
+  scheduling and punch times > everyone can see this data as-is."* Added `qsr_punch_times.
+  employee_name` (nullable, primary resolved-identity column), populated via the SAME
+  `geid → qsr_employee_tenure.full_employee_name` join #124 already ran, storing the name directly
+  instead of tokenizing it. `emp_token` KEPT (not dropped, no wrong answer either way per the
+  dispatch) — additive, harmless, potential cross-reference key. **Does NOT touch** the punch
+  endpoint's `SELECT_COLS`/`DENIED_SELECT_COLS`/`assertNoDeniedSelectCols()` guard — that SSN/name
+  denylist on `people/time-punches-matched` is a separate, unrelated risk and stays exactly as
+  strict. One-time backfill SQL written (in `supabase/schema-qsr-punch-times.sql`) for rows already
+  collected in production — NOT run from the agent sandbox (no live Supabase credential available),
+  handed off for the owner or a future session with `SUPABASE_SERVICE_ROLE_KEY` to execute.
+  Companion dispatch #125 covers the same reversal on the LifeLenz/crew-schedule side, separately.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`service/statistics` — the one that supersedes `dt-timer`](finding-qsrsoft-service-statistics-endpoint-2026-08-21.md)** —
+  Richest of the four service captures. **Build service-times work on this, not `dt-timer`** — it has
+  the same DT segments *plus* a `*Trans` denominator per metric, a `*Masked` data-quality count,
+  `ly.` twins, kitchen/beverage/front-counter/kiosk/RTP, and all 27 stores. `dt-timer` keeps only one
+  edge: the OEPE distribution buckets. Caveats: **milliseconds** (so `dt-timer`'s seconds is the odd
+  one out); **every metric has its own denominator** (33109: `dtTrans` 620 vs `dtServeTrans` 582 vs
+  `ctpTrans` 605 — one global count is wrong); `*Masked` should be surfaced, not ignored; and a
+  **negative cumulative time exists in real data** (10915 `bevRunTimeTotal` = −7.4M).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`mobile` — MOP service times by channel and ROA](finding-qsrsoft-mobile-endpoint-2026-08-21.md)** —
+  **Logged for later, owner capture.** Mobile-order service time split by **channel** (drive-thru /
+  front counter / curbside / table service) × **ROA vs not-ROA**, all 27 stores in one request, with
+  **`ly.` last-year twins built in**. 🔴 **THE UNIT TRAP: `mobile` is MILLISECONDS while its sibling
+  `dt-timer` is SECONDS** — same host, same day, same request shape, 1000× apart; never share a
+  parser. Also: `driveThruROA*`/`frontCounterROA*` are **structurally zero** (ROA is a curbside
+  concept), and a store with no LY history returns `ly.*=0`, which is **absence, not a 100%
+  decline**. ✅ It also **resolves `dt-timer`'s open question** — the 3 stores `dt-timer` omitted
+  show mobile DT orders, so those are dead timers, not closed stores, making `mobile` a coverage
+  cross-check.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [`dt-timer` — whole-estate DT segments + an OEPE distribution](finding-qsrsoft-dt-timer-endpoint-2026-08-21.md)** —
+  **Logged for later, owner capture, not yet scoped.** Returns what today's DT averages cannot: an
+  **OEPE distribution** (cars under 90/120/150/180/210s) plus per-**segment** times (greet, order,
+  line, windows), **all 27 stores in ONE request**, already on the 4am business day
+  (`compType=trading`). ⚠️ It is on the **DAR host**, so the Playwright constraint applies — the
+  token-only finding for `api.security` does **not** transfer. Four measured caveats, each of which
+  yields a wrong number if read naively: the time fields are **cumulative seconds, not averages**
+  (÷ cars gives a plausible 123–190s); `lane2Cars=0` still posts `line2Time`, so line1/line2 are
+  probably journey **segments not lanes** (hypothesis, settle before use); `greet == orderTime`
+  exactly at **2 of 24** stores (instrumentation, exclude them); and **27 requested, 24 returned** —
+  absent stores are **omitted, not zero**.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #56 Parts A and C — rule directory, and a name instead of a WRIN](dispatch56-parts-a-c.md)** —
+  **NEWEST.** Two owner asks on the Security panel, both "cheap and independent" per the dispatch's
+  own scoping. **Part A:** a rule directory in the Legend, collapsed by default, rendered ENTIRELY
+  from the live `security_rules` array (never hardcoded — the anti-hardcode test adds a rule to
+  the fixture that exists in no real schema file and asserts it renders). `loadSecurityRules()`
+  gained `false_positives` plus the Part D "free win" — `corroboration_rules`/`exoneration_rules`,
+  populated in the table, dropped by the loader until now. **Part C:** inventory findings showed a
+  bare WRIN; now shows `qsr_variance_stat.descr` as the heading, joined on `(loc, wrin, period)`
+  **never** `(loc, wrin)` alone (dropping period inflated a real join ~3.5x during the 0013113
+  investigation). New `inventoryItemKey()` helper shared with dispatch #52's own drill-down so the
+  two period derivations can't drift apart. **One real behavior change:** viewing the Inventory tab
+  now fetches `loadQsrVarianceStat({period})` once per period present, before any click — a
+  deliberate, small departure from dispatch #43's "nothing fetches before a click" rule (which
+  governs the much heavier drill-down pull, still genuinely click-gated). The dispatch #52 pinned
+  test was updated, not weakened, to prove both halves explicitly. 1880/1880 tests (6 net new),
+  build flat. Parts B/D/E remain out of scope — B needs a hire-date-source investigation first, D
+  is a real subject-history build, E needs an auth/endpoint investigation before any pull design.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #55 Part B — Job C Batch 1: six overlay-to-page conversions, done](dispatch55-part-b.md)** —
+  Separate PR from Part A (built off `origin/main` before Part A merged, deliberately —
+  see `dispatch-55.md`'s "ship as two PRs, do not combine them"). Converted Scheduling
+  (`sched-hub`), Performance Reviews (`perf-reviews`), Food Cost (`fob-analysis`), End of Month
+  (`fob-eom`), Inventory Control (`eom-dashboard`) and Count Cycle (`count-cycle`) from
+  `ModalShell` popups to URL-addressable full-page views, using the EXISTING `route:true`
+  infrastructure (`src/app/routing.js`, untouched) built for `dicompare`/`fcst-accuracy`/`proj`/
+  `report` — this batch takes it from 4 route panels to 10. `fob-analysis`/`fob-eom` had no
+  internal chrome (wrapped directly in `RoutePanelShell` at the App.js call site);
+  `perf-reviews`/`eom-dashboard` swapped their own `h(ModalShell,...)` for `h(RoutePanelShell,...)`
+  in place; `count-cycle-panel.js` hand-rolled its own backdrop/card/header from scratch (never
+  used `ModalShell`) — refactored to `RoutePanelShell`, dropping the R7 hand-rolled-backdrop
+  ratchet 78→77; `sched-hub` (`SchedulingHubPanel`, defined locally in App.js) also hand-rolled its
+  own bottom-sheet chrome around six internal tabs — refactored with the tab-pill-bar relocated
+  into `RoutePanelShell`'s `headerExtra`, all seven modal ids that funnel into it
+  (`sched-hub`/`labor-analytics`/`scheduling`/`sched-summary`/`labor-analysis`/`labor-allocation`/
+  `skills-matrix`) still set the right internal tab, only the modal-open half became
+  `goRoute('sched-hub')`. The six `showX` booleans are removed entirely (declaration +
+  `anyModalOpen` + Escape sweep), not just unused. **Verification bar actually reached:** the
+  registry ratchet test now enumerates all ten route ids; the two existing generic regex tests
+  (`goRoute(...)` call site exists, `routePanel===id` render gate exists) cover all ten
+  automatically; a NEW dedicated test asserts no `setShowX(true)` call site and no `useState`
+  declaration survives for any of the six removed booleans anywhere in App.js — the #366 shape
+  (working render, stale call site) the dispatch specifically warned about. App.js has **no
+  existing render-level test harness** (unlike `shell.js`'s `AppSidebar`), so that regex coverage
+  is the verification ceiling actually available in this codebase, not a shortcut chosen over a
+  render test that exists — stated explicitly rather than silently settled for. 1860/1860 tests
+  (1 net new + one ratchet lowered). Build clean, entry chunk essentially flat (1717.36 KB /
+  510.63 KB gz vs. 1717.88 KB / 510.61 KB gz pre-PR) since all six components were already lazy.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #56 — Security panel: five owner asks, scoped against the code](dispatch-56.md)** —
+  Scoping changed what four of the five actually are. **A** rule directory in the legend
+  — small, the text already exists as `security_rules.description` and the loader already fetches
+  it. **B** employee start date — **not a UI change: no hire date exists anywhere** in `src/`,
+  `scripts/` or `supabase/`, and the LifeLenz runbook documents no employee-master endpoint;
+  investigation-first, and a derived "first seen" proxy is **never** labelled as an HR start date.
+  **C** product name on inventory findings — **a real defect found while scoping**:
+  `security-panel.js:400` renders a bare WRIN, while `qsr_variance_stat.descr` is already mapped by
+  three loaders. **D** instance vs pattern vs trend + links to prior findings — buildable from
+  `security_findings` alone; also notes `corroboration_rules`/`exoneration_rules` are populated and
+  silently **dropped by `loadSecurityRules()`**. **E** register + time of event — `audit_rows` is a
+  daily aggregate with neither, but `transaction_detail` was **already captured**
+  (`dispatch-34-phase0a-findings.md:145-180`: register #, session times, POD, itemized lines, tender
+  split, manager badge) and parked *"until an actual investigation needs it"* — **this is that
+  moment** — and the owner then captured a **better-fitting endpoint** for it, `event_details`
+  ([finding](finding-qsrsoft-event-details-endpoint-2026-08-21.md)): one row per controls event with
+  time, register, cashier name+badge, manager, daypart and tender. `event_details` is the list,
+  `transaction_detail` the drill-in. **Highest-value unknown: enumerate `event_token`** (the capture
+  used `all_promo`) — that is what turns every daily count in `audit_rows` into timed, named,
+  register-attributed events.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #55 Part A — the section-metadata standard, done](dispatch55-part-a.md)** —
+  Part A of `dispatch-55.md` — Part B (Job C Batch 1) is a separate PR, not started as of this
+  entry. Corrected the three wrong `section:` values (`proj`/`lfz-gap`/`lifelenz-bridge` →
+  `forecasting`, taking that section to the owner's full 10), renamed the section label and
+  LifeLenz Bridge → *Recommended WFM Forecast Adjustments* (the only user-visible change — also
+  fixed a real label-clipping bug the rename would have hit, `navItem` had no overflow/ellipsis
+  handling). Shipped the owner's standing rule's guard: the structural half was already covered by
+  an existing test; added the **promotion test** (flips `kind` to `'nav'` on the live registry
+  object, renders the real `AppSidebar`, asserts the panel lands under its actual section header —
+  not a string-equality check). **Found and reported, not fixed:** the promotion test surfaced that
+  ⚗ TEST KITCHEN is a hand-maintained literal list in `shell.js`, not `kind`-driven — a real
+  promotion is still two edits, not the one the standing rule promises. Both owner-flagged bugs
+  investigated: **Forecast Audit greyed-out is by design** (the only forecasting panel gated on
+  `selStore`, disabled whenever browsing at district level). **Fcst Reference is confirmed stale**
+  (static HTML, last touched 2026-06-26, footer still says v4.210+) — proposal only, not rewritten.
+  1872/1872 tests, entry chunk +0.04 KB gz over the true pre-PR baseline (the `dispatch-55.md`
+  1680 KB figure was already stale, predating PR #522/#524).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #54 Job B — the actual regroup, v2 sidebar finally adopted](dispatch54-job-b.md)** —
+  `AppSidebar` now genuinely renders from `SECTIONS` + `panelsForSection()` (Job A kept
+  the v1 hand-built list on purpose, since its own registry corrections were only truthful for
+  today's ad hoc grouping, not the target IA). The owner's three answered decisions applied: Visit
+  Readiness + Graded Visits → Operations; Calendar/Events & Tags/Event Impact folded into Planning
+  **behind the hub** (hub first, five internal tabs NOT exploded); a new Inventory & Food Cost
+  section giving `Inventory` its first-ever sidebar entry (Job A's own finding — it had none at
+  all). Org Summary/Rankings → Reports, Forms Library/Printable Forms → Forms, a new (currently
+  empty) Analysis section. Two items explicitly left open for a future pass: forecasting-section
+  membership (references an owner list not available this session) and the help-vs-admin sidebar
+  split. 1859/1859 tests, build clean.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #52 — the Security drill-down, and 15 real schema-drift instances](dispatch52-drilldown.md)** —
+  Five measurements scoped from the real store 0013113 investigation (not Part C's
+  wish list), generalized to both cash and inventory subjects, wired into the real panel behind an
+  on-demand "🔎 Investigate further" button — new `src/engine/security-drilldown.js`. **The
+  rider found far more than expected**: building the schema-drift guard test (per #510's review)
+  turned up **15 columns across 7 tables** missing from `schema.sql`'s own `CREATE TABLE`,
+  including **`audit_rows.emp_token` — the identity-reveal system's own key column** — silently
+  drifted this whole time. All 15 fixed in the same change; the new test (mutation-tested against
+  the real file) keeps the count at zero going forward. 1856/1856 tests, build clean.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #54 Job A — the registry now drives label/icon/perm](dispatch-54-job-a.md)** —
+  `shell.js`'s sidebar reads label/icon/permission from `panel-registry.js` instead of
+  duplicating them as literals (~44 nav items), via new `navP`/`navPBeta` lookups — pure refactor,
+  verified by *rendering* `AppSidebar` and diffing its exact text output against a pre-refactor
+  capture, not just asserting the registry's shape. Caught one real drift doing it: the Test
+  Kitchen "Projections" entry's registry label/icon had gone stale ("Proj Workflow"/lock, from a
+  pruned duplicate line) vs. the live "Projections"/▦ — fixed, today's UI wins. Also corrected
+  `section:` on 21 panels so it stops implying a regroup (~60%) that is 0% done in the UI — this
+  is Job B's real starting catalog, not a finished regroup; two items flagged for Job B's
+  attention (Inventory has no sidebar entry at all; Forms Library/Printable Forms' corrected
+  section is `analytics`, not their eventual `forms` target). 1817/1817 tests, build clean.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Phase 0's gate closed, G=2 (corrected from 0) — Phase 1 landed](finding-phase0-gate-result-2026-08-21.md)** —
+  Dispatch #53 Phases A–D, same day as the Phase 0 measurement below. **Phase A**: the
+  403 that stopped the prior backfill was **session-token expiry**, not a rate limit (six uniform
+  ~48s chunks then a deterministic cliff at ~5 minutes — an IAM explicit-deny doesn't tighten with
+  volume) — closed the remaining 48-day tail in **one 3-chunk job**, 8,507 rows, 27/27 stores, no
+  multi-day pacing needed. **Phase B/C**: row 5 re-measured to **0** across the full 5.7-month
+  window — every one of 1,140 names now resolves to an `emp_id`. Full picture: 1,089 clean
+  (95.5%), 51 merged (4.5%), 16 split (1.4%) — **67 live identity defects**. Gate (`G≤25` proceed)
+  applied to `G=0` — clears with room to spare. **Phase D**: dispatch #49's Phase 1 landed —
+  `employee_identity_vault` gains a nullable `employee_id` (partial unique index), and
+  `get_or_create_employee_token()` gains a 2-arg overload (opportunistic-enrichment only, never
+  overwrites an existing `employee_id`) — the 1-arg signature every live caller uses is
+  byte-for-byte unchanged. **Not Phase 2/3** — nothing calls the new overload yet, no
+  reconciliation. Adversarially probed against a real local Postgres 16 instance, 15 probes —
+  critically, the exact NULL-role-bypass incident shape is still correctly rejected after this
+  change. **Owner action item:** apply `supabase/schema-identity-vault-employee-id.sql` to live
+  Supabase.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #54 — the IA / URL-view conversion, scoped against real code](dispatch-54.md)** —
+  The PM pass `notes-67-queue.md` §1 explicitly asked for. **Two findings reshape the
+  work.** (1) **The routing infrastructure already exists** — `src/app/routing.js` does
+  `pushState`+`searchParams`, dependency-free — but is deliberately scoped to `route:true` panels,
+  **4 of 57**. Separately `App.js` has an **82-key `modal===` chain**, so most panels are
+  *deep-linkable on load* but **not routed** (opening one doesn't change the URL). Not "build
+  routing" — "extend a working mechanism." (2) **⚠️ The registry's `SECTIONS` and
+  `panelsForSection()` are DEAD CODE — nothing consumes them**; the nav is hand-built in `shell.js`
+  with hardcoded `navLabel`/`pi(...)` calls. **This nearly produced a wrong dispatch:** the
+  `section:` values suggest the owner's regrouping is ~60% done (Org Summary/Rankings already
+  `reports`, Calendar/Events already `planning`, a `forecasting` section exists) and **none of it is
+  true in the UI.** Sequenced as three independent jobs: **A** wire `shell.js` to the registry (pure
+  refactor, nav identical after, today's UI wins any disagreement), **B** the regrouping (then each
+  change is a one-line `section:` edit), **C** overlay→page in batches of 5–6 — which is the owner's
+  *actual* complaint, since it's presentation not addressability. Six panels stay right-side modals
+  (SAGE, KB, About, Metric Lineage, Feature Requests, Local News; three need one built) and all
+  popups need minimize+close. **All three open questions ANSWERED by the owner 2026-08-21:** Visit Readiness + Graded
+  Visits → **Operations**; Calendar/Events/Event Impact → **fold into Planning**, which then needs
+  internal sub-nav (**⚠️ no house idiom exists — `store-analytics.js` uses underline tabs,
+  `security-panel.js` uses pills; **standardise on pills** per CLAUDE.md's selector convention and
+  say so, or the next panel re-decides it); and Inventory & Food Cost takes **all six**
+  inventory/food-cost panels including Inventory and Product Mix. **Owner also approved BUILDING**
+  the three missing right-side modals (About, Metric Lineage, Feature Requests — SAGE is the
+  reference). **Four more interruption candidates identified — Settings, Panel Manager, Help, Task
+  Queue — and the rule behind them:** those four plus the owner's six are almost exactly the
+  registry's `help` + `admin` sections, so rather than a hand-maintained exception list, **`help` and
+  `admin` panels are interruptions (right-side modal); everything else is a destination (routed
+  page)** — explainable, survives new panels, and falls out of the section metadata Job A wires up.
+  One genuine ambiguity flagged rather than decided: **Data Manager** (in `admin`, but uploading is a
+  task you go do). Forms panels are destinations, not candidates.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #53 — close the tail, then re-key](dispatch-53.md)** —
+  **NEWEST, briefed.** Executes #49's remainder. Owner approved the direction on rows 3–4 (**54 live
+  identity defects** — 40 names resolving to multiple employee IDs means the vault merges distinct
+  humans into one token *today*). **Phase A: close the 48-day tail with PACING AS A HARD
+  CONSTRAINT** — the endpoint began returning a **403 explicit-deny IAM** after ~6 of 9 chunks, a
+  third distinct failure mode and **the only volume-triggered one, so retrying harder makes it
+  worse.** Three separate ~2-week runs, one retry *per run*, not before 2026-08-22; repeated
+  Playwright logins hit the owner's own account and a lockout takes DAR and eBOS with it.
+  **Phase B: re-measure row 5 ONLY** (rows 1–4 are settled) and report it three ways — total,
+  **genuinely ID-less**, still-uncovered — since only the middle figure decides anything.
+  **Phase C: the gate, with the rule written BEFORE the number exists** (a policy choice, stated in
+  advance precisely so it can't be rationalised after): G ≤ 25 → proceed; 26–57 → stop, owner
+  decides; > 57 → option B, a mapping table. **Landing high is a legitimate result, not a failure —
+  do not tune to get under it.** **Phase D: #49's Phase 1 only** — vault gains `employee_id`,
+  additive, name-keyed path unchanged, **no Phase 2/3**, and adversarially probe every
+  `SECURITY DEFINER` change with the anon key.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Phase 0 — the identity match rate, measured](finding-phase0-identity-match-rate-2026-08-21.md)** —
+  **NEWEST. Dispatch #49's gate, measured.** 1,140 names → **977 clean 1:1 (85.7%)**, 40 merged,
+  14 split, 123 with no `emp_id`. **Row 5 resolved as a coverage artefact, categorically:** zero of
+  the 123 have any row on or before the backfill boundary (2026-07-04) — and those tail rows were
+  pulled *before `emp_id` existed*, so the null is **structural**. Within the covered window the
+  clean rate is **96.1%**. **Rows 3–4 are a finding in their own right and nobody had measured them:
+  40 names currently resolve to MULTIPLE employee IDs — the vault is merging distinct humans into
+  one token today, co-mingling their findings in a system that names people — plus 14 IDs split
+  across name variants. 54 live identity defects.** They are not a reason for caution about the
+  re-key; they are the strongest argument for it. **PM recommendation: proceed to Phase 1, after
+  closing the 48-day tail** (2026-07-05 → 08-21, 2–3 chunks) — the gate was designed around row 5
+  and a strong inference is not a measurement. **Not immediately:** the backfill tripped a **403
+  explicit-deny IAM policy** after 6 of 9 chunks — a THIRD distinct failure mode on this endpoint
+  (alongside 401-cached-token and `token captured: false`), and the only volume-triggered one, so
+  retrying harder makes it worse. Chunk future backfills across separate runs.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #52 — the drill-down, specced from a real investigation](dispatch-52.md)** —
+  **NEWEST, briefed.** Scopes dispatch #46 Part C from **evidence rather than a wish list**: the
+  2026-08-21 store `0013113` dig took ~8 hand-written queries over an hour, five did the real work,
+  and **three of those five are discriminators Part C never named** — `stores_flagging_item`
+  (store-specific vs the estate-wide broken WRINs — *the* difference between a lead and noise),
+  **item-class composition vs baseline** (82.1% paper vs 47.0% is what actually identified the
+  problem, and a class skew is a mechanism hint), and **secondary-metric comparison** (count
+  completeness, waste logged — which both ruled out skipped counts AND produced the replacement
+  hypothesis). Plus normalised flag rate **run first, deliberately, because it can end an
+  investigation early** — a drill-down that can't dissolve its own premise isn't an investigation
+  tool. **The lesson built in, not just written:** two hypotheses died in that hour, and the second
+  ("under-logs packaging waste") explained all four measurements and was still wrong — killed by
+  splitting one number by class. So **every comparison shows the estate baseline beside the
+  subject's value**, and **the panel displays the measurement, never the inferred cause** — the
+  mechanism at `0013113` is *still unknown* after eight queries. **Rider:** close the schema-drift
+  class (a test asserting migration `ADD COLUMN`s appear in `schema.sql`'s `CREATE TABLE`) — third
+  "nothing checks that two files agree" instance in three days.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #51 — capture empID, then measure Phase 0 in SQL](dispatch-51.md)** —
+  **NEWEST, owner-approved.** Phase 0 failed **twice** — both attempts used a **bespoke one-off API
+  pull** written for the measurement, both hit the same auth flakiness, and the engineer correctly
+  **flagged the resulting "row 5 = 1,140 (100%)" as an artefact of fetching zero rows, not a
+  finding** — exactly the false row-5 population #49 warned about. **The problem is the approach:**
+  a hardened production pull already exists (`qsrsoft-register-audit-pull.mjs`, proven at 80 days /
+  14,528 rows / 27 stores) and the measurement script inherited none of it. So: add a **nullable**
+  `emp_id` to `audit_rows`, populate via the existing pull, backfill `2026-03-01→today`, then run
+  Phase 0 as **pure SQL with no API dependency** — and repeatable, which matters for future
+  backfills. **Banked and real from the failed run:** 1,140 distinct names across 36,631 rows,
+  2026-03-01→2026-08-20 — Phase 0's denominator, no re-measuring needed. **Scope boundary is
+  explicit:** additive only, nothing reads the column, **do NOT touch the vault, token keying, or
+  `audit_rows`' `(loc, date, emp)` PK** — five months of manual history ride on it. The gate on the
+  re-key still holds. Also fixes a now-stale comment calling `manOverringQty` "UNVERIFIED" when it
+  is confirmed absent three ways. One retry max on the backfill — repeated Playwright logins run
+  against the owner's own QSRSoft account and a lockout would take DAR and eBOS down too.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #51 — make Phase 0 measurable, don't re-implement the pull](dispatch-51.md)** —
+  **NEWEST.** Dispatch #49's Phase 0 gate (identity-vault re-key match-rate) needed a bespoke API
+  re-pull that inherited none of `qsrsoft-register-audit-pull.mjs`'s proven two-path auth /
+  Playwright fallback / retry handling, and it failed twice — the second failure correctly stopped
+  and flagged a false 100%-row-5 population (zero API rows fetched, not "no employee has an
+  empID") rather than passing it through. Fix: additive nullable `audit_rows.emp_id text`
+  (`supabase/schema-audit-rows-emp-id.sql`), populated by the SAME proven pull going forward
+  (`mapRow()`/`saveAuditRows()` in both the server-side script and its client-side twin
+  `src/lib/supabase.js`) — `manualRefCnt`/`manOverringAmt` is the worked example of the identical
+  round trip already in that file. Once backfilled, Phase 0 becomes one repeatable SQL query, no
+  API. **Additive only — does not open Phase 1, does not touch the vault/token keying, does not
+  change `audit_rows`' `(loc,date,emp)` PK.** Also fixed a stale "UNVERIFIED FIELD NAME" comment on
+  `manOverringQty`, confirmed absent three ways as of dispatch #49/finding-cash003 — mapping left
+  unchanged. **Backfill not yet run** — blocked on the schema migration, an owner action item (not
+  yet applied to live Supabase, confirmed via direct read before writing any code). Full status in
+  the dispatch file's own "Status" section.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Store 0013113 — a packaging counting problem, not loss](finding-store-13113-packaging-variance-2026-08-21.md)** —
+  **The first operational finding this build has produced** — every prior inventory result
+  described the build's own measurement error. Store `0013113` flags INV-001 at **14.4% (28/195) vs
+  a 3.4–4.1% pack, 3.5×** — and it is NOT a size effect, since every store carries 193–208 subjects.
+  The items are **store-specific** (16 of the top 25 flag at only this store, so not the 30
+  broken-`exp_usage` WRINs that flag everywhere), and the flags are **82.1% paper against a 47.0%
+  estate baseline** — ~23 paper items where ~13 were expected, about **3.7σ**. Chronic across all
+  four periods (48.3 → 21.3%, no step change, and **improving**). **Ruled out and how:** store size
+  (tight subject band), the estate-wide broken-WRIN set (`stores_flagging_item`), a datable event
+  (flat period trend), skipped counts (not in the estate's top 10 for `act_usage = 0`), and theft
+  (McFlurry cups at **2,245%** = usage 22× expected; no resale value, no way to move them).
+  **Most likely: packaging counting practice** — cases and sleeves, partial sleeves, and a lot of
+  `SMPLY DEL`/`MCCAFE REFRESH` transition SKUs where old and new packaging coexist. **It surfaced
+  from a panel called "Security" and it is NOT a security finding** — a process conversation, not an
+  investigation, and saying so plainly matters because the cost of the other framing is paid by a
+  real person. **ANSWERED same day: it is BOTH** — median 21.3% vs an estate median of 15.5% (1.4×), so
+  moderately elevated across the board AND paper-concentrated. `uncounted = 0` firmly kills the
+  skipped-count theory. And a fourth measurement reframes the mechanism: **this store logs 42% less
+  waste than the median store** ($3,173 vs $5,497) — elevated variance + complete counts + low waste
+  logging is the signature of *product wasted but never logged*, which lands in variance by
+  definition. **❌ REFUTED same day:** the confound-removing query shows **paper waste logging is NORMAL**
+  (530 vs a 486 estate average, +9%) — the 42% gap is **entirely food** (−46%). The store logs
+  packaging waste fine and its variance problem IS packaging, so the two don't connect. Flagged in
+  advance as a live outcome, which is why the 42% was never cited. **What survives:** the entire
+  finding — store-specific, 82% paper, 3.5×, chronic, complete counts, not theft. **What is
+  unexplained again:** the mechanism — and note *waste logging* ≠ *counting accuracy*, so
+  "packaging counting practice" still leads, just without a mechanism. Untested candidates:
+  partial-sleeve counting, receiving/posting, transition-SKU handling. **Separate new thread:** the
+  store's FOOD waste logging is 46% below average while food is only 5 of its 28 flags — genuine
+  efficiency, or food under-logging feeding the elevated 21.3% median. Two findings; don't conflate. Visible only because of the
+  #42 z-score conversion; under the old flat ratio this store was buried in 2,603 estate-wide flags.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #50 implemented — scroll fix, frictionless reveal, and INV-004](dispatch-50-implementation.md)** —
+  **NEWEST.** Both parts of the brief below shipped: Part A's `minHeight:0` fix (both the root flex
+  column and the body scroll div — structural CSS reasoning found the root, not just the body, was
+  the one refusing to shrink), verified through the real `SecurityPanel` render across both tabs and
+  an expanded finding. Part B's `reveal_employee_identities_bulk()` RPC, admin-only frictionless
+  reveal, session-view log granularity (a real `identity_reveal_log.person_token` nullability
+  change) — **adversarially probed against a real local Postgres 16 instance**, not just read as
+  SQL: 11 probes including the exact NULL-role-bypass incident shape, all correct, no name ever
+  leaks. **Also lands INV-004** (waste-log padding, manager × day-part × store) after the owner
+  caught dispatch #48's "no day-part denominator" premise as wrong mid-session (`qsr_daily_activity`
+  already carries hourly sales) — same failure shape as `manOverringQty`. Boundary (does `busn_dt`
+  need a business-date shift before joining `qsr_daily_activity`?) settled by live measurement: 0 of
+  26,443 `qsr_waste` rows fall in the one window that would show it, so the join is direct, no
+  shift. New third subject grain needed a `security_findings` schema change (nullable `daypart`
+  column, extended `subject_key`) — **also verified against a real local Postgres instance**
+  (day-part collision-freedom, upsert correctness, backward compatibility, the untouched
+  one-subject check constraint). Lands inactive, thresholds measured live (median 12.99,
+  `min_denominator:250` clearing a real DAR data-quality tail of 23 non-positive-sales buckets,
+  `min_stdev` built in from the start after a clean pre-check — unlike INV-005, this metric isn't
+  degenerate). Stated limitation, not discovered later: INV-004's findings won't group with the same
+  person's CASH findings until dispatch #49's re-key lands (not yet run, checked live).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #50 — Security panel scroll fix + frictionless reveal](dispatch-50.md)** —
+  **Original brief (now implemented — see the entry above).** Two owner-reported items from real use of the shipped panel. **A: the modal
+  doesn't scroll** — diagnosed to the line, not guessed. `security-panel.js:468` is
+  `flex:1 + overflowY:'auto'` with **no `minHeight:0`**; a flex item defaults to `min-height:auto`
+  so it won't shrink below its content, the column grows past `ModalShell`'s 88vh cap, and
+  `overflow:'hidden'` clips instead of the child scrolling. Invisible until the list exceeds the
+  viewport, which is why it shipped. Same shape likely recurs elsewhere in `src/views/`. **B: let
+  Developer/Admin/Owner see names without the click.** The reasoning is the durable part: **the gate
+  never restrained the owner** (service-role access means he can read the vault directly), so it is
+  friction on the one person it cannot constrain — **but the gate and the log are separable and only
+  the gate is theatre.** Keep the log, auto-resolve for the privileged tier with a synthetic reason.
+  A second operator is a stated plan, these findings can lead to discipline (a record of who looked
+  and when protects the owner), and it costs nothing once it isn't a click. New bulk RPC mirroring
+  the existing role gate; `RevealName`'s cache is **already lifted to the parent** so the component
+  needs no change. **Decide log granularity up front** — per-token writes ~100 rows per panel open;
+  prefer one row per session-view. **Adversarial anon probe mandatory**: this exact function shipped
+  with a NULL-role bypass that a green suite missed.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #49 — one human, one token (re-key the vault on eID)](dispatch-49.md)** —
+  **NEWEST, owner-approved, gated.** `employee_identity_vault` is `unique (tenant_id,
+  employee_name)` — **a name IS the identity**, across 21,929 tokenized rows. So a typo creates a
+  second person, a name change splits a history, and two people sharing a name merge into one token
+  (the pull script's own comment concedes the last). It also produced #48's wall:
+  `qsr_waste.manager` is an **eID** and `audit_rows.emp` is a **name**, so the same human gets two
+  unrelated tokens and INV-004's findings will never group with that person's cash findings —
+  breaking the panel's whole subject-major premise. **The eID already exists on the cash side**:
+  `qsrsoft-register-audit-pull.mjs:25` records that `emp = empName (NOT empID)` was deliberate,
+  because the manual-upload path has only names and switching would split-brain five months of
+  `(loc,date,emp)` history. That reason is still live and is the entire cost. **Phase 0 is a GATE:**
+  measure five things (clean 1:1 names, names→multiple eIDs = merged people, eIDs→multiple names =
+  split people, and **names with no eID at all** = manual-only history, the hard one), report, and
+  **stop**. Decision shape named in advance to prevent post-hoc rationalisation; **taking the
+  option-B fallback is a success, not a failure.** Phases 1–3 put both identifiers in the vault
+  (additive, name path unchanged), reconcile only unambiguous matches — a wrong merge attributes one
+  person's findings to another — and switch keys last. Requires one clean dispatch-#47 key-name run
+  first: **do not infer the eID field name**, that is what cost a day on `manOverringQty`.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #48 — INV-003/INV-005 + qsr_waste identity-vault extension](dispatch-48-inv003-inv005-identity-vault.md)** —
+  **NEWEST.** Implements two of dispatch #48's three rules (below) plus its INV-004 prerequisite.
+  **INV-003** (`unexplainedVariance = max(0, |variance| - waste)`, dispatch #45 Part C's own
+  evidence that only 44.1% of INV-001 flags carry any logged waste) and **INV-005** (`positiveVariance
+  = max(0, variance)`, "phantom gains," sign confirmed live not assumed: `variance = exp_usage -
+  act_usage` exactly). Both land inactive, both built `min_stdev` in **from the start** — an offline
+  leave-one-out simulation found `positiveVariance`'s peer-baseline stdev distribution measurably
+  degenerate (5.0% exact-zero baselines) BEFORE either rule ran live, pre-empting the same defect
+  class INV-001/INV-002 had to fix after the fact (dispatch #45b). INV-003 reuses
+  `security_findings.exoneration_share` automatically — proven through the real call site, not just
+  asserted. **A correction made mid-build, same session:** dispatch #48's own brief (below) states
+  `qsr_variance_stat` "holds only 2026-08" — re-measured live and found FOUR periods (2026-05 through
+  2026-08, 23,154 rows) — the missing "recent negative-variance history" qualifier is a scope
+  decision this pass, not a data gap (CLAUDE.md's "data depth is never the limiter"). Plus the
+  **identity-vault extension** `qsr_waste.emp_token` (same mechanism as `audit_rows.emp_token`) —
+  with a stated, unresolved limitation: `qsr_waste.manager` is an eID, `audit_rows.emp` is a name,
+  so the two land in separate token spaces for the same real person; no eID↔name mapping exists
+  anywhere in this codebase to close that gap (the Employee Roster pull deliberately discards names
+  for privacy). **INV-004 itself (manager × day-part × store) is NOT built** — ships the vault
+  extension alone per the dispatch's own sequencing note; `qsr_waste` has no `wrin` (event-level, not
+  item-level) and a day-part sales denominator source isn't yet identified. Also adds CASH-003 to
+  `MEASURED_MAX` per the engineer action the CASH-003-resolved entry below flagged.
+- **⭐⭐⭐⭐ [McValue 2.0 FBP document — Draft 5, both publish gates closed](mcvalue-fbp-draft5.html)** —
+  **NEWEST on this thread.** Draft 4 closed both publish gates: the pre-launch window's one
+  remaining risk (March 2026's month-long free-item promo, tested directly via Query F in
+  [analysis-mcvalue-price-waves-2026-08-18.md](analysis-mcvalue-price-waves-2026-08-18.md) §5 —
+  March came back with **lower** traffic and **higher** check than the rest of the pre-window, the
+  opposite of what that confound predicts) is closed. Draft 5 adds one thing on top, no figures
+  changed: a plain-language callout defining what "Difference" means in the traffic tables (a
+  difference-in-differences / DiD — matched-day vs-LY to cancel season, then after-launch vs
+  before-launch to isolate the change) and clarifying that Oklahoma and Florida are each measured
+  this way **separately**, not netted against each other — the one place a true two-group
+  subtraction happens is the thirteen-day price test. A same-day freshness check (Query G) found no
+  material change worth folding in either — tail −4.98% vs the already-documented B6–B8 baseline
+  −4.32%, gap −0.66pp, inside the no-material-change band. **The only thing left before the 25
+  August meeting is the ask** — what is actually being requested of the FBP. Three candidate
+  framings (relief-not-blame / a specific ask tied to −3.14 pp / a joint-diagnostic framing) are
+  offered for the owner to pick from; it is a business decision, not something a query resolves. See
+  [project-mcvalue-2-fbp-document.md](project-mcvalue-2-fbp-document.md)'s 2026-08-20 update note
+  for full detail. Branch `claude/mcvalue-2-did-callout-h7n3w` — no overlap with the security build
+  below (different tables, different files).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #48 — the inventory schemes that need no new data](dispatch-48.md)** —
+  **INV-003/INV-005 shipped (#498); INV-004 UNBLOCKED 2026-08-20 and dispatched.** The
+  "no day-part sales denominator" blocker was **not real** — `qsr_daily_activity` carries
+  `net_sales`/`product_sales`/`transactions` per `(loc, dt, hour_slot)`, an hourly denominator
+  already pulled daily, finer than day-part. Same failure shape as `manOverringQty`: a
+  reasonable-sounding "we don't have X" that one look at the schema refutes. **Owner directive on
+  the boundary:** *"build it the same way as we have in place. it is universal"* — the 4am→4am
+  business day is universal, use `businessDate()`/`lastClosedBusinessDay()`
+  (`src/utils/date.js:101,117`), never a per-rule convention and never re-derived inline (that has
+  recurred five times). **The real risk is DOUBLE-shifting:** DAR's `hour_slot` is measured
+  business-aligned (`05:00→28:00`) and `qsr_waste`'s date column is named `busn_dt` — a *business*
+  date — so the shift may already be applied. One query settles it (do any rows have `busn_tm` in
+  00:00–03:59, and what `busn_dt` do they carry).
+
+  **NEWEST, briefed, not implemented.** Three rules, all on tables the batch job already loads.
+  **INV-003 (variance unmatched by logged waste)** is the plan's own *"strongest single signal"* and
+  already has its evidence: dispatch #45 Part C measured that only **44.1%** of unexplained INV-001
+  flags have any logged waste and only **4.2%** have waste covering half the variance. Uses
+  `qsr_variance_stat.raw_waste`/`comp_waste` and the `exoneration_share` column added in #492;
+  delivers plan §1 principle 4 (a rule that searches for its own counter-evidence), which nothing in
+  the build does yet. **INV-005 (phantom gains)** needs only the sign INV-001 discards via
+  `abs:true` — but **determine the sign convention by measurement**, since a reversed rule passes
+  review invisibly, and note it is data-blocked on a period backfill (`qsr_variance_stat` holds only
+  `2026-08`) for the plan's "recent negative-variance history" qualifier. **INV-004 (waste-log
+  padding)** is the most valuable and the only one with a hard prerequisite: `qsr_waste` is far
+  richer than assumed (`manager` eID, `busn_tm`, `reason`, `wsource`, `edited` — all unused), which
+  makes this the build's **first person-attributed inventory rule** — and `qsr_waste` has **no
+  `emp_token`**, so **the identity vault must be extended to `qsr_waste.manager` first**, as part of
+  this dispatch, not after. Never a plaintext eID in `security_findings`. Also note `qsr_waste` has
+  **no `wrin`**, so the plan's "group by item" cannot come from it — item-level waste is INV-003's
+  territory; scope INV-004 as manager × day-part × store. All three land inactive with measured
+  thresholds, and `MEASURED_MAX` must be extended per rule or the guard silently skips them.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [CASH-003 — the field didn't exist, and the fix was a different instrument](finding-cash003-manoverringqty-absent-2026-08-20.md)** —
+  **✅ RESOLVED same day — CASH-003 is LIVE.** Three independent confirmations that no count field
+  exists (API response, Excel parser headers, owner's eyes on the report). **Retirement was nearly
+  the conclusion and would have been wrong:** `manualRefAmt` works, the event is just rare — 80 days,
+  19,985 rows, 27 stores → **6 occurrences, 4 employees, $70 total** ($7 smallest, $26 largest, zero
+  sub-dollar noise). For an event that rare a rate AND a count are both wrong; an **absolute dollar
+  threshold** is right, needs no distribution, and the engine already supported it
+  (`logic_type:'threshold'`, no denominator). Shipped at `threshold: 5`, `active = true` — earned.
+  **The $70 is not the signal:** a manual over-ring is a privileged override, so a flag means
+  *"verify this was approved,"* never *"this person took $10."* One or two subjects per window —
+  **the first rule here whose output can be reviewed exhaustively.** ⚠️ Engineer: add CASH-003 to
+  `MEASURED_MAX` — it was excluded for having no measured range, and now has one. **Standing lesson:**
+  when a rule can't fire, the instincts are (1) find the missing data, (2) retire it. Both were wrong.
+  Ask what shape the event actually has first.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [The degenerate-stdev guard — dispatch #45 §A, second cause, closed](dispatch45b-degenerate-stdev-guard.md)** —
+  **NEWEST.** A real gap left over from this session's own earlier #45 work — the dispatch's own
+  "SECOND, INDEPENDENT CAUSE" section was present when #45 was first implemented but only the
+  materiality gap (`min_numerator`) got built, not this one. `evaluateZScoreRule()`'s exact-zero
+  stdev guard didn't catch a stdev that's non-zero but negligible — a live subject rendered "0.04 vs
+  threshold 2.50 — mean 0.00, stdev 0.00 — Flagged" (both non-zero, rounded away on screen), and
+  z = (0.04 − ~0) / ~0 exploded. **Measured before choosing the mechanism**: a coefficient-of-
+  variation floor was tried and rejected — the real `|z|>10` INV-002 cases have CVs (0.25–3.5)
+  squarely inside the population's own normal range (median 0.66); raw stdev separates it instead.
+  New `min_stdev` gate (`src/engine/security-rules.js`), same honest-null class as
+  `n < MIN_BASELINE_N` — INV-001: `1` (near p10=3.3, essentially a no-op safety net); INV-002:
+  `0.001` (near p10=0.00086, nulls 6 of the 10 worst measured offenders). SQL handed back
+  (`schema-security-rules-min-stdev.sql`). **Folded into the still-open PR #492** (dispatch #46)
+  rather than a new PR, so the guard lands before that PR's Part B merges — the user's own stated
+  ordering ("degenerate-stdev guard → #46 A/B"). 5 new tests, mutation-tested, 1770/1770 suite
+  passes. **Remaining engineer queue, not started**: the two buildable inventory schemes
+  (waste-log padding, phantom gains — `finding-security-scheme-coverage-2026-08-20.md`), then #46
+  Parts C (items 2–5) and D.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #46 — make the Security panel legible, then analytical, implemented](dispatch46-security-panel-legibility-analysis.md)** —
+  **NEWEST.** Owner-requested after first real use of the shipped panel. Measured first: every rule
+  in `security_findings` currently holds exactly **one window** — the daily batch job hasn't run
+  long enough to accumulate a rolling history yet — which directly bounded what Part C's own named
+  "highest value item" (trend, chronic vs. new) can honestly show today: nothing, on real data.
+  **A** — dismissible legend (Flagged/Clear/**Undetermined**, the signal badge, the 4 baseline types,
+  threshold-vs-σ, the ⏸ marker); `security_rules.description` rewritten to plain restaurant language
+  for the 3 engineer-voice rules (`schema-security-rules-plain-language.sql`, handed back); units on
+  every number via a small `RULE_UNITS` map. **B** — `buildDecisionSentence()`: derives the real
+  multiple against baseline ("about 2.6× the peer average") rather than restating the number,
+  surfaces `investigation_action` as "Next:", does not soften magnitude (a 49× measured variance
+  renders as a real, stated 18×, matching the dispatch's explicit instruction), names item+store for
+  inventory subjects and the person (or "This employee" pre-reveal) for cash ones. **C** — built the
+  two pieces real data can support: item 1 (trend) — `groupFindingsBySubject()` restructured to
+  dedupe each rule to its LATEST window (a real latent bug fix: a second window would've rendered as
+  a duplicate chip) while keeping full `historyByRule` for `classifySubjectTrend()`, which honestly
+  returns `insufficient-history` below 2 windows rather than guessing — starts working the moment
+  tomorrow's run adds a second window. Item 6 (automatic exoneration) — `exoneration_rules`/
+  `corroboration_rules` are unpopulated on every rule (reading them is a no-op), so built the real
+  check instead: `computeWasteExoneration()` sums a flagged inventory subject's logged waste against
+  its variance, new `exoneration_share` column (handed back), panel shows a note at ≥50% coverage.
+  **Items 2 (change-point), 3 (shift/daypart attribution — explicitly the dispatch's own
+  highest-risk item), 4 (cross-rule fingerprints), 5 (store-vs-person) deliberately deferred**, each
+  with stated reasoning in the writeup, per the dispatch's own "not all of it needs to land at once."
+  23 new tests, 1763/1763 suite passes, build clean. (Part D — visual analysis — was added to
+  `dispatch-46.md` after this writeup; not yet implemented, see the scheme-coverage entry below.)
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Security scheme coverage — one of ten named schemes is built](finding-security-scheme-coverage-2026-08-20.md)** —
+  **NEWEST.** Owner asked whether deposit lapping / skimming / inventory padding made it into the
+  build. Answered by reading `plan-security-loss-prevention.md` §2.1–2.3 against the shipped rules:
+  **one of ten is built** (TvA), one is partial and inactive (refund abuse / CASH-003), one is
+  structurally blocked (deposit lapping — invisible in QSRSoft because a deposit counts as
+  accounted-for the moment it is *entered*; needs a bank feed, owner exploring since 08-19), and
+  seven are unbuilt. Three things worth knowing: **the plan's own most-cited scheme is unbuilt** —
+  post-tender void skimming needs `transaction_detail` (**zero refs in schema.sql, never pulled**)
+  plus the still-stubbed `sequence` LOGIC_TYPE; **CASH-001/002/004 are rate-outlier proxies, not
+  scheme detectors**, so "six rules live" overstates coverage; and **two inventory schemes are
+  buildable today with data already pulled** — waste-log padding (dispatch #45 Part C measured only
+  **4.2%** of unexplained flags have waste covering half the variance, which IS that scheme's
+  premise; `qsr_waste` + `raw_waste`/`comp_waste` already load) and phantom gains (INV-001 discards
+  the sign with `abs:true`, so signed variance is already there). Those two are the cheapest real
+  coverage available and are the natural home for the unbuilt `INV-003`. Does NOT say the build is
+  behind — Phase 1's job was the machine, and it works; scheme coverage is the next phase, now
+  written down instead of buried in a plan nobody re-reads. (Its own commit also added Part D —
+  visual analysis — to `dispatch-46.md`; the fuller #46 "implemented" entry above predates that
+  addition and does not yet cover Part D, which is unbuilt.)
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Ghost-employee / time-clock-fraud coverage — researched but never scheduled, now is](plan-security-loss-prevention.md)** —
+  Owner asked whether ghost employees on payroll or manually-applied time-clock fraud patterns
+  are scanned for. Neither is — same gap pattern as the 2026-08-20 scheme-coverage finding above,
+  but for §2.4 (Labor), which was researched 2026-08-19 alongside Cash/Inventory and then, unlike
+  those two, never assigned to a Phase at all. Expanded §2.4 with a new ghost-employee row
+  (distinct from buddy-punching/ghost-shifts — a fictitious or kept-active-post-termination
+  payroll record, not a real employee's shift punched fraudulently) and broadened the manual-
+  time-edit row from "self-approval only" to the fuller pattern set restaurant practitioner
+  sources describe (edits clustering on one manager, edits to an already-approved record, a
+  skewed rounding direction). New §2.4a maps both to Meridian's real data: the ghost-employee
+  termination-date check is **buildable today with zero new pulls** (roster `employmentStatus`/
+  `terminationEntryDate` already joins `qsr_punch_times` on `geid`); everything else was marked
+  **blocked on confirming QSRSoft exposes a punch EDIT AUDIT TRAIL at all** — checked the pull
+  script directly, found no edit/manual/adjust/override field. Added as new Phase 1b (never add
+  Labor rules without first resolving that blocker). New research sources cited inline —
+  vendor-blog/practitioner-heavy for this topic, flagged as weaker than the ACFE-primary sourcing
+  Cash/Inventory got, with a note to check ACFE's own Report to the Nations before quoting
+  scheme-duration figures anywhere owner-facing.
+  **⚠️ CORRECTED same day (2026-10-12, follow-up research pass):** the "no edit field" claim above
+  missed `inModified`/`outModified` — real booleans already in `qsr_punch_times`
+  (`scripts/qsrsoft-punch-times-pull.mjs`'s `SELECT_COLS`, confirmed live 2026-08-21 with a
+  sampled `outModified:1` row). A coarse "was this punch edited" signal is buildable today, zero
+  new pull. Still genuinely missing at that point: editor identity, edit timestamp, original
+  value — needed for every PATTERN-level check (self-approval, per-manager outlier rate,
+  rounding skew).
+  **✅ FULLY UNBLOCKED, same day, third pass — the missing three fields exist, in LifeLenz, not
+  QSRSoft.** The owner captured a live, working LifeLenz admin report,
+  `time_punch_change_approvals_report` (same host/auth/scheduleId shape as the existing
+  `labor_analysis_actuals_report` pull in `scripts/lifelenz-pull.mjs` — no new discovery step
+  needed), carrying `Manager Modified` (editor), `Modified Date/Time` (when), and
+  `Original Punch Date/Time` vs. `Adjusted Punch Date/Time` (old vs. new) — exactly what was
+  missing. **This also means the "QSRSoft, not LifeLenz" vendor call two passes ago was itself
+  wrong** — neither pass had actually probed LifeLenz's admin report catalog for a punch-edit
+  report; absence in the pull this repo happened to have built was mistaken for absence in the
+  vendor's API. Full writeup, endpoint shape, and what's still unbuilt (pull script, Supabase
+  table, security-rules row, `assembleLaborDrilldown()`) in
+  `finding-lifelenz-punch-edit-audit-report-2026-10-12.md` and §2.4a's own correction in
+  `plan-security-loss-prevention.md` — no sample employee data from the capture is recorded in
+  either file, per standing PII-handling practice for memory docs.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [The z-score dry run — bias cancellation worked, the remainder is unexplained](analysis-zscore-dry-run-2026-08-20.md)** —
+  **NEWEST.** INV-001/INV-002 executed as z-score rules for the first time (run `32408929106`).
+  **The conversion is validated:** max stores flagged per WRIN went **27 → 3** (estate-wide
+  uniformity was the whole signature of the measurement problem), INV-001's flag rate **50.4% →
+  4.1%** (2,603 → 188), max value 36,234 → 7,569, and `undetermined` rose 167 → 703 against a ~643
+  prediction derived from a *separate* measurement. **But the survivors are still not shrink** —
+  top items run 827–1,429% median variance (usage 8–14× expected). Two cautions recorded for future
+  sessions: a PM hypothesis that **item lifecycle** explained the remainder was **refuted by its own
+  follow-up query** (marked items are 26/188 = 13.8%, not the explanation — the error was
+  generalising from a top-20 *sorted by magnitude*, where marked items cluster; a sorted head is not
+  a sample), and **the `(loc, wrin)` period fan-out bug recurred for the third time**, hours after
+  being written down — counts inflated ~3.5× (658 vs a true 188). `count(distinct)` and medians are
+  immune, which is why the bias-cancellation conclusion survived it. **Open question:** 162 flags on
+  ordinary, active, unmarked items at ~101% median variance, explained by neither mis-mapping nor
+  lifecycle nor plausibly theft — scoped as dispatch #45 Part C. Also: **INV-002 flags 224
+  financially trivial subjects** (max a few hundred dollars) for want of a numerator-level dollar
+  gate the engine cannot express. (Dispatches #44/#45's own brief entries are dropped from this
+  file — superseded by their fuller "implemented" entries further below; not repeated twice.)
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [The unreachable-threshold defect class — three rules that could not fire](finding-unreachable-threshold-class-2026-08-20.md)** —
+  **NEWEST.** A rule whose threshold sits above its own metric's achievable range is
+  indistinguishable from a working rule finding nothing — it returns `pass:false`, a definite
+  **"clear," for every subject forever.** Worse than a false positive, and why it survived: a false
+  alarm gets investigated, a false all-clear gets trusted. Three instances in one day, all from the
+  same "carry the old threshold forward" policy: **INV-002** (10 vs measured max 0.0868, 115×;
+  caught in PR #481 review pre-merge), **CASH-003** (8 vs 0.7702, 10× — **was `active=true` and
+  emitting 636 unearned clears a night**), **INV-001** (20 vs a 21.25 median — a near-miss, correct
+  only by luck, which is why it's counted). Became urgent when dispatch #43's panel started
+  rendering passed rules beside failed ones as *exoneration evidence*. **The guard closes the case,
+  not the class:** `security-rules-thresholds.test.js` parses the real seed SQL and is
+  mutation-tested, but reads only `phase1c.sql`'s z-score pair — CASH-003's defect is `threshold`
+  on a `ratio` rule in `phase1.sql`, outside its scope. **Open work item: extend it to every rule
+  in `phase1.sql`.** CASH-003 is deactivated in production under the owner's explicit condition
+  (*"only on the premise of looking for the unmapped header to add"*) — deactivated, NOT retired:
+  manual over-rings are genuinely infrequent (owner-confirmed), so `p50`/`p95` of 0.0000 is
+  **correct data** and the per-$1,000 rate is the wrong *instrument*. `manOverringAmt` is the only
+  override category pulled without its `Qty` sibling and `audit_rows` has no `manual_ref_cnt`;
+  re-express as a count rule once it's mapped. Standing lesson: **compare a threshold to the range
+  of what it gates before shipping it**, and **treat a rule's zero findings as a question, not a
+  result**.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [30 WRINs with broken expected-usage mapping — a data-hygiene work list](project-inventory-data-hygiene-2026-08-20.md)** —
+  **NEWEST.** The answer to the analysis file's open (a)-vs-(b) question, and a genuinely valuable
+  by-product. **It is (a) — the ruler is bent, decisively.** The top-30 items by median TvA
+  variance are a catalogue of hard-to-count/unit-ambiguous stock (bag-in-box syrups, FCB mixes,
+  bulk condiments, sprinkle-quantity freeze-dried toppings) plus **packaging in mid-promo
+  transition** (`BIG MAC CRTN/2026 SUMMER BRAND`, `10PC NGT/2026 SUMMER BRAND REL`, McCrispy
+  carton/pouch). Three independent tells: the magnitudes are **impossible as shrink**
+  (`BREADED CHICKEN BREAST STRIP` at a **798% median** = actual usage ~8× expected, i.e. a
+  unit-of-measure or recipe-coefficient error); many items show at **all 27 stores every period**
+  (loss concentrates, this is uniform); and QSRSoft's own Inventory Analysis Report has dedicated
+  topics for exactly this failure class (3/5/6/7 — items not in a recipe, duplicate WRIN
+  suffixes, inactive-but-in-active-recipe, incomplete recipes). **Not a suspect list — a
+  data-quality work list**, and its value isn't confined to the security build: `exp_usage`
+  feeds FOB reporting, the EOM workflow, count-cycle completion, and the Inventory Analysis panel,
+  so everything downstream inherits the error. Fix is mostly **QSRSoft config, not Meridian code**.
+  Includes a triage order (chicken strips first — a rollout whose recipe was likely never set up),
+  a **corrected query** (the original over-counted via a period fan-out: `store_count` read up to
+  108 = 27 stores × 4 periods, *not* 108 stores; medians unaffected), and a recommended stopgap to
+  **deactivate `INV-001`/`INV-002`** until dispatch #42 lands, so nobody works a queue of 2,603
+  measurement artifacts and loses trust in the system on first contact. **Standing caveat:
+  "predominantly measurement error" is not "entirely" — real loss can hide in a noisy signal.
+  Do not cite this as evidence that inventory loss is absent.**
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Evaluating the first real detection run — the 21% median question](analysis-inventory-variance-baseline-2026-08-20.md)** —
+  The first *business* read of the security build's output, as opposed to dispatch
+  #42's calibration read of the same run. **INV-001's measured median is 21.25% variance across
+  5,165 live store-item observations — 4–7× the plan's own §2.2 flag guidance of ">3–5%"**, which
+  is itself the synthesis of three independent industry research passes. Median, not tail. Two
+  explanations with *opposite* correct responses: (a) `exp_usage` isn't a trustworthy baseline in
+  this org's data and/or counting practice is noisy — in which case **threshold tuning is the
+  wrong response entirely**, you'd be calibrating an instrument against its own noise; or (b) real
+  widespread inventory loss, in which case it's the most important operational finding this build
+  has produced. **Explicitly NOT established as fact** — the median is uncontrolled for a known
+  confound (low-volume items structurally inflate percentages; ~190–200 items/store means a long
+  tail likely dominates), which makes dispatch #42's exposure floor a *prerequisite for
+  measurement*, not just noise-suppression. Two concentration queries in the file separate (a)
+  from (b): a measurement problem is uniform across stores, an operational one concentrates.
+  **Also identifies a real gap in both shipped rules:** plan §2.2's own strongest-named signal is
+  variance *"not matched by a corresponding waste-log entry"* — and `qsr_variance_stat` already
+  carries `raw_waste`/`comp_waste` (`schema.sql:1367-1368`), loaded by the batch job on every run,
+  used by neither rule. Buildable today with no new data source, and would be the build's first
+  implementation of plan §1 principle 4 (exoneration — a rule that searches for its own
+  counter-evidence). Scope as `INV-003` after #42.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #45 — min_numerator, lifecycle routing, and the unexplained flags](dispatch45-min-numerator-lifecycle-investigation.md)** —
+  **NEWEST.** Three parts from the z-score dry run (`memory/dispatch-45.md`, PR #489, not on `main`
+  when this started — read from that PR's diff). **Part A — `min_numerator`**: INV-002 was flagging
+  224 subjects on pure 2.5σ with no materiality gate (`min_value` correctly removed post-PR-481, but
+  nothing replaced it — a rate can be statistically unusual on a huge denominator while the raw
+  dollars are trivial). New engine gate (`src/engine/security-rules.js`), built exactly like
+  `min_denominator` (per-rule data, one shared choke point) but with the OPPOSITE asymmetry: unmet
+  exposure floor → honest null; unmet numerator floor → real, decided `pass:false` — the rate WAS
+  computed, it just isn't material. Set to **$15**, the measured population median of
+  `sum(|dol_diff|)` (n=4,474, non-condiment, live 2026-08-20) — the exact "clears roughly half"
+  methodology INV-001's own `min_value` used, not an invented number. `schema-security-rules-
+  phase1f.sql`, handed back. **Part B — lifecycle routing**: `qsr_variance_stat.descr` carries
+  `(Deactivated)`/`(Obsolete)`/`(New)` markers the batch job already loads but never read.
+  `classifyLifecycle()` tags each finding without touching its real verdict; the Security panel's
+  `verdictState()` now takes the category as a priority argument — a hygiene-classified finding
+  reads as neither flagged nor cleared, and `groupFindingsBySubject()` excludes it from the security
+  tally entirely (separate `hygieneCount`) so subject-major convergence still means independent
+  SECURITY signals agreeing, not any verdict landing there. New `security_findings.lifecycle_category`
+  column, handed back. **Part C — investigated, not built** (the dispatch's own instruction: the
+  deliverable is a memory file). Re-measured live rather than trusting the dry-run doc's own
+  numbers, and found a real, stated-not-hidden discrepancy: this run's lifecycle-marker share among
+  flagged items (2.5%) shows NO enrichment over the population rate (2.6%), vs the dry run's cited
+  ~5x enrichment (13.8%) — flagged as open, not reconciled. Of the still-unexplained flags: **one
+  store accounts for 23.7% of them** (top 4: 48.3%) — the strongest actionable lead this pass
+  produced — and **logged waste covers ≥50% of the usage variance for only 4.2%** of them, directly
+  supporting the still-unbuilt `INV-003` as the right next rule. Recurrence-over-time is
+  unanswerable — `qsr_variance_stat` holds only one period so far. 18 new tests (7 engine + 2 wiring
+  for A, 5 unit + 2 wiring for B's `classifyLifecycle`, 4 Security-panel routing), mutation-tested.
+  1740/1740 suite passes, build clean, no entry-chunk impact.
+
+## SQL to run against live Supabase (dispatch #45) — handed back, not assumed applied
+
+```sql
+-- supabase/schema-security-rules-phase1f.sql — see the file for full comments/reasoning
+update public.security_rules
+set logic_expression = '{"numerator": {"field": "dolDiff", "agg": "sum", "abs": true}, "denominator": {"field": "storeMonthSales", "agg": "sum"}, "scale": 1000, "comparator": "gte", "min_numerator": 15}'::jsonb,
+    description = 'Dollarized TvA variance (dol_diff), normalized per $1,000 of store-month product sales (qsr_fob.prod_sales_amt, joined), store baseline z-score (dispatch #42). min_numerator:15 (dispatch #45 -- measured 2026-08-20 population median of sum(|dol_diff|), non-condiment, n=4,474) is a materiality floor on the RAW dollar amount, independent of the rate: without it the rule flagged 224 subjects on pure statistical unusualness regardless of dollar size (max flagged amount ~a few hundred dollars, median ~a few tens) -- min_value was correctly removed post-PR-481-review since the inherited value (10) was unreachable on this rule''s tiny rate, but nothing replaced the materiality check it used to (incompletely) provide.',
+    updated_at = now()
+where tenant_id = '00000000-0000-0000-0000-000000000001'::uuid and rule_id = 'INV-002';
+
+-- supabase/schema-security-findings-lifecycle.sql — see the file for full comments/reasoning
+alter table public.security_findings add column if not exists lifecycle_category text;
+```
+
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #44 — CASH-003 re-expressed as a count rule, threshold guard widened to the whole file family](dispatch44-cash003-count-rule.md)** —
+  Scope came from PR #481's own merge commit ("KNOWN OPEN, not addressed here"), not a
+  written `dispatch-44.md`. CASH-003 (manual refund rate) has been `active=false` since dispatch #42
+  measured it: threshold 8 unreachable against a real max of 0.7702 — re-measured live 2026-08-20,
+  **659 of 660 non-null subjects sit at exactly 0.0000**. Not a bent ruler — manual overrings are a
+  genuinely rare event (owner-confirmed), so a DOLLAR RATE collapses to zero for nearly the whole
+  population no matter the constant. Fix is the instrument, not the number: `manOverringAmt`'s API
+  response has always carried an unpulled `manOverringQty` sibling, the same Amt/Qty pairing every
+  other override category already has — CASH-002 already proved the count shape works
+  (`posOverCnt`/`drawerGC`, 10.7% believable). `schema-security-rules-phase1e.sql` converts CASH-003
+  to `manualRefCnt`/`drawerGC` (CASH-002's own shape), adds `audit_rows.manual_ref_cnt`, moves
+  `min_denominator` from 250 (dollars, now meaningless) to CASH-002's 25 (same field now), and
+  **clears `threshold` entirely** rather than guessing — no measured range exists yet since the
+  field has never been pulled. Pulled through `qsrsoft-register-audit-pull.mjs`/`src/lib/
+  supabase.js`/`security-rules-run.mjs`'s mapping trio; `src/engine/security-rules.js` needed **no
+  change** (rules are data). Stays `active=false`, unaffected by this migration, until a real batch
+  run produces counts to measure a threshold from. **Second item — the threshold guard, widened
+  from one file to the family**: `security-rules-thresholds.test.js` previously only checked
+  `phase1c.sql`'s z-score `min_value` pair; added `extractInsertRules()` (a second SQL parser for
+  the seed files' `INSERT...VALUES` shape, alongside the existing `UPDATE...SET` one) so the guard
+  now also checks `threshold.default` on every `ratio` rule across `schema-security-rules.sql`
+  (CASH-001/002's original seed) and `phase1.sql` (CASH-004, and CASH-003's own now-superseded 8) —
+  closes the defect class, not just the one instance. CASH-001 (max 38.887 vs threshold 5), CASH-002
+  (80 vs 15), CASH-004 (162.15 vs 100) all measured live and confirmed reachable — included for
+  coverage, not because they were broken. 13 new tests (2 pull-mapping, 4 CASH-003 wiring through
+  `computeFindingsForRule()` — the real call site — 5 net-new threshold-guard, plus 2 assertions
+  folded into `mapAuditRow()`'s existing test). 1718/1718 suite passes, build clean, no entry-chunk
+  impact. **Not verified**: a live pull run — this sandbox has no QSRSoft credentials, so
+  `manual_ref_cnt` can't be backfilled from here; the next scheduled Action run picks it up once
+  merged. `phase1e.sql`'s SQL is handed back below, not assumed applied. #43 Phase 2 (triage state)
+  was named in the same follow-up message and explicitly deferred — substantial enough for its own
+  dispatch. Full writeup: [dispatch44-cash003-count-rule.md](dispatch44-cash003-count-rule.md).
+
+## SQL to run against live Supabase (dispatch #44) — handed back, not assumed applied
+
+```sql
+-- supabase/schema-security-rules-phase1e.sql — see the file for full comments/reasoning
+alter table public.audit_rows add column if not exists manual_ref_cnt numeric;
+
+update public.security_rules
+set logic_expression = '{"numerator": {"field": "manualRefCnt", "agg": "sum"}, "denominator": {"field": "drawerGC", "agg": "sum"}, "scale": 1000, "comparator": "gte", "min_denominator": 25}'::jsonb,
+    threshold = '{}'::jsonb,
+    description = 'Manual refund/override COUNT (manualRefCnt, dispatch #44), normalized per 1,000 transactions -- same shape as CASH-002''s posOverCnt/drawerGC ratio. Replaces the original manualRefAmt/drawerSales dollar rate (dispatch #39), which was unreachable: measured 2026-08-20, 659 of 660 non-null subjects sat at exactly 0.0000 (manual overrings are a genuinely rare event, owner-confirmed), so no dollar threshold in this rule''s own range could flag the one real subject without being trivially gameable. No threshold is set yet -- manual_ref_cnt has never been pulled (see this migration''s header); stays active=false until re-measured against real counts.',
+    updated_at = now()
+where tenant_id = '00000000-0000-0000-0000-000000000001'::uuid and rule_id = 'CASH-003';
+```
+
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #43 — the Security panel, Phase 1, implemented](dispatch43-security-panel.md)** —
+  **Merged** (PR #481, same PR/branch as #42, single-branch constraint that session — confirmed on
+  `main` at `9410f04`). Owner-requested UI for the security build: `security_findings` (dispatches
+  #39/#40/#42) had zero references anywhere in `src/` before this — a working backend, no UI.
+  Central design call: **grouped by SUBJECT, not by rule** — `groupFindingsBySubject()` collapses
+  the batch job's rule-major output (4 cash rules × 670 subjects) to one row per subject carrying
+  every rule's verdict, sorted by how many agree — a subject flagged on 3 signals is a lead, on 1
+  is noise, and rule-major rendering destroys that convergence. Implements plan §1 principle 4
+  (exoneration) for free — passed rules render next to the failed one, since every verdict is kept.
+  `verdictState(pass)` is the honest 3-state mapping (true/false/null → flagged/clear/undetermined)
+  — rendering null as clear was named a correctness bug, not a display nicety. **Permission gated
+  to the EXACT RLS tier** in two layers: a static `permissions.js` key (`security.view`) only
+  decides whether the nav entry shows; `securityPanelAccess()` inside the panel does the real,
+  live check (admin/supervisor always; manager only if `org_config.gm_identity_reveal_enabled`,
+  checked live) — since RLS returns `[]` to an unauthorized role, indistinguishable from "no
+  findings" on the wire, and this panel never lets an empty read stand in for a permission check.
+  **A real bug caught by a stricter test, not inspection**: the data-loading `useEffect` depended
+  on `[permState, dataState]` while ALSO setting `dataState` itself — a classic React
+  self-cancellation footgun (the dependency change re-runs the effect, React runs the PREVIOUS
+  instance's cleanup first, that cleanup set `cancelled=true`, discarding the in-flight fetch's own
+  result right before it would have flipped to 'loaded'). Stuck on "Loading findings…" forever. A
+  weaker first test (just "loader was called") missed it; a stricter one pinning the actual end
+  state caught it. Fixed by dropping `dataState` from the effect's own deps. Reuses `RevealName`
+  (dispatch #38) and `ModalShell`, wired through `panel-registry.js`'s existing four-list
+  convention (`panel-registry.test.js`, 20/20, unmodified, confirms it against live code). 15 new
+  tests, 1705/1705 suite passes, build clean, `security-panel` is its own lazy chunk (8.33 KB /
+  3.31 KB gzip). **Not verified**: live browser click-through — this sandbox's Supabase needs real
+  magic-link auth this session can't complete headless, stated plainly. Phase 2 (triage state) and
+  coexistence deep-links (Register Audit markers, `attention-now.js`) explicitly deferred per the
+  dispatch's own scope. Original brief: [dispatch-43.md](archive/dispatch-43.md), superseded by the
+  implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #42 — baseline-relative detection, implemented](dispatch42-baseline-relative-detection.md)** —
+  **Merged** (PR #481, same PR as #43 above). **Fixed post-review, 2026-08-20**: a
+  PM review caught that `INV-002`'s `min_value:10` (carried forward from dispatch #40's old ratio
+  threshold) was unreachable against its own measured range (max 0.087) — the z-score conversion
+  changed `logic_type` and nothing observable. Fixed by removing `min_value` entirely for INV-002
+  (no independent materiality number exists yet; reusing a percentile of the same distribution the
+  z-score already ranks against isn't independent) and adding
+  `src/__tests__/security-rules-thresholds.test.js`, which parses the REAL seed SQL and asserts
+  every z-score rule's `min_value` sits inside a measured ceiling — confirmed to fail against the
+  original broken file and pass against the fix. Also fixed `phase1d.sql`'s description column to
+  be genuinely idempotent (was a plain `||` append that grew on every re-run). Two parts. **Part
+  1 — the z-score `LOGIC_TYPE`**: both
+  INV rules declared `baseline_type:'store'` and the batch job computed/persisted a real baseline
+  into `baseline_context`, but `evaluateRule()` never read it — a flat `cmp(value, threshold)`, so
+  an inherently high-variance item flagged at all 27 stores forever. `src/engine/security-
+  rules.js` now implements `z-score` (stubbed since dispatch #36): `evaluateRule()` gains an
+  additive `{loc, baseline}` option, `z = (value-mean)/stdev` compared against `threshold` (now
+  SIGMA), two independent gates required to flag (statistically unusual via z, AND materially
+  significant via an optional `min_value`), honest nulls for no-baseline/insufficient-n
+  (`MIN_BASELINE_N=5`)/zero-stdev. Both call sites in `scripts/security-rules-run.mjs` reordered
+  to compute the baseline BEFORE evaluating — **a real bug this surfaced and fixed before
+  shipping**: `fieldsFromExpr()` branched only on `logic_type==='ratio'`, which a z-score rule
+  also uses but would have silently fallen into the wrong branch. `INV-001`/`INV-002` converted in
+  place (`schema-security-rules-phase1c.sql`): `threshold`→2.5σ, `min_value` carries FORWARD
+  dispatch #40's original ratio threshold as a materiality floor for **INV-001 only** (20; Step 0's
+  own "uniform / bent ruler" verdict made precise absolute calibration false precision).
+  **INV-002 carries NO `min_value`** — PR #481's review caught that carrying its old threshold (10)
+  forward was not permissive but *unreachable*: re-measured max is **0.0868**, so `materialityOk`
+  would have been false for every subject in the estate and the z-score conversion would have
+  changed the stored `logic_type` and nothing observable. Deliberately left with no floor rather
+  than refitted to a percentile of its own distribution — p95 of the population the z-score already
+  ranks against is not an *independent* second gate, just "top 5%" derived twice. Guarded by
+  `security-rules-thresholds.test.js`, which parses the real seed SQL and fails if any z-score
+  rule's `min_value` exceeds that rule's measured ceiling.
+  **Part 2 — the exposure floor, widened mid-dispatch from an INV-001 special case to EVERY
+  denominator-bearing rule**, for two reasons: (1) the engine already had ONE shared choke point
+  for a zero denominator (`evalRatio`/`evalThreshold` both had the identical `!denominatorSum`
+  guard), so the general version (`logic_expression.min_denominator`, per-rule data) is the
+  *simpler* build, not extra scope; (2) `#487` landed **9,947 real `audit_rows` rows** the same
+  day, so `CASH-001..004` — `active=true`, unlike the deactivated INV rules — were about to score
+  real data for the first time with the identical tiny-denominator pathology already measured on
+  the inventory side (owner's own check: a single `drawer_gc=1` day producing a stored
+  `t_red_b_pct` of 172). A cash false positive puts a **person's name** in an investigation queue.
+  All four floors **measured against live data 2026-08-20, none guessed**: INV-001 (`exp_usage`,
+  floor 10) converts 423/5,302 subjects (8.0%) to an honest null. INV-002 gets **NO floor** —
+  measured minimum `storeMonthSales` is $2.1M, four orders of magnitude from zero, so a floor
+  would be dead configuration (stated explicitly, not added reflexively). CASH-001/003/004
+  (`drawerSales`, floor 250) converts 24/670 (3.6%). CASH-002 (`drawerGC`, floor 25) converts
+  23/670 (3.4%), including 2 real subjects whose raw rates (200, 1692.3) were direct garbage-ratio
+  cases. None comes close to nulling the estate. New `schema-security-rules-phase1d.sql` adds the
+  cash floors via an idempotent `jsonb` merge (its description append is idempotent too, via a
+  marker-anchored `regexp_replace` — note it strips from its marker to end-of-string, so a future
+  migration appending *after* that sentence would be eaten by a `phase1d` re-run) — CASH rules stay `logic_type:'ratio'`, NOT converted
+  to z-score, only floor-protected. §5a's cash-mapping-is-sound finding re-confirmed, not
+  re-litigated. 24 new tests (13 engine, 6 call-site **wiring** tests per the #366 standing rule,
+  spanning both call sites, 5 seed-SQL threshold-sanity tests). 1690/1690 suite passes, build
+  clean, no bundle impact (512.25 KB eager, 337 KB headroom). **`phase1c.sql`/`phase1d.sql` are
+  applied in production** — confirmed live 2026-08-20: `INV-001` z-score/20/10, `INV-002`
+  z-score/null/null, `CASH-001/003/004` floor 250, `CASH-002` floor 25.
+  `INV-001`/`INV-002` stay `active=false` until a deliberate reactivation decision. Original brief:
+  [dispatch-42.md](archive/dispatch-42.md), superseded by the implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #41 — reconcile the two Model Health Score implementations, dispatched](dispatch-41.md)** —
+  Not a security-build item — a separate, independently-discovered live correctness
+  bug (`backlog-master-2026-08-19.md` §4). `modelHealthScore` and `computeModelHealth`
+  (`forecast.js:847`/`:1868`) share the same 30/25/25/20 rubric shape but diverge for real —
+  different day-thresholds, different MAPE-window priority, **and one function can never hit a
+  true zero on 3 of 4 components** (verified line-by-line: `computeModelHealth`'s floors are
+  6/3/5/3, `modelHealthScore`'s are all 0) — meaning a store dead for 900 days still banks 17/100
+  points in one of the two. Both render **on the same store page, at the same time**
+  (`store-analytics.js:1758` and `:1804`), so a user can see two disagreeing scores stacked
+  vertically for one store. Also found a shared, independently-verified dead-field bug: both
+  check a `settings._fp`/`settings._settingsFp` fingerprint that's **never assigned anywhere in
+  the app** (grepped confirmed) — one function's version of this always fires its penalty, the
+  other's never does. **Owner explicitly asked for external industry due diligence before
+  finalizing this** (the same discipline the loss-prevention build used — ACFE/CISA/NIST, not
+  reasoning from scratch) — research (43 cited sources: M4/M5 forecasting-competition methodology,
+  AWS SageMaker/Vertex AI/Evidently/Arize/WhyLabs model-monitoring conventions, FICO/SLA/NPS
+  composite-scoring precedent, SRE burn-rate alerting) confirmed the floor-masking bug is a known,
+  named failure mode every recognized model-monitoring platform avoids, and surfaced a real,
+  **deliberately deferred** finding: MAPE's asymmetry is real and industry practice has moved to
+  WAPE, but `mape6w`/`mape4w`/`mape2w` are shared infrastructure computed once in
+  `backtest.js`'s `_computePeriodMape` and consumed by `at-a-glance.js`/`analytics.js` too, with
+  "MAPE" in rendered UI labels — swapping the underlying metric is a real, separate,
+  higher-blast-radius dispatch, not a rename bundled into this one. This dispatch fixes the true
+  bug (reconcile to one implementation, true-zero floors, a weakest-link override gate, the
+  dead-field check, and wiring a red grade to actually default the store to the Simple/trailing
+  model per this project's own v4.483 finding) without touching the shared MAPE computation.
+  Persisting the score as a versioned time-series (also research-grounded, real gap: today it's
+  recomputed live on every render with zero history) is flagged as a separate future dispatch, not
+  bundled in. Not yet implemented — this is the dispatch brief.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #40 — security build Phase 1b, inventory-domain TvA rule, implemented](dispatch40-inventory-tva-rule.md)** —
+  **Merged (PR #473, same PR/branch as #39).** The follow-through on the
+  correction below: `INV-001` (item-level TvA variance rate, store baseline, plan §2.2's own
+  formula, single-table) and `INV-002` (dollar-variance rate normalized against sales, store
+  baseline — denominator is a real `qsr_fob` join, NOT `qsr_variance_stat.pct_sales`, whose
+  semantics are unconfirmed from this sandbox). Subject is `(loc, wrin)`, never an employee —
+  `storeBaseline()` is the only baseline function usable here (`personalBaseline`/`peerBaseline`/
+  `networkBaseline` all hard-require `emp`). `security_findings` needed **zero migration** —
+  dispatch #39 built its nullable-`emp_token`/co-equal-`wrin` shape in anticipation of this exact
+  dispatch, before the table ever went live, off a same-day PM heads-up. `scripts/security-rules-
+  run.mjs` extended with a second rule-type branch (still one job, one loop): `mapVarianceStatRow`
+  (`date: r.period`, NOT `period + '-01'` — a real string-comparison correctness point, see the
+  writeup), `joinStoreMonthSales`, `computeItemFindingsForRule` (same-item-only baseline
+  population). Condiment-class rows excluded from BOTH rules uniformly. 11 new tests, 1663/1663
+  suite passes. No UI, no recipe/BOM pull (confirmed not needed — `exp_usage` already IS the
+  theoretical figure). Original brief: [dispatch-40.md](archive/dispatch-40.md), superseded by the
+  implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #39 — security build Phase 1, real cash-domain rules, implemented](dispatch39-phase1-cash-rules.md)** —
+  **Merged (PR #473).** First dispatch in this build with real,
+  `ACTIVE=true` output — everything before it was substrate. **Phase 1 as shipped is cash-domain
+  only** (the TvA-exclusion theory was corrected same-day, see the entry above — TvA data exists
+  and is already pulled, what's missing is employee attribution, a real Phase 2/3 follow-up, not
+  a permanent cut): `supabase/schema-security-rules-phase1.sql` activates `CASH-001`/`CASH-002`
+  and adds `CASH-003` (manual-refund rate, personal baseline, opportunity_factor=true) and
+  `CASH-004` (promo/discount rate, peer baseline, opportunity_factor=false — examined, not
+  assumed; threshold 100=10% is measured from `register-audit.js`'s own existing `discPct` amber
+  band, not invented). `supabase/schema-security-findings.sql` — the first output table,
+  token-keyed (`emp_token`, never plaintext `emp`), full explanation breakdown stored as jsonb,
+  RLS gated to the same tier as `reveal_employee_identity()`, no write policy at all (service-role
+  only). `scripts/security-rules-run.mjs` — the new scheduled batch job (this repo's first
+  *compute* workflow, not a pull), own field mapping (does not import the browser-oriented
+  `loadAuditRows()`), scheduled 11:00 UTC (one hour after the audit pull it depends on). **A real,
+  non-obvious behavior found and verified by test**: an untokenized employee can never be a
+  finding's *subject* but their row still anonymously contributes a rate to peers' baseline
+  populations (`personalBaseline`/`peerBaseline` group by raw name, unmodified) — correct, not a
+  bug, documented explicitly. A real test-fixture bug (missing `data_required`, silently zeroing
+  every assertion) was caught by running the suite and fixed before it shipped. 13 new tests,
+  1652/1652 suite passes. No UI — mirrors the #37→#38 split; a findings-viewer is the recommended
+  next dispatch. Original brief: [dispatch-39.md](archive/dispatch-39.md), superseded by the
+  implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #38 — reveal-UI for the Register Audit panel, implemented, PR #465 superseded, 2026-08-20](dispatch38-reveal-ui.md)** —
+  The `RevealName` component: click → required reason (`window.prompt`, matching
+  `eom-dashboard.js`'s established pattern) → `reveal_employee_identity()` (dispatch #37's RPC,
+  completely unmodified — no role-gating/logging duplicated client-side) → cached, shared-state
+  reveal lifted to `RegisterAuditTab` so one reveal resolves everywhere in the same panel view.
+  Wired into 4 mechanical table-cell sites + 5 narrative-paragraph sites that needed real
+  restructuring (`text` changed from a flat string to a mixed string/`RevealName`-element array).
+  A real, separate bug found and fixed along the way: `AITabInsight`'s AI-prompt builder still
+  read `.emp`, a field dispatch #37 already removed — silently stale to always `'?'` since PR
+  #459 merged; now reads `e.id`, deliberately still not wired to reveal (no click target).
+  **PM verification caught something real before merge**: the implementing session's own PR
+  (#465) carried a stale copy of `supabase/schema-identity-vault.sql` and
+  `memory/dispatch37-identity-vault.md` that would have **reverted the same-day
+  `reveal_employee_identity()` anonymous-bypass security fix** (see the incident entry below) —
+  almost certainly a local checkout that predated that fix, landing in the same commit as the
+  unrelated dispatch-38 UI work. Rather than merge PR #465 as-is or wait on that session (idle/
+  disconnected at the time), the genuine dispatch-38 diff was extracted and independently
+  re-applied on top of the current, already-fixed `main` — full suite (1639/1639) and build
+  reverified clean against that combination, not against PR #465's own claim. **PR #465 is left
+  open as a stale draft — do not merge it**, its schema/memory-file changes are a regression.
+  9 new tests (7 component-level + 2 integration, the integration test mounting the actual
+  `RegisterAuditTab` consumer per CLAUDE.md's "would this verification still pass if reverted"
+  rule — proving the prop-threading landed at all 9 call sites, not just that the component works
+  standalone). Full writeup: [dispatch38-reveal-ui.md](dispatch38-reveal-ui.md); original brief
+  [dispatch-38.md](dispatch-38.md).
+- **✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ [Backfill script logged "0 rows updated" for all 449 employees — CLOSED, live data confirmed clean, 2026-08-20](incident-backfill-count-undercount-2026-08-20.md)** —
+  First live run of `scripts/backfill-identity-vault.mjs` printed `449 distinct
+  untokenized employee name(s) found` / `449 token(s) resolved` / **`0 row(s) updated`** — an
+  internally inconsistent result (zero successes, zero failures, 449 attempts) that was treated as
+  a signal to verify, not a clean exit code to trust. Root cause confirmed by reading the actual
+  installed `@supabase/postgrest-js@2.108.2` source, not assumed from memory of the API: `count`
+  belongs in `update(values, {count})`'s own second argument; the script instead tried
+  `.select('*', {count:'exact', head:true})` chained *after* `.eq()/.is()`, which resolves to
+  `PostgrestTransformBuilder.select(columns?)` — a different method whose real signature only
+  takes `columns`. The `{count,head}` object was silently dropped (plain `.mjs`, no TS
+  enforcement), so no count header was ever requested and `updated += count||0` added 0 every
+  time — while the underlying `PATCH` requests (zero reported errors) most likely still succeeded.
+  **Most likely real outcome: the 449 writes actually happened and only the log was wrong** — but
+  this is inferred from library source, not yet confirmed against live data. Fixed in the repo
+  (`count:'exact'` moved to `update()`'s own options, the broken trailing `.select()` removed).
+  **Confirmed live the same day**: owner ran the read-only SQL check —
+  `tokenized: 21929, still_untokenized: 0`. All 449 employees' rows were actually updated on the
+  first run; the "0 rows updated" line was purely the broken log, never a failed write. Closed.
+- **🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨 [SECURITY INCIDENT — reveal RPC anonymous role-gate bypass, found + fixed same day, 2026-08-20](incident-reveal-rpc-null-role-bypass-2026-08-20.md)** —
+  `reveal_employee_identity()` (dispatch #37's vault, PR #459) shipped with a
+  PL/pgSQL `NULL`-role trap: an anonymous caller's `get_my_role()` is `NULL`, and
+  `NULL not in ('admin','supervisor')` evaluates to `NULL` — which an `ELSIF` with no trailing
+  `ELSE` treats as "skip," not "reject." Result: a fully anonymous caller (public anon key, no
+  login) fell through the entire role gate and reached the token→name lookup. **Found live** by
+  probing production directly with the anon key (per CLAUDE.md's "measure it, don't reason about
+  it" — the PR's own verification had read the function's logic and judged it correct, but never
+  adversarially probed it), **not by re-reading the code**. This was caught the same session the
+  owner ran `scripts/backfill-identity-vault.mjs` for the first time (so real names were freshly
+  in the vault) but **before** dispatch #38's reveal UI exists for any user to have discovered a
+  real token through — no confirmed real-name disclosure, full reasoning in the incident file's
+  "Actual exposure" section. **Fixed same day**: role gate restructured so the reject path is an
+  unconditional trailing `ELSE` (a `NULL` condition can never skip an `ELSE`), plus an explicit
+  `revoke execute ... from anon` (a second, distinct finding — `revoke ... from public` alone did
+  not stop the anon key from invoking the function at all). Owner ran the hotfix live; **re-
+  verified live with the same anon-key probe, confirmed closed** — the exact same call now
+  correctly returns `"role none is not permitted to reveal identities"` instead of reaching the
+  lookup. `supabase/schema-identity-vault.sql` updated to match. **Standing lesson: a security-
+  sensitive `SECURITY DEFINER` function needs a live adversarial probe as part of its own
+  verification — a correct-looking code read is not enough.** Full incident writeup, including an
+  open/unconfirmed hypothesis about a possible project-wide default-privileges gap worth auditing
+  later, in the incident file itself.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #38 — reveal-UI for the Register Audit panel, dispatched](dispatch-38.md)** —
+  2026-08-20. **NEWEST.** Follow-up to dispatch #37: the vault retrofit deliberately stripped
+  plaintext names from `analyzeRegisterAudit`'s output ("blind mode," working as designed), which
+  left `store-analytics.js`'s Register Audit panel showing `'Unknown'`/`'?'` at every one of its
+  10 display sites with no way for an authorized viewer to see who's being flagged. This dispatch
+  closes that the way Direction B intends: a shared `RevealName` component (click → reason prompt
+  → `reveal_employee_identity()` RPC → cached, shared-state reveal), wired into 4 easy table-cell
+  sites and 5 harder narrative-paragraph sites (string → mixed string/element array restructuring)
+  in `RegisterAuditTab`/`RegisterAuditNarrative`. The 10th site (`AITabInsight`'s AI-prompt
+  builder) is explicitly excluded — no click target, out of scope. Not yet implemented by an
+  engineer — this is the dispatch brief, scoped directly against the real code (not from memory).
+  **Prerequisite, owner-side, not blocking this dispatch's code:** run
+  `supabase/schema-identity-vault.sql` (sent via SendUserFile) and then
+  `node scripts/backfill-identity-vault.mjs` against live Supabase — until then the vault has no
+  real token↔name data for the reveal RPC to return.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [RLS Phase 2 redesign found live, 2026-09-06](finding-rls-phase2-my-locs-2026-09-06.md)** —
+  **NEWEST.** Corrects the very next entry below — its "Phase 2 (`can_see_loc()`) genuinely has
+  not shipped" is stale. A newer, differently-named redesign (`public.my_locs()`, replacing the
+  abandoned `can_see_loc()`) is confirmed live in production via a direct RPC probe
+  (`my_locs()` → `HTTP 200`; `can_see_loc()` → `HTTP 404 PGRST202`, function not found). Still
+  open: whether the 51 RESTRICTIVE per-loc policies are actually attached (this environment can't
+  query `pg_policies`), and — separately — **no real profile today is genuinely restricted to a
+  subset of stores** (3 profiles measured: 2 null, 1 with the complete 27-store list), so per-loc
+  isolation has never been exercised live even if it's wired up. Concrete next step for the owner
+  in the finding file itself.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [RLS anonymous-access question fully CLOSED — three live measurements, 2026-08-20](project-rls-hardening-plan.md)** —
+  **NEWEST.** The "92-107 tables wide open to anonymous access" figure repeated across this
+  backlog and `plan-security-pii-architecture-2026-08-19.md` was real (a correct grep of
+  committed SQL text) but measured the wrong thing — source text across superseded schema files,
+  not live database state. Three live, read-only diagnostics against production (all owner-run
+  same day) settle it completely: (1) the anonymous-access gap is already closed at the policy
+  level via a separate, already-applied multitenant migration (`tenant_id = current_tenant_id()`,
+  which correctly rejects anonymous callers — a first pass misread this diagnostic's own headline
+  number as "70 open policies" before actually inspecting the `WITH CHECK` clauses, corrected
+  same session, before it went further than a chat message); (2) the one real, literal
+  `using(true)` found (`qsrsoft_kb`) is already known/intentional; (3) **all 87 tables in
+  `public` have RLS enabled — zero exceptions, confirmed against the full table list, not a
+  sample.** `project-rls-hardening-plan.md`'s own Phase 1 (closing the anonymous hole) is
+  **DONE**, shipped via the multitenant migration rather than that plan's own design. **Phase 2
+  (`can_see_loc()`, per-loc isolation) genuinely has not shipped** — the one real piece of that
+  plan's original scope still open, separate from the anonymous-access question. Full correction
+  chain: `project-rls-hardening-plan.md`'s own correction note at the top of that file.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #37 — identity-vault architecture (Direction B), merged](dispatch37-identity-vault.md)** —
+  2026-08-20. **NEWEST, merged (PR #459), independently PM-verified before merge** — the schema/
+  RPCs, the shared JS helper, both write-path wirings, the `analyzeRegisterAudit` retrofit, and
+  the backfill script were all read directly and diffed against the claims, not taken from the
+  summary. One correction from the relayed summary: `store-analytics.js`'s affected panel only
+  ever reads `.emp`, never `.id`, so the real behavior is uniformly `'Unknown'`/`'?'` — never a
+  raw token surfacing in the UI (the PR's own memory doc already had this right; only the chat
+  summary was imprecise). **Recommended next dispatch: a reveal-UI wiring a button into those 9
+  sites**, calling `reveal_employee_identity()` per-click with a required reason — not yet
+  dispatched. Owner chose to build this before Phase 1, per the plan's own sequencing note.
+  `supabase/schema-identity-vault.sql`: `employee_identity_vault`
+  (token↔name, zero RLS policies for any role) + `identity_reveal_log` (append-only, admin-read-
+  only, indefinite retention, no update/delete policy at all) + `audit_rows.emp_token` (additive,
+  PK/`emp` untouched) + two `SECURITY DEFINER` RPCs — `get_or_create_employee_token()` (the shared
+  write path, safe to expose broadly, never returns a name) and `reveal_employee_identity()` (the
+  ONE path to a real name: admin/supervisor always, manager gated on an explicitly-flagged
+  org-wide placeholder toggle, reason required, logged before returning). All role checks use the
+  real `admin`/`supervisor`/`manager` values only, per the dispatch's own RBAC finding.
+  `src/engine/identity-vault.js` (`getOrCreateToken`/`tokenizeRows`, one RPC call per distinct
+  name) wired into both `saveAuditRows()` twins + `loadAuditRows()`; `scripts/backfill-identity-
+  vault.mjs` for existing rows (owner-run, not run from this session). `analyzeRegisterAudit`
+  retrofit: `e.id` is now the token, no plaintext name survives in the return value anywhere.
+  **A real conflict found and flagged, not silently resolved**: `store-analytics.js`'s
+  RegisterAuditNarrative panel reads `.emp` directly at 9 sites to display names — this dispatch's
+  own "no UI" scope leaves those showing `'Unknown'`/tokens until a follow-up reveal-button
+  dispatch, an anticipated cost of Direction B's "blind mode" property, not accidental breakage.
+  28 new fixture tests. Original brief: [dispatch-37.md](archive/dispatch-37.md), superseded by the
+  implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Security build — six owner decisions in one morning, 2026-08-20](plan-security-loss-prevention.md)** —
+  2026-08-20. Every open owner-gated question on this build got answered in one sitting —
+  read `plan-security-loss-prevention.md` §4/§5 and `plan-security-pii-architecture-2026-08-19.md`
+  §4 for full reasoning, not just the list below:
+  1. **Identity architecture: Direction B** (token/identity-vault) — owner delegated on
+     "compliant, ethical, most functional," B wins all three. Should land before/alongside
+     Phase 1. Not yet scoped into a dispatch.
+  2. **Phase 4 retention: indefinite, not auto-expiring** — explicitly for cross-case recurrence
+     value ("one that keeps reappearing becomes more focused"); exonerated findings stay as
+     "flagged, then cleared," never deleted.
+  3. **Phase 4 access: Supervisor tier + optional GM** — a real, intentional divergence from the
+     general DO-and-above disclosure-gating policy, scoped to this mechanism only. "Optional" for
+     GM still needs a concrete design (per-case toggle? store setting?) before dispatch-ready.
+  4. **Phase 4 evidence standard: evidence-grade from day one.** Phase 4 is now fully design-
+     decided but still blocked on RLS hardening landing + Direction B landing first.
+  5. **`refundCnt`: keep cash+cashless** (the richer auto-pull definition) — owner wants all
+     refunds counted, cash flagged as the likely higher-priority signal for Phase 1 rule design.
+  6. **Phase 1 rule-compute: scheduled batch job**, not an on-demand Edge Function — a new
+     compute pattern for this repo (every existing scheduled workflow only pulls data, none
+     evaluate rules).
+
+  **Also: both live-run attempts of the Register Audit pull failed, 2026-08-20** — direct-token
+  auth got a 403 (permissions, not expiry — likely the service account's QSRSoft role lacks
+  `registerAudit`, cross-referenced against dispatch #34's SSO capture), and the Playwright
+  fallback logged in but never captured a token (report page likely needs a UI interaction, not
+  just navigation). Owner needs to confirm the service account's role; full logs in
+  `dispatch35-register-audit-implementation.md`.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Phase 0b's SQL run, confirmed — Phase 1 unblocked for real, 2026-08-20](plan-security-loss-prevention.md)** —
+  **NEWEST.** `supabase/schema-security-rules.sql` run against live Supabase — verified
+  independently, not taken on the owner's word: `security_rules` returns `200 []` from the anon
+  key (RLS correctly filtering an unauthenticated request), contrasted against a genuinely
+  nonexistent table returning `404 PGRST205`. **Phase 0b is fully done. Phase 1 is unblocked, not
+  yet dispatched** — next up is either Phase 1 itself or the Direction B identity-vault
+  architecture (§4, `plan-security-pii-architecture-2026-08-19.md`), which the plan's own
+  sequencing note says should land first since Phase 1 is the first thing that will write new
+  employee-attributed data.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #36 — Security build Phase 0b: the substrate, implemented](dispatch36-security-phase0b-substrate.md)** —
+  2026-08-19. **Merged (PR #451), independently PM-verified before merge** — interpreter
+  logic, baseline math, and the `org_config` RLS pattern-match were all checked line-by-line
+  against real code, not taken from the summary; the "no existing normalization helper" claim was
+  independently re-grepped and confirmed. Phase 1's actual fraud-detection rules
+  are gated on this landing first (`plan-security-loss-prevention.md` §1: "do not start by coding
+  individual fraud rules... a rule written before this substrate exists will need to be rewritten
+  once it does"). Part 1: `supabase/schema-security-rules.sql` (`security_rules` table, §6's
+  schema field-for-field, `org_config`'s RLS shape + `tenant_id`) + `src/engine/security-rules.js`
+  (interpreter — `threshold`/`ratio` implemented, `z-score`/`sequence`/`window-function` stubbed
+  not thrown) + 2 `ACTIVE=false` seed rules from §2.1 as test fixtures. Part 2:
+  `src/engine/security-baselines.js` — `exposureRate()` (the per-$1,000/per-1,000 normalization
+  primitive) + `personalBaseline`/`peerBaseline`/`storeBaseline`/`networkBaseline`, each a
+  distribution not a blended number, built fresh (confirmed `metric-source.js`/`vs-ly.js` have no
+  existing rate-normalization primitive to extend) but following their dollar-weighted/honest-null
+  conventions. `peerBaseline`'s same-store cohort is a documented data-limitation proxy for the
+  plan's ideal role/daypart/tenure/volume-band grouping — `audit_rows` doesn't carry those columns
+  yet. 22 new fixture tests, 2 of which round-trip the seed SQL's exact `logic_expression` JSON.
+  No UI — data-layer + interpreter only, per the dispatch's own scope. Original brief:
+  [dispatch-36.md](archive/dispatch-36.md), superseded by the implementation writeup above.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #35 — Register Audit implemented, PM-verified](dispatch35-register-audit-implementation.md)** —
+  2026-08-19. **NEWEST, merged (PR #448).** Phase 0a is now code-complete — `mapRow()` implemented
+  against dispatch #34's confirmed endpoint, resolved field-by-field against the actual consumer
+  (`analyzeRegisterAudit`) rather than guessed. **Independently re-verified during PM review, not
+  rubber-stamped**: every load-bearing mapping claim (`drawerGC`=`transactions`, five unconsumed
+  pct/avg fields, `manualRefAmt` vs `posOverAmt` staying distinct) checked out against `main`'s
+  real code. **One real, non-blocking finding from that review: `refundCnt` semantics diverge**
+  between manually-uploaded rows (cash-only, by construction) and auto-pulled rows
+  (cash+cashless) — not risk-scored today, flagged for resolution during the still-needed
+  live-verification pass (no session in this build's history has had real QSRSoft credentials).
+  **Two things remain before this data is trusted**: live-verify against a real API response, and
+  resolve the `refundCnt` drift. Neither blocks starting Phase 1 (cash-drawer variance + peer
+  ranking), but both should close before Phase 1's output is treated as reliable. The original
+  dispatch instructions are [dispatch-35.md](archive/dispatch-35.md) — superseded by the implementation
+  writeup above, kept for the record of what was asked.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Security PII/identity architecture — logged, not decided](plan-security-pii-architecture-2026-08-19.md)** —
+  2026-08-19. Owner follow-up research (Grok/Gemini/ChatGPT) on how security apps
+  handle employee PII, checked against a **verified** current-code finding: `audit_rows`/
+  `analyzeRegisterAudit` store and key on the employee's **plaintext name today, with zero
+  pseudonymization or logged identity-reveal step anywhere** (`src/parsers/index.js:974`,
+  `src/utils/register-audit.js:7-8,56`). Two directions laid out (extend the existing role+subject
+  disclosure gate with a logged reveal, vs. a real token/identity-vault architecture) — **not
+  decided**, added as a fourth axis to `plan-security-loss-prevention.md` §5's existing owner-gated
+  decision. Reviewers named: Fletcher Reaves (owner). Also flags GDPR/CCPA likely don't apply to
+  this FL/OK-only operation — needs real HR/counsel verification, not more AI reasoning.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #34 — Phase 0a live-capture findings](dispatch-34-phase0a-findings.md)** —
+  2026-08-19. **NEWEST.** Follow-up to dispatch #33 (below): the owner captured real DevTools
+  sessions settling both of #33's open pieces. (1) Register Audit's real endpoint + field names are
+  now confirmed — the shipped scaffold's endpoint guess was wrong; `mapRow()` implementation is the
+  remaining work, with a translation table of confirmed vs. still-uncertain field mappings. (2) Any
+  Transaction Tier A is **settled dead** (two corroborating captures: no exception-type filter
+  exists anywhere in the API or its own filter-menu endpoint) — Register Audit carries all standing
+  attribution; Tier B is confirmed buildable via a newly-found `transaction_detail` endpoint.
+  Bonus: QSRSoft's own SSO role model was captured, informing a pending Meridian settings request
+  (Operations Manager/DO/AS tiers, see Backlog Master §14). Full context:
+  [plan-security-loss-prevention.md](plan-security-loss-prevention.md).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #33 — Security build Phase 0a](dispatch-33.md)** —
+  2026-08-19. Two ungated, already-scoped tasks: (1) Register Audit auto-pull —
+  parser/table/scoring-engine all already exist, only the QSRSoft pull itself is missing (today
+  manual-Excel-only) — **scaffold shipped (PR #444), implementation pending real-endpoint data now
+  in dispatch #34 above**; (2) one Any Transaction capture filtered to an exception type, to settle
+  the owner-approved Tier A/B/C design's one open question — **settled in dispatch #34 above, do
+  not re-run.** The engineer's own writeup of what shipped and what blocked them (no QSRSoft
+  credentials/egress in that sandbox) is [dispatch33-register-audit-pull.md](dispatch33-register-audit-pull.md)
+  — superseded by dispatch #34's real capture for the endpoint questions, still useful for the
+  scaffold/save-path implementation notes.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Backlog — Open Items (cut 2026-09-06)](backlog-open-2026-09-06.md)** —
+  **Start here for "what's actually left."** A condensed working list, pulled from
+  `backlog-master-2026-08-19.md` once that file passed 1600 lines of verification essays and
+  became too long to work from day to day. Every item is still genuinely open as of the cut, with
+  a one-line "why it's not done" and a pointer back to the master file's matching section for full
+  evidence. When an item here gets resolved, move it to the master file's "Already confirmed done"
+  section with its evidence and delete it from here — this file should only ever hold what's
+  actually still open.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Backlog Master — 2026-08-19](backlog-master-2026-08-19.md)** —
+  **Archive / evidence trail**, superseded as the working list by the open-items cut above
+  (2026-09-06) but kept in place — several `src/` files and tests cite it by name as provenance,
+  so it stays at this path unchanged. One consolidated, de-duplicated backlog assembled from a
+  sweep of 20 memory files (`project-backlog.md`, `plan-backlog-and-redesign-2026-08-15.md`,
+  `notes-24` through `notes-66`) plus the normalization plan and `vision-and-roadmap.md`. Three
+  full PM review passes have since run over the whole file (2026-08-19 ×2, 2026-09-05), plus a
+  targeted coverage sweep and correction rounds (PRs #433–#440, #1157+) — see the file's own "How
+  to use this file" section for the real history. §15 (Security & Loss Prevention Build) and
+  notes-67's IA-reorg items were added 2026-08-19, same round as dispatch #33.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #32 — Workstream C: pipeline contract, wired](dispatch32-pipeline-contract.md)** —
+  2026-08-19. **DELIVERED same day** (v5.072, squashed into PR #431) — the last of the 7
+  normalization workstreams to ship real code. **Corrects both this dispatch's and #25's own
+  "2/19 scripts guarded" measurement**: that grep missed `scripts/lib/pull-outcome.mjs` (PR #269,
+  pre-existing) — a separate shared module already imported by **8** scripts, already
+  implementing assert-on-zero-rows. Real prior adoption was ~40% (8/20), not ~10%. New
+  `scripts/_pipeline-contract.mjs` correctly does NOT duplicate that piece — it only adds the two
+  genuinely-missing pieces (unconditional per-partition coverage logging, a freshness SLA
+  checker), shipped as pure functions matching `_retry.mjs`'s convention. Two hand-conversions on
+  the highest-stakes daily pulls (`lifelenz-pull.mjs`, `qsrsoft-dar-pull.mjs`) — the freshness
+  threshold on `lifelenz-pull.mjs` directly targets the CLAUDE.md-cited 6-day silent outage class,
+  at the source this time. New ratchet **R8** tracks the remaining 18 scripts, seeded fresh.
+  C2 (idempotent partition replace) explicitly deferred, tracked under #336, not dropped.
+  **`memory/archive/dispatch-32.md` (the PM re-verification that preceded this) is now superseded — kept
+  for the record with a correction notice at its top, not as current guidance.** Independently
+  verified: 1584/1584 tests pass, build clean, all claims (the 8/20 count, CEILING=18, the
+  pre-existing `pull-outcome.mjs`) reproduced directly against the code by a separate PM pass.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #31 — real click trace corrects dispatch #27, finds a bigger
+  problem](dispatch-31.md)** — 2026-08-19. **Instrumentation shipped same day**
+  (PR #431, v5.070) — queried `forecast_week_cache` live and found **100% coverage, all 27
+  stores, for the entire current business week**, ruling out incomplete cache coverage as the
+  cause of the unexplained 66%. New `count()` export in `click-trace.js` (an untimed tally —
+  `mark()`'s 1ms floor would silently drop a cache-hit count) reports
+  `weekProjections:storeCacheHit`/`storeCacheMiss` per render; new `_mark()` spans wrap the
+  three previously-uninstrumented setup blocks (`eventFactors`/`cacheIndex`/`cloudActualsIndex`)
+  and both per-day branches (`cacheReadDay`/`liveForecastDay`) so the next real click-trace
+  session sees exactly which bucket the remaining cost sits in. Purely additive, no computed
+  value changed. Full trace: [dispatch31-weekprojections-instrumentation.md](dispatch31-weekprojections-instrumentation.md).
+  Still needs a real-browser `?clicktrace=1` run to actually populate these marks — the sandbox's
+  in-browser `fetch` to Supabase fails even though server-side reads work (same limitation
+  dispatch #27/#29 already hit). Real Mac Mini click trace on v5.069 —
+  the exact real-data verification both dispatch #27 and #29 flagged as unmeasurable from the
+  sandbox. **Correction**: dispatch #27's "the 4.3s modal-close figure almost certainly dropped"
+  is refuted — modal-close (`✕`) is **32 clicks, avg ~1453ms, total 46,497ms, 52% of all
+  long-task time** in the session. The Workstream E route-panel back button (`←`) costs the
+  **same** per click as a modal close (~1435ms avg) — routing gave 4 panels URLs, it did not
+  reduce the remount cost for them. **Bigger, unanticipated finding**: `compute:weekProjections`
+  (Workstream A's target) is only **34%** of `AtAGlance`'s own render cost (22,499 of 65,715ms
+  self-time) — the other **66% (43,216ms) has no named span**, meaning either cache coverage is
+  incomplete across the district's 27 stores right now, or the cost has moved to uninstrumented
+  work (event factors, cloud-actuals indexing, React reconciliation/DOM commit) that caching
+  never touched. Recommends instrumenting the cache-hit rate directly (`at-a-glance.js:1575`)
+  before assuming either cause. `AtAGlance` render+commit is 92% of all React work measured in
+  the session (65.7 of 71.7s).
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #30 — Workstream D follow-up](dispatch-30.md)** — 2026-08-19.
+  **DELIVERED same session** (v5.071) — both hand conversions done: `labor-allocation.js`
+  (the "awkward" one — its dead `!embedded` standalone-modal branch, hand-rolled backdrop and
+  all, converted to `ModalShell`) and `report-subscriptions.js` (the "simple" one — converted to
+  `ModalShell` **and** `LocationSelector`, with a small `scope`↔`{level,id}` adapter so the
+  persisted string shape never changes). New ratchet **R7**
+  (`ratchet-modal-backdrop-bypass.test.js`) seeded at a freshly-measured **78** (independently
+  reproduced, not copied from any prior estimate) — bidirectional, catches both a new hand-rolled
+  backdrop and a stale-high ceiling after a future conversion. The panel contract deliverable is
+  written: [panel-contract.md](panel-contract.md) — shell (`ModalShell` for modals,
+  `RoutePanelShell` for `route:true` panels, nothing else rolls its own), grounded in the two real
+  conversions rather than speculated. Full trace: [dispatch30-workstream-d-followup.md](dispatch30-workstream-d-followup.md).
+  D was dispatched (#26) but never started — checked, no PR touches
+  `PanelControls.js` adoption and no bypass-volume ratchet exists. The one thing that changed:
+  D's blocker (Workstream E's routing decision) **cleared** — E shipped in PR #426, but not into
+  one unified shell as D expected; `ModalShell.js` now also exports `RoutePanelShell` as a
+  deliberate **second** shape (route panels replace the view, no backdrop/centering; modals
+  overlay it) — D's "one layout contract" now has to name both, not unify them. Re-measured
+  adoption fresh (56 panels now, `labor-allocation.js` added): `DateRangeControl` 0/56,
+  `LocationSelector`/`ActionMenus` 1/56, `ModalShell` 9/56, `dateRange` prop 8/56 — zero movement
+  across two more merged workstreams. **Freshest proof**: `labor-allocation.js`, merged this same
+  session, uses **none** of the shared components — rolls its own modal shell and tab styling from
+  scratch, live evidence the compliant path still isn't the cheapest one. Recommends it as one of
+  the two hand-conversions (multi-tab + custom shell = the "awkward" one), alongside D's original
+  five-step sequence, unchanged otherwise.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #29 — Workstream G: join the third dimension (who was on the
+  shift)](dispatch-29.md)** — 2026-08-19, the last of the 7 workstreams.
+  **DELIVERED same day** (PR #428, v5.069) — `labor-standard.js` wired into a new "Labor
+  Allocation" tab (Scheduling hub): District/By Store/Overnight views, TPPH extended to hour_slot
+  grain (`dt_trans_cnt`-denominated, kept separate from `METRIC_SOURCES`' daily `tpph` chain
+  rather than force-fit into it), Overnight tab classifies open-vs-closed first and shows both the
+  schedule-config and data-driven signals per store rather than picking one. Also found & fixed a
+  real bug while wiring: `loadDailyActivityRange()` was missing `total_scheduled_hours` from its
+  `select()` entirely — every future caller would have gotten `null` for `scheduledVsGuide`/
+  `punchedVsScheduled` forever. Full trace: [dispatch29-labor-allocation-panel.md](dispatch29-labor-allocation-panel.md).
+  Open items, stated plainly in the PR: real-data verification against live Supabase needs a
+  session with real browser+auth access; the 1,716-hr pre-open-hours Breakfast correction isn't
+  yet folded into this panel's own gap figure. Unlike A–F, G's finding is already **proven** by
+  five owner-run probes
+  (`plan-normalization-2026-08-17.md` G-1→G-5) — this dispatch grounds what's built vs. what's
+  wired up, not what's proposed. `src/engine/labor-standard.js` (the engine behind the proven
+  allocation finding — deficit −20,485/−14,207 corrected, surplus +32,701, 1.6× coverage — in
+  `analysis-labor-allocation-2026-08-18.md`) **exists, is tested, and has zero callers outside its
+  own test** — the #366 failure mode, a *third* time this session. TPPH auto-sourcing from the DAR
+  is **partially done**: daily-grain via `qsrActSummaryRows` is already live in
+  `metric-source.js:133`, but the hour_slot-grain TPPH the daypart analysis (G-3/G-4/G-5) actually
+  needs is still probe-SQL-only, not an app metric. `rollupShiftsByEmployee()` remains unwired,
+  unchanged since 2026-08-17 — and per the workstream's own constraints, should **stay** unwired
+  for this first slice (attribute to shift, not person). Gives the engineer a concrete 3-step task:
+  wire `labor-standard.js` into a panel (gated by `overnightOpenness()` — never rank TPPH/speed
+  across open and closed stores on one axis, the G-5 "killer pair" mistake), extend TPPH to
+  hour_slot grain, leave person-level for later. Also flags an unresolved open/closed classifier
+  disagreement (Ardmore-Cooper/12th vs. Freeport) a real panel should show both sides of, not pick.
+- **⭐⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #28 — Workstream F: role-based voice](dispatch-28.md)** — 2026-08-19.
+  **DELIVERED, first slice** (PR #426, v5.068) — Visit Readiness's `topDrivers` extended with a
+  `buildVerdict()` one-line decision (food-safety risk prioritized over readiness band), wired into
+  the panel's default collapsed row, both printable reports, and `attention-feed.js`'s `visitRisk()`
+  (now reads the same verdict instead of re-deriving its own generic text, so the two surfaces can't
+  disagree). Count Cycle and DI Compare — the dispatch's own two evidence strings — explicitly
+  deferred as next slice, not forgotten. Full trace: [dispatch28-voice-by-role.md](dispatch28-voice-by-role.md).
+  Grounds the plan's "role should determine voice, not just visibility"
+  premise: both cited evidence strings (`count-cycle.js:235` "No complete weekly count on record",
+  `analytics.js:6895` "Not Dialed-In is better — recalibrate") still reproduce unchanged.
+  `src/engine/permissions.js` confirmed access-only (boolean toggles, zero presentation fields) —
+  the plan's "gates access not presentation" claim holds exactly. The one working precedent is
+  SAGE's role framing (`sage-chat/index.ts:690-698`), but it's a binary supervisor/not-supervisor
+  branch that only steers LLM prose, not a finished pattern to copy onto a deterministic panel.
+  **New scoping fact:** the DB only enforces **3** roles (`schema.sql:13` — `admin`/`supervisor`/
+  `manager`), not the 8-tier ladder CLAUDE.md's RBAC table conceptually lists — no tracked migration
+  adds `developer` or the other five values, so voice tiers should target the 3 real roles, not the
+  aspirational 8. Flags Morning Brief (the plan's own "best next home") as still metric-only
+  (zero decision-shaped language, grepped), and `visit-readiness.js:419`'s existing "Top risk
+  drivers" ranking as the cheapest near-miss to extend into a decision line — it already computed
+  *which* gap matters, the hard half of the problem. Reiterates CLAUDE.md's own "Voice by role"
+  standing rule is binding already, not new scope to propose.
+- **⭐⭐⭐⭐⭐⭐⭐⭐ [Dispatch #27 — Workstream E: routing vs modals](dispatch-27.md)** — 2026-08-19.
+  **DELIVERED** (PR #426, v5.067) — the four flagged panels (DI Compare, Forecast Accuracy,
+  Projections, Date-Range Report) are now URL-synced routes (`?panel=`) via new dependency-free
+  `src/app/routing.js`, replacing their `showX` modal state; `panel-registry.js` gets a `route:true`
+  field on exactly those four, ratcheted by `panel-registry.test.js` so a fifth requires deliberate
+  choice. Verified in a real browser via Playwright (deep links, back/forward, in-panel back).
+  Full trace: [dispatch27-routing-vs-modals.md](dispatch27-routing-vs-modals.md). Open item: the
+  4.3s remount re-measurement still needs a session with real auth (the dev sandbox's bypass can't
+  populate real `ds`). Confirms the plan's hybrid routing architecture is unchanged in current
+  `App.js`: a `view` state var plus `anyModalOpen` (`App.js:2486-2489`) that unmounts the
+  background view behind any open modal. DI Compare, Forecast Accuracy, and Projections are still
+  modals; "Date-Range Report" is registered `kind:'nav'` but still opens as a modal. **Correction**:
+  the unmount-on-modal-open behavior is not an accident — `App.js:2470-2485`'s own comment records
+  it as a deliberate v4.212 perf fix (AtAGlance kept recomputing while hidden), so the plan's cited
+  "4.3s modal-close" figure is a side effect of that fix, not a bug, and should be re-measured
+  post-Workstream-A (cache hits likely already cut it) rather than cited as-is. **New scoping
+  fact**: zero URL-routing infrastructure exists anywhere in `App.js` (no `pushState`, no router) —
+  shareable URLs are new plumbing, not a relabel. Points at `src/app/panel-registry.js` +
+  `panel-registry.test.js` as the existing enforcement infra to extend with a route-vs-modal
+  distinction, rather than building parallel bookkeeping. Carries the owner-endorsed rule (route =
+  destination you'd link to, modal = interruption) and flags DI Compare/Forecast
+  Accuracy/Projections/Date-Range Report as the four still-misclassified panels to start with.
+  Notes Workstream D's broad panel-shell sweep waits on this workstream's routing decision; the
+  ratchet/hand-conversion mechanics do not.
+- **⭐⭐⭐⭐⭐⭐⭐ [Dispatch #26 — Workstream D: adopt the design system](dispatch-26.md)** — 2026-08-19.
+  Re-measured `PanelControls.js` adoption fresh against `main`: unchanged
+  since the 2026-08-17 plan despite three workstreams' worth of merged PRs —
+  `DateRangeControl` 0/55, `LocationSelector`/`ActionMenus` 1/55 (`eom-dashboard.js`), `ModalShell`
+  9/55, `dateRange`-prop panels 8/55. Flags that the plan's bypass-volume counts (inline styles,
+  hardcoded px, etc.) do **not** re-measure to the exact same digits under any pattern tried —
+  instructs the engineer to re-measure fresh with the ratchet's own exact pattern before seeding
+  any `CEILING`, per the precedent already written into this repo's own
+  `ratchet-raw-metric-rows.test.js` header. Carries the plan's landing sequence (compliant path
+  cheapest first, two hand conversions before any sweep, ratchet the bypass not the adoption,
+  convert opportunistically) and a reminder that the broad panel-shell conversion specifically
+  waits on Workstream E's routing-vs-modals decision — the ratchet/contract-doc mechanics don't.
+- **⭐⭐⭐⭐⭐⭐ [Dispatch #25 — Workstream C: pipeline contract](dispatch-25.md)** — 2026-08-19.
+  Corrects the plan's own motivation before scoping the work: of the three
+  cited "silent success" incidents, #263 (pmix zero-rows) is already fixed (v5.047,
+  `qsrsoft-pmix-pull.mjs`) and #360 (`sales_ledger_daily`) was a self-corrected misdiagnosis, not
+  a real gap — only the *generalization* is open. Measured directly: **2 of ~19** pull/write
+  scripts have the zero-rows-exits-nonzero + per-partition-count discipline; the other 17 are
+  named explicitly. Points at `scripts/_retry.mjs` (6 adopters) as the existing shared-module
+  convention to follow, and confirms C2 (idempotent partition replace) is genuinely greenfield —
+  522 is already a defensive **read**-side failure mode in 5 scripts but no script has
+  delete-then-insert-per-partition on the **write** side. Carries explicit scope guidance: build
+  the module + convert a bounded slice + ratchet-track the rest, not a 19-script sweep.
+- **⭐⭐⭐⭐⭐ [Dispatch #24 — Workstream B: event scope + recurrence](dispatch-24.md)** — 2026-08-19,
+  **DELIVERED** (PR #420, v5.066, migration run and RLS-verified). Standalone Workstream B brief, superseding dispatch-23's §2 now that §1
+  is delivered and both of B's prerequisites (Workstream A's render-path fix, §1's precompute
+  event-factor fix) are on `main`. `org_events`' `unique(loc, date_start, label)` PK has no scope
+  concept, so `applyEventToStores` (`calendar.js:213`) writes N duplicate rows for an N-store
+  event ("27 copies of Thanksgiving"); `RETAIL_EVENT_RULES`/`expandRetailEvents`
+  (`retail-events.js`) already prove the recurrence half works but freeze their output the same
+  way via `saveOrgEvents`. Fix is upstream of `orgEventsToDayMap` (`events-import.js:146`) —
+  `forecastDay`/`computeEventFactors` need zero changes. Carries a re-measure reminder:
+  Workstream A only removed the `forecastDay` inner-loop cost for cache-hit stores, not
+  `computeEventFactors`'s own O(events) indexing pass, which still runs every render regardless
+  of cache status. **DELIVERED** (PR #420, v5.066) — full design writeup, including the mid-flight
+  RLS finding (a new permissive scope-aware policy would have OR'd past tenant isolation; fixed by
+  replacing `org_events`' one existing RESTRICTIVE per-loc policy instead) and both open design
+  questions' answers (`org_event_exceptions` table for per-store overrides;
+  `collapseScopedEvents()` for one schema holding both rule-based and manual events), in
+  [dispatch24-event-scope-design.md](dispatch24-event-scope-design.md). **Migration run and
+  verified** (2026-08-19) — `supabase/schema-org-events-scope.sql` applied against production;
+  `select policyname, permissive from pg_policies` confirmed `org_events_loc_scope` and
+  `org_event_exceptions_loc_scope` both came back `RESTRICTIVE` (not a new permissive policy),
+  the exact thing the RLS finding above was protecting against.
+- **⭐⭐⭐⭐ [Dispatch #23 — precompute event-factor gap](dispatch-23.md)** — 2026-08-19,
+  **§1 DELIVERED** (PR #417, v5.065; full trace, verified real-data delta, and an honest scope
+  correction — most real stores' assigned models early-return before the event-adjustment tail,
+  so today's district-wide impact was smaller than this dispatch implied — in
+  [dispatch23-precompute-event-factors.md](dispatch23-precompute-event-factors.md)). §2
+  (Workstream B) is **superseded by dispatch #24 above** — read that one, not this section.
+- **⭐⭐⭐ [Dispatch #22 — Workstream A: forecast off the render path](dispatch-22.md)** —
+  2026-08-18, **DELIVERED** (PR #415, v5.064). First workstream dispatch since [plan-normalization-2026-08-17.md](plan-normalization-2026-08-17.md)'s
+  sequencing gate cleared (Phase 0 ratchets + the open PR queue all confirmed merged on `main`).
+  Scopes the `weekProjections` render-path migration (`src/views/at-a-glance.js:1519-1560`, 93% of
+  render time, 189 `forecastDay` calls/run) against the repo's real prior art
+  (`qsrsoft-dar-pull.mjs`'s `refreshRollup`) and flags that `forecast_snapshots`' existing shape
+  (backtest/MAPE record, no LY column) doesn't cleanly fit the weekly-rollup need — an open design
+  call for the engineer, not dictated. Carries the Workstream B interaction warning (733 vs ~11,000
+  event entries) as a hard sequencing constraint. **Full implementation trace:**
+  [dispatch22-workstream-a-forecast-precompute.md](dispatch22-workstream-a-forecast-precompute.md) —
+  the `forecast_snapshots` rejection reasoning, the model-assignment localStorage shim, what was
+  verified against live Supabase data, and what could NOT be verified (no live click-trace) — the
+  same gap dispatch #23 above found reading this code the next day.
+- [Dispatch #20](dispatch-20.md) — price-event detection engine, vs-LY young-store trap, and the
+  Condiment count-cycle bug. **Delivered**, shipped in PR #411 (v5.062).
+- [Dispatch #21](dispatch-21.md) — handoff notice (PM session switch), not a task list; the one
+  optional ask (price-wave regression test) shipped in PR #414 (v5.063), reviewed 2026-08-18.
+- **⭐⭐ [McValue price-wave analysis 2026-08-18](analysis-mcvalue-price-waves-2026-08-18.md)** —
+  **NEWEST work, and the McValue 2.0 FBP document's current source of truth for anything price or
+  traffic.** Located three district-wide price rounds by measuring persistent step changes in
+  `qsr_product_mix` base price (2026-02-25 all 27 restaurants, 06-13 wave of 14, 06-26 wave of 13)
+  after a naive tier-set comparison failed (preserved marked FAILED in the same file so it isn't
+  retried). The two-wave stagger became a natural experiment isolating the price effect from
+  McValue itself (four gated checks: D, D-ROBUST, D-PLACEBO, D-PLACEBO-TRIMMED — final band −1.17
+  to −1.46 pp of the full-window Oklahoma traffic decline). Query E then found the **six clean
+  weeks after launch (B1–B3) are clean of price too**, giving a −3.14 pp headline that needs no
+  correction — and forced **retiring a load-bearing framing** ("traffic got worse as national
+  marketing support increased") that the price data contradicts. Query F closed the document's
+  second publish gate (March free-item promo) without needing the 2025 calendar. Runnable SQL with
+  every result recorded inline: [mcvalue-verification.sql](mcvalue-verification.sql). Current
+  draft: [mcvalue-fbp-draft3.html](mcvalue-fbp-draft3.html). **`project-mcvalue-2-fbp-document.md`
+  has a 2026-08-18 top section pointing back here — read that file's top section before its body,
+  same as this one.**
+- **[HS Football 2026 org_events verification](org-events-hsfb-verify.sql)** — 2026-08-18. The
+  10-school PARTIALS-completion swap (43→100 games) cross-checked three ways: workbook internal
+  consistency against its own README (100 rows, 49/51 home/away, all 6 judgment calls, all 10
+  Thursday games — all reproduced exactly), the one contested removal (Tishomingo vs. Oklahoma
+  School for the Deaf) owner-confirmed correct, and the live Supabase table confirmed to carry zero
+  stale rows post-swap. Note the first version of the stale-rows check was unscoped and answered
+  nothing (caught after running it, fixed in the same file) — a reminder that a query returning
+  rows is not the same as a query answering the question it was written for.
+- **⭐ [Normalization plan 2026-08-17](plan-normalization-2026-08-17.md)** — **NEWEST plan.** Where the
+  app gets normalized against industry norms and against itself: forecast off the render path
+  (`weekProjections` = 93% of render time), event scope+recurrence instead of 27 copies of one event,
+  pipeline freshness/assertion contract, **design-system adoption** (`PanelControls.js` measured at
+  **0/55** panels for `DateRangeControl` and **1/55** for `LocationSelector`/`ActionMenus` — the
+  standard exists and is unused), routing-vs-modals, and **role-based voice** (say the number AND the
+  decision; preserve analytical depth). Carries the sequencing gate, an explicit what-NOT-to-do list,
+  and 8 advisory notes on running this solo.
+- **⭐ [PM handoff 2026-08-15](pm-handoff-2026-08-15.md)** — **NEWEST handoff. Start here if you are taking the
+  PM seat.** The PM/engineer arrangement and its disciplines, the live PR board (#298/#301/#297 awaiting
+  review; #292/#286/#269 held and why), the engineer dispatch order, the owner's action list, the three
+  Product Mix / `user/settings` captures and what they settled, PM debts not yet filed, the McValue FBP
+  deadline (25 Aug), the corrections register, and the security constraints.
+- **[Session handoff 2026-07-28](session-handoff-2026-07-28.md)** — MASTER handoff: everything
+  shipped this session (v4.535–544), locked decisions, the next task (build QSRSoft pull scripts),
+  access/settings, and pending items. **Start here after a session switch.**
+- [Vision & roadmap](vision-and-roadmap.md) — ⭐ north-star, Smart Targets Model v2, accuracy-integrity
+  system, deployment paths, prioritized roadmap.
+- [North-star discovery lens](north-star-discovery-lens.md) — bridge QSRSoft's gaps, don't clone it;
+  correlations, real-world decision trees, "learn and burn."
+
+- [Docs + changelog refresh TODO](docs-refresh-todo.md) — owed after the v4.856–v4.875 sprint;
+  lists exactly what is stale in the in-app changelog, CLAUDE.md and the panel catalog
+
+## 🗂 Owner "Notes" working queues (most recent = most relevant)
+- [Notes 67 queue](notes-67-queue.md) — IA/navigation reorganization (URL-view conversion, section
+  regrouping into Reports/Inventory & Food Cost/Forecasting & Labor Projections/Analysis/HR),
+  right-side-modal exception list, and the security-build directive that spawned
+  [plan-security-loss-prevention.md](plan-security-loss-prevention.md). **Its own three concrete
+  bugs (Food Cost date-selector defaults to May 2026, DT History 15+ sec load, Forecast Audit
+  greyed out) are ✅ RESOLVED (dispatch-88.md, PR #632, 2026-08-24) — re-verified live
+  2026-10-22, do not re-chase.** The IA/navigation reorg itself is still open (needs owner
+  judgment calls, not a freelance-work item).
+- **⭐ [Panel decisions 2026-08-10](decisions-panel-inventory-2026-08-10.md)** — owner's keep/merge/retire
+  call on all 97 panels; **the input the UI/UX redesign scopes from.** Carries the standing rule that
+  RETIRE means harvest-then-remove, never delete-on-sight.
+- [Notes 63 queue](notes-63-queue.md) — multi-user startup-load architecture answer, Needs Attention
+  structural gap (no sales-decline detector — Atoka), Food Cost Panel RLS root cause, EOM Change
+  Monitor qty-variance + case-conversion, scoring-system revisit (Ops/Controls/District/Model Health),
+  Swing Watch "acknowledged" home, Events & Tags duplicates. Its EOM Change Monitor item is now
+  ✅ RESOLVED IN FULL (2026-10-22) — steps 3-4, which this file had marked "NOT done," shipped in a
+  later pass the doc was never updated for; see that file's own entry.
+- [Notes 62 queue](notes-62-queue.md) — SAGE capability audit, Event Tags panel, 1382ms click bug, 1.2M% chart bug
+- [Notes 61 queue](notes-61-queue.md) — mobile perf, District View pass, the Resolver engine concept, SMG definitions.
+  Its "complete metric listing, generated from the registry" ask is ✅ RESOLVED (2026-10-22) —
+  `METRIC_PROVENANCE` now auto-generates an entry for every real `METRIC_SOURCES` chain; see that
+  file's own entry for the full account. SMG B2B/EPB2B definitions remain open.
+- [Notes 60 queue](notes-60-queue.md) — large triage: shared panel design system + cycle-agnostic engine spines,
+  concrete bugs, new capabilities, naming. Its "route compute6wk through the resolver" item is
+  ✅ RESOLVED (re-verified 2026-10-22) — `forecast.js`'s `compute6wk` reads its resolvable fields
+  via `metricAvg`/`metricSeries` now, `avg6()` was removed entirely; see that file's own entry.
+- [Notes 59](notes-59-online-reputation.md) — online reputation/social analytics: Google/FB/Yelp/Reddit/3PO
+  ratings + reviews per location, local news, community-sentiment source tracing. Key constraint:
+  **prominence beats recency** (what is displayed as current matters, even if old)
+- [Notes 58](notes-58-queue.md) — Inventory Control weekly-count rules (Food+Condiment every week,
+  floating mid-month Paper count); per-item variance charts; Items Recounted tile blank.
+  Its own ⚠️ **absolute must** — a one-directional swing alarm w/ click-ack + auto-compiled
+  cause report + AI scour (store 10422) — is ✅ **RESOLVED (all 4 parts, re-verified
+  2026-10-22, do not re-chase)**: detect/click-ack/news+metric context shipped across earlier
+  dispatches (`swing-feed.js`/`SwingAlarm.js`/`swing-context.js`); the AI-scour piece
+  (`aiScourForSwing`) shipped this session. See that file's own §4 for the full account.
+- [Notes 32](notes-32-queue.md) — Perf-Review target auto-fill + per-metric sourcing; 1:1 Checkpoint;
+  One-Pager round-2 (weekly Opportunity blow-up fix, cascade focus, R2P/TPPH).
+- [Notes 31](notes-31-queue.md) — One-Pager v2 (metricSeries range bug, FOB anomaly, range compare,
+  L/F/G, cascade dropdown).
+- [Notes 30](notes-30-queue.md) — target write-back to QSRSoft; EOM qty-variance; Perf-Review KPI
+  directory + threshold authoring; One-Pager scope + generic printable.
+- [Notes 29](notes-29-queue.md) · [Notes 28](notes-28-queue.md) · [Notes 27 + feedback](notes-27-and-feedback.md)
+  · [Notes 26](notes-26-queue.md) · [Notes 25](notes-25-queue.md) · [Notes 24 UX architecture](notes-24-ux-architecture.md)
+
+## 👥 Performance Reviews
+- [Perf-Review data sourcing](perf-review-data-sourcing.md) — QSRSoft People/Digital/Delivery report
+  specs + the built+validated parsers (`src/engine/people-reports.js`); job-code taxonomy; cross-check
+  finding; owner-confirmed decisions (shift-cert scope, 0-90 turnover).
+- [Perf-Review Excel audit](perf-review-excel-audit.md) — threshold decisions vs the authoritative
+  workbook; ROUND 2 banked corrections (OEPE %-of-target, Shift-Certified step, Bonus-Eligibility, etc.).
+- [Performance Review System](project-perf-reviews.md) — engine, data model, scoring, roadmap.
+- [Targets Editor](project-targets-editor.md) — dispatch #132: company/state/patch/store target
+  override cascade (`target_overrides` table), architecture decision vs `yearly_targets`, the
+  relationship to (and gap in) the existing `MonthlyTargetManager` panel, Complaints/100K + Shift
+  Certified Manager investigation findings.
+
+## 📋 Leadership One-Pager + Opportunity $
+- [Opportunity-$ design](design-opportunity-dollars.md) — Labor/Food/GC gaps → recoverable dollars;
+  benchmark modes; the engine (`opportunity.js`) + adapter (`one-pager-data.js`) + view.
+
+## 🖨 Forms
+- [Forms library index](project-forms-library-index.md) — Pre-Shift Checklists + Travel Paths printable
+  blanks; QSRSoft forms auth (Cognito ID token in localStorage).
+- [Unified form engine design](design-unified-form-engine.md) — normalize→render, the pull method.
+
+## 🔗 QSRSoft data & intelligence
+- [QSRSoft report catalog](qsrsoft-report-catalog.md) — full system map from the owner walkthrough (what
+  QSRSoft does, per-menu, to inform Meridian's roadmap).
+- [QSRSoft RBAC & permissions](qsrsoft-rbac-and-permissions.md) — SSO getOrgInfo taxonomy.
+- [QSRSoft email pipeline](project-qsrsoft-pipeline.md) · [Daily Activity + Shift Dashboard](project-qsrsoft-daily-activity.md)
+  · [DAR columns](project-qsrsoft-dar-columns.md) · [CoachQ](project-qsrsoft-coachq.md) +
+  [query patterns](coachq-query-patterns.md) · [Controls endpoint](project-qsrsoft-controls-endpoint.md)
+  · [Store Settings endpoint](project-qsrsoft-store-settings-endpoint.md)
+
+## 🎯 Scoring
+- [Ops Score attribution: #183/#181/#164](labor-park-oepe-score-attribution.md) — worked
+  four-stage before/after (baseline → OEPE fix → park removal → labor basis fix) showing which
+  fix moves a store's Ops Score by how much and why. Synthetic performance numbers, real targets.
+- [Ops/Ctrl score redesign proposal](plan-ops-ctrl-score-redesign-2026-11-04.md) — owner asked
+  whether the scorecards serve other users or just him. Audited: already actual-vs-target banded
+  and already GM-visible, not freshness-penalized as suspected. Proposes blending in a damped
+  trend term (same shape as the sales-forecast model) — not yet built, owner's call on scope.
+
+## 📈 Signals / Smart Targets / Accuracy
+- [Signals scanner](project-signals-scanner.md) — auto-correlation across metric pairs, guardrails.
+- [Simple-models propagation](simple-models-propagation.md) — T3M/T6W/T3W family engine-wide.
+- [Smart Targets / graded / accuracy handoff](handoff-smarttargets-graded-accuracy.md) ·
+  [Accuracy layer](project-accuracy-layer.md) · [Graded Visits PACE](project-graded-visits-pace.md)
+- [Owner's real sales-forecast model, reverse-engineered](finding-owner-sales-forecast-model-2026-11-04.md)
+  — his manual workbook runs a backtested Level+damped-momentum+shrinkage-to-fleet model (1.9pp MAE,
+  beats naive + his own prior model), plus a fixed recency-weighted blend for Labor%/TPPH. Entire
+  raw input already redundant with auto-pulled cloud data — pure compute port, no new uploads needed.
+- [Forecasting Command Center design](plan-forecasting-command-center-2026-11-04.md) — unified
+  landing page over the 14 existing forecasting panels, exception-rail-first per the above finding.
+  Phase 1 = port the model into the engine; page comes after, not before.
+
+## 🧮 EOM / Inventory / FOB
+- [EOM diagnosis flow](project-eom-diagnosis-flow.md) · [Item Journey](project-eom-item-journey.md) ·
+  [FOB context](project-fob-context.md)
+
+## 🧠 SAGE
+- [SAGE AI](project-sage.md) — edge fn, live tools, RBAC, auto-scheduling, self-instrumenting.
+
+## 🖱 UI / UX defects
+- [Modal/scroll sizing defect (#192 P1)](project-modal-scroll-defect-192.md) — the "one shared
+  ModalShell bug" framing was wrong (none of the 5 reports actually use ModalShell); records the
+  4 real, separate mechanisms and the guard test that found the anti-pattern was 4x more
+  widespread than reported.
+
+## 📦 Inventory
+- [Inventory auto-wiring (#214)](project-inventory-auto-wiring-214.md) — wired the Inventory
+  Intelligence panel (Service/Production/Overstock/Transfers) to qsr_inventory_summary,
+  auto-first with manual gap-fill. Key finding the issue's own body missed: the table has
+  NO producer script yet (confirmed via grep) — the wiring is correct and load-bearing the
+  moment a pull ships, but shows honest "no cloud data yet" today. Folded in #207 batch-2's
+  first item (inventory.js → lazyPanel, ~10.4KB gzip reclaimed) since it required splitting
+  parseInventoryData out to parsers/inventory-parse.js anyway.
+
+## 🎯 Coaching spine (Push 3: #209 → #210 → #208)
+- [Waste-entry data-discipline (#209)](project-waste-discipline-209.md) — the trust leg.
+  Derives each store's OWN expected waste-submission days-of-week from 8 weeks of observed
+  qsr_waste history (reuses count-cycle.js's measured COVER_FRAC=0.75, not a new guess),
+  flags recent gaps, estimates $ impact landing in Unexplained. "Missing != zero" throughout —
+  qsr_waste has no null-vs-zero column. New engine/waste-discipline.js, new
+  metric-source.js isLazyFillError() export, surfaced in FOBAnalysisPanel.
+- **⭐ [Coaching feedback loop v1 (#208)](project-coaching-loop-208.md)** — the verify leg,
+  the only genuine differentiator on the table per the owner. New coaching_cycles table
+  (owner needs to run the migration), engine/coaching-loop.js (5 rules enforced
+  structurally: auto-captured baseline, follow-up lands in Needs Attention as a new
+  coaching-review item type, starts from an existing finding, verdict measured via a
+  NOISE_THRESHOLDS map that ships EMPTY per the issue's own v1 fallback — every verdict is
+  null until a future session runs measure-coaching-noise-threshold.mjs). Real correctness
+  fix found while building: that noise-threshold script's FOB math was a mean of daily
+  ratios, not dollar-weighted — fixed to match computeFOBMetrics' own convention. New
+  src/views/coaching-modal.js (start/review), Patch Heatmap FOB/Labor "🎯 Coach" buttons,
+  Needs Attention "🎯 Log Verdict →" action.
+- [Labor gap split (#210)](project-labor-gap-split-210.md) — the diagnose leg. Splits the
+  combined actual-vs-needed labor gap into planning accuracy (scheduled-needed, coach the
+  scheduler) and execution (actual-scheduled, coach the shift manager). Found and fixed a real
+  gap: loadQsrActSummary never carried total_scheduled_hours through on either read path, so
+  the split was impossible from data Meridian actually read even though qsr_daily_activity
+  always had it. New rollup-table migration (owner needs to run it) + engine/labor-gap-split.js
+  (Wed-Tue pay week, signature #4 in-progress-day exclusion, null-vs-fabricated-zero when the
+  migration hasn't landed yet). New Labor Tools tab: 🎯 Planning/Execution.
+- **⭐ [Over-scheduling is a chaos problem, not a labor-cost problem](finding-overscheduling-is-chaos-not-cost.md)**
+  — first finding Push 3 produced, measured within minutes of #210 going live: 21/27 stores
+  grossly over-schedule (Ada 66% above need), but the district nets to only +9 hrs vs need
+  (matches the Overview tile independently) because over-scheduling and mid-week cutting
+  cancel — invisible on the P&L, real operational chaos the owner had suspected for years.
+  Validates ranking by combined-magnitude (already shipped) and is the first case where
+  "dollarize and sort by $" would be the WRONG instinct — it costs ~nothing but damages the
+  operation. Coach column gate confirmed correct as-is. Open: why schedules run so high is
+  still unknown; turnover_monthly correlation is the next measurable test.
+- **✅ [Patch Heatmap bands + rollup tiles (#219/#220)](project-patch-heatmap-calibration-219.md)**
+  — DONE. #219: owner ran the measurement script against production, found a structural bug
+  (badAt is not the flag line — watch fires at 0.2*badAt, critical at 0.5*badAt), shipped
+  Sales 27 / FOB 1.9 / Labor 8.8 / Speed 73 (was 15/3/3/20). #220: new patch-level rollup row,
+  patchDimensions() aggregates raw dollars/sales FIRST then derives dimensions — never colours
+  by worst store. Grouping via the LIVE supervisorGroups() (constants.js), not the frozen
+  INV_ORG_COORDS.sup snapshot. Controls excluded from both (composite score, correctly out of
+  scope). 18 new tests across both issues.
+
+## ⚡ Performance
+- [Instrument fix (#189)](project-instrument-fix-189.md) — click-trace's App-tree/AppSidebar
+  spans were nested (same-commit layout effects end at one flush), not additive — a misreading
+  already caught once by hand. Extended the same pattern to the 4 active-panel views and added
+  automatic same-commit subtraction to the report. Not measured live; owner needs to re-capture.
+- [Lazy fill + qsr_fob parallel pagination (#191)](project-lazy-fill-191.md) — auditRows now
+  loads on demand instead of eagerly at startup (scoped to auditRows only, not gap-scoped —
+  records why); qsr_fob switched from serial to parallel pagination. Records the 3 non-resolver
+  consumer decisions and what's deliberately NOT verified live (no Supabase session here).
+- [Startup render storm (#184 item 0)](project-startup-render-storm.md) — batched the 22
+  ds-touching tiered-startup-loader stages behind 3 per-tier flushes (22 commits → 3); the
+  ~19-commit remainder (IDB restore, org_config syncs, email/PDF auto-ingest) is enumerated but
+  not yet fixed.
+
+## 🏗 Data-refresh sprint & standards (standing rules)
+- [Data-refresh sprint handoff](handoff-data-refresh-sprint.md) — the At-A-Glance freshest-wins rework.
+- [⭐ Measure it, don't reason about it](feedback-measure-dont-reason.md) — **standing rule.** Diagnose by
+  reproducing, not by plausibility; verify a command's output before reporting it. Real costs from 2026-08-07.
+- [⭐ PM / worker split](feedback-pm-worker-split.md) — **standing rule.** Two-session arrangement: who owns
+  which files (worker owns MERIDIAN_CHANGELOG, always), one task in flight, worker opens draft PRs / PM
+  reviews+merges, and the PM review checklist. Written after two same-day cross-session collisions.
+- [Data-sourcing standard](data-sourcing-standard.md) — metric-source.js / vs-ly.js; never filter raw
+  rows for a metric. **Standing rule.**
+- [Data source redundancy](project-data-redundancy.md) — auto/emailed-first, manual = last-resort fill.
+- [Panel catalog](panel-catalog.md) — every panel + status.
+
+## 🔒 Infra / security / deploy
+- [Security & Loss Prevention build](plan-security-loss-prevention.md) — **not RLS/infra security,
+  fraud/theft detection.** Design spec synthesized from three AI-engine research passes
+  (Gemini/Grok/ChatGPT), architecture-first (baselines, exposure normalization, opportunity-
+  adjusted risk, exoneration analytics, Rules Registry), connected to existing prior art
+  ([data-acquisition-shopping-list.md](data-acquisition-shopping-list.md)'s attribution ladder,
+  [attribution-validity-register-login.md](attribution-validity-register-login.md)'s
+  contested-attribution design, SAGE's disclosure-gating policy). Not yet scoped into dispatches.
+- [RLS hardening plan](project-rls-hardening-plan.md) — require-auth policies (Phase 1 done).
+- [Multi-tenant onboarding status](project-multitenant-onboarding.md) — 2026-10-21, owner asked
+  "just curious" what a second operator would take. Consolidates the real answer: tenant-level RLS
+  isolation and per-store isolation are BOTH already live and independently measured (not just
+  written), and the store/targets registry already has a live-override path wired through `App.js`.
+  What's actually left is short and concrete: `org_config`'s PK needs to become `(key, tenant_id)`,
+  the automated pull scripts need per-tenant credential/tenant_id stamping, and new-tenant users need
+  a manual provisioning step (no self-serve signup path yet). Read this before re-deriving any of it.
+- [Project audit 2026-07-27](project-audit-2026-07-27.md) · [Supabase priority](project-supabase-priority.md)
+  · [Data model](project-data-model.md) · [Sync rework](project-sync-rework.md) · [Hosting](project-hosting.md)
+- [Deploy rule](feedback-deploy.md) — push to branch; Vercel auto-deploys. [Selector UI standard](feedback-selector-ui-standard.md).
+- [LifeLenz session](lifelenz-session.md) — token lifecycle, dead ends. [VLH config](project-vlh-config.md).
+- [Labor Analysis FLH](project-labor-analysis-flh.md) · [LifeLenz schedule/jobs](project-lifelenz-schedule-jobs.md)
+  · [Crew skills matrix](project-crew-skills-matrix.md) · [Feature Requests](feature-requests.md)
+- [Performance budget + manual-sourcing audit](feedback-performance-budget.md) — speed is a feature; MANUAL_ONLY stays 0
+- [Data-integrity sweep plan](plan-data-integrity-sweep.md) — greppable defect signatures + measured site counts
+- `src/components/ModalShell.js` — shared modal shell (Workstream D, ✅ done v4.938–v4.939): standardizes
+  the close-button/header pattern app-wide. See [[vision-and-roadmap]] Workstream D and [[notes-63-queue]].
+- [PWA Share bug](project-pwa-share-bug.md) · [Backlog](project-backlog.md) · [Meridian status](project-meridian.md)
+- [Equipment Profile system](project-equipment-profile.md) — NOT STARTED (captured 2026-10-18). Live,
+  open-link-editable per-store equipment profile (manufacturer/model dropdowns + flagged manual
+  entry, serial/cert date on a subset, visual floor-plan placement) so Ops Supplies ordering can be
+  constrained to what a store actually has. Owner explicitly said "remind me" — read this before
+  scoping, it has the open design questions already identified.
+
+## 📇 Previously unindexed (added 2026-08-16)
+
+**43 of 124 files were on disk but absent from this index** — measured, not estimated
+(`comm -23` of the directory against every `.md` referenced here). Descriptions below are each
+file's own front-matter, not a summary written after the fact. Several are cross-referenced above
+in the "before you theorize" table because their absence has already cost real work.
+
+### Data reconciliation & measurement
+- [dar-vs-ops-reconciliation.md](dar-vs-ops-reconciliation.md) — why DAR-derived totals differ from the manual Ops Report, what was ruled out (**the 4am boundary WAS**), and why auto-first is still correct
+- [project-labor-pct-punched-vs-crew.md](project-labor-pct-punched-vs-crew.md) — Notes 35: Labor % standardized on Punched; Crew silently includes salaried-manager $ (FL yes, OK no)
+- [project-hourly-projection-accuracy.md](project-hourly-projection-accuracy.md) — tracks whether QSRSoft/LifeLenz hourly projections are systematically biased
+- [weighted-rollup-audit.md](weighted-rollup-audit.md) — average-of-averages sweep, incl. what was deliberately left alone for want of a weighting basis
+- [metric-inventory-2026-08-07.md](metric-inventory-2026-08-07.md) · [reference-r2p-formula.md](reference-r2p-formula.md) — R2P reconciled to the penny · [notes-57-metric-registry-plan.md](notes-57-metric-registry-plan.md)
+- [project-noise-measurement-237.md](project-noise-measurement-237.md) · [project-labor-pct-tail-236.md](project-labor-pct-tail-236.md) — the 994 nulled rows (#243)
+- [store-events-material-changes.md](store-events-material-changes.md) — the legitimate-gap ground truth #269's tolerance list is built on
+- [count-cycle-condiment-bug-2026-08-18.md](count-cycle-condiment-bug-2026-08-18.md) — chased #410's
+  "all 27 stores crit" flag to a real cause: 98.9% of Condiment items reading `active=false`
+  district-wide. Fixed in dispatch20/PR #411
+- [374-recipe-item-verification-2026-08-18.md](374-recipe-item-verification-2026-08-18.md) — #374's
+  acceptance-criteria check for the `recipeItem` Topic 6 rescue in `count-cycle.js`'s `isActive()`
+- [project-pull-completeness-263-265.md](project-pull-completeness-263-265.md) — #263 makes a pull say so when it KNOWS it failed; #265 catches the gaps a pull never saw at all (QSRSoft had no row, nothing threw, success was reported truthfully). Neither substitutes for the other — **neither the Sulphur nor the Marietta outage would have been caught by #263 alone**
+
+### QSRSoft / pulls / auth
+- [finding-inventory-summary-automation-2026-08-27.md](finding-inventory-summary-automation-2026-08-27.md) — dispatch #178: `qsr_inventory_summary` has no producer. Lead A (a real "Inventory Usage"/Ending report, KB-confirmed exact field match) is credential-blocked in-session, not disproven — a focused follow-up just needs an owner DevTools capture. Lead B (derive from `qsr_onhand`+`qsr_raw_item_detail`) measured feasible for only ~9% of one store's WRIN catalog — too thin to safely relabel as the real table two days before the EOM count
+- [project-qsrsoft-cognito-auth-312.md](project-qsrsoft-cognito-auth-312.md) — the #312/#323 token conversion + backfill record
+- [project-product-mix-291.md](project-product-mix-291.md) — #292's design notes and next-session ordering
+- [finding-legacy-pricing-workbook-structure-2026-08-27.md](finding-legacy-pricing-workbook-structure-2026-08-27.md) — owner-supplied 2008-2017 "Menu Management" workbook (Notes 25 #1's foundation spreadsheet), structure only (all data 8-10 years stale): the QCR/Serving-Factors recipe-costing chain, the BRK/REG PRICING IMPACT elasticity simulator, and the 5 real data-pull gaps needed to rebuild it on current Meridian data (distributor ingredient cost is the big one — no current source at all)
+- [data-acquisition-shopping-list.md](data-acquisition-shopping-list.md) — every candidate endpoint, incl. addenda K (Product Outage) and L (Menu Price Comparison)
+- [reference-shift-manager-summary.md](reference-shift-manager-summary.md) — per-daypart manager-on-duty attribution · [qsrsoft-kb-digest.md](qsrsoft-kb-digest.md)
+
+### Security / RLS / infra
+- [rls-table-audit-119.md](rls-table-audit-119.md) — full 82-table RLS audit; one real gap, one non-reproduction
+- [session-2026-08-07-perf-and-rls.md](session-2026-08-07-perf-and-rls.md) — cold start 183s→59s, per-loc RLS after a rollback, **seven wrong assumptions caught by live queries**
+- [project-security-notes.md](project-security-notes.md) — accepted-risk vs needs-fix tracker
+- [attribution-validity-register-login.md](attribution-validity-register-login.md) · [project-salaried-coverage-guard-242.md](project-salaried-coverage-guard-242.md)
+
+### Design & product threads
+- [project-coaching-feedback-loop.md](project-coaching-feedback-loop.md) — the loop that turns Meridian from reporting into management
+- [project-events-redesign.md](project-events-redesign.md) · [project-inventory-control-redesign.md](project-inventory-control-redesign.md) — both owner-signed-off designs
+- [project-insight-ledger.md](project-insight-ledger.md) · [project-food-cost-labor-enhancements.md](project-food-cost-labor-enhancements.md) — the two P&L lines that are ~50% of sales
+- [project-org-structure.md](project-org-structure.md) — supervisor→store, data-driven since v4.570, incl. the retroactive-attribution caveat
+- [project-eom-scoreboard-notify.md](project-eom-scoreboard-notify.md) · [project-scoring-revisit.md](project-scoring-revisit.md) — a MEASURED divergence between two Model Health scorers
+- [spine1-panel-controls-126.md](spine1-panel-controls-126.md) · [project-mcvalue-2-fbp-document.md](project-mcvalue-2-fbp-document.md)
+- [project-sage-knowledge-grounding.md](project-sage-knowledge-grounding.md) — the handling-notice gate #269 deliberately did not bypass · [project-sage-manual-sourcing-270.md](project-sage-manual-sourcing-270.md)
+
+### Process, capacity & planning
+- [systemic-issues-and-next-phase.md](systemic-issues-and-next-phase.md) — **four recurring bug classes measured from 977 commits**, and the structural fix for each
+- [plan-backlog-and-redesign-2026-08-15.md](plan-backlog-and-redesign-2026-08-15.md) — how the open issues collapse into a working order
+- **⭐ [analysis-labor-allocation-queries.sql](analysis-labor-allocation-queries.sql)** — the four runnable queries behind the allocation analysis, on the VLH guide's own daypart boundaries. Query 2 (concentration) is the one to run BEFORE acting; Query 4 is a re-run owed before any speed number reaches a GM
+- **⭐ [analysis-labor-allocation-2026-08-18.md](analysis-labor-allocation-2026-08-18.md)** — hours are in the WRONG DAYPARTS. 58% of drive-thru volume is served under the VLH guide (Breakfast 0.928, Lunch 0.922) while 42% is served over it (Afternoon 1.171, Dinner 1.085, Late 1.207). 826 busy breakfasts under guide vs 2,569 soft afternoons/dinners over. Cost-neutral if the hours net out — a reallocation, not a labour increase
+- [gate-pmix-backfill.sql](gate-pmix-backfill.sql) — run BEFORE anything reads `qsr_product_mix`. The pmix pull's fail-fast guard (#393) is unmerged, so a green Action does not mean rows landed — the first attempt wrote 0 rows and exited 0. Gates on distinct loc/date, **never `count(*)`** (price is in the conflict key, so a price change adds a row)
+- [probe-g1-shift-dimension.sql](probe-g1-shift-dimension.sql) — the Workstream G screen: does DT speed vary as much *within* a store's own week as *between* stores? Carries the verified DAR facts (business-day-aligned `dt`, 24-slot completeness guard, `dt_untilserve` is **milliseconds**) — read it before writing any new hourly-DAR query
+- [plan-normalization-2026-08-17.md](plan-normalization-2026-08-17.md) — ⭐ the successor to the above: seven workstreams (forecast off render path · event scope+recurrence · pipeline contract · design-system adoption · routing vs modals · role-based voice), the sequencing gate, and what not to do
+- [feedback-verification-in-sandbox.md](feedback-verification-in-sandbox.md) — what a sandbox session can and cannot prove
+- [benchmark-daily-readiness.md](benchmark-daily-readiness.md) — read before quoting any readiness number
+- [capacity-and-onboarding-review.md](capacity-and-onboarding-review.md) — how many users can onboard today, and what must land first
+- [mac-session-todo-2026-08-06.md](mac-session-todo-2026-08-06.md) — items that require the owner at a Mac
+- [finding-padding-and-cash-hunt-2026-08-13.md](finding-padding-and-cash-hunt-2026-08-13.md)
+- [plan-role-based-panel-gating-2026-11-03.md](plan-role-based-panel-gating-2026-11-03.md) — GM slice APPLIED (v5.612): GM/OM/Supervisor routines (prior operator, 2022) cross-walked to real panel-registry.js ids, with recommended `disabledPanels` per role using task #64's role-based panel toggle mechanism
+- [plan-sage-managed-agents-pilot-2026-11-03.md](plan-sage-managed-agents-pilot-2026-11-03.md) — task #60: side-by-side vs. the hand-rolled sage-run.mjs scheduler, real pricing research, and the live measurement that changes the decision (zero scheduled prompts currently running) — recommendation: not yet, turn on real usage first
+- [plan-knowledge-backbone-2026-11-03.md](plan-knowledge-backbone-2026-11-03.md) — task #70: sage_memory_kb's tenant_id/RLS was already there but the one real reader (service-role client) bypassed it with no filter of its own (fixed same pass); the `scope` (product vs. tenant) classification mechanism is now applied (v5.614) — owner still needs to run the ALTER migration before the next sage-chat deploy, and the backlog-classification pass is still deferred
+- [plan-location-dossier-report-2026-11-04.md](plan-location-dossier-report-2026-11-04.md) — task #79, design-only: a cross-domain "everything we know about this store" report rolled up to patch/operator/state/district, mapped against what already exists to build from (ReportShell, metric-source.js, Scanner, STORE_KB) and the open questions (correlation curation, PII boundary, demographics has no data source at all) that need an owner decision before any code
+
+### Owner notes queues
+- [notes-33-queue.md](notes-33-queue.md) · [notes-54-56-triage.md](notes-54-56-triage.md) · [notes-66-bullseye-and-state-of-business.md](notes-66-bullseye-and-state-of-business.md) · [notes-66-staged-experiments-and-risk.md](notes-66-staged-experiments-and-risk.md)
+
+---
+*Index maintenance: when adding a memory file, add it here. Newest handoff always pinned at top.*
+*Drift check — run it, don't trust the habit:*
+```
+comm -23 <(ls memory/*.md | xargs -n1 basename | grep -v '^MEMORY.md$' | sort) \
+         <(grep -o '[a-z0-9-]*\.md' memory/MEMORY.md | sort -u)
+```
+*Empty output = index complete. It printed **43 filenames** on 2026-08-16 and is empty as of that
+fix (125 files, 125 referenced). An index nobody can verify drifts back — run this, don't trust
+the habit of "I added it."*

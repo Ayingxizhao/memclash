@@ -1,0 +1,334 @@
+{
+  "repo": "BeastHome/dice-roller",
+  "dir": ".claude/memory",
+  "n_files": 8,
+  "n_rules": 54,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback-commit-from-main-project.md",
+      "quote": "make edits with `Edit`/`Write` against absolute paths under the main\n  project root.",
+      "rule": "When working in a worktree under `.claude/worktrees/<slug>`, make file edits with `Edit`/`Write` using absolute paths under the main project root, not the worktree path."
+    },
+    {
+      "id": "R2",
+      "file": "feedback-commit-from-main-project.md",
+      "quote": "Run the project's build tool (`cargo`, `go`, `npm`, …) and `git`\n  commands against the main project path.",
+      "rule": "When working in a worktree under `.claude/worktrees/<slug>`, run the project's build tools and `git` commands against the main project path, not the worktree path."
+    },
+    {
+      "id": "R3",
+      "file": "feedback-commit-from-main-project.md",
+      "quote": "Do NOT switch branches in the worktree to try to commit there.",
+      "rule": "When working in a worktree under `.claude/worktrees/<slug>`, never switch branches in the worktree to commit there."
+    },
+    {
+      "id": "R4",
+      "file": "feedback-commit-style.md",
+      "quote": "Match the existing commit style in `git log`",
+      "rule": "When writing commit messages, match the existing commit style visible in `git log`."
+    },
+    {
+      "id": "R5",
+      "file": "feedback-commit-style.md",
+      "quote": "short conventional-commit\nsubject lines",
+      "rule": "Write commit subject lines in short conventional-commit format."
+    },
+    {
+      "id": "R6",
+      "file": "feedback-commit-style.md",
+      "quote": "no body when the subject says\nenough.",
+      "rule": "Omit the commit body when the subject line already conveys enough information."
+    },
+    {
+      "id": "R7",
+      "file": "feedback-commit-style.md",
+      "quote": "Subject: `<type>(<scope>): <imperative summary>` under ~72 chars.",
+      "rule": "Format commit subject lines as `<type>(<scope>): <imperative summary>`, keeping them under about 72 characters."
+    },
+    {
+      "id": "R8",
+      "file": "feedback-commit-style.md",
+      "quote": "Type is usually `fix` / `feat` / `refactor` / `chore` / `docs`.",
+      "rule": "Use `fix`, `feat`, `refactor`, `chore`, or `docs` as the commit type, usually."
+    },
+    {
+      "id": "R9",
+      "file": "feedback-commit-style.md",
+      "quote": "Scope\n  is the package name (`dice`, `tui`, `parse`, …) or `docs`.",
+      "rule": "Use the package name as the commit scope, or `docs` for documentation changes."
+    },
+    {
+      "id": "R10",
+      "file": "feedback-commit-style.md",
+      "quote": "Add a body only when the *why* isn't obvious from the subject\n  (e.g., a subtle invariant, an opt-out, a multi-step migration).",
+      "rule": "Add a commit body only when the reason for the change isn't obvious from the subject line, such as for a subtle invariant, an opt-out, or a multi-step migration."
+    },
+    {
+      "id": "R11",
+      "file": "feedback-commit-style.md",
+      "quote": "Multi-line / multi-paragraph bodies are explicitly OK when the\n  content warrants it",
+      "rule": "Use multi-line or multi-paragraph commit bodies when the content warrants it."
+    },
+    {
+      "id": "R12",
+      "file": "feedback-commit-style.md",
+      "quote": "Don't\n  pad, but don't truncate either; write what the reviewer needs.",
+      "rule": "Do not pad commit bodies with filler, but do not truncate them either; include what the reviewer needs."
+    },
+    {
+      "id": "R13",
+      "file": "feedback-commit-style.md",
+      "quote": "**Do NOT add the `Co-Authored-By: Claude` trailer.**",
+      "rule": "Do not add a `Co-Authored-By: Claude` trailer to commits."
+    },
+    {
+      "id": "R14",
+      "file": "feedback-commit-style.md",
+      "quote": "This applies even when the harness's own commit template suggests it.",
+      "rule": "Do not add the `Co-Authored-By: Claude` trailer even when the harness's commit template suggests it."
+    },
+    {
+      "id": "R15",
+      "file": "feedback-engine-api-naming.md",
+      "quote": "Use suffixed engine method names (RollOnce, RollN) — never bare Roll",
+      "rule": "Use the suffixed engine method names RollOnce and RollN for dice evaluation, never the bare Roll name."
+    },
+    {
+      "id": "R16",
+      "file": "feedback-engine-api-naming.md",
+      "quote": "Don't introduce or rename\nback to a bare `Roll` form.",
+      "rule": "Do not introduce or rename any dice-engine evaluation method to a bare `Roll` form."
+    },
+    {
+      "id": "R17",
+      "file": "feedback-engine-api-naming.md",
+      "quote": "follow the same suffix\n  convention: lead with the verb, then the cardinality / variant tag.",
+      "rule": "When adding new dice-engine evaluation entry points, follow the suffix convention: lead with the verb, then the cardinality or variant tag."
+    },
+    {
+      "id": "R18",
+      "file": "feedback-engine-api-naming.md",
+      "quote": "surface the\n  rename impact for embedded consumers, not just the in-tree CLI/TUI.",
+      "rule": "When proposing API changes that touch the dice-engine evaluation methods, surface the rename impact for embedded consumers, not just the in-tree CLI/TUI."
+    },
+    {
+      "id": "R19",
+      "file": "feedback-engine-api-naming.md",
+      "quote": "Don't quietly reintroduce `Roll` as an alias \"for convenience\"",
+      "rule": "Do not add a `Roll` alias to the dice-engine evaluation methods for convenience."
+    },
+    {
+      "id": "R20",
+      "file": "feedback-inline-edits.md",
+      "quote": "make\ntargeted inline edits (`Edit` on the specific lines) rather than\nrewriting the whole file with `Write`.",
+      "rule": "When updating an existing file (especially memory files), make targeted inline edits on the specific lines that need to change using Edit, rather than rewriting the whole file with Write."
+    },
+    {
+      "id": "R21",
+      "file": "feedback-inline-edits.md",
+      "quote": "Keep existing wording where it's still true;",
+      "rule": "When updating an existing file, keep existing wording that is still true."
+    },
+    {
+      "id": "R22",
+      "file": "feedback-inline-edits.md",
+      "quote": "add or adjust only the\n  lines that need it, even if that makes the file less tidy than a\n  fresh rewrite would be.",
+      "rule": "When updating an existing file, add or adjust only the lines that need changing, even if the result is less tidy than a fresh rewrite would be."
+    },
+    {
+      "id": "R23",
+      "file": "feedback-inline-edits.md",
+      "quote": "Whole-file `Write` is fine for brand-new files.",
+      "rule": "Using a whole-file Write is permitted when creating brand-new files."
+    },
+    {
+      "id": "R24",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "For multi-file regex rewrites use the `Edit` tool (UTF-8 safe) with",
+      "rule": "For multi-file regex rewrites, use the Edit tool, which is UTF-8 safe."
+    },
+    {
+      "id": "R25",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "or use ripgrep + `sed` via WSL bash.",
+      "rule": "For multi-file regex rewrites, ripgrep plus sed run via WSL bash may be used as an alternative to the Edit tool."
+    },
+    {
+      "id": "R26",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "Don't use PowerShell `Get-Content`/`Set-Content` for text replacement on source files.",
+      "rule": "Do not use PowerShell Get-Content/Set-Content for text replacement on source files."
+    },
+    {
+      "id": "R27",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "prefer the language's\n  Unicode escape syntax (`\\u00XX` / `\\U000XXXXX` in Go) over pasting\n  the literal character",
+      "rule": "When tests need non-ASCII literals, prefer the language's Unicode escape syntax (e.g., \\u00XX, or \\U000XXXXX in Go) over pasting the literal character."
+    },
+    {
+      "id": "R28",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "If PowerShell really is the only option, set\n  `[Console]::InputEncoding = [Console]::OutputEncoding =\n  [Text.UTF8Encoding]::new()`",
+      "rule": "If PowerShell is the only option, set Console InputEncoding and OutputEncoding to a UTF8Encoding instance."
+    },
+    {
+      "id": "R29",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "use\n  `[IO.File]::ReadAllText(path, [Text.UTF8Encoding]::new())` /\n  `WriteAllText`",
+      "rule": "If PowerShell is the only option, read and write files with [IO.File]::ReadAllText and WriteAllText using a UTF8Encoding instance."
+    },
+    {
+      "id": "R30",
+      "file": "feedback-no-powershell-utf8-rewrites.md",
+      "quote": "just use `Edit`.",
+      "rule": "Even when PowerShell is used, prefer the Edit tool for file text rewrites because PowerShell approaches are error-prone."
+    },
+    {
+      "id": "R31",
+      "file": "project-drift-check-hook.md",
+      "quote": "Don't try to fix drift by editing the hook",
+      "rule": "Do not try to fix drift by editing the pre-commit hook."
+    },
+    {
+      "id": "R32",
+      "file": "project-drift-check-hook.md",
+      "quote": "`--no-verify` is off-limits",
+      "rule": "Do not bypass the pre-commit hook with `--no-verify`."
+    },
+    {
+      "id": "R33",
+      "file": "project-drift-check-hook.md",
+      "quote": "fix the source-of-truth that the script is comparing against.",
+      "rule": "When the drift checker reports drift, fix the source of truth the script compares against instead of the hook."
+    },
+    {
+      "id": "R34",
+      "file": "project-drift-check-hook.md",
+      "quote": "confirm the script path exists before assuming real drift.",
+      "rule": "When a commit fails, confirm the drift checker script path exists before assuming real drift."
+    },
+    {
+      "id": "R35",
+      "file": "project-drift-check-hook.md",
+      "quote": "surface that to David",
+      "rule": "If the drift checker script or its venv is missing on a machine, tell David rather than working around it."
+    },
+    {
+      "id": "R36",
+      "file": "project-drift-check-hook.md",
+      "quote": "rather than disabling the hook silently.",
+      "rule": "Do not disable the pre-commit hook silently when its script or venv is missing."
+    },
+    {
+      "id": "R37",
+      "file": "project-drift-check-hook.md",
+      "quote": "To run it without committing (either OS): `git hook run pre-commit`.",
+      "rule": "To run the pre-commit hook without committing, use `git hook run pre-commit` on either OS."
+    },
+    {
+      "id": "R38",
+      "file": "project-drift-check-hook.md",
+      "quote": "A portable-hook fix belongs in `dev-manifest.json`",
+      "rule": "Make portable pre-commit hook fixes in `dev-manifest.json` in dev-tools."
+    },
+    {
+      "id": "R39",
+      "file": "project-drift-check-hook.md",
+      "quote": "editing `~/dev/templates/` directly won't reach the Windows machine.",
+      "rule": "Do not edit `~/dev/templates/` directly to fix the pre-commit hook."
+    },
+    {
+      "id": "R40",
+      "file": "project-drift-check-hook.md",
+      "quote": "then gets copied into each app's `.githooks/pre-commit`",
+      "rule": "After a portable hook fix is made in `dev-manifest.json`, copy it into each app's `.githooks/pre-commit`."
+    },
+    {
+      "id": "R41",
+      "file": "project-drift-check-hook.md",
+      "quote": "so set it on any new clone.",
+      "rule": "Set `core.hooksPath` on any new clone of the repo."
+    },
+    {
+      "id": "R42",
+      "file": "project-drift-check-hook.md",
+      "quote": "verify with `git hook run pre-commit` on Windows before porting.",
+      "rule": "Verify the Windows hook branch with `git hook run pre-commit` on Windows before porting it to other repos."
+    },
+    {
+      "id": "R43",
+      "file": "reference-memory-layout.md",
+      "quote": "Memory canonical location: `.claude/memory/` in the **project repo**",
+      "rule": "Store memory files in `.claude/memory/` within the project repo, not in `~/.claude/projects/<project>/memory/`."
+    },
+    {
+      "id": "R44",
+      "file": "reference-memory-layout.md",
+      "quote": "Any new memory writes go to the project repo.",
+      "rule": "Write any new memory files to the project repo, never to the legacy userdir location."
+    },
+    {
+      "id": "R45",
+      "file": "reference-memory-layout.md",
+      "quote": "Read `CLAUDE.md` (auto-loaded by harness on Claude sessions).",
+      "rule": "At session start, read `CLAUDE.md` in the project root."
+    },
+    {
+      "id": "R46",
+      "file": "reference-memory-layout.md",
+      "quote": "Read `AGENTS.md` for project context.",
+      "rule": "At session start, read `AGENTS.md` in the project root for project context."
+    },
+    {
+      "id": "R47",
+      "file": "reference-memory-layout.md",
+      "quote": "Read `.claude/memory/MEMORY.md` and skim file titles; load the ones",
+      "rule": "At session start, read `.claude/memory/MEMORY.md` and skim its file titles."
+    },
+    {
+      "id": "R48",
+      "file": "reference-memory-layout.md",
+      "quote": "load the ones\n  relevant to the task.",
+      "rule": "Load only the memory files relevant to the current task."
+    },
+    {
+      "id": "R49",
+      "file": "user-david.md",
+      "quote": "take shell and path cues from whichever one the session is\non",
+      "rule": "Take shell and path cues from whichever machine the current session is running on (Windows or macOS), not from a fixed assumption."
+    },
+    {
+      "id": "R50",
+      "file": "user-david.md",
+      "quote": "Take the language and toolchain cues from the\nproject itself, not from assumptions.",
+      "rule": "Determine the programming language and toolchain from the project itself, not from assumptions."
+    },
+    {
+      "id": "R51",
+      "file": "user-david.md",
+      "quote": "He prefers small, tested slices over large feature drops.",
+      "rule": "Deliver work in small, tested slices rather than large feature drops."
+    },
+    {
+      "id": "R52",
+      "file": "user-david.md",
+      "quote": "Honest\nreporting (what worked, what didn't, what was skipped).",
+      "rule": "Report honestly on what worked, what didn't, and what was skipped."
+    },
+    {
+      "id": "R53",
+      "file": "user-david.md",
+      "quote": "Initiative on\nalready-agreed plans without re-asking",
+      "rule": "Take initiative to carry out already-agreed plans without re-asking for confirmation."
+    },
+    {
+      "id": "R54",
+      "file": "user-david.md",
+      "quote": "redirection when priorities\nshift",
+      "rule": "Redirect work when the user's priorities shift."
+    }
+  ],
+  "dropped": []
+}

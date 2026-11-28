@@ -1,0 +1,118 @@
+{
+  "repo": "Akagilnc/ak-ai-postflow",
+  "dir": ".claude/memory",
+  "n_files": 7,
+  "n_rules": 18,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_confirm_before_act.md",
+      "quote": "Never treat your own judgment or the user's acknowledgment of a suggestion as confirmation to proceed.",
+      "rule": "Never treat your own judgment, or the user's acknowledgment of a suggestion, as confirmation to proceed with changes."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_confirm_before_act.md",
+      "quote": "Only an explicit \"改\" / \"好\" / \"可以开始\" / \"动手吧\" from the user counts as confirmation.",
+      "rule": "Only treat an explicit user greenlight such as \"改\", \"好\", \"可以开始\", or \"动手吧\" as confirmation to proceed."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_confirm_before_act.md",
+      "quote": "After proposing a plan or agreeing with a suggestion, always stop and ask \"要现在改吗？\" or equivalent.",
+      "rule": "After proposing a plan or agreeing with a suggestion, always stop and ask the user whether to proceed (e.g., \"要现在改吗？\")."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_confirm_before_act.md",
+      "quote": "Do not proceed until the user explicitly greenlights.",
+      "rule": "Do not proceed with the action until the user explicitly greenlights it."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_e2e_before_pr.md",
+      "quote": "PR 前必须跑完所有主要路径的端到端测试，不能只测一条路径就提 PR。",
+      "rule": "Before submitting a PR, run end-to-end tests covering all major paths, not just one path."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_e2e_before_pr.md",
+      "quote": "PR 前列出所有触发路径，逐一验证。",
+      "rule": "Before submitting a PR, list all trigger paths and verify each one individually."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_e2e_before_pr.md",
+      "quote": "至少包括：手动指定内容、自动生成内容、各平台组合。",
+      "rule": "When verifying trigger paths before a PR, include at least: manually specified content, automatically generated content, and platform combinations."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_tdd.md",
+      "quote": "Always follow TDD when adding features.",
+      "rule": "When adding a new feature, follow Test-Driven Development."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_tdd.md",
+      "quote": "Write tests first or at minimum alongside the implementation code.",
+      "rule": "Write tests before or at minimum alongside the implementation code when adding features."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_tdd.md",
+      "quote": "Before implementing a new function, write the test case first.",
+      "rule": "Before implementing a new function, write its test case first."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_tdd.md",
+      "quote": "Commit tests with the feature, not in a separate \"补测试\" commit.",
+      "rule": "Commit tests together with the feature they cover, not in a separate commit that adds tests afterward."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_worker_vitest_spawn_eperm.md",
+      "quote": "first treat it as a sandbox/environment issue.",
+      "rule": "When Worker tests fail with `spawn EPERM` in Codex Desktop, first treat the failure as a sandbox/environment issue."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_worker_vitest_spawn_eperm.md",
+      "quote": "Re-run `cmd /c npm test` outside the sandbox before concluding that Vitest, Vite config, or the test code is broken.",
+      "rule": "When Worker tests fail with `spawn EPERM` in Codex Desktop, re-run `cmd /c npm test` outside the sandbox before concluding that Vitest, the Vite config, or the test code is broken."
+    },
+    {
+      "id": "R14",
+      "file": "user_profile.md",
+      "quote": "Communicates primarily in Chinese (中文)",
+      "rule": "Respond to the user primarily in Chinese (中文)."
+    },
+    {
+      "id": "R15",
+      "file": "user_profile.md",
+      "quote": "Uses GitHub PR workflow with Codex automated review before merging",
+      "rule": "Use a GitHub PR workflow with Codex automated review before merging changes."
+    },
+    {
+      "id": "R16",
+      "file": "user_profile.md",
+      "quote": "Expects TDD development flow",
+      "rule": "Follow a TDD (test-driven development) flow when developing."
+    },
+    {
+      "id": "R17",
+      "file": "user_profile.md",
+      "quote": "prefers practical over theoretical",
+      "rule": "Prefer practical explanations and solutions over theoretical ones."
+    },
+    {
+      "id": "R18",
+      "file": "user_profile.md",
+      "quote": "Appreciates humor and casual communication style",
+      "rule": "Use humor and a casual communication style with the user."
+    }
+  ],
+  "dropped": []
+}

@@ -1,0 +1,670 @@
+{
+  "repo": "28dayslater/pinp-cpp-prototype",
+  "dir": ".claude/memory",
+  "n_files": 28,
+  "n_rules": 110,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_branch_focus.md",
+      "quote": "Keep branches focused on the current functionality.",
+      "rule": "Keep the current branch focused on its existing functionality; do not mix unrelated changes into it."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_branch_focus.md",
+      "quote": "If the user asks for a code improvement unrelated to the branch being worked on, warn them before proceeding.",
+      "rule": "When the user requests a code improvement unrelated to the branch being worked on, warn the user before proceeding with it."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_branch_focus.md",
+      "quote": "Before implementing any change, check whether it belongs to the current branch's scope.",
+      "rule": "Before implementing any change, check whether it belongs to the current branch's scope."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_branch_focus.md",
+      "quote": "If not, flag it and let the user decide.",
+      "rule": "If a requested change does not belong to the current branch's scope, flag it to the user and let the user decide whether to proceed."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_branch_policy.md",
+      "quote": "Never commit directly to `main`.",
+      "rule": "Never commit directly to the main branch; every change must be made on its own dedicated branch."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_branch_policy.md",
+      "quote": "must go on its own branch and be merged into main only when the user explicitly agrees.",
+      "rule": "Put every change (feature, fix, refactor, chore, doc update) on its own branch, and merge it into main only when the user explicitly agrees."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_branch_policy.md",
+      "quote": "Before any `git add` / `git commit`, confirm the working branch is not `main`.",
+      "rule": "Before running any git add or git commit, confirm the current working branch is not main."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_branch_policy.md",
+      "quote": "If it is, create a branch first.",
+      "rule": "If the current working branch is main, create a new branch before making any commit."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_branch_policy.md",
+      "quote": "Only merge to main when the user says so",
+      "rule": "Merge changes into main only when the user explicitly says to."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_changelog_milestones.md",
+      "quote": "When a version bump corresponds to a GitHub milestone, include the milestone URL in the CHANGELOG entry header or description.",
+      "rule": "When a version bump corresponds to a GitHub milestone, include the milestone URL in the CHANGELOG entry header or description."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_changelog_milestones.md",
+      "quote": "check whether a milestone was created for that body of work. If so, link it",
+      "rule": "When writing a new CHANGELOG entry, check whether a GitHub milestone was created for that body of work, and if so, link it."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Benchmark numbers (\"9.6 ms → 11.2 ms (1.17×)\")",
+      "rule": "Do not include benchmark numbers in commit messages."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Binary or artefact sizes",
+      "rule": "Do not include binary or artefact sizes in commit messages."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Test pass/fail counts",
+      "rule": "Do not include test pass/fail counts in commit messages."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Disk usage figures, memory deltas, throughput numbers",
+      "rule": "Do not include disk usage figures, memory deltas, or throughput numbers in commit messages."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "put measurements in the spec's",
+      "rule": "For spec-driven work, put measurements in the spec's \"## Measurement (close-out)\" section rather than in the commit message."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Reference the spec from the commit if needed:",
+      "rule": "When needed, reference the relevant spec from the commit message."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "a short prose paragraph on the change",
+      "rule": "Keep the commit body to a short prose paragraph on the change."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "a bullet list of files touched and what each contains",
+      "rule": "In the commit body, include a bullet list of files touched and what each contains."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "any non-obvious *why* that wouldn't be evident from reading the diff.",
+      "rule": "In the commit body, include any non-obvious why that would not be evident from reading the diff."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "A bare statement like \"tests pass\" is also redundant",
+      "rule": "Do not include bare statements like \"tests pass\" in the commit body."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_commit_no_metrics.md",
+      "quote": "Reserve the commit body for content the diff can't communicate.",
+      "rule": "Use the commit body only for content the diff cannot communicate."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_fixme_policy.md",
+      "quote": "add a detailed `// FIXME:` comment and defer the fix to a future branch",
+      "rule": "When a code quality issue is noticed mid-iteration in code that the current iteration did not touch, add a detailed `// FIXME:` comment and defer the fix to a future branch."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_fixme_policy.md",
+      "quote": "fix it immediately (it's in scope)",
+      "rule": "When a code quality issue is noticed mid-iteration in code that the current iteration added or modified, fix it immediately."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_fixme_policy.md",
+      "quote": "check git blame / the current diff to determine if the code belongs to this iteration or predates it",
+      "rule": "Before fixing anything flagged as a quality issue, check git blame or the current diff to determine whether the code belongs to this iteration or predates it."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_formatting.md",
+      "quote": "Use 100-column line limit for all C/C++ code, not 80.",
+      "rule": "Use a 100-column line limit for all C/C++ code, not 80."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_formatting.md",
+      "quote": "Always run `clang-format -i` after editing C/C++ files",
+      "rule": "After editing C/C++ files, always run `clang-format -i` on them."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_inline_methods.md",
+      "quote": "Methods of up to 4 lines with no loops may be defined inline in the struct/class definition.",
+      "rule": "A method of up to 4 lines with no loops may be defined inline in the struct/class definition."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_inline_methods.md",
+      "quote": "Everything more complex goes out-of-line in the `.cc` file.",
+      "rule": "Any method that is more complex than a short loop-free method (has loops or is more than 4 lines) must be defined out-of-line in the `.cc` file."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_inline_methods.md",
+      "quote": "Before writing a method body in a header, check: does it have a loop? Is it more than 4 lines? If yes to either, put it in the `.cc`.",
+      "rule": "Before writing a method body in a header, check whether it has a loop or is more than 4 lines; if yes to either, put the method in the `.cc` file instead."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_loop_style.md",
+      "quote": "All infinite loops (exited via `break` or `return`) must use `do { ... } while (true)`.",
+      "rule": "Write every infinite loop (one exited via break or return) as `do { ... } while (true);`."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_loop_style.md",
+      "quote": "Never use `while (true)`, `while (1)`, or `for (;;)`.",
+      "rule": "Never write infinite loops as `while (true)`, `while (1)`, or `for (;;)`."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_loop_style.md",
+      "quote": "Any time an infinite loop is needed, write `do { ... } while (true);`.",
+      "rule": "Whenever an infinite loop is needed, write it as `do { ... } while (true);`."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_m_prefix.md",
+      "quote": "The `m_` prefix is acceptable for private and protected members of a `class`.",
+      "rule": "Use the m_ prefix only on private or protected members of a class."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_m_prefix.md",
+      "quote": "Never use it on `struct` fields",
+      "rule": "Never use the m_ prefix on struct fields."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_m_prefix.md",
+      "quote": "if it's on a `struct` field, drop the prefix",
+      "rule": "When an m_ prefix appears on a struct field, remove the prefix."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_method_spacing.md",
+      "quote": "Put an empty line between every method in a class body, including one-liners.",
+      "rule": "When writing or editing a class body, put an empty line between every method, including one-line methods."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_method_spacing.md",
+      "quote": "Any time writing or editing a class — constructors, operators, accessors, all of them get a blank line separator.",
+      "rule": "When writing or editing a class, put a blank line separator around constructors, operators, and accessors as well, not just ordinary methods."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_naming.md",
+      "quote": "Use `-` (hyphen) instead of `_` (underscore) in all project filenames",
+      "rule": "Use hyphens (-) instead of underscores (_) as word separators in all project filenames, including specs, docs, and test .cc files."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_naming.md",
+      "quote": "Any new file in `specs/`, `tests/`, or elsewhere should use hyphens as word separators.",
+      "rule": "When creating any new file in specs/, tests/, or elsewhere in the project, use hyphens as word separators in the filename."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_naming.md",
+      "quote": "All identifiers — rule names, variables, functions, types — must be readable by an average human who is not a compiler expert.",
+      "rule": "Make all identifiers (rule names, variables, functions, types) readable by an average non-expert human."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_naming.md",
+      "quote": "No unexplained abbreviations.",
+      "rule": "Do not use unexplained abbreviations in identifiers."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_naming.md",
+      "quote": "Write `str_literal` not `str_lit`",
+      "rule": "Name string literal identifiers as str_literal, not str_lit."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_naming.md",
+      "quote": "Write `float_literal` not `float_lit`",
+      "rule": "Name float literal identifiers as float_literal, not float_lit."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_naming.md",
+      "quote": "Write `lex_grammar` not `lg`",
+      "rule": "Name lexer grammar identifiers as lex_grammar, not lg."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_naming.md",
+      "quote": "When in doubt, use the full English word.",
+      "rule": "When unsure whether an abbreviation is clear, use the full English word in identifiers."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_naming.md",
+      "quote": "Universally understood short forms are fine: `src`, `dst`, `buf`, `idx`, `pos`, `loc`, `op`, `lhs`, `rhs`.",
+      "rule": "Short forms src, dst, buf, idx, pos, loc, op, lhs, and rhs are acceptable in identifiers."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_no_autocommit.md",
+      "quote": "Do not commit after completing a task unless the user explicitly says to commit.",
+      "rule": "Do not commit changes after completing a task unless the user explicitly asks you to commit."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_no_autocommit.md",
+      "quote": "Make changes, format, then stop. Let the user decide when to commit.",
+      "rule": "After making changes and formatting them, stop and leave committing to the user."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_no_param_letter_in_comments.md",
+      "quote": "The cost of spelling out \"the module\" instead of \"M\" is\n two words",
+      "rule": "Do not rely on single-letter parameter names (such as M, F, B, V) in code comments or documentation; refer to the entity by its type-noun (e.g., \"the module\", \"the function\", \"the basic block\", \"the value\") instead."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_no_param_letter_in_comments.md",
+      "quote": "Code comments and documentation must read on their own, without the reader\nneeding to glance at the function signature for context.",
+      "rule": "Write code comments and documentation so they are understandable on their own, without requiring the reader to look at the function signature."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_no_param_letter_in_comments.md",
+      "quote": "If a comment really needs to name a specific parameter, write it out:\n  \"every function in `module` that has a body\" reads fine and disambiguates\n  if there's more than one candidate noun in scope.",
+      "rule": "When a comment must name a specific parameter, write the full parameter name (e.g., `module`) rather than its single-letter form."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_no_param_letter_in_comments.md",
+      "quote": "The LLVM-style single-letter parameter *names* themselves\n remain acceptable",
+      "rule": "Single-letter LLVM-style parameter names may still be used in code itself; the restriction applies only to comment text."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_spec_sections.md",
+      "quote": "Any analysis, notes, or commentary I write belongs in the `[AI]` section.",
+      "rule": "Place any analysis, notes, or commentary written into a spec file in the `[AI]` section, not in the human's section."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_spec_sections.md",
+      "quote": "When asked to fill in or append to a spec file, write content under the `[AI]` section, not inline with the human's text.",
+      "rule": "When asked to fill in or append to a spec file, write the content under the `[AI]` section, not inline with the human's text."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_string_view.md",
+      "quote": "Prefer `std::string_view` over `std::string` wherever the data is not owned by the object holding it.",
+      "rule": "Prefer std::string_view over std::string wherever the data is not owned by the object holding it."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_string_view.md",
+      "quote": "Default to `std::string_view` for function parameters, token fields, and any struct member that references data owned elsewhere.",
+      "rule": "Default to std::string_view for function parameters, token fields, and any struct member that references data owned elsewhere."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_string_view.md",
+      "quote": "Only use `std::string` when the object must own its own copy of the string.",
+      "rule": "Only use std::string when the object must own its own copy of the string."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_sync.md",
+      "quote": "Do not push to GitHub unless the user explicitly says \"sync\" (or equivalent).",
+      "rule": "Do not push to GitHub unless the user explicitly says \"sync\" or an equivalent request."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_sync.md",
+      "quote": "Commit freely, but never run `git push` unless the user asks to sync.",
+      "rule": "Commit code freely without asking for permission."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_sync.md",
+      "quote": "never run `git push` unless the user asks to sync.",
+      "rule": "Never run `git push` unless the user asks to sync."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_test_descriptions.md",
+      "quote": "Capitalise the first character of every TEST_CASE description string.",
+      "rule": "When writing or editing a Catch2 TEST_CASE description string, capitalise its first character."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_test_descriptions.md",
+      "quote": "if the description starts with a language keyword (e.g. `if/else`, `::name`), leave it lowercase",
+      "rule": "When a TEST_CASE description starts with a language keyword (e.g. `if/else`, `::name`), leave its first character lowercase."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_test_descriptions.md",
+      "quote": "uppercase the first letter unless it is a language keyword.",
+      "rule": "When writing or editing TEST_CASE descriptions, uppercase the first letter unless the description starts with a language keyword."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_unordered_map.md",
+      "quote": "Use `std::unordered_map` for all symbol tables (variable maps, function registries, etc.) going forward.",
+      "rule": "Use std::unordered_map for all symbol tables (variable maps, function registries, etc.) going forward."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_unordered_map.md",
+      "quote": "Any new map keyed by string name (variable, function, type) should default to `unordered_map`.",
+      "rule": "When creating a new map keyed by string name (variable, function, type), default to std::unordered_map."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_unordered_map.md",
+      "quote": "Existing `map` instances should be migrated opportunistically when touching the surrounding code.",
+      "rule": "When touching code that contains existing std::map instances, migrate them to std::unordered_map opportunistically."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_workflow.md",
+      "quote": "Tests are #1 priority.",
+      "rule": "Treat writing and maintaining tests as the top priority in the work."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_workflow.md",
+      "quote": "write failing tests first, then implement, then refactor together.",
+      "rule": "Follow strict TDD order for each implementation step: write failing tests first, then implement, then refactor together with the user."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_workflow.md",
+      "quote": "When a new feature is requested, expect to write tests first.",
+      "rule": "When a new feature is requested, write tests before writing any implementation."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_workflow.md",
+      "quote": "Do not jump to implementation before there are tests.",
+      "rule": "Do not write implementation code before tests for it exist."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_workflow.md",
+      "quote": "If the user approves work before tests exist, gently flag it.",
+      "rule": "If the user approves work before tests exist, gently flag that the tests are missing."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_workflow.md",
+      "quote": "don't skip it.",
+      "rule": "Do not skip the collaborative refactor pass."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_workflow.md",
+      "quote": "`tests/explore/` is for experimentation only",
+      "rule": "Use `tests/explore/` only for experimentation, never for tests tied to a spec."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_workflow.md",
+      "quote": "any test tied to a spec must live in the main `tests/` directory",
+      "rule": "Place any test tied to a spec in the main `tests/` directory, using a numbered filename such as `test-0014-arrays.cc`."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_workflow.md",
+      "quote": "Set up the `tests/explore/` directory",
+      "rule": "Set up the `tests/explore/` directory at the start of each new iteration."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_workflow.md",
+      "quote": "an opt-in `pinp_explore_tests` CMake target at the start of each new iteration",
+      "rule": "Set up an opt-in `pinp_explore_tests` CMake target at the start of each new iteration."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_workflow.md",
+      "quote": "At iteration close, each explore file is either promoted (moved into a numbered test file in `tests/`) or deleted.",
+      "rule": "At iteration close, either promote each `tests/explore/` file into a numbered test file in `tests/` or delete it."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_workflow.md",
+      "quote": "All C++ code must pass clang-tidy before commit.",
+      "rule": "Ensure all C++ code passes clang-tidy before committing it."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_workflow.md",
+      "quote": "Run `scripts/lint.sh` to check.",
+      "rule": "Run `scripts/lint.sh` to check C++ code against clang-tidy."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "Immediately after `git worktree add ...`, symlink the install dir from the canonical",
+      "rule": "Immediately after running `git worktree add` for a new parserkg/ worktree, symlink third_party/llvm-install from the canonical worktree's third_party/llvm-install."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "If the build dir was already configured before the symlink, wipe and re-configure:",
+      "rule": "If the build directory was already configured before the llvm-install symlink was created, run `rm -rf build && cmake -S . -B build` to wipe and re-configure it."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "Verify the configure output names the local install and version",
+      "rule": "After configuring, verify that the cmake output names the local LLVM install and its version, not the system LLVM."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "fix and re-configure before",
+      "rule": "If the configure output reports a different LLVM version than the local install (e.g. a distro-packaged LLVM), fix the symlink and re-configure before building."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "Same fix as the install dir — symlink from the canonical worktree:",
+      "rule": "For a new worktree, replace the empty third_party/llvm-project directory with a symlink to the canonical worktree's third_party/llvm-project."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "rmdir third_party/llvm-project   # remove the empty placeholder",
+      "rule": "Before symlinking llvm-project in a new worktree, remove the empty third_party/llvm-project placeholder directory with `rmdir`."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "you would never edit `llvm-project/` per-branch anyway",
+      "rule": "Do not edit the llvm-project/ source per-branch in a worktree."
+    },
+    {
+      "id": "R88",
+      "file": "feedback_worktree_llvm_install.md",
+      "quote": "run `git submodule update --init third_party/llvm-project` inside the worktree instead",
+      "rule": "If a worktree needs a divergent LLVM source state, run `git submodule update --init third_party/llvm-project` inside that worktree instead of symlinking."
+    },
+    {
+      "id": "R89",
+      "file": "project_aot_compiler.md",
+      "quote": "must not live in `jit.cc` long-term",
+      "rule": "Do not keep built-in constant injection in `jit.cc` long-term."
+    },
+    {
+      "id": "R90",
+      "file": "project_aot_compiler.md",
+      "quote": "it needs to move into `CodegenContext`",
+      "rule": "Move built-in constant injection into `CodegenContext`."
+    },
+    {
+      "id": "R91",
+      "file": "project_aot_compiler.md",
+      "quote": "anything that both paths need belongs on `CodegenContext`, not on `PinpJIT`",
+      "rule": "When designing codegen APIs, place anything that both the JIT and AOT paths need on `CodegenContext`, not on `PinpJIT`."
+    },
+    {
+      "id": "R92",
+      "file": "project_next_iterations.md",
+      "quote": "Do not jump to other features without addressing these first.",
+      "rule": "When starting the next iteration, do not work on other features until items 1–4 from near-code-improvements.md (scope duplication, parser state stack fragility, magic operator chars, and codegen.cc size) have been addressed."
+    },
+    {
+      "id": "R93",
+      "file": "project_parser_rewrite.md",
+      "quote": "When resuming work, pick up from the open items above.",
+      "rule": "When resuming work on the parser-rewrite branch, pick up from the open items listed in its status file."
+    },
+    {
+      "id": "R94",
+      "file": "project_scope_design.md",
+      "quote": "Next sema checks go in the appropriate `Sema::check()` overload.",
+      "rule": "When adding a new semantic check, put it in the appropriate `Sema::check()` overload."
+    },
+    {
+      "id": "R95",
+      "file": "project_string_layout.md",
+      "quote": "Pinp strings must use a custom struct (not std::string)",
+      "rule": "Implement Pinp strings as a custom struct, not as std::string."
+    },
+    {
+      "id": "R96",
+      "file": "project_string_layout.md",
+      "quote": "The layout must be defined as an LLVM struct type usable in both JIT and AOT codegen.",
+      "rule": "Define the Pinp string layout as an LLVM struct type that works in both JIT and AOT codegen."
+    },
+    {
+      "id": "R97",
+      "file": "project_string_layout.md",
+      "quote": "`is_heap=0, is_mutable=1` — illegal, never constructed",
+      "rule": "Never construct a Pinp string with is_heap=0 and is_mutable=1."
+    },
+    {
+      "id": "R98",
+      "file": "project_string_layout.md",
+      "quote": "Strings are immutable by default",
+      "rule": "Make Pinp strings immutable by default."
+    },
+    {
+      "id": "R99",
+      "file": "project_string_layout.md",
+      "quote": "mutable strings always heap-allocated (no mutable inline)",
+      "rule": "Always heap-allocate mutable Pinp strings; never store a mutable string inline."
+    },
+    {
+      "id": "R100",
+      "file": "project_string_layout.md",
+      "quote": "Layout must be committed to before codegen is written",
+      "rule": "Finalize the string layout before writing any string codegen."
+    },
+    {
+      "id": "R101",
+      "file": "project_todo_bootstrap.md",
+      "quote": "**How to apply:** When user returns to this, implement a `scripts/bootstrap.sh` that handles the full submodule setup",
+      "rule": "When the user returns to the pinp LLVM bootstrap automation task, implement a `scripts/bootstrap.sh` that handles the full LLVM submodule setup."
+    },
+    {
+      "id": "R102",
+      "file": "project_todo_bootstrap.md",
+      "quote": "and a GitHub Actions workflow that caches `third_party/llvm-install/` to avoid full rebuilds on CI.",
+      "rule": "When the user returns to the pinp LLVM bootstrap automation task, also implement a GitHub Actions workflow that caches `third_party/llvm-install/` to avoid full rebuilds on CI."
+    },
+    {
+      "id": "R103",
+      "file": "project_todo_pinpstr_anon_union.md",
+      "quote": "give the union a member name (e.g. `u`)",
+      "rule": "When working on PinpStr in lib/immutable-string.hh, give its anonymous union a member name (e.g. `u`) to eliminate the -Wgnu-anonymous-struct warning."
+    },
+    {
+      "id": "R104",
+      "file": "project_todo_pinpstr_anon_union.md",
+      "quote": "update all access sites in `lib/immutable-string.cc` and `lib/immutable-string.hh` to use `str_.u.heap.ptr` / `str_.u.inl.tag_len` etc.",
+      "rule": "After naming the PinpStr union, update all access sites in lib/immutable-string.cc and lib/immutable-string.hh to go through the named member (e.g. str_.u.heap.ptr, str_.u.inl.tag_len)."
+    },
+    {
+      "id": "R105",
+      "file": "project_todo_pinpstr_anon_union.md",
+      "quote": "Do this fix at the start of the next strings iteration, before adding new string features.",
+      "rule": "Do the PinpStr anonymous union fix at the start of the next strings iteration, before adding any new string features."
+    },
+    {
+      "id": "R106",
+      "file": "project_todo_semantic_passes.md",
+      "quote": "This is acceptable while it's the only semantic optimisation.",
+      "rule": "While the str-concat optimisation is the only semantic optimisation, it may remain inline in emit(BinOpNode)."
+    },
+    {
+      "id": "R107",
+      "file": "project_todo_semantic_passes.md",
+      "quote": "extract all such logic into a separate AST rewrite pass",
+      "rule": "When a second semantic-level transformation is introduced, extract all semantic optimisation logic into a separate AST rewrite pass."
+    },
+    {
+      "id": "R108",
+      "file": "project_todo_semantic_passes.md",
+      "quote": "runs after sema and before codegen",
+      "rule": "The semantic optimisation pass should run after sema and before codegen."
+    },
+    {
+      "id": "R109",
+      "file": "project_todo_semantic_passes.md",
+      "quote": "The str-concat flattening should be the first thing moved there",
+      "rule": "When extracting semantic optimisations into a pass, move the str-concat flattening into that pass first."
+    },
+    {
+      "id": "R110",
+      "file": "project_todo_semantic_passes.md",
+      "quote": "likely introducing `StrConcatNode` into the AST at that point",
+      "rule": "When the str-concat flattening is moved into the semantic optimisation pass, introduce a StrConcatNode into the AST."
+    }
+  ],
+  "dropped": []
+}

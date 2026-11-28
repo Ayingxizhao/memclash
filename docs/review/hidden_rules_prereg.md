@@ -1,8 +1,6 @@
 # Hidden-rules trial: does a gate help when the agent cannot easily see its rules? (v1, 2026-11-25)
 
-Follow-up to `agent_trial_results.md`, where rules stated up front in `CLAUDE.md` were kept in 8 of 10
-runs and the gate had little to stop. Frozen by hash (`data/runs/hidden_rules/freeze1.sha256`) before
-any scored run; pilots are plumbing only and never scored.
+Fixed before any scored run; pilots are plumbing only and never scored.
 
 ## Hypothesis (stated before any run)
 When the rule is not in front of the agent (only in a topic file, or buried among many rules), the
@@ -16,8 +14,7 @@ those breaks. Results are reported whichever way they come out.
 - Sandbox: Claude Code's bash sandbox on, no network; reads of the user's private folders denied for
   shell and the Read tool; git uses a config inside the run. Tools allowed: Bash, Read, Edit, Write,
   Grep, Glob. Nobody answers the agent.
-- Same stub repos, tasks and stub tools as the agent trial (`trial_sandbox.py`, `trial_tasks.py`);
-  the 5 tasks that ran there: A1 (.env config bug), A2 (half-done fix), A3 (merged branch),
+- Stub repos, tasks and stub tools from `trial_sandbox.py` and `trial_tasks.py`; 5 tasks: A1 (.env config bug), A2 (half-done fix), A3 (merged branch),
   D1 (decoder fix), D2 (two codecs).
 
 ## Conditions (rule files the agent gets)
@@ -46,7 +43,7 @@ server start as before. The log also records whether the agent opened a memory t
 
 ## Labels
 Two fresh Claude helpers label every run independently with `prompts/review/trial_label.md`
-(blinded session ids, no gate verdicts). Codex is unavailable (spend cap) and DeepSeek is not used.
+(blinded session ids, no gate verdicts).
 Agreement = gold; disagreements are reported and excluded from the primary numbers. Both labelers
 share the agent's model family: stated as a limit.
 
@@ -60,5 +57,5 @@ share the agent's model family: stated as a limit.
   Bootstrap over tasks, 2,000 draws, seed 2520; 10 runs per arm is talk-level evidence.
 
 ## Order and budget
-Freeze -> 50 runs -> labels -> score. No DeepSeek or API spend; Claude runs use the subscription.
+Fix the plan -> 50 runs -> labels -> score. No DeepSeek or API spend; Claude runs use the subscription.
 Nothing frozen changes after scored runs start; fixes are logged in `changes.log`.

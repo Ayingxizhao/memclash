@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R188",
+   "rule": "Assign the selected issue to yourself before starting work on it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R189",
+   "rule": "Create a worktree branch for the issue before implementing it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R191",
+   "rule": "Have the QA agent verify all acceptance criteria are met before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R192",
+   "rule": "Have the review agent check code quality before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R211",
+   "rule": "Run the migration with --dry-run in Azure mode before running it for real."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R243",
+   "rule": "Read the screen behavior docs for a screen before reviewing or seeding that screen."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R66",
+   "rule": "Always read a file before editing it, regardless of what memory says about it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R9",
+   "rule": "For regular development work, never run `npm run dev` or any local Vite dev server."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R124",
+   "rule": "Read AGENTS.md before any cross-tool invocation."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R126",
+   "rule": "Do not pursue further SPY systematic options refinement, since that area is considered settled."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R129",
+   "rule": "Refine the inverse-squeeze short straddle TP50 strategy before deploying it as a sleeve."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R142",
+   "rule": "In the next session, do not re-verify the budget event structure; it was already confirmed clean as of 2026-04-24."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R148",
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R182",
+   "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a Bonferroni-corrected test."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R183",
+   "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a split-sample test."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R185",
+   "rule": "Do not deploy the long-strangle book, because it is not yet deployable."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R200",
+   "rule": "Do not switch the trading-tools repo to the `main` branch; use `master`."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R241",
+   "rule": "Do not perform max sprints or depth jumps until the readiness gates pass."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R250",
+   "rule": "Do not automatically activate the travel domain; wait until Scott asks to activate it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R251",
+   "rule": "Do not add the travel domain to the top-level PLAIOS CLAUDE.md domains table unless Scott explicitly requests it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R299",
+   "rule": "Do not run a parallel rs_vol sleeve alongside the SPY_top_5 strategy."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R3",
+   "rule": "Do not run `git push` unless the user explicitly asks for it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R64",
+   "rule": "Do not make repository changes (such as editing cli.py or writing decision records and studies) without Scott's explicit go-ahead."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R65",
+   "rule": "Delete the temporary file D:\\PLAIOS\\bundle.md only after Scott gives the go-ahead."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R10",
+   "rule": "Perform an upload or scheduling action only when Bryan explicitly requests it in chat for that one specific upload, and treat that permission as covering only that upload."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R124",
+   "rule": "Keep the user's real file untouched until all changes are verified in the scratchpad."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R140",
+   "rule": "Before regex-fixing text in a .pptx file, dump the raw run XML of the target paragraphs first."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R16",
+   "rule": "When Bryan asks for a copy of a file, offer any fill-in of its contents as a separate step and wait for his explicit yes before doing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R169",
+   "rule": "For the animate skill, always run build.mjs before export.mjs."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R170",
+   "rule": "Before building any new skill, tool, script, or small app from scratch, search GitHub (and Hugging Face for models/agents) for an existing one first."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R172",
+   "rule": "Never connect Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R173",
+   "rule": "Never log in to Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R177",
+   "rule": "Audit a good-fit tool before installing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R187",
+   "rule": "Ask before installing any tool found in the search."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R188",
+   "rule": "For any request to make a skill, tool, or script, make the search the first step."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R193",
+   "rule": "In a film chat, stop once at the every=3 board, wait for Bryan's approval, then render."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R194",
+   "rule": "Never upload films."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R218",
+   "rule": "Never place animation pieces in the JARVIS repo."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R22",
+   "rule": "Before building an Excel file, run one feasibility test that covers every formatting trick the design relies on."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R230",
+   "rule": "Do not start building a PowerPoint presentation for the Bahasa Inggris presentation project until the user explicitly asks for it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R235",
+   "rule": "Ask for the grading rubric before submitting any Bahasa Inggris project or assignment."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R244",
+   "rule": "Read the existing artifact first in a new session before republishing it."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R28",
+   "rule": "Before replacing Bryan's file, check that it is not open by looking for its ~$ lock file."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R29",
+   "rule": "Before replacing Bryan's file, check that it is byte-identical to your backup."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R296",
+   "rule": "Do not move the GP-100 editor installed at C:\\Bryan De Great\\GP-100\\, because its shortcuts point there."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R318",
+   "rule": "Before rebuilding the kaos boards with `buat_kaos.py`, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R336",
+   "rule": "Don't commit the sekitar skill to git until Bryan asks."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R337",
+   "rule": "Don't commit the riset-sekitar skill to git until Bryan asks."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R340",
+   "rule": "Schedule uploads one at a time; never bulk-post."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R360",
+   "rule": "Don't post a first comment on a scheduled upload until it is live."
+  }
+ ]
+}

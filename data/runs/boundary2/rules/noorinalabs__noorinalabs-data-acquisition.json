@@ -1,0 +1,928 @@
+{
+  "repo": "noorinalabs/noorinalabs-data-acquisition",
+  "dir": ".claude/memory",
+  "n_files": 30,
+  "n_rules": 153,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "Do **not** read this memory as a live constraint",
+      "rule": "Do not treat the historical null-MERGE APPEARS_IN defect described in this memory as a live constraint."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "null `book_number` or `hadith_number` from a parser is safe",
+      "rule": "A parser may emit a null book_number or hadith_number without it being treated as an error."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "Re-verify against `load_edges.py` before citing.",
+      "rule": "Re-verify this memory's claims against src/graph/load_edges.py before citing them."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "**Use coalesce-preserve,",
+      "rule": "When setting edge properties in the batch load path, use r.<field> = coalesce(row.<field>, r.<field>) rather than a plain SET, so that a null value preserves the existing property instead of clearing it, matching the streaming ingest path."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "positional values are SET attributes, not MERGE-key",
+      "rule": "Do not place positional or nullable property values inside a relationship's MERGE pattern; set them as SET attributes after MERGE on the (hadith, collection) pair."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_appears_in_merge_null.md",
+      "quote": "a memory that records a fixed bug must say so in its `description`,",
+      "rule": "When writing a memory that records a fixed bug, state the fix in the memory's description field."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_count_ge_zero_masks_empty_graph.md",
+      "quote": "harden real-DB assertions to read back the actual graph",
+      "rule": "When writing real-DB integration test assertions, read back the actual graph from the database instead of relying on loader return values."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_count_ge_zero_masks_empty_graph.md",
+      "quote": "assert a concrete row/edge COUNT (cross-checked against the loader's `created`)",
+      "rule": "In real-DB integration tests, assert a concrete row/edge count and cross-check it against the loader's `created` value."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_count_ge_zero_masks_empty_graph.md",
+      "quote": "per-row assert the property `keys(r)` (canonical present + non-null, legacy absent)",
+      "rule": "In real-DB integration tests, for each returned row, assert via `keys(r)` that the canonical property is present and non-null and the legacy property is absent."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_count_ge_zero_masks_empty_graph.md",
+      "quote": "`pytest.skip` (not error) the container fixture on `docker.errors.DockerException`",
+      "rule": "When the container fixture raises `docker.errors.DockerException`, call `pytest.skip` rather than erroring, so a Docker Hub or daemon outage results in SKIP instead of ERROR."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "must measure the **CORRUPTION axis, not only the deletion axis**",
+      "rule": "A drop/scrub/recover-gate A/B must measure the corruption axis, not only the deletion axis."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "diff `clean_old(row) != clean_new(row)` over the full corpus",
+      "rule": "When auditing a drop/scrub/recover-gate change, diff clean_old(row) != clean_new(row) over the full corpus."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "read the `name → different name` set by hand, not just `name → None`",
+      "rule": "Read the name → different name changes by hand, not only the name → None changes."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "For a name-truncation/recovery rule, the required adversarial coverage is **ف-initial ISM shapes**",
+      "rule": "For a name-truncation/recovery rule, adversarial coverage must include ف-initial ism shapes (e.g. فراس, فديك, فوزي, فتحي after بن/ابو)."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "**and ف-initial NISBA shapes**",
+      "rule": "For a name-truncation/recovery rule, adversarial coverage must include ف-initial nisba shapes (e.g. فارسي, فلسطيني, فرغاني before a bare preposition)."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "the battery must be rebuilt for the corruption shape",
+      "rule": "Rebuild the adversarial battery for the corruption shape rather than relying only on deletion counterexamples."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "a ف-token immediately after a kunya/nasab connector is that name's ism (never a verb)",
+      "rule": "Treat a ف-initial token immediately after a kunya/nasab connector as the name's ism, never a verb."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "corroboration must be **local** (before any intervening nasab connector)",
+      "rule": "Require corroboration of a ف-narrative boundary to be local, occurring before any intervening nasab connector."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "a genuine **narration marker**",
+      "rule": "Require corroboration of a ف-narrative boundary to be a genuine narration marker (Prophet reference, ask-verb, _MATN_OPENERS, or _MATN_DENSITY)."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "never a bare preposition",
+      "rule": "Never accept a bare preposition as corroboration for a ف-narrative boundary."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_drop_gate_measures_corruption_not_only_deletion.md",
+      "quote": "an Arabic name rule needs an Arabic-reading reviewer constructing corpus-shaped adversarial names",
+      "rule": "An Arabic name rule must be reviewed by an Arabic-reading reviewer who constructs corpus-shaped adversarial names."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_dual_detector_cross_sect_authority.md",
+      "quote": "Two producers writing one composed artifact must derive every field from the SAME authoritative source",
+      "rule": "When two or more producers write one composed artifact, derive every field from the same authoritative source."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_dual_detector_cross_sect_authority.md",
+      "quote": "is a real divergence to hunt, not env flake",
+      "rule": "When a test passes in CI but fails locally on an embedder- or model-dependent assertion, treat it as a real divergence to investigate, not as environment flakiness."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_dual_detector_cross_sect_authority.md",
+      "quote": "every field must come from the same authoritative column across producers",
+      "rule": "When multiple producers write one artifact and a merge step selects a per-key winner, make every field come from the same authoritative column across all producers."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_dual_detector_cross_sect_authority.md",
+      "quote": "hunt the real divergence (which code path only runs when the model loads), don't paper over the test",
+      "rule": "When an embedder- or model-dependent test diverges between environments, find the real divergence (such as the code path that only runs when the model loads) instead of papering over the test."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_dual_detector_cross_sect_authority.md",
+      "quote": "Verify a fix by confirming the previously-failing test passes **with the model loaded** (0 skipped), not just that CI stays green.",
+      "rule": "To verify a fix for an embedder- or model-dependent test failure, confirm the previously failing test passes with the model loaded and 0 skipped, not merely that CI stays green."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_generate_source_id_failfast.md",
+      "quote": "When reviewing/authoring any per-source light-up post-da#82\n(#83, #85 thaqalayn, #89, future ones), grep the adapter+parser for\n`generate_source_id(` and confirm the first arg is a real `SourceCorpus` value;",
+      "rule": "When reviewing or authoring any per-source light-up after da#82, grep the adapter and parser for `generate_source_id(` and confirm the first argument is a real `SourceCorpus` value."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_generate_source_id_failfast.md",
+      "quote": "any bio/narrator/aux key namespaced by a *source label* (kaggle_narrators,\nkaggle, etc.) must use a direct delimiter join, not the corpus-gated builder.",
+      "rule": "Build any bio, narrator, or aux key that is namespaced by a source label (e.g. kaggle_narrators) with a direct delimiter join, never with `generate_source_id`."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_generate_source_id_failfast.md",
+      "quote": "Pair the fix with a test that actually creates the bio/aux input so the branch\nruns.",
+      "rule": "When fixing bio or aux key generation, pair the fix with a test that actually creates the bio/aux input so the branch runs."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_git_stash_shared_across_worktrees.md",
+      "quote": "Never use `git stash` to A/B-test a fix against a base ref.",
+      "rule": "Never use git stash to A/B-test a fix against a base ref; swap the file content instead."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_git_stash_shared_across_worktrees.md",
+      "quote": "Swap the file content instead — it touches nothing shared and cannot pop a stranger's work",
+      "rule": "When A/B-testing a fix against a base ref, swap the file content (e.g., with git show <ref>:<path>) rather than using git stash."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_git_stash_shared_across_worktrees.md",
+      "quote": "always verify",
+      "rule": "After restoring a file swapped for A/B testing, verify the restore (e.g., with git diff --quiet HEAD -- <path>) before proceeding."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_git_stash_shared_across_worktrees.md",
+      "quote": "If a red run does not print the assertion you expected to see fail, the harness is lying to you — check that the base ref is actually in place.",
+      "rule": "If a red test run does not print the assertion you expected to fail, check that the base ref is actually in place before trusting the result."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_neo4j_set_null_removes_property.md",
+      "quote": "The null-safe rewrite is `MERGE (h)-[r:T]->(c) SET r.prop = row.x`.",
+      "rule": "When a Neo4j MERGE property value may be null, do not put that property in the MERGE inline map; instead MERGE the relationship without it and set the property with SET."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_neo4j_set_null_removes_property.md",
+      "quote": "assert edge EXISTENCE/count, NOT that the canonical key is present-with-null (it's absent)",
+      "rule": "When testing a null-valued row under the SET-form MERGE rewrite, assert the edge's existence or count, not that the canonical key is present with a null value."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_neo4j_set_null_removes_property.md",
+      "quote": "reserve `\"key\" in keys(r)` assertions for non-null fixtures and comment the coupling",
+      "rule": "Only use `\"key\" in keys(r)` assertions on fixtures where all values are non-null, and add a comment noting that coupling."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_neo4j_set_null_removes_property.md",
+      "quote": "property-less `MERGE (h)-[r:T]->(c)` collapses multiple rows sharing the same (h,c) into ONE edge",
+      "rule": "Before using a property-less MERGE on a relationship, check that the start node is unique per row, because otherwise rows sharing the same endpoints will collapse into one edge."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_structural_gate_commit_friction.md",
+      "quote": "Regenerate with **`python3 scripts/structural_ontology.py emit`**, NOT `uv run python …`",
+      "rule": "When regenerating the structural ontology index locally, run `python3 scripts/structural_ontology.py emit`, not `uv run python …`."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_structural_gate_commit_friction.md",
+      "quote": "Ensure no unstaged *tracked* changes remain (`git diff --name-only` empty)",
+      "rule": "Before committing, make sure no unstaged tracked changes remain, so that `git diff --name-only` is empty."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_structural_gate_commit_friction.md",
+      "quote": "format with the **pinned** version (`uvx ruff@0.15.11 format …`",
+      "rule": "Format Python code with the pinned ruff version via `uvx ruff@0.15.11 format …`, not with the local `uv run ruff`."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_structural_gate_commit_friction.md",
+      "quote": "stage ALL source edits together",
+      "rule": "When committing source changes, stage all source edits together rather than committing a partial subset."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "re-scope/close it",
+      "rule": "Re-scope or close the issue main#631 (noorinalabs-main#631) now that Docker works locally."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "do NOT brief implementers with \"no local Docker.\"",
+      "rule": "Do not brief implementers by stating that there is no local Docker."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "Acceptance bar for live-load issues can now be live LOCAL Neo4j (neo4j:5) at PR-time.",
+      "rule": "For live-load issues, use a live local Neo4j (neo4j:5) as the acceptance bar at PR time."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "you can now use a LOCAL Docker Neo4j instead of needing the staging box",
+      "rule": "To see real data, use a local Docker Neo4j instance instead of the staging box."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "re-verify `docker info` if container work suddenly fails",
+      "rule": "Re-verify `docker info` when container work suddenly fails, since Docker WSL integration can silently revert."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "**Don't** burn wave time trying to enable Docker-in-WSL2",
+      "rule": "Do not spend wave time trying to enable Docker-in-WSL2; treat it as an environment/owner action outside scope."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "Deliver the no-Docker proof at PR time",
+      "rule": "When Docker is unavailable, deliver the proof at PR time using an in-process or faithful-fake harness that drives the real code."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "a **skip-if-unreachable** guard on any real-DB test",
+      "rule": "Add a skip-if-unreachable guard to any test that uses a real database."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "Document the live leg as a clearly-marked \"requires Docker/Neo4j\" runbook step",
+      "rule": "Document the live leg as a clearly-marked \"requires Docker/Neo4j\" runbook step."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "track it in a follow-up issue",
+      "rule": "Track the live leg in a follow-up issue, and reference that issue from each affected PR."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "Not a merge blocker.",
+      "rule": "Do not treat the live leg as a merge blocker."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "confirm staging-Neo4j reachability early",
+      "rule": "Confirm staging Neo4j reachability early when pursuing live data."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_wsl2_no_local_docker.md",
+      "quote": "if unreachable, that's an owner escalation",
+      "rule": "If staging Neo4j is unreachable, escalate to the owner."
+    },
+    {
+      "id": "R55",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "Don't re-litigate the license.",
+      "rule": "Do not re-litigate the Bihar al-Anwar (hubeali.com) licensing decision; treat it as settled."
+    },
+    {
+      "id": "R56",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "do NOT re-surface as a blocker",
+      "rule": "Do not raise the Bihar al-Anwar licensing question again as a blocker, since the owner has already approved it."
+    },
+    {
+      "id": "R57",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "Build follows existing scraper conventions (sunnah_scraper/open_hadith: robots.txt, throttle, raw-cache, idempotent)",
+      "rule": "When building the bihar adapter, follow existing scraper conventions: respect robots.txt, throttle requests, use the raw cache, and keep the scraper idempotent."
+    },
+    {
+      "id": "R58",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "bounded real scrape for the PR",
+      "rule": "For the bihar adapter PR, run only a bounded real scrape rather than the full multi-volume corpus scrape."
+    },
+    {
+      "id": "R59",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "(not a thaqalayn extension)",
+      "rule": "Add a new SourceCorpus.BIHAR = \"bihar\" enum member for Bihar al-Anwar instead of extending the thaqalayn corpus."
+    },
+    {
+      "id": "R60",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "record on the SourceAdapter `license_note`",
+      "rule": "Record the Bihar adapter's licensing posture in the SourceAdapter license_note field."
+    },
+    {
+      "id": "R61",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "collection slug `bihar-al-anwar` NOT `bihar`",
+      "rule": "Use the collection slug bihar-al-anwar, not bihar, in bihar source_id values, to avoid identity.is_double_prefixed collapsing them."
+    },
+    {
+      "id": "R62",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "serial-merge with rebase",
+      "rule": "Merge the bihar PR serially with other registry-touching PRs, rebasing as needed."
+    },
+    {
+      "id": "R63",
+      "file": "project_bihar_not_in_thaqalayn.md",
+      "quote": "keep-all",
+      "rule": "When resolving conflicts with PR #97 in the same three files, keep all entries from both sides."
+    },
+    {
+      "id": "R64",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "**never** `candidate.name_ar_normalized`",
+      "rule": "Never use a bio candidate's `name_ar_normalized` as the norm_name of a canonical identity; norm_name must come only from the mention's normalized form or from refine_mononym_name's output."
+    },
+    {
+      "id": "R65",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "It may not rename and may not re-key.",
+      "rule": "A bio match must not rename or re-key a canonical node."
+    },
+    {
+      "id": "R66",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "A bio match may attach `external_id`, `birth_year_ah`, `death_year_ah`, `generation`, `gender`, `trustworthiness`, `source_ids`.",
+      "rule": "A bio match may attach the metadata fields external_id, birth_year_ah, death_year_ah, generation, gender, trustworthiness, and source_ids to a canonical node."
+    },
+    {
+      "id": "R67",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "\"Corroborate by requiring the mention's own form to be bio-registered\" is VACUOUS.",
+      "rule": "Do not adopt a corroboration check that requires the mention's own form to be bio-registered, because it never passes and would delete the fuzzy and crossref stages."
+    },
+    {
+      "id": "R68",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "Never assert a merge outcome from a lexical proxy",
+      "rule": "Never assert a merge outcome based on a lexical proxy such as a ratio or Levenshtein check against the group's modal form."
+    },
+    {
+      "id": "R69",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "run `_can_merge`.",
+      "rule": "To determine whether nodes would merge, run fuzzy_cluster._can_merge at the production threshold (90.0)."
+    },
+    {
+      "id": "R70",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "A naive \"a node's name must appear among its own mentions\" assertion",
+      "rule": "Do not add an assertion that a node's name must appear among its own mentions, because it false-positives on correct mononym re-keying from refine_mononym_name."
+    },
+    {
+      "id": "R71",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "Derive a discriminating year",
+      "rule": "When writing a da#248 mononym test, derive a neighbour year that fits exactly one candidate person in MONONYM_REGISTRY."
+    },
+    {
+      "id": "R72",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "don't assume one.",
+      "rule": "When writing a da#248 mononym test, do not assume a neighbour year discriminates between candidates without deriving it."
+    },
+    {
+      "id": "R73",
+      "file": "project_canonical_identity_invariant.md",
+      "quote": "Identity keys on `normalize_arabic(mention_text)`, not the stored column",
+      "rule": "Compute canonical identity keys from normalize_arabic(mention_text), not from the stored name_normalized column."
+    },
+    {
+      "id": "R74",
+      "file": "project_chain_hollow_reads_staging.md",
+      "quote": "an edge-connectivity query is the wrong lens for chain population",
+      "rule": "Do not use an edge-connectivity query to check whether Chain nodes are populated."
+    },
+    {
+      "id": "R75",
+      "file": "project_chain_hollow_reads_staging.md",
+      "quote": "via `c.chain_length` / `size(c.narrator_ids)`",
+      "rule": "Verify Chain node population by checking `c.chain_length` or `size(c.narrator_ids)`."
+    },
+    {
+      "id": "R76",
+      "file": "project_disambiguate_checkpoint_resume.md",
+      "quote": "So the sanctioned recovery command is `resolve --from-step disambiguate`, which SKIPS ner and reuses the existing `narrator_mentions_resolved.parquet` verbatim.",
+      "rule": "To recover/resume a crashed disambiguate run, use `resolve --from-step disambiguate` so NER is skipped and the existing narrator_mentions_resolved.parquet is reused verbatim."
+    },
+    {
+      "id": "R77",
+      "file": "project_disambiguate_checkpoint_resume.md",
+      "quote": "A bare `resolve` re-run regenerates NER mention_ids → checkpoint correctly cold-starts (safe, not corrupt).",
+      "rule": "Do not use a bare `resolve` re-run to resume a crashed disambiguate run, since it regenerates NER mention_ids and forces a cold start of the checkpoint."
+    },
+    {
+      "id": "R78",
+      "file": "project_disambiguate_checkpoint_resume.md",
+      "quote": "a resumed run can only be OUTPUT-IDENTICAL to a cold run if it reads the SAME mentions file (same mention_ids)",
+      "rule": "A resumed disambiguate run must read the same mentions file (same mention_ids) as the original run to produce output identical to a cold run."
+    },
+    {
+      "id": "R79",
+      "file": "project_disambiguate_checkpoint_resume.md",
+      "quote": "Excludes canonical_narrator_id/confidence (rewritten by the end-of-run backfill) and mtime",
+      "rule": "Exclude canonical_narrator_id, confidence, and mtime from the disambiguate checkpoint fingerprint."
+    },
+    {
+      "id": "R80",
+      "file": "project_fuzzy_cluster_unblockable.md",
+      "quote": "**PRECISION-FIRST — every rule is a closed set or a lexicon, never a productive orthographic pattern.**",
+      "rule": "When writing Arabic name-folding rules, use only closed sets or lexicons, never productive orthographic patterns, because pattern-based folds wrongly merge distinct names."
+    },
+    {
+      "id": "R81",
+      "file": "project_fuzzy_cluster_unblockable.md",
+      "quote": "must trigger on the **article** (`عبدال`), never a bare `عبد` prefix",
+      "rule": "Trigger the عبد split only on the article عبدال, never on a bare عبد prefix, since names like عبدان and عبدوس are distinct names."
+    },
+    {
+      "id": "R82",
+      "file": "project_fuzzy_cluster_unblockable.md",
+      "quote": "is applied **inside `make_canonical_id`**, not at the call site",
+      "rule": "Apply canonical_surface inside make_canonical_id rather than at individual id-minting call sites."
+    },
+    {
+      "id": "R83",
+      "file": "project_fuzzy_cluster_unblockable.md",
+      "quote": "Never assert a merge outcome from a lexical proxy.",
+      "rule": "Never claim whether two names merge based on a lexical proxy such as string ratio or edit distance."
+    },
+    {
+      "id": "R84",
+      "file": "project_fuzzy_cluster_unblockable.md",
+      "quote": "Run `_can_merge`.",
+      "rule": "To determine whether two names merge, run `_can_merge` instead of relying on a lexical heuristic."
+    },
+    {
+      "id": "R85",
+      "file": "project_hadith_number_collection_vs_inbook.md",
+      "quote": "`hadith_number_in_book` must carry the",
+      "rule": "The `hadith_number_in_book` property must carry the in-book ordinal (e.g. 1 for \"Book 1, Hadith 1\"), not the collection-wide reference number."
+    },
+    {
+      "id": "R86",
+      "file": "project_hadith_number_collection_vs_inbook.md",
+      "quote": "the collection-wide ref stays in `source_id` only.",
+      "rule": "Keep the collection-wide hadith reference only in `source_id`, and do not store it in `hadith_number_in_book`."
+    },
+    {
+      "id": "R87",
+      "file": "project_hadith_number_collection_vs_inbook.md",
+      "quote": "requires the SCRAPER to extract the in-book ordinal into its own staging column",
+      "rule": "The scraper must extract the in-book ordinal into its own dedicated staging column, separate from the collection-wide reference field, so the edge loader can populate `hadith_number_in_book` from it."
+    },
+    {
+      "id": "R88",
+      "file": "project_hadith_number_collection_vs_inbook.md",
+      "quote": "it needs the right value, not a rename",
+      "rule": "Do not rename the `hadith_number_in_book` property; fix its value instead."
+    },
+    {
+      "id": "R89",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "**proceed** with the Itqan narrator source despite it shipping **no upstream license**",
+      "rule": "Proceed with using the Itqan narrator source even though it ships with no upstream license."
+    },
+    {
+      "id": "R90",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "don't re-litigate the Itqan license as a blocker on future PRs",
+      "rule": "Do not treat the Itqan license as a blocker on future PRs."
+    },
+    {
+      "id": "R91",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "re-express them in our own canonical schema (our `nar:` ids, our node structure), rather than redistributing Itqan's files/compilation verbatim",
+      "rule": "When using facts from a source, re-express them in the project's own canonical schema rather than redistributing the source's files or compilation verbatim."
+    },
+    {
+      "id": "R92",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "Keep the provenance tagging (`source_corpus` + `external_id`) intact on any source",
+      "rule": "Keep the provenance tagging (`source_corpus` and `external_id`) intact on any data source."
+    },
+    {
+      "id": "R93",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "Correct removal query: `MATCH (n:Narrator) WHERE any(s IN n.source_ids WHERE s STARTS WITH 'itqan:') DETACH DELETE n`",
+      "rule": "To remove Itqan-sourced Narrator nodes, use the query that checks whether any element of the `source_ids` list starts with 'itqan:'."
+    },
+    {
+      "id": "R94",
+      "file": "project_itqan_license_proceed.md",
+      "quote": "NOT the scalar `{source_corpus:'itqan'}` form",
+      "rule": "Do not use the scalar `{source_corpus:'itqan'}` form to match Itqan-sourced Narrator nodes for removal."
+    },
+    {
+      "id": "R95",
+      "file": "project_matn_sentence_pollution_ui.md",
+      "quote": "Validate there, not just via `ORDER BY degree` Neo4j probes.",
+      "rule": "When validating narrator data quality, check the id-ordered list served to the UI (the surface users see), not only degree-ordered Neo4j probes."
+    },
+    {
+      "id": "R96",
+      "file": "project_matn_sentence_pollution_ui.md",
+      "quote": "All Arabic validation probes must use normalized hamza forms",
+      "rule": "When writing Arabic validation probes against stored names, use the normalized hamza forms (e.g., bare ء for ئ) that the stored data uses, so that searches don't return false zero matches."
+    },
+    {
+      "id": "R97",
+      "file": "project_name_normalized_provenance.md",
+      "quote": "Do NOT blame `normalize_arabic`",
+      "rule": "Do not attribute the name_ar_normalized drift to normalize_arabic, because it is idempotent and is not the cause."
+    },
+    {
+      "id": "R98",
+      "file": "project_name_normalized_provenance.md",
+      "quote": "quote both numbers or you will mislead",
+      "rule": "When reporting the scale of the name_ar_normalized drift, state both the row-level figure (36.8%) and the mention-weighted figure (1.7%)."
+    },
+    {
+      "id": "R99",
+      "file": "project_narrators_two_producers.md",
+      "quote": "MUST order **disambiguate BEFORE bio_promote**",
+      "rule": "When wiring the pipeline in src/resolve/__init__.py run_all, order disambiguate before bio_promote so disambiguate does not overwrite the bio-only narrators bio_promote produced."
+    },
+    {
+      "id": "R100",
+      "file": "project_narrators_two_producers.md",
+      "quote": "make its write merge-safe too (read-existing\n+ extend), mirroring bio_promote.",
+      "rule": "If disambiguate must run after bio_promote, make disambiguate's write merge-safe by reading the existing narrators_canonical.parquet and extending it, mirroring bio_promote."
+    },
+    {
+      "id": "R101",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "Don't conflate `lk` with Shia.",
+      "rule": "Do not conflate source_corpus=\"lk\" with Shia; lk denotes the Sunni six-books (al-kutub al-sittah), while al-Kafi belongs under source_corpus=\"thaqalayn\" with sect=shia."
+    },
+    {
+      "id": "R102",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "Whoever writes narrators after the first MUST export+bio_promote-union, never naive-load",
+      "rule": "When writing narrator nodes after the first writer, export and bio_promote-union them; never naive-load narrators, because _NARRATOR_MERGE overwrites mention_count and source_ids."
+    },
+    {
+      "id": "R103",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "Combined narrator-resolve must dedup by CANONICAL hadith identity (collection+number), not raw matn.",
+      "rule": "Deduplicate hadiths in the combined narrator-resolve by canonical identity (collection plus number), not by raw matn text."
+    },
+    {
+      "id": "R104",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "loader must run as a one-off container on the `noorinalabs_backend` docker network ON the staging host",
+      "rule": "Run the staging corpus loader as a one-off container on the noorinalabs_backend docker network on the staging host (ssh deploy@noorinalabs-stg), since no bolt port is published."
+    },
+    {
+      "id": "R105",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "prod stays owner-gated",
+      "rule": "Do not run production corpus loads without explicit owner approval."
+    },
+    {
+      "id": "R106",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "Staging loads CLEARED (sanctioned wave work)",
+      "rule": "Staging corpus loads are permitted as sanctioned wave work."
+    },
+    {
+      "id": "R107",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "investigate-first; escalate if no clean source",
+      "rule": "For the Shia Four Books sourcing task (da#182), investigate first and escalate to the owner if no clean source is found."
+    },
+    {
+      "id": "R108",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "real-upstream parse-path test",
+      "rule": "Test the thaqalayn parser against real upstream data via a parse-path test, not against assumed fixtures."
+    },
+    {
+      "id": "R109",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "gate on `make validate` strict",
+      "rule": "Gate thaqalayn parser fixes on passing `make validate` in strict mode."
+    },
+    {
+      "id": "R110",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "exclude allBooks*/BookNames/config",
+      "rule": "When acquiring thaqalayn data, scope acquisition to the V2 directory and exclude allBooks* files, BookNames, and config files."
+    },
+    {
+      "id": "R111",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "dropped per i18n-scope rule",
+      "rule": "Drop the English text from narmafraz/ThaqalaynData's verse.ai field and load only the Arabic text."
+    },
+    {
+      "id": "R112",
+      "file": "project_p5w5_corpus_load_findings.md",
+      "quote": "fix = loader `full_text_ar→matn_ar` fallback",
+      "rule": "Fix the loader so that full_text_ar falls back into matn_ar when matn_ar is empty, so Hadith nodes are not textless."
+    },
+    {
+      "id": "R113",
+      "file": "project_profile_source_bio_promote.md",
+      "quote": "Point the promoter at *staging*",
+      "rule": "When promoting narrator bios to canonical records for a narrator source, point the promoter at the staging directory, not the curated/output directory, so the graph loader can find narrators_canonical.parquet."
+    },
+    {
+      "id": "R114",
+      "file": "project_profile_source_bio_promote.md",
+      "quote": "Use the `source_ids` list (not a scalar `source_corpus`)",
+      "rule": "When tagging Narrator node provenance, use the `source_ids` list rather than a scalar `source_corpus` field, because a canonical narrator can come from multiple sources after dedup."
+    },
+    {
+      "id": "R115",
+      "file": "project_relational_pollution_scrub_equiv.md",
+      "quote": "Use the scrub for fast stage rehearsal",
+      "rule": "For fast stage rehearsal, use scripts/scrub_relational_pollution.py on already-built curated artifacts instead of re-running the full NER→disambiguate→enrichment pipeline."
+    },
+    {
+      "id": "R116",
+      "file": "project_relational_pollution_scrub_equiv.md",
+      "quote": "the committed filter is the durable fix for the next real resolve run (incl. prod)",
+      "rule": "For the next real resolve run, including production, rely on the committed name_quality filter rather than the scrub script."
+    },
+    {
+      "id": "R117",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "stages own only their state SHAPE + fingerprint column set",
+      "rule": "Keep shared checkpoint conventions in src/resolve/_checkpoint.py, and have each resolve stage define only its own checkpoint state shape and fingerprint column set."
+    },
+    {
+      "id": "R118",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "On resume the persisted `.faiss` index is RELOADED, not rebuilt",
+      "rule": "When resuming dedup, reload the persisted .faiss index instead of rebuilding it."
+    },
+    {
+      "id": "R119",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "Cadence keyed to SCORED-PAIRS (block cost varies orders of magnitude), not block count.",
+      "rule": "Key the cluster checkpoint cadence to the number of scored pairs, not to the number of blocks."
+    },
+    {
+      "id": "R120",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "subclasses **BaseException** (NOT Exception)",
+      "rule": "Make StopAfterReached subclass BaseException, not Exception, so that run_all's per-step except Exception does not catch it."
+    },
+    {
+      "id": "R121",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "the ordering `--from-step` must preserve",
+      "rule": "Ensure that --from-step preserves the resolve pipeline ordering described in project_narrators_two_producers."
+    },
+    {
+      "id": "R122",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "trust for A/B same-prefix, not full-run ETA",
+      "rule": "Use the head-of-data rate only for A/B same-prefix comparisons, never as a full-run ETA."
+    },
+    {
+      "id": "R123",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "checkpoint LEFT on disk",
+      "rule": "When a run stops at its --stop-after limit, leave the checkpoint on disk."
+    },
+    {
+      "id": "R124",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "final output NOT written",
+      "rule": "When a run stops at its --stop-after limit, do not write the final output."
+    },
+    {
+      "id": "R125",
+      "file": "project_resolve_checkpoint_unified.md",
+      "quote": "pure callers `cluster_assignment`/quality-harness pass None",
+      "rule": "Have pure callers such as cluster_assignment and the quality harness pass None for ckpt_dir, so they do not checkpoint."
+    },
+    {
+      "id": "R126",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "a loader container attached to that network cannot `pip install` at runtime",
+      "rule": "Do not run `pip install` inside a loader container attached to the noorinalabs_backend network at runtime; deps must be baked into the image at build time."
+    },
+    {
+      "id": "R127",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "deps+code baked at BUILD time",
+      "rule": "Bake dependencies and code into the loader image at build time, not at runtime."
+    },
+    {
+      "id": "R128",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "then RUN attached to `noorinalabs_backend`",
+      "rule": "Run the staging loader container attached to the noorinalabs_backend docker network."
+    },
+    {
+      "id": "R129",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "reads the neo4j password from the container's `NEO4J_AUTH` env",
+      "rule": "Read the Neo4j password from the container's NEO4J_AUTH environment variable at load time rather than hardcoding or committing it."
+    },
+    {
+      "id": "R130",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "no secret committed",
+      "rule": "Never commit Neo4j secrets or passwords to the repository."
+    },
+    {
+      "id": "R131",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "The deployed isnad-graph API image canNOT be reused as the loader",
+      "rule": "Do not reuse the deployed isnad-graph API image as the data loader image."
+    },
+    {
+      "id": "R132",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "Image left as `noorinalabs-graph-load:da174` for reuse.",
+      "rule": "Reuse the existing noorinalabs-graph-load:da174 loader image instead of rebuilding it when possible."
+    },
+    {
+      "id": "R133",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "`/home/deploy` is root-owned (NOT writable) — use `/tmp`",
+      "rule": "Use /tmp rather than /home/deploy for writing files on the staging host."
+    },
+    {
+      "id": "R134",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "PROD apply (deploy#470) is owner-sign-off only",
+      "rule": "Apply loads to production only with explicit owner sign-off."
+    },
+    {
+      "id": "R135",
+      "file": "project_staging_graph_load_transport.md",
+      "quote": "run it once as a no-clobber merge after all source parquet exist",
+      "rule": "Run the combined narrator-resolve and chain/transmission/PARALLEL_OF edge load once, as a no-clobber merge, only after all source parquet files exist."
+    },
+    {
+      "id": "R136",
+      "file": "project_studied_under_allowlist.md",
+      "quote": "**Any new adapter that emits `network_edges_<slug>.parquet` whose edges are NOT studentship must stay OFF this allowlist.**",
+      "rule": "When adding a new adapter that emits `network_edges_<slug>.parquet` whose edges are not studentship (teacher↔student) relations, do not add its slug to the `_STUDIED_UNDER_SOURCES` allowlist."
+    },
+    {
+      "id": "R137",
+      "file": "project_sunnah_scraper_truncation.md",
+      "quote": "Before the prod full-corpus cutover (deploy#470, [[project_p5w5_prodcutover_p6_dataquality]]) RE-SCRAPE the\nsunnah_scraper collections with the da#177 fix and reconcile counts",
+      "rule": "Before the prod full-corpus cutover, re-scrape the sunnah_scraper collections with the da#177 fix and reconcile hadith counts."
+    },
+    {
+      "id": "R138",
+      "file": "project_sunnah_scraper_truncation.md",
+      "quote": "a green\nstaging load count ≠ complete",
+      "rule": "Do not treat a passing staging load count as proof that a collection is complete."
+    },
+    {
+      "id": "R139",
+      "file": "project_sunnah_scraper_truncation.md",
+      "quote": "a keying change (e.g. the\npre-in-book-ordinal `:0` fragment) does NOT MERGE → delete-then-load to avoid\nstale duplicates",
+      "rule": "When a node keying change means the loader will not MERGE, delete the existing nodes and then load to avoid stale duplicates."
+    },
+    {
+      "id": "R140",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "route them to `isnad_raw_en`/`matn_en`",
+      "rule": "When mapping Thaqalayn records, route the English fields `thaqalaynSanad` and `thaqalaynMatn` to `isnad_raw_en` and `matn_en`, not to Arabic fields."
+    },
+    {
+      "id": "R141",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "`arabicText` (whole, no Arabic split) → `matn_ar`/`full_text_ar`",
+      "rule": "When mapping Thaqalayn records, map the `arabicText` field to `matn_ar` and `full_text_ar`."
+    },
+    {
+      "id": "R142",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "`isnad_raw_ar`=None",
+      "rule": "When mapping Thaqalayn records, leave `isnad_raw_ar` as None."
+    },
+    {
+      "id": "R143",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "identity `source_id=thaqalayn:<bookId>:<id>`",
+      "rule": "When creating Thaqalayn hadith records, set `source_id` to `thaqalayn:<bookId>:<id>`."
+    },
+    {
+      "id": "R144",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "`collection_name=bookId`",
+      "rule": "When creating Thaqalayn hadith records, set `collection_name` to the record's `bookId`."
+    },
+    {
+      "id": "R145",
+      "file": "project_thaqalayn_parser_schema.md",
+      "quote": "needs cross-corpus dedup audit before prod cutover",
+      "rule": "Run a cross-corpus deduplication audit on the Shia content before cutting over to production."
+    },
+    {
+      "id": "R146",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "Reporting 295,576 as \"pairs\" is a 12.8× overcount.",
+      "rule": "Do not report the reciprocal edge-instance count (295,576) as the number of reciprocal pairs."
+    },
+    {
+      "id": "R147",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "The pair count needs `count(DISTINCT [a.id, b.id])`",
+      "rule": "Count reciprocal pairs with count(DISTINCT [a.id, b.id]), not count(*)."
+    },
+    {
+      "id": "R148",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "always attach a terminal `printf 'QUERY_RC=%s\\n' $?` sentinel",
+      "rule": "Always attach a terminal printf 'QUERY_RC=%s\\n' $? sentinel to graph query runs."
+    },
+    {
+      "id": "R149",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "treat its **absence** as \"did not complete.\"",
+      "rule": "Treat a missing QUERY_RC sentinel in a query run's output as the query not having completed, not as a zero result."
+    },
+    {
+      "id": "R150",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "re-measure after da#356 lands",
+      "rule": "Re-measure reciprocal_pairs after da#356 lands."
+    },
+    {
+      "id": "R151",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "do not delete cycles",
+      "rule": "Do not delete reciprocal cycles in response to a nonzero reciprocal_pairs count."
+    },
+    {
+      "id": "R152",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "Only `self_loops` gates",
+      "rule": "Use only self_loops as the pass/fail gate for the chain integrity check; do not gate on reciprocal_pairs."
+    },
+    {
+      "id": "R153",
+      "file": "reference_chain_integrity_cycle_population.md",
+      "quote": "enumerate `keys(n)` first",
+      "rule": "Enumerate keys(n) before writing queries that reference node properties, to avoid silently NULL results from misspelled property names."
+    }
+  ],
+  "dropped": []
+}

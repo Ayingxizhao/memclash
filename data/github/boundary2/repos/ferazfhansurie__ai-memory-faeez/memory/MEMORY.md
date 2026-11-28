@@ -1,0 +1,18 @@
+- [User role and creative practice](user_role.md) — Firaz runs ADletic Agency, builds MotionBoards, produces Malaysian-localised ad spots
+- [Yaroflasher prompting style reference](reference_yaroflasher.md) — the prompting North Star: long single-prompt multi-ref Seedance runs, real photos for cast, ASCII paste-ready under 2000 chars
+- [Seedance 2.0 prompts must verify under 2000 chars](feedback_seedance_charlimit.md) — always output two versions: long brief + paste-ready compressed, `wc -c` verified
+- [Use real photos for characters, AI for things](feedback_real_photos_for_characters.md) — NB2 generates objects/environments/backplates only; characters always come from uploaded real photos
+- [Strip car brand names from video prompts](feedback_no_branded_cars_in_video_prompts.md) — Seedance flags "Honda Civic" / "Mazda 2" etc as sensitive; use generic descriptors + let @ImageN carry identity
+- [Nano Banana 2 has a 13000-character prompt limit](feedback_nano_banana_2k_chars.md) — practical cap is 13K (not 2K); write full briefs, only verify with wc -c if approaching 13K
+- [TikTok personal brand — workout / hybrid athlete](project_tiktok_personal_brand.md) — ongoing advisor workstream; flat at 100–2k, goal 50k in 6 months, 3–4x/week
+- [TikTok content must feel unplanned](feedback_tiktok_unscripted.md) — frame as triggers/moments to catch, not scripts; lean DOWN in production; only applies to @faeezree, not ADletic ad work
+- [KL conversational Malay for VO, not Indonesian AI voices](feedback_kl_malay_voice.md) — dub real KL voices or force KL Manglish markers + schwa; in-model TTS defaults to Indonesian and sounds AI
+- [Gen-Z "funny but kinda serious" content formula](feedback_content_genz_funny_serious.md) — default for branded short-form: Office-style recognition humor + a real turn, recurring characters/catchphrases, episodic, lo-fi real people (not @faeezree)
+- [PUSH Life — Office-style mockumentary series](project_pushlife_office_sitcom.md) — FatHopes UCO-collection depot crew; dry confessionals, grounded in real oil-collection world (NOT generic gen-z skits); cast + tone bible
+- [Google Ads connection](reference_google_ads_project.md) — LIVE via API v22; GCP `serious-timer-500011-a0`, MCC `162-977-0601`, ad acct `871-470-7145`; secrets in local .env
+- [Google Ads audit + PUSH problem](project_google_ads_audit.md) — PUSH Recruitment (PMax) spent RM751 with 0 conversions — tracking broken, top priority
+- [Meta Ads connection](reference_meta_ads.md) — full Graph API token in .env.local (never-expires); account map; use token over MCP; MotionBoards /api/upload for image hosting
+- [PUSH recruitment on Meta](project_push_recruitment_meta.md) — acct `725484841474739`; Week 37 Copy 2 targeting (14 cities, age 25-65, driver job titles); Kelantan paused; daily lead-log format
+- [ShineWrappers car-wrap ads](project_shinewrappers_ads.md) — acct `572268621423470`; account-wide PAYMENT ERROR; WhatsApp campaign paused, 4 ads to finish in Ads Manager
+- [FatHopes video/content concepts](project_fathopes_video_content.md) — PUSH AI ad, Vendor-app 5 split-tests, "buy used oil" field series, In-The-Field gotong-royong series
+- [FatHopes Threads auto-poster](project_fathopes_threads_autopost.md) — @farzmus KL-voice loyalty-app poster, phased + engagement-ramped, Vercel cron, Meta Threads API; full manual in THREADS-AUTOPOSTER.md

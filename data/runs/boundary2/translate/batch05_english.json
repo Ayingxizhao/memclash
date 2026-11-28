@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R361",
+   "rule": "Render films one at a time, not in parallel."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R372",
+   "rule": "Do not rebuild the Kurva S files."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R404",
+   "rule": "For the TTS & TAS group assignment, do not write its content or build its files; give review and advice only."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R407",
+   "rule": "When rebuilding the PDF of this report, first save the document in Word (SaveAs), then export the PDF from that Word-saved docx."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R433",
+   "rule": "Before editing a revised assignment file in the \"File terpisah (tidak diunggah)\" folder, first copy the file as a backup."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R437",
+   "rule": "Never place the assignment files, which contain the student's NIM and date of birth, in the JARVIS repository."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R476",
+   "rule": "Until a voice lock exists, run only one voice batch at a time."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R479",
+   "rule": "Render films one at a time."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R497",
+   "rule": "Before running `buat_seragam.py`, move existing output files with the same names to `_Arsip\\`, because the script overwrites them."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R569",
+   "rule": "If the YouTube Data API key is used, store it in a user environment variable, never in the public repo."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R580",
+   "rule": "Before running the build scripts, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R586",
+   "rule": "Before running the sticker build script, move the existing sticker versions to the `_Arsip\\` folder so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R590",
+   "rule": "Use the Preview JPG only for viewing, never for printing."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R594",
+   "rule": "Never save Bryan's coursework materials or tugas into JARVIS\\kuliah\\."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R6",
+   "rule": "Do not run `unggah-sekitar` during a film session."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R611",
+   "rule": "Before uploading anything as the @rupanya.gini account, read the reference-upload-route memory file."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R612",
+   "rule": "Do not change Windows Firewall rules yourself; leave the admin PowerShell firewall commands for the user to run."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R633",
+   "rule": "Never move the GP-100\\ folder, which holds the installed GP-100 editor app."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R646",
+   "rule": "Before setting a rebuilt film on a site, compare its SHA-256 with `sha256sum` of the original file."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R647",
+   "rule": "Before uploading to YouTube, check that the channel avatar is the orange \"r.\" / Rupanya Gini channel."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R653",
+   "rule": "Settle every TikTok post detail before pressing Schedule, because scheduled posts cannot be edited."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R67",
+   "rule": "Never name a script inspect.py, because it shadows the standard library module."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R693",
+   "rule": "Do not record Bryan's exact personal financial figures in this public repo; ask him for them when they are needed."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R7",
+   "rule": "Do not open YouTube, TikTok, Instagram, Facebook, or Meta Business Suite to post or schedule a film."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R8",
+   "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R119",
+   "rule": "Do not use an autotest run on a silent desktop to measure or verify audio; the absence of sound in that case proves nothing."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R12",
+   "rule": "Keep `info()` callbacks as pure memory access, since they run on the render thread at 60 Hz; never run system probes in them."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R120",
+   "rule": "Before starting a session, identify the registered server-side entity `01` (listed via `GET /clients`) and delete it using `proximus_delete()`."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R135",
+   "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R137",
+   "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R145",
+   "rule": "Do not search for a port for ComChan, since it has no socket."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R166",
+   "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R179",
+   "rule": "Do not retest the 14 hypotheses listed as eliminated in this investigation."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R189",
+   "rule": "Do not re-test the RFC 7675 consent freshness hypothesis for the t=115 s freeze."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R193",
+   "rule": "Do not re-test the hypotheses already eliminated in the WebRTC freeze investigation at t=120s."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R20",
+   "rule": "Before running any debugging campaign on the console, run `SHADOW_NATIVE=1 ./shadow-client` on Linux against the same VM to try to reproduce the defect."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R214",
+   "rule": "Do not copy libnxbox."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R217",
+   "rule": "After testing N1+N2, if the freeze persists, implement N3 (TWCC v2 and simplified GoogCC)."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R252",
+   "rule": "Push the Switch build only after the machine has been rebooted."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R259",
+   "rule": "Before testing more VST connect body variants, capture the plaintext `SSL_write` on the desktop side with an LD_PRELOAD hook to lock the body byte-exact."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R261",
+   "rule": "Do not implement a new trigger for TIER 9 to expose the streaming-profile speed/reliability preset."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R27",
+   "rule": "Run the duplicate-send test (option 3) to confirm the packet-loss hypothesis before investing in the SACK-buffer-and-retransmit implementation (option 1)."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R302",
+   "rule": "Before working on the Shadow port, always first validate the environment by checking the toolchain, a hello-world build, and nxlink."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R314",
+   "rule": "When first writing a crypto, SUFP, or CtrlChanV2 module on the Switch side, read the corresponding section of the full ENCRYPTION_AND_FRAMING.md document first."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R320",
+   "rule": "Do not modify the profile-level-id handling in h264_decoder.c during M13 or later polish work."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R321",
+   "rule": "Do not modify the AU aggregation strategy in h264_decoder.c during M13 or later polish work."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R344",
+   "rule": "Start the video stream (SPICE port 6000) only after /status reports streamer_up:true."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R345",
+   "rule": "Do not pivot to ngtcp2/QUIC on the Switch; do not port a QUIC stack there."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R35",
+   "rule": "When a Switch homebrew app fails on system initialization (e.g., curl_global_init, nifm, or socket init) without a crash, ask for a full console reboot and retest before debugging code diffs or suspecting a newly linked library."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R361",
+   "rule": "For the Switch port, do not implement QUIC support."
+  }
+ ]
+}

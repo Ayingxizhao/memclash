@@ -1,0 +1,14 @@
+- [Delegate easy tasks to Sonnet](delegate-easy-tasks-to-sonnet.md) — user wants mechanical work in Sonnet subagents, main model thinks
+- [Sync memory to repo](sync-memory-to-repo.md) — mirror memory to .claude/memory/ and push to origin after every change
+- [Tune on val from scratch](tune-on-val-from-scratch.md) — evaluate others' methods by re-tuning params on val (pre-registered), not just re-selecting; test once
+- [MoRongMo labeling task](morongmo-labeling-task.md) — frames 35068-56611 for FastLabeler; app timeline != decode order; use COCO yolo11l, not the PEG detector
+- [PEG-O photometric odometry](peg-o-photometric-odometry.md) — 2026-10-20: burn-disc odometry for the held box FAILED on val+test (disc not rigid); PEG+ stays best
+- [Coast design research](coast-design-research.md) — oracle/residual/literature findings 2026-10-20: long-baseline velocity, gated backfill, causal cap, stitch; dead ends; synth disc leaks GT
+- [Principles from failures are OK](principles-from-failures-ok.md) — general principles may come from observed (even test) failures; only parameter tuning on test is forbidden
+- [Keyframe vision check](keyframe-vision-check.md) — 2026-10-21: MoRongMo labels = few keyframes, each judged by Opus vision via API (scripts/23); user rules: whole-person box, spend API not Claude Code tokens
+- [PEG-C coast design](peg-c-coast-design.md) — 2026-10-20: online V won val, lost test; fixed-lag B on PEG+ won val AND test (T3 82.2→86.5); online best PEG+, fixed-lag best PEG+ + B
+- [YOLOX detector on GlareMOT2](yolox-detector-glaremot2.md) — 2026-10-26 Minh's task: YOLOX-X from TrackTrack weights, 2.5 fps/halves/glare filter; MoRongMo dominates val
+- [Local disk is drive D](local-disk-is-drive-d.md) — WSL vhdx on D: (~48 GB free); df / lies; D: full crashes WSL
+- [Drive upload remotes](drive-upload-remotes.md) — gdrive_rw = user, gdrive_own/gdrive2 = hieukainxoi; deliverables folder ids
+- [ExSORT is the team method](exsort-is-team-method.md) — 2026-11-17: algorithm is ExSORT (minhdq245/exsort); PEG = old version, dropped from reports
+- [ExSORT emission finding](exsort-emission-finding.md) — 2026-11-18: FP = coast-box emission; val-chosen tau<=3 gives test HOTA 62.49 / MOTA 77.70 / FP 5603

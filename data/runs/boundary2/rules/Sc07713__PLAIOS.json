@@ -1,0 +1,1834 @@
+{
+  "repo": "Sc07713/PLAIOS",
+  "dir": "memory",
+  "n_files": 52,
+  "n_rules": 304,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_closeout_protocol.md",
+      "quote": "invoke the **`closing-out`** skill",
+      "rule": "When the user signals end of session (e.g., \"close out\", \"wrap up\", \"done for now\", \"let's stop here\"), invoke the closing-out skill."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_closeout_protocol.md",
+      "quote": "Don't improvise the procedure — the skill is canonical.",
+      "rule": "On close-out signals, do not improvise the close-out procedure; follow the closing-out skill, which is canonical."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_closeout_protocol.md",
+      "quote": "Don't `git push` unless the user explicitly says to.",
+      "rule": "Do not run `git push` unless the user explicitly asks for it."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "**Proactively suggest closing out and chunking remaining work into a new session.** Don't wait for the user to ask.",
+      "rule": "When the session reaches about 250k tokens, proactively suggest closing out and chunking the remaining work into a new session without waiting for the user to ask."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "if a task chunk is likely to push past 250k, flag it before starting and propose a natural break point.",
+      "rule": "When planning work near the 250k-token threshold, flag any task chunk likely to push the session past 250k tokens before starting it, and propose a natural break point."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "**Strongly avoid going past this** unless the user explicitly opts in for a specific reason.",
+      "rule": "Strongly avoid going past about 500k tokens unless the user explicitly opts in for a specific reason."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "Treat as the hard ceiling.",
+      "rule": "Treat about 1M tokens as the hard ceiling for context."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "When approaching 250k: proactively say \"we're getting deep, X is a natural close-out point — want to chunk the rest into a new session?\" rather than continuing silently.",
+      "rule": "When approaching 250k tokens, proactively say that the session is getting deep, name a natural close-out point, and ask whether to chunk the rest into a new session, rather than continuing silently."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "when laying out a plan with N tasks, mentally pre-mark which tasks make good close-out boundaries.",
+      "rule": "When laying out a plan with multiple tasks, pre-mark which tasks make good close-out boundaries."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "Memory writes become more important near these thresholds — capture state for the next session before closing.",
+      "rule": "Near these context thresholds, capture session state to memory before closing out so the next session can resume."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "Hard NO past 500k without explicit user approval.",
+      "rule": "Do not go past 500k tokens without explicit user approval."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_context_limit_thresholds.md",
+      "quote": "Track conversation depth implicitly. When the session feels \"deep\" or token-heavy, check in before taking on a major new chunk.",
+      "rule": "Track conversation depth implicitly, and when the session feels deep or token-heavy, check in with the user before taking on a major new chunk of work."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Don't diminish the value of Scott's savings.",
+      "rule": "When discussing the user's financial accounts or positions, treat the actual capital as real money that deserves real strategy work, regardless of its size."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Don't frame the account as \"small\" or relativise it against assumed-larger-elsewhere positions.",
+      "rule": "Do not describe the user's investment account as small or compare it against assumed larger holdings elsewhere."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Don't conjecture about \"where the bulk of wealth is\" unless the user raises it",
+      "rule": "Do not speculate about where the user's bulk of wealth is held unless the user raises the topic."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "If a deployment question hinges on knowing other holdings, ASK ONCE specifically",
+      "rule": "When a deployment question depends on knowing the user's other holdings, ask once, specifically, for that information."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "don't keep framing the current account as marginal",
+      "rule": "Do not keep framing the current account as marginal after it has been raised."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Concrete order lists + specific share counts > hand-wavy \"is this enough capital\" questions",
+      "rule": "When giving deployment advice, prefer concrete order lists and specific share counts over vague questions about whether the capital is enough."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "treat them at face value",
+      "rule": "Apply the rule of treating financial balances at face value to all financial discussions, including PocketSmith balances, super accounts, equity holdings, and cash reserves."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Phase-in approaches > all-in deployments",
+      "rule": "When recommending deployments, prefer phase-in approaches over all-in deployments."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "Lower-risk variants of strategies (K=3 vs K=5) suit the confidence-building phase",
+      "rule": "During the confidence-building phase, prefer lower-risk variants of strategies, such as K=3 over K=5."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_dont_diminish_savings_value.md",
+      "quote": "The next-session conversation after a deployment is \"how is it working / do we scale up\" — not \"was that the right account to use\"",
+      "rule": "After a deployment, frame the follow-up conversation around how it is working and whether to scale up, not whether it was the right account to use."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "No eating out as a household.",
+      "rule": "Do not allow or permit eating out as a household until the BNPL balance is cleared and the discretionary baseline conversation is completed (target August 2026)."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "do not propose eating-out as a solution (date night idea, family treat, work lunch reimbursement, etc.)",
+      "rule": "When suggesting actions or solutions, do not propose eating out (e.g., date nights, family treats, work lunch reimbursement)."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "eating-out spending is a rule-violation signal worth flagging — not a normal discretionary line.",
+      "rule": "When reviewing PocketSmith actuals, flag eating-out spending as a rule-violation signal rather than treating it as a normal discretionary line."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "If user mentions eating out happened, ask whether it was a deliberate exception or a rule slip",
+      "rule": "When the user mentions that eating out happened, ask whether it was a deliberate household exception or a rule slip."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "Exceptions need to be explicit household decisions, not defaults.",
+      "rule": "Treat eating-out exceptions to the rule as requiring explicit household decisions, never as defaults."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_no_eating_out_rule.md",
+      "quote": "Don't moralise. Surface the pattern, let user decide.",
+      "rule": "Do not moralise about eating out; surface the pattern and let the user decide."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_one_question_at_a_time.md",
+      "quote": "ask ONE question, wait for the answer, then ask the next.",
+      "rule": "When gathering information from Scott, ask a single question and wait for his answer before asking the next question."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_one_question_at_a_time.md",
+      "quote": "Applies to any information-gathering turn where you'd otherwise ask for 3+ items at once.",
+      "rule": "When you would otherwise ask Scott three or more items in one turn, ask only one question per turn instead."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_one_question_at_a_time.md",
+      "quote": "If you have multiple questions queued, list them internally but only surface the next one.",
+      "rule": "When multiple questions are queued for Scott, keep them internally and surface only the next one."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_one_question_at_a_time.md",
+      "quote": "Still fine to give structured summaries/findings up front",
+      "rule": "Structured summaries or findings may still be given up front to Scott; the one-question limit applies only to questions asked back to him."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "When asked to \"update the budget\" for a category, clarify whether they mean events (for calendar/forecast) or the Budget page tile amount (manual target).",
+      "rule": "When asked to update the budget for a category in PocketSmith, clarify whether the user means events (calendar/forecast) or the Budget page tile amount (manual target)."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "use delete_event + create_event OR update_event",
+      "rule": "For PocketSmith event changes, use delete_event plus create_event, or use update_event."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "update_event (notes/amounts/cadence only",
+      "rule": "Use update_event only to change an event's notes, amounts, or cadence."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "category and date are immutable, must delete+recreate",
+      "rule": "To change a PocketSmith event's category or date, delete the event and recreate it."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "tell the user to edit in the PocketSmith UI directly",
+      "rule": "For Budget page target changes in PocketSmith, tell the user to edit them in the PocketSmith UI directly."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "after any major event restructure, remind the user to sync the Budget page targets manually",
+      "rule": "After any major PocketSmith event restructure, remind the user to sync the Budget page targets manually."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "Always recreate with original series_start date to preserve historical budget visibility.",
+      "rule": "When recreating a PocketSmith event, use the original series_start date to preserve historical budget visibility."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "make a trivial `update_event` call to force per-series recalc",
+      "rule": "If delete_forecast_cache fails with an auth/scope error, make a trivial update_event call to force a per-series recalculation."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_pocketsmith_budget_vs_events.md",
+      "quote": "ask user to reload UI",
+      "rule": "If delete_forecast_cache fails with an auth/scope error and the update_event workaround is not used, ask the user to reload the PocketSmith UI."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "Every strategy backtest must report a side-by-side comparison against TWO benchmarks over the same period",
+      "rule": "Every strategy backtest must report a side-by-side comparison against two benchmarks over the same period."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "SPY buy-and-hold** — universal benchmark.",
+      "rule": "Compare every backtest against SPY buy-and-hold over the same period."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "If a strategy trades NVDA, the comparison is against NVDA-BH.",
+      "rule": "When a strategy trades an instrument, compare it against buy-and-hold on that same instrument over the same period."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "Both comparisons are mandatory in every backtest result.",
+      "rule": "Include both the SPY buy-and-hold comparison and the underlying-instrument buy-and-hold comparison in every backtest result."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "Backtest result schema includes both benchmark comparisons (excess return, info ratio, beat-rate).",
+      "rule": "Make the backtest result schema include both benchmark comparisons, each reporting excess return, information ratio, and beat-rate."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "SPY-BH strategy should reproduce SPY's actual total return",
+      "rule": "As a harness validation check, confirm that the SPY buy-and-hold strategy reproduces SPY's actual total return."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_trading_benchmark_spy_bh.md",
+      "quote": "asset-BH for any other strategy should reproduce that asset's total return",
+      "rule": "As a harness validation check, confirm that the buy-and-hold benchmark for any other strategy reproduces that underlying asset's actual total return."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_trading_data_window_20y.md",
+      "quote": "Do NOT propose changes to `db.check_gaps` to redefine `start` semantics relative to actual stored data",
+      "rule": "Do not propose changes to db.check_gaps that redefine its start semantics relative to actual stored data."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_trading_data_window_20y.md",
+      "quote": "When triaging gap-check output, only treat gaps *within the captured window* (post-2006 for these symbols) as real signals.",
+      "rule": "When triaging gap-check output, treat only gaps within the captured data window (post-2006 for these symbols) as real signals."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_trading_data_window_20y.md",
+      "quote": "Gaps reported by `check_gaps` for dates before what IB actually delivers (e.g., SPY 1993–2006, NVDA 1999–2006, VIX 1990–2006) are noise, not bugs.",
+      "rule": "Treat gaps reported by check_gaps for dates before what IB actually delivers as noise, not bugs, and do not fix them."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_trading_data_window_20y.md",
+      "quote": "If a strategy in V2+ ever requires pre-2006 data for a symbol, that's a fetch-side problem (different data source, e.g., FRED for VIX), not a `check_gaps` problem.",
+      "rule": "If a V2+ strategy requires pre-2006 data for a symbol, treat it as a fetch-side problem (e.g., use a different data source such as FRED for VIX), not a check_gaps problem."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "Don't waste spec/plan/TDD cycles on exploratory questions.",
+      "rule": "Do not run the spec/plan/TDD cycle for exploratory questions; handle them as studies instead."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "Don't pretend a notebook investigation is a falsifiable trading edge.",
+      "rule": "Do not present a notebook investigation as a falsifiable trading edge."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "When a user request describes characterizing / understanding / decomposing / exploring — that's a study.",
+      "rule": "When a user request asks to characterize, understand, decompose, or explore something, treat it as a study."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "When it describes adding a strategy, an indicator, a new dataset to the harness, or running a new baseline — that's a build.",
+      "rule": "When a user request asks to add a strategy, an indicator, a new dataset to the harness, or run a new baseline, treat it as a build."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "Both can run in parallel sessions",
+      "rule": "Studies and builds may run in parallel sessions."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "A study can also *inform* a later build",
+      "rule": "A study may inform a later build."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "full spec → plan → TDD → ship cadence",
+      "rule": "Builds follow the cadence: spec, then plan, then TDD, then ship."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "notebook + markdown writeup in `docs/studies/`",
+      "rule": "Deliver a study as a notebook plus a markdown writeup in docs/studies/."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "Single-session, no production code, no new infra.",
+      "rule": "Keep studies single-session and do not include production code or new infrastructure in them."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_trading_tools_is_a_hypothesis_factory.md",
+      "quote": "that's a *feature* of an honest framework, not a failure",
+      "rule": "Treat a result of '0 REAL EDGE' as a valid outcome of the framework, not as a failure."
+    },
+    {
+      "id": "R63",
+      "file": "project_ai_energy_power_basket.md",
+      "quote": "TLN+VST use exchange=\"SMART\" to dodge the IB \"PINK STK\" permission error — keep that pattern",
+      "rule": "When adding TLN and VST to KNOWN_INSTRUMENTS, use exchange=\"SMART\" to avoid the IB \"PINK STK\" permission error, and keep using that pattern for these tickers."
+    },
+    {
+      "id": "R64",
+      "file": "project_ai_energy_power_basket.md",
+      "quote": "needs Scott's go-ahead — repo changes",
+      "rule": "Do not make repository changes (such as editing cli.py or writing decision records and studies) without Scott's explicit go-ahead."
+    },
+    {
+      "id": "R65",
+      "file": "project_ai_energy_power_basket.md",
+      "quote": "Temp file `D:\\PLAIOS\\bundle.md` (multi-agent evidence bundle) to clean up.",
+      "rule": "Delete the temporary file D:\\PLAIOS\\bundle.md only after Scott gives the go-ahead."
+    },
+    {
+      "id": "R66",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "scope universes US-only",
+      "rule": "When planning trading-tools work, scope the universes to US equities only."
+    },
+    {
+      "id": "R67",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "Decline to expand to international markets even when \"decorrelation\" or \"cross-asset edge testing\" arguments come up",
+      "rule": "Decline to expand trading-tools to international markets, even when decorrelation or cross-asset edge testing arguments are raised."
+    },
+    {
+      "id": "R68",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "Don't plan ASX fundamentals ingestion",
+      "rule": "Do not plan ASX fundamentals ingestion."
+    },
+    {
+      "id": "R69",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "don't plan ASX bar ingestion",
+      "rule": "Do not plan ASX bar ingestion."
+    },
+    {
+      "id": "R70",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "don't plan an ASX-EW-BH benchmark",
+      "rule": "Do not plan an ASX-EW-BH benchmark."
+    },
+    {
+      "id": "R71",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "its shape is different: a **long-term-hold watchlist / advisory layer**, not a backtester",
+      "rule": "If a separate ASX thread emerges, build it as a long-term-hold watchlist or advisory layer, not a backtester."
+    },
+    {
+      "id": "R72",
+      "file": "project_au_cgt_constraint_asx_buy_and_hold_only.md",
+      "quote": "worth noting in any \"is this strategy actually worth running\" calculus",
+      "rule": "When evaluating whether a US-equity strategy is worth running, account for the AU capital gains tax wedge on short-hold turnover."
+    },
+    {
+      "id": "R73",
+      "file": "project_bnpl_discretionary_residue.md",
+      "quote": "When asked about debt, distinguish: mortgages (productive — equity build) vs Harmoney (capital — home renovation) vs BNPL (consumption — past discretionary).",
+      "rule": "When asked about debt, distinguish between mortgages (productive, equity build), Harmoney (capital, home renovation), and BNPL (consumption, past discretionary spending)."
+    },
+    {
+      "id": "R74",
+      "file": "project_bnpl_discretionary_residue.md",
+      "quote": "surface this as concrete evidence — not hypothetical",
+      "rule": "When discussing the August 2026 discretionary baseline conversation, present the BNPL debt as concrete evidence, not as a hypothetical."
+    },
+    {
+      "id": "R75",
+      "file": "project_bnpl_discretionary_residue.md",
+      "quote": "Paydown is current-focus priority",
+      "rule": "Treat paying down the BNPL debt as the current focus priority."
+    },
+    {
+      "id": "R76",
+      "file": "project_bnpl_discretionary_residue.md",
+      "quote": "do not propose new discretionary spending until BNPL cleared",
+      "rule": "Do not propose new discretionary spending until the BNPL debt is cleared."
+    },
+    {
+      "id": "R77",
+      "file": "project_celendine_rent_source.md",
+      "quote": "never assume rent covers the mortgage",
+      "rule": "When analysing Hillside cashflow, never assume that rent covers the mortgage repayment."
+    },
+    {
+      "id": "R78",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "when user references \"my live trading book\" or \"the active deployment\" in future sessions, this is the snapshot.",
+      "rule": "When the user references \"my live trading book\" or \"the active deployment\" in future sessions, treat this deployment file as the snapshot."
+    },
+    {
+      "id": "R79",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Pair with the discipline checklist below.",
+      "rule": "Pair the deployment snapshot with the operational discipline checklist."
+    },
+    {
+      "id": "R80",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Eyeball SPY vs $674 (200d MA, gate level).",
+      "rule": "Daily, compare SPY to the $674 200-day MA gate level."
+    },
+    {
+      "id": "R81",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Equity flips to T-bills if SPY < MA for 2+ sessions.",
+      "rule": "Move the equity sleeve to T-bills if SPY has been below its MA for 2+ sessions."
+    },
+    {
+      "id": "R82",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Run `python scripts/deploy_today.py` in trading-tools repo.",
+      "rule": "Every Monday, run `python scripts/deploy_today.py` in the trading-tools repo."
+    },
+    {
+      "id": "R83",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Re-step leverage if it moved >0.1×.",
+      "rule": "Every Monday, re-step leverage if it has moved by more than 0.1×."
+    },
+    {
+      "id": "R84",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Hard return to 70/30",
+      "rule": "On 2026-05-29, return the portfolio to the 70/30 systematic weight."
+    },
+    {
+      "id": "R85",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Trim GLD by ~$3,200 (7.5 shares)",
+      "rule": "On 2026-05-29, trim GLD by about $3,200 (7.5 shares)."
+    },
+    {
+      "id": "R86",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "redeploy across the 5 mega-caps equally",
+      "rule": "On 2026-05-29, redeploy the trimmed GLD proceeds equally across the 5 mega-cap positions."
+    },
+    {
+      "id": "R87",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Re-rank top 5 by mcap",
+      "rule": "On 2026-05-29, re-rank the top 5 names by market cap."
+    },
+    {
+      "id": "R88",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "rebal SPY_top_5 equal-weight",
+      "rule": "Monthly after 2026-05-29, rebalance the SPY_top_5 holdings to equal weight."
+    },
+    {
+      "id": "R89",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "re-step leverage",
+      "rule": "Monthly, re-step leverage."
+    },
+    {
+      "id": "R90",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "re-run rs_vol scan for basket candidates",
+      "rule": "Monthly, re-run the rs_vol scan for basket candidates."
+    },
+    {
+      "id": "R91",
+      "file": "project_deployment_state_2026-05-19.md",
+      "quote": "Activate when capital reaches ~$50k+.",
+      "rule": "Activate the semi-cap thematic basket (LRCX, KLAC, AMAT) when capital reaches about $50k or more."
+    },
+    {
+      "id": "R92",
+      "file": "project_edge_investigation_sprint_2026-05-18.md",
+      "quote": "when the user asks about trading-tools status, point to `docs/studies/2026-05-18-edge-investigation-sprint.md`",
+      "rule": "When the user asks about trading-tools status, point them to docs/studies/2026-05-18-edge-investigation-sprint.md for the full synthesis."
+    },
+    {
+      "id": "R93",
+      "file": "project_fifth_child_pregnancy.md",
+      "quote": "Don't refer to \"fifth child\" or \"growing family\" framing.",
+      "rule": "Do not refer to a fifth child or use growing-family framing; treat the family as having 4 kids (Wulfric, Audrey, Evie, Penny)."
+    },
+    {
+      "id": "R94",
+      "file": "project_fifth_child_pregnancy.md",
+      "quote": "Budget margin assumptions revert to pre-pregnancy: +$1,018/mo surplus before discretionary, +$12K/yr.",
+      "rule": "Use pre-pregnancy budget margin assumptions (+$1,018/mo surplus before discretionary, +$12K/yr) rather than pregnancy-adjusted figures."
+    },
+    {
+      "id": "R95",
+      "file": "project_fifth_child_pregnancy.md",
+      "quote": "don't assume; ask if it comes up",
+      "rule": "Do not assume Mina's capacity and anxiety drivers are unchanged; ask about them if the topic comes up."
+    },
+    {
+      "id": "R96",
+      "file": "project_fifth_child_pregnancy.md",
+      "quote": "Don't pry",
+      "rule": "Do not pry into the miscarriage or related personal details."
+    },
+    {
+      "id": "R97",
+      "file": "project_fifth_child_pregnancy.md",
+      "quote": "If Scott raises adjacent topics, follow his lead.",
+      "rule": "If Scott raises adjacent topics, follow his lead on how far to take the conversation."
+    },
+    {
+      "id": "R98",
+      "file": "project_harmoney_loan_split.md",
+      "quote": "When discussing refunds or tax estimates, factor in Harmoney interest deduction on the Park View portion",
+      "rule": "When discussing refunds or tax estimates, factor in the Harmoney interest deduction on the Park View portion of the loan."
+    },
+    {
+      "id": "R99",
+      "file": "project_harmoney_loan_split.md",
+      "quote": "Before each EOFY, flag to Scott: check whether a quantity surveyor's depreciation schedule exists for Park View.",
+      "rule": "Before each EOFY, flag to Scott that he should check whether a quantity surveyor's depreciation schedule exists for Park View."
+    },
+    {
+      "id": "R100",
+      "file": "project_harmoney_loan_split.md",
+      "quote": "Confirm with Scott whether the $5K remainder went to Sassafras or Hillside",
+      "rule": "Confirm with Scott whether the $5K remainder of the Harmoney loan went to Sassafras or Hillside."
+    },
+    {
+      "id": "R101",
+      "file": "project_hillside_loan_topup.md",
+      "quote": "Do not assume Hillside rental income covers its mortgage",
+      "rule": "Do not assume that Hillside rental income covers its mortgage repayment; it does not, so a monthly operating cash contribution is needed."
+    },
+    {
+      "id": "R102",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "Don't recommend re-quoting BD/AAMI/RACV/QBE — that line has been closed.",
+      "rule": "Do not recommend re-quoting BD, AAMI, RACV, or QBE for the insurance cover, since that line of inquiry has been closed."
+    },
+    {
+      "id": "R103",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "If Scott wants to revisit, the new question is \"are there underwriters NOT facing ASIC action that beat CBA on price?\" — that's a fresh quoting exercise, not the 2026-05-06 audit shortlist.",
+      "rule": "If Scott wants to revisit the insurer choice, frame the question as whether there are underwriters not facing ASIC action that beat CBA on price, and treat it as a fresh quoting exercise rather than reusing the 2026-05-06 audit shortlist."
+    },
+    {
+      "id": "R104",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "Hillside (family-let) needs building + public liability cover, NOT standard landlord product (related-party tenants don't qualify for landlord rent-default/tenant-damage cover)",
+      "rule": "For the Hillside family-let property, arrange building and public liability cover rather than the standard landlord product, because related-party tenants do not qualify for landlord rent-default or tenant-damage cover."
+    },
+    {
+      "id": "R105",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "Sums insured all need calculator-verification — under by ~$200k per property",
+      "rule": "Verify the sums insured for all properties with the calculator, since they are under by about $200k per property."
+    },
+    {
+      "id": "R106",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "Sassafras contents floor is $120k, not $20k",
+      "rule": "Use $120k, not $20k, as the contents floor for the Sassafras property."
+    },
+    {
+      "id": "R107",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "confirm whether the CBA switch covers this",
+      "rule": "Confirm whether the CBA switch covers the Hillside $490k mortgage debt that was previously uninsured."
+    },
+    {
+      "id": "R108",
+      "file": "project_insurance_audit_general_lines_2026-05-06.md",
+      "quote": "confirm next time the topic comes up.",
+      "rule": "When the insurance topic next comes up, confirm which two specific vendors Scott meant by \"both being sued by ASIC\"."
+    },
+    {
+      "id": "R109",
+      "file": "project_korea_trip_august_2026.md",
+      "quote": "When proposing finance actions (BNPL paydown aggressiveness, savings targets, offset restructure timing), factor in the August trip as a known cash draw.",
+      "rule": "When proposing finance actions (BNPL paydown aggressiveness, savings targets, offset restructure timing), factor in the August 2026 Korea trip as a known cash draw."
+    },
+    {
+      "id": "R110",
+      "file": "project_korea_trip_august_2026.md",
+      "quote": "When proposing training/health plans, factor in the August travel disruption.",
+      "rule": "When proposing training or health plans, factor in the August 2026 travel disruption."
+    },
+    {
+      "id": "R111",
+      "file": "project_korea_trip_august_2026.md",
+      "quote": "When user asks about discretionary measurements, remember May-July is clean, August is not.",
+      "rule": "When the user asks about discretionary measurements, treat May-July 2026 as a clean measurement window and August 2026 as not clean."
+    },
+    {
+      "id": "R112",
+      "file": "project_korea_trip_august_2026.md",
+      "quote": "reinstate post-Korea per user decision 2026-04-19",
+      "rule": "After the Korea trip, reinstate loan interest tracking on the PocketSmith dashboard, as the user decided on 2026-04-19."
+    },
+    {
+      "id": "R113",
+      "file": "project_levered_spy_top5_study_2026-05-18.md",
+      "quote": "present the 3-option trade-off table",
+      "rule": "When asked about deploying any of the levered SPY top-5 overlay options, present the 3-option trade-off table (Conservative, Balanced, Aggressive) rather than a single cell."
+    },
+    {
+      "id": "R114",
+      "file": "project_levered_spy_top5_study_2026-05-18.md",
+      "quote": "don't just hand him the Sharpe-best cell",
+      "rule": "When asked about deploying the levered SPY top-5 overlay, do not recommend only the Sharpe-best cell."
+    },
+    {
+      "id": "R115",
+      "file": "project_levered_spy_top5_study_2026-05-18.md",
+      "quote": "Flag this in any deployment conversation.",
+      "rule": "In any conversation about deploying the levered SPY top-5 overlay, flag that AU CGT tax friction from monthly rebalancing is not modelled and that after-tax returns will be materially lower."
+    },
+    {
+      "id": "R116",
+      "file": "project_life_ip_tpd_trauma_parked_pregnancy_clock.md",
+      "quote": "When user reopens the strategic insurance question, this remains the highest-priority structural exposure in the household.",
+      "rule": "When the user reopens the strategic insurance question, treat the life/IP/TPD/trauma under-insurance as the highest-priority structural household exposure."
+    },
+    {
+      "id": "R117",
+      "file": "project_life_ip_tpd_trauma_parked_pregnancy_clock.md",
+      "quote": "Spec phase will need: Mina's Aware Super cover pull, Mina's income status, structural decision (retail vs super-top-up cover; tax + premium trade-offs differ).",
+      "rule": "When specifying the life/IP/TPD/trauma insurance solution, gather Mina's Aware Super cover details and Mina's income status, and make the structural choice between retail cover and super top-up cover, weighing tax and premium trade-offs."
+    },
+    {
+      "id": "R118",
+      "file": "project_mina_capacity_plan_2026-04.md",
+      "quote": "Don't push execution.",
+      "rule": "Do not push Scott to execute the Mina capacity plan; leave execution to him."
+    },
+    {
+      "id": "R119",
+      "file": "project_mina_capacity_plan_2026-04.md",
+      "quote": "reference this plan as already-agreed direction rather than re-brainstorming",
+      "rule": "When Scott surfaces relevant signals (Mina stressed, housework friction, financial anxiety, mat-leave timing), reference the Mina capacity plan as already-agreed direction instead of re-brainstorming it."
+    },
+    {
+      "id": "R120",
+      "file": "project_mina_capacity_plan_2026-04.md",
+      "quote": "the specific moves can be re-tuned",
+      "rule": "Treat the specific moves in the Mina capacity plan as adjustable, while keeping the (d)+(a) target framing as the durable insight."
+    },
+    {
+      "id": "R121",
+      "file": "project_multiagent_procedure_shipped.md",
+      "quote": "For durable, consequential, or irreversible decisions in life domains: point user to `protocols/multi-agent.md`.",
+      "rule": "For durable, consequential, or irreversible decisions in life domains, point the user to protocols/multi-agent.md."
+    },
+    {
+      "id": "R122",
+      "file": "project_multiagent_procedure_shipped.md",
+      "quote": "bootstrap with `.\\bin\\new-investigation.ps1 -Slug '<topic>'` from PLAIOS root",
+      "rule": "For investigation-style work, bootstrap it by running .\\bin\\new-investigation.ps1 -Slug '<topic>' from the PLAIOS root."
+    },
+    {
+      "id": "R123",
+      "file": "project_multiagent_procedure_shipped.md",
+      "quote": "run from PLAIOS root with a `[a-z0-9-]+` slug",
+      "rule": "When running new-investigation.ps1, run it from the PLAIOS root with a slug matching [a-z0-9-]+."
+    },
+    {
+      "id": "R124",
+      "file": "project_multiagent_procedure_shipped.md",
+      "quote": "Read it before any cross-tool invocation.",
+      "rule": "Read AGENTS.md before any cross-tool invocation."
+    },
+    {
+      "id": "R125",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "target the above rather than more SPY-systematic refinement",
+      "rule": "When designing next-iteration trading-tools work, target the listed alternative edge areas (individual stock options, earnings vol crush, event-day calendars, skew-aware structures, discretionary entry timing, political/insider flow following) rather than more SPY systematic options refinement."
+    },
+    {
+      "id": "R126",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "SPY systematic options is settled",
+      "rule": "Do not pursue further SPY systematic options refinement, since that area is considered settled."
+    },
+    {
+      "id": "R127",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "Do NOT replace SPY-BH with options strategies.",
+      "rule": "Do not replace the SPY buy-and-hold position with options strategies in Scott's portfolio."
+    },
+    {
+      "id": "R128",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "CAN use short strangle V1 weekly 30d hold as a 10-20% decorrelated sleeve alongside SPY-BH",
+      "rule": "You may use the short strangle V1 weekly 30-day hold strategy as a 10-20% decorrelated sleeve alongside the SPY buy-and-hold position."
+    },
+    {
+      "id": "R129",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "is a candidate higher-trade-count sleeve worth refining before deployment.",
+      "rule": "Refine the inverse-squeeze short straddle TP50 strategy before deploying it as a sleeve."
+    },
+    {
+      "id": "R130",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "needs flagging as falsified",
+      "rule": "Flag the memory project_strangle_phase1_5_shipped as falsified."
+    },
+    {
+      "id": "R131",
+      "file": "project_options_systematic_spy_falsification_2026-05-18.md",
+      "quote": "should be downgraded",
+      "rule": "Downgrade the 'Tier 2 high-confidence' recommendation from the Phase 1.5 strangle memory."
+    },
+    {
+      "id": "R132",
+      "file": "project_pocketsmith_budget_baseline.md",
+      "quote": "For finance questions, query PocketSmith first",
+      "rule": "For finance questions, query PocketSmith before other sources, since it is the source of truth for committed cashflow."
+    },
+    {
+      "id": "R133",
+      "file": "project_pocketsmith_budget_baseline.md",
+      "quote": "The spreadsheet is historical reference only.",
+      "rule": "Treat the household budget spreadsheet as historical reference only, not as a current source for finance answers."
+    },
+    {
+      "id": "R134",
+      "file": "project_pocketsmith_budget_baseline.md",
+      "quote": "query Loan Interest category directly",
+      "rule": "When looking up mortgage interest in PocketSmith, query the Loan Interest category directly, because it is not visible in the standard budget summary."
+    },
+    {
+      "id": "R135",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "ONE budget event per category.",
+      "rule": "Create only one budget event per category in PocketSmith; do not split a category into multiple budget events."
+    },
+    {
+      "id": "R136",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "Termly/quarterly/annual items amortised to monthly.",
+      "rule": "Convert termly, quarterly, and annual budget items to their monthly equivalent amounts."
+    },
+    {
+      "id": "R137",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "All household events on Scott's Complete Access (scenario 5009794)",
+      "rule": "Place all household budget events on Scott's Complete Access, scenario 5009794."
+    },
+    {
+      "id": "R138",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "dated 1st of month",
+      "rule": "Date each household budget event on the 1st of the month."
+    },
+    {
+      "id": "R139",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "monthly recurring",
+      "rule": "Set each household budget event to recur monthly."
+    },
+    {
+      "id": "R140",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "If user ever asks to split a category again, push back",
+      "rule": "If the user asks to split a budget category into multiple events again, push back against the request."
+    },
+    {
+      "id": "R141",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "no events should be on scenario 5009809 anymore",
+      "rule": "Do not place any budget events on scenario 5009809, Mina's second Complete Access."
+    },
+    {
+      "id": "R142",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "Don't re-verify on next session:",
+      "rule": "In the next session, do not re-verify the budget event structure; it was already confirmed clean as of 2026-04-24."
+    },
+    {
+      "id": "R143",
+      "file": "project_pocketsmith_consolidated_budget.md",
+      "quote": "Start by asking user what they want to do, not by running a full audit.",
+      "rule": "At the start of a session on this budget, ask the user what they want to do rather than running a full audit."
+    },
+    {
+      "id": "R144",
+      "file": "project_pocketsmith_mina_approval.md",
+      "quote": "Proceed with signup.",
+      "rule": "Proceed with the PocketSmith signup once partner approval has been obtained."
+    },
+    {
+      "id": "R145",
+      "file": "project_pocketsmith_mina_approval.md",
+      "quote": "Scott is primary account holder (owns API key, runs the compute layer)",
+      "rule": "Set up Scott as the primary account holder of the PocketSmith account, since he owns the API key and runs the compute layer."
+    },
+    {
+      "id": "R146",
+      "file": "project_pocketsmith_mina_approval.md",
+      "quote": "Mina gets invited via \"Advisor access\"",
+      "rule": "Invite Mina to the PocketSmith account using the \"Advisor access\" option."
+    },
+    {
+      "id": "R147",
+      "file": "project_pocketsmith_mina_approval.md",
+      "quote": "plan choice is driven by bank feed connection count, not API or sharing needs.",
+      "rule": "Choose the PocketSmith plan based on the number of bank feed connections needed, not on API or sharing requirements."
+    },
+    {
+      "id": "R148",
+      "file": "project_pocketsmith_mortgage_duplication_suspected.md",
+      "quote": "Do not re-verify Korea event existence — already confirmed live",
+      "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+    },
+    {
+      "id": "R149",
+      "file": "project_pocketsmith_mortgage_duplication_suspected.md",
+      "quote": "When Mina's second Complete Access is closed, delete the account from PocketSmith.",
+      "rule": "When Mina's second CommBank Complete Access account (id 4852629) is closed, delete that account from PocketSmith."
+    },
+    {
+      "id": "R150",
+      "file": "project_pocketsmith_mortgage_duplication_suspected.md",
+      "quote": "Don't delete the account; just keep its scenario clean.",
+      "rule": "Do not delete Mina's second Complete Access account (id 4852629) while it remains open; only keep its scenario clean."
+    },
+    {
+      "id": "R151",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "When user mentions Transfers not balancing or unexpected budget numbers, remember this is a known pattern",
+      "rule": "When the user mentions Transfers not balancing or unexpected budget numbers, treat it as the known Scott→Mina→bill pipeline pattern, not as a new problem."
+    },
+    {
+      "id": "R152",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "Either accept the noise or set up category rules.",
+      "rule": "For the Scott→Mina→bill transfer pattern, either accept the resulting noise or set up category rules to fix it."
+    },
+    {
+      "id": "R153",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "Pull May 2026 Transfer transactions (date ≥ 2026-05-01)",
+      "rule": "When the user returns with May 2026 data, pull Transfer transactions dated on or after 2026-05-01."
+    },
+    {
+      "id": "R154",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "Identify recurring misclassification patterns",
+      "rule": "After pulling May 2026 Transfer transactions, identify recurring misclassification patterns."
+    },
+    {
+      "id": "R155",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "Create category rules to auto-fix future ones",
+      "rule": "Create category rules to automatically fix future recurring transfer misclassifications."
+    },
+    {
+      "id": "R156",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "Hung Sam Ha → Rentals",
+      "rule": "Categorise Hung Sam Ha transfers as Rentals."
+    },
+    {
+      "id": "R157",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "school fees transfers → Education",
+      "rule": "Categorise school fees transfers as Education."
+    },
+    {
+      "id": "R158",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "If user wants, also re-categorise historical April transactions (optional)",
+      "rule": "Re-categorise historical April transactions only if the user wants it."
+    },
+    {
+      "id": "R159",
+      "file": "project_pocketsmith_transfer_untangling.md",
+      "quote": "flag for user to identify",
+      "rule": "Flag the Edmond Chen -$350 external payment for the user to identify, since its purpose is unclear."
+    },
+    {
+      "id": "R160",
+      "file": "project_property_portfolio.md",
+      "quote": "treat Sydenham as the only pure-investment property",
+      "rule": "When assessing wealth, debt ratios, or restructure options, treat Sydenham (18 Park View Terrace) as the only pure-investment property."
+    },
+    {
+      "id": "R161",
+      "file": "project_property_portfolio.md",
+      "quote": "Flag Hillside's dual role in any scenario modelling",
+      "rule": "In any scenario modelling, flag that 3 Celendine Place (Hillside) has a dual role as both an investment property and a family asset."
+    },
+    {
+      "id": "R162",
+      "file": "project_property_portfolio.md",
+      "quote": "don't suggest selling it or optimising it purely on yield",
+      "rule": "Do not suggest selling 3 Celendine Place (Hillside) or optimising it purely on yield."
+    },
+    {
+      "id": "R163",
+      "file": "project_property_portfolio.md",
+      "quote": "Don't recommend changes to Hillside without explicitly acknowledging the family-safe-haven constraint",
+      "rule": "Do not recommend changes to 3 Celendine Place (Hillside) without explicitly acknowledging its family safe-haven constraint."
+    },
+    {
+      "id": "R164",
+      "file": "project_property_portfolio.md",
+      "quote": "can't assume market rates",
+      "rule": "When modelling rental income, do not assume market rates for 3 Celendine Place (Hillside), because Mina's family pays below-market partial rent."
+    },
+    {
+      "id": "R165",
+      "file": "project_property_portfolio.md",
+      "quote": "If asked to restructure loans, flag the product/purpose mismatch for accountant review",
+      "rule": "If asked to restructure loans, flag the mismatch between loan product labels and loan purpose for accountant review."
+    },
+    {
+      "id": "R166",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "with NO look-ahead",
+      "rule": "Backtests must use only information that was available at each historical date (point-in-time data), with no look-ahead bias."
+    },
+    {
+      "id": "R167",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "Valuation guardrail (quality-at-reasonable-price)",
+      "rule": "Apply a valuation guardrail when screening for quality compounders so that picks are not bought at prices where multiple compression could erase the business gains."
+    },
+    {
+      "id": "R168",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "PIT winners-falsification backtest as LONG holds (not monthly",
+      "rule": "Run the point-in-time winners-falsification backtest using long holding periods, not monthly rebalancing."
+    },
+    {
+      "id": "R169",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "the broad universe is the honest test",
+      "rule": "Test the screen on a broad small/mid-cap universe rather than a survivorship-biased top-names list."
+    },
+    {
+      "id": "R170",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "Delisting bias = accept-and-flag for v1",
+      "rule": "For v1, accept the delisting bias in the data and explicitly flag it rather than correcting for it."
+    },
+    {
+      "id": "R171",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "risk-adjust (Sharpe/DD not just total return)",
+      "rule": "Evaluate backtest results on a risk-adjusted basis (Sharpe ratio and drawdown), not just total return."
+    },
+    {
+      "id": "R172",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "re-run with NVDA excluded to size its contribution",
+      "rule": "Re-run the analysis with NVDA excluded to measure how much its contribution drives the results."
+    },
+    {
+      "id": "R173",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "Frozen screen = single source of truth",
+      "rule": "Use the frozen quality_screen.py as the single source of truth for screen logic rather than duplicating or redefining it."
+    },
+    {
+      "id": "R174",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "does not replace it",
+      "rule": "Keep the early-quality-compounder research study as a satellite alongside the validated SPY_top_5 core; do not let it replace the core."
+    },
+    {
+      "id": "R175",
+      "file": "project_quality_compounder_screen.md",
+      "quote": "own 10-15, let winners run",
+      "rule": "Build the basket to hold 10-15 names and let winners run, rather than concentrating in 2-3 names."
+    },
+    {
+      "id": "R176",
+      "file": "project_rent_to_offset_restructure.md",
+      "quote": "expect rental income to arrive in multiple accounts with mixed payee strings — don't assume clean attribution.",
+      "rule": "Until the rent-to-offset restructure is live, expect rental income to arrive in multiple accounts and do not assume clean payee attribution."
+    },
+    {
+      "id": "R177",
+      "file": "project_rent_to_offset_restructure.md",
+      "quote": "Rentals category should only show credits into ANZ Offset; anything elsewhere is a flag for investigation.",
+      "rule": "Once the restructure is live, treat any rental credit landing outside the ANZ One Offset account as a flag for investigation."
+    },
+    {
+      "id": "R178",
+      "file": "project_rent_to_offset_restructure.md",
+      "quote": "Mortgage repayments should show as clean transfers from ANZ Offset → each of the three loan accounts.",
+      "rule": "Once the restructure is live, expect mortgage repayments to appear as clean transfers from the ANZ One Offset account to each of the three loan accounts."
+    },
+    {
+      "id": "R179",
+      "file": "project_rent_to_offset_restructure.md",
+      "quote": "Flag to Scott when reviewing April/May data: compare before-and-after to confirm the new architecture is working as intended.",
+      "rule": "When reviewing April/May data, flag to Scott and compare before-and-after figures to confirm the new cash-flow architecture is working as intended."
+    },
+    {
+      "id": "R180",
+      "file": "project_stack_and_lever_fusion_2026-05-19.md",
+      "quote": "point to this entry",
+      "rule": "When the user asks about the \"best trading strategy\" or \"what's the new best cell,\" point to the stack-and-lever-fusion memory entry."
+    },
+    {
+      "id": "R181",
+      "file": "project_stack_and_lever_fusion_2026-05-19.md",
+      "quote": "the writeup at `docs/studies/2026-05-19-stack-and-lever-fusion.md`",
+      "rule": "When the user asks about the \"best trading strategy\" or \"what's the new best cell,\" point to the writeup at `docs/studies/2026-05-19-stack-and-lever-fusion.md`."
+    },
+    {
+      "id": "R182",
+      "file": "project_stack_and_lever_fusion_2026-05-19.md",
+      "quote": "needs Bonferroni + split-sample validation before deployment",
+      "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a Bonferroni-corrected test."
+    },
+    {
+      "id": "R183",
+      "file": "project_stack_and_lever_fusion_2026-05-19.md",
+      "quote": "needs Bonferroni + split-sample validation before deployment",
+      "rule": "Before deploying any \"skip month X\" or \"buy month Y\" trading claim, validate it with a split-sample test."
+    },
+    {
+      "id": "R184",
+      "file": "project_strangle_phase1_5_shipped.md",
+      "quote": "should NOT be acted on",
+      "rule": "Do not act on the Phase 1.5 recommendations in this file; they are preserved for historical record only."
+    },
+    {
+      "id": "R185",
+      "file": "project_strangle_phase1_5_shipped.md",
+      "quote": "but NOT YET DEPLOYABLE",
+      "rule": "Do not deploy the long-strangle book, because it is not yet deployable."
+    },
+    {
+      "id": "R186",
+      "file": "project_strangle_phase1_5_shipped.md",
+      "quote": "Tier 2 with skew-aware pricing is the validation step.",
+      "rule": "Validate the long-strangle pick at Tier 2 using skew-aware option pricing."
+    },
+    {
+      "id": "R187",
+      "file": "project_strangle_phase1_5_shipped.md",
+      "quote": "plan ~45 trades/year of 0.05Δ contracts, not 20.",
+      "rule": "For Tier 2 execution sizing, plan for about 45 trades per year of 0.05Δ contracts, not 20."
+    },
+    {
+      "id": "R188",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "don't pretend the options sleeve doesn't exist",
+      "rule": "When designing trading-tools features, do not act as if the tastytrade options sleeve does not exist."
+    },
+    {
+      "id": "R189",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "don't try to model it before V4",
+      "rule": "Do not try to model the options sleeve in trading-tools before V4."
+    },
+    {
+      "id": "R190",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "read-only",
+      "rule": "The options opportunity scanner must be read-only."
+    },
+    {
+      "id": "R191",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "proposes defined-risk structures (debit/credit spreads etc.) with risk/reward",
+      "rule": "The options opportunity scanner should propose defined-risk structures (such as debit/credit spreads) along with their risk/reward."
+    },
+    {
+      "id": "R192",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "No capital coupling",
+      "rule": "The options opportunity scanner must not couple to capital."
+    },
+    {
+      "id": "R193",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "no live orders",
+      "rule": "The options opportunity scanner must not place live orders."
+    },
+    {
+      "id": "R194",
+      "file": "project_tastytrade_options_account.md",
+      "quote": "no Greeks-management engine",
+      "rule": "The options opportunity scanner must not include a Greeks-management engine."
+    },
+    {
+      "id": "R195",
+      "file": "project_trading_favorite_algo_vwema.md",
+      "quote": "Don't pick a backtest library that can't handle these",
+      "rule": "When designing the backtest harness for the VWEMA-BB momentum strategy, do not choose a backtest library that cannot handle its tiered exits, regime switches, multi-timeframe inputs, and custom volume-weighted moving averages."
+    },
+    {
+      "id": "R196",
+      "file": "project_trading_favorite_algo_vwema.md",
+      "quote": "the harness must be able to express tiered exits, regime switches, multi-timeframe inputs, and custom volume-weighted moving averages",
+      "rule": "When designing the backtest harness for the VWEMA-BB momentum strategy, make sure the harness can express tiered exits, regime switches, multi-timeframe inputs, and custom volume-weighted moving averages."
+    },
+    {
+      "id": "R197",
+      "file": "project_trading_favorite_algo_vwema.md",
+      "quote": "Key features the design-test-store loop will need to honour when porting / testing:",
+      "rule": "When porting or testing the VWEMA-BB momentum strategy, honour its key features: the 4-fraction volume-weighted EVMA, multi-timeframe inputs, the tiered exit ladder, the mean-reversion and momentum regime modes, TTM Squeeze integration, the long/short modes, the default 10% stop loss, and lower-band re-entry."
+    },
+    {
+      "id": "R198",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "do NOT switch",
+      "rule": "Do not switch the trading database to Postgres 18 on port 5433; keep using Postgres 17 on port 5432."
+    },
+    {
+      "id": "R199",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "Do NOT switch to pg18, paper trading, or `main` branch.",
+      "rule": "Do not switch the trading-tools work to paper trading."
+    },
+    {
+      "id": "R200",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "Do NOT switch to pg18, paper trading, or `main` branch.",
+      "rule": "Do not switch the trading-tools repo to the `main` branch; use `master`."
+    },
+    {
+      "id": "R201",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "URL-encoded as `%40` and `%2A` in `DATABASE_URL`",
+      "rule": "URL-encode the `@` and `*` characters in the database password when writing them into `DATABASE_URL`, using `%40` and `%2A`."
+    },
+    {
+      "id": "R202",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "enforced read-only by import discipline (no Order classes imported)",
+      "rule": "Do not import any Order classes from ib-async in the IB data code, to keep the integration read-only."
+    },
+    {
+      "id": "R203",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "`useRTH=True`",
+      "rule": "Set `useRTH=True` when requesting historical bars from IB."
+    },
+    {
+      "id": "R204",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "weekly **unadjusted only**",
+      "rule": "Request only unadjusted weekly equity bars from IB; do not use ADJUSTED_LAST for multi-day bar sizes."
+    },
+    {
+      "id": "R205",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "multiplied by 100 in `ib_data.fetch_bars` before upsert",
+      "rule": "Multiply IB US equity daily and weekly volume by 100 in `ib_data.fetch_bars` before upserting."
+    },
+    {
+      "id": "R206",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "`upsert_bars` returns `len(rows)` instead",
+      "rule": "Have `upsert_bars` return `len(rows)` instead of `cur.rowcount` when using psycopg3 pipeline mode after `executemany`."
+    },
+    {
+      "id": "R207",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "replace with discovery when universe >10",
+      "rule": "Replace the hardcoded `KNOWN_INSTRUMENTS` list with symbol discovery once the universe exceeds 10 symbols."
+    },
+    {
+      "id": "R208",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "edit `KNOWN_INSTRUMENTS` in `cli.py` and re-run ingest",
+      "rule": "To add a symbol, edit `KNOWN_INSTRUMENTS` in `cli.py`."
+    },
+    {
+      "id": "R209",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "edit `KNOWN_INSTRUMENTS` in `cli.py` and re-run ingest",
+      "rule": "After adding a symbol to `KNOWN_INSTRUMENTS`, re-run ingest."
+    },
+    {
+      "id": "R210",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "When user asks about trading data, point at this repo.",
+      "rule": "When the user asks about trading data, point them to the trading-tools repo at `D:\\Plaios-tools\\trading-tools\\`."
+    },
+    {
+      "id": "R211",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "brainstorm strategy register + backtest harness as a separate project that consumes this substrate's tables",
+      "rule": "To start V2, brainstorm the strategy register and backtest harness as a separate project that consumes the trading-tools database tables."
+    },
+    {
+      "id": "R212",
+      "file": "project_trading_tools_v1_built.md",
+      "quote": "Schema/library choices are locked — do not re-litigate.",
+      "rule": "Do not re-litigate the locked schema and library choices."
+    },
+    {
+      "id": "R213",
+      "file": "project_trading_tools_v2_built.md",
+      "quote": "per-strategy verdict assignment is a user judgment call, do separately",
+      "rule": "Do not assign per-strategy verdicts yourself; leave verdict assignment to the user as a separate step."
+    },
+    {
+      "id": "R214",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "trading-tools is US-only by design",
+      "rule": "Limit the trading-tools project to US equities; do not add ASX or other non-US universes to its scope."
+    },
+    {
+      "id": "R215",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "For any **study** scoped to TOP_25 today: design the methodology to be universe-agnostic so an ASX replay is a parameter swap, not a rewrite.",
+      "rule": "When designing a study scoped to TOP_25, make the methodology universe-agnostic so that an ASX replay requires only a parameter change, not a rewrite."
+    },
+    {
+      "id": "R216",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "ASX ingestion is its own sub-piece (likely V3.4 or similar — separate spec/plan/ship)",
+      "rule": "Treat ASX fundamentals ingestion for any cross-asset build as its own sub-piece with a separate spec, plan, and ship, rather than part of another piece."
+    },
+    {
+      "id": "R217",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "Don't fold it into a current sub-piece that's scoped to US.",
+      "rule": "Do not fold ASX ingestion into a current sub-piece that is scoped to US equities."
+    },
+    {
+      "id": "R218",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "the four-way benchmark template needs an ASX-EW-BH analogue alongside SPY-BH for ASX-named runs",
+      "rule": "For backtest runs named for ASX, include an ASX-EW-BH benchmark alongside SPY-BH in the four-way benchmark template once the ASX universe is added."
+    },
+    {
+      "id": "R219",
+      "file": "project_trading_universe_scope_multiasset.md",
+      "quote": "SG/CN/EU: parking-lot.",
+      "rule": "Do not pursue Singapore, China, or EU equity universes; keep them parked unless an ASX finding justifies re-opening them."
+    },
+    {
+      "id": "R220",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "Every backtest reports vs SPY-BH AND vs asset-BH (mandatory).",
+      "rule": "When running a backtest, report its results against both SPY buy-and-hold and asset buy-and-hold."
+    },
+    {
+      "id": "R221",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "**Four-way benchmark** (all mandatory)",
+      "rule": "For portfolio overlay backtests, report all four benchmarks: strategy, spy_bh, universe_ew_bh, and gold_bh."
+    },
+    {
+      "id": "R222",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "Action: retract the 70/30 dual-sleeve recommendation",
+      "rule": "Retract the 70/30 dual-sleeve recommendation and treat SPY_top_5 monthly-rebalance as the active equity strategy."
+    },
+    {
+      "id": "R223",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "NOT the growth-momentum the V3.3a study already falsified at the filing-date resolution",
+      "rule": "Do not test growth-momentum as the V3.3b-quality factor; test quality measures such as gross profitability or QMJ instead."
+    },
+    {
+      "id": "R224",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "no harness change unless edge is real",
+      "rule": "Do not change the backtest harness for a parked study unless its edge is confirmed real."
+    },
+    {
+      "id": "R225",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "pre-declare a >25% lift in win rate or expectancy as the success threshold to avoid post-hoc fitting",
+      "rule": "Pre-declare the success threshold before running a falsification study, to avoid post-hoc fitting."
+    },
+    {
+      "id": "R226",
+      "file": "project_trading_v3_scope_pending.md",
+      "quote": "needs cite check",
+      "rule": "Verify the cited source of an edge hypothesis before relying on it."
+    },
+    {
+      "id": "R227",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "anything load-bearing MUST sit on a FIXED day",
+      "rule": "Place anything load-bearing in the training plan on a fixed day, never on an optional day."
+    },
+    {
+      "id": "R228",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "reward days can only ever be extras",
+      "rule": "Treat reward or optional training days only as extras, never as the place for essential work."
+    },
+    {
+      "id": "R229",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "strand the lowest priority, never the top goal",
+      "rule": "When something must be left on optional days, leave the lowest-priority item there, never the top goal."
+    },
+    {
+      "id": "R230",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "trust the OPTIMISER-with-floors output, not raw solo ranks",
+      "rule": "When selecting movements, trust the optimiser-with-floors output over raw solo rankings."
+    },
+    {
+      "id": "R231",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "lives in fixed game/court time, not the budget",
+      "rule": "Schedule skill work in fixed game or court time, not within the volume budget."
+    },
+    {
+      "id": "R232",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "NOT a separate day",
+      "rule": "Do not schedule functional mobility as its own training day; keep it as a scoring lens only."
+    },
+    {
+      "id": "R233",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "V-taper on fixed Tue/Thu (not skipped reward days)",
+      "rule": "Place V-taper work on the fixed Tuesday and Thursday sessions, not on skippable reward days."
+    },
+    {
+      "id": "R234",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "conditioning folded onto Tue",
+      "rule": "Fold conditioning work onto the Tuesday session."
+    },
+    {
+      "id": "R235",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "sprints seeded on Mon (not a cold Sat block)",
+      "rule": "Seed sprint work on Monday rather than scheduling it as a cold Saturday block."
+    },
+    {
+      "id": "R236",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "armor non-negotiable Mon micro-dose",
+      "rule": "Treat the armor micro-dose on Monday as non-negotiable."
+    },
+    {
+      "id": "R237",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "never its own block",
+      "rule": "Never give armor work its own dedicated training block; keep it as a Monday micro-dose."
+    },
+    {
+      "id": "R238",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "Lands in **re-entry ramp first**",
+      "rule": "Start the program in re-entry ramp mode before progressing to full training."
+    },
+    {
+      "id": "R239",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "no failure 2 wks",
+      "rule": "Avoid training to failure for the first 2 weeks of re-entry."
+    },
+    {
+      "id": "R240",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "maintenance calories until recovery markers green",
+      "rule": "Keep calories at maintenance until recovery markers are green."
+    },
+    {
+      "id": "R241",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "no max sprints/depth jumps until gates pass",
+      "rule": "Do not perform max sprints or depth jumps until the readiness gates pass."
+    },
+    {
+      "id": "R242",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "Tue Upper light wk 1–2",
+      "rule": "Keep the Tuesday upper session light during weeks 1 and 2 of re-entry."
+    },
+    {
+      "id": "R243",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "Sun = Zone-2/strides until gate clears",
+      "rule": "On Sundays, do Zone-2 or strides work until the readiness gate clears."
+    },
+    {
+      "id": "R244",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "both **truly optional**",
+      "rule": "Treat the Friday small pump session and the Saturday court or Zone-2 session as truly optional."
+    },
+    {
+      "id": "R245",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "reach for it first when flush",
+      "rule": "When feeling flush with energy, reach for the Friday aesthetic accelerator session first."
+    },
+    {
+      "id": "R246",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "Use it for what/where, not how-much.",
+      "rule": "Use the coverage model to decide which movements and where to place them, not how much volume to prescribe."
+    },
+    {
+      "id": "R247",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "do BEFORE more sim rounds",
+      "rule": "Build the testosterone and nutrition layer before running more simulation rounds."
+    },
+    {
+      "id": "R248",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "`scott-nutrition-protocol.md` to update.",
+      "rule": "Update the scott-nutrition-protocol.md file to incorporate the testosterone and nutrition layer."
+    },
+    {
+      "id": "R249",
+      "file": "project_training_lean_athlete_v6.md",
+      "quote": "Re-sim to close the loop",
+      "rule": "Run a behavioural re-simulation of v7.2 to close the loop on its fixes."
+    },
+    {
+      "id": "R250",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "Do NOT auto-activate.",
+      "rule": "Do not automatically activate the travel domain; wait until Scott asks to activate it."
+    },
+    {
+      "id": "R251",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "Do not add to the top-level PLAIOS CLAUDE.md domains table unless Scott explicitly requests.",
+      "rule": "Do not add the travel domain to the top-level PLAIOS CLAUDE.md domains table unless Scott explicitly requests it."
+    },
+    {
+      "id": "R252",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "activation steps are documented in the HTML comment at the top of `domains/travel/CLAUDE.md`",
+      "rule": "When Scott asks to activate travel, follow the activation steps documented in the HTML comment at the top of domains/travel/CLAUDE.md."
+    },
+    {
+      "id": "R253",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "(1) add row to main CLAUDE.md",
+      "rule": "When activating the travel domain, add a row for it to the main CLAUDE.md."
+    },
+    {
+      "id": "R254",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "(2) create `knowledge/` + `outputs/` folders",
+      "rule": "When activating the travel domain, create the knowledge/ and outputs/ folders."
+    },
+    {
+      "id": "R255",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "(3) populate REQUIRED knowledge docs",
+      "rule": "When activating the travel domain, populate the REQUIRED knowledge docs."
+    },
+    {
+      "id": "R256",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "(4) backfill Korea 2026 into `travel-history.md` as first entry",
+      "rule": "When activating the travel domain, backfill Korea 2026 into travel-history.md as its first entry."
+    },
+    {
+      "id": "R257",
+      "file": "project_travel_domain_drafted.md",
+      "quote": "File under Overnighter or Weekend archetype depending on scope.",
+      "rule": "Once the travel domain is live, file the camping trip with the kids under the Overnighter or Weekend archetype, depending on its scope."
+    },
+    {
+      "id": "R258",
+      "file": "project_wulfric_boxing.md",
+      "quote": "No need to coordinate sessions around Wulfric's availability.",
+      "rule": "Do not coordinate LPP program sessions around Wulfric's availability; treat the program as solo for Scott."
+    },
+    {
+      "id": "R259",
+      "file": "project_wulfric_boxing.md",
+      "quote": "If program updates are discussed, frame for Scott only.",
+      "rule": "When program updates are discussed, frame them for Scott only, not Wulfric."
+    },
+    {
+      "id": "R260",
+      "file": "project_wulfric_boxing.md",
+      "quote": "flag overtraining risk if it comes up",
+      "rule": "Flag overtraining risk for Wulfric if the topic of his training volume or recovery comes up."
+    },
+    {
+      "id": "R261",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "drive WIA directly from PowerShell",
+      "rule": "When scanning for Scott on his Windows PC, drive the WIA interface directly from PowerShell, because no scan application is installed."
+    },
+    {
+      "id": "R262",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "find the device whose Name is `*Brother*`",
+      "rule": "When scanning on Scott's PC, locate the WIA device whose Name matches `*Brother*` before connecting to it."
+    },
+    {
+      "id": "R263",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "Transfer(\"{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}\")",
+      "rule": "When transferring a WIA scan, call Transfer with the JPEG GUID {B96B3CAE-0728-11D3-9D7B-0000F81EF32E}."
+    },
+    {
+      "id": "R264",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "Defaults used: colour, 200 DPI.",
+      "rule": "When scanning for Scott, use colour mode at 200 DPI unless told otherwise."
+    },
+    {
+      "id": "R265",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "Output goes to `C:\\Users\\smckennie\\Pictures\\Scan_<timestamp>.jpg`",
+      "rule": "Save scans from Scott's printer to C:\\Users\\smckennie\\Pictures\\Scan_<timestamp>.jpg, with a timestamp in the filename."
+    },
+    {
+      "id": "R266",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "unless told it's in the **ADF feeder**",
+      "rule": "Assume the page is on the flatbed glass when scanning for Scott, unless he says it is in the ADF feeder."
+    },
+    {
+      "id": "R267",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "Image.open(f).convert(\"RGB\").rotate(180, expand=True)",
+      "rule": "When converting scanned images to PDF, open each image, convert it to RGB, and rotate it 180 degrees with expand=True when the pages are upside down."
+    },
+    {
+      "id": "R268",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "pages[0].save(out_pdf, save_all=True, append_images=pages[1:], resolution=200.0, quality=82)",
+      "rule": "When combining scanned pages into a PDF, save them with pages[0].save(out_pdf, save_all=True, append_images=pages[1:], resolution=200.0, quality=82)."
+    },
+    {
+      "id": "R269",
+      "file": "reference_brother_scanner_workflow.md",
+      "quote": "Also available if needed: Ghostscript `C:\\GDAL\\bin\\gswin64c.exe`, Word interop.",
+      "rule": "If Pillow is insufficient, Ghostscript at C:\\GDAL\\bin\\gswin64c.exe or Word interop may be used for scan-to-PDF conversion."
+    },
+    {
+      "id": "R270",
+      "file": "reference_cleveland_fed_nowcast_data.md",
+      "quote": "need a `Mozilla/...` User-Agent",
+      "rule": "When requesting the Cleveland Fed inflation nowcasting JSON endpoints, send a Mozilla/... User-Agent header."
+    },
+    {
+      "id": "R271",
+      "file": "reference_cleveland_fed_nowcast_data.md",
+      "quote": "`realtime_end` must not be a future date — use `9999-12-31`.",
+      "rule": "When querying FRED ALFRED observations, set realtime_end to 9999-12-31 and never to a future date."
+    },
+    {
+      "id": "R272",
+      "file": "reference_cleveland_fed_nowcast_data.md",
+      "quote": "FRED ALFRED complements it for exact release dates",
+      "rule": "Use FRED ALFRED to obtain exact release dates for macro data values."
+    },
+    {
+      "id": "R273",
+      "file": "user_investment_philosophy.md",
+      "quote": "Every investment should beat just holding gold.",
+      "rule": "Every investment should be expected to beat buy-and-hold gold; treat gold buy-and-hold as the minimum hurdle."
+    },
+    {
+      "id": "R274",
+      "file": "user_investment_philosophy.md",
+      "quote": "capital not deployed into a live thesis sits in gold",
+      "rule": "Keep any capital not deployed into a live thesis in gold."
+    },
+    {
+      "id": "R275",
+      "file": "user_investment_philosophy.md",
+      "quote": "when in doubt, hold gold",
+      "rule": "When in doubt, hold gold."
+    },
+    {
+      "id": "R276",
+      "file": "user_investment_philosophy.md",
+      "quote": "Zero theses active → 100% gold",
+      "rule": "When no theses are active, hold 100% gold."
+    },
+    {
+      "id": "R277",
+      "file": "user_investment_philosophy.md",
+      "quote": "60% is a hard per-position cap",
+      "rule": "Never allocate more than 60% to a single position."
+    },
+    {
+      "id": "R278",
+      "file": "user_investment_philosophy.md",
+      "quote": "Holdings should be genuinely independent bets",
+      "rule": "Construct holdings as genuinely independent bets, with different industries, different theses, and no shared macro or micro driver."
+    },
+    {
+      "id": "R279",
+      "file": "user_investment_philosophy.md",
+      "quote": "that's the signal to hunt rebound positions",
+      "rule": "During a whole-of-market crash, when everything correlates to 1, hunt rebound positions in the most-oversold high-quality names."
+    },
+    {
+      "id": "R280",
+      "file": "user_investment_philosophy.md",
+      "quote": "buy and hold quality stocks with good management",
+      "rule": "Base the core approach on buying and holding quality stocks with good management."
+    },
+    {
+      "id": "R281",
+      "file": "user_investment_philosophy.md",
+      "quote": "Strategies layer small alpha on top of buy-and-hold — not a BH-substitute.",
+      "rule": "Design strategies to add small alpha on top of buy-and-hold, not to replace buy-and-hold."
+    },
+    {
+      "id": "R282",
+      "file": "user_investment_philosophy.md",
+      "quote": "every backtest reports vs SPY-BH AND vs asset-BH",
+      "rule": "Report every backtest against both SPY buy-and-hold and asset buy-and-hold."
+    },
+    {
+      "id": "R283",
+      "file": "user_investment_philosophy.md",
+      "quote": "for portfolios, vs gold-BH and vs equal-weight-universe-BH too",
+      "rule": "For portfolio backtests, also report against gold buy-and-hold and equal-weight-universe buy-and-hold."
+    },
+    {
+      "id": "R284",
+      "file": "user_investment_philosophy.md",
+      "quote": "the decorrelation rule is *relaxed*",
+      "rule": "For a money-extractor or quality-compounder thesis, relax the decorrelation requirement and allow correlated names if each is selected on intrinsic quality."
+    },
+    {
+      "id": "R285",
+      "file": "user_investment_philosophy.md",
+      "quote": "When evaluating any characteristic-level study, ask separately",
+      "rule": "When evaluating a characteristic-level study, ask separately whether the signal is real."
+    },
+    {
+      "id": "R286",
+      "file": "user_investment_philosophy.md",
+      "quote": "is there a marginal-buyer pool that will price-discover it?",
+      "rule": "When evaluating a characteristic-level study, ask separately whether a marginal-buyer pool exists that will price-discover the signal."
+    },
+    {
+      "id": "R287",
+      "file": "user_investment_philosophy.md",
+      "quote": "Treat the vol-band filter as a *quality* signal in analysis writeups, not a risk filter.",
+      "rule": "In analysis writeups, treat the vol-band filter as a quality signal, not a risk filter."
+    },
+    {
+      "id": "R288",
+      "file": "user_investment_philosophy.md",
+      "quote": "Frame future fundamental/quality strategies around this",
+      "rule": "Frame future fundamental and quality strategies around vol-band membership as a sign that management is reliably extracting value."
+    },
+    {
+      "id": "R289",
+      "file": "user_investment_philosophy.md",
+      "quote": "The R3000 falsification is best read as a **scope clarification**",
+      "rule": "Interpret the R3000 falsification as a scope clarification (the screener works where passive flow operates), not as proof the signal is fake."
+    },
+    {
+      "id": "R290",
+      "file": "user_investment_philosophy.md",
+      "quote": "When ranking watchlist names, separate them into",
+      "rule": "When ranking watchlist names, separate them into Tier 1 (mega-cap passive-flow recipients) and Tier 2 (characteristic-level passers without the flow tailwind)."
+    },
+    {
+      "id": "R291",
+      "file": "user_investment_philosophy.md",
+      "quote": "Tier 1 is higher-conviction because two compounding tailwinds (signal + flow) stack.",
+      "rule": "Treat Tier 1 watchlist names as higher-conviction than Tier 2 names."
+    },
+    {
+      "id": "R292",
+      "file": "user_investment_philosophy.md",
+      "quote": "Universe choice for portfolio backtests should be SP500 / Russell 1000, not Russell 3000+",
+      "rule": "Use an SP500 or Russell 1000 universe for portfolio backtests, not Russell 3000 or broader."
+    },
+    {
+      "id": "R293",
+      "file": "user_investment_philosophy.md",
+      "quote": "Future studies should consider an explicit *passive-flow-weighted* universe filter (e.g. names with > $X cap or > Y% index weight) as a regime gate.",
+      "rule": "Future studies should consider a passive-flow-weighted universe filter (for example, a market-cap or index-weight threshold) as a regime gate."
+    },
+    {
+      "id": "R294",
+      "file": "user_investment_philosophy.md",
+      "quote": "SPY_top_5 equal-weight monthly-rebalance is the default actionable strategy",
+      "rule": "Use SPY_top_5 equal-weight monthly-rebalance as the default actionable strategy."
+    },
+    {
+      "id": "R295",
+      "file": "user_investment_philosophy.md",
+      "quote": "SPY_top_3 is the conservative variant",
+      "rule": "Use SPY_top_3 as the conservative variant of the SPY_top_K strategy."
+    },
+    {
+      "id": "R296",
+      "file": "user_investment_philosophy.md",
+      "quote": "Hold equal-weight, rebalance monthly.",
+      "rule": "Hold SPY_top_5 positions equal-weight and rebalance monthly."
+    },
+    {
+      "id": "R297",
+      "file": "user_investment_philosophy.md",
+      "quote": "100% SPY_top_5 monthly-rebal",
+      "rule": "For new capital, allocate 100% to SPY_top_5 monthly-rebalance."
+    },
+    {
+      "id": "R298",
+      "file": "user_investment_philosophy.md",
+      "quote": "lump-sum entry per Variant D",
+      "rule": "Enter the SPY_top_5 strategy with a lump-sum entry rather than dollar-cost averaging or waiting for pullbacks."
+    },
+    {
+      "id": "R299",
+      "file": "user_investment_philosophy.md",
+      "quote": "No parallel rs_vol sleeve.",
+      "rule": "Do not run a parallel rs_vol sleeve alongside the SPY_top_5 strategy."
+    },
+    {
+      "id": "R300",
+      "file": "user_investment_philosophy.md",
+      "quote": "What the watchlist should NOT be: a fixed-percentage second sleeve.",
+      "rule": "Do not use the watchlist as a fixed-percentage second sleeve in a systematic portfolio."
+    },
+    {
+      "id": "R301",
+      "file": "user_investment_philosophy.md",
+      "quote": "Just read `tt scan` output; don't auto-trade it.",
+      "rule": "Use the rs_vol watchlist output as qualitative decision support, and do not auto-trade it."
+    },
+    {
+      "id": "R302",
+      "file": "user_investment_philosophy.md",
+      "quote": "The real answer is vol-CONDITIONED leverage",
+      "rule": "When leveraging SPY_top_5, use vol-conditioned leverage rather than constant leverage."
+    },
+    {
+      "id": "R303",
+      "file": "user_investment_philosophy.md",
+      "quote": "remains the conservative default",
+      "rule": "Keep the unlevered SPY_top_5 monthly-rebalance as the conservative default, and use vol-targeted leveraged variants only if leverage is chosen."
+    },
+    {
+      "id": "R304",
+      "file": "user_investment_philosophy.md",
+      "quote": "Flag in any deployment conversation.",
+      "rule": "In any deployment conversation, flag that AU capital gains tax (CGT) is not modelled and that after-tax returns will be materially lower."
+    }
+  ],
+  "dropped": []
+}

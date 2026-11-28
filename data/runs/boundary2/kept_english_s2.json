@@ -1,0 +1,129 @@
+{
+ "rules": [
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R148",
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R194",
+   "rule": "Never upload films."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R372",
+   "rule": "Do not rebuild the Kurva S files."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R8",
+   "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R135",
+   "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R137",
+   "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R145",
+   "rule": "Do not search for a port for ComChan, since it has no socket."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R166",
+   "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R361",
+   "rule": "For the Switch port, do not implement QUIC support."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R107",
+   "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R14",
+   "rule": "Never work around a Cloudflare challenge from CeX."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R61",
+   "rule": "Have the user confirm the final game match before accepting it."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R32",
+   "rule": "Always target the Development branch when opening a GitHub PR, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R54",
+   "rule": "When opening a pull request, always target the Development branch for testing, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R77",
+   "rule": "Never bump the major version on your own initiative under any circumstances."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R163",
+   "rule": "Only commit or push changes when explicitly asked to do so."
+  },
+  {
+   "folder": "ferazfhansurie__ai-memory-faeez",
+   "id": "R132",
+   "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R33",
+   "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R416",
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R20",
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R26",
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R10",
+   "rule": "Stop and ask the user before merging PRs."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R23",
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R32",
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R7",
+   "rule": "Only execute a commit when the user asks for it."
+  }
+ ]
+}

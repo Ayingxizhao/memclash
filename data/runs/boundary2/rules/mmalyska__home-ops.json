@@ -1,0 +1,1456 @@
+{
+  "repo": "mmalyska/home-ops",
+  "dir": ".claude/memory",
+  "n_files": 45,
+  "n_rules": 241,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "Before assigning any fixed IP on VLAN 48 (LoadBalancer `lbipam.cilium.io/ips` or a Multus macvlan address), run the checks in docs/src/general/network.md (\"Check before assigning an address\") and update that table in the same PR.",
+      "rule": "Before assigning any fixed IP on VLAN 48 (as a LoadBalancer `lbipam.cilium.io/ips` value or a Multus macvlan address), run the checks in docs/src/general/network.md under \"Check before assigning an address\"."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "and update that table in the same PR.",
+      "rule": "When assigning a fixed IP on VLAN 48, update the address table in docs/src/general/network.md in the same PR."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "list live LB IPs and Multus annotations (commands in the doc)",
+      "rule": "When checking whether a VLAN 48 IP is free, list the live LoadBalancer IPs and Multus annotations in the cluster using the commands in docs/src/general/network.md."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "check both Cilium pools",
+      "rule": "When checking whether a VLAN 48 IP is free, check both Cilium IP pools."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "grep the repo",
+      "rule": "When checking whether a VLAN 48 IP is free, grep the repository for the address."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_check_live_ips_before_assigning.md",
+      "quote": "prefer the docs table only as a record, not as truth",
+      "rule": "Do not treat the docs address table as the source of truth for which IPs are in use; use it only as a record."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_check_native_gateway.md",
+      "quote": "Run `helm show values <repo>/<chart> --version <ver> | grep -A20 route\\|gateway\\|HTTPRoute` before creating `templates/httproute.yaml`.",
+      "rule": "Before creating a templates/httproute.yaml file, run helm show values on the chart to check for built-in gateway/HTTPRoute support."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_check_native_gateway.md",
+      "quote": "**How to apply:** Always check chart values for gateway/route support before hand-writing an HTTPRoute manifest.",
+      "rule": "Always check a chart's values for gateway/route support before hand-writing an HTTPRoute manifest."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "not to `~/.claude/`",
+      "rule": "Do not write Claude-related files to `~/.claude/` (`/home/vscode/.claude/`)."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "Write Claude-related files to `/workspaces/home-ops/.claude/`",
+      "rule": "Write Claude-related files to `/workspaces/home-ops/.claude/`, the git-tracked workspace directory."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "edit `.agents/skills/`",
+      "rule": "Edit project skills in `.agents/skills/`, not in the generated `.claude/skills/` mirror."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "run `.agents/bin/sync-skills`",
+      "rule": "After editing project skills, run `.agents/bin/sync-skills` to regenerate the mirror."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "edit `/workspaces/home-ops/.claude/memory/MEMORY.md`",
+      "rule": "Edit `MEMORY.md` directly at `/workspaces/home-ops/.claude/memory/MEMORY.md`, not through the symlinked path."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "Before writing any Claude file, check the destination path.",
+      "rule": "Before writing any Claude file, check its destination path."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "it resolves under `/home/vscode/.claude/`, redirect it to",
+      "rule": "If a Claude file's destination resolves under `/home/vscode/.claude/`, redirect it to `/workspaces/home-ops/.claude/`."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "After creating a memory, verify and fix:",
+      "rule": "After creating a memory file, verify that every entry in `~/.claude/projects/-workspaces-home-ops/memory/` is a symlink."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "mv -f ~/.claude/projects/-workspaces-home-ops/memory/<f> /workspaces/home-ops/.claude/memory/<f>",
+      "rule": "If a memory file in `~/.claude/projects/-workspaces-home-ops/memory/` is a real file, move it to `/workspaces/home-ops/.claude/memory/`."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_claude_files_in_workspace.md",
+      "quote": "ln -sfn /workspaces/home-ops/.claude/memory/<f> ~/.claude/projects/-workspaces-home-ops/memory/<f>",
+      "rule": "After moving a memory file to `/workspaces/home-ops/.claude/memory/`, replace its entry in `~/.claude/projects/-workspaces-home-ops/memory/` with a symlink to the moved file."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "`get`, `describe`, `logs`, `top`, `diff`",
+      "rule": "Run kubectl get, describe, logs, top, and diff freely without asking for confirmation."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "confirm first: `apply`, `delete`, `patch`, `rollout restart`, `exec`",
+      "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "safe: `get`, `health`, `logs`, `version`, `dmesg`, `ps`, `services`, `disks`",
+      "rule": "Run talosctl get, health, logs, version, dmesg, ps, services, and disks freely without asking for confirmation."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "confirm: `apply-config`, `upgrade`, `reset`, `reboot`, `shutdown`",
+      "rule": "Ask the user for confirmation before running talosctl apply-config, upgrade, reset, reboot, or shutdown."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "safe: `show`, `plan`, `state`",
+      "rule": "Run terraform show, plan, and state freely without asking for confirmation, in provision/terraform/cloudflare/."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "confirm: `apply`, `destroy`, `taint`, `import`",
+      "rule": "Ask the user for confirmation before running terraform apply, destroy, taint, or import in provision/terraform/cloudflare/."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "safe: `app list`, `get`, `diff`",
+      "rule": "Run argocd app list, get, and diff freely without asking for confirmation."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "confirm: `app sync`, `delete`, `set`",
+      "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_cluster_access_rules.md",
+      "quote": "Before any mutating command, state the action and ask for confirmation even if the context seems obvious.",
+      "rule": "Before running any mutating cluster command, state the action and ask the user for confirmation, even if the context seems obvious."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_deployment_strategy_patch.md",
+      "quote": "kubectl patch deployment <name> -n <ns> --type=json -p='[{\"op\":\"remove\",\"path\":\"/spec/strategy/rollingUpdate\"},{\"op\":\"replace\",\"path\":\"/spec/strategy/type\",\"value\":\"Recreate\"}]'` before ArgoCD sync.",
+      "rule": "When switching a Deployment's strategy from RollingUpdate to Recreate, run the kubectl patch that removes /spec/strategy/rollingUpdate and replaces /spec/strategy/type with Recreate on the live object before ArgoCD sync."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_deployment_strategy_patch.md",
+      "quote": "patch the live object first",
+      "rule": "When changing the Deployment strategy type in values.yaml, patch the live Deployment object before syncing with ArgoCD."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_deployment_strategy_patch.md",
+      "quote": "then sync",
+      "rule": "When changing the Deployment strategy type in values.yaml, sync with ArgoCD after patching the live object."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "hand them a ready read-only prompt",
+      "rule": "For checks that need node files, exec, or LLM requests, hand the owner a ready read-only prompt instead of running the check from the dev workspace."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "record the report",
+      "rule": "Record the owner's report of a node-file, exec, or LLM-request check as evidence."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "write a paste-ready, read-only prompt",
+      "rule": "When a design or live check depends on node files or a request through llama-server, write a paste-ready, read-only prompt."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "exact commands, what to report, \"change nothing\"",
+      "rule": "The read-only prompt must include the exact commands, what to report, and an instruction to change nothing."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "put it in the spec",
+      "rule": "Put the read-only prompt in the spec."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "save the report as evidence before writing code against it",
+      "rule": "Save the owner's report as evidence before writing code that depends on it."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_elevated_session_checks.md",
+      "quote": "Check the reported numbers yourself in Prometheus where possible",
+      "rule": "Verify reported numbers yourself in Prometheus where possible."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_grafana_no_anonymous_access.md",
+      "quote": "must have `auth.anonymous.enabled: false`",
+      "rule": "Ensure Grafana's values.yaml in cluster/apps/system/prometheus-stack has `auth.anonymous.enabled` set to `false`."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_grafana_no_anonymous_access.md",
+      "quote": "Never re-enable anonymous Viewer access",
+      "rule": "Never re-enable anonymous Viewer access to Grafana, even if the Grafana route is reachable only over the LAN via envoy-internal."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_grafana_no_anonymous_access.md",
+      "quote": "don't re-enable `auth.anonymous`",
+      "rule": "When asked to add a feature (such as a kiosk display, TV mode, or phone widget) that seems to need anonymous access, do not re-enable `auth.anonymous` in Grafana."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_grafana_no_anonymous_access.md",
+      "quote": "Propose an alternative instead",
+      "rule": "When a requested Grafana feature seems to need anonymous access, propose an alternative instead, such as a scoped API key or service account token or a signed public dashboard link for a single dashboard."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_grafana_no_anonymous_access.md",
+      "quote": "confirm with the user before implementing",
+      "rule": "Confirm with the user before implementing any alternative proposed for a Grafana feature that seemed to need anonymous access."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "Never write the literal private domain (or any hostname derived from it) into any tracked file",
+      "rule": "Never write the literal private domain or any hostname derived from it into any tracked file, including comments and memory files."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "describe it generically — never spell\n  out the actual domain, even as an example or when explaining a past mistake.",
+      "rule": "When writing comments, docs, or memory that reference the OIDC provider host or the app's public hostname, describe it generically and never spell out the actual domain, even as an example or when explaining a past mistake."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "This applies to `.claude/memory/*.md` files exactly as much as repo source\n  files",
+      "rule": "Apply the no-private-domain rule to `.claude/memory/*.md` files exactly as to repo source files."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "Applies even in draft/uncommitted edits — check before writing the file at\n  all, not just before staging or pushing.",
+      "rule": "Check for the private domain before writing any file at all, including draft or uncommitted edits, not only before staging or pushing."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "comments and memory should follow the same\n  discipline as functional fields, even though they aren't template-substituted.",
+      "rule": "Follow the same no-literal-domain discipline for comments and memory as for functional fields, even though they are not template-substituted."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_no_domain_in_comments.md",
+      "quote": "Before finalizing any commit or memory write, grep the new content for the\n  private domain string as a last check if a comment, doc, or memory file was\n  touched.",
+      "rule": "Before finalizing any commit or memory write that touches a comment, doc, or memory file, grep the new content for the private domain string as a last check."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "Push a branch and run `gh pr create` only when the user says so, or when it is plainly part of the task you were assigned.",
+      "rule": "Push a branch only when the user explicitly instructs it or when pushing is plainly part of the assigned task."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "Push a branch and run `gh pr create` only when the user says so, or when it is plainly part of the task you were assigned.",
+      "rule": "Run `gh pr create` only when the user explicitly instructs it or when opening a PR is plainly part of the assigned task."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "Committing on the feature branch is allowed",
+      "rule": "Committing on the feature branch is allowed."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "When the work is committed and neither applies, report the state and ask.",
+      "rule": "When work is committed on a branch and neither an explicit instruction nor the assigned task calls for pushing or opening a PR, report the state and ask the user what to do next."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "after `git commit` on a feature or chore branch, stop and report.",
+      "rule": "After running `git commit` on a feature or chore branch, stop and report instead of pushing or opening a PR."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_push_and_pr_after_branch.md",
+      "quote": "Never merge without fresh consent.",
+      "rule": "Never merge a PR without fresh consent from the user."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_talosctl_config.md",
+      "quote": "Always use `TALOSCONFIG=/workspaces/home-ops/provision/talos/clusterconfig/talosconfig` with talosctl commands.",
+      "rule": "Always set TALOSCONFIG=/workspaces/home-ops/provision/talos/clusterconfig/talosconfig when running talosctl commands."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_talosctl_config.md",
+      "quote": "The config is NOT in `~/.talos/config`.",
+      "rule": "Do not use ~/.talos/config as the talosctl config file."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_talosctl_config.md",
+      "quote": "Prefix all talosctl commands with the env var, or set it at the start of any talosctl-heavy session.",
+      "rule": "Prefix every talosctl command with the TALOSCONFIG environment variable, or set that variable at the start of any session with many talosctl commands."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_update_docs.md",
+      "quote": "After any non-trivial change, proactively check and update README.md, CLAUDE.md, and docs/src/ without being asked.",
+      "rule": "After any non-trivial change, proactively check and update README.md, CLAUDE.md, and docs/src/ without waiting to be asked."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_update_docs.md",
+      "quote": "new tasks → update Key Tasks in CLAUDE.md",
+      "rule": "When a new task is added, update the Key Tasks section in CLAUDE.md."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_update_docs.md",
+      "quote": "new app-config.yaml fields → update schema",
+      "rule": "When new app-config.yaml fields are added, update the app-config.yaml schema."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_update_docs.md",
+      "quote": "changed bootstrap flow → update all three bootstrap docs",
+      "rule": "When the bootstrap flow changes, update all three bootstrap docs."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_update_docs.md",
+      "quote": "new doc pages → add to mkdocs.yml nav",
+      "rule": "When a new doc page is added, add it to the mkdocs.yml nav."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_update_docs.md",
+      "quote": "After finishing any feature/fix, scan CLAUDE.md and relevant docs for sections that need updating before calling the work done.",
+      "rule": "After finishing any feature or fix, scan CLAUDE.md and relevant docs for sections that need updating before considering the work done."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_verify_manifests.md",
+      "quote": "Run `helm dependency update . && helm template <release> . -f values.yaml` or `kubectl kustomize .` after every values.yaml or kustomization edit.",
+      "rule": "After every values.yaml or kustomization edit, run helm template (after helm dependency update) or kubectl kustomize to render the manifests."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_verify_manifests.md",
+      "quote": "Always render before committing Helm/Kustomize changes.",
+      "rule": "Always render the Helm/Kustomize manifests before committing Helm/Kustomize changes."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_verify_manifests.md",
+      "quote": "Scan rendered output for the specific field you changed to confirm it landed correctly.",
+      "rule": "Scan the rendered output for the specific field that was changed to confirm it landed correctly."
+    },
+    {
+      "id": "R67",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "do not re-argue keeping Gemma.",
+      "rule": "Do not re-argue keeping Gemma on nv1; the decision to drop it is settled."
+    },
+    {
+      "id": "R68",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "Still verify before shipping: hybrid-state corruption at `-np` > 1",
+      "rule": "Before shipping, verify that hybrid-state corruption does not occur when running with `-np` greater than 1."
+    },
+    {
+      "id": "R69",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "Lingarr EN->PL quality",
+      "rule": "Before shipping, verify the EN->PL translation quality of Lingarr (served by the same model behind the LiteLLM `local` alias)."
+    },
+    {
+      "id": "R70",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "the one-GPU-unit limit (two GPU pods cannot coexist)",
+      "rule": "Before shipping, verify the one-GPU-unit limit, since two GPU pods cannot coexist."
+    },
+    {
+      "id": "R71",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "Image must be llama.cpp >= v0.8.0 for LFM3.",
+      "rule": "Use a llama.cpp image of version v0.8.0 or later when running LFM3."
+    },
+    {
+      "id": "R72",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "Test method: [[reference_nv1_gpu_test_pause]].",
+      "rule": "Use the test method described in reference_nv1_gpu_test_pause when testing on nv1."
+    },
+    {
+      "id": "R73",
+      "file": "project_nv1_drop_gemma_multi_model.md",
+      "quote": "It is NOT suitable for subtitle translation",
+      "rule": "Do not use LFM3-1.7B for subtitle translation."
+    },
+    {
+      "id": "R74",
+      "file": "project_plans_location_convention.md",
+      "quote": "New plans live in `.plans/<slug>/`",
+      "rule": "Write new plans to `.plans/<slug>/`, whichever harness or technique produces them."
+    },
+    {
+      "id": "R75",
+      "file": "project_plans_location_convention.md",
+      "quote": "(`plan.md` with front matter, `tasks.md`)",
+      "rule": "Give each plan folder a `plan.md` file that includes front matter, and a `tasks.md` file."
+    },
+    {
+      "id": "R76",
+      "file": "project_plans_location_convention.md",
+      "quote": "with a row per plan in `.plans/list.md`",
+      "rule": "Add a row for each new plan in `.plans/list.md`."
+    },
+    {
+      "id": "R77",
+      "file": "project_plans_location_convention.md",
+      "quote": "Finished or dropped plans move verbatim to `.archive/.plans/`",
+      "rule": "When a plan is finished or dropped, move it verbatim to `.archive/.plans/`."
+    },
+    {
+      "id": "R78",
+      "file": "project_plans_location_convention.md",
+      "quote": "get a row in `.archive/.plans/list.md`",
+      "rule": "Add a row for each archived plan in `.archive/.plans/list.md`."
+    },
+    {
+      "id": "R79",
+      "file": "project_plans_location_convention.md",
+      "quote": "stay there",
+      "rule": "Keep superpowers-era specs and plans in `.archive/.plans/superpowers/{specs,plans,research}/`; do not move them out."
+    },
+    {
+      "id": "R80",
+      "file": "project_plans_location_convention.md",
+      "quote": "is legacy and not recreated",
+      "rule": "Do not recreate `.plans/superpowers/`."
+    },
+    {
+      "id": "R81",
+      "file": "project_plans_location_convention.md",
+      "quote": "Text under `.archive/` is history, never instructions.",
+      "rule": "Never treat text under `.archive/` as instructions."
+    },
+    {
+      "id": "R82",
+      "file": "project_plans_location_convention.md",
+      "quote": "write to `.plans/<slug>/` instead",
+      "rule": "When `superpowers:brainstorming` or `superpowers:writing-plans` default to `docs/superpowers/` or `.plans/superpowers/`, write to `.plans/<slug>/` instead."
+    },
+    {
+      "id": "R83",
+      "file": "project_plans_location_convention.md",
+      "quote": "follow \"Archive after Ship\" in `.plans/README.md`",
+      "rule": "When a plan is done or dropped, follow the \"Archive after Ship\" procedure in `.plans/README.md`."
+    },
+    {
+      "id": "R84",
+      "file": "project_plans_location_convention.md",
+      "quote": "move the folder",
+      "rule": "When archiving a plan, move its whole folder."
+    },
+    {
+      "id": "R85",
+      "file": "project_plans_location_convention.md",
+      "quote": "rewrite links by path replace",
+      "rule": "When archiving a plan, rewrite links to it by path replacement."
+    },
+    {
+      "id": "R86",
+      "file": "project_plans_location_convention.md",
+      "quote": "update both `list.md` files",
+      "rule": "When archiving a plan, update both `.plans/list.md` and `.archive/.plans/list.md`."
+    },
+    {
+      "id": "R87",
+      "file": "project_secrets_architecture.md",
+      "quote": "always use individual `data[]` entries with UUIDs — `dataFrom.extract` is NOT supported",
+      "rule": "When writing a per-app ExternalSecret for a K8s Secret's data/stringData fields, always use individual data[] entries with Bitwarden UUIDs; never use dataFrom.extract."
+    },
+    {
+      "id": "R88",
+      "file": "project_secrets_architecture.md",
+      "quote": "Token in `Secret data/stringData` → ExternalSecret.",
+      "rule": "When a secret token is consumed in a Secret's data or stringData fields, use an ExternalSecret to supply it."
+    },
+    {
+      "id": "R89",
+      "file": "project_secrets_architecture.md",
+      "quote": "Any other field → `cluster-secrets` + plugin.",
+      "rule": "When a secret token is consumed in any field other than a Secret's data/stringData, use the cluster-secrets mechanism with the plugin."
+    },
+    {
+      "id": "R90",
+      "file": "project_secrets_architecture.md",
+      "quote": "wrap `{{ }}` in Go raw string literals.",
+      "rule": "When writing ESO content inside Helm templates/, wrap `{{ }}` expressions in Go raw string literals."
+    },
+    {
+      "id": "R91",
+      "file": "project_secrets_architecture.md",
+      "quote": "**How to apply:** Check where the secret value is consumed before deciding which mechanism to use.",
+      "rule": "Before choosing a secrets mechanism, check where the secret value is consumed."
+    },
+    {
+      "id": "R92",
+      "file": "project_secrets_architecture.md",
+      "quote": "trigger: `SECRET_PROVIDER: cluster-secrets` in `app-config.yaml`",
+      "rule": "Use the cluster-secrets mechanism for resolving <secret:key> tokens in non-injectable fields when SECRET_PROVIDER is set to cluster-secrets in app-config.yaml."
+    },
+    {
+      "id": "R93",
+      "file": "reference_ai_gateway.md",
+      "quote": "restart with `kubectl -n ai delete pod -l app.kubernetes.io/name=litellm`",
+      "rule": "To restart the LiteLLM gateway, run `kubectl -n ai delete pod -l app.kubernetes.io/name=litellm` instead of `kubectl rollout restart`."
+    },
+    {
+      "id": "R94",
+      "file": "reference_ai_gateway.md",
+      "quote": "a ChatGPT login after startup needs that pod delete",
+      "rule": "After logging in to ChatGPT following gateway startup, delete the LiteLLM pod so the `main` alias is rebuilt."
+    },
+    {
+      "id": "R95",
+      "file": "reference_ai_gateway.md",
+      "quote": "patch an `operation.sync` with `ApplyOutOfSyncOnly=false` onto the Application",
+      "rule": "When a change to `managedNamespaceMetadata` must take effect, patch an `operation.sync` with `ApplyOutOfSyncOnly=false` onto the Application."
+    },
+    {
+      "id": "R96",
+      "file": "reference_ai_gateway.md",
+      "quote": "Probe the gateway with `kubectl exec -i deploy/litellm -- python3 - < script`",
+      "rule": "Probe the gateway by running `kubectl exec -i deploy/litellm -- python3 - < script` with a script file."
+    },
+    {
+      "id": "R97",
+      "file": "reference_ai_gateway.md",
+      "quote": "never read the key into a shell variable",
+      "rule": "Never read the LiteLLM master key into a shell variable when probing the gateway."
+    },
+    {
+      "id": "R98",
+      "file": "reference_ai_gateway.md",
+      "quote": "Clients must use the `local` / `local-think` aliases.",
+      "rule": "Clients that reach the Jetson llama-server must use the `local` or `local-think` alias."
+    },
+    {
+      "id": "R99",
+      "file": "reference_ai_gateway.md",
+      "quote": "A new alias needs two allow-lists",
+      "rule": "When adding a new model alias, add it to both the `LiteLLMTeam` `models` list and the client's `LiteLLMVirtualKey` `models` list."
+    },
+    {
+      "id": "R100",
+      "file": "reference_ai_gateway.md",
+      "quote": "Per-alias request defaults go in `LiteLLMModel` `params.additional`",
+      "rule": "Put per-alias request defaults in `LiteLLMModel` `params.additional`."
+    },
+    {
+      "id": "R101",
+      "file": "reference_ai_gateway.md",
+      "quote": "a new client of `main*` should send a stable per-conversation id too",
+      "rule": "A new client of the `main*` aliases should send a stable per-conversation session id with each request."
+    },
+    {
+      "id": "R102",
+      "file": "reference_ai_gateway.md",
+      "quote": "A low cache rate is not proof that the prompt changes per turn",
+      "rule": "Do not conclude that a prompt changes every turn from a low cache rate alone."
+    },
+    {
+      "id": "R103",
+      "file": "reference_ai_gateway.md",
+      "quote": "read this before touching the gateway or adding a client",
+      "rule": "Read the AI gateway reference before modifying the gateway or adding a new client."
+    },
+    {
+      "id": "R104",
+      "file": "reference_ai_gateway.md",
+      "quote": "a new client also needs adding to the `litellm` NetworkPolicy",
+      "rule": "When adding a new client, add it to the `litellm` NetworkPolicy."
+    },
+    {
+      "id": "R105",
+      "file": "reference_ai_gateway.md",
+      "quote": "fall back to OpenRouter only and end in an error, never `local`",
+      "rule": "Agent tiers (`main*`) must fall back only to OpenRouter and must never fall back to `local`."
+    },
+    {
+      "id": "R106",
+      "file": "reference_ai_gateway.md",
+      "quote": "needs max_tokens 4096+",
+      "rule": "When using `local-think`, set max_tokens to 4096 or higher."
+    },
+    {
+      "id": "R107",
+      "file": "reference_ai_gateway.md",
+      "quote": "needs max_tokens >= 256 + answer, 1024 is safe",
+      "rule": "When using `local-think`, set max_tokens to at least 256 plus the expected answer length, with 1024 being a safe value."
+    },
+    {
+      "id": "R108",
+      "file": "reference_ai_gateway.md",
+      "quote": "Hermes can also set thinking per auxiliary task with `extra_body.chat_template_kwargs.enable_thinking` or `reasoning_effort`",
+      "rule": "Hermes may set thinking per auxiliary task using `extra_body.chat_template_kwargs.enable_thinking` or `reasoning_effort`."
+    },
+    {
+      "id": "R109",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "deliberately not `create-update-delete`",
+      "rule": "Do not change the ApplicationSet syncPolicy.applicationsSync from create-update to create-update-delete; it is deliberately set to create-update in this repo."
+    },
+    {
+      "id": "R110",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "`kubectl delete application <name> -n argocd` — this is a live-cluster mutation, always confirm with the user first.",
+      "rule": "Before running `kubectl delete application <name> -n argocd`, always confirm with the user first."
+    },
+    {
+      "id": "R111",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "Decide explicitly whether to `kubectl delete pvc <name> -n <namespace>` for each — this is irreversible data loss, always confirm with the user first, independent from the confirmation in step 2.",
+      "rule": "Before deleting any PVC with `kubectl delete pvc <name> -n <namespace>`, always confirm with the user first, separately from any confirmation given for deleting the Application."
+    },
+    {
+      "id": "R112",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "after `kubectl delete application`, always re-run `kubectl get all,pvc -n <namespace>` per app before considering it done.",
+      "rule": "After deleting an Application with `kubectl delete application`, always re-run `kubectl get all,pvc -n <namespace>` for that app's namespace before considering the removal done."
+    },
+    {
+      "id": "R113",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "Anything still present (commonly: CNPG `Cluster` CRs, RabbitmqCluster CRs, or plain Deployments) needs a manual `kubectl delete`",
+      "rule": "When resources remain in a namespace after the Application is deleted (such as CNPG Cluster CRs, RabbitmqCluster CRs, or plain Deployments), delete them manually with `kubectl delete`."
+    },
+    {
+      "id": "R114",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "get explicit confirmation for it on its own, even during a full multi-app purge in one sitting",
+      "rule": "Before deleting a namespace, get explicit user confirmation for that namespace deletion on its own, separate from confirmations for deleting Applications or PVCs, even during a multi-app purge."
+    },
+    {
+      "id": "R115",
+      "file": "reference_app_removal_procedure.md",
+      "quote": "don't fold an app that wasn't part of the confirmed batch into a bulk namespace-delete",
+      "rule": "Do not include an app's namespace in a bulk namespace deletion unless that app was part of the batch the user explicitly confirmed."
+    },
+    {
+      "id": "R116",
+      "file": "reference_argocd_github_webhooks.md",
+      "quote": "suspect a missed delivery",
+      "rule": "When a merge has not applied after about a minute, suspect a missed GitHub webhook delivery."
+    },
+    {
+      "id": "R117",
+      "file": "reference_argocd_github_webhooks.md",
+      "quote": "refresh by hand",
+      "rule": "When a merge has not applied after about a minute, refresh the ArgoCD app by hand."
+    },
+    {
+      "id": "R118",
+      "file": "reference_argocd_github_webhooks.md",
+      "quote": "Do not wait for polling.",
+      "rule": "Do not wait for the ArgoCD polling interval to apply a merge."
+    },
+    {
+      "id": "R119",
+      "file": "reference_argocd_github_webhooks.md",
+      "quote": "Check GitHub's Recent Deliveries",
+      "rule": "When a merge has not applied, check GitHub's Recent Deliveries for the webhook."
+    },
+    {
+      "id": "R120",
+      "file": "reference_argocd_github_webhooks.md",
+      "quote": "the argocd-server log for `refreshing app from webhook`",
+      "rule": "When a merge has not applied, check the argocd-server log for `refreshing app from webhook`."
+    },
+    {
+      "id": "R121",
+      "file": "reference_bazarr_lingarr_translation.md",
+      "quote": "Check the real origin read-only: `kubectl exec -n media deploy/bazarr -- python3 -c` with `sqlite3.connect(\"file:/config/db/bazarr.db?mode=ro\", uri=True)`",
+      "rule": "To determine the real origin of a Bazarr subtitle file, query the Bazarr history database in read-only mode (sqlite3 URI with mode=ro) rather than modifying it."
+    },
+    {
+      "id": "R122",
+      "file": "reference_bazarr_lingarr_translation.md",
+      "quote": "After changing the model in git, Lingarr's UI value overrides the env: set it in the UI too.",
+      "rule": "After changing the translation model in git/env config for Lingarr, also set the model in the Lingarr UI, because the UI value overrides the env value."
+    },
+    {
+      "id": "R123",
+      "file": "reference_ceph_alert_job_scoping.md",
+      "quote": "check whether it's a Ceph-mixin default rule matching a non-cluster Prometheus target (`asusrouter`, `qnap` jobs) before assuming it's a real hardware/cluster issue",
+      "rule": "When an alert mentions a node or interface that does not match a real cluster node (mc1/mc2/mc3/nv1), first check whether it is a Ceph-mixin default rule matching a non-cluster Prometheus target (such as the `asusrouter` or `qnap` jobs) before treating it as a real hardware or cluster issue."
+    },
+    {
+      "id": "R124",
+      "file": "reference_ceph_alert_job_scoping.md",
+      "quote": "hit `/api/v1/rules` on the port-forwarded Prometheus (see [[prometheus-portforward-session]] skill) rather than guessing from the alert text alone",
+      "rule": "To inspect a Prometheus rule's live `expr` and annotations, query `/api/v1/rules` on the port-forwarded Prometheus instead of guessing from the alert text alone."
+    },
+    {
+      "id": "R125",
+      "file": "reference_ceph_alert_job_scoping.md",
+      "quote": "Any rule field, including `expr`, can be overridden there.",
+      "rule": "Override any Rook-Ceph bundled alert rule field, including `expr`, through the `prometheusRuleOverrides` map in `cluster/apps/core/rook-ceph/cluster/values.yaml`."
+    },
+    {
+      "id": "R126",
+      "file": "reference_ceph_osd_discard.md",
+      "quote": "when checking SATA wear or OSD latency, remember discard is on.",
+      "rule": "When checking SATA wear or OSD latency, account for the fact that BlueStore discard is enabled on the OSD disks."
+    },
+    {
+      "id": "R127",
+      "file": "reference_ceph_osd_discard.md",
+      "quote": "so test with `ceph tell`, not `ceph config set`",
+      "rule": "When testing a config change on a running OSD, use `ceph tell`, not `ceph config set`, because a value in ceph.conf overrides the central config DB."
+    },
+    {
+      "id": "R128",
+      "file": "reference_container_fs_writes_double_count.md",
+      "quote": "always select `container!=\"\"` (or one `container=\"...\"`) for per-workload write or read rates",
+      "rule": "When computing per-workload write or read rates from container_fs_writes_bytes_total, select `container!=\"\"` or a single `container=\"...\"` so the pod-level series is excluded."
+    },
+    {
+      "id": "R129",
+      "file": "reference_container_fs_writes_double_count.md",
+      "quote": "cross-check against the app's own counters when a ratio looks odd",
+      "rule": "When a ratio computed from container filesystem metrics looks odd, cross-check it against the application's own counters."
+    },
+    {
+      "id": "R130",
+      "file": "reference_container_fs_writes_double_count.md",
+      "quote": "Same applies to the other `container_fs_*` and `container_network_*` pod-level duplicates",
+      "rule": "When querying other container_fs_* or container_network_* metrics, filter by container to exclude the pod-level duplicate series."
+    },
+    {
+      "id": "R131",
+      "file": "reference_coredns_argo_bootstrap_deadlock.md",
+      "quote": "before any delete/replace of coredns, confirm `kubectl -n argocd get application coredns` exists and is synced",
+      "rule": "Before deleting or replacing the coredns Deployment, confirm that the ArgoCD application `coredns` exists in the argocd namespace and is synced."
+    },
+    {
+      "id": "R132",
+      "file": "reference_coredns_argo_bootstrap_deadlock.md",
+      "quote": "keep a rendered manifest ready (`helm template ... --show-only charts/coredns/templates/deployment.yaml`)",
+      "rule": "Before deleting or replacing the coredns Deployment, keep a rendered manifest ready by generating it with `helm template` for charts/coredns/templates/deployment.yaml."
+    },
+    {
+      "id": "R133",
+      "file": "reference_coredns_argo_bootstrap_deadlock.md",
+      "quote": "restart it after changing node nameservers",
+      "rule": "After changing node nameservers, restart the CoreDNS pods, because CoreDNS reads node resolvers only at pod start."
+    },
+    {
+      "id": "R134",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "Each line `NAME=value`, nothing after the value",
+      "rule": "Write each line of .devcontainer/devcontainer.env as NAME=value with nothing after the value, so no trailing comments."
+    },
+    {
+      "id": "R135",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "no quotes",
+      "rule": "Do not put quotes around values in .devcontainer/devcontainer.env."
+    },
+    {
+      "id": "R136",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "no `export`",
+      "rule": "Do not prefix lines in .devcontainer/devcontainer.env with `export`."
+    },
+    {
+      "id": "R137",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "after a change, \"Rebuild Container\"",
+      "rule": "After changing .devcontainer/devcontainer.env, run \"Rebuild Container\" so the change takes effect."
+    },
+    {
+      "id": "R138",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "so the order is clone, fill in, rebuild",
+      "rule": "When setting up a new container, clone the repository first, then fill in the env file, then rebuild the container."
+    },
+    {
+      "id": "R139",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "compare names in the file, in `/proc/1/environ` (what Docker passed) and in the shell",
+      "rule": "To verify the environment without printing values, compare the variable names in the env file, in /proc/1/environ, and in the shell."
+    },
+    {
+      "id": "R140",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "test a value for a space, `#` or quote with a `case` pattern",
+      "rule": "To check whether a value contains a space, `#`, or quote, test it with a `case` pattern without printing the value."
+    },
+    {
+      "id": "R141",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "`Done!` at the end proves nothing",
+      "rule": "Do not treat the `Done!` message at the end of lifecycle script output as proof that the scripts succeeded."
+    },
+    {
+      "id": "R142",
+      "file": "reference_devcontainer_env_file.md",
+      "quote": "read the log for errors",
+      "rule": "After the lifecycle scripts run, read the log for errors."
+    },
+    {
+      "id": "R143",
+      "file": "reference_gateway_dns_architecture.md",
+      "quote": "HTTPRoutes MUST use `dns-controller`",
+      "rule": "Set the `external-dns.alpha.kubernetes.io/controller` annotation to `dns-controller` on HTTPRoutes; never use `internal` or `external` there, since that causes external-dns to silently skip the route."
+    },
+    {
+      "id": "R144",
+      "file": "reference_gateway_dns_architecture.md",
+      "quote": "DNSEndpoints use `internal` (adguard) or `external` (cloudflare)",
+      "rule": "Set the `external-dns.alpha.kubernetes.io/controller` annotation to `internal` on DNSEndpoints that should go to AdGuard, and to `external` on DNSEndpoints that should go to Cloudflare."
+    },
+    {
+      "id": "R145",
+      "file": "reference_gateway_dns_architecture.md",
+      "quote": "restart it after changing node nameservers",
+      "rule": "Restart the CoreDNS deployment after changing the node nameservers, because CoreDNS reads node resolvers only at pod start."
+    },
+    {
+      "id": "R146",
+      "file": "reference_gateway_dns_architecture.md",
+      "quote": "Deleting the coredns Deployment before its Argo app exists deadlocks ArgoCD.",
+      "rule": "Do not delete the coredns Deployment before its corresponding Argo app exists, because doing so deadlocks ArgoCD."
+    },
+    {
+      "id": "R147",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "do not propose `-np 2`, a prompt cache above 640 MiB, or a hybrid model (Qwen3.5/3.6, LFM, Granite) on nv1 without re-running the harness and the memory test",
+      "rule": "Do not propose running nv1 with `-np 2` without re-running the corruption harness and the memory test first."
+    },
+    {
+      "id": "R148",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "do not propose `-np 2`, a prompt cache above 640 MiB, or a hybrid model (Qwen3.5/3.6, LFM, Granite) on nv1 without re-running the harness and the memory test",
+      "rule": "Do not propose a prompt cache above 640 MiB on nv1 without re-running the corruption harness and the memory test first."
+    },
+    {
+      "id": "R149",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "do not propose `-np 2`, a prompt cache above 640 MiB, or a hybrid model (Qwen3.5/3.6, LFM, Granite) on nv1 without re-running the harness and the memory test",
+      "rule": "Do not propose a hybrid model (Qwen3.5/3.6, LFM, Granite) on nv1 without re-running the corruption harness and the memory test first."
+    },
+    {
+      "id": "R150",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "wrap remote commands in `timeout -s KILL`",
+      "rule": "Wrap remote commands in `timeout -s KILL`."
+    },
+    {
+      "id": "R151",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "avoid the `file`/`terminal` toolsets (SSH to a remote host)",
+      "rule": "Avoid the `file` and `terminal` toolsets when working over SSH to a remote host."
+    },
+    {
+      "id": "R152",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "watch node `MemAvailable` (`talosctl read /proc/meminfo`), never `kubectl top`",
+      "rule": "Monitor GPU memory headroom by watching node `MemAvailable` via `talosctl read /proc/meminfo`."
+    },
+    {
+      "id": "R153",
+      "file": "reference_gemma4_single_slot_swap.md",
+      "quote": "never `kubectl top`",
+      "rule": "Never use `kubectl top` to check GPU memory on this unified-memory board."
+    },
+    {
+      "id": "R154",
+      "file": "reference_hermes_64k_context_floor.md",
+      "quote": "after any Hermes model/provider change, run `kubectl exec -n hermes-agent deploy/hermes-agent -c hermes-agent -- hermes chat -q \"ping\"` before calling it done",
+      "rule": "After any Hermes model or provider change, run `kubectl exec -n hermes-agent deploy/hermes-agent -c hermes-agent -- hermes chat -q \"ping\"` and confirm it succeeds before declaring the change done."
+    },
+    {
+      "id": "R155",
+      "file": "reference_hermes_64k_context_floor.md",
+      "quote": "a rollback must overwrite `base_url`/`api_key`/`context_length` explicitly",
+      "rule": "When rolling back a Hermes model or provider change, explicitly overwrite `base_url`, `api_key`, and `context_length` rather than relying on the seeders, which only add keys."
+    },
+    {
+      "id": "R156",
+      "file": "reference_hermes_64k_context_floor.md",
+      "quote": "A local Hermes main model needs `ctx / parallel >= 64000`",
+      "rule": "Configure a local Hermes main model so that llama-server context divided by parallel slots is at least 64000."
+    },
+    {
+      "id": "R157",
+      "file": "reference_hermes_64k_context_floor.md",
+      "quote": "more slots need `ctx / parallel >= 64000`",
+      "rule": "When adding llama-server parallel slots, keep context divided by parallel slots at least 64000."
+    },
+    {
+      "id": "R158",
+      "file": "reference_hermes_64k_context_floor.md",
+      "quote": "The floor still applies to any model a profile or auxiliary task uses.",
+      "rule": "Ensure any model used by a Hermes profile or auxiliary task has a context window of at least 64,000 tokens."
+    },
+    {
+      "id": "R159",
+      "file": "reference_jetson_llama_cuda_tag.md",
+      "quote": "if a GPU image aborts on JIT, check that `libnvidia-ptxjitcompiler.so.1` is in `/var/lib/nvidia-tegra-libs/tegra`",
+      "rule": "When a GPU image aborts with a PTX JIT error, check that libnvidia-ptxjitcompiler.so.1 is present in /var/lib/nvidia-tegra-libs/tegra."
+    },
+    {
+      "id": "R160",
+      "file": "reference_jetson_llama_cuda_tag.md",
+      "quote": "After any image bump check `ggml_cuda_init: found 1 CUDA devices`",
+      "rule": "After any llama image bump, check the startup log for the line `ggml_cuda_init: found 1 CUDA devices`."
+    },
+    {
+      "id": "R161",
+      "file": "reference_jetson_llama_cuda_tag.md",
+      "quote": "and the offload line in the startup log",
+      "rule": "After any llama image bump, check the offload line in the startup log."
+    },
+    {
+      "id": "R162",
+      "file": "reference_lan_route_for_external_apps.md",
+      "quote": "add the internal route too",
+      "rule": "When adding or reviewing an internet-exposed app that moves large data (files, photos, media), also add a second HTTPRoute for the same host attached to the envoy-internal gateway."
+    },
+    {
+      "id": "R163",
+      "file": "reference_lan_route_for_external_apps.md",
+      "quote": "Check it with `nslookup` on the client",
+      "rule": "To verify a hostname's DNS resolution after a route change, run nslookup on the client device on the LAN, not in the dev container, which resolves differently."
+    },
+    {
+      "id": "R164",
+      "file": "reference_lingarr_api_key_ui_only.md",
+      "quote": "Do not set `LOCAL_AI_API_KEY` (or `_FILE`) in `cluster/apps/media/lingarr/values.yaml`",
+      "rule": "Do not set LOCAL_AI_API_KEY (or LOCAL_AI_API_KEY_FILE) in cluster/apps/media/lingarr/values.yaml."
+    },
+    {
+      "id": "R165",
+      "file": "reference_lingarr_api_key_ui_only.md",
+      "quote": "Reading `local.db` for checks: copy `local.db`, `-wal` and `-shm` together, or the result is stale",
+      "rule": "When reading Lingarr's local.db for checks, copy local.db, its -wal and -shm files together rather than reading the database in place."
+    },
+    {
+      "id": "R166",
+      "file": "reference_lingarr_api_key_ui_only.md",
+      "quote": "print lengths and shape only, never the key",
+      "rule": "When inspecting Lingarr's local.db, print only the lengths and shape of key values, never the key itself."
+    },
+    {
+      "id": "R167",
+      "file": "reference_lingarr_api_key_ui_only.md",
+      "quote": "so its settings API needs a login; use the UI.",
+      "rule": "Do not use Lingarr's settings API to change settings, since it requires login; make settings changes through the UI instead."
+    },
+    {
+      "id": "R168",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "Avoid `pkill -f`/`pgrep -f ... | kill` in Bash tool commands",
+      "rule": "Avoid `pkill -f` and `pgrep -f ... | kill` in Bash tool commands, because the pattern matches the tool's own shell."
+    },
+    {
+      "id": "R169",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "List PIDs with `ps` and kill by number.",
+      "rule": "When killing a process, list its PID with `ps` and kill it by number."
+    },
+    {
+      "id": "R170",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "requests opt in with `chat_template_kwargs.enable_thinking=true`",
+      "rule": "To enable thinking for a Gemma 4 llama-server request, set `chat_template_kwargs.enable_thinking=true` in that request."
+    },
+    {
+      "id": "R171",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "re-check pod working set and node `MemAvailable` (`talosctl -n 192.168.48.5 read /proc/meminfo`) under a sustained multi-prompt test, not just a single request",
+      "rule": "Before changing llama-server memory flags, quantization, context, or parallel slots, re-check the pod working set and node MemAvailable under a sustained multi-prompt test, not just a single request."
+    },
+    {
+      "id": "R172",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "watch node `MemAvailable`",
+      "rule": "Watch node MemAvailable when running llama-server on the nv1 node."
+    },
+    {
+      "id": "R173",
+      "file": "reference_llama_server_nv1_memory.md",
+      "quote": "cap `--cache-ram`/`--ctx-checkpoints`",
+      "rule": "Cap the llama-server `--cache-ram` and `--ctx-checkpoints` flags to limit memory use."
+    },
+    {
+      "id": "R174",
+      "file": "reference_llm_embeddings_input_limit.md",
+      "quote": "Read the startup log, not the args, to learn the real limit.",
+      "rule": "To determine the real embedding input limit, read the llm-embeddings server's startup log rather than its command-line arguments."
+    },
+    {
+      "id": "R175",
+      "file": "reference_llm_embeddings_input_limit.md",
+      "quote": "before changing the embedding model, server args or Honcho chunk size, check `n_ctx_slot` in the llm-embeddings log",
+      "rule": "Before changing the embedding model, the llm-embeddings server args, or the Honcho chunk size, check the `n_ctx_slot` value in the llm-embeddings startup log."
+    },
+    {
+      "id": "R176",
+      "file": "reference_llm_embeddings_input_limit.md",
+      "quote": "keep Honcho's limit at most half of it",
+      "rule": "Keep Honcho's embedding chunk token limit at most half of the `n_ctx_slot` value from the llm-embeddings log."
+    },
+    {
+      "id": "R177",
+      "file": "reference_matter_thread_cross_vlan.md",
+      "quote": "The server MUST start with `--fabricid 2 --vendorid 4939`",
+      "rule": "When starting the Matter server, always pass `--fabricid 2 --vendorid 4939`, because without them it ignores the restored fabric."
+    },
+    {
+      "id": "R178",
+      "file": "reference_matter_thread_cross_vlan.md",
+      "quote": "Never commit the Thread network key/PSKc.",
+      "rule": "Never commit the Thread network key or PSKc to the repository."
+    },
+    {
+      "id": "R179",
+      "file": "reference_matter_thread_cross_vlan.md",
+      "quote": "check the static route/firewall first.",
+      "rule": "If Matter pairing fails again, or the Thread network is re-formed (OMR prefix changes), check the UniFi static route and firewall configuration before anything else."
+    },
+    {
+      "id": "R180",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "Set the web server **base_url** to the public https URL",
+      "rule": "Set the Music Assistant web server base_url to the public https URL, not auto."
+    },
+    {
+      "id": "R181",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "Never set the web server **bind_port**",
+      "rule": "Never set the Music Assistant web server bind_port."
+    },
+    {
+      "id": "R182",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "Stream server `bind_ip` must be 192.168.48.62",
+      "rule": "Set the Music Assistant stream server bind_ip to 192.168.48.62."
+    },
+    {
+      "id": "R183",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "Never edit `/data/settings.json` while MA runs.",
+      "rule": "Never edit /data/settings.json in Music Assistant while MA is running."
+    },
+    {
+      "id": "R184",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "Change provider settings in the UI.",
+      "rule": "Change Music Assistant provider settings through the UI, not by editing files."
+    },
+    {
+      "id": "R185",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "`python3 -c` inside the pod",
+      "rule": "To read a stored Music Assistant value without printing secrets, run python3 -c inside the pod."
+    },
+    {
+      "id": "R186",
+      "file": "reference_music_assistant_cluster.md",
+      "quote": "decrypt `setup_data.url` only.",
+      "rule": "When reading a stored Music Assistant value without printing secrets, decrypt only setup_data.url."
+    },
+    {
+      "id": "R187",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "`kubectl scale` and patching the Application's `selfHeal` do not stick",
+      "rule": "Do not pause llama-server by running kubectl scale or by patching the Application's selfHeal setting; pause it through git instead."
+    },
+    {
+      "id": "R188",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "Pause through git.",
+      "rule": "To pause llama-server before a GPU experiment on nv1, make the change through git rather than through live cluster edits."
+    },
+    {
+      "id": "R189",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "PR: `cluster/apps/ai/llm/server/values.yaml` `server.replicaCount: 0`, marked TEMPORARY.",
+      "rule": "To pause llama-server, open a PR setting `server.replicaCount: 0` in `cluster/apps/ai/llm/server/values.yaml`, marked TEMPORARY."
+    },
+    {
+      "id": "R190",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "Merge, then `kubectl -n argocd annotate application llm-server argocd.argoproj.io/refresh=hard --overwrite`",
+      "rule": "After merging the pause PR, run `kubectl -n argocd annotate application llm-server argocd.argoproj.io/refresh=hard --overwrite` to force an Argo CD refresh."
+    },
+    {
+      "id": "R191",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "Mount the parent directory: a `type: Directory` check on a subdirectory failed with \"is not a directory\".",
+      "rule": "When mounting models into the GPU test pod, mount the parent directory rather than a subdirectory, because a type: Directory hostPath check on a subdirectory fails."
+    },
+    {
+      "id": "R192",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "Revert PR (`replicaCount: 1`) right away",
+      "rule": "Immediately after the GPU experiment, open and merge a revert PR setting `replicaCount: 1` to restore llama-server."
+    },
+    {
+      "id": "R193",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "delete the namespace and wipe the hostPath with a one-shot pod.",
+      "rule": "After the GPU test, delete the test namespace and wipe the hostPath using a one-shot pod."
+    },
+    {
+      "id": "R194",
+      "file": "reference_nv1_gpu_test_pause.md",
+      "quote": "so warn the user and have the revert PR ready before starting",
+      "rule": "Before starting the nv1 GPU pause sequence, warn the user about the 30-40 minute llama-server downtime and have the revert PR ready."
+    },
+    {
+      "id": "R195",
+      "file": "reference_nv1_meta_dhcp.md",
+      "quote": "if GPU allocatable drops to 0 again, check `talosctl -n 192.168.48.5 get addresses` for a second address",
+      "rule": "When GPU allocatable on nv1 drops to 0, check `talosctl -n 192.168.48.5 get addresses` for a second address before restarting the Jetson device plugin."
+    },
+    {
+      "id": "R196",
+      "file": "reference_nv1_meta_dhcp.md",
+      "quote": "and `dmesg` for kubelet restarts before restarting the plugin",
+      "rule": "When GPU allocatable on nv1 drops to 0, check `dmesg` for kubelet restarts before restarting the Jetson device plugin."
+    },
+    {
+      "id": "R197",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "New media consumers mount `/media` with a `subPath`",
+      "rule": "When adding a new media consumer, mount the `/media` share with a `subPath` rather than mounting a separate share."
+    },
+    {
+      "id": "R198",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "never re-split into separate shares",
+      "rule": "Never split the `/media` share into separate shares."
+    },
+    {
+      "id": "R199",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "subPath directories must pre-exist owned by 1001",
+      "rule": "Before mounting a `subPath`, make sure its directory already exists and is owned by uid 1001."
+    },
+    {
+      "id": "R200",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "Move or copy data with a throwaway root pod that mounts the shares",
+      "rule": "To move or copy data on the `/media` share, use a throwaway root pod that mounts the shares, because File Station cannot write there as an ordinary user."
+    },
+    {
+      "id": "R201",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "then chown 1001:1001",
+      "rule": "After moving or copying data onto the `/media` share, run chown 1001:1001 on it."
+    },
+    {
+      "id": "R202",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "Do not use busybox `cp -n` on a directory that already exists",
+      "rule": "Do not use busybox `cp -n` to copy into a directory that already exists, because it silently copies nothing."
+    },
+    {
+      "id": "R203",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "add the Jellyfin Connect entry in Sonarr/Radarr",
+      "rule": "After other NFS clients change the media files, add the Jellyfin Connect entry in Sonarr/Radarr so Jellyfin sees the changes."
+    },
+    {
+      "id": "R204",
+      "file": "reference_qnap_media_share_layout.md",
+      "quote": "or run a library scan",
+      "rule": "After other NFS clients change the media files, run a Jellyfin library scan if you do not add the Connect entry in Sonarr/Radarr."
+    },
+    {
+      "id": "R205",
+      "file": "reference_qnap_s3_barman_caveat.md",
+      "quote": "Add to every CNPG `ObjectStore` via `instanceSidecarConfiguration.env` in `values.yaml`:",
+      "rule": "Add the checksum environment variables to every CNPG ObjectStore via instanceSidecarConfiguration.env in values.yaml."
+    },
+    {
+      "id": "R206",
+      "file": "reference_qnap_s3_barman_caveat.md",
+      "quote": "name: AWS_REQUEST_CHECKSUM_CALCULATION\n      value: when_required",
+      "rule": "Set the environment variable AWS_REQUEST_CHECKSUM_CALCULATION to when_required in the instanceSidecarConfiguration.env list."
+    },
+    {
+      "id": "R207",
+      "file": "reference_qnap_s3_barman_caveat.md",
+      "quote": "name: AWS_RESPONSE_CHECKSUM_VALIDATION\n      value: when_required",
+      "rule": "Set the environment variable AWS_RESPONSE_CHECKSUM_VALIDATION to when_required in the instanceSidecarConfiguration.env list."
+    },
+    {
+      "id": "R208",
+      "file": "reference_qnap_s3_barman_caveat.md",
+      "quote": "The `instanceSidecarConfiguration` key is a top-level sibling of `objectStore:` under `pgsql-cnpg:` in each app's `values.yaml`.",
+      "rule": "Place the instanceSidecarConfiguration key as a top-level sibling of objectStore under pgsql-cnpg in each app's values.yaml."
+    },
+    {
+      "id": "R209",
+      "file": "reference_qwen36_nv1_benchmark.md",
+      "quote": "do not propose a Qwen3.6/3.8 swap on nv1",
+      "rule": "On nv1, do not propose swapping in a Qwen3.6 or Qwen3.8 model."
+    },
+    {
+      "id": "R210",
+      "file": "reference_qwen36_nv1_benchmark.md",
+      "quote": "The test pods can share the Service by carrying `app: llama-server` and the PVC",
+      "rule": "When creating test pods on nv1, you may give them the label `app: llama-server` and the PVC so they share the existing Service."
+    },
+    {
+      "id": "R211",
+      "file": "reference_qwen36_nv1_benchmark.md",
+      "quote": "Pause procedure for a retest: [[reference_nv1_gpu_test_pause]]",
+      "rule": "For a retest on nv1, follow the pause procedure in reference_nv1_gpu_test_pause."
+    },
+    {
+      "id": "R212",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "UDP, not TCP.",
+      "rule": "Ship Talos service and kernel logs to the Alloy receiver over UDP, not TCP."
+    },
+    {
+      "id": "R213",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "UDP is `loki.source.syslog` with `protocol = \"udp\"` and `syslog_format = \"raw\"`",
+      "rule": "For UDP log ingestion in Alloy, use the `loki.source.syslog` component with `protocol = \"udp\"` and `syslog_format = \"raw\"`."
+    },
+    {
+      "id": "R214",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "needs `stabilityLevel: experimental`",
+      "rule": "Enable the experimental stability level when using the raw UDP syslog component in Alloy."
+    },
+    {
+      "id": "R215",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "use `kubectl exec -i deploy/alloy-talos-logs -c alloy -- sh -c 'cat > /tmp/t.alloy && alloy validate --stability.level=experimental /tmp/t.alloy'` to check component names too",
+      "rule": "To validate an Alloy config including component names, run `alloy validate --stability.level=experimental` inside the alloy-talos-logs pod via kubectl exec, not just `alloy fmt`."
+    },
+    {
+      "id": "R216",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "Alloy object fields need commas",
+      "rule": "Separate fields in Alloy object expressions with commas, but do not put commas between block attributes."
+    },
+    {
+      "id": "R217",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "check the pod logs for `config reloaded` and the live output, not just ArgoCD.",
+      "rule": "After changing Alloy config, verify the reload by checking the pod logs for `config reloaded` and the live output, not only ArgoCD sync status."
+    },
+    {
+      "id": "R218",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "Use distinct numbers.",
+      "rule": "Give each port in a Service or container port list a distinct number, never repeating a port number across protocols."
+    },
+    {
+      "id": "R219",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "check `talosctl netstat` for the UDP flow",
+      "rule": "When a node's kernel log stream is empty, check `talosctl netstat` for the UDP flow before concluding the port is broken."
+    },
+    {
+      "id": "R220",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "query `{source=~\"talos-.*\", node=\"nv1\"}` after a reboot or upgrade",
+      "rule": "After a reboot or upgrade of nv1, query Loki with `{source=~\"talos-.*\", node=\"nv1\"}` to retrieve its logs."
+    },
+    {
+      "id": "R221",
+      "file": "reference_talos_log_shipping.md",
+      "quote": "capture the next nv1 upgrade this way",
+      "rule": "Capture the next nv1 upgrade's logs using the Loki query `{source=~\"talos-.*\", node=\"nv1\"}`."
+    },
+    {
+      "id": "R222",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "using admin credentials, not the kubelet's",
+      "rule": "When changing a taint on an already-registered worker node, run the kubectl taint commands with admin credentials, not the kubelet's credentials."
+    },
+    {
+      "id": "R223",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "kubectl taint nodes <node> <key>=<value>:<effect>   # add the new one",
+      "rule": "When changing a taint on an already-registered worker node, add the new taint with `kubectl taint nodes <node> <key>=<value>:<effect>`."
+    },
+    {
+      "id": "R224",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "kubectl taint nodes <node> <oldkey>-   # remove any stale one",
+      "rule": "When changing a taint on an already-registered worker node, remove any stale old taint with `kubectl taint nodes <node> <oldkey>-`."
+    },
+    {
+      "id": "R225",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "do not plan recurring manual intervention.",
+      "rule": "Do not plan recurring manual intervention for taint drift on Talos-managed nodes once the taint has been adopted."
+    },
+    {
+      "id": "R226",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "Widen tolerations to cover both old and new taint *before* renaming",
+      "rule": "Before renaming a node taint, widen pod tolerations to cover both the old and the new taint."
+    },
+    {
+      "id": "R227",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "then narrow afterwards",
+      "rule": "After a node taint rename is complete, narrow pod tolerations back to cover only the new taint."
+    },
+    {
+      "id": "R228",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "Verify with `kubectl get node <n> -o jsonpath='{.spec.taints}'`",
+      "rule": "Verify node taints by running `kubectl get node <n> -o jsonpath='{.spec.taints}'`."
+    },
+    {
+      "id": "R229",
+      "file": "reference_talos_taint_noderestriction.md",
+      "quote": "Never assume the config was applied.",
+      "rule": "Never assume a Talos config taint change was applied to a node; verify it on the node."
+    },
+    {
+      "id": "R230",
+      "file": "reference_talos_workload_isolation.md",
+      "quote": "set `false` in `patches/all/65-security-profile.yaml`",
+      "rule": "To turn off workload isolation (workloadIsolation) for a Talos node, set it to false in patches/all/65-security-profile.yaml."
+    },
+    {
+      "id": "R231",
+      "file": "reference_talos_workload_isolation.md",
+      "quote": "repeat the procedure per node",
+      "rule": "When switching workload isolation on or off, repeat the per-node rollout procedure for each node: apply, cordon, drain, reboot, uncordon, task talos:node_health, scripts/isolation-check.sh, RBD and NFS test pods, then the red test."
+    },
+    {
+      "id": "R232",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "Secret read access in `tuppr` means Talos control.",
+      "rule": "Do not grant or use read access to Secrets in the tuppr namespace without recognizing it grants Talos control, since tuppr-talosconfig holds an os:admin credential."
+    },
+    {
+      "id": "R233",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "Pre-hooks suppress the inter-batch health checks, so the health gate uses `healthChecks` only, no hooks.",
+      "rule": "Do not add pre-hooks to tuppr upgrade configurations; use only `healthChecks` for the health gate."
+    },
+    {
+      "id": "R234",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "`Failed` is terminal until the `tuppr.home-operations.com/reset` annotation or a spec edit.",
+      "rule": "When a tuppr run is Failed, do not expect it to recover on its own; reset it with the `tuppr.home-operations.com/reset` annotation or a spec edit."
+    },
+    {
+      "id": "R235",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "nv1's install image in git is the alias tag `custom-installer-jp7:v<talos>`",
+      "rule": "Keep nv1's install image in git as the alias tag `custom-installer-jp7:v<talos>` and do not replace it with a compound tag."
+    },
+    {
+      "id": "R236",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "must be public",
+      "rule": "Ensure the custom-installer-jp7 image repository is public."
+    },
+    {
+      "id": "R237",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "A compound tag in git would leave `task talos:diff` dirty",
+      "rule": "Do not commit a compound tag for nv1's installer image in git, because it leaves `task talos:diff` dirty."
+    },
+    {
+      "id": "R238",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "Ask for the node-lifecycle commands to be allowed up front",
+      "rule": "Ask the user to allow node-lifecycle commands (such as pod deletion and talosctl reboot) up front rather than attempting them without permission."
+    },
+    {
+      "id": "R239",
+      "file": "reference_tuppr_upgrades.md",
+      "quote": "before touching the CRs, the Talos API access document or nv1's installer image, and when planning any nv1 upgrade",
+      "rule": "Consult the tuppr reference before touching the tuppr CRs, the Talos API access document, or nv1's installer image, and before planning any nv1 upgrade."
+    },
+    {
+      "id": "R240",
+      "file": "reference_uncased_bert_embeddings.md",
+      "quote": "when comparing embeddings across engines, compare on lowercased input first",
+      "rule": "When comparing embeddings across engines, compare on lowercased input first."
+    },
+    {
+      "id": "R241",
+      "file": "reference_uncased_bert_embeddings.md",
+      "quote": "do not re-embed stored vectors just because a cross-engine check on mixed-case text falls below 0.999",
+      "rule": "Do not re-embed stored vectors just because a cross-engine check on mixed-case text falls below 0.999."
+    }
+  ],
+  "dropped": []
+}

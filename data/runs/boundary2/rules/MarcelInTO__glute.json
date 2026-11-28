@@ -1,0 +1,196 @@
+{
+  "repo": "MarcelInTO/glute",
+  "dir": ".claude/memory",
+  "n_files": 5,
+  "n_rules": 31,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "github-https-push-on-this-machine.md",
+      "quote": "embed its token in the URL instead",
+      "rule": "When pushing to or cloning a GitHub repo over HTTPS on this machine, embed the gh CLI token in the URL (https://x-access-token:$(gh auth token)@github.com/<owner>/<repo>.git) instead of relying on git's credential helper."
+    },
+    {
+      "id": "R2",
+      "file": "github-https-push-on-this-machine.md",
+      "quote": "clone with the token URL into the\nscratchpad",
+      "rule": "For a one-off GitHub push, clone the repo using the token URL into the scratchpad directory."
+    },
+    {
+      "id": "R3",
+      "file": "github-https-push-on-this-machine.md",
+      "quote": "remove the clone afterwards",
+      "rule": "After a one-off GitHub push, remove the scratchpad clone, since the token is stored in its .git/config."
+    },
+    {
+      "id": "R4",
+      "file": "github-https-push-on-this-machine.md",
+      "quote": "Don't \"fix\" it by installing the helper without asking",
+      "rule": "Do not install the libsecret credential helper to fix GitHub HTTPS auth failures without first asking the user."
+    },
+    {
+      "id": "R5",
+      "file": "glute-status.md",
+      "quote": "`kill -USR1 <pid>` still comes first",
+      "rule": "When glute hangs, send `kill -USR1 <pid>` to the process before doing anything else."
+    },
+    {
+      "id": "R6",
+      "file": "glute-status.md",
+      "quote": "then read the dump in `glute.log`",
+      "rule": "After sending `kill -USR1`, read the goroutine dump in `glute.log` before killing the glute process."
+    },
+    {
+      "id": "R7",
+      "file": "glute-status.md",
+      "quote": "`reset` restores it",
+      "rule": "If a killed glute run leaves the terminal in raw mode, run `reset` to restore it."
+    },
+    {
+      "id": "R8",
+      "file": "glute-status.md",
+      "quote": "This is the direction to build on for stats",
+      "rule": "Build new stats features on the GraphQL client in `internal/gitlab/graphql.go`, not on new REST paths."
+    },
+    {
+      "id": "R9",
+      "file": "glute-status.md",
+      "quote": "don't over-expect it when designing stats",
+      "rule": "When designing stats features, do not expect GitLab's GraphQL to aggregate server-side. Pull the records and aggregate them client-side."
+    },
+    {
+      "id": "R10",
+      "file": "glute-status.md",
+      "quote": "must not fall through the cracks",
+      "rule": "Make sure projects that are alive only through forgotten scheduled pipelines are never skipped by the resync or poll logic."
+    },
+    {
+      "id": "R11",
+      "file": "glute-status.md",
+      "quote": "sweep on `last_activity_at` is **rejected**",
+      "rule": "Do not gate the warm per-project sweep on `last_activity_at`."
+    },
+    {
+      "id": "R12",
+      "file": "glute-status.md",
+      "quote": "unfit for the warm sweep",
+      "rule": "Do not use the group-level GraphQL `projects { pipelines(first:1, updatedAfter) }` query in the warm sweep. Use it only for a once-per-resync probe."
+    },
+    {
+      "id": "R13",
+      "file": "glute-status.md",
+      "quote": "on `main`",
+      "rule": "Land glute work on the `main` branch."
+    },
+    {
+      "id": "R14",
+      "file": "instrument-before-optimizing.md",
+      "quote": "instrument the running app, gather real numbers, then\ndesign the scheme from what the data actually shows.",
+      "rule": "When working on a performance task, instrument the running app and gather real measurements before designing any optimization."
+    },
+    {
+      "id": "R15",
+      "file": "instrument-before-optimizing.md",
+      "quote": "add lightweight timing/counters\nfirst (per-phase, retained across runs, surfaced somewhere observable), run\nagainst a realistic dataset, and let the breakdown choose the target.",
+      "rule": "For a nontrivial performance task, add lightweight per-phase timing/counters first, retained across runs and surfaced somewhere observable, then run against a realistic dataset and let the breakdown choose the optimization target."
+    },
+    {
+      "id": "R16",
+      "file": "instrument-before-optimizing.md",
+      "quote": "Keep the\ninstrumentation in afterward to confirm the win.",
+      "rule": "After a performance optimization, keep the instrumentation in place to confirm the improvement."
+    },
+    {
+      "id": "R17",
+      "file": "instrument-before-optimizing.md",
+      "quote": "Don't trust prior \"this is the\nslow part\" claims — including ones written in the repo's own docs.",
+      "rule": "Do not trust prior claims that a particular part is the slow part, including claims written in the repo's own docs; verify with measurement."
+    },
+    {
+      "id": "R18",
+      "file": "makefile-first-local-builds.md",
+      "quote": "drive them\nthrough a Makefile as the first choice",
+      "rule": "For projects with local, non-CI build steps or other processes, drive them through a Makefile as the first choice."
+    },
+    {
+      "id": "R19",
+      "file": "makefile-first-local-builds.md",
+      "quote": "with the default `make` target doing\nthe project's primary build.",
+      "rule": "For projects with local build steps, make the default `make` target perform the project's primary build."
+    },
+    {
+      "id": "R20",
+      "file": "makefile-first-local-builds.md",
+      "quote": "reach\nfor a Makefile before ad-hoc scripts, unless there is a concrete reason to do\notherwise.",
+      "rule": "When a project needs local build/dev/process automation, reach for a Makefile before ad-hoc scripts, unless there is a concrete reason to do otherwise."
+    },
+    {
+      "id": "R21",
+      "file": "memory-is-public.md",
+      "quote": "Before writing a memory or a CLAUDE.md note, ask whether it\nwould be fine on a public web page.",
+      "rule": "Before writing a memory or CLAUDE.md note, ask whether it would be fine on a public web page; if not, do not write it."
+    },
+    {
+      "id": "R22",
+      "file": "memory-is-public.md",
+      "quote": "Keep out secrets and tokens",
+      "rule": "Keep secrets and tokens out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R23",
+      "file": "memory-is-public.md",
+      "quote": "software\nversions of internal servers",
+      "rule": "Keep software versions of internal servers out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R24",
+      "file": "memory-is-public.md",
+      "quote": "runner and machine names",
+      "rule": "Keep runner and machine names out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R25",
+      "file": "memory-is-public.md",
+      "quote": "internal project\nnames",
+      "rule": "Keep internal project names out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R26",
+      "file": "memory-is-public.md",
+      "quote": "cloud account/subscription/zone ids",
+      "rule": "Keep cloud account, subscription, and zone ids out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R27",
+      "file": "memory-is-public.md",
+      "quote": "the scopes of Marcel's own tokens",
+      "rule": "Keep the scopes of the user's own tokens out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R28",
+      "file": "memory-is-public.md",
+      "quote": "local filesystem paths",
+      "rule": "Keep local filesystem paths out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R29",
+      "file": "memory-is-public.md",
+      "quote": "facts about other projects",
+      "rule": "Keep facts about other projects out of memory files and CLAUDE.md."
+    },
+    {
+      "id": "R30",
+      "file": "memory-is-public.md",
+      "quote": "Cite a real-instance\nexample by its pipeline id (\"pipeline #235448\"), not its project.",
+      "rule": "When citing a real-instance example in memory files or CLAUDE.md, cite it by its pipeline id, not by its project name."
+    },
+    {
+      "id": "R31",
+      "file": "memory-is-public.md",
+      "quote": "Another\nproject's facts go in that project's own memory store, even when the session\nthat learned them was started here.",
+      "rule": "Store facts about another project in that project's own memory store, even if the session that learned them was started in this repo."
+    }
+  ],
+  "dropped": []
+}

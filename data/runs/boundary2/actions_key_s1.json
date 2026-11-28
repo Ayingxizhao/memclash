@@ -1,0 +1,626 @@
+{
+ "S1-001": {
+  "aid": "acme-R88-2",
+  "rule_id": "R88",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-002": {
+  "aid": "tcplc-R129-5",
+  "rule_id": "R129",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-003": {
+  "aid": "jarble-R158-7",
+  "rule_id": "R158",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-004": {
+  "aid": "jarble-R161-3",
+  "rule_id": "R161",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-005": {
+  "aid": "csi-R115-4",
+  "rule_id": "R115",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-006": {
+  "aid": "acme-R88-7",
+  "rule_id": "R88",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-007": {
+  "aid": "acme-R43-2",
+  "rule_id": "R43",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-008": {
+  "aid": "acme-R43-1",
+  "rule_id": "R43",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-009": {
+  "aid": "csi-R113-5",
+  "rule_id": "R113",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-010": {
+  "aid": "acme-R43-6",
+  "rule_id": "R43",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-011": {
+  "aid": "acme-R88-8",
+  "rule_id": "R88",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-012": {
+  "aid": "jarble-R162-5",
+  "rule_id": "R162",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-013": {
+  "aid": "pinp-R9-3",
+  "rule_id": "R9",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "S1-014": {
+  "aid": "jarble-R110-1",
+  "rule_id": "R110",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-015": {
+  "aid": "acme-R85-8",
+  "rule_id": "R85",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-016": {
+  "aid": "acme-R85-5",
+  "rule_id": "R85",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-017": {
+  "aid": "csi-R115-1",
+  "rule_id": "R115",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-018": {
+  "aid": "tcplc-R129-3",
+  "rule_id": "R129",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "S1-019": {
+  "aid": "jarble-R161-1",
+  "rule_id": "R161",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-020": {
+  "aid": "csi-R113-8",
+  "rule_id": "R113",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-021": {
+  "aid": "jarble-R162-7",
+  "rule_id": "R162",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-022": {
+  "aid": "jarble-R110-2",
+  "rule_id": "R110",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-023": {
+  "aid": "tcplc-R129-1",
+  "rule_id": "R129",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-024": {
+  "aid": "jarble-R110-6",
+  "rule_id": "R110",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-025": {
+  "aid": "tcplc-R129-7",
+  "rule_id": "R129",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-026": {
+  "aid": "pinp-R9-4",
+  "rule_id": "R9",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-027": {
+  "aid": "csi-R114-1",
+  "rule_id": "R114",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-028": {
+  "aid": "acme-R88-5",
+  "rule_id": "R88",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-029": {
+  "aid": "jarble-R161-5",
+  "rule_id": "R161",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-030": {
+  "aid": "acme-R85-3",
+  "rule_id": "R85",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-031": {
+  "aid": "phoenox-R84-1",
+  "rule_id": "R84",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-032": {
+  "aid": "acme-R85-6",
+  "rule_id": "R85",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-033": {
+  "aid": "jarble-R161-2",
+  "rule_id": "R161",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-034": {
+  "aid": "acme-R88-4",
+  "rule_id": "R88",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-035": {
+  "aid": "pinp-R9-1",
+  "rule_id": "R9",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-036": {
+  "aid": "csi-R113-3",
+  "rule_id": "R113",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-037": {
+  "aid": "csi-R113-2",
+  "rule_id": "R113",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-038": {
+  "aid": "jarble-R162-3",
+  "rule_id": "R162",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-039": {
+  "aid": "acme-R85-1",
+  "rule_id": "R85",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-040": {
+  "aid": "jarble-R158-4",
+  "rule_id": "R158",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-041": {
+  "aid": "jarble-R158-6",
+  "rule_id": "R158",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-042": {
+  "aid": "csi-R114-6",
+  "rule_id": "R114",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-043": {
+  "aid": "pinp-R9-5",
+  "rule_id": "R9",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-044": {
+  "aid": "acme-R85-4",
+  "rule_id": "R85",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-045": {
+  "aid": "jarble-R161-6",
+  "rule_id": "R161",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-046": {
+  "aid": "acme-R88-1",
+  "rule_id": "R88",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-047": {
+  "aid": "acme-R88-3",
+  "rule_id": "R88",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-048": {
+  "aid": "pinp-R9-8",
+  "rule_id": "R9",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-049": {
+  "aid": "csi-R114-5",
+  "rule_id": "R114",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-050": {
+  "aid": "acme-R43-3",
+  "rule_id": "R43",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-051": {
+  "aid": "tcplc-R129-8",
+  "rule_id": "R129",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-052": {
+  "aid": "jarble-R162-4",
+  "rule_id": "R162",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-053": {
+  "aid": "phoenox-R84-6",
+  "rule_id": "R84",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-054": {
+  "aid": "phoenox-R84-3",
+  "rule_id": "R84",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-055": {
+  "aid": "tcplc-R129-2",
+  "rule_id": "R129",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-056": {
+  "aid": "acme-R43-7",
+  "rule_id": "R43",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-057": {
+  "aid": "phoenox-R84-7",
+  "rule_id": "R84",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-058": {
+  "aid": "pinp-R9-2",
+  "rule_id": "R9",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-059": {
+  "aid": "csi-R114-4",
+  "rule_id": "R114",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-060": {
+  "aid": "csi-R115-7",
+  "rule_id": "R115",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-061": {
+  "aid": "csi-R114-7",
+  "rule_id": "R114",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-062": {
+  "aid": "jarble-R162-1",
+  "rule_id": "R162",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-063": {
+  "aid": "jarble-R161-8",
+  "rule_id": "R161",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-064": {
+  "aid": "phoenox-R84-2",
+  "rule_id": "R84",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-065": {
+  "aid": "csi-R115-6",
+  "rule_id": "R115",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-066": {
+  "aid": "acme-R43-4",
+  "rule_id": "R43",
+  "category": "near_identical",
+  "intended": "violation"
+ },
+ "S1-067": {
+  "aid": "jarble-R158-8",
+  "rule_id": "R158",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-068": {
+  "aid": "jarble-R161-7",
+  "rule_id": "R161",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-069": {
+  "aid": "jarble-R110-4",
+  "rule_id": "R110",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-070": {
+  "aid": "jarble-R110-7",
+  "rule_id": "R110",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-071": {
+  "aid": "acme-R43-5",
+  "rule_id": "R43",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-072": {
+  "aid": "jarble-R110-3",
+  "rule_id": "R110",
+  "category": "path_pair",
+  "intended": "allowed"
+ },
+ "S1-073": {
+  "aid": "jarble-R158-1",
+  "rule_id": "R158",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-074": {
+  "aid": "csi-R113-1",
+  "rule_id": "R113",
+  "category": "boundary_violation",
+  "intended": "violation"
+ },
+ "S1-075": {
+  "aid": "jarble-R161-4",
+  "rule_id": "R161",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-076": {
+  "aid": "csi-R115-2",
+  "rule_id": "R115",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-077": {
+  "aid": "pinp-R9-7",
+  "rule_id": "R9",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-078": {
+  "aid": "csi-R114-8",
+  "rule_id": "R114",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-079": {
+  "aid": "pinp-R9-6",
+  "rule_id": "R9",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-080": {
+  "aid": "tcplc-R129-6",
+  "rule_id": "R129",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-081": {
+  "aid": "acme-R85-2",
+  "rule_id": "R85",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-082": {
+  "aid": "csi-R113-6",
+  "rule_id": "R113",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-083": {
+  "aid": "jarble-R110-8",
+  "rule_id": "R110",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-084": {
+  "aid": "phoenox-R84-5",
+  "rule_id": "R84",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-085": {
+  "aid": "csi-R114-3",
+  "rule_id": "R114",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-086": {
+  "aid": "jarble-R110-5",
+  "rule_id": "R110",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-087": {
+  "aid": "jarble-R162-8",
+  "rule_id": "R162",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-088": {
+  "aid": "csi-R113-4",
+  "rule_id": "R113",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-089": {
+  "aid": "csi-R115-3",
+  "rule_id": "R115",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-090": {
+  "aid": "jarble-R158-2",
+  "rule_id": "R158",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-091": {
+  "aid": "csi-R113-7",
+  "rule_id": "R113",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-092": {
+  "aid": "acme-R85-7",
+  "rule_id": "R85",
+  "category": "multistep_violation",
+  "intended": "violation"
+ },
+ "S1-093": {
+  "aid": "jarble-R162-6",
+  "rule_id": "R162",
+  "category": "history_allowed",
+  "intended": "allowed"
+ },
+ "S1-094": {
+  "aid": "jarble-R158-3",
+  "rule_id": "R158",
+  "category": "path_pair",
+  "intended": "violation"
+ },
+ "S1-095": {
+  "aid": "csi-R114-2",
+  "rule_id": "R114",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-096": {
+  "aid": "jarble-R162-2",
+  "rule_id": "R162",
+  "category": "boundary_allowed",
+  "intended": "allowed"
+ },
+ "S1-097": {
+  "aid": "phoenox-R84-4",
+  "rule_id": "R84",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-098": {
+  "aid": "phoenox-R84-8",
+  "rule_id": "R84",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-099": {
+  "aid": "jarble-R158-5",
+  "rule_id": "R158",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-100": {
+  "aid": "csi-R115-8",
+  "rule_id": "R115",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-101": {
+  "aid": "tcplc-R129-4",
+  "rule_id": "R129",
+  "category": "near_identical",
+  "intended": "allowed"
+ },
+ "S1-102": {
+  "aid": "acme-R43-8",
+  "rule_id": "R43",
+  "category": "detail_allowed",
+  "intended": "allowed"
+ },
+ "S1-103": {
+  "aid": "csi-R115-5",
+  "rule_id": "R115",
+  "category": "history_violation",
+  "intended": "violation"
+ },
+ "S1-104": {
+  "aid": "acme-R88-6",
+  "rule_id": "R88",
+  "category": "history_allowed",
+  "intended": "allowed"
+ }
+}

@@ -1,0 +1,166 @@
+<!-- Index of memory topic files. One line per file: - [Title](file.md) — terse hook.
+     Detail lives in the topic files; keep hooks short to stay under the load cap. -->
+
+## Feedback — how to work
+- [Visual companion for visual designs](feedback_visual_companion_for_visual_designs.md) — push wireframes when a decision is visual
+- [Chrome routing follows scope](feedback_chrome_routing_follows_scope.md) — section-scoped feature: check nav/header/footer routing in brainstorm
+- [Always run CI locally before pushing](feedback_always_run_ci_locally.md) — `tools/ci-local.sh` mirrors CI step-for-step
+- [Design-batch: spec for all, plan when implementing](feedback_design_batch_no_plan_until_implement.md) — multi-feature batches commit specs only
+- ["File a slice" = queue a stub](feedback_file_for_another_slice_means_stub.md) — short stub spec + queue row, don't brainstorm unless asked
+- [Close architecture before visual identity](feedback_close_architecture_before_visual.md) — finish content/IA before type/color/mockups
+- [Verify WCAG contrast numerically](feedback_verify_contrast_ratios.md) — compute ratios precisely, don't estimate
+- [Obvious filler text only in fixtures](feedback_filler_text_only.md) — lorem ipsum / "Example N", never AI-authored prose
+- [Deferred features stay visible](feedback_deferred_features_stay_visible.md) — document in spec/plan AND exercise in fixtures
+- [Trigger-gated → build a fixture](feedback_trigger_gated_make_fixture.md) — don't "wait"; author fixture, ship default, surface for review
+- [Don't defer cheap things](feedback_dont_defer_cheap_things.md) — defer only for real cost or unresolved design
+- [Filter chips compose with AND](feedback_filter_chips_compose.md) — each dimension independent, result is intersection
+- [Grep whole codebase before class renames](feedback_class_rename_grep_full_codebase.md) — the "obvious" file list misses usages
+- [Offer dev-server spot-check before merge](feedback_verify_before_merge.md) — visual verification + "what to eyeball" checklist
+- [Test at half-screen ~960px](feedback_test_at_half_screen_1080p.md) — user runs a tiling WM; check 960px breakpoints
+- [Fill thin sections with content, not padding](feedback_fill_with_content_not_padding.md) — bump the data query first
+- [No → arrows on link labels](feedback_no_arrow_prefix_on_links.md) — never add → to link labels, any surface
+- [Semantic primitives are site-wide](feedback_semantic_consistency_site_wide.md) — a color/glyph/button meaning carries everywhere
+- [No AI visuals in mockups](feedback_no_ai_visuals_in_mockups.md) — even gitignored mockups: repo SVGs / CSS shapes / text
+- [Icon provenance required](feedback_icon_provenance_required.md) — every icon from a documented OSS set or user-drawn
+- [Remaining work in phase order](feedback_remaining_work_phase_order.md) — pick lowest-numbered incomplete phase; surface blocks
+- [Plans update a3-pub.sh for new elisp modules](feedback_plan_wrapper_script_updates.md) — new modules need explicit `-l <module>`
+- [Hugo reserves type AND kind frontmatter](feedback_hugo_reserved_fields.md) — use domain-prefixed enum field names
+- [Measured tone in audits/reviews](feedback_tone.md) — drop asides, rhetorical flourishes, closers
+- [Mutation-test every guard](feedback_mutation_test_every_guard.md) — break it and watch the test fail; passing proves nothing
+- [Dogfood: fix the functions](feedback_dogfood_fix_the_functions.md) — defects get fixed in the code that ran, never by hand-editing its output
+
+## Reference — gotchas & APIs
+- [Dotfiles `#+keyword:` API](reference_dotfiles_keywords_api.md) — `a3madkour-pub-keywords/extract` + `boolean-p`
+- [Org export hooks are `-functions` not `-hook`](reference_org_export_hooks.md) — `-hook` variant silently dead-codes
+- [Pre-export LaTeX needs `@@latex:...@@`](reference_org_latex_backslash_escape.md) — plain `\` → `$\backslash$` under ox-latex
+- [F.1 bib defcustom `a3madkour-pub-bib/library-path`](reference_f1_bib_path_symbol.md) — slash form; grep before guessing
+- [ci-local.sh LHCI deps](reference_ci_local_lhci_deps.md) — needs npx + chromium; mobile-perf 5–8pt local variance
+- [Library covers in static/library/covers/](reference_library_covers_static_path.md) — `cover_file:` only, never `cover_url:` hotlinks
+- [Hugo section dirs trip note-linters](reference_hugo_section_dir_note_linter.md) — `_index.md` false-fails `check_*_fixtures.py`; 5-line skip
+- [Don't run hugo --minify with dev server](reference_hugo_dev_server_gotcha.md) — poisons dev output (CSS MIME); kill/clean/restart
+- [Dev server leaves stale drafts → false page-weight fail](reference_dev_server_stale_draft_page_weights.md) — clean public/ before local check_page_weights
+- [Sticky fails paint on horizontal overflow](reference_sticky_horizontal_overflow_gotcha.md) — Firefox; `html{overflow-x:clip}` backstop
+- [Hugo js.Build can't code-split single entry](reference_hugo_js_build_splitting.md) — use multi-entry
+- [filter-chips.js data-tags space-delimited](reference_filter_chips_data_tags_space_delimited.md) — comma → single token, matches nothing
+- [Hugo `jsonify \| safeJS` for inline JSON](reference_hugo_jsonify_safejs.md) — without safeJS, double-encoded → parsed as string
+- [`<dialog>.close()` not removeAttribute('open')](reference_dialog_close_inert_state.md) — leaves stuck inert state
+- [Duplicate id + `<a href=#id>` race preventDefault](reference_duplicate_id_anchor_race.md) — use `<button>` for click actions
+- [Hugo template gotchas: hasKey/substr](reference_hugo_template_gotchas.md) — `hasKey` absent (use isset); substr pipe-arg-order
+- [API filter blocks bulk lorem-ipsum](reference_content_filter_bulk_filler.md) — generate fixture filler in shell heredoc
+- [Works graph panel needs glyph-sprite](reference_works_graph_panel_needs_glyph_sprite.md) — include glyph-sprite.html or node icons break
+- [Hugo CSS `var({{.x}})` → ZgotmplZ](reference_hugo_css_var_zgotmplz.md) — use data-attr + static CSS or printf|safeCSS
+- [Hugo `int` parses 0-padded as octal](reference_hugo_int_octal_gotcha.md) — cast `int (float $s)` for mm:ss/date/id
+- [org-roam-id-find returns (file . pos)](reference_org_roam_id_find_returns_cons.md) — not a string; unwrap via (car result)
+- [ox-hugo `[[id:UUID]]` → relref](reference_ox_hugo_id_links_become_relref.md) — breaks against hyphen-slug bundles; pre-export rewrite
+- [Goldmark unsafe:true for ox-hugo @@html:](reference_goldmark_unsafe_for_ox_hugo_html.md) — else raw HTML stripped silently
+- [publish-living orphan sweep is manifest-based](reference_publish_living_manifest_sweep.md) — hand fixtures untouched; delete-bundle no retry
+- [LHCI flakes on Google Fonts render-block](reference_lhci_google_fonts_flakiness.md) — self-host woff2; never reintroduce the `<link>`
+- [LHCI mobile flake on kitchen-sink essay](reference_lhci_kitchen_sink_essay_variance.md) — example-one perf 0.83-0.93; rerun --failed first
+- [Two-symbol convention in publisher](reference_dotfiles_two_symbol_convention.md) — slash `works/poetry` vs hyphen `works-poetry`, both parallel
+- [ox-hugo doubles backslash in text](reference_ox_hugo_doubles_backslash_escape.md) — `\[mm:ss]` → `\\[mm:ss]`; post-export collapse
+- [garden-stack click hijacks intra-note anchors](reference_garden_stack_delegated_click_hijacks_anchors.md) — defend fragment-bearing same-page URLs
+- [org-set-tags/split-string clobber match-data](reference_org_set_tags_clobbers_match_data.md) — capture positions up-front; delete-region+insert
+- [org-element cache hang on in-loop mutation](reference_interactive_emacs_org_element_cache_hang.md) — regex-only or collect-then-mutate
+- [org-math-lint venv platform breakage](reference_org_math_lint_venv_platform.md) — wrong-platform .so; rm -rf .venv && recreate
+- [finish-publish clears manifest snapshot](reference_finish_publish_snapshot_lifecycle.md) — nil after finish-publish; fall back to disk read
+- [BBT titles need brace stripping](reference_bbt_brace_protection.md) — Better-BibTeX `{{ }}` case protection; normalize strips braces
+- [Python 3.13 re.escape escapes hyphens](reference_python_re_escape_hyphen.md) — `re.escape('/a-b/')` → `/a\-b/`; strip when slug-regex
+- [check_css_refs resolves prefixes not leading interp](reference_css_refs_leading_interpolation.md) — `${prefix}-graph-node` reads orphaned; allowlist it
+- [Paired shortcode → partial needs literal .Inner](reference_hugo_paired_shortcode_partial_inner.md) — pass `"inner" .Inner` hint or Hugo rejects the closing tag
+- [Verify template refactors against minified build](reference_verify_template_refactor_minified.md) — raw over-flags cosmetic whitespace/attr-order the minifier erases
+- [org-element file-level :PROPERTIES: needs to be first element](reference_org_element_file_property_drawer_position.md) — keywords-first → generic `drawer`, property-drawer map returns nil; scan interpreted text
+- [Emacs 31.1 can't native-compile subr trampolines](reference_emacs31_subr_trampoline_breakage.md) — 54 of 55 ert failures; run-tests.sh fixed, a3-pub.sh not
+- [Shell pipeline masks the exit status](reference_pipeline_masks_exit_status.md) — `git pull | tail && git merge` merges on a FAILED pull; assert ancestry
+- [Playwright reuseExistingServer serves a foreign build](reference_playwright_reuse_existing_server.md) — assert page identity before trusting any browser result
+- [Stale .elc shadows edited publish elisp](reference_stale_elc_shadows_publish_elisp.md) — no `load-prefer-newer`; grep for `newer than` or recompile first
+- [LHCI assertMatrix excludes assertions — job stays green](reference_lhci_assertmatrix_exclusive.md) — errors, asserts nothing; grep for `Checking assertions`
+
+## Project — active queue
+- [Section registry — MERGED locally, not pushed](project_section_registry_design.md) — 2026-10-21; site+dotfiles main; push together at end of S1; S1 research resumes on it
+- [Authoring-infra roadmap — S1 dogfood is queue head](project_authoring_infra_roadmap.md) — 2026-10-15 approved; S1 dogfood → S2 fixes → re-plan → B1 (prose org / structural direct-edit) → C guide; A2 trigger-gated
+- [Recipes on hiatus](project_recipe_hiatus.md) — 2026-10-15 user decision: no recipe work (corpus run, Slice 3) until they raise it
+- [Recipe section + remediation — SHIPPED & DEPLOYED](project_recipe_remediation_shipped.md) — 2026-09-07 `main` @ `2d01fa1`, 3 green deploys; 29 rows + all 13 follow-ups closed (RF3.3/RF3.4 on 2026-09-08); 38 linter pairs; only Slice 3 + real-corpus publish remain
+- [KaTeX math — SHIPPED, merged to main](project_katex_math_runtime_complete.md) — build-time transform.ToMath; audit+review+remediation done; master→main renamed, remote push/default-branch/delete-origin-master still manual
+- [Recipe section — Slice 1 SHIPPED](project_recipe_section.md) — 2026-07-06 brainstorm; standard=schema.org/Recipe JSON. **Slice 1 SHIPPED — merged to `main` and deployed 2026-09-07 as part of the remediation run; see [[project_recipe_remediation_shipped]]**; Slice 2 (org authoring+lint+export) research-gated brainstorm-later, Slice 3 (meal-prep planner) deferred separate project; specs `bcb156d`/`50a0673`, plan `fa2d65f`
+- [Recipe Slice 2 — SHIPPED to both repos; real-corpus run still pending](project_recipe_slice_2_complete.md) — 2026-07-09/10; org→lint→export handler+linter+normalize branch (dotfiles `main` `7161d59..2d6ac4a`, 17 commits, 780/780), SDD-executed; 5 bugs caught (drawer-position, source em-dash, missing `recipes` section allow-list, `:image:` copy, ox-hugo drawer body-leak); FULL E2E: real publish-recipe-file→ox-hugo→site linters clean→Hugo renders page (JSON-LD+scaler+download); site repo pushed+deployed; dotfiles pushed too (verified 2026-09-08, `main` in sync at `e5e4c4e`); REMAINING = publish via real org-roam only; Slice 3 still deferred
+- [Publish-pipeline audit (dotfiles elisp)](project_publish_pipeline_audit.md) — 2026-07-05/06 six-lens audit **FULLY CLOSED**; P1+P2+P2.14 + P3.1/P3.3/P3.7 + P4 + **P5 (7161d59, 751 green)** SHIPPED (8 commits on main); P3.2/P3.5/P3.6/P3.8 + P4.5 + P5.2 assessed+flagged; **only P3.4 (library slug NFD/NFKD) left = deferred user decision**; roadmap in dotfiles docs
+- [Audit roadmap FULLY CLOSED — R1–R6.3 ALL SHIPPED](project_r6_kickoff.md) — nothing left in the audit queue (R6.3 built too, not deferred).
+- [Audit R6.3 — shipped, CLOSES WHOLE ROADMAP](project_audit_r6_3_complete.md) — 2026-07-05 `da7a7a5..f8f0e1b`; built-HTML link crawler (33rd pair, html.parser over public/); caught a real /tags/fiction/ 404; E2E 9/9, opus READY
+- [Audit R6.1 — shipped](project_audit_r6_1_complete.md) — 2026-07-05 `5795280..996bfbf`; 12-step `--space-*` scale + 31st linter pair; codemod migration (533 rewrites), E2E 9/9, opus review READY
+- [Audit R6.2 — shipped, CLOSES ROADMAP](project_audit_r6_2_complete.md) — 2026-07-05 `b1fc2d6..3e61b81`; breakpoint scale + 32nd linter pair (B1 document+guard, zero layout change); CSS↔JS anti-drift; only deferred R6.3 left
+- [Post-audit remediation roadmap — active](project_audit_remediation_roadmap.md) — 2026-07-03 six-lens audit; R1–R5.2 closed (R5.1 pushed; R5.2 local), **R5.3 AMS-block + graph-panel single-partial is queue head**
+- [Audit R5.1 — shipped](project_audit_r5_1_complete.md) — 2026-07-04 `e9b6d95..fd714af`; Playwright E2E harness (6 smoke specs), CI-gated, first client-side test layer; guards R5.2–R5.4
+- [Audit R5.2 — shipped](project_audit_r5_2_complete.md) — 2026-07-04 `d1e214c..d0ee5b0`; graph-core extraction (2280→1316 LOC), createGraph(adapter)+3 adapters, works normalized; inline execution
+- [Audit R5.3a — shipped](project_audit_r5_3a_complete.md) — 2026-07-05 `da48e80..b651784`; 11 AMS shortcodes → thin wrappers over ams-block.html (proof bespoke); byte-identical diff gate
+- [Audit R5.3b — shipped](project_audit_r5_3b_complete.md) — 2026-07-05 `4775888..0cd0819`; 3 graph-panels → shared graph-panel.html; closes R3.2
+- [Audit R5.4 — shipped, CLOSES Tier R5](project_audit_r5_4_complete.md) — 2026-07-05 `6d638d9..6ded6cb`; Python tooling dedup (test_helpers, canonical citation parser, run() seam); whole audit roadmap done, only R6 optional
+- [Audit R1 — shipped](project_audit_r1_complete.md) — 2026-07-03 `8ba3882..2422e81`; parse_scalar false-green + streams-poll + LHCI pin
+- [Audit R2 + R4.3 — shipped](project_audit_r2_complete.md) — 2026-07-03 `d09d531..f5962ac`; math stub + 2 guard linters (30 pairs) + dead-CSS purge + LHCI floor
+- [Audit R3 accessibility — shipped](project_audit_r3_complete.md) — 2026-07-03/04 `92a525b..3c3af9e`; AMS h4→p + graph-panel a11y + search listbox + cite tabs kbd + figure alt + no-js wiring
+- [Audit R4 hygiene/config — shipped](project_audit_r4_complete.md) — 2026-07-04 `840a20e..6f2f4fb`; CLAUDE.md drift sweep + §42a + CI hardening (checksums, SHA-pins, numberOfRuns 3) + ci-local pagefind + escaping; **R5 next (start R5.1 JS harness)**
+- [Polish/bugfix roadmap (sibling)](project_next_slice.md) — Tiers 1–8; all closed/deferred as of 2026-06-12
+- [Works handlers (slice A1) — MERGED to main, NOT pushed](project_works_handlers_slice.md) — 2026-09-29 site `2fd99bb` / dotfiles `d8bacbc`; E2E found 6 defects 829 green tests missed; 9 tests pinned nothing
+- [Authoring-surface audit — 4-tier gap list](project_authoring_surface_audit.md) — 2026-09-27; class A (org→pipeline) vs class B (direct site edit); slices A1/A2/B1/C
+- [Emacs publish-author helpers — SHIPPED](project_emacs_publish_helpers_followup.md) — Tier 5.2 2026-06-08, 6 commands; only the dry-run preview never shipped
+- [LHCI 4.3 fingerprint autodetect — queued](project_lhci_representative_pages_queued.md) — 4.1+4.2 shipped; 4.3 deferred
+
+## Project — shipped (chronological pointers)
+- [Phase 4 garden interactions](project_phase_4_status.md) — 2026-05-09 `1181ba1`
+- [Graph manipulation](project_graph_manipulation_slice.md) — zoom/pan/drag + resize, 2026-05-11
+- [Phase 4 follow-ups](project_phase_4_followups_slice.md) — multi-entry JS bundling, 2026-05-11 `e4af0ee`
+- [Phase 4 stylistic cleanup](project_phase_4_stylistic_cleanup.md) — M1–M10, 2026-05-11 `7403df8`
+- [About page bio half](project_about_page_bio_half_slice.md) — 2026-05-11 `4f2df6d`
+- [Research surface Slice 1](project_research_surface_slice_1.md) — index+theme+question, 2026-05-11 `0ac950c`
+- [Research surface Slice 2](project_research_surface_slice_2.md) — research graph, 2026-05-11 `a6654d2`; closes Phase 5
+- [Citation hover-card](project_citation_hover_card_slice.md) — 2026-05-12 `abe7f1a`
+- [Works section](project_works_section_slice.md) — umbrella + 3 indexes, 2026-05-12 `eff9a23`
+- [Works umbrella polish](project_works_umbrella_polish_slice.md) — Bento + tag-cloud + graph, 2026-05-12 `3309247`
+- [Library section](project_library_section_slice.md) — umbrella + 4 lists, 2026-05-12 `eb3d64b`
+- [Library cover-fetch](project_library_cover_fetch_slice.md) — 12th linter pair, 2026-05-12 `cbd00fd`
+- [Homepage v3](project_homepage_v3_slice.md) — hero + Currently + strips, 2026-05-13 `020ca4a`; closes Phase 7
+- [Page sidebar](project_page_sidebar_slice.md) — rotated rail + dots + scrollspy, 2026-05-13 `10f64a5`
+- [Phase 8.1 Pagefind runtime](project_phase_8_slice_1_pagefind_runtime.md) — search modal, 13th pair, 2026-05-13 `2a1e9cf`
+- [Phase 8.2 CI gates trio](project_phase_8_slice_2_ci_gates.md) — smoke + weight + LHCI, 2026-05-13 `d8235f5`
+- [Phase 8.3 final QA](project_phase_8_slice_3_final_qa.md) — 2026-05-13 `1aa1a2e`; mobile strip bug fixed
+- [Phase 8 a11y close-out](project_phase_8_a11y_close_out.md) — sweep, 2026-05-13 `7ac2539`
+- [RSS XSL pretty-render](project_rss_xsl_pretty_render_slice.md) — 15th/16th pair, 2026-05-13
+- [Garden path-log retrieval](project_garden_path_log_retrieval_slice.md) — widget + /garden/history/, 2026-05-13; closes Phase 8
+- [Citation export](project_citation_export_slice.md) — modal + button vocab, 17th pair, 2026-05-14 `4b2a75e`
+- [Library redesign](project_library_redesign_slice.md) — hero + shelves, 18th/19th pair, CSS §44, 2026-05-14 `3330559`
+- [Graph-view chrome-consistency](project_graph_view_chrome_consistency_slice.md) — shared legend, §27, 2026-05-16 `e6edadc`
+- [Persistent graph access](project_persistent_graph_access_slice.md) — launcher-bar + panel, 2026-05-18 `3321541`
+- [TOC collapsible subsections](project_toc_collapsible_subsections_slice.md) — scrollspy collapse, 20th pair, 2026-05-18 `2bb9220`
+- [Time-synced poetry](project_time_synced_poetry_slice.md) — [mm:ss] runtime, 21st pair, CSS §45, 2026-05-19 `23e997b`
+- [Streams section](project_streams_section_slice.md) — /streams/ + live-pill, 22nd/23rd pair, §46, 2026-05-20 `f155d82`
+- [Garden stage-glyph resourcing](project_garden_stage_glyph_resourcing.md) — greens-only ramp, contrast 6→9, 2026-05-20 `be68e29`
+- [Tier 2.1 anchor affordance](project_anchor_affordance_complete.md) — §-glyph on [id], 27th pair, §48, 2026-06-07
+- [Tier 2.2 D.1 ref-block shortcode](project_tier_2_2_complete.md) — cross-ref + inline-block header fix, 2026-06-08 `d33d4da`
+- [Tier 2.3 section-prefixed numbering](project_tier_2_3_complete.md) — block-renumber.js, 2026-06-11
+- [Tier 2.4 H4–H6 anchor skip](project_tier_2_4_complete.md) — render hook `lt .Level 4`, 2026-06-08 `d11d777`
+- [Tier 8.1 explorables](project_tier_8_1_complete.md) — runtime + 2 lib kinds + §49, 28th pair, 2026-06-12
+- [Tier 8.2 org→synced-poetry export](project_tier_8_2_complete.md) — poetry.el peer + `#+AUDIO:`, 692 ert, 2026-06-12
+
+## Project — Phase 3 publish pipeline (dotfiles, shipped)
+- [Phase 3 decomposition](project_phase_3_decomposition.md) — A links → B publisher → F cites → C math → D markup → E explorables
+- [Phase 3 two publish commands](project_phase_3_two_publish_commands.md) — living (idempotent) vs deliberate (per-post)
+- [Phase 3 library tag round-trip](project_phase_3_library_tag_shelves.md) — org tags → `data/<medium>.yaml`
+- [A.1.a foundations](project_a1a_foundations_slice.md) · [A.1.b](project_a1b_complete.md) · [A.1.c](project_a1c_complete.md) · [A.1.d](project_a1d_complete.md) — sub-project A, 2026-05-23/24
+- [B.0 shared infra](project_b0_complete.md) — 2026-05-25
+- [B.1 garden handler](project_b1_complete.md) — 2026-05-25/26; Goldmark unsafe:true fix
+- [B.2 library handler](project_b2_complete.md) — per-medium YAML, 2026-05-29/30
+- [B.3 research handler](project_b3_complete.md) — theme+question bundles, 2026-05-31
+- [B.4 essays handler](project_b4_complete.md) — deliberate publish, 2026-05-31
+- [C math validator](project_c_complete.md) — org-math-lint + check_math.py 25th pair, 2026-06-01
+- [D.1 semantic blocks](project_d1_complete.md) — 12 AMS shortcodes, CSS §47, 2026-06-01
+- [D.2 multi-target export](project_d2_complete.md) — PDF/Word, `#+multi_export`, 2026-06-04
+- [D.2 figref bundled fix](project_d2_figref_bundled_fix_complete.md) — 2026-06-06
+- [F citation pipeline](project_f_complete.md) — bib resolver + orchestrator, 2026-06-01
+- [Figref :inert+missing](project_figref_inert_missing_complete.md) — org-roam DB miss, 2026-06-07 `1edd900`
+- [Async publish pipeline](project_async_publish_complete.md) — interactive during publish, 2026-06-07
+- [Async-pub cleanup](project_async_pub_cleanup_complete.md) — dead defuns + mode-line leak, 2026-06-07
+- [Tier 1.1](project_tier_1_1_complete.md) · [1.2](project_tier_1_2_complete.md) · [1.5/1.8/1.9](project_tier_1_5_1_8_1_9_complete.md) · [1.6](project_tier_1_6_complete.md) · [1.7](project_tier_1_7_complete.md) · [1.10 closes Tier 1](project_tier_1_10_complete.md) — correctness bugs, 2026-06-07
+- [Tier 4 hygiene](project_tier_4_complete.md) — 2026-06-08 `28c83b4`
+- [Tier 5.1 unpublish-deliberate](project_tier_5_1_complete.md) · [5.2 author helpers](project_tier_5_2_complete.md) — 2026-06-08
+- [Tier 6 closed-by-deferral](project_tier_6_deferred.md) — About Now widget skipped, 2026-06-08
+- [Tier 7.1 LHCI sitemap URLs](project_tier_7_1_complete.md) — gen_lhci_urls.py + manifest, 2026-06-12
+- [LHCI 4.1 URL validator](project_lhci_url_validator_complete.md) — 26th pair, 2026-06-04

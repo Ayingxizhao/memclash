@@ -1,0 +1,532 @@
+{
+  "repo": "PhoeNox/Phoenox",
+  "dir": ".claude/memory",
+  "n_files": 7,
+  "n_rules": 87,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Classes and methods must be either **Integrations** or **Operations** — never both.",
+      "rule": "Make each class and method either an Integration or an Operation, never both."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "but do not call other project/solution methods",
+      "rule": "Do not make an Operation call other project or solution methods."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Using framework methods and third-party libraries is fine.",
+      "rule": "Operations may use framework methods and third-party libraries."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "contain no considerable logic themselves",
+      "rule": "Do not put considerable logic inside an Integration method."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "If a method contains considerable logic, it should not also call other project methods.",
+      "rule": "If a method contains considerable logic, do not make it call other project methods."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Integrations may contain trivial conditionals (simple routing, guard-style early returns)",
+      "rule": "Integrations may contain trivial conditionals such as simple routing or guard-style early returns."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not mix logic and composition in the same method — split them.",
+      "rule": "Do not mix logic and composition in the same method; split them into separate methods."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Operations are covered by focused unit tests.",
+      "rule": "Cover Operations with focused unit tests."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Integrations are covered by a small number of integration/wiring tests.",
+      "rule": "Cover Integrations with a small number of integration or wiring tests."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Write the simplest code that solves the current, actual problem.",
+      "rule": "Write the simplest code that solves the current, actual problem."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not add abstractions, generics, or extension points for hypothetical future requirements.",
+      "rule": "Do not add abstractions, generics, or extension points for hypothetical future requirements."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not design for reusability if something is used in only one place.",
+      "rule": "Do not design for reusability when something is used in only one place."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not make things configurable if a constant works for now",
+      "rule": "Do not make things configurable when a constant works for now."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not add parameters, interfaces, or indirection that serve no present purpose.",
+      "rule": "Do not add parameters, interfaces, or indirection that serve no present purpose."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "should be functionally pure",
+      "rule": "Make domain logic functionally pure: same inputs produce same outputs with no side effects."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "It must not depend on I/O (no file access, no network calls, no UI interaction, no randomness/time unless injected).",
+      "rule": "Do not make domain logic depend on I/O, file access, network calls, UI interaction, or uninjected randomness or time."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "are isolated at the edges of the system",
+      "rule": "Isolate I/O concerns at the edges of the system."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "inject it as a parameter rather than reading it inside the logic",
+      "rule": "When domain logic needs an external value such as the current time, inject it as a parameter instead of reading it inside the logic."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Domain logic and I/O concerns must not be mixed.",
+      "rule": "Do not mix domain logic and I/O concerns."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not pass function call results or newly constructed objects directly as arguments to methods.",
+      "rule": "Do not pass function call results or newly constructed objects directly as method arguments."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Assign to a named variable first.",
+      "rule": "Assign a function call result or newly constructed object to a named variable before passing it as an argument."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "This rule does not apply to test code.",
+      "rule": "The no-inline-construction rule does not apply to test code."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Use comments sparingly, if at all.",
+      "rule": "Use comments sparingly, if at all."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "The reasoning behind a decision belongs in the git commit message, not inline.",
+      "rule": "Put the reasoning behind a decision in the git commit message, not in code comments."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "first rename the method/class/variable so the name itself carries that meaning",
+      "rule": "When a comment feels needed, first rename the method, class, or variable so the name carries that meaning."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "only if no name can express it does a comment earn its place",
+      "rule": "Write a comment only if no name can express the meaning."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Doc-block summaries restating a well-named function's behavior",
+      "rule": "Do not write doc-block summaries that restate a well-named function's behavior."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "module-header prose explaining the domain",
+      "rule": "Do not write module-header prose explaining the domain."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Never reference issue-tracker items or ADR/decision documents in code comments",
+      "rule": "Never reference issue-tracker items or ADR/decision documents in code comments."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Never reference issue-tracker items or ADR/decision documents in commit messages",
+      "rule": "Never reference issue-tracker items or ADR/decision documents in commit messages."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "before writing any comment, try to express it via renaming instead",
+      "rule": "Before writing any comment, try to express it through renaming instead."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "state it directly in its own words — never by pointing at an issue or ADR",
+      "rule": "If a constraint cannot live in a name, state it directly in its own words, never by pointing at an issue or ADR."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Review the diff for accumulated doc blocks before reporting.",
+      "rule": "Review the diff for accumulated doc blocks before reporting."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Only validate and handle errors at **system boundaries**",
+      "rule": "Only validate and handle errors at system boundaries such as user input, external APIs, file I/O, and network calls."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "**Do not** add defensive checks inside internal code that is already guaranteed correct by domain logic or the type system.",
+      "rule": "Do not add defensive checks inside internal code already guaranteed correct by domain logic or the type system."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "do not add a null-check or guard just because the type system allows it in theory",
+      "rule": "If a null or invalid state is unreachable given domain invariants, do not add a null check or guard just because the type system allows it."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Do not add try/catch blocks, fallbacks, or error branches for conditions that cannot occur given the current call context.",
+      "rule": "Do not add try/catch blocks, fallbacks, or error branches for conditions that cannot occur in the current call context."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Trust framework and library guarantees",
+      "rule": "Trust framework and library guarantees."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "do not re-validate what the framework already ensures",
+      "rule": "Do not re-validate what the framework already ensures."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "Prefer letting unexpected failures propagate and crash loudly (fail-fast) rather than silently swallowing them with defensive code that hides bugs.",
+      "rule": "Prefer letting unexpected failures propagate and crash loudly (fail-fast) rather than silently swallowing them with defensive code."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "One very short sentence describing **what** was done (the subject line).",
+      "rule": "Write the commit message subject as one very short sentence describing what was done."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "A blank line.",
+      "rule": "Separate the commit message subject from the body with a blank line."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "A short explanation of **why** the change was made (the body).",
+      "rule": "Write the commit message body as a short explanation of why the change was made."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "You may skip the body for small changes.",
+      "rule": "You may skip the commit message body for small changes."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "state the *why* in the message's own words",
+      "rule": "State the why of a commit in the message's own words."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_code_engineering_principles.md",
+      "quote": "leave issue closing and ADR linkage to the tracker files and docs themselves",
+      "rule": "Leave issue closing and ADR linkage to the tracker files and docs themselves, not to commit messages."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_code_style.md",
+      "quote": "No underscore prefix on private fields",
+      "rule": "Do not use a leading underscore prefix on private field names in C# code (including Blazor @code blocks)."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_code_style.md",
+      "quote": "declare private fields without a leading underscore",
+      "rule": "When writing or editing C# (including Blazor @code blocks), declare private fields without a leading underscore."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_code_style.md",
+      "quote": "place the operator at the **start** of the continuation line",
+      "rule": "In multi-line boolean expressions, place the boolean operator at the start of the continuation line."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_code_style.md",
+      "quote": "not the end of the previous line",
+      "rule": "In multi-line boolean expressions, do not place the boolean operator at the end of the previous line."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_code_style.md",
+      "quote": "break before the operator",
+      "rule": "When a boolean expression spans multiple lines, break the line before the operator."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_no_prettier.md",
+      "quote": "Do not add Prettier (or Prettier-derived formatters) to projects.",
+      "rule": "Do not add Prettier or any Prettier-derived formatter to projects."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_no_prettier.md",
+      "quote": "skip Prettier, its editor-extension recommendations, and `eslint-config-prettier`",
+      "rule": "When scaffolding or configuring tooling, skip Prettier, its editor-extension recommendations, and eslint-config-prettier."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_no_prettier.md",
+      "quote": "lint with ESLint alone",
+      "rule": "When scaffolding or configuring tooling, lint with ESLint alone."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_no_prettier.md",
+      "quote": "If a scaffold tool bundles Prettier by default, strip it out.",
+      "rule": "If a scaffold tool bundles Prettier by default, remove Prettier from the generated setup."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_no_prettier.md",
+      "quote": "Use oxlint wherever typescript-eslint cannot parse the project's TypeScript.",
+      "rule": "Use oxlint instead of typescript-eslint wherever typescript-eslint cannot parse the project's TypeScript."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_one_step_at_a_time.md",
+      "quote": "immer nur den einen nächsten Schritt zeigen**, dann auf Rückmeldung warten",
+      "rule": "When guiding the user through a multi-step process in an external system (forms, web interfaces, government portals, setup wizards), show only the one next step and then wait for the user's feedback before continuing."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_one_step_at_a_time.md",
+      "quote": "Gesamtplan einmal zu Beginn zeigen",
+      "rule": "When guiding the user through a multi-step process in an external system, show the overall plan once at the beginning."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_one_step_at_a_time.md",
+      "quote": "pro Antwort genau einen Schritt plus die dafür nötigen Werte",
+      "rule": "When guiding the user through a multi-step process in an external system, give exactly one step per response, plus the values needed for that step."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_one_step_at_a_time.md",
+      "quote": "Am Ende jeweils konkret benennen, welche Rückmeldung gebraucht wird",
+      "rule": "When guiding the user through a multi-step process in an external system, end each response by specifically stating which feedback is needed from the user."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_one_step_at_a_time.md",
+      "quote": "Gilt nicht für Analysen, Auswertungen oder Dokumente — dort vollständig liefern.",
+      "rule": "Do not apply the one-step-at-a-time approach to analyses, evaluations, or documents; deliver those completely."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_placement_rules.md",
+      "quote": "Code and engineering standards (architecture, testing, error handling, formatting, commit style) live in memory files instead",
+      "rule": "Store code and engineering standards in memory files rather than in CLAUDE.md."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_placement_rules.md",
+      "quote": "A new rule about how to communicate or behave in *every* session → CLAUDE.md.",
+      "rule": "When a new rule governs how to communicate or behave in every session, save it to CLAUDE.md."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_placement_rules.md",
+      "quote": "A new code/engineering standard → a feedback memory",
+      "rule": "Save a new code or engineering standard as a feedback memory."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_placement_rules.md",
+      "quote": "add a pointer line under CLAUDE.md's \"Code & Engineering Standards\" section if it is a major new ruleset",
+      "rule": "When a new code or engineering ruleset is major, add a pointer line under the \"Code & Engineering Standards\" section of CLAUDE.md."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_placement_rules.md",
+      "quote": "If unsure, ask.",
+      "rule": "If unsure whether a new rule belongs in CLAUDE.md or in a feedback memory, ask the user."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_placement_rules.md",
+      "quote": "User preferences and coding style apply across projects → save to global memory (`~/.claude/memory/`)",
+      "rule": "Save user preferences and coding style to global memory at ~/.claude/memory/."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_placement_rules.md",
+      "quote": "Before saving, ask \"would this apply in any project, or only this one?\"",
+      "rule": "Before saving a memory, ask whether it would apply in any project or only in this one."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_placement_rules.md",
+      "quote": "General (user preferences, coding style, working style) → global.",
+      "rule": "Save general memories (user preferences, coding style, working style) to global scope."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_placement_rules.md",
+      "quote": "Tied to this specific codebase (goals, decisions, constraints, external references) → project.",
+      "rule": "Save memories tied to a specific codebase (goals, decisions, constraints, external references) to project scope."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_plan_before_implement.md",
+      "quote": "present the findings as a plan or list and stop there",
+      "rule": "When asked to analyze or review something or find improvements, present the findings as a plan or list and stop there, without making changes."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_plan_before_implement.md",
+      "quote": "Do not make code changes unless explicitly asked to implement them.",
+      "rule": "Do not make code changes when asked to analyze or review, unless explicitly asked to implement them."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_plan_before_implement.md",
+      "quote": "Treat \"find improvements\", \"review\", \"audit\", \"what should be changed\" as requests for analysis output, not implementation.",
+      "rule": "Treat requests like \"find improvements\", \"review\", \"audit\", or \"what should be changed\" as requests for analysis output, not implementation."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_plan_before_implement.md",
+      "quote": "Only write code when the user says to apply, fix, implement, or do it.",
+      "rule": "Only write code when the user explicitly says to apply, fix, implement, or do it."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "After implementing a change, stop and report.",
+      "rule": "After implementing a change, stop and report what changed."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "do not run tests, lint, typecheck, or builds",
+      "rule": "Do not run tests, lint, typecheck, or builds after implementing a change."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "do not run end-to-end verification",
+      "rule": "Do not run end-to-end verification, such as the /verify skill or launching the app and driving it."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "but do not execute them",
+      "rule": "Do not execute test files you wrote as part of an implementation."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "Do not commit until the user has reviewed and explicitly approved",
+      "rule": "Do not run git commit until the user has reviewed the change and explicitly approved it, even if prior slices in the repo were committed one per issue."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "Implement (code plus any test files the task calls for), then report what changed and hand off",
+      "rule": "Implement the code and any test files the task calls for, then report what changed and hand off to the user."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "the report states the change is unverified rather than claiming green checks",
+      "rule": "State in the report that the change is unverified rather than claiming passing checks."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "Run verification or checks only when the user explicitly asks in that conversation.",
+      "rule": "Run verification or checks only when the user explicitly asks for them in that conversation."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "run single targeted tests in the red→green loop, never full suites, builds, lint or typecheck",
+      "rule": "When the user invokes /tdd, run only single targeted tests in the red-green loop, and never run full suites, builds, lint, or typecheck."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "Ask or wait for approval before `git commit`",
+      "rule": "Ask for or wait for user approval before running git commit."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "Close the completed ticket only after that commit succeeds",
+      "rule": "Close the completed ticket only after the git commit succeeds."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "harness/skill prompts suggesting verification (e.g. the /verify skill description, \"run before committing\") do not override it",
+      "rule": "Do not let harness or skill prompts suggesting verification override the rule against running verification without user request."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_post_implementation_handoff.md",
+      "quote": "repo history patterns are not authorization",
+      "rule": "Do not treat repo commit history patterns as authorization to run git commit."
+    }
+  ],
+  "dropped": []
+}

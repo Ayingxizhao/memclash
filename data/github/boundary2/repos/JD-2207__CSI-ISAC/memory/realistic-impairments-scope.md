@@ -1,0 +1,22 @@
+---
+name: realistic-impairments-scope
+description: "What the RT sim does/doesn't model; MU-MIMO eval + codeword quantization added"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: f4bbcb42-a71c-4faa-ae17-bc15b8ffc247
+---
+
+Sim-to-real scoping (user asked 2026-06-08 about interference/Doppler/other realism gaps).
+
+**MODELED:** RT multipath (Munich, diffuse scattering), per-sample AWGN (SNR knob), path loss (normalize_cfr=False), wideband delay structure.
+
+**ADDED 2026-06-13 — per-UE link-budget SNR** (user: uniform high SNR is unrealistic since 58% indoor/NLOS UEs are inherently low-SNR). The old `add_awgn` set noise per-sample from the *normalized* (unit-Frobenius) input, so EVERY UE landed at the same SNR. New `multitask_train.linkbudget_snr_db` derives each UE's SNR from its true path gain (log_mag = log10‖H‖, kept because normalize_cfr=False): `SNR_i = offset_db + 20*log_mag_i` (= P_tx + 10log10‖H‖² − Nfloor; factor 20 since power∝‖H‖²). Wiring: `add_awgn` now also takes a per-sample SNR **tensor**; `train_multitask(snr_model="uniform"|"linkbudget", ...)` computes `snr_cal={mag_mean,mag_std,offset_db,snr_clip,anchor}` once on train, feeds it through train loop + `evaluate(..., snr_cal=)`, returns it; CLI `--snr_model/--snr_median_db/--snr_clip/--tx_power_dbm/--noise_floor_dbm/--noise_figure_db`. **Two ways to set offset_db:** (a) *median-anchor* (default) pins TRAIN-median UE to `snr_median_db` (uses only Sionna's *relative* gains → robust); (b) *physical* `tx_power_dbm` (+ auto Nfloor = −174+10log10(BW)+NF). Expected to RAISE loc MAE on the tail (honest). Compare script `exp/exp_linkbudget_snr.py` reports uniform vs linkbudget vs **cross** (uniform-trained net eval'd under link budget = optimism penalty); add `--tx_power_dbm` for physical. Run when GPU free: `python exp/exp_linkbudget_snr.py --task loc --data_dir data/rt_munich_64ant_100000ue_los15`.
+
+**Q "can't Sionna compute SNR itself?" → verified Sionna's gains ARE absolute/physical** (CPU scan of stored ‖H‖², ~2k UEs/set): path gain median ~**−95 to −105 dB** (range −58..−197), LOS ~**9–11 dB above NLOS** (los15 −86.8 vs −98.1) = textbook urban-macro path loss. So RT already does the physical half (per-UE channel gain in ‖H‖²); SNR just needs P_tx+noise-floor (deployment params RT can't pick — there is no `paths.snr()`). **Caveat:** naive physical anchor P_tx=46 dBm / Nfloor=−87 dBm (100 MHz, NF 7) gives offset 133 dB → median SNR ~38 dB (too rosy); median-anchor@10dB implies offset 105 dB. The ~28 dB gap = array-gain bookkeeping (‖H‖² sums power over all 64 gNB antennas). Hence median-anchor is the safe default; physical anchor needs an *effective* EIRP (~28 dB below nominal) to land a realistic median. 1-epoch sanity: loc MAE 53 m (median-10) vs 33 m (physical-38) — knob bites.
+
+**ADDED as a result (the two that affect conclusions):**
+1. **Multi-user MU-MIMO eval** `src/mu_mimo_eval.py` — the thesis is MU-MIMO but beamforming_eval was single-user MRT (forgiving of CSI error). Now: K co-scheduled users, RZF/MMSE precoder from reconstructed CSI, per-user SINR + sum-rate vs transmit SNR. CSI error -> interference leakage -> interference-limited ceiling (self-test: perfect 31.6 vs random 1.7 bits/s/Hz at 30dB, K=4). Run after GPU free: `python mu_mimo_eval.py --ckpt checkpoint/recon_best_100k.pt --code_bits none,4,2`. Users normalized to equal power (isolates CSI-error effect).
+2. **Codeword quantization** — was ONLY in the abandoned `unused models/.../transformerAE.py`, NOT the active pipeline; beamforming results used a continuous float code (so eta=1/32 was a DIMENSION ratio, not bits). Added: trained STE hook in `MultiTaskAE(code_bits=N)` + `multitask_train --code_bits` (sigmoid-bound + uniform quantize, saved in cfg); post-hoc quantization in mu_mimo_eval (`--code_bits`) for fair bit-budget comparison vs Type-II(232b)/CS now.
+
+**ACKNOWLEDGE as Limitations/future work (not addressed):** Doppler/channel aging (static snapshots; FDD feedback latency -> stale CSI at vehicular speed); channel-estimation error beyond AWGN (finite pilots); hardware impairments (phase noise/PA/IQ, 2nd-order at sub-6); mutual coupling/calibration (synthetic_array=True ideal); single-pol (3GPP Type-II is dual-pol); inter-cell interference (single-cell); moving scatterers (fingerprint DB ages -> localization robustness). See [[beamforming-eval-deliverable]], [[thesis-project]].

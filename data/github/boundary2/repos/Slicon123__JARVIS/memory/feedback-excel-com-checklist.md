@@ -1,0 +1,95 @@
+---
+name: feedback-excel-com-checklist
+description: "Checklist for building or editing Bryan's Excel files through Excel COM on his laptop — setup facts, COM traps, what to test up front, which checks to keep"
+metadata:
+  node_type: memory
+  type: feedback
+  originSessionId: cc480763-2f42-499d-93ee-a9b2432ad25e
+  modified: 2026-11-20T08:15:52.787Z
+---
+
+Self-evaluation he asked for after the Struktur Organisasi build on 2026-10-06 ([[project-sinergi-struktur-organisasi]]).
+About half the build/test runs that day were avoidable re-runs.
+
+**Setup on his main laptop:** Python 3.14 has no openpyxl, and there's no LibreOffice, so the xlsx skill's `recalc.py` can't run.
+pywin32 is installed (since 2026-10-06), and real Excel 16 is the build and verify engine. List separator is `,`.
+
+1. Write every script with the Write tool and change it with Edit. Don't patch it with `sed` or inline Python: that once turned `'\\t1.xlsx'` into a tab and cost two crashed runs.
+2. Start Excel through a helper that closes it and kills its PID in `finally`. Crashed runs left 3 hidden EXCEL.EXE behind. Bryan often has his own Excel open, so kill only PIDs you started.
+3. COM call style: `FormatConditions.Add` must take positional args `(2, None, formula)`. Keyword args fail, and so does `pythoncom.Missing`.
+4. Before building, run one feasibility test that covers every formatting trick the design relies on. Known behaviour:
+   - Center-aligned text spills into truly empty neighbours.
+   - A formula returning `""` blocks that spill.
+   - Conditional-format borders from several rules combine.
+   - Center Across Selection hides vertical borders inside its span, even when the span's cells are empty. This was found late and forced a column redesign.
+5. When generating formulas, wrap every comparison in parentheses: `2*(X=0)`, never `2*X=0`.
+6. PDFs exported from a hidden Excel instance come out Letter even when the sheet is A4. Check `paperSize` in the saved XML instead of chasing the PDF size.
+   Each `ExportAsFixedFormat` also pops Excel's visible "Publishing" progress window on his screen, even when Excel is hidden. He asked what it was on 2026-10-06. Tell him before the render step starts.
+7. Verify on every sheet, hidden and protected ones included, through `UsedRange.Value`. `SpecialCells` silently skips most cells there.
+8. His files change between turns. Work on a copy and assert that the cells you write are still empty.
+   Before replacing his file, check it isn't open (`~$` lock) and that it's byte-identical to your backup. Then diff every sheet you didn't mean to touch.
+9. When you raise a capacity, check every code range that assumed the old limit. Team colour codes 9–12 once collided with the PM and Leader fills.
+   A pixel diff of the current data against the old render proves the rework changed nothing he already had.
+
+10. Learned on the Kurva S build (2026-10-06):
+   - A cell written directly below an Excel table gets absorbed into it by auto-expand. Leave a spacer row. Don't toggle AutoCorrect, because that setting persists into his own Excel.
+   - pywin32 shifts Python datetimes by the timezone, so 1 Oct turned into 30 Sep. Write dates as serial numbers through `Value2`.
+   - In pywin32, call `GetCharacters(start, n)`, not `Characters(...)`.
+   - Setting `NumberFormat="@"` before writing a formula stores the formula as text.
+   - Chart title size: set it through `TextFrame2` after any `ChartArea.Font` change.
+   - Dynamic print area works. Create a static one, then set `Names("Print_Area").RefersTo` to an OFFSET formula. It survives a reopen. (`Names.Add` converts it to static.)
+   - A table with `ShowHeaders=False` frees its header row. On row insert, its calculated columns, validation and CF all extend.
+
+11. Learned on the Schedule Pemeliharaan build (2026-10-07):
+   - Setting `HorizontalAlignment` on a one-column range that crosses per-row merges (e.g. `J47:J54` over J:M merges) re-merges them all into one block. Format each row's merge area separately.
+   - Writing an array of formulas to such a column fills only the first row. Write each cell on its own.
+   - `ResetAllPageBreaks()` silently resets `PageSetup.Zoom` to 100. Call it before setting Zoom, and check `scale=` in the saved XML.
+   - A conditional format with border `LineStyle = xlNone` doesn't clear static borders; medium outlines stay. A thin white CF border does hide them. CF can't draw medium lines.
+   - Rendering without a PDF works: `Range.CopyPicture(2, -4147)`, paste into a temporary chart, then `Chart.Export(png)`. No "Publishing" window pops up. Hide the chart's border line first.
+   - Rockwell isn't in Windows Fonts on his laptop. It's an Office cloud font (`FontCache\4\CloudFonts`) and renders fine.
+
+12. Fills vs borders (2026-10-07). Bryan saw coloured cells covering their top border in Print Preview of the schedule
+   template. He had to point it out himself, and he wants it caught without being told next time.
+   - Small renders hide 1-px line problems. After any build or edit with coloured cells in a bordered grid, crop the
+     coloured area and inspect it at 4–6x.
+   - Check the path he looks through. `ExportAsFixedFormat` and printing to "Microsoft Print to PDF"
+     (`PrintOut(1, n, 1, False, "Microsoft Print to PDF", True, False, pdf)`) both drew the lines correctly. Normal view was
+     fine too. Only Print Preview at some zooms dropped thin lines under fills.
+   - The cell already had its own borders, so ownership wasn't the cause. The applied mitigation is a CF border rule on
+     non-empty coloured cells, leaving medium outline edges out. Whether it fixes Print Preview is still for him to confirm.
+   - Say plainly which views you verified. Don't claim Print Preview is fine from a PDF render.
+
+13. Replicating a scanned form 1:1 (2026-10-09, [[project-approval-material-forms]]):
+   - His laptop display gives Calibri 11 a max digit width of 11 px, so stored column widths snap to 1/11 char.
+     `ColumnWidth` excludes padding (~0.64 char); `Columns.Width` is proportional to the stored width.
+   - Printed column width ≈ stored width × 5.63 pt. Screen widths are about 2.5% narrower, so size columns for print.
+     Probe the Width/ColumnWidth ratio on a scratch sheet, set widths cumulatively, and trim narrow columns from one
+     measured test print.
+   - The hidden instance prints and exports A4 sheets onto Letter, scaled to about 0.92 and centred. Undo the scale
+     using the frame lines before overlaying on the scan. Don't change `MapPaperSize`, because it persists into his Excel.
+   - Columns wider than the printable width get pushed to page 2 without any warning. Check `VPageBreaks`.
+   - Place shapes at the same fraction of the column/row they sit in on paper; they print relative to their cells.
+   - A red/cyan overlay of the replica on the 300 dpi scan is the check that matters, plus every cell value read back.
+
+14. Input templates (2026-10-13): list validation is case-sensitive ("x" fails against "X"). COM writes skip
+   validation, so test it with `Range.Validation.Value`. Writing "1." into a General cell stores the number 1,
+   so set `@` on label cells first. `Range.CopyPicture` renders include shapes and the logo, so a pixel diff
+   against the original form render works as a check.
+   - Linked picture without the clipboard: `AddPicture` a blank PNG, then set `DrawingObject.Formula = "=Sheet!$C$35"`.
+     It mirrors pasted pictures too. Top/left cell borders (including a neighbour's) leak into it; right/bottom ones don't.
+   - The render helper adds its chart on a temporary sheet, so protected sheets render without unprotecting.
+
+15. Dynamic merged headers (2026-11-20, [[project-jadwal-pekerjaan-template]]):
+   - Center Across Selection and text overflow stop at any formula cell, even one returning "". Merges can't move by formula.
+   - A linked picture driven by a name like `=CHOOSE(n, Sheet!r1, Sheet!r2, ...)` works. Excel rounds the picture to pixels, though, so keep borders out of it: make the source transparent (no fill, no borders) and draw the dividers with CF on the cells underneath.
+   - Shapes placed through COM on a sheet zoomed to 63% got wrong anchors and printed one row too high. Pin `xdr:from`/`xdr:to` to exact cells in the drawing XML. Excel keeps those anchors through a save.
+   - Run `python -I` only on untrusted files; it hides user-site PIL. Never name a script `inspect.py`, because it shadows the stdlib.
+
+**Keep, don't trim:** render the output after each build, test several input scenarios, and scan every sheet for formula errors.
+These checks caught the real bugs; the time to cut is the avoidable re-runs above, not these checks.
+
+**Why:** He asked why the build took so long and wants it faster, without the output getting worse.
+
+**How to apply:** Run through this before any Excel build or COM edit.
+
+Related: [[feedback-pptx-edit-checklist]], [[feedback-self-correct-and-verify]]

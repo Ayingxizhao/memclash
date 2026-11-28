@@ -1,0 +1,35 @@
+{
+  "repo": "Akagilnc/ak-ai-postflow",
+  "fork": false,
+  "archived": false,
+  "stars": 0,
+  "description": "AI-assisted content generation and posting workflow",
+  "default_branch": "master",
+  "license": null,
+  "pushed_at": "2026-06-01T10:35:43Z",
+  "created_at": "2026-03-11T11:09:22Z",
+  "root_claude_md": true,
+  "folder": {
+    "dir": ".claude/memory",
+    "n_md": 8,
+    "n_rule_files": 5,
+    "type_counts": {
+      "project": 1,
+      "reference": 1,
+      "feedback": 4,
+      "user": 1
+    },
+    "has_index": true,
+    "last_commit": "2026-03-25T12:45:12Z",
+    "files": {
+      ".claude/memory/MEMORY.md": "7f45f5c442396c7f80862332e7e202d7fb87df80366d0c92c0121efcd2c87dc6",
+      ".claude/memory/feedback_confirm_before_act.md": "ecb20100d4cc1d10607ec958903fa4063b2e72a13d9509772394039738eda079",
+      ".claude/memory/feedback_e2e_before_pr.md": "5a9de089cbccd1134fca90248fe4e1cb34a912266fdc7e04ed238e94f968ec7d",
+      ".claude/memory/feedback_tdd.md": "8fe6ccef23c96210577c1474488843ec99b023c7dbaef3720bd0307a90a3d0e6",
+      ".claude/memory/feedback_worker_vitest_spawn_eperm.md": "1dd71381be51d6b6411f793f0cba7be31155a81de6c01d20d30bf575fbc0a251",
+      ".claude/memory/project_feishu_bridge.md": "ade2c2c3ce86f43259dfd54a2f9119f1bdfdb735e2d540ac94a28531e6106679",
+      ".claude/memory/reference_credentials.md": "e63fca28154c07a008ca55a213351095ab8a8dbef119713bc3f5f645d4b39211",
+      ".claude/memory/user_profile.md": "1df11b72445c0902a7c722eac3e7c296ce959c59b8e71d74b1b1af24fb0ca6c3"
+    }
+  }
+}

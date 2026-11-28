@@ -1,0 +1,39 @@
+# Project memory — ctipilot.ch
+
+Index of `.claude/memory/`. The SessionStart hook (`.claude/hooks/setup-memory.sh`) symlinks Claude Code's auto-memory directory here, so every memory write is version-controlled and shared across sessions (local, cloud routine, worktrees). This index loads into every session; topic files load on demand. Keep index lines short — detail belongs in the topic file.
+
+Conventions: one topic per file, kebab-case filename, YAML front block (`name`, `description`, `type`: user/feedback/project/reference). Dated facts with why-lines; update the index on add/rename/merge/remove. Don't duplicate what CLAUDE.md or docs/pipeline.md already state — record the non-obvious delta.
+
+## Index
+
+- [Operator directive 2026-10-20: cleanup program](operator-directive-2026-10-20-cleanup-program.md) — one-time store cleanup via prompts/cleanup-coordinator.md; sequential partial-audit waves merged to main; reference branch cleanup/2026-10-18-carry-forward never auto-merged
+- [Operator directive 2026-10-21: parallel cleanup waves](operator-directive-2026-10-21-parallel-waves.md) — v4.23: waves run in parallel on disjoint lanes; ready/after/--check-lanes; claims carry wave=<NN>; merge_state merges the tracker
+- [Operator directive 2026-10-19: audit budget](operator-directive-2026-10-19-audit-budget.md) — one audit at a time (claim on main), trailing week only, ≤20 spawns per fire, verifier checks only the fire's own changes, legacy/store-wide work only in operator-directed partial audits
+- [Operator directive 2026-09-29](operator-directives-2026-09-29.md) — no time limits but every run ends (structural bounds + 60-min inactivity hang detection); every non-termination number is a guide
+- [Operator directives 2026-08-28](operator-directives-2026-08-28.md) — internal records, only `update` floats updated_at, no internals in reader text, quality>quantity, English-only quotes, v4.3 modifiability, xhigh effort, minimal plugins/skills
+- [Permission rules: Edit covers Write](permission-rules-edit-covers-write.md) — Write(path) allow rules are dead; only Edit(path) matches file tools
+- [Entry lifecycle](entry-lifecycle-v4.md) — one living entry per finding; changelog records + sections; what stays untouchable; the weekly's entries and schema are deleted (2026-08-29)
+- [STIX export layer](stix-export-layer.md) — /stix/ bundles, uuid5 id-stability contract, relation collapse table, canonical ATT&CK ids, no TAXII by decision
+- [Routine model assignment](routine-model-assignment.md) — Sonnet 5.5 intel / Opus 5.5 audit since 2026-09-29, generic `sonnet` pins at xhigh (unmeasured on 5.5), 5.5 prompting deltas, single verifier, double-CLEAN; self-ID protocol
+- [Verification lessons](verification-lessons.md) — aiming iterations, testing findings before applying, inverted claims, unsourced status flags, quote fidelity, composing-from-entries traps; update-record timestamps, tallies need their own cite, re-read moving vendor timelines (2026-10-29); supersession greps, unseen vendor revisions, internal-record word limit, version strings vs IOC scan, gate.log (2026-11-01); a cited source can die between fires (gate skips old sources), link-text word counts, unsupported strengtheners, strict run-record YAML indent (2026-11-03); run-record generation traps, cuts that sever citations (2026-11-08); out-of-slice checks move the rotation cursor, uncited sources added by updates, quoted-YAML apostrophes, internal-record word limit (2026-11-15)
+- [Source fetch blocks & recipes](source-fetch-blocks.md) — fetch ladder, blocked-host recipes, jina pool rules, PDF extraction honesty, probe/health traps
+- [CSAF/MSRC/CVE transcription](csaf-msrc-transcription.md) — structured fields over prose; verdict vs membership; base vs temporal CVSS; CNA vs ADP vs NVD; EPSS is FIRST.org's probability in [0,1] (EUVD renders it as a percentage)
+- [Dedup: store-wide CVE index](dedup-store-wide-cve-index.md) — 14-day read is a floor; check `cves.ids` store-wide; read the covered entry's body
+- [Scheduler & workflow races](scheduler-and-workflow-races.md) — operator-owned cadence, overtaken-run recovery, two local sessions in one worktree, pre-v3.33 durations are floors
+- [Classifier trips on spawns](classifier-trips-on-spawns.md) — safeguards-flagged spawns: framing + checkpointing + pointer-not-enumeration; quiet output ≠ dead spawn
+- [Classification policy](classification-policy.md) — one rating per entry; a press write-up of one lab report is not a second source
+- [ATT&CK layer](attack-layer.md) — pinned dataset, revoked-id forwarding, evidence floor on mandatory mappings, never hardcode tactic tables
+- [Product entities](product-entities.md) — affected_products[] resolves to `product:` keys at render; alias-merge not migration; products never phrase-match prose
+- [Entity registry graph](entity-registry-graph.md) — typed relations[], tombstones, alias discipline, only relate what a source states
+- [Triage-ready entries](triage-ready-entries.md) — actionability shape footnotes: migrated tier, vector vs auth semantics
+- [State-file serialization](state-file-serialization.md) — derive JSON format from the live file, `git diff --stat` after; the constant has flipped twice
+- [Auto-publish routine fixes](auto-publish-routine-fixes.md) — commit→push→merge→deploy→probe end-to-end without pausing; permissions pre-authorized
+- [Customization framework](customization-framework.md) — branding.yaml + org-profile.yaml carry all identity; shipped profile = generic "Swiss Government Entities" example/POC (no concrete org anywhere); slices/cohorts/certs/policy-watch/site_url are config-only, no in-code defaults; never re-literal build.py; PYTHONHASHSEED=0 for byte diffs
+- [Site landing = live brief](site-landing-live-brief.md) — / is the brief: one-line head, compact critical alarm, counts, whole-row-clickable timeline + Summaries/Headlines; Do now + pulse panel removed 2026-09-29
+- [Design system](design-system.md) — component/DOM contract, brandable surface, CSS invariants (no dlig, badge guards, trends honesty), document contract, 2026-09-29 audit contracts (sticky needs overflow clip, gutter token, pre-paint theme.js, dialog search, button chips, --g-* type colours)
+- [UI writing style](ui-writing-style.md) — no em dash ANYWHERE a reader sees it; build.py normalises at render, self-check FAILs, <pre>/<code> exempt
+- [Changelog hygiene](changelog-hygiene.md) — version history only in prompts/CHANGELOG.md; no vN.M annotations in rules
+- [Whole-setup review 2026-09-29](setup-review-2026-09-29.md) — v4.17: verifier was a sampler (claim ledger), `high` graded on event size, stale main text after updates, backlog dump, lossy state merges
+- [Legacy corpus](legacy-corpus.md) — 478 v2-migrated entries were never verified and carry fabricated claims; repair queue, fold duplicates with tools/fold_entries.py (2026-09-30); 60/63 wrong on 2026-10-11, link from the compliant side
+- [KEV additions: read the CVE record](kev-additions-read-the-cve-record.md) — a detail-free KEV row hides its exploitation history in the CVE record's references (PolyShell, 2026-10-28); never cite cveawg/NVD/MITRE; restore earlier fires' sections after global replaces
+- [Composition traps 2026-11-25](composition-traps-2026-11-25.md) — 550-word bound counts link text; re-point each citation to the page that carries the fact; give deep-read spawns separate scratch dirs

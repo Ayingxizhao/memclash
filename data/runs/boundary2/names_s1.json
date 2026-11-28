@@ -1,0 +1,27 @@
+{
+ "how": "Project name list, fixed at compile time. Translations and action events must use these names for `task`, `after_task` and `running`. A running entry names a task that is still in progress. Anything else uses 'other:<words>' and will not match. Extended for the boundary test (round 2) with names used by its compiled rules.",
+ "all_folders": {
+  "test": "run the test suite or any test subset",
+  "build": "compile or build the project",
+  "lint": "run linters",
+  "format": "run formatters",
+  "deploy": "deploy to an environment",
+  "migrate": "run database migrations",
+  "publish": "publish a package or release",
+  "restart": "restart a running service or server"
+ },
+ "per_folder": {
+  "AbuShaqra__TC_PLC_Toolkit": {
+   "other:download and launch vs code for a probe": "download and launch vs code for a probe"
+  },
+  "Bretthb__jarble": {
+   "other:canvas-component-builder agent": "canvas-component-builder agent",
+   "other:new-component skill": "new-component skill",
+   "other:db drop statements": "db drop statements",
+   "other:force-delete deployments": "force-delete deployments"
+  },
+  "FearCleevan__final-project-acme": {
+   "other:reconnect acmevintagesupply domain": "reconnect acmevintagesupply domain"
+  }
+ }
+}

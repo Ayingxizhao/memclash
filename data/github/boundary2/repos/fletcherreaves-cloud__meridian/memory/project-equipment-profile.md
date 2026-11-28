@@ -1,0 +1,380 @@
+# Equipment Profile System (Ops Supplies) — captured 2026-10-18, NOT STARTED
+
+Owner request, verbatim (2026-10-18), to be picked up on a future session — this file exists so
+the ask survives between now and whenever work actually starts, per CLAUDE.md's "commit every
+memory file" rule. **Nothing below has been scoped into a dispatch or built yet.**
+
+## The problem it solves
+
+An interactive equipment profile per store, so the owner can see exactly which Ops Supplies items
+each location actually needs — and stop stores from ordering unnecessary/costly items that don't
+match their real equipment.
+
+## Requirements, as stated
+
+- **Live, link-based form** — fillable and updatable by anyone with the link. Not locked to
+  patches/supervisors; open to "anyone whom can provide the data" (owner's own phrasing — i.e. a
+  GM, an AS, a crew trainer doing the walkthrough, whoever is on-site). Patch groupings are wanted
+  for organizing/filtering the data, but must not gate who can edit.
+- **Per equipment type, a primary options list** the owner will supply (manufacturer, model, etc.)
+  — presented as a **dropdown**.
+- **Manual-entry escape hatch**: if the real equipment variant isn't in the dropdown, the user can
+  type it in. That manually-entered variant must be **flagged for owner review**, but immediately
+  becomes selectable by every other user from then on (so the catalog grows organically from real
+  walkthroughs instead of needing the owner to pre-populate every variant up front).
+- **Serial number + current certification date** fields — but only for the subset of equipment
+  types the owner designates as needing them (most equipment won't have these fields at all; this
+  is a per-equipment-type flag, not a blanket field).
+- **A sensible walkthrough flow** — the form should be built to flow naturally as someone actually
+  walks the store, not as a flat alphabetical list.
+- **A visual/spatial layout**: equipment placed on something like a floor plan or area map, located
+  where it actually sits in the restaurant (e.g. "front counter," "kitchen line," "drive-thru,"
+  "back of house") — owner's own words: "a visual system to place the equipment in the area of the
+  restaurant it most likely resides."
+- Owner is explicitly open to other ideas for making this easy to update/maintain long-term — this
+  is a starting spec, not a locked one.
+- **Needs a real database** to log results, and should be built **for ongoing/ repeated use** (a
+  living record that gets re-walked and updated over time), not a one-time survey.
+
+## Owner's answers (2026-10-18, same day as the original ask)
+
+- **Auth for the open link** — owner: treat it like the existing EOM share-link pattern already
+  live in this app (`src/views/count-cycle-panel.js`'s `createWeeklyShare()`, the `eom_share_links`
+  Supabase table, `supabase/functions/eom-share/index.ts`, `src/views/eom-share-view.js`). That
+  flow is proven: `meridian.js` reads a `?share=<token>` query param and routes straight to a
+  standalone public view with no login and no app shell; the edge function validates the token
+  server-side with the service-role key and returns/accepts only the scoped data that token is
+  for. `count-cycle-panel.js` already shows how to add a second **kind** of link on the SAME table
+  without a schema or edge-function change, just a distinguishing `period`-style field
+  (`wk:YYYY-MM-DD` vs a real `YYYY-MM` EOM period) — the equipment profile can follow the identical
+  trick with its own distinguishing value. **One real gap to design for, not just reuse as-is:**
+  every existing share link in this app is read-mostly (the EOM share view's own write surface is
+  a single boolean "I've reviewed this" acknowledge). The equipment profile needs genuine
+  multi-field writes (adding equipment, flagging a manual variant) from an anonymous token holder —
+  the edge function for this link kind needs real write support, not just the acknowledge-flag
+  pattern the EOM one has today.
+- **Scope of "Ops Supplies" / what this is actually for** — owner confirmed directly: this is a
+  **gating reference**, not a general asset registry. Concrete examples given: grills use
+  manufacturer-specific Teflon release sheets (expensive — the wrong one is a costly mistake), bun
+  toasters are the same, and several other machines have manufacturer-specific cleaning chemicals
+  (espresso machines, shake/sundae machines, OJ machines). So knowing exactly which
+  grill/toaster/espresso machine/etc. a given store actually has is what lets the app block or
+  flag an order for the WRONG consumable/chemical for that store's real equipment. This confirms
+  the earlier read: the equipment profile's own purchase-ledger tie-in is real and intentional, not
+  incidental — it's meant to cross-reference against ops-supplies ordering (`qsr_ebos_line_items`,
+  shipped 2026-10-18, is the natural source for "what did this store actually order" once this
+  exists) rather than just being a standalone inventory list.
+- **Visual placement** — owner wants a real **pinnable floor plan**, not just named zones. Scope
+  given directly: 2-3 primary restaurant layouts cover the fleet, to be worked out together (owner:
+  "We can work together to achieve the 2-3 primary restaurant layouts") — i.e. a small number of
+  reusable base-layout images/templates (not one per store), with each store's equipment pinned
+  onto whichever layout matches its build.
+- **Patch groupings** — reuse the existing org/patch hierarchy already live everywhere else in the
+  app (`LocationSelector`, `INV_ORG_COORDS`, supervisor patches) rather than inventing a new one.
+  (Carried over from the original capture — not re-confirmed separately, but uncontested.)
+
+## Likely natural home in the existing app
+
+- A new Supabase table (equipment catalog: type × manufacturer × model, with a `flagged`/`pending
+  review` boolean for owner-added variants) plus a per-store equipment-instance table (store, catalog
+  item, serial, cert date, placement/zone). Standard tenant_id + RLS shape like every other new
+  table this session has added (`qsr_ebos_line_items`, `qsr_raw_item_info`) — same pattern, once
+  the open-link auth question above is resolved.
+- A new panel, likely under Inventory or a new "Equipment" section in `panel-registry.js`.
+- If it reuses `LocationSelector`'s org/patch hierarchy for grouping/filtering (not gating), that's
+  the existing, proven component (`src/components/PanelControls.js`) — no new hierarchy needed.
+
+---
+
+## Phase 4 — PQRG operating-settings reference (owner request 2026-11-02)
+
+Owner, verbatim: *"I want to tie in settings for equipment to the surveys. I will upload the
+Pocket Quality Reference Guide (PQRG) to give you the stat you need."* Then, once scoped and
+asked to proceed: *"Tie it in as references based on models selected that can be verified."*
+
+**What this adds, on top of Phase 1-3 (equipment catalog + consumables gating + the live crew
+walkthrough survey):** once a crew member picks (or photo-matches) a catalog model in the survey
+form, show the PQRG's real operating settings (cook time, temp, gap, steam, fan, platen temp,
+holding time, etc.) for every product that model cooks — a reference the person on-site can check
+the real equipment against, plus a lightweight "I checked this against the equipment" acknowledgment
+(optional free-text note if something was off). Same purpose class as the existing consumables
+gating data (`equipment_catalog_consumables`) — "the correct X for this model" — just settings
+instead of WRINs, and it reuses the identical sibling-table pattern.
+
+**Source:** the Pocket Quality Reference Guide (PQRG), McDonald's crew reference manual, 111
+pages, uploaded by the owner. Read in full (all 111 pages) — equipment settings live in
+Breakfast (pp. 2-27), Regular Menu's Grilled/Fried/French Fries/Ingredients sections (pp. 37-54),
+Desserts' Baked Goods (pp. 70-72), and UHC Layouts (p. 108). The "Gold Standard Quality
+Descriptions" sections throughout (appearance/texture/taste) are NOT equipment data and were
+skipped.
+
+**First slice shipped (not exhaustive — see backlog below):** grills (all 8 breakfast/regular-menu
+products, standardized across every grill brand in the catalog), fryers (all 7 fried products,
+same brand-agnostic standardization), combi ovens (Blodgett + Convotherm, separately — their
+programs genuinely differ), toasters (Antunes MT-12/Horizontal Radiant/Universal/Club, Prince
+Castle Universal; one Prince Castle "Horizontal" entry flagged `needsReview` since the catalog's
+3 Prince Castle toaster rows don't cleanly map to it), steamers (Prince Castle confidently matched;
+Antunes flagged `needsReview` across its 2 catalog models since the PQRG names no model number),
+UHC (18 products' slot-temp/holding-time/tray-load, standardized across every UHC catalog model),
+staging cabinet (4 products). **61 product-settings rows total**, seeded from real PQRG tables,
+none fabricated — every row traces to a `sourcePage`.
+
+**Follow-up pass (2026-11-02, same day): espresso machines added, the rest confirmed structurally
+blocked, not just low-priority.** Re-read PQRG pp. 14-16 (bake ovens) and p. 80 (McCafé brewers)
+directly rather than trust memory before writing anything — and measured `equipment_catalog`'s
+live `type` column (service-role read) instead of assuming a type exists:
+
+- **Espresso machines (`espresso_1step`/`espresso_2step`) — buildable, added (7 rows).** The
+  catalog already has 4 1-step + 3 2-step models seeded (Phase 1's
+  `equipment-catalog-seed-beverage-mccafe.json`). PQRG gives one shared target, p. 80: "Brewer
+  Temperature 165°F to 175°F (taken from plain latte)" — brand-agnostic, same `matchType:'type'`
+  pattern as grill/fryer/UHC. Attached to all 7 espresso catalog rows.
+- **Bake ovens (Hobart/Wells "Non Flex", Garland Convection "Flex", Wells M4200 "Flex") — NOT
+  buildable, genuinely blocked, not just deferred.** `equipment_catalog` has **no `bake_oven` type
+  at all** — confirmed live, not assumed (the 15 real types as of this measurement: `abs`,
+  `blended_ice`, `combi_oven`, `espresso_1step`, `espresso_2step`, `fryer`, `grill`,
+  `juice_dispenser`, `prep_line`, `shake_sundae`, `staging_cabinet`, `steamer`,
+  `sweetener_creamer_dispenser`, `toaster`, `uhc` — no bake oven, no egg cooker). Creating new
+  catalog rows for these 3 bake-oven brands would need real model numbers from a real vendor
+  reference doc, the same bar every other catalog row was seeded against (Phase 1's own schema
+  comment: "every other equipment type... grows organically via a seed file [from a real
+  reference doc]... or the 'type it in, flag for review' path") — but the PQRG only names these
+  ovens generically ("Hobart/Wells 'Non Flex' Oven"), no model numbers, so fabricating a catalog
+  row from it would break that standard. Real PQRG data for Frozen Biscuits/Scratch Biscuits DOES
+  exist (pp. 14, 16 — e.g. Hobart/Wells: 1 tray 16 biscuits, 375°F, Middle(5), 5 min) and can be
+  seeded the moment a real bake-oven vendor reference doc lands and these 3 brands get a catalog
+  type, the same path every other equipment category in this project followed.
+- **Egg cooker (Next Gen Egg Cooker) — same blocker.** No `egg_cooker` catalog type exists.
+- **Q-ing/OnCue oven program codes — same blocker, plus a shape mismatch.** No catalog type for
+  these either, and separately: PQRG's Q-ing codes (e.g. code 55 = sausage burrito, code 97 =
+  McRib sauce) are per-RECIPE heating programs, not a physical unit's operating settings — closer
+  kin to the `equipment_catalog_consumables` shape (a lookup table) than to
+  `equipment_catalog_settings`. Worth its own design pass, not a drop-in to this feature.
+- **Hot-brewed coffee (drip) — same blocker.** No catalog type for a plain coffee brewer either
+  (only espresso machines, ABS, juice, sweetener/creamer dispensers are covered under beverage
+  equipment) — the "McCafé brewers" item in the original backlog note conflated these two; only
+  the espresso half had a catalog type to attach to.
+
+**Net: this backlog isn't "haven't gotten to it" — 4 of the original 4 named categories are
+blocked on catalog coverage that doesn't exist yet (and, for bake ovens/egg cooker/coffee
+brewers, on a real vendor reference doc this project doesn't have on hand), and the fifth
+(espresso) is now done.** Re-open only once a real bake-oven/egg-cooker/coffee-brewer vendor
+reference doc is available to seed the catalog types from.
+
+**Schema** (`supabase/schema-equipment-catalog-settings.sql`): a new sibling table to
+`equipment_catalog_consumables` — `equipment_catalog_settings(catalog_item_id, product,
+setting_group, settings jsonb, needs_review, review_note, source_doc, source_page)`. Same RLS
+shape (tenant read for authenticated, admin write). Plus two new flat columns on
+`equipment_survey_entries` (append-only, same convention as its existing `cert_date`/
+`placement_zone`): `settings_reviewed boolean`, `settings_review_notes text`.
+
+**Matching logic** (`scripts/lib/equipment-catalog-settings-match.mjs`, pure, tested against real
+fixture catalog rows copied from the live seed files in
+`src/__tests__/equipment-catalog-settings-seed-pqrg.test.js`): PQRG entries that are brand-agnostic
+McDonald's-standardized targets (grill/fryer/UHC/staging-cabinet) match every catalog row of that
+`type`, confidently (`needs_review: false`) — this is correct by design, not an approximation.
+Brand/model-specific entries (combi ovens, toaster/steamer sub-models) match by manufacturer or a
+model-name substring; where a single catalog row bundles two PQRG-named variants (e.g. "UTX-200 /
+CTX-200" covering both Antunes Universal and Club toasters) or a PQRG entry has no model number to
+disambiguate between catalog models, the group is marked `needsReview: true` with a `reviewNote`
+explaining the ambiguity — surfaced to the submitter in the UI (⚠ banner + per-row note), never
+silently asserted as certain. Seed script: `scripts/seed-equipment-catalog-settings.mjs` (idempotent
+— skips a `(catalog_item_id, product, setting_group)` row that already exists).
+
+**UI**: `equipment-survey-view.js`'s `EquipmentForm` gained a `ReferenceSettingsPanel` — renders
+once a catalog model is selected (manually or via photo-match), grouped by product, with the
+"I checked this against the equipment" checkbox + optional notes field wired into the existing
+`submitEquipmentEntry` payload (`settingsReviewed`/`settingsReviewNotes`). Real end-to-end render
+test in `src/__tests__/equipment-survey-view-pqrg-settings.test.js` drives the actual view through
+NameGate → StorePicker → Add Equipment → model selection, not an isolated helper call.
+
+✅ **Activation CONFIRMED LIVE 2026-11-03** (measured, not assumed — service-role REST reads
+against the real Supabase instance, same credential/observation discipline as every other
+"is this live" claim in this repo): `equipment_catalog_settings` returns `content-range: 0-0/240`
+(step 1 SQL + step 2 seed both ran — more than the 61-row first slice, so the later espresso pass
+and/or further seeding landed too), and a `select` against `equipment_survey_entries` including
+`settings_reviewed` returns `200`/`[]` rather than a `42703` column-not-found error, confirming
+that column exists. `equipment_survey_entries` itself is at 0 rows (no crew walkthrough logged
+yet) and `equipment_survey_links` has 1 row (one link created). Step 3 (the edge function
+redeploy) was not independently re-verified by this measurement — not re-raised as open, just
+noted as the one step this specific pass didn't check.
+
+**Deploy sequencing (do this in order — the edge function change is NOT safe to deploy before the
+SQL runs, since its `insert()` now references the two new `equipment_survey_entries` columns):**
+1. Run `supabase/schema-equipment-catalog-settings.sql` in the Supabase SQL editor.
+2. Run `node scripts/seed-equipment-catalog-settings.mjs` (needs `VITE_SUPABASE_URL` +
+   `SUPABASE_SERVICE_ROLE_KEY`) to populate the 61 reference rows.
+3. Redeploy the edge function: `supabase functions deploy equipment-survey --no-verify-jwt`.
+Merging the PR itself is safe at any point — nothing auto-deploys the edge function (no GitHub
+Actions workflow does it; confirmed by grep), and the Vercel frontend redeploy is backward
+compatible either way (the new client fields are silently ignored by the old, not-yet-redeployed
+edge function until step 3 runs).
+
+## Equipment Results panel (owner request 2026-11-02, same day)
+
+*"Can we add a link to the equipment survey as well as build out a landing panel for the results
+in the app?"* Both halves in one new authenticated `route:true` panel, `src/views/equipment-results.js`
+(`EquipmentResultsPanel`), registered `id:'equipment-results'` (icon 📋, `perm:'analytics.store'`,
+`section:'operations'`, same section as the public form's own home) — standard 3-point wiring in
+`panel-registry.js`/`App.js`, plus the usual `panel-registry.test.js`/`shell-nav-snapshot.test.js`
+ratchet updates for the new nav entry.
+
+- **Link management**: a `ManageLinksModal` sub-component — create/list/copy/revoke survey links,
+  mirroring EOM dashboard's existing share-link UI pattern (table of Label/Created/Views/Last
+  Viewed/Status/Revoke). The CRUD backend (`createEquipmentSurveyLink`/`loadEquipmentSurveyLinks`/
+  `revokeEquipmentSurveyLink`) already existed in `lib/supabase.js` from an earlier phase with
+  **zero UI consumer** — this is the first one. The header toolbar also has a one-click "Copy
+  Survey Link"/"Create Survey Link" button using whichever link is currently active, so the
+  common case (one shared link for everyone) never needs opening the modal.
+- **Cross-store results rollup**: `buildEquipmentStoreSummary()` (new, `engine/equipment-survey.js`)
+  groups ALL stores' `equipment_survey_entries` rows by `loc` (via the new
+  `loadAllEquipmentEntriesDirect()`, no loc filter) and reduces each store to
+  `{itemCount, reviewedCount, lastSubmittedAt, lastSubmittedBy}` using the same
+  `latestEntriesByInstance()` current-state definition every other consumer (public form, edge
+  function, Layout Planner) already shares — "how many items does this store have" can't drift
+  between panels. `lastSubmittedAt`/`lastSubmittedBy` reflect the most recent row regardless of
+  action (so a removal still counts as recent activity), while `itemCount`/`reviewedCount` are
+  current-state-only.
+- **Multi-select scoping**: the panel's `LocationSelector` runs with `multi:true` — the
+  2026-11-02 multi-select rollout's first real "reporting and viewing" consumer, letting an
+  owner/supervisor check a custom set of stores (a patch, an ad-hoc list) rather than only
+  all-or-one-store.
+- Tests: `buildEquipmentStoreSummary` pure-logic tests added to `equipment-survey.test.js`
+  (grouping, any-row-order input, removal-still-counts-as-activity, numeric loc sort, malformed
+  row handling). `equipment-results.test.js` covers the one other pure export,
+  `equipmentSurveyUrl`. Per this project's established precedent for a Supabase-on-mount panel
+  (`equipment-layout.test.js`'s own header comment), the network-loading component itself is not
+  rendered in tests — the pure logic it depends on is, the same scope split every other panel of
+  this shape in the repo already uses.
+
+## Field-discovered manufacturer: Moffat combi oven (owner field photo, 2026-11-16)
+
+Owner spotted a Moffat-brand combi oven during an equipment walkthrough at store 44689 and sent a
+photo of its manufacturer QR-code label — not previously in `equipment_catalog`'s `combi_oven`
+type (only `Blodgett` and the two `Convotherm` generations existed). Added directly to live
+Supabase via the "type it in, flag for review" escape hatch this table's schema already supports
+(`supabase/schema-equipment-catalog.sql`'s own spec — a crew/owner-observed row is immediately
+selectable, `flagged=true` for later admin review, not blocked on an official reference doc).
+
+- Decoded all 3 QR codes on the label (`zbarimg`, after installing `libzbar0t64`/`zbar-tools` —
+  not pre-installed in this session's environment): `doc.moffat.com.au/mcdmanuals`,
+  `doc.moffat.com.au/productregistration`, `doc.moffat.com.au/servicerequest`. These confirm
+  Moffat genuinely sells to McDonald's (brand-level manual/registration/service links), but the
+  `mcdmanuals` link 301-redirects to an auth-gated Moffat-internal SharePoint folder
+  (`salesnz` tenant) — could not be read without a Moffat login, so no McDonald's-specific model
+  list was recoverable from it.
+- The label's printed code `2S1653` could **not** be confirmed as a model number — searched
+  Moffat's own AU product catalog (moffat.com.au's combi-steamer category: Turbofan EC40
+  manual/touch series, Convotherm `CMINIPRO10.10`/`CMAXX6.10`, Blue Seal Sapiens) and general web
+  search; nothing matches `2S1653`. It is stored as a `model_aliases` entry, not asserted as the
+  model, per this task's "measure, don't reason" standing rule — inventing a model name from an
+  unconfirmed code would be exactly the guess that rule forbids.
+- **Inserted row**: `type:'combi_oven', manufacturer:'Moffat', model:'Unknown model (asset/QR
+  label code 2S1653) — pending data-plate confirmation', flagged:true, source:'crew-added'`.
+  Real catalog id: `2e09972b-31ba-4d4e-ad0d-70b5af7730ef`.
+- **Still open**: the real model name/number lives on the unit's own data plate (a different
+  sticker, usually inside the door or on the back — not the QR label photographed), not
+  recoverable remotely. Next time someone is at store 44689, read that plate and update this row
+  (`model`/`model_aliases`) directly — a one-line `UPDATE equipment_catalog SET model = ...
+  WHERE id = '2e09972b-31ba-4d4e-ad0d-70b5af7730ef'`, not a new row.
+
+## 8 new equipment categories added (owner's field checklist, 2026-11-16)
+
+Owner's exact field request, from the same store 44689 walkthrough: *"Add the following equipment.
+Research and find models where possible: Ice machines, Refrigeration, Pie merchandiser, Fry
+dispenser, Hoods, Label Maker for dates and times, Multiplex, Walk in cooler and freezer - 2
+units"* (3 other list items — "Consider technology," "Q'ing Ovens," "FCB" — couldn't be resolved
+and were kicked back to the owner for clarification rather than guessed; "Consider taking a
+picture of the actual equipment to log also" needed no action — `photo_url`/AI extraction already
+exist and are already in live use, confirmed working on the Moffat entry above).
+
+**8 new catalog TYPES added** to `equipment-layout.js`'s `CATALOG_TYPE_GROUPS` (15 → 23, new
+"Refrigeration" and "Facilities" groups) so they're selectable on both the field survey form and
+the Layout Planner: `ice_machine`, `refrigeration` (reach-in, distinct from the two walk-in types
+below), `pie_merchandiser`, `fry_dispenser`, `walk_in_cooler`, `walk_in_freezer`, `exhaust_hood`,
+`label_maker`. `equipment-layout.test.js`'s type-count ratchet updated to 23 (was 15).
+
+**Critical difference from every prior equipment-catalog pass**: none of these 8 categories have
+an internal McDonald's reference PDF on file in `data/equipment-survey/Help Files/` (checked
+directly — that directory only covers Grills/Fryers/Toasters-Steamers/Combi Ovens/UHC/Prep
+Lines/Blended Ice/Beverage-McCafé/Shake-Sundae/Simplified Breakfast Staging Cabinet; nothing for
+ice machines, refrigeration, pie merchandisers, fry dispensers, hoods, or label makers specifically
+— the "Ice Machine" and "Equip Side Refrigeration" PM cards that DO exist are generic Ecolab/Kay
+cleaning-procedure cards with zero manufacturer/model info, confirmed by reading them directly with
+`pdftotext`). So unlike the original 15 types (and unlike `shake_sundae`'s Taylor C602, which
+already covers the owner's separately-listed "McFlurry Mixer" — no action needed there, it's
+already in), every row added here is **web-researched, not document-backed** — a materially lower
+confidence tier, and each row's `source`/`notes` say so explicitly rather than reading like a
+confirmed McDonald's spec:
+
+- **Genuinely confirmed as McDonald's-specific** (a real manual/document with "McDonald's" in its
+  own title, not just a generic industry product): `fry_dispenser` → Frymaster SinBaD (Single
+  Basket Dispenser) and Automated Equipment DF22; `pie_merchandiser` → Prince Castle 524 Series
+  (factory-preset 165°F for baked pies). All 3 confirmed via real manuals found on manuals.online/
+  hagarparts.com/manualmachine.com, not claimed from memory.
+- **Brand relationship confirmed, specific model not**: `refrigeration` → Beverage-Air, per an Ali
+  Group press page stating a 30-year McDonald's USA supplier relationship (150,000+ units) — dated
+  2013, so flagged as possibly outdated, and no specific reach-in model number was found anywhere.
+- **Real industry brand, McDonald's tie NOT confirmed**: `pie_merchandiser` → Carter-Hoffmann
+  MDPM2/MDPM4 (the dominant general-QSR pie merchandiser, included as the likelier alternative but
+  explicitly NOT asserted as McDonald's-specific the way Prince Castle 524 is); `abs` → Multiplex
+  (owner's own list item, interpreted as the beverage-dispensing-tower manufacturer — a real,
+  well-known brand in that exact product category — added as a candidate under the EXISTING `abs`
+  type rather than a new one, since Multiplex towers and the already-seeded Cornelius/Marmon ABS
+  units are the same functional category; no source ties Multiplex to McDonald's specifically).
+- **No credible brand found at all** (`ice_machine`, `walk_in_cooler`, `walk_in_freezer`,
+  `exhaust_hood`, `label_maker`): each searched directly (Manitowoc/Scotsman/Hoshizaki for ice;
+  Kolpak/Master-Bilt/Bally for walk-ins; CaptiveAire/Gaylord for hoods; DayMark/Monarch for label
+  makers) — every search came back with only generic industry descriptions, nothing McDonald's-
+  specific. Per this task's own standing "measure, don't reason" rule, **no manufacturer name was
+  invented** — each got a type-only placeholder row (`manufacturer:'(Unconfirmed)',
+  model:'Pending field identification...'`) so the TYPE is selectable today, with the real
+  brand/model to be filled in the next time someone reads the actual unit's nameplate (same
+  one-line `UPDATE` pattern as the Moffat entry above, not a new row).
+- All 11 new rows: `flagged:true`, `source:'web-researched'` (a new, more honest third value
+  alongside the existing `official`/`crew-added` — nothing in the app's code branches on `source`'s
+  value, confirmed by grep, so this doesn't touch any UI logic; it exists purely so a future reader
+  of this table doesn't mistake desk research for either a real McDonald's document or a real
+  person standing at the unit).
+- **Not added, kicked back to the owner for clarification rather than guessed:**
+  - *"Consider technology"* — too vague to turn into a concrete equipment type (could mean POS,
+    KDS screens, kiosks, drive-thru timer boards, HME headsets...).
+  - *"Q'ing Ovens"* — searched directly, found nothing. Could be a typo, a store-specific nickname,
+    or a term this session's training data simply doesn't cover.
+  - *"FCB"* — searched directly (including as "Front Counter Beverage," by analogy to the real
+    `fc_` column prefix already used in `qsr_daily_activity`), found nothing conclusive.
+
+## Follow-up: owner clarified all 3 ambiguous items (same day, 2026-11-16)
+
+The owner answered all three kicked-back items directly, closing most of the loop:
+
+- **Q'ing Oven**: *"It's in there. Look in the PQRG - Amana is the brand. Usually 2-3 models."*
+  Checked `scripts/data/equipment-catalog-settings-seed-pqrg.json` (this app's own PQRG
+  transcription) directly for "Amana" — zero hits. So the owner's real physical/PDF PQRG covers
+  more than what's been transcribed into this app so far; that transcription gap is real but
+  separate from today's ask. Added a new `qing_oven` type with 2 candidate Amana product lines
+  (web-researched, since the owner confirmed the BRAND but not the exact model): `XpressChef 3i
+  (MRX1/MRX2)` and `Menumaster (HDC/MDC rapid-cook series)` — both real Amana commercial
+  rapid-cook/combi lines described in industry listings as popular with "top restaurant chains."
+  `source:'crew-added'` (the brand itself is owner-stated, not a guess), `flagged:true` pending
+  his confirmation of which model(s) this store actually has.
+- **FCB**: *"Frozen Carbonated Beverage machine. I believe the brand is Viper"* (his own
+  qualifier — not stated as certain). Independently corroborated: "Cornelius Viper" (and "Viper
+  2") is a real, documented FCB/ICEE-style dispenser product line (restaurantsupply.com,
+  kingsurplus.com) — Cornelius is the SAME parent manufacturer already seeded under this
+  catalog's `abs` type (ABS 1.0/2.0), just a different product line. Added a new `fcb` type,
+  `Cornelius / Viper`, `source:'crew-added'`, `flagged:true`.
+- **"Consider technology"**: owner gave a partial answer now, more to come later — *"Printers
+  are Epson or Bixolon. Registers are Par, Panasonic or NCR... I will send you a more detailed
+  list when I can find my list."* Added two new types, `printer` (Epson, Bixolon) and `register`
+  (PAR, Panasonic, NCR) — brand-only rows (`model:'Model not yet specified (owner to confirm)'`),
+  `source:'crew-added'`, `flagged:true`, explicitly NOT final since the owner said a fuller list
+  is coming. **Still open — do not consider "consider technology" closed**: watch for the
+  owner's fuller technology list and update/expand these two types (and possibly add others —
+  KDS, kiosks, HME headsets were guessed as candidates earlier but never confirmed) once it
+  arrives.
+- 4 new types added to `equipment-layout.js`'s `CATALOG_TYPE_GROUPS` (23 → 27, new "Technology"
+  group for printer/register, `qing_oven` added to "Cooking," `fcb` added to "Beverage"):
+  `qing_oven`, `fcb`, `printer`, `register`. `equipment-layout.test.js`'s type-count ratchet
+  updated to 27. 8 new `equipment_catalog` rows inserted live via the same direct-insert pattern
+  as the original 11 (checked for existing-row collisions first).

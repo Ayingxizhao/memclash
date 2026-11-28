@@ -1,0 +1,3245 @@
+{
+ "rules": [
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R188",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start issue work"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:assign issue to self"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that both actions concern the same selected issue."
+   },
+   "new_names": [
+    "other:start issue work",
+    "other:assign issue to self"
+   ],
+   "rule": "Assign the selected issue to yourself before starting work on it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R189",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement issue"
+      },
+      "needs": {
+       "after": "worktree_add"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the worktree and implementation concern the same issue or that the worktree was created with a new branch."
+   },
+   "new_names": [
+    "other:implement issue"
+   ],
+   "rule": "Create a worktree branch for the issue before implementing it."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R191",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:qa acceptance criteria verification",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify the QA agent or correlate the verification with the particular PR."
+   },
+   "new_names": [
+    "other:qa acceptance criteria verification"
+   ],
+   "rule": "Have the QA agent verify all acceptance criteria are met before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R192",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:code quality review",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify the review agent or correlate its review with the particular PR."
+   },
+   "new_names": [
+    "other:code quality review"
+   ],
+   "rule": "Have the review agent check code quality before a PR is opened."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R243",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:review screen"
+      },
+      "needs": {
+       "after": "read"
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:seed screen"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify an unnamed screen-behavior document or verify that the read document and action concern the same screen."
+   },
+   "new_names": [
+    "other:review screen",
+    "other:seed screen"
+   ],
+   "rule": "Read the screen behavior docs for a screen before reviewing or seeding that screen."
+  },
+  {
+   "folder": "Robert-Freire__langTeachSaaS",
+   "id": "R66",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "edit"
+      },
+      "needs": {
+       "after": "read"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the earlier read and current edit to target the same otherwise-unnamed file."
+   },
+   "new_names": [],
+   "rule": "Always read a file before editing it, regardless of what memory says about it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R124",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:cross-tool invocation"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "AGENTS.md"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:cross-tool invocation"
+   ],
+   "rule": "Read AGENTS.md before any cross-tool invocation."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R126",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:spy systematic options refinement"
+      }
+     }
+    ],
+    "left_out": "The stated reason that the area is settled is not a formal condition."
+   },
+   "new_names": [
+    "other:spy systematic options refinement"
+   ],
+   "rule": "Do not pursue further SPY systematic options refinement, since that area is considered settled."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R148",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:re-verify korea trip savings events"
+      }
+     }
+    ],
+    "left_out": "The prior confirmation in PocketSmith is explanatory context rather than an expressible action field."
+   },
+   "new_names": [
+    "other:re-verify korea trip savings events"
+   ],
+   "rule": "Do not re-verify whether the Korea trip savings events exist in PocketSmith; they have already been confirmed live."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R250",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:activate travel domain"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify Scott separately from the user."
+   },
+   "new_names": [
+    "other:activate travel domain"
+   ],
+   "rule": "Do not automatically activate the travel domain; wait until Scott asks to activate it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R299",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rs_vol sleeve",
+       "running": [
+        "other:spy_top_5 strategy"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:rs_vol sleeve",
+    "other:spy_top_5 strategy"
+   ],
+   "rule": "Do not run a parallel rs_vol sleeve alongside the SPY_top_5 strategy."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R3",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not run `git push` unless the user explicitly asks for it."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R64",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ]
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify Scott separately from the user or cover repository changes that are neither basic file actions nor named git actions."
+   },
+   "new_names": [],
+   "rule": "Do not make repository changes (such as editing cli.py or writing decision records and studies) without Scott's explicit go-ahead."
+  },
+  {
+   "folder": "Sc07713__PLAIOS",
+   "id": "R65",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": "D:\\PLAIOS\\bundle.md"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify Scott separately from the user."
+   },
+   "new_names": [],
+   "rule": "Delete the temporary file D:\\PLAIOS\\bundle.md only after Scott gives the go-ahead."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R172",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:connect higgsfield"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify Bryan separately from the user."
+   },
+   "new_names": [
+    "other:connect higgsfield"
+   ],
+   "rule": "Never connect Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R173",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:log in to higgsfield"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify Bryan separately from the user."
+   },
+   "new_names": [
+    "other:log in to higgsfield"
+   ],
+   "rule": "Never log in to Higgsfield without Bryan's explicit yes."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R194",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:upload films"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:upload films"
+   ],
+   "rule": "Never upload films."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R22",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": "*.xlsx"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:excel formatting feasibility test",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the single test covers every formatting technique used by the particular design."
+   },
+   "new_names": [
+    "other:excel formatting feasibility test"
+   ],
+   "rule": "Before building an Excel file, run one feasibility test that covers every formatting trick the design relies on."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R235",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:submit bahasa inggris work"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:ask for grading rubric"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot correlate the requested rubric with the particular project or assignment."
+   },
+   "new_names": [
+    "other:submit bahasa inggris work",
+    "other:ask for grading rubric"
+   ],
+   "rule": "Ask for the grading rubric before submitting any Bahasa Inggris project or assignment."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R296",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "move",
+       "path": "C:\\Bryan De Great\\GP-100\\",
+       "kind": "dir"
+      }
+     }
+    ],
+    "left_out": "The shortcut dependency is explanatory context rather than a formal condition."
+   },
+   "new_names": [],
+   "rule": "Do not move the GP-100 editor installed at C:\\Bryan De Great\\GP-100\\, because its shortcuts point there."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R340",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bulk-post uploads"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot count scheduled uploads, so the positive one-at-a-time formulation is represented only by the bulk-post prohibition."
+   },
+   "new_names": [
+    "other:bulk-post uploads"
+   ],
+   "rule": "Schedule uploads one at a time; never bulk-post."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R361",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:render film",
+       "running": [
+        "other:render film"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:render film"
+   ],
+   "rule": "Render films one at a time, not in parallel."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R372",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rebuild kurva s files"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:rebuild kurva s files"
+   ],
+   "rule": "Do not rebuild the Kurva S files."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R407",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:export rebuilt report pdf"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:save report document in word"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the PDF to be exported from the same docx produced by the Word SaveAs step."
+   },
+   "new_names": [
+    "other:export rebuilt report pdf",
+    "other:save report document in word"
+   ],
+   "rule": "When rebuilding the PDF of this report, first save the document in Word (SaveAs), then export the PDF from that Word-saved docx."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R479",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:render film",
+       "running": [
+        "other:render film"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:render film"
+   ],
+   "rule": "Render films one at a time."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R497",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:run buat_seragam.py"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:archive existing same-named buat_seragam outputs"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:run buat_seragam.py",
+    "other:archive existing same-named buat_seragam outputs"
+   ],
+   "rule": "Before running `buat_seragam.py`, move existing output files with the same names to `_Arsip\\`, because the script overwrites them."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R580",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "build"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:archive existing same-named build outputs"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:archive existing same-named build outputs"
+   ],
+   "rule": "Before running the build scripts, move existing same-named output files to `_Arsip\\` so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R586",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:run sticker build script"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:archive existing sticker versions"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:run sticker build script",
+    "other:archive existing sticker versions"
+   ],
+   "rule": "Before running the sticker build script, move the existing sticker versions to the `_Arsip\\` folder so they are not overwritten."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R6",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:unggah-sekitar",
+       "running": [
+        "other:film session"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:unggah-sekitar",
+    "other:film session"
+   ],
+   "rule": "Do not run `unggah-sekitar` during a film session."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R612",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:change windows firewall rules"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot assign the supplied administrator PowerShell commands specifically to the user."
+   },
+   "new_names": [
+    "other:change windows firewall rules"
+   ],
+   "rule": "Do not change Windows Firewall rules yourself; leave the admin PowerShell firewall commands for the user to run."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R633",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "move",
+       "path": "GP-100/",
+       "kind": "dir"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never move the GP-100\\ folder, which holds the installed GP-100 editor app."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R653",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:schedule tiktok post"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:settle every tiktok post detail"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:schedule tiktok post",
+    "other:settle every tiktok post detail"
+   ],
+   "rule": "Settle every TikTok post detail before pressing Schedule, because scheduled posts cannot be edited."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R7",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:open social platform to post or schedule film"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:open social platform to post or schedule film"
+   ],
+   "rule": "Do not open YouTube, TikTok, Instagram, Facebook, or Meta Business Suite to post or schedule a film."
+  },
+  {
+   "folder": "Slicon123__JARVIS",
+   "id": "R8",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:pipeline_update upload stage",
+       "running": [
+        "other:film session"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:pipeline_update upload stage",
+    "other:film session"
+   ],
+   "rule": "Do not call `pipeline_update` with stage `upload` during a film session."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R120",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:delete server entity 01"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:identify server entity 01 with get clients"
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start session"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:delete server entity 01"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:identify server entity 01 with get clients",
+    "other:delete server entity 01",
+    "other:start session"
+   ],
+   "rule": "Before starting a session, identify the registered server-side entity `01` (listed via `GET /clients`) and delete it using `proximus_delete()`."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R135",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement base 15 ssh sftp channel"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:implement base 15 ssh sftp channel"
+   ],
+   "rule": "Do not implement the :base+15 SSH+SFTP channel (libssh, curve25519, ed25519) in the Switch port."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R137",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:reverse engineer tier5-b1 capabilities advertisement"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:reverse engineer tier5-b1 capabilities advertisement"
+   ],
+   "rule": "Do not pursue further reverse-engineering follow-up on the TIER5-B1 Capabilities advertisement axis; it is closed."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R145",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:search for comchan port"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:search for comchan port"
+   ],
+   "rule": "Do not search for a port for ComChan, since it has no socket."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R166",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:migrate webrtc stack to libdatachannel"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:migrate webrtc stack to libdatachannel"
+   ],
+   "rule": "Do not migrate the WebRTC stack to libdatachannel to work around the Switch freeze bug."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R20",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:debug console"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:run shadow native client against same vm"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:debug console",
+    "other:run shadow native client against same vm"
+   ],
+   "rule": "Before running any debugging campaign on the console, run `SHADOW_NATIVE=1 ./shadow-client` on Linux against the same VM to try to reproduce the defect."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R214",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:copy libnxbox"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:copy libnxbox"
+   ],
+   "rule": "Do not copy libnxbox."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R252",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:push switch build"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "restart"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:push switch build"
+   ],
+   "rule": "Push the Switch build only after the machine has been rebooted."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R261",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement tier 9 streaming profile trigger"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:implement tier 9 streaming profile trigger"
+   ],
+   "rule": "Do not implement a new trigger for TIER 9 to expose the streaming-profile speed/reliability preset."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R27",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement sack buffer and retransmit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "test"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify the earlier test specifically as duplicate-send option 3 or require that its result confirms the packet-loss hypothesis."
+   },
+   "new_names": [
+    "other:implement sack buffer and retransmit"
+   ],
+   "rule": "Run the duplicate-send test (option 3) to confirm the packet-loss hypothesis before investing in the SACK-buffer-and-retransmit implementation (option 1)."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R302",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:work on shadow port"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:validate shadow port environment"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot separately verify that environment validation included the toolchain, a hello-world build, and nxlink checks."
+   },
+   "new_names": [
+    "other:work on shadow port",
+    "other:validate shadow port environment"
+   ],
+   "rule": "Before working on the Shadow port, always first validate the environment by checking the toolchain, a hello-world build, and nxlink."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R344",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start spice video stream"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:confirm streamer_up true from status"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:start spice video stream",
+    "other:confirm streamer_up true from status"
+   ],
+   "rule": "Start the video stream (SPICE port 6000) only after /status reports streamer_up:true."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R345",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:pivot switch to ngtcp2 quic"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:port quic stack to switch"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:pivot switch to ngtcp2 quic",
+    "other:port quic stack to switch"
+   ],
+   "rule": "Do not pivot to ngtcp2/QUIC on the Switch; do not port a QUIC stack there."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R361",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:implement quic support for switch"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:implement quic support for switch"
+   ],
+   "rule": "For the Switch port, do not implement QUIC support."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R383",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:re-pin decoder"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:inspect binary links"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the particular nm/grep command or ffversion.h check."
+   },
+   "new_names": [
+    "other:re-pin decoder",
+    "other:inspect binary links"
+   ],
+   "rule": "Before re-pinning the decoder, read what the built binary links (e.g., run `nm halyard.elf | grep -c nvtegra` or check `ffversion.h`)."
+  },
+  {
+   "folder": "Wasabules__Halyard",
+   "id": "R414",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:push shadow client to switch"
+      },
+      "needs": {
+       "after": "delete",
+       "after_path": "shadow-client.nro"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require gio remove specifically or identify the Switch's existing copy separately from other files with this name."
+   },
+   "new_names": [
+    "other:push shadow client to switch"
+   ],
+   "rule": "Before pushing a new shadow-client.nro to the Switch, remove the existing file with gio remove."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R107",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:scrape ean-search public site"
+      }
+     }
+    ],
+    "left_out": "The reasons concerning terms and bot protection are not action fields."
+   },
+   "new_names": [
+    "other:scrape ean-search public site"
+   ],
+   "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R14",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:work around cex cloudflare challenge"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:work around cex cloudflare challenge"
+   ],
+   "rule": "Never work around a Cloudflare challenge from CeX."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R18",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:work around cex search challenge"
+      }
+     }
+    ],
+    "left_out": "The /v3/boxes?q= endpoint detail is represented only by the task name."
+   },
+   "new_names": [
+    "other:work around cex search challenge"
+   ],
+   "rule": "Never work around the Cloudflare challenge blocking CeX search (/v3/boxes?q=)."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R203",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "delete"
+       ],
+       "path": "docs/images/home.jpg"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish blurring or replacement from other modifications to the image."
+   },
+   "new_names": [],
+   "rule": "Do not blur or replace the README home page screenshot (docs/images/home.jpg) on your own."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R233",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:probe telegram bot api"
+      },
+      "needs": {
+       "has_secret": false
+      }
+     }
+    ],
+    "left_out": "The vocabulary records absence of real secrets but cannot positively identify a supplied token as made-up."
+   },
+   "new_names": [
+    "other:probe telegram bot api"
+   ],
+   "rule": "When probing the Telegram Bot API, use only a made-up (bogus) token, never real bot credentials."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R56",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:resume cover-recognition spike"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "README"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot identify which README belongs to the spike or require starting from its \"Before building it\" section specifically."
+   },
+   "new_names": [
+    "other:resume cover-recognition spike"
+   ],
+   "rule": "When resuming the cover-recognition spike, start from the \"Before building it\" list in its README."
+  },
+  {
+   "folder": "botchris__game-vault",
+   "id": "R61",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:accept final game match"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:accept final game match"
+   ],
+   "rule": "Have the user confirm the final game match before accepting it."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R1",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "branch_create"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:create github issue"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot express that the branch is created from that same issue."
+   },
+   "new_names": [
+    "other:create github issue"
+   ],
+   "rule": "Before creating any branch, open an issue for the work first, then create the branch from that issue."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R32",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "branch": "Development"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Always target the Development branch when opening a GitHub PR, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R35",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:close github issue"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The confirmation field cannot distinguish general confirmation from explicitly saying the user is happy with the issue."
+   },
+   "new_names": [
+    "other:close github issue"
+   ],
+   "rule": "Never close an issue until the user explicitly says they are happy with it."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R36",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:close github issue"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the gh issue close invocation specifically."
+   },
+   "new_names": [
+    "other:close github issue"
+   ],
+   "rule": "Only run gh issue close after the user has confirmed."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R42",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:close github issue"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish explicit sign-off from other user confirmation."
+   },
+   "new_names": [
+    "other:close github issue"
+   ],
+   "rule": "Never close a GitHub issue without the user's explicit sign-off."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R44",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:close github issue"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require the gh issue close invocation specifically or distinguish satisfaction from other confirmation."
+   },
+   "new_names": [
+    "other:close github issue"
+   ],
+   "rule": "Run `gh issue close` only after the user confirms satisfaction with the work."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R54",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "branch": "Development"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "The testing purpose cannot be checked."
+   },
+   "new_names": [],
+   "rule": "When opening a pull request, always target the Development branch for testing, never main."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R55",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "branch": "Development"
+      }
+     }
+    ],
+    "left_out": "The vocabulary can require the Development base but cannot require that it be supplied specifically through the literal --base Development option."
+   },
+   "new_names": [],
+   "rule": "On every `gh pr create` invocation, always pass `--base Development`."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R56",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": "The vocabulary represents the forbidden base but not the literal --base main option."
+   },
+   "new_names": [],
+   "rule": "Never use `--base main` when creating a pull request."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R57",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_create"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The instruction to ask when in doubt is not an expressible action requirement."
+   },
+   "new_names": [],
+   "rule": "Do not open a pull request unless the user explicitly says to; when in doubt, ask the user first."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R77",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bump major version",
+       "user_asked": false
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:bump major version"
+   ],
+   "rule": "Never bump the major version on your own initiative under any circumstances."
+  },
+  {
+   "folder": "dbwg2009__Noted",
+   "id": "R8",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "branch_create",
+       "branch": "infra/**"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "branch_create",
+       "branch": "docs/**"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "branch_create",
+       "branch": "chore/**"
+      }
+     }
+    ],
+    "left_out": "The rule does not state patterns for phase-work and bug-fix branches, so the broader restriction against every other branch type cannot be encoded."
+   },
+   "new_names": [],
+   "rule": "Do not create branch types other than phase work and bug fix branches (no `infra/`, `docs/`, `chore/` prefixes)."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R142",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rebuild language images"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:rebuild base image"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:rebuild language images",
+    "other:rebuild base image"
+   ],
+   "rule": "When rebuilding images, rebuild the base image before the language images."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R146",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:rebuild images",
+       "after": "edit",
+       "after_path": "container.ts"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:rebuild images"
+   ],
+   "rule": "Do not rebuild the images after editing container.ts."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R163",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "push"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Only commit or push changes when explicitly asked to do so."
+  },
+  {
+   "folder": "evanderkoogh__instrumentation-skill-test-harness",
+   "id": "R2",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "test"
+      },
+      "needs": {
+       "suite": "all"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "For a test run, run all applications (`all`) rather than a single app."
+  },
+  {
+   "folder": "ferazfhansurie__ai-memory-faeez",
+   "id": "R132",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never commit META_APP_TOKEN, MB_KEY, or other secrets to git."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R1",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ],
+       "path": "case-studies/aeneas/"
+      }
+     }
+    ],
+    "left_out": "User ownership cannot be represented."
+   },
+   "new_names": [],
+   "rule": "Treat the case-studies/aeneas/ folder as read-only and user-owned."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R14",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ],
+       "path": "case-studies/aeneas/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Treat case-studies/aeneas/ as read-only and do not modify it."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R2",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete",
+        "stage",
+        "commit"
+       ],
+       "path": "case-studies/aeneas/"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "format",
+       "path": "case-studies/aeneas/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not edit, add, delete, rename, format, generate files in, stage, or commit files in the case-studies/aeneas/ folder."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R26",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": "docs/features.md",
+       "after": "delete",
+       "after_path": "docs/features.md"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never recreate `docs/features.md`."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R27",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": "docs/wrinkles.md",
+       "after": "delete",
+       "after_path": "docs/wrinkles.md"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never recreate `docs/wrinkles.md`."
+  },
+  {
+   "folder": "ilyasergey__vermilion",
+   "id": "R77",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": "reports/",
+       "kind": "dir",
+       "after": "delete",
+       "after_path": "reports/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never recreate a root-level reports/ directory."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R155",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:run python checks",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot inspect whether the successful check included jscpd and vulture."
+   },
+   "new_names": [
+    "other:run python checks"
+   ],
+   "rule": "Before committing, ensure `./run_python_checks` passes, including jscpd and vulture."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R33",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:release podiumd minikube cluster lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bypass podiumd minikube cluster lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:release kees00 podiumd tests lock"
+      }
+     },
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:bypass kees00 podiumd tests lock"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:release podiumd minikube cluster lock",
+    "other:bypass podiumd minikube cluster lock",
+    "other:release kees00 podiumd tests lock",
+    "other:bypass kees00 podiumd tests lock"
+   ],
+   "rule": "Do not release or bypass the podiumd-minikube cluster-lock (.minikube-lock) or the kees00 lease podiumd-tests-lock."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R65",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:run python checks"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the check be immediately before the commit or after the last edit."
+   },
+   "new_names": [
+    "other:run python checks"
+   ],
+   "rule": "Run ./run_python_checks right before each commit, after the last edit."
+  },
+  {
+   "folder": "infonl__podiumd-minikube",
+   "id": "R71",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:git diff cached"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:git diff cached"
+   ],
+   "rule": "Check git diff --cached before committing."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R155",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_merge"
+      }
+     }
+    ],
+    "left_out": "The statement that the user performs every merge is explanatory and cannot be represented."
+   },
+   "new_names": [],
+   "rule": "Never merge a PR; the user merges every PR himself."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R156",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_merge"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not run `gh pr merge`."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R159",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "branch_delete",
+       "after": [
+        "merge",
+        "push"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not delete the branch after merging or pushing."
+  },
+  {
+   "folder": "jemcik__the-radio-bench",
+   "id": "R416",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:apply translations"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish a general go-ahead from approval containing specific overrides."
+   },
+   "new_names": [
+    "other:apply translations"
+   ],
+   "rule": "Apply translations only after the user approves them, either with a go-ahead or with specific overrides."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R136",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:run image batch"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:a b test image prompts"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:run image batch",
+    "other:a b test image prompts"
+   ],
+   "rule": "A/B test image prompts before running a batch."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R137",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:run image batch"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:a b test image models"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:run image batch",
+    "other:a b test image models"
+   ],
+   "rule": "A/B test image models before running a batch."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R148",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:concept work"
+      },
+      "needs": {
+       "after": "read",
+       "after_path": "bible/taste.md"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:concept work"
+   ],
+   "rule": "Read bible/taste.md before any concept work."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R31",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:fal.ai calls"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish King's instruction to resume fal work from general user confirmation."
+   },
+   "new_names": [
+    "other:fal.ai calls"
+   ],
+   "rule": "Do not make fal.ai calls until King says to resume fal work."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R36",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:full video run"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish King's go-ahead from general user confirmation."
+   },
+   "new_names": [
+    "other:full video run"
+   ],
+   "rule": "Do not start a full video run until King gives his go-ahead."
+  },
+  {
+   "folder": "kingh0730__interregnum",
+   "id": "R41",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:image generation"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:estimate image generation cost"
+      }
+     }
+    ],
+    "left_out": "The requirement to perform the estimate specifically according to CLAUDE.md cannot be checked."
+   },
+   "new_names": [
+    "other:image generation",
+    "other:estimate image generation cost"
+   ],
+   "rule": "Estimate image generation cost before running it, per CLAUDE.md."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R38",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not create git commits without first asking the user for permission."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R58",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:io subsystem translation work"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:check io translation status file"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:io subsystem translation work",
+    "other:check io translation status file"
+   ],
+   "rule": "Before starting any IO subsystem translation work, check the IO translation status file."
+  },
+  {
+   "folder": "meanie-py__vibeos",
+   "id": "R81",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:start qemu"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:listen with unix socket serial client"
+      }
+     }
+    ],
+    "left_out": "The server-socket configuration details cannot be checked."
+   },
+   "new_names": [
+    "other:start qemu",
+    "other:listen with unix socket serial client"
+   ],
+   "rule": "When using the Unix socket serial client, listen on the socket before starting QEMU (server-socket pattern)."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R110",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl delete application in argocd"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:kubectl delete application in argocd"
+   ],
+   "rule": "Before running `kubectl delete application <name> -n argocd`, always confirm with the user first."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R178",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary treats the Thread network key and PSKc through the general has_secret field and cannot distinguish those particular secret types."
+   },
+   "new_names": [],
+   "rule": "Never commit the Thread network key or PSKc to the repository."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R183",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "edit",
+       "path": "/data/settings.json",
+       "running": [
+        "other:music assistant"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:music assistant"
+   ],
+   "rule": "Never edit /data/settings.json in Music Assistant while MA is running."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R20",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl apply"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl patch"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl rollout restart"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:kubectl exec"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:kubectl apply",
+    "other:kubectl delete",
+    "other:kubectl patch",
+    "other:kubectl rollout restart",
+    "other:kubectl exec"
+   ],
+   "rule": "Ask the user for confirmation before running kubectl apply, delete, patch, rollout restart, or exec."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R22",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:talosctl apply config"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:talosctl upgrade"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:talosctl reset"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:talosctl reboot"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:talosctl shutdown"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:talosctl apply config",
+    "other:talosctl upgrade",
+    "other:talosctl reset",
+    "other:talosctl reboot",
+    "other:talosctl shutdown"
+   ],
+   "rule": "Ask the user for confirmation before running talosctl apply-config, upgrade, reset, reboot, or shutdown."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R26",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app sync"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app delete"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:argocd app set"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:argocd app sync",
+    "other:argocd app delete",
+    "other:argocd app set"
+   ],
+   "rule": "Ask the user for confirmation before running argocd app sync, delete, or set."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R54",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot check that the consent is fresh."
+   },
+   "new_names": [],
+   "rule": "Never merge a PR without fresh consent from the user."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R7",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "create",
+       "path": "templates/httproute.yaml"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:helm show values for gateway support"
+      }
+     }
+    ],
+    "left_out": "The vocabulary can require the check to occur but cannot inspect whether built-in gateway or HTTPRoute support was found."
+   },
+   "new_names": [
+    "other:helm show values for gateway support"
+   ],
+   "rule": "Before creating a templates/httproute.yaml file, run helm show values on the chart to check for built-in gateway/HTTPRoute support."
+  },
+  {
+   "folder": "mmalyska__home-ops",
+   "id": "R80",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "create",
+       "path": ".plans/superpowers/"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Do not recreate `.plans/superpowers/`."
+  },
+  {
+   "folder": "mosqueeto__me",
+   "id": "R12",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "edit",
+       "after_path": "main.c"
+      }
+     }
+    ],
+    "left_out": "The vocabulary can require an earlier edit to main.c but cannot verify that the edit updated VERSION_NAME."
+   },
+   "new_names": [],
+   "rule": "Update VERSION_NAME in main.c as part of every commit."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R10",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Stop and ask the user before merging PRs."
+  },
+  {
+   "folder": "mrwpress__assent-site",
+   "id": "R16",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "pr_merge"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records that the user asked for the merge but cannot separately encode the word explicitly."
+   },
+   "new_names": [],
+   "rule": "Never merge a pull request by any method, including `gh pr merge`, unless the user explicitly tells you to merge."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R22",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:compact windows vhdx"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     },
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:compact windows vhdx"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:wsl shutdown"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish the owner's approval from general user confirmation."
+   },
+   "new_names": [
+    "other:compact windows vhdx",
+    "other:wsl shutdown"
+   ],
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only with the owner's OK."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R23",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "run",
+       "task": "other:compact windows vhdx",
+       "running": [
+        "other:hook"
+       ]
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:compact windows vhdx",
+    "other:hook"
+   ],
+   "rule": "Compact the Windows vhdx (which requires `wsl --shutdown`) only when no hook is running."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R32",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_merge"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never merge the PR yourself; leave review and merging to the user."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R34",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "pr_create",
+       "after": "run",
+       "after_task": "other:ask user for pr permission"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:ask user for pr permission"
+   ],
+   "rule": "Never ask the user for permission before opening the PR."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R5",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "branch_delete"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:verify branch tip equals merged pr head",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records the verification as a separate earlier task but cannot inspect the compared commit identities."
+   },
+   "new_names": [
+    "other:verify branch tip equals merged pr head"
+   ],
+   "rule": "Run `git branch -D` only after verifying that the branch tip equals the merged PR head, and perform that check as its own separate step."
+  },
+  {
+   "folder": "namnhatpham1995__hackathon-stuttgart-2026",
+   "id": "R87",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "branch": "main"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Before running any `git commit`, verify the current branch is not `main`."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R105",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:production corpus load"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot distinguish owner approval from general user confirmation."
+   },
+   "new_names": [
+    "other:production corpus load"
+   ],
+   "rule": "Do not run production corpus loads without explicit owner approval."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R109",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:thaqalayn parser fixes"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:make validate strict mode",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:thaqalayn parser fixes",
+    "other:make validate strict mode"
+   ],
+   "rule": "Gate thaqalayn parser fixes on passing `make validate` in strict mode."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R130",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "never",
+      "where": {
+       "cmd": "commit",
+       "has_secret": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Never commit Neo4j secrets or passwords to the repository."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R134",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:apply loads to production"
+      },
+      "needs": {
+       "user_confirmed": true
+      }
+     }
+    ],
+    "left_out": "The vocabulary records confirmation but cannot distinguish the owner from another user."
+   },
+   "new_names": [
+    "other:apply loads to production"
+   ],
+   "rule": "Apply loads to production only with explicit owner sign-off."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R145",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:cut over to production"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:cross corpus deduplication audit on shia content"
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:cut over to production",
+    "other:cross corpus deduplication audit on shia content"
+   ],
+   "rule": "Run a cross-corpus deduplication audit on the Shia content before cutting over to production."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R22",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:use filer ciks in production"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:verify filer ciks against live edgar"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot associate the verification with the exact CIK values in sec/filer_config.go."
+   },
+   "new_names": [
+    "other:use filer ciks in production",
+    "other:verify filer ciks against live edgar"
+   ],
+   "rule": "Verify the filer CIKs in sec/filer_config.go against live EDGAR before using them in production."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R4",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "run",
+       "task": "other:rebuild omo core"
+      },
+      "needs": {
+       "after": "edit",
+       "after_path": "*.go"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot establish that the edited Go source belongs to omo-core."
+   },
+   "new_names": [
+    "other:rebuild omo core"
+   ],
+   "rule": "Only rebuild omo-core when Go source code changes."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R14",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": [
+        "create",
+        "edit",
+        "move",
+        "delete"
+       ]
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:gh issue list crypto trader agent"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the issue-list result was checked for an issue corresponding to the particular change."
+   },
+   "new_names": [
+    "other:gh issue list crypto trader agent"
+   ],
+   "rule": "Before making any change, check whether a GitHub issue already exists for it by running `gh issue list --repo vipulbms/crypto-trader-agent`."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R21",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "test",
+       "after_ok": true,
+       "tests_passed": true
+      }
+     }
+    ],
+    "left_out": "The earlier-step vocabulary cannot record that the prior test run used the full suite."
+   },
+   "new_names": [],
+   "rule": "Run the full test suite before committing, and ensure all tests pass."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R5",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit",
+       "user_asked": false
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:prepare commit message for review"
+      }
+     }
+    ],
+    "left_out": "The user_asked field cannot distinguish a direct \"commit\" request or /commit invocation from other ways the user might request a commit."
+   },
+   "new_names": [
+    "other:prepare commit message for review"
+   ],
+   "rule": "Before executing a git commit, prepare the commit message for review, unless the user says \"commit\" directly or invokes /commit."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R7",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "commit"
+      },
+      "needs": {
+       "user_asked": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [],
+   "rule": "Only execute a commit when the user asks for it."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R82",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "worktree_remove"
+      },
+      "needs": {
+       "after": "merge"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot verify that the earlier merge was upstream or that it contained the particular worktree's work."
+   },
+   "new_names": [],
+   "rule": "Retain a worktree until its work merges upstream."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R86",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "delete",
+       "path": "vendor/",
+       "kind": "dir"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:confirm vendor work in committed 0002 patch",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:confirm vendor work in committed 0002 patch"
+   ],
+   "rule": "Delete a worktree's vendor/ directory only once its work is confirmed captured in the committed 0002 patch."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R89",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "worktree_remove"
+      },
+      "needs": {
+       "after": [
+        "merge",
+        "cherry_pick"
+       ],
+       "after_branch": "main"
+      }
+     }
+    ],
+    "left_out": "The vocabulary cannot require that the earlier merge or cherry-pick contains that worktree's durable scripts and verdict documents."
+   },
+   "new_names": [],
+   "rule": "Before removing a worktree, merge or cherry-pick its durable scripts and verdict docs to main."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R90",
+   "translation": {
+    "status": "ok",
+    "clauses": [
+     {
+      "type": "only_if",
+      "where": {
+       "cmd": "worktree_remove"
+      },
+      "needs": {
+       "after": "run",
+       "after_task": "other:confirm durable work committed",
+       "after_ok": true
+      }
+     }
+    ],
+    "left_out": ""
+   },
+   "new_names": [
+    "other:confirm durable work committed"
+   ],
+   "rule": "Before removing a worktree, confirm the durable scripts and verdict docs are committed."
+  }
+ ]
+}

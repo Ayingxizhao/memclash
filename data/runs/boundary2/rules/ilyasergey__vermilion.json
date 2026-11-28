@@ -1,0 +1,718 @@
+{
+  "repo": "ilyasergey/vermilion",
+  "dir": ".claude/memory",
+  "n_files": 14,
+  "n_rules": 118,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "aeneas-folder-read-only.md",
+      "quote": "Treat the entire folder as read-only and user-owned.",
+      "rule": "Treat the case-studies/aeneas/ folder as read-only and user-owned."
+    },
+    {
+      "id": "R2",
+      "file": "aeneas-folder-read-only.md",
+      "quote": "Do not edit, add, delete, rename, format, generate files in, stage, or commit",
+      "rule": "Do not edit, add, delete, rename, format, generate files in, stage, or commit files in the case-studies/aeneas/ folder."
+    },
+    {
+      "id": "R3",
+      "file": "aeneas-folder-read-only.md",
+      "quote": "Reading it for context is allowed only when needed for a task outside the",
+      "rule": "Read files in the case-studies/aeneas/ folder for context only when needed for a task outside that folder."
+    },
+    {
+      "id": "R4",
+      "file": "aeneas-folder-read-only.md",
+      "quote": "An explicit later instruction naming work inside `case-studies/aeneas/` is",
+      "rule": "Only override the case-studies/aeneas/ read-only restriction for a task when an explicit later instruction names work inside that folder."
+    },
+    {
+      "id": "R5",
+      "file": "aeneas-folder-read-only.md",
+      "quote": "References to the folder from documentation elsewhere may be updated when",
+      "rule": "Update references to the case-studies/aeneas/ folder in documentation elsewhere when requested."
+    },
+    {
+      "id": "R6",
+      "file": "dalek-lite-active-target.md",
+      "quote": "Work the DL slices in order",
+      "rule": "Work the DL slices of dalek-lite in the order given in the DL series in case-studies/dalek-lite/PLAN.md."
+    },
+    {
+      "id": "R7",
+      "file": "dalek-lite-active-target.md",
+      "quote": "set up the agenda of all missing",
+      "rule": "Before implementing any features, set up an agenda of all missing Vermilion features."
+    },
+    {
+      "id": "R8",
+      "file": "dalek-lite-active-target.md",
+      "quote": "implement them **one by one**",
+      "rule": "Implement the missing Vermilion features one at a time, not in parallel."
+    },
+    {
+      "id": "R9",
+      "file": "dalek-lite-active-target.md",
+      "quote": "update logs, documentation, differential tests, examples",
+      "rule": "After each slice, update the logs, documentation, differential tests, and examples."
+    },
+    {
+      "id": "R10",
+      "file": "dalek-lite-active-target.md",
+      "quote": "flip `--expect-unsupported` off as the fragment catches up",
+      "rule": "As the fragment catches up, flip the dalek-lite probes' `--expect-unsupported` flag off."
+    },
+    {
+      "id": "R11",
+      "file": "dalek-lite-active-target.md",
+      "quote": "the READMEs",
+      "rule": "After each slice, update the READMEs."
+    },
+    {
+      "id": "R12",
+      "file": "dalek-lite-active-target.md",
+      "quote": "then commit and push, and go to the next one.",
+      "rule": "After each slice is complete and its updates are made, commit and push, then proceed to the next slice."
+    },
+    {
+      "id": "R13",
+      "file": "dalek-lite-active-target.md",
+      "quote": "Never re-pin dalek-lite implicitly",
+      "rule": "Never change the pinned dalek-lite version implicitly; re-pin only when explicitly instructed."
+    },
+    {
+      "id": "R14",
+      "file": "dalek-lite-active-target.md",
+      "quote": "read-only per [[aeneas-folder-read-only]]",
+      "rule": "Treat case-studies/aeneas/ as read-only and do not modify it."
+    },
+    {
+      "id": "R15",
+      "file": "dalek-lite-active-target.md",
+      "quote": "Effort is reported against CryptoProver's published numbers.",
+      "rule": "When reporting effort for the dalek-lite work, compare it against CryptoProver's published numbers."
+    },
+    {
+      "id": "R16",
+      "file": "foundational-vcgen.md",
+      "quote": "**How to apply:** Staged: (1) formal semantics of the neutral textual IR",
+      "rule": "When working on this future milestone, proceed in stages: first give formal semantics to the neutral textual IR."
+    },
+    {
+      "id": "R17",
+      "file": "foundational-vcgen.md",
+      "quote": "build it on **Loom** (verse-lab) or a\nsimilar Lean program-logic framework, not from scratch.",
+      "rule": "Build the foundational VC generator on Loom (or a similar Lean program-logic framework) rather than implementing the framework from scratch."
+    },
+    {
+      "id": "R18",
+      "file": "foundational-vcgen.md",
+      "quote": "so require Loom directly when this work starts.",
+      "rule": "When this work starts, add Loom as a direct requirement rather than relying on it transitively."
+    },
+    {
+      "id": "R19",
+      "file": "interactive-proofs-first-class.md",
+      "quote": "Prefer extending the Lean lemma library (prelude facts, `@[simp]`/\n  `@[grind]` tags — the M4 \"Lean way\") over tactic-ladder tuning",
+      "rule": "For proof fns, prefer extending the Lean lemma library (prelude facts, @[simp]/@[grind] tags) over tuning the tactic ladder."
+    },
+    {
+      "id": "R20",
+      "file": "interactive-proofs-first-class.md",
+      "quote": "accept\n  residual `proof fn` mismatches in the differential corpus when a short\n  interactive twin proof discharges them",
+      "rule": "Accept residual proof fn mismatches in the differential corpus when a short interactive twin proof discharges them."
+    },
+    {
+      "id": "R21",
+      "file": "interactive-proofs-first-class.md",
+      "quote": "Keep ladder failures graceful: per-rung heartbeat budgets\n  (`Vermilion/Obligations.lean`, `vrml_ladder`) exist so a diverging rung\n  cannot starve later rungs or turn failure into a minute-long timeout.",
+      "rule": "Keep ladder failures graceful by using per-rung heartbeat budgets so a diverging rung cannot starve later rungs or turn failure into a minute-long timeout."
+    },
+    {
+      "id": "R22",
+      "file": "interactive-proofs-first-class.md",
+      "quote": "Differential parity reporting should distinguish \"Lean pass via\n  automation\" from \"Lean pass via user twin proof\" rather than counting\n  twin-discharged cases as failures",
+      "rule": "Differential parity reporting should distinguish \"Lean pass via automation\" from \"Lean pass via user twin proof\" rather than counting twin-discharged cases as failures."
+    },
+    {
+      "id": "R23",
+      "file": "issue-tracker-workflow.md",
+      "quote": "Add new features/bugs as files in `docs/issues/`",
+      "rule": "Add each new feature or bug as a file in `docs/issues/`."
+    },
+    {
+      "id": "R24",
+      "file": "issue-tracker-workflow.md",
+      "quote": "leave `github: null`",
+      "rule": "Leave `github: null` in the front matter of a newly added issue file."
+    },
+    {
+      "id": "R25",
+      "file": "issue-tracker-workflow.md",
+      "quote": "run `scripts/sync_issues.py` to publish",
+      "rule": "Run `scripts/sync_issues.py` to publish newly added issue files to GitHub."
+    },
+    {
+      "id": "R26",
+      "file": "issue-tracker-workflow.md",
+      "quote": "never recreate `docs/features.md` or `docs/wrinkles.md`",
+      "rule": "Never recreate `docs/features.md`."
+    },
+    {
+      "id": "R27",
+      "file": "issue-tracker-workflow.md",
+      "quote": "never recreate `docs/features.md` or `docs/wrinkles.md`",
+      "rule": "Never recreate `docs/wrinkles.md`."
+    },
+    {
+      "id": "R28",
+      "file": "issue-tracker-workflow.md",
+      "quote": "keep `docs/issues/README.md` and the README subsection in sync",
+      "rule": "When workflow-visible behaviour changes, keep `docs/issues/README.md` in sync."
+    },
+    {
+      "id": "R29",
+      "file": "issue-tracker-workflow.md",
+      "quote": "keep `docs/issues/README.md` and the README subsection in sync",
+      "rule": "When workflow-visible behaviour changes, keep the \"Issue tracker\" subsection in `README.md` in sync."
+    },
+    {
+      "id": "R30",
+      "file": "issue-tracker-workflow.md",
+      "quote": "extend `sync_issues.py` rather than adding a parallel script",
+      "rule": "Extend `scripts/sync_issues.py` rather than adding a parallel sync script."
+    },
+    {
+      "id": "R31",
+      "file": "issue-tracker-workflow.md",
+      "quote": "Reports still live under `docs/`",
+      "rule": "Keep reports under `docs/`."
+    },
+    {
+      "id": "R32",
+      "file": "issue-tracker-workflow.md",
+      "quote": "One file per issue",
+      "rule": "Keep one Markdown file per issue in `docs/issues/`."
+    },
+    {
+      "id": "R33",
+      "file": "issue-tracker-workflow.md",
+      "quote": "open issues at the top level",
+      "rule": "Keep files for open issues at the top level of `docs/issues/`."
+    },
+    {
+      "id": "R34",
+      "file": "issue-tracker-workflow.md",
+      "quote": "closed ones under `docs/issues/closed/`",
+      "rule": "Keep files for closed issues under `docs/issues/closed/`."
+    },
+    {
+      "id": "R35",
+      "file": "issue-tracker-workflow.md",
+      "quote": "Filenames are a stable slug of the title",
+      "rule": "Name each issue file as a stable slug of its title."
+    },
+    {
+      "id": "R36",
+      "file": "issue-tracker-workflow.md",
+      "quote": "the GitHub number lives in front matter, not the filename",
+      "rule": "Store the GitHub issue number in the front matter `github` field, not in the filename."
+    },
+    {
+      "id": "R37",
+      "file": "lean-side-ir-parsing.md",
+      "quote": "Avoid lookaheads on specific substrings.",
+      "rule": "When parsing IR or structured text on the Lean side, do not use lookahead on specific substrings; use a proper lexer and parser instead."
+    },
+    {
+      "id": "R38",
+      "file": "lean-side-ir-parsing.md",
+      "quote": "never substring lookahead",
+      "rule": "Never parse Lean-side IR or structured text with substring lookahead; use a real tokenizer and recursive-descent or Parsec parsing."
+    },
+    {
+      "id": "R39",
+      "file": "lean-side-ir-parsing.md",
+      "quote": "Any new component that consumes IR or structured text on\nthe Lean side must use proper lexing/parsing.",
+      "rule": "Any new Lean-side component that consumes IR or structured text must use proper lexing and parsing."
+    },
+    {
+      "id": "R40",
+      "file": "lean-side-ir-parsing.md",
+      "quote": "Keep the twin methodology\n(generated/ vs proofs/) intact — Lean emits the generated files.",
+      "rule": "Keep the generated/ vs proofs/ twin methodology intact, with Lean emitting the generated files."
+    },
+    {
+      "id": "R41",
+      "file": "lean-side-ir-parsing.md",
+      "quote": "Fragment\ngrowth in any milestone must extend the IR grammar, `docs/ir.md`, the Rust\nserializer, and the Lean parser in the same slice",
+      "rule": "When fragment growth occurs in any milestone, extend the IR grammar, docs/ir.md, the Rust serializer, and the Lean parser in the same slice."
+    },
+    {
+      "id": "R42",
+      "file": "m1-user-tutorial-deliverable.md",
+      "quote": "update `docs/TUTORIAL.md` in the same commit",
+      "rule": "When workflow-visible behavior changes (scripts, macros, or example layout), update docs/TUTORIAL.md in the same commit."
+    },
+    {
+      "id": "R43",
+      "file": "m1-user-tutorial-deliverable.md",
+      "quote": "its user-visible additions should extend the tutorial",
+      "rule": "When M2 lands, extend docs/TUTORIAL.md with its user-visible additions."
+    },
+    {
+      "id": "R44",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "must be built as **Lean libraries and tactic integrations**",
+      "rule": "Build M4 (specialty arithmetic: bit vectors, nonlinear/ring arithmetic, compute-style proofs) as Lean libraries and tactic integrations."
+    },
+    {
+      "id": "R45",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "lemma libraries over the Vermilion prelude models",
+      "rule": "Build M4 as lemma libraries over the Vermilion prelude models."
+    },
+    {
+      "id": "R46",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "discharge rungs using Lean-native automation",
+      "rule": "Discharge M4 rungs using Lean-native automation (bv_decide, ring, polyrith, nlinarith, decide/norm_num, Mathlib)."
+    },
+    {
+      "id": "R47",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "mirror of Verus's SMT encodings",
+      "rule": "Do not build M4 as a mirror of Verus's SMT encodings."
+    },
+    {
+      "id": "R48",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "no AIR-style bit-blasting bridges",
+      "rule": "Do not add AIR-style bit-blasting bridges to M4."
+    },
+    {
+      "id": "R49",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "encoding-level fuel/trigger machinery",
+      "rule": "Do not add encoding-level fuel/trigger machinery to M4."
+    },
+    {
+      "id": "R50",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "machine-int goals may move to `BitVec` views through",
+      "rule": "Machine-int goals may be moved to BitVec views through proved conversion lemmas."
+    },
+    {
+      "id": "R51",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "close by `bv_decide`",
+      "rule": "After moving machine-int goals to BitVec views, close them by bv_decide."
+    },
+    {
+      "id": "R52",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "nonlinear goals get a curated lemma set",
+      "rule": "Give nonlinear goals a curated lemma set."
+    },
+    {
+      "id": "R53",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "`nlinarith`/`polyrith` rungs",
+      "rule": "For nonlinear goals, add nlinarith/polyrith rungs."
+    },
+    {
+      "id": "R54",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "nothing enters the TCB",
+      "rule": "Do not add anything to the trusted computing base (TCB) through M4 libraries."
+    },
+    {
+      "id": "R55",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "ordinary proved Lean code",
+      "rule": "Make M4 libraries ordinary proved Lean code."
+    },
+    {
+      "id": "R56",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "proceed M3 → M4 without further",
+      "rule": "After finishing the remaining parts of M3, proceed to M4 without asking for further confirmation."
+    },
+    {
+      "id": "R57",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "STOP at the end of M4",
+      "rule": "Stop at the end of M4."
+    },
+    {
+      "id": "R58",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "start from library design",
+      "rule": "When M4 opens, start from library design."
+    },
+    {
+      "id": "R59",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "ladder with library-backed rungs",
+      "rule": "Extend the vrml ladder with library-backed rungs."
+    },
+    {
+      "id": "R60",
+      "file": "m4-lean-native-libraries.md",
+      "quote": "keep verdict coherence measured",
+      "rule": "Keep verdict coherence measured differentially, as usual."
+    },
+    {
+      "id": "R61",
+      "file": "no-verus2vermilion.md",
+      "quote": "Do not build `verus2vermilion` or introduce\nVermilion-only spec syntax.",
+      "rule": "Do not build a `verus2vermilion` annotation translator, and do not introduce Vermilion-only spec syntax."
+    },
+    {
+      "id": "R62",
+      "file": "no-verus2vermilion.md",
+      "quote": "When a Verus construct is scripting-only,\nignore it (with a warning where useful) rather than requiring a rewrite.",
+      "rule": "When a Verus construct is scripting-only (SMT-era scripting with no Lean meaning), ignore it, with a warning where useful, rather than requiring the user to rewrite it."
+    },
+    {
+      "id": "R63",
+      "file": "no-verus2vermilion.md",
+      "quote": "triggers are **preserved** in the IR and documented in generated code",
+      "rule": "Preserve triggers in the IR and document them in generated code; do not drop them."
+    },
+    {
+      "id": "R64",
+      "file": "no-verus2vermilion.md",
+      "quote": "Nothing is rewritten in user sources.",
+      "rule": "Do not rewrite user source files to translate or modify Verus constructs."
+    },
+    {
+      "id": "R65",
+      "file": "per-function-emission-default.md",
+      "quote": "**Per-function is the default**",
+      "rule": "Use per-function emission (one Lean file per verified function) as the default emission mode, unless the per-file mode is explicitly requested."
+    },
+    {
+      "id": "R66",
+      "file": "per-function-emission-default.md",
+      "quote": "they never duplicate definitions",
+      "rule": "Never duplicate the datatype or spec-function definitions in each unit file; units must import the shared Specs module instead."
+    },
+    {
+      "id": "R67",
+      "file": "per-function-emission-default.md",
+      "quote": "Keep Specs shared-and-imported",
+      "rule": "Keep the datatype and spec-function definitions in the shared Specs module and imported by the units."
+    },
+    {
+      "id": "R68",
+      "file": "per-function-emission-default.md",
+      "quote": "never inline or duplicate definitions into units",
+      "rule": "Never inline or duplicate shared definitions into unit files."
+    },
+    {
+      "id": "R69",
+      "file": "per-function-emission-default.md",
+      "quote": "The per-file mode must keep working behind `--per-file`, byte-identical to the pre-refactor output.",
+      "rule": "Keep the per-file emission mode working behind the `--per-file` flag, with output byte-identical to the pre-refactor output."
+    },
+    {
+      "id": "R70",
+      "file": "per-function-emission-default.md",
+      "quote": "Results must be consistent across modes",
+      "rule": "Ensure obligations, statement hashes, diagnostics, and verdicts are identical across emission modes."
+    },
+    {
+      "id": "R71",
+      "file": "per-function-emission-default.md",
+      "quote": "run it when touching emission",
+      "rule": "Run `scripts/test_emission_modes.sh` whenever changing emission code."
+    },
+    {
+      "id": "R72",
+      "file": "per-function-emission-default.md",
+      "quote": "**No absolute paths** anywhere in emitted artifacts or tool plumbing",
+      "rule": "Never use absolute paths in emitted artifacts or tool plumbing; use repository-relative paths for manifests, imports, olean targets, and `--root` arguments."
+    },
+    {
+      "id": "R73",
+      "file": "per-function-emission-default.md",
+      "quote": "New emission features must work in BOTH modes",
+      "rule": "Make every new emission feature work in both per-function and per-file modes."
+    },
+    {
+      "id": "R74",
+      "file": "per-function-emission-default.md",
+      "quote": "keep the mode-invariance property",
+      "rule": "Preserve the mode-invariance property when changing emission."
+    },
+    {
+      "id": "R75",
+      "file": "per-function-emission-default.md",
+      "quote": "extend the A/B harness when in doubt",
+      "rule": "When unsure whether a change preserves mode invariance, extend the A/B harness."
+    },
+    {
+      "id": "R76",
+      "file": "reports-live-in-docs.md",
+      "quote": "Write any new report, ledger, or measurement summary to\n`docs/reports/`",
+      "rule": "Write any new report, ledger, or measurement summary to the docs/reports/ directory."
+    },
+    {
+      "id": "R77",
+      "file": "reports-live-in-docs.md",
+      "quote": "never recreate a root-level `reports/` directory",
+      "rule": "Never recreate a root-level reports/ directory."
+    },
+    {
+      "id": "R78",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "never inline spec-function bodies",
+      "rule": "Never inline spec-function bodies at lowering time when a spec function appears in a spec expression."
+    },
+    {
+      "id": "R79",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "keep fuel out of the logic",
+      "rule": "Keep fuel out of the logic: do not add fuel constants to the IR or the Lean prelude."
+    },
+    {
+      "id": "R80",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "assert the callee's `requires`, bind a fresh\n  result symbol, assume its `ensures`",
+      "rule": "For spec-function calls at proof/exec statement level, assert the callee's requires, bind a fresh result symbol, and assume the callee's ensures (Dafny-method style)."
+    },
+    {
+      "id": "R81",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "the IR grows function application",
+      "rule": "Extend the IR with function application so spec function calls in expressions are represented as applications."
+    },
+    {
+      "id": "R82",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "every user spec fn is emitted\n  as a **real Lean definition** (`termination_by` from the Verus-checked\n  decreases)",
+      "rule": "Emit every user spec function as a real Lean definition, using termination_by derived from the Verus-checked decreases clause."
+    },
+    {
+      "id": "R83",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "the machine prover\n  receives **per-occurrence ground defining equations** as hypotheses",
+      "rule": "Provide the machine prover with per-occurrence ground defining equations as hypotheses for spec function applications."
+    },
+    {
+      "id": "R84",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "never quantified definition axioms",
+      "rule": "Never emit quantified definition axioms for spec functions."
+    },
+    {
+      "id": "R85",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "machine attempts must reproduce Verus's visibility\n  verdicts",
+      "rule": "Machine attempts must reproduce Verus's visibility verdicts so differential parity is preserved."
+    },
+    {
+      "id": "R86",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "`hide`/`#[verifier::opaque]` suppresses the equations",
+      "rule": "When a spec function is hidden or marked #[verifier::opaque], suppress its defining equations for machine attempts."
+    },
+    {
+      "id": "R87",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "`reveal` restores them",
+      "rule": "When a spec function is revealed, restore its defining equations for machine attempts."
+    },
+    {
+      "id": "R88",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "`reveal_with_fuel(f, n)` = n rounds of ground\n  instantiation at lowering time",
+      "rule": "Lower reveal_with_fuel(f, n) as n rounds of ground instantiation of f's defining equations at lowering time."
+    },
+    {
+      "id": "R89",
+      "file": "spec-fns-no-inlining-no-fuel.md",
+      "quote": "Interactive twin proofs may still `unfold` anything",
+      "rule": "Interactive twin proofs may use unfold on any spec function."
+    },
+    {
+      "id": "R90",
+      "file": "vcgen-policy-doc.md",
+      "quote": "the agent is responsible for keeping the VC-generation implementation and `docs/vcgen.md` in sync.",
+      "rule": "Keep the VC-generation implementation and docs/vcgen.md in sync."
+    },
+    {
+      "id": "R91",
+      "file": "vcgen-policy-doc.md",
+      "quote": "update `docs/vcgen.md` in the **same slice**",
+      "rule": "When changing VC generation (processStmt/generateObligations, the generation state, the obligation shape, the unfold/visibility policy, or the emitted form in renderObligation), update docs/vcgen.md in the same slice."
+    },
+    {
+      "id": "R92",
+      "file": "vcgen-policy-doc.md",
+      "quote": "re-read `docs/vcgen.md`",
+      "rule": "Before finishing any VC-generation change, re-read docs/vcgen.md."
+    },
+    {
+      "id": "R93",
+      "file": "vcgen-policy-doc.md",
+      "quote": "confirm every rule still matches the code",
+      "rule": "Before finishing any VC-generation change, confirm that every rule in docs/vcgen.md still matches the code."
+    },
+    {
+      "id": "R94",
+      "file": "vermilion-conventions.md",
+      "quote": "User-facing names are `vrml`",
+      "rule": "Name user-facing items with the `vrml` prefix: the tactic `vrml`, attributes `@[vrml]` and `@[vrml_obligation]`, and binaries `vrml_check` and `vrml_sync`."
+    },
+    {
+      "id": "R95",
+      "file": "vermilion-conventions.md",
+      "quote": "namespaces keep the full `Vermilion` name",
+      "rule": "Keep the full `Vermilion` name for library namespaces."
+    },
+    {
+      "id": "R96",
+      "file": "vermilion-conventions.md",
+      "quote": "Lean is the only verifier",
+      "rule": "In example pipelines, treat Lean as the only verifier."
+    },
+    {
+      "id": "R97",
+      "file": "vermilion-conventions.md",
+      "quote": "`--no-verify` as a front end",
+      "rule": "Run Verus with `--no-verify` as a front end in example pipelines."
+    },
+    {
+      "id": "R98",
+      "file": "vermilion-conventions.md",
+      "quote": "failures must be visibly Lean's",
+      "rule": "Make verification failures visibly attributed to Lean, using the `error[vermilion]` branding."
+    },
+    {
+      "id": "R99",
+      "file": "vermilion-conventions.md",
+      "quote": "Verus's own SMT verdict is consulted only by",
+      "rule": "Consult Verus's own SMT verdict only in the differential harness."
+    },
+    {
+      "id": "R100",
+      "file": "vermilion-conventions.md",
+      "quote": "`examples/<name>/run.sh` delegating to a",
+      "rule": "Give each example its own `examples/<name>/run.sh` that delegates to the shared `scripts/run_example.sh`."
+    },
+    {
+      "id": "R101",
+      "file": "vermilion-conventions.md",
+      "quote": "never conflate demos into one script",
+      "rule": "Never combine multiple demos into one script."
+    },
+    {
+      "id": "R102",
+      "file": "vermilion-conventions.md",
+      "quote": "every run emits `generated/`",
+      "rule": "Have every run emit a `generated/` directory containing machine statements and `vrml` proof attempts."
+    },
+    {
+      "id": "R103",
+      "file": "vermilion-conventions.md",
+      "quote": "reconciles the user-editable `proofs/` twin via `vrml_sync`",
+      "rule": "Reconcile the user-editable `proofs/` twin via `vrml_sync` on every run."
+    },
+    {
+      "id": "R104",
+      "file": "vermilion-conventions.md",
+      "quote": "when automation succeeds and nothing is edited;",
+      "rule": "When automation succeeds and nothing in `proofs/` is edited, make the `proofs/` file byte-identical to its generated counterpart."
+    },
+    {
+      "id": "R105",
+      "file": "vermilion-conventions.md",
+      "quote": "`sorry` + warning where",
+      "rule": "Where automation fails, write `sorry` with a warning into the `proofs/` twin."
+    },
+    {
+      "id": "R106",
+      "file": "vermilion-conventions.md",
+      "quote": "user proofs survive while their statement hash matches",
+      "rule": "Keep user proofs in `proofs/` while their statement hash matches."
+    },
+    {
+      "id": "R107",
+      "file": "vermilion-conventions.md",
+      "quote": "and are replaced (with a warning) when stale",
+      "rule": "Replace stale user proofs in `proofs/` with a warning."
+    },
+    {
+      "id": "R108",
+      "file": "vermilion-conventions.md",
+      "quote": "Lake builds only the twins.",
+      "rule": "Make Lake build only the `generated/` and `proofs/` twins."
+    },
+    {
+      "id": "R109",
+      "file": "vermilion-conventions.md",
+      "quote": "Emphasize the generated-attempts vs user-proofs convention in each",
+      "rule": "In each example's README, emphasize the convention distinguishing generated attempts from user proofs."
+    },
+    {
+      "id": "R110",
+      "file": "vermilion-conventions.md",
+      "quote": "No machine-specific paths",
+      "rule": "Do not put machine-specific paths in the repo."
+    },
+    {
+      "id": "R111",
+      "file": "vermilion-conventions.md",
+      "quote": "`setup_verus.sh` auto-clones the pinned",
+      "rule": "Have `setup_verus.sh` auto-clone the pinned Verus into `~/.cache/vermilion/verus`."
+    },
+    {
+      "id": "R112",
+      "file": "vermilion-conventions.md",
+      "quote": "never inside the repo",
+      "rule": "Never clone Verus inside the repo."
+    },
+    {
+      "id": "R113",
+      "file": "vermilion-conventions.md",
+      "quote": "Suppress Lean unused-variable linter noise in generated modules.",
+      "rule": "Suppress the Lean unused-variable linter in generated modules."
+    },
+    {
+      "id": "R114",
+      "file": "vermilion-conventions.md",
+      "quote": "The whole project must build with the single command `./scripts/build.sh`",
+      "rule": "Ensure the whole project builds with the single command `./scripts/build.sh`."
+    },
+    {
+      "id": "R115",
+      "file": "vermilion-conventions.md",
+      "quote": "tutorial (docs/TUTORIAL.md) updated in the same commit as workflow changes.",
+      "rule": "Update `docs/TUTORIAL.md` in the same commit as any workflow change."
+    },
+    {
+      "id": "R116",
+      "file": "vermilion-conventions.md",
+      "quote": "Preserve these invariants in M2 (loops, watch mode);",
+      "rule": "When working on M2 (loops, watch mode), preserve the repo's existing invariants."
+    },
+    {
+      "id": "R117",
+      "file": "vermilion-conventions.md",
+      "quote": "extend `run_example.sh` and `vrml_sync` rather than adding new monolithic",
+      "rule": "Extend `run_example.sh` and `vrml_sync` rather than adding new monolithic scripts."
+    },
+    {
+      "id": "R118",
+      "file": "vermilion-conventions.md",
+      "quote": "keep new user-typed commands short (`vrml*`).",
+      "rule": "Keep new user-typed commands short, with names starting with `vrml`."
+    }
+  ],
+  "dropped": []
+}

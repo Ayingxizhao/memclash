@@ -1,0 +1,382 @@
+{
+  "repo": "MikkoVihtakari/ggOceanMaps",
+  "dir": "memory",
+  "n_files": 10,
+  "n_rules": 62,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "architecture.md",
+      "quote": "Do not take the cell size from the stars `delta`",
+      "rule": "Do not derive the cell size of a raster bathymetry from the stars `delta` value; it differs from the plotted coordinate spacing by a floating-point margin."
+    },
+    {
+      "id": "R2",
+      "file": "architecture.md",
+      "quote": "Adding new map elements requires writing valid R that evaluates in `basemap()`'s local scope.",
+      "rule": "When adding a new map element to basemap(), write valid R code that evaluates in basemap()'s local scope."
+    },
+    {
+      "id": "R3",
+      "file": "build-vignettes-locally.md",
+      "quote": "Use RStudio's bundled copy:",
+      "rule": "When rendering with Rscript on this machine, use RStudio's bundled pandoc by setting RSTUDIO_PANDOC to /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64."
+    },
+    {
+      "id": "R4",
+      "file": "build-vignettes-locally.md",
+      "quote": "set both the env var and `Sys.setenv(RSTUDIO_PANDOC=...)` inside the R call",
+      "rule": "When rendering with Rscript, set RSTUDIO_PANDOC both as an environment variable and via Sys.setenv(RSTUDIO_PANDOC=...) inside the R call."
+    },
+    {
+      "id": "R5",
+      "file": "build-vignettes-locally.md",
+      "quote": "Rebuild a single article: `pkgdown::build_article(\"bathymetry\")`.",
+      "rule": "To rebuild a single pkgdown article, call pkgdown::build_article() with the article name, for example \"bathymetry\"."
+    },
+    {
+      "id": "R6",
+      "file": "build-vignettes-locally.md",
+      "quote": "`GGOCEANMAPS_DATAPATH=$HOME/Documents/ggOceanMapsLargeData`",
+      "rule": "When rendering the ggOceanMaps.Rmd user manual, set the environment variable GGOCEANMAPS_DATAPATH to $HOME/Documents/ggOceanMapsLargeData."
+    },
+    {
+      "id": "R7",
+      "file": "build-vignettes-locally.md",
+      "quote": "`GGOCEANMAPS_USERPATH=~/path/to/GEBCO_2025.nc`",
+      "rule": "When rendering the ggOceanMaps.Rmd user manual, set the environment variable GGOCEANMAPS_USERPATH to the path of the user's raster file, such as ~/path/to/GEBCO_2025.nc."
+    },
+    {
+      "id": "R8",
+      "file": "build-vignettes-locally.md",
+      "quote": "To check chunks execute without pandoc, use `knitr::knit()` instead of `rmarkdown::render()`.",
+      "rule": "To check that R chunks execute without pandoc, use knitr::knit() instead of rmarkdown::render()."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "Do not include the user's local paths, machine-specific filenames, or other personal info in committed/published docs",
+      "rule": "Do not include the user's local paths, machine-specific filenames, or other personal info in committed or published docs (e.g., AGENTS.md, README, vignettes, cookbook recipes)."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "Use generic placeholders.",
+      "rule": "Use generic placeholders instead of personal info in committed or published docs."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "For example file paths, use generic placeholders: `path/to/your/bathymetry.nc`, `~/path/to/data`, `<your-data-dir>`.",
+      "rule": "For example file paths in docs, use generic placeholders such as `path/to/your/bathymetry.nc`, `~/path/to/data`, or `<your-data-dir>`."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "For example coordinates, use round numbers around well-known regions",
+      "rule": "For example coordinates in docs, use round numbers around well-known regions, not the user's actual research sites."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "Before committing any public-facing doc, scan for: home directory paths, specific filenames the user has mentioned, dataset versions tied to a particular machine.",
+      "rule": "Before committing any public-facing doc, scan it for home directory paths, specific filenames the user has mentioned, and dataset versions tied to a particular machine."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_no_personal_info_in_docs.md",
+      "quote": "Personal info ≠ authorship/canonical URLs in package metadata. Those are public and expected.",
+      "rule": "Do not treat authorship attribution or canonical project URLs in package metadata as personal info to remove from docs."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_style.md",
+      "quote": "Use the dot.case naming style for function arguments",
+      "rule": "Use dot.case naming for function arguments (e.g., bathy.style, land.col) and do not switch to snake_case for new arguments."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_style.md",
+      "quote": "Any new arguments added to basemap(), qmap(), transform_coord(), etc. should follow dot.case.",
+      "rule": "New arguments added to basemap(), qmap(), transform_coord(), etc. should use dot.case."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_style.md",
+      "quote": "Internal helper functions are exported (`@export`) but marked `@keywords internal`. Follow this pattern for new internal helpers.",
+      "rule": "Export new internal helper functions with `@export` and mark them `@keywords internal`."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_style.md",
+      "quote": "Use this for any new function that shares basemap parameters.",
+      "rule": "Use `@inheritParams basemap` for any new function that shares basemap parameters."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_style.md",
+      "quote": "New functions with potentially chatty output should follow this pattern.",
+      "rule": "New functions with potentially chatty output should default the `verbose` argument to `FALSE`."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_style.md",
+      "quote": "This is intentional and not noise to be removed.",
+      "rule": "Do not remove test parameters left as comments at the top of function definitions, since they are intentional for interactive debugging."
+    },
+    {
+      "id": "R21",
+      "file": "large-data-figure-hosting.md",
+      "quote": "**pre-rendered and hosted remotely**, then embedded via raw.githubusercontent URLs",
+      "rule": "Pre-render vignette example figures that require downloads or fetches, host them remotely, and embed them via raw.githubusercontent URLs."
+    },
+    {
+      "id": "R22",
+      "file": "large-data-figure-hosting.md",
+      "quote": "not bundling figures in the package",
+      "rule": "Do not bundle vignette figures in the ggOceanMaps package."
+    },
+    {
+      "id": "R23",
+      "file": "large-data-figure-hosting.md",
+      "quote": "generate PNGs into the LargeData `docs/` folder",
+      "rule": "Generate vignette figure PNGs into the ggOceanMapsLargeData repo's `docs/` folder."
+    },
+    {
+      "id": "R24",
+      "file": "large-data-figure-hosting.md",
+      "quote": "then commit & push that repo separately",
+      "rule": "Commit and push the ggOceanMapsLargeData repo separately from the ggOceanMaps repo after generating figures."
+    },
+    {
+      "id": "R25",
+      "file": "large-data-figure-hosting.md",
+      "quote": "`git init` + `git remote add origin <url>` + `git fetch` + `git reset --mixed origin/master`",
+      "rule": "If the local ggOceanMapsLargeData clone has lost its .git, re-link it by running git init, git remote add origin <url>, git fetch, and git reset --mixed origin/master."
+    },
+    {
+      "id": "R26",
+      "file": "large-data-figure-hosting.md",
+      "quote": "commit only the new files",
+      "rule": "After re-linking the ggOceanMapsLargeData clone, commit only the new figure files."
+    },
+    {
+      "id": "R27",
+      "file": "large-data-figure-hosting.md",
+      "quote": "don't stage those",
+      "rule": "Do not stage unrelated files in the ggOceanMapsLargeData clone, such as .gitignore, data/.gitattributes, or data/dd_rbathy_cont.rda."
+    },
+    {
+      "id": "R28",
+      "file": "no-wrap-prose.md",
+      "quote": "When editing `.Rmd`/`.qmd`/`.md` files, write each prose paragraph as a single unwrapped line (no hard line breaks at ~80 cols)",
+      "rule": "When editing .Rmd, .qmd, or .md files, write each prose paragraph as a single unwrapped line with no hard line breaks at about 80 columns."
+    },
+    {
+      "id": "R29",
+      "file": "no-wrap-prose.md",
+      "quote": "normal R style/line lengths still apply",
+      "rule": "In code chunks within .Rmd or .qmd files, follow normal R style and line-length conventions instead of the unwrapped-prose rule."
+    },
+    {
+      "id": "R30",
+      "file": "no-wrap-prose.md",
+      "quote": "Applies to all docs going forward, not just one file.",
+      "rule": "Apply the unwrapped-prose formatting rule to all Rmd, qmd, and markdown documents from now on, not only the file currently being edited."
+    },
+    {
+      "id": "R31",
+      "file": "no-wrap-prose.md",
+      "quote": "See [[build-vignettes-locally]] for the render workflow.",
+      "rule": "Consult the build-vignettes-locally note for the render workflow when rendering these documents."
+    },
+    {
+      "id": "R32",
+      "file": "plan_v2.4.0.md",
+      "quote": "do NOT merge or submit",
+      "rule": "Do not merge the release branch or submit the tarball to CRAN; the maintainer does that after the rebuilt site is reviewed."
+    },
+    {
+      "id": "R33",
+      "file": "plan_v2.4.0.md",
+      "quote": "**Do NOT** merge PR #67 or do anything CRAN-related",
+      "rule": "Do not merge PR #67 or perform any CRAN-related step (Phase 5) unless the maintainer explicitly gives the go-ahead after reviewing the new features."
+    },
+    {
+      "id": "R34",
+      "file": "plan_v2.4.0.md",
+      "quote": "Do not merge or submit without explicit go-ahead.",
+      "rule": "Do not merge PR #67 or submit to CRAN without the maintainer's explicit go-ahead."
+    },
+    {
+      "id": "R35",
+      "file": "plan_v2.4.0.md",
+      "quote": "one line per paragraph",
+      "rule": "Write Rmd vignette prose with no hard wrapping: each paragraph is one line."
+    },
+    {
+      "id": "R36",
+      "file": "plan_v2.4.0.md",
+      "quote": "Reflow prose to single lines while preserving code fences, tables, and list items",
+      "rule": "When reflowing vignette prose, join wrapped lines into single lines, but leave code fences, tables, and list items intact."
+    },
+    {
+      "id": "R37",
+      "file": "plan_v2.4.0.md",
+      "quote": "fix whatever broke",
+      "rule": "If the pkgdown site build does not finish with zero errors and zero warnings, fix whatever caused the failure and rebuild."
+    },
+    {
+      "id": "R38",
+      "file": "plan_v2.4.0.md",
+      "quote": "Commit the regenerated `docs/`",
+      "rule": "After rebuilding the pkgdown site, commit the regenerated docs/ directory separately from code fixes, then push."
+    },
+    {
+      "id": "R39",
+      "file": "plan_v2.4.0.md",
+      "quote": "fix anything that reads wrong/stale",
+      "rule": "After rebuilding the site, walk the rendered pages and fix anything that reads wrong or stale."
+    },
+    {
+      "id": "R40",
+      "file": "plan_v2.4.0.md",
+      "quote": "Run from a non-interactive Rscript so `interactive()` is FALSE.",
+      "rule": "Run the CI-like R CMD check from a non-interactive Rscript so that interactive() returns FALSE."
+    },
+    {
+      "id": "R41",
+      "file": "plan_v2.4.0.md",
+      "quote": "Strip AeN references",
+      "rule": "When porting the workshop deck to a vignette, remove all AeN workshop references."
+    },
+    {
+      "id": "R42",
+      "file": "plan_v2.4.0.md",
+      "quote": "Keep canonical names stable (no renames in 2.4)",
+      "rule": "Keep canonical exported function names stable; do not rename functions in the 2.4 release."
+    },
+    {
+      "id": "R43",
+      "file": "plan_v2.4.0.md",
+      "quote": "Don't add dplyr to Imports for this.",
+      "rule": "Do not add dplyr to Imports for the vector_land() work; use base R or forcats instead."
+    },
+    {
+      "id": "R44",
+      "file": "plan_v2.4.0.md",
+      "quote": "replace with base R / forcats before merging",
+      "rule": "Replace dplyr::recode_factor in vector_land() with base R or forcats before merging."
+    },
+    {
+      "id": "R45",
+      "file": "plan_v2.4.0.md",
+      "quote": "tests must `skip_on_cran()` + `skip_if_offline()`",
+      "rule": "Network-dependent tests must call skip_on_cran() and skip_if_offline()."
+    },
+    {
+      "id": "R46",
+      "file": "plan_v2.4.0.md",
+      "quote": "examples must not require internet",
+      "rule": "Roxygen examples must not require internet access."
+    },
+    {
+      "id": "R47",
+      "file": "plan_v2.4.0.md",
+      "quote": "Use small bundled fixture for tests.",
+      "rule": "Use a small bundled fixture for tests rather than downloaded data."
+    },
+    {
+      "id": "R48",
+      "file": "plan_v2.4.0.md",
+      "quote": "Client should respect timeout and degrade gracefully.",
+      "rule": "The WCS client must respect a request timeout and degrade gracefully on failure."
+    },
+    {
+      "id": "R49",
+      "file": "plan_v2.4.0.md",
+      "quote": "every exported fn has an example that runs in <2 s without downloads",
+      "rule": "Give every exported function a roxygen example that runs in under 2 seconds without downloads."
+    },
+    {
+      "id": "R50",
+      "file": "plan_v2.4.0.md",
+      "quote": "Skip machine-readable manifest",
+      "rule": "Do not create a machine-readable manifest; rely on the cookbook and AGENTS.md instead."
+    },
+    {
+      "id": "R51",
+      "file": "plan_v2.4.0.md",
+      "quote": "Default in 2.4.0 stays the current default",
+      "rule": "Keep the existing default bathymetry style in 2.4.0; do not change it."
+    },
+    {
+      "id": "R52",
+      "file": "plan_v2.4.0.md",
+      "quote": "New WCS options must be well documented.",
+      "rule": "Document all new WCS bathymetry options thoroughly."
+    },
+    {
+      "id": "R53",
+      "file": "plan_v2.4.0.md",
+      "quote": "keep both, regenerate `.md`",
+      "rule": "Keep both README.Rmd and README.md, and regenerate README.md from README.Rmd."
+    },
+    {
+      "id": "R54",
+      "file": "plan_v2.4.0.md",
+      "quote": "Key decisions to FLAG at review",
+      "rule": "Flag the listed key decisions explicitly in the report for the maintainer's review."
+    },
+    {
+      "id": "R55",
+      "file": "plan_v2.4.0.md",
+      "quote": "Bump nothing (already 2.4.0)",
+      "rule": "Do not bump the package version as part of the release tail."
+    },
+    {
+      "id": "R56",
+      "file": "project_overview.md",
+      "quote": "When suggesting features or fixes, consider CRAN policy constraints",
+      "rule": "When suggesting features or fixes for ggOceanMaps, consider CRAN policy constraints."
+    },
+    {
+      "id": "R57",
+      "file": "project_overview.md",
+      "quote": "no persistent writes to user directories without permission",
+      "rule": "Do not make persistent writes to user directories without the user's permission."
+    },
+    {
+      "id": "R58",
+      "file": "project_overview.md",
+      "quote": "no auto-downloads without user consent",
+      "rule": "Do not auto-download data without the user's consent."
+    },
+    {
+      "id": "R59",
+      "file": "project_overview.md",
+      "quote": "High-res data downloads must remain interactive (user-prompted).",
+      "rule": "Keep high-resolution data downloads interactive, prompting the user before downloading."
+    },
+    {
+      "id": "R60",
+      "file": "user_profile.md",
+      "quote": "assume deep R knowledge",
+      "rule": "When helping the user with R code, assume they have deep R knowledge."
+    },
+    {
+      "id": "R61",
+      "file": "user_profile.md",
+      "quote": "familiarity with sf/stars/ggplot2 spatial ecosystem",
+      "rule": "When helping the user, assume they are familiar with the sf, stars, and ggplot2 spatial ecosystem."
+    },
+    {
+      "id": "R62",
+      "file": "user_profile.md",
+      "quote": "that marine/oceanographic terminology is understood",
+      "rule": "When helping the user, assume that marine and oceanographic terminology is understood without needing explanation."
+    }
+  ],
+  "dropped": []
+}

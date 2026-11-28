@@ -1,0 +1,49 @@
+# mast-claude-config — overarching MAST LLM configuration
+
+This repo holds the **project-wide** Claude/LLM configuration for the MAST team:
+shared skills (`skills/`) and shared memory (`memory/`), symlinked into `~/.claude/`
+by `setup.sh` / `setup.ps1`. It is the home for guidance that applies across *all*
+MAST repos, and every MAST repo's own `CLAUDE.md` references it as that source of truth.
+
+**`setup.sh` installs `skills/` and `memory/` only.** `CLAUDE.md`, `plans/` and
+`code-validation-and-ci-guidelines.md` are read when something points at them, never
+auto-loaded — so a convention that agents must *follow* belongs in the relevant repo's own
+`CLAUDE.md`, or in code that enforces it, rather than only in `plans/`.
+
+## Where does a piece of information belong?
+
+**Default: put it in the repo it's about.** Durable engineering knowledge — how a
+subsystem works, gotchas, design rationale, per-repo conventions, calibration and
+hardware findings — belongs in that repo's own `CLAUDE.md` / `docs/`, next to the
+code it describes. It versions with the code, travels with it, and is found by
+whoever works there.
+
+**Operational how-tos go in the [MAST wiki](https://github.com/The-MAST-project/MAST/wiki)**:
+reaching systems, running a unit, observing, calibrating, provisioning, deploying and
+recovering. The repo keeps a one-line pointer to the page, and the page's `triggers` block
+names the code it describes. A change to that code updates the page in the same piece of
+work; see `memory/feedback_wiki_how_tos.md` and `/wiki-sweep`. The wiki is public.
+
+**Put it here only if it is genuinely cross-cutting** — it applies in (almost)
+every MAST repo regardless of which one you are in. Examples:
+- team working-style preferences (how we want the assistant to behave),
+- shared coding standards (e.g. a project-wide Python style guide),
+- environment/access facts true everywhere (e.g. the Weizmann git proxy).
+
+**When unsure, prefer the per-repo home.** Promoting a note here later — once it
+has proved cross-cutting — is cheap. The reverse is not: per-repo specifics parked
+in shared memory bloat every project's context and go stale where nobody working
+the code will see them. This is exactly why the unit self-calibration / imaging
+design notes moved out of `memory/` and into `MAST_unit/docs/`, while only the
+truly global items (proxy, working-style) stayed.
+
+## Layout
+
+- `skills/` — reusable Claude Code skills (`/wip-commit`, `/wip-status`, `/wiki-sweep`)
+- `memory/` — shared, cross-cutting memories only (working-style, project-wide facts)
+- `plans/` — design notes that span repos or predate their home repo
+- `code-validation-and-ci-guidelines.md` — linting, testing and CI standards for every
+  MAST repo: the platform matrix, CI job layout, the test-suite process-launch guard,
+  how to burn down lint debt, and per-rule policies. Applied to `MAST_common` and
+  `MAST_unit`; **read it before adding CI to `MAST_spec`, `MAST_control` or `MAST_gui`.**
+- `CLAUDE.md` — this file: what belongs here vs. in a per-repo `CLAUDE.md`

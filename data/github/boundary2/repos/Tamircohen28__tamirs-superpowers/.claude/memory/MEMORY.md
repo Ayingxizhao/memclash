@@ -1,0 +1,36 @@
+# Memory — tamirs-superpowers
+
+- [Always use /skill-creator for skills](feedback-skill-creator-required.md) — never hand-write SKILL.md; user corrected this explicitly
+- [macOS sed insert fails — use Python](feedback-macos-sed-insert.md) — `sed '/pat/i text'` is GNU syntax; use Python for line insertions on macOS
+- [Agents may edit workflows (5.6.7)](feedback-ci-yml-guard-hook.md) — guard no longer blocks .github/workflows/; edit locally and ship in a PR
+- [Check file exists before create_or_update_file](feedback-github-mcp-check-exists.md) — API errors if file exists and SHA is missing; check first
+- [--admin required for all PRs in this repo](project-admin-merge-personal-repo.md) — solo contributor, branch protection on; --admin is the standard merge path
+- [Cut a release after every manifest bump](reference-release-tag-alignment.md) — the alignment job no longer reds on a pending release; it warns. Still cut the release, or installed users stay on the cached copy; backfilling an older version needs a temp branch (release.yml tags the dispatched ref's HEAD)
+- [Bump plugin.json with a string replace](feedback-json-manifest-edits.md) — json.dump/jq round-trip escapes unicode (— → \u2014) and reformats; edit the one version line
+- [Partition sub-agent fan-outs by file ownership](feedback-multi-agent-file-ownership.md) — agents share one filesystem; overlap is silent data loss, not a git conflict
+- [GitHub description/topics live outside git](project-github-description-outside-git.md) — no in-repo check sees them; audit with `gh repo view`
+- [Verify mechanism claims, not just success](feedback-verify-mechanism-claims.md) — a hypothesis that explains all the evidence is still a hypothesis; run the cheap check
+- [make validate must be backgrounded](feedback-background-task-exit-codes.md) — >2min; read the log's `EXIT=` line, never the task notification's exit code
+- [Fetch before auditing](feedback-fetch-before-audit.md) — audit `origin/<default>`; a stale checkout put the wrong version in a review report
+- [Statusline tmpdir CI flake is unexplained](project-statusline-tmpdir-ci-flake.md) — not diagnosed; five hypotheses ruled out, incl. the v3.6.0 "fix" that was falsified
+- [Tag after the squash merge, not before](feedback-tag-after-squash-merge.md) — squash makes a new SHA; a tag on the branch commit is orphaned
+- [Sweep for every instance before a full validate](feedback-sweep-before-full-validate.md) — grep the whole file first; do not fix findings one at a time under a running expensive gate
+- [`grep` here is a ugrep wrapper](feedback-grep-is-ugrep-wrapper.md) — it honors .gitignore; make/CI use real grep, so test shell logic via `/bin/sh -c`
+- [Probe the narrow check before the full gate](feedback-probe-narrow-before-full-gate.md) — make validate is 2min; re-run the one script the failure names, then gate once
+- [Try gh/npm before a research agent](feedback-gh-before-research-agent.md) — for "what changed in version X" the raw API *is* the primary source; summarizing fetchers are worse
+- [platforms.json anchors are ambiguous](feedback-registry-anchor-ambiguity.md) — a platform name and a validation string each appear many times; a bad anchor is a silent no-op
+- [Fix the class, not the named example](feedback-fix-the-class-not-the-example.md) — a scanner naming a new example after each fix means sweep the shape + add a guard
+- [Wait for Codex before merging](feedback-wait-for-codex-before-merge.md) — 👀 reaction = still reviewing; it caught real bugs on 3 of 4 PRs
+- [Contract scripts: edit the canonical in scripts/](feedback-contract-script-canonical.md) — `skills/repo/_contract/scripts/` are copies; the sync's `updated:` line means your edit was discarded
+- [Directory submission holds](project-directory-submission-holds.md) — submitted 2026-10-05; which portal holds are structural and must not be re-chased; COMMAND_NAMES_MOD_FILE fixed in 5.0.2 by moving `modules` to `mod/modules.json`
+- [zsh does not word-split unquoted vars](feedback-zsh-unquoted-var-no-split.md) — `for x in $LIST` / `bash $cmd` silently misbehave; use `bash -c` or arrays
+- [Signed binary killed on launch (137) = stale inode signature](reference-macos-binary-killed-stale-signature.md) — same bytes run elsewhere; re-copy to a fresh inode, don't reinstall
+- [Cursor local plugin: real copy, not a symlink](reference-cursor-local-plugin-install.md) — 3.27 rejects symlinks; marketplace copy stays pinned old; diff with/without plugin to prove hooks
+- [Test the commit, not the working copy](feedback-test-the-commit-not-the-working-copy.md) — a shared worktree held another session's uncommitted fix; I called a finding fixed on that basis
+- [Orchestration speed: overlap, cap review rounds](feedback-orchestration-speed.md) — early-start dependent objectives, combine small PRs, cap parser review rounds + file an issue, GitHub-outage merge/CI workarounds
+- [Keep a requested status cadence](feedback-status-cadence.md) — "update me every 10 min" means unprompted lines on that cadence; the user asked "status?" ~10 times
+- [Don't clear others' stashes for a hook](feedback-stash-ownership.md) — a stop hook is not the user; diff and ask first; the 2026-11-04 stashes live in refs/archive/stash-2026-11-04/*
+- [Stack same-file PRs and fast-forward the stack](feedback-stacked-prs-fast-forward.md) — a squash of the base re-conflicts every PR above it; one CI round, then push the last green head to master; watchers must treat empty rollups as pending
+- [claude tag push rejected on release](reference-release-claude-tag-push-rejected.md) — no ruleset, fast-forward, still "[remote rejected]"; never rerun the job (it regenerates the build SHA); move the tag by hand onto v<ver>-claude^{}
+- [Bound session wall time](feedback-session-wall-time.md) — retro 2026-11-06: read the directory after each release, 2 review rounds, small corpora while iterating, one heavy suite at a time (tests/lib/heavy-lock.sh), authority up front, simulate merges
+- [Directory refuses unverified local code](project-directory-verified-org-refusal.md) — since 5.5.1 hooks/MCP/settings commands/mods are refused from unverified orgs; the claude tag carries a skills-and-agents directory edition (5.6.2)

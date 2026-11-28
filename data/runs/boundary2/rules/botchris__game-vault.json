@@ -1,0 +1,1636 @@
+{
+  "repo": "botchris/game-vault",
+  "dir": ".claude/memory",
+  "n_files": 42,
+  "n_rules": 270,
+  "n_dropped": 1,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "api-probing.md",
+      "quote": "Probe real endpoints with bogus credentials",
+      "rule": "When discovering an undocumented API, probe real endpoints using bogus credentials, not the user's account."
+    },
+    {
+      "id": "R2",
+      "file": "api-probing.md",
+      "quote": "probe field names that way",
+      "rule": "When probing a GraphQL API, probe candidate field names with bogus-credential requests, since GraphQL APIs often validate before authenticating."
+    },
+    {
+      "id": "R3",
+      "file": "api-probing.md",
+      "quote": "batch many candidates in one request with aliases",
+      "rule": "When probing a GraphQL API, batch many candidate field names in one request using aliases."
+    },
+    {
+      "id": "R4",
+      "file": "api-probing.md",
+      "quote": "decode leniently",
+      "rule": "When the schema of an API is unknown, decode responses leniently."
+    },
+    {
+      "id": "R5",
+      "file": "api-probing.md",
+      "quote": "surface the service's own error verbatim",
+      "rule": "When the schema of an API is unknown, surface the service's own error message verbatim to the user."
+    },
+    {
+      "id": "R6",
+      "file": "api-probing.md",
+      "quote": "ask the user to paste it after their first real test",
+      "rule": "When the schema of an API is unknown, ask the user to paste the service's error after their first real test."
+    },
+    {
+      "id": "R7",
+      "file": "browser-pane.md",
+      "quote": "add `?v=N` to the URL after each\n  rebuild.",
+      "rule": "After rebuilding the app, add a `?v=N` cache-busting query parameter to the URL when loading it in the in-app browser pane, incrementing N each time."
+    },
+    {
+      "id": "R8",
+      "file": "cex.md",
+      "quote": "Use `superCatId == 1` for games",
+      "rule": "When filtering CeX results to games, select entries where superCatId == 1."
+    },
+    {
+      "id": "R9",
+      "file": "cex.md",
+      "quote": "one lookup per user scan, never crawling",
+      "rule": "Make one CeX lookup per user scan, and never crawl CeX."
+    },
+    {
+      "id": "R10",
+      "file": "cex.md",
+      "quote": "keep only name and platform for barcode lookups",
+      "rule": "For CeX barcode lookups, keep only the product name and platform from the response."
+    },
+    {
+      "id": "R11",
+      "file": "cex.md",
+      "quote": "never store or show CeX's images",
+      "rule": "Never store or display CeX product images."
+    },
+    {
+      "id": "R12",
+      "file": "cex.md",
+      "quote": "prices only as below",
+      "rule": "Only fetch and store CeX prices under the conditions in the price rules."
+    },
+    {
+      "id": "R13",
+      "file": "cex.md",
+      "quote": "If Cloudflare starts challenging, fail with a clear error",
+      "rule": "If CeX requests get a Cloudflare challenge, fail with a clear error message."
+    },
+    {
+      "id": "R14",
+      "file": "cex.md",
+      "quote": "never work around it (CLAUDE.md safety rules)",
+      "rule": "Never work around a Cloudflare challenge from CeX."
+    },
+    {
+      "id": "R15",
+      "file": "cex.md",
+      "quote": "**for the user's own copies only**",
+      "rule": "Store CeX prices only for the user's own copies."
+    },
+    {
+      "id": "R16",
+      "file": "cex.md",
+      "quote": "one query per copy, on its own random date (20–40 days) or the \"Update price\" button",
+      "rule": "Query CeX prices once per copy, on that copy's own random date 20–40 days out, or when the user presses the \"Update price\" button."
+    },
+    {
+      "id": "R17",
+      "file": "cex.md",
+      "quote": "no images",
+      "rule": "Do not fetch or store CeX images when querying prices."
+    },
+    {
+      "id": "R18",
+      "file": "cex.md",
+      "quote": "Never work around it;",
+      "rule": "Never work around the Cloudflare challenge blocking CeX search (/v3/boxes?q=)."
+    },
+    {
+      "id": "R19",
+      "file": "cex.md",
+      "quote": "copies without a barcode are not priced",
+      "rule": "Do not price copies that have no barcode via CeX."
+    },
+    {
+      "id": "R20",
+      "file": "connector.md",
+      "quote": "cookie and storage captures need a readiness condition (`when`), or anonymous values",
+      "rule": "Give cookie and storage captures a readiness condition (`when`) so anonymous values are not captured before sign-in."
+    },
+    {
+      "id": "R21",
+      "file": "connector.md",
+      "quote": "hosts outside the opened one must be listed and are confirmed by the\n  user",
+      "rule": "List every host outside the opened one and have the user confirm it."
+    },
+    {
+      "id": "R22",
+      "file": "connector.md",
+      "quote": "enabling a Game Vault address happens in the popup",
+      "rule": "Enable a Game Vault address only from the extension popup, never from a web page, because pages cannot trigger permission prompts."
+    },
+    {
+      "id": "R23",
+      "file": "connector.md",
+      "quote": "so the bridge pings it every\n  20 s",
+      "rule": "Have the bridge ping the MV3 service worker every 20 seconds to keep it alive, since a port alone does not."
+    },
+    {
+      "id": "R24",
+      "file": "connector.md",
+      "quote": "Redirect recipes take no `when`",
+      "rule": "Do not give redirect recipes a `when` condition."
+    },
+    {
+      "id": "R25",
+      "file": "connector.md",
+      "quote": "\"Remember\" is never offered on plain-http network addresses",
+      "rule": "Never offer \"Remember\" for plain-http network addresses."
+    },
+    {
+      "id": "R26",
+      "file": "connector.md",
+      "quote": "on a config copy only Humble and Steam; the rest only on a main server.",
+      "rule": "Run real-store checks for Humble and Steam on a config copy, and run checks for other stores only on a main server."
+    },
+    {
+      "id": "R27",
+      "file": "connector.md",
+      "quote": "only the background calls `OwnershipService/CheckOwnership`",
+      "rule": "Call OwnershipService/CheckOwnership only from the background script."
+    },
+    {
+      "id": "R28",
+      "file": "connector.md",
+      "quote": "200 items per request",
+      "rule": "Send at most 200 items per OwnershipService/CheckOwnership request."
+    },
+    {
+      "id": "R29",
+      "file": "connector.md",
+      "quote": "every bundle game gets a mark (empty when not owned)",
+      "rule": "Give every bundle game a mark, leaving it empty when the game is not owned."
+    },
+    {
+      "id": "R30",
+      "file": "connector.md",
+      "quote": "labels and marks in closed shadow roots",
+      "rule": "Render store labels and marks inside closed shadow roots, with the same size, focus and events whatever the ownership answer."
+    },
+    {
+      "id": "R31",
+      "file": "connector.md",
+      "quote": "\"unavailable\" is never \"not owned\"",
+      "rule": "Never show an unavailable ownership result as \"not owned\"."
+    },
+    {
+      "id": "R32",
+      "file": "connector.md",
+      "quote": "Fanatical's selectors are checked by the user only",
+      "rule": "Do not check Fanatical's selectors automatically; only the user checks them."
+    },
+    {
+      "id": "R33",
+      "file": "connector.md",
+      "quote": "its labels only read the page the user is viewing and store nothing",
+      "rule": "Make Fanatical labels read only the page the user is viewing and store nothing."
+    },
+    {
+      "id": "R34",
+      "file": "connector.md",
+      "quote": "storage is limited to trusted contexts where supported",
+      "rule": "Limit token storage to trusted contexts where the browser supports them."
+    },
+    {
+      "id": "R35",
+      "file": "connector.md",
+      "quote": "one content script per allowed store, registered dynamically",
+      "rule": "Use one content script per allowed store, registered dynamically."
+    },
+    {
+      "id": "R36",
+      "file": "connector.md",
+      "quote": "The store-page option is saved whole from the popup's shown state (`shownOwnership`), never read-then-write",
+      "rule": "Save the store-page option whole from the popup's shown state (shownOwnership), never by read-then-write."
+    },
+    {
+      "id": "R37",
+      "file": "connector.md",
+      "quote": "`lib/permission.js` `saveAndRequest` starts the write, then the request, with no await between",
+      "rule": "In Firefox, put no await before permissions.request(): start the write, then the request, with no await between them."
+    },
+    {
+      "id": "R38",
+      "file": "connector.md",
+      "quote": "A refused request (it throws) counts as not granted, so the option is turned back off.",
+      "rule": "Treat a permission request that throws as not granted and turn the option back off."
+    },
+    {
+      "id": "R39",
+      "file": "connector.md",
+      "quote": "every store-script sync injects into the store's open tabs that do not run the scripts yet (probe `__gvOwnershipStarted` first)",
+      "rule": "On each store-script sync, inject into open store tabs that are not yet running the scripts, probing `__gvOwnershipStarted` first."
+    },
+    {
+      "id": "R40",
+      "file": "connector.md",
+      "quote": "`label.js` ignores a second load",
+      "rule": "Make label.js ignore a second load."
+    },
+    {
+      "id": "R41",
+      "file": "connector.md",
+      "quote": "orphaned scripts stop (`alive()`)",
+      "rule": "Make orphaned content scripts stop, checking with alive()."
+    },
+    {
+      "id": "R42",
+      "file": "connector.md",
+      "quote": "Store sites are never Game Vault addresses",
+      "rule": "Never treat store sites as Game Vault addresses."
+    },
+    {
+      "id": "R43",
+      "file": "connector.md",
+      "quote": "is refused by `enableOrigin`, `originAllowed`, `activeSettings` and the popup offer",
+      "rule": "Refuse store sites as Game Vault addresses in enableOrigin, originAllowed, activeSettings and the popup offer."
+    },
+    {
+      "id": "R44",
+      "file": "connector.md",
+      "quote": "A new store or sign-in domain goes there too",
+      "rule": "Add each new store or sign-in domain to extension/lib/storesites.js."
+    },
+    {
+      "id": "R45",
+      "file": "connector.md",
+      "quote": "reloading needs developer mode (`developerPrivate.updateProfileConfiguration`)",
+      "rule": "Enable developer mode via developerPrivate.updateProfileConfiguration before reloading the extension in end-to-end tests."
+    },
+    {
+      "id": "R46",
+      "file": "connector.md",
+      "quote": "`Extensions.loadUnpacked` over `--remote-debugging-pipe` with `--enable-unsafe-extension-debugging`",
+      "rule": "Load the unpacked extension in branded Chrome 137+ with Extensions.loadUnpacked over --remote-debugging-pipe and --enable-unsafe-extension-debugging, not --load-extension."
+    },
+    {
+      "id": "R47",
+      "file": "connector.md",
+      "quote": "under Xvfb, `xdotool key Tab Return` accepts the prompt",
+      "rule": "Under Xvfb, accept the permission prompt with `xdotool key Tab Return`."
+    },
+    {
+      "id": "R48",
+      "file": "connector.md",
+      "quote": "The extension's DOM tests use happy-dom from `web/node_modules`",
+      "rule": "Use happy-dom from web/node_modules for the extension's DOM tests."
+    },
+    {
+      "id": "R49",
+      "file": "connector.md",
+      "quote": "The background is tested in Node against a fake `chrome`",
+      "rule": "Test the background in Node against a fake chrome object."
+    },
+    {
+      "id": "R50",
+      "file": "connector.md",
+      "quote": "data, never code",
+      "rule": "Write recipes as declarative data, never as code."
+    },
+    {
+      "id": "R51",
+      "file": "cover-recognition.md",
+      "quote": "without paid LLM services",
+      "rule": "Do not use paid LLM services to recognize physical game boxes from photos."
+    },
+    {
+      "id": "R52",
+      "file": "cover-recognition.md",
+      "quote": "a small local model is fine",
+      "rule": "A small local model may be used to recognize physical game boxes from photos."
+    },
+    {
+      "id": "R53",
+      "file": "cover-recognition.md",
+      "quote": "title must be found inside the OCR text",
+      "rule": "When matching OCR text against a platform's title list, require the catalog title to be found inside the OCR text, not the reverse."
+    },
+    {
+      "id": "R54",
+      "file": "cover-recognition.md",
+      "quote": "`pilicense=any` needed for non-free images",
+      "rule": "When fetching Wikipedia cover art that is non-free, include pilicense=any in the request."
+    },
+    {
+      "id": "R55",
+      "file": "cover-recognition.md",
+      "quote": "photos never go into the repository",
+      "rule": "Never commit photo files to the repository."
+    },
+    {
+      "id": "R56",
+      "file": "cover-recognition.md",
+      "quote": "Resume from its README's \"Before building it\" list.",
+      "rule": "When resuming the cover-recognition spike, start from the \"Before building it\" list in its README."
+    },
+    {
+      "id": "R57",
+      "file": "cover-recognition.md",
+      "quote": "OCR in the browser (ONNX)",
+      "rule": "Run OCR for cover recognition in the browser using ONNX."
+    },
+    {
+      "id": "R58",
+      "file": "cover-recognition.md",
+      "quote": "platform from banner text or the batch preset",
+      "rule": "Determine the game's platform from the banner text on the box or from the batch preset."
+    },
+    {
+      "id": "R59",
+      "file": "cover-recognition.md",
+      "quote": "fuzzy match in the Go server",
+      "rule": "Perform fuzzy matching of recognized titles against the catalog in the Go server."
+    },
+    {
+      "id": "R60",
+      "file": "cover-recognition.md",
+      "quote": "visual rerank of the near-ties",
+      "rule": "Visually rerank near-tie candidate matches."
+    },
+    {
+      "id": "R61",
+      "file": "cover-recognition.md",
+      "quote": "user confirms",
+      "rule": "Have the user confirm the final game match before accepting it."
+    },
+    {
+      "id": "R62",
+      "file": "cover-recognition.md",
+      "quote": "Keep the server pure Go (no CGO / ONNX runtime).",
+      "rule": "Keep the server pure Go, with no CGO and no ONNX runtime."
+    },
+    {
+      "id": "R63",
+      "file": "credentials.md",
+      "quote": "never shown to or accepted from the\n  browser",
+      "rule": "Never show rotating credentials (schema.FieldState settings) to the browser or accept them from the browser."
+    },
+    {
+      "id": "R64",
+      "file": "credentials.md",
+      "quote": "Providers write the new value into the settings map; the service persists it\n  (`Source.UpdateState`).",
+      "rule": "When a provider rotates a credential, write the new value into the settings map, and have the service persist it via Source.UpdateState."
+    },
+    {
+      "id": "R65",
+      "file": "credentials.md",
+      "quote": "One-time codes are exchanged in `sync.Preparer.Prepare`",
+      "rule": "Exchange one-time codes in sync.Preparer.Prepare."
+    },
+    {
+      "id": "R66",
+      "file": "credentials.md",
+      "quote": "with an in-memory cache by\n  `sha256(code)` so \"Test\" then \"Save\" reuse the same code",
+      "rule": "Cache exchanged one-time codes in memory keyed by sha256(code) so that a Test followed by a Save reuses the same code."
+    },
+    {
+      "id": "R67",
+      "file": "credentials.md",
+      "quote": "Code-based OAuth sources use\n  `internal/adapters/outbound/oauthsession` for it",
+      "rule": "Use internal/adapters/outbound/oauthsession for code-based OAuth sources (Epic, GOG, Xbox, Amazon and PlayStation)."
+    },
+    {
+      "id": "R68",
+      "file": "credentials.md",
+      "quote": "one\n  refresh at a time",
+      "rule": "Allow only one refresh at a time in oauthsession."
+    },
+    {
+      "id": "R69",
+      "file": "credentials.md",
+      "quote": "the newest session always handed back",
+      "rule": "Always hand back the newest session in oauthsession."
+    },
+    {
+      "id": "R70",
+      "file": "credentials.md",
+      "quote": "a spent refresh token remembered\n  with its replacement for 8 days (a weekly scan plus jitter) so it is never sent again",
+      "rule": "Remember a spent refresh token together with its replacement for 8 days in oauthsession so the spent token is never sent again."
+    },
+    {
+      "id": "R71",
+      "file": "credentials.md",
+      "quote": "Application tokens (client credentials) use `oauthapp`.",
+      "rule": "Use oauthapp for application tokens (client credentials)."
+    },
+    {
+      "id": "R72",
+      "file": "credentials.md",
+      "quote": "PlayStation's NPSSO is not a one-time code and stays in the settings (no `sync.Preparer`).",
+      "rule": "Keep PlayStation's NPSSO in the settings and do not route it through sync.Preparer, since it is not a one-time code."
+    },
+    {
+      "id": "R73",
+      "file": "credentials.md",
+      "quote": "when Sony refuses the refresh\n  token, it calls `Sessions.ForgetCode(npsso)`",
+      "rule": "When Sony refuses the PlayStation refresh token, call Sessions.ForgetCode(npsso) in playstation.withToken."
+    },
+    {
+      "id": "R74",
+      "file": "credentials.md",
+      "quote": "signs in again with the NPSSO.",
+      "rule": "After forgetting the code, sign in again with the NPSSO in playstation.withToken."
+    },
+    {
+      "id": "R75",
+      "file": "credentials.md",
+      "quote": "If a provider also caches in memory, it must still hand the latest value back on every call",
+      "rule": "If a provider caches credentials in memory, always hand back the latest value on every call."
+    },
+    {
+      "id": "R76",
+      "file": "credentials.md",
+      "quote": "Pasted browser cookies go through `internal/adapters/outbound/browsersession`.",
+      "rule": "Process pasted browser cookies through internal/adapters/outbound/browsersession."
+    },
+    {
+      "id": "R77",
+      "file": "credentials.md",
+      "quote": "**Two servers must never share a rotating credential.**",
+      "rule": "Never let two servers share a rotating credential."
+    },
+    {
+      "id": "R78",
+      "file": "credentials.md",
+      "quote": "Test servers now start with `-no-unattended`",
+      "rule": "Start test servers with the -no-unattended flag."
+    },
+    {
+      "id": "R79",
+      "file": "credentials.md",
+      "quote": "on a\n  copy only scan Humble or Steam",
+      "rule": "On a copied config, only scan Humble or Steam."
+    },
+    {
+      "id": "R80",
+      "file": "data-model.md",
+      "quote": "don't.",
+      "rule": "Never change the ExternalID format of an existing import, because a changed format duplicates copies on the next scan and brings back excluded items."
+    },
+    {
+      "id": "R81",
+      "file": "data-model.md",
+      "quote": "never `MatchKey`,",
+      "rule": "Never derive the keys for Battle.net, EA, or CSV items from game.MatchKey; use game.TitleIDKey, which is frozen."
+    },
+    {
+      "id": "R82",
+      "file": "data-model.md",
+      "quote": "never rename one",
+      "rule": "Never rename a catalog system Name."
+    },
+    {
+      "id": "R83",
+      "file": "data-model.md",
+      "quote": "never rename",
+      "rule": "Never rename system names such as PC, the console names, or Other."
+    },
+    {
+      "id": "R84",
+      "file": "data-model.md",
+      "quote": "names never change once released",
+      "rule": "Never change the gameDoc, copyDoc, sourceDoc, or providerDoc field names in the adapter once they are released."
+    },
+    {
+      "id": "R85",
+      "file": "data-model.md",
+      "quote": "changing a field's meaning bumps `\"v\"`",
+      "rule": "When changing the meaning of a stored field, bump the document's \"v\" version."
+    },
+    {
+      "id": "R86",
+      "file": "data-model.md",
+      "quote": "must round-trip byte for byte",
+      "rule": "Each fixture in testdata/ must round-trip byte for byte."
+    },
+    {
+      "id": "R87",
+      "file": "data-model.md",
+      "quote": "stored ids never change",
+      "rule": "Never change stored region ids."
+    },
+    {
+      "id": "R88",
+      "file": "data-model.md",
+      "quote": "an import never clears one",
+      "rule": "An import must never clear a copy's CSV system override."
+    },
+    {
+      "id": "R89",
+      "file": "data-model.md",
+      "quote": "never the copies' ids.",
+      "rule": "Cover providers must read store ids from the game's links, never from the copies' ids."
+    },
+    {
+      "id": "R90",
+      "file": "data-model.md",
+      "quote": "game to its store with the same id",
+      "rule": "Each library source must also link the game to its store using the same id."
+    },
+    {
+      "id": "R91",
+      "file": "data-model.md",
+      "quote": "every platform, system and link key is a constant in",
+      "rule": "Define every platform, system, and link key as a constant in internal/domain/game/platforms.go."
+    },
+    {
+      "id": "R92",
+      "file": "data-model.md",
+      "quote": "Platform names are shared between sources",
+      "rule": "Use the shared platform name strings across sources, such as \"Steam\" and \"Epic Games\"."
+    },
+    {
+      "id": "R93",
+      "file": "data-model.md",
+      "quote": "PlayStation copies use \"PS4\"/\"PS5\".",
+      "rule": "PlayStation copies must use the platform names \"PS4\" or \"PS5\"."
+    },
+    {
+      "id": "R94",
+      "file": "data-model.md",
+      "quote": "returning it `Withdrawn`",
+      "rule": "To drop a copy it imported earlier, a source must return that copy as Withdrawn."
+    },
+    {
+      "id": "R95",
+      "file": "data-model.md",
+      "quote": "\"EA app\" (lowercase, as stored)",
+      "rule": "Keep the EA source's Origin as \"EA app\" in lowercase, while its platform stays \"EA App\"."
+    },
+    {
+      "id": "R96",
+      "file": "data-model.md",
+      "quote": "Every provider maps or excludes every system",
+      "rule": "Every provider must map or exclude every system, as checked by game.CheckProviderCoverage."
+    },
+    {
+      "id": "R97",
+      "file": "data-model.md",
+      "quote": "get `<prefix>:` + `game.TitleIDKey(title)`",
+      "rule": "Battle.net and EA items without a store id must get the key `<prefix>:` + game.TitleIDKey(title)."
+    },
+    {
+      "id": "R98",
+      "file": "docker-image.md",
+      "quote": "SemVer git tags starting at `v0.1.0`",
+      "rule": "Version Game Vault releases with SemVer git tags, starting at v0.1.0."
+    },
+    {
+      "id": "R99",
+      "file": "docker-image.md",
+      "quote": "`task docker:publish` only publishes a tagged clean commit",
+      "rule": "Run `task docker:publish` only on a tagged, clean commit, since it publishes only those."
+    },
+    {
+      "id": "R100",
+      "file": "docker-image.md",
+      "quote": "only run it when the user explicitly asks",
+      "rule": "Run `task docker:publish` only when the user explicitly asks for it."
+    },
+    {
+      "id": "R101",
+      "file": "docker-image.md",
+      "quote": "after they ran `docker login` themselves",
+      "rule": "Run `task docker:publish` only after the user has run `docker login` themselves."
+    },
+    {
+      "id": "R102",
+      "file": "docker-image.md",
+      "quote": "never ask for or handle the token",
+      "rule": "Never ask the user for, or handle, the Docker Hub token (DOCKERHUB_TOKEN)."
+    },
+    {
+      "id": "R103",
+      "file": "docker-image.md",
+      "quote": "only on the user's go-ahead",
+      "rule": "Publish the dev image (`task docker:publish:dev` or `dev-image.yml`) only with the user's explicit go-ahead."
+    },
+    {
+      "id": "R104",
+      "file": "docker-image.md",
+      "quote": "Version tags and `latest` stay release-only.",
+      "rule": "Publish version tags and `latest` only as part of a release, never as dev publishes."
+    },
+    {
+      "id": "R105",
+      "file": "docker-image.md",
+      "quote": "nothing compiles in the image build",
+      "rule": "Do not compile anything in the Docker image build; it only packages prebuilt output."
+    },
+    {
+      "id": "R106",
+      "file": "docker-image.md",
+      "quote": "The proxy and Host rules in [[security-model]] still apply.",
+      "rule": "Keep applying the proxy and Host rules from the security-model when working with the trusted-networks setting."
+    },
+    {
+      "id": "R107",
+      "file": "ean-search.md",
+      "quote": "never scrape it.",
+      "rule": "Never scrape the EAN-Search public site, because its terms forbid automated queries and it has bot protection."
+    },
+    {
+      "id": "R108",
+      "file": "ean-search.md",
+      "quote": "Only the paid API is used.",
+      "rule": "When getting data from EAN-Search, use only the paid API and never the public site."
+    },
+    {
+      "id": "R109",
+      "file": "fanatical.md",
+      "quote": "the wording must make clear the user accepts the risk, not the authors.",
+      "rule": "When writing the consent wording for the Fanatical integration, make clear that the user accepts the risk, not the plugin's authors."
+    },
+    {
+      "id": "R110",
+      "file": "go-gotchas.md",
+      "quote": "use\n  `os.ReadDir`.",
+      "rule": "When listing game-data folders whose names contain brackets (such as `[id]`), use `os.ReadDir` instead of `filepath.Glob`."
+    },
+    {
+      "id": "R111",
+      "file": "go-style-feedback.md",
+      "quote": "**Load the `write-go` skill before writing or editing any Go**, every time",
+      "rule": "Before writing or editing any Go code, load the write-go skill, every time."
+    },
+    {
+      "id": "R112",
+      "file": "go-style-feedback.md",
+      "quote": "every interface method has a doc comment, `Descriptor()`\n  included",
+      "rule": "Give every interface method a doc comment, including Descriptor()."
+    },
+    {
+      "id": "R113",
+      "file": "go-style-feedback.md",
+      "quote": "member docs start with the name (`// Forwarded reports that…`, never `// Forwarded:`)",
+      "rule": "Start member doc comments with the member's name (e.g. \"// Forwarded reports that…\"), never with the name followed by a colon."
+    },
+    {
+      "id": "R114",
+      "file": "go-style-feedback.md",
+      "quote": "**One struct field per line**",
+      "rule": "Put each struct field on its own line in struct type declarations."
+    },
+    {
+      "id": "R115",
+      "file": "go-style-feedback.md",
+      "quote": "a struct literal with several keyed fields puts\n  each on its own line, even when short",
+      "rule": "In struct literals with several keyed fields, put each field on its own line, even when the literal is short."
+    },
+    {
+      "id": "R116",
+      "file": "go-style-feedback.md",
+      "quote": "struct types\n  declare one name per field",
+      "rule": "In struct type declarations, declare one name per field."
+    },
+    {
+      "id": "R117",
+      "file": "go-style-feedback.md",
+      "quote": "Maps, positional literals and single-field literals are exempt.",
+      "rule": "Do not apply the one-field-per-line rule to map literals, positional struct literals, or single-field struct literals."
+    },
+    {
+      "id": "R118",
+      "file": "go-style-feedback.md",
+      "quote": "**Constructors use functional options**",
+      "rule": "Write constructors using the functional options pattern, not config or dependency DTO structs."
+    },
+    {
+      "id": "R119",
+      "file": "go-style-feedback.md",
+      "quote": "required\n  dependencies positional, optional ones as `With…` options with no-op defaults",
+      "rule": "In constructors, pass required dependencies as positional parameters and optional ones as With… functional options with no-op defaults."
+    },
+    {
+      "id": "R120",
+      "file": "go-style-feedback.md",
+      "quote": "Write new code in that\n  shape from the start rather than relying on the fix",
+      "rule": "Write new Go code in the required shape from the start instead of relying on the lint auto-fix (task lint:fix)."
+    },
+    {
+      "id": "R121",
+      "file": "go-style-feedback.md",
+      "quote": "missing interface docs must be written by hand",
+      "rule": "Write missing interface doc comments by hand; the lint auto-fix does not add them."
+    },
+    {
+      "id": "R122",
+      "file": "gog.md",
+      "quote": "don't follow redirects",
+      "rule": "When requesting embed.gog.com, do not follow HTTP redirects."
+    },
+    {
+      "id": "R123",
+      "file": "humble.md",
+      "quote": "fixtures must copy the real shape",
+      "rule": "When writing test fixtures for Humble Bundle order data, copy the real API response shape instead of inventing values (for example, keyindex values)."
+    },
+    {
+      "id": "R124",
+      "file": "igdb.md",
+      "quote": "If the first real sheet fails, ask for the warning text",
+      "rule": "If the first real IGDB sheet fails, ask the user for the warning text shown with the failure."
+    },
+    {
+      "id": "R125",
+      "file": "itad.md",
+      "quote": "no removing affiliate tags",
+      "rule": "Never remove affiliate tags from ITAD data."
+    },
+    {
+      "id": "R126",
+      "file": "itad.md",
+      "quote": "no changing prices",
+      "rule": "Never change prices from ITAD data."
+    },
+    {
+      "id": "R127",
+      "file": "itad.md",
+      "quote": "adding one's own data are fine",
+      "rule": "You may add your own data alongside ITAD data."
+    },
+    {
+      "id": "R128",
+      "file": "itad.md",
+      "quote": "partial use",
+      "rule": "You may use only part of ITAD data."
+    },
+    {
+      "id": "R129",
+      "file": "itad.md",
+      "quote": "private non-personal use needs",
+      "rule": "Do not use ITAD data for private non-personal use without ITAD's approval."
+    },
+    {
+      "id": "R130",
+      "file": "itad.md",
+      "quote": "Never compete with ITAD or help a competitor",
+      "rule": "Never compete with ITAD or help a competitor of ITAD."
+    },
+    {
+      "id": "R131",
+      "file": "itad.md",
+      "quote": "no price alerts or\n  waitlist of Game Vault's own",
+      "rule": "Do not build price alerts or a waitlist in Game Vault that compete with ITAD's."
+    },
+    {
+      "id": "R132",
+      "file": "itad.md",
+      "quote": "Cache rather than maxing the limit.",
+      "rule": "Cache ITAD API responses rather than sending requests up to the rate limit."
+    },
+    {
+      "id": "R133",
+      "file": "itad.md",
+      "quote": "Linking to IsThereAnyDeal or crediting its API is recommended",
+      "rule": "Link to IsThereAnyDeal or credit its API when using its data."
+    },
+    {
+      "id": "R134",
+      "file": "itad.md",
+      "quote": "never probe the lookup with `[]`",
+      "rule": "Never probe the POST /lookup/shop/61/id/v1 endpoint with an empty array `[]`."
+    },
+    {
+      "id": "R135",
+      "file": "itad.md",
+      "quote": "Ask the user for the first real\n  refresh's result before relying on them.",
+      "rule": "Ask the user for the result of the first real refresh before relying on the unverified sort order, flag meaning, or asset behavior."
+    },
+    {
+      "id": "R136",
+      "file": "itch.md",
+      "quote": "A short page is NOT the last one: read until empty.",
+      "rule": "When paginating the itch.io owned-keys endpoint, keep requesting pages until a page comes back empty; do not stop because a page is shorter than per_page."
+    },
+    {
+      "id": "R137",
+      "file": "itch.md",
+      "quote": "Decode any itch.io list as array-or-object.",
+      "rule": "When decoding any itch.io list value, accept either a JSON array or a JSON object, because empty lists may arrive as {}."
+    },
+    {
+      "id": "R138",
+      "file": "license.md",
+      "quote": "describe the project as *source-available*, never \"open source\"",
+      "rule": "When describing the project's license, describe it as source-available and never call it \"open source\"."
+    },
+    {
+      "id": "R139",
+      "file": "license.md",
+      "quote": "Keep the README's non-affiliation / trademark notice.",
+      "rule": "Keep the non-affiliation / trademark notice in the README."
+    },
+    {
+      "id": "R140",
+      "file": "license.md",
+      "quote": "suggest a CLA so the user keeps the right to relicense",
+      "rule": "If outside contributions are accepted, suggest a CLA so the user keeps the right to relicense."
+    },
+    {
+      "id": "R141",
+      "file": "local-images.md",
+      "quote": "The browser loads remote images only through `/media/proxy`",
+      "rule": "When the browser loads a remote image, load it only through the `/media/proxy` endpoint, never directly from the remote host."
+    },
+    {
+      "id": "R142",
+      "file": "local-images.md",
+      "quote": "for hosts a provider declares\n  with `ImageHoster`",
+      "rule": "Route a remote image through `/media/proxy` only if its host is declared by a provider via `ImageHoster`."
+    },
+    {
+      "id": "R143",
+      "file": "multilingual.md",
+      "quote": "none treats Spanish as a priority or a special case.",
+      "rule": "Do not treat Spanish as a priority or special case in language-dependent features; the product is not Spanish-first."
+    },
+    {
+      "id": "R144",
+      "file": "multilingual.md",
+      "quote": "Features that depend on language (metadata\nsummaries, Wikipedia articles, provider requests) follow the UI language and fall back to English;",
+      "rule": "For language-dependent features (metadata summaries, Wikipedia articles, provider requests), use the UI language and fall back to English when it is unavailable."
+    },
+    {
+      "id": "R145",
+      "file": "multilingual.md",
+      "quote": "take the language from the request or UI setting, support any language code, and\nfall back to English;",
+      "rule": "Take the language from the request or UI setting, support any language code, and fall back to English."
+    },
+    {
+      "id": "R146",
+      "file": "multilingual.md",
+      "quote": "write examples and docs in English with \"the UI language\" rather than\n\"Spanish\".",
+      "rule": "Write examples and docs in English, referring to \"the UI language\" rather than \"Spanish\"."
+    },
+    {
+      "id": "R147",
+      "file": "ntfy.md",
+      "quote": "`high` for attention and security events",
+      "rule": "Set the Priority header to `high` for attention and security events."
+    },
+    {
+      "id": "R148",
+      "file": "ntfy.md",
+      "quote": "non-ASCII text goes RFC 2047 encoded",
+      "rule": "Encode non-ASCII text in ntfy header values using RFC 2047 before sending."
+    },
+    {
+      "id": "R149",
+      "file": "ntfy.md",
+      "quote": "the `Message` header is cut below ~3900",
+      "rule": "Keep the Message header below about 3900 bytes by truncating longer text."
+    },
+    {
+      "id": "R150",
+      "file": "ntfy.md",
+      "quote": "access token in `Authorization: Bearer <token>` only",
+      "rule": "Send the ntfy access token only in the `Authorization: Bearer <token>` header."
+    },
+    {
+      "id": "R151",
+      "file": "ntfy.md",
+      "quote": "never in the URL or an error",
+      "rule": "Never include the ntfy access token in the URL or in error messages."
+    },
+    {
+      "id": "R152",
+      "file": "ntfy.md",
+      "quote": "413 = the image is too large (the message goes as text)",
+      "rule": "When ntfy returns 413 for an image upload, send the message as plain text instead."
+    },
+    {
+      "id": "R153",
+      "file": "ntfy.md",
+      "quote": "the text then travels in the `Message` header, newlines as `\\n`",
+      "rule": "When the body is an uploaded image, put the text in the Message header with newlines written as `\\n`."
+    },
+    {
+      "id": "R154",
+      "file": "ntfy.md",
+      "quote": "Never publish to one while probing.",
+      "rule": "Never publish to a public ntfy.sh topic while probing or testing."
+    },
+    {
+      "id": "R155",
+      "file": "ntfy.md",
+      "quote": "Probe (the only one allowed against the real service): `GET https://ntfy.sh/v1/health`",
+      "rule": "Use only `GET https://ntfy.sh/v1/health` to probe the real ntfy.sh service."
+    },
+    {
+      "id": "R156",
+      "file": "open-threads.md",
+      "quote": "Do not offer it again.",
+      "rule": "Do not offer the iCal calendar feed of key deadlines again."
+    },
+    {
+      "id": "R157",
+      "file": "playstation.md",
+      "quote": "Requests need `Content-Type: application/json`",
+      "rule": "Send the header `Content-Type: application/json` on library GraphQL requests."
+    },
+    {
+      "id": "R158",
+      "file": "playstation.md",
+      "quote": "NPSSO from `ca.account.sony.com/api/v1/ssocookie`",
+      "rule": "Obtain the NPSSO token from `ca.account.sony.com/api/v1/ssocookie`, with the user signed in on playstation.com."
+    },
+    {
+      "id": "R159",
+      "file": "playstation.md",
+      "quote": "pages are never read",
+      "rule": "Never read PS Store pages."
+    },
+    {
+      "id": "R160",
+      "file": "playstation.md",
+      "quote": "but it is not used",
+      "rule": "Do not use the PS Store catalog to determine a title's kind."
+    },
+    {
+      "id": "R161",
+      "file": "playstation.md",
+      "quote": "(no `categories`, then `categories=ps4_game,ps5_native_game,pspc_game`)",
+      "rule": "Fetch the played-titles list twice: first without `categories`, then with `categories=ps4_game,ps5_native_game,pspc_game`."
+    },
+    {
+      "id": "R162",
+      "file": "playstation.md",
+      "quote": "is not a game",
+      "rule": "Treat a purchased title that matches (title id, `concept.titleIds`, or `concept.id`) a title in the first played-titles list but not in the second as not a game, and withdraw it."
+    },
+    {
+      "id": "R163",
+      "file": "playstation.md",
+      "quote": "Never-played titles stay",
+      "rule": "Keep never-played titles; do not withdraw them."
+    },
+    {
+      "id": "R164",
+      "file": "playstation.md",
+      "quote": "if a list fails, no category exclusions (warn log)",
+      "rule": "If a played-titles request fails, apply no category exclusions and write a warning log."
+    },
+    {
+      "id": "R165",
+      "file": "playstation.md",
+      "quote": "trailing Demo / Trial / Beta",
+      "rule": "Withdraw a title whose name ends with Demo, Trial, Beta, Soundtrack, OST, Theme, Avatar(s), or Art Book (including the Spanish equivalents)."
+    },
+    {
+      "id": "R166",
+      "file": "playstation.md",
+      "quote": "\"Behind the Scenes\" / \"Making of\" anywhere",
+      "rule": "Withdraw a title whose name contains \"Behind the Scenes\" or \"Making of\" anywhere."
+    },
+    {
+      "id": "R167",
+      "file": "playstation.md",
+      "quote": "start when a joiner follows",
+      "rule": "Withdraw a title whose name starts with one of the marker words when a joiner follows it (for example \"of\", \":\", or \"-\")."
+    },
+    {
+      "id": "R168",
+      "file": "playstation.md",
+      "quote": "no \"of\" for demo/trial/theme/avatar",
+      "rule": "For leading Demo, Trial, Theme, or Avatar markers, do not require \"of\" as the joiner."
+    },
+    {
+      "id": "R169",
+      "file": "playstation.md",
+      "quote": "™ ® are",
+      "rule": "Ignore the ™ and ® symbols when matching title names."
+    },
+    {
+      "id": "R170",
+      "file": "playstation.md",
+      "quote": "trailing Tech Test",
+      "rule": "Withdraw a title whose name ends with Tech Test."
+    },
+    {
+      "id": "R171",
+      "file": "playstation.md",
+      "quote": "\"Teaser\" anywhere",
+      "rule": "Withdraw a title whose name contains \"Teaser\" anywhere."
+    },
+    {
+      "id": "R172",
+      "file": "playstation.md",
+      "quote": "leading \"The Art of \"",
+      "rule": "Withdraw a title whose name starts with \"The Art of \"."
+    },
+    {
+      "id": "R173",
+      "file": "project-name.md",
+      "quote": "don't suggest renaming again",
+      "rule": "Do not suggest renaming the project; the name \"Game Vault\" is settled."
+    },
+    {
+      "id": "R174",
+      "file": "project-name.md",
+      "quote": "When writing public-facing text (README, repo\n  description), state clearly what this project is",
+      "rule": "When writing public-facing text for the project (such as a README or repo description), state clearly that it is a catalog of the games the user owns across stores, keys and discs, so it is not mistaken for Phalcode's GameVault."
+    },
+    {
+      "id": "R175",
+      "file": "provider-chains.md",
+      "quote": "Media providers can keep learned state in `schema.FieldState` settings",
+      "rule": "Media providers may keep learned state in schema.FieldState settings by writing it into the settings map they receive."
+    },
+    {
+      "id": "R176",
+      "file": "provider-chains.md",
+      "quote": "so a new store needs no change there",
+      "rule": "When adding a new store, do not change GameQuery.HasStoreLink, since any store link already counts."
+    },
+    {
+      "id": "R177",
+      "file": "provider-chains.md",
+      "quote": "bump `coverLogicChanged` in `internal/application/media/covers.go` to the current UTC time",
+      "rule": "When cover resolution improves, bump coverLogicChanged in internal/application/media/covers.go to the current UTC time."
+    },
+    {
+      "id": "R178",
+      "file": "provider-chains.md",
+      "quote": "(never in the future)",
+      "rule": "Never set coverLogicChanged to a time in the future."
+    },
+    {
+      "id": "R179",
+      "file": "provider-chains.md",
+      "quote": "An edition is invalidated only when its cover inputs change",
+      "rule": "Invalidate an edition's cover only when its cover inputs change (chosen cover, platforms of its copies, store links), not when a disc or key is added."
+    },
+    {
+      "id": "R180",
+      "file": "provider-chains.md",
+      "quote": "Store providers apply only when `q.ForPC()`",
+      "rule": "Apply store providers only when q.ForPC() is true."
+    },
+    {
+      "id": "R181",
+      "file": "provider-chains.md",
+      "quote": "Xbox to the PC and Xbox systems",
+      "rule": "Apply the Xbox store provider only to the PC and Xbox systems."
+    },
+    {
+      "id": "R182",
+      "file": "provider-chains.md",
+      "quote": "its search filtered to the edition's system",
+      "rule": "Filter TheGamesDB searches to the edition's system."
+    },
+    {
+      "id": "R183",
+      "file": "provider-chains.md",
+      "quote": "Increment `detailsLogicVersion` in `media/details.go` when sheet gathering improves",
+      "rule": "When sheet gathering improves, increment detailsLogicVersion in media/details.go."
+    },
+    {
+      "id": "R184",
+      "file": "provider-chains.md",
+      "quote": "Use them in new providers rather than `fmt.Errorf(\"HTTP %d\")`.",
+      "rule": "In new providers, classify errors with apiclient.ClassifyError or apiclient.ClassifyStatus instead of fmt.Errorf(\"HTTP %d\")."
+    },
+    {
+      "id": "R185",
+      "file": "provider-chains.md",
+      "quote": "every other provider classifies through `apiclient.ClassifyError`",
+      "rule": "Make every provider classify request errors through apiclient.ClassifyError, and bare HTTP statuses through apiclient.ClassifyStatus."
+    },
+    {
+      "id": "R186",
+      "file": "provider-chains.md",
+      "quote": "401/403 stay each adapter's call",
+      "rule": "Leave 401/403 handling to each provider's own adapter rather than the shared classification."
+    },
+    {
+      "id": "R187",
+      "file": "provider-chains.md",
+      "quote": "providers without settings must return ErrBadSettings, never an empty success",
+      "rule": "Make providers without settings return ErrBadSettings, never an empty success."
+    },
+    {
+      "id": "R188",
+      "file": "provider-chains.md",
+      "quote": "TestProvider sets/clears too",
+      "rule": "Make TestProvider set or clear provider status as well."
+    },
+    {
+      "id": "R189",
+      "file": "provider-chains.md",
+      "quote": "New checks implement `health.Check`",
+      "rule": "Implement new health checks as health.Check."
+    },
+    {
+      "id": "R190",
+      "file": "provider-chains.md",
+      "quote": "must stay cheap (no network)",
+      "rule": "Keep health checks cheap, with no network calls."
+    },
+    {
+      "id": "R191",
+      "file": "provider-chains.md",
+      "quote": "no fallback pass",
+      "rule": "Do not run the fallback pass for the virtual PC box edition."
+    },
+    {
+      "id": "R192",
+      "file": "provider-chains.md",
+      "quote": "never stored as a link",
+      "rule": "Never store a Steam title-search match as a store link."
+    },
+    {
+      "id": "R193",
+      "file": "provider-chains.md",
+      "quote": "5xx/no answer from Steam's search, Twitch or IGDB count as rate limits",
+      "rule": "Count 5xx or no-answer responses from Steam's search, Twitch, or IGDB as rate limits."
+    },
+    {
+      "id": "R194",
+      "file": "provider-chains.md",
+      "quote": "`coverLogicChanged` not bumped",
+      "rule": "Do not bump coverLogicChanged when adding the SteamGridDB provider."
+    },
+    {
+      "id": "R195",
+      "file": "provider-chains.md",
+      "quote": "use `game.SameTitle`",
+      "rule": "Use game.SameTitle for exact title matches."
+    },
+    {
+      "id": "R196",
+      "file": "provider-chains.md",
+      "quote": "one helper each for the title terms (`game.SearchTerms`) and the systems (`GameQuery.SearchSystems()`) of every title search",
+      "rule": "For every title search, use the shared helpers game.SearchTerms for title terms and GameQuery.SearchSystems() for systems."
+    },
+    {
+      "id": "R197",
+      "file": "provider-chains.md",
+      "quote": "Searches now use `game.SearchTitle`",
+      "rule": "Search titles with game.SearchTitle (MatchKey's tags removed, casing kept), then fall back to the raw title if no match."
+    },
+    {
+      "id": "R198",
+      "file": "provider-chains.md",
+      "quote": "Raw-title fallback compares after `game.NormalizeTitle`",
+      "rule": "Compare raw-title fallback results after applying game.NormalizeTitle."
+    },
+    {
+      "id": "R199",
+      "file": "public-project.md",
+      "quote": "Never include anything about the maintainer's own accounts, library, collection or test data",
+      "rule": "Never include anything about the maintainer's own accounts, library, collection, or test data in the repository, PRs, commits, docs, or comments."
+    },
+    {
+      "id": "R200",
+      "file": "public-project.md",
+      "quote": "Describe behaviour in general terms",
+      "rule": "Describe behaviour in general terms rather than with specifics from the maintainer's data."
+    },
+    {
+      "id": "R201",
+      "file": "public-project.md",
+      "quote": "Test fixtures use\n  invented or well-known public data, not exports of the maintainer's catalog.",
+      "rule": "Use invented or well-known public data for test fixtures, never exports of the maintainer's catalog."
+    },
+    {
+      "id": "R202",
+      "file": "public-project.md",
+      "quote": "Results from the maintainer's own data stay in the chat, never in the repository or on GitHub.",
+      "rule": "Keep results from the maintainer's own data in the chat; never put them in the repository or on GitHub."
+    },
+    {
+      "id": "R203",
+      "file": "public-project.md",
+      "quote": "Do\n  not blur or replace it on your own",
+      "rule": "Do not blur or replace the README home page screenshot (docs/images/home.jpg) on your own."
+    },
+    {
+      "id": "R204",
+      "file": "public-project.md",
+      "quote": "other screenshots stay on the demo catalog (`task screenshots`).",
+      "rule": "Keep all screenshots other than docs/images/home.jpg on the demo catalog, generated with `task screenshots`."
+    },
+    {
+      "id": "R205",
+      "file": "public-project.md",
+      "quote": "Describe the license as source-available (PolyForm Noncommercial), see [[license]].",
+      "rule": "Describe the license as source-available (PolyForm Noncommercial), not as open source."
+    },
+    {
+      "id": "R206",
+      "file": "public-project.md",
+      "quote": "before opening a PR, committing docs/specs/plans, or writing a comment, reread\nthe text for personal details and rewrite them generically.",
+      "rule": "Before opening a PR, committing docs/specs/plans, or writing a comment, reread the text for personal details and rewrite them generically."
+    },
+    {
+      "id": "R207",
+      "file": "security-model.md",
+      "quote": "**Never relax these rules** (`auth.Settings.Trusts`):",
+      "rule": "Never relax the two trusted-network rules in auth.Settings.Trusts (the proxy-header rule and the Host-header rule)."
+    },
+    {
+      "id": "R208",
+      "file": "security-model.md",
+      "quote": "Requests with proxy headers are not trusted",
+      "rule": "Do not treat requests carrying proxy headers as trusted."
+    },
+    {
+      "id": "R209",
+      "file": "security-model.md",
+      "quote": "`Host` must be an address or `localhost`",
+      "rule": "Require the Host header to be an IP address or localhost; do not accept host names as trusted."
+    },
+    {
+      "id": "R210",
+      "file": "security-model.md",
+      "quote": "`Authorization: Bearer gvt_…` reaches only `OwnershipService/CheckOwnership`",
+      "rule": "Accept Bearer gvt_ access tokens only for the OwnershipService/CheckOwnership endpoint."
+    },
+    {
+      "id": "R211",
+      "file": "security-model.md",
+      "quote": "a token request ignores the session cookie and the trusted network",
+      "rule": "When a request carries an access token, evaluate it by the token alone, ignoring the session cookie and trusted-network status."
+    },
+    {
+      "id": "R212",
+      "file": "security-model.md",
+      "quote": "other `Authorization` headers are ignored",
+      "rule": "Ignore Authorization headers that do not use the gvt_ Bearer token format."
+    },
+    {
+      "id": "R213",
+      "file": "security-model.md",
+      "quote": "unknown tokens have their own throttle counter",
+      "rule": "Track failed unknown-token attempts with a separate throttle counter from password sign-ins."
+    },
+    {
+      "id": "R214",
+      "file": "security-model.md",
+      "quote": "a valid token is looked up by hash first and always served, even while throttled",
+      "rule": "Look up presented access tokens by their hash first, and serve a valid token even while unknown-token throttling is active."
+    },
+    {
+      "id": "R215",
+      "file": "security-model.md",
+      "quote": "last use written at most once a minute",
+      "rule": "Record an access token's last-use time at most once per minute."
+    },
+    {
+      "id": "R216",
+      "file": "security-model.md",
+      "quote": "no cached validity, so revoking is immediate",
+      "rule": "Do not cache access token validity; check each token against storage so revocation takes effect immediately."
+    },
+    {
+      "id": "R217",
+      "file": "security-model.md",
+      "quote": "A token never makes a request trusted.",
+      "rule": "Never let an access token make a request count as trusted."
+    },
+    {
+      "id": "R218",
+      "file": "security-model.md",
+      "quote": "only SHA-256 stored, shown once",
+      "rule": "Store access tokens only as SHA-256 hashes and show the plaintext token only once at creation."
+    },
+    {
+      "id": "R219",
+      "file": "shell-gotchas.md",
+      "quote": "never use them as variable names",
+      "rule": "In zsh, never use `path` as a variable name, because it is tied to `$PATH`."
+    },
+    {
+      "id": "R220",
+      "file": "shell-gotchas.md",
+      "quote": "never use them as variable names",
+      "rule": "In zsh, never use `GID` as a variable name, because it is read-only."
+    },
+    {
+      "id": "R221",
+      "file": "shell-gotchas.md",
+      "quote": "Don't paste a raw BOM or other invisible characters into Go source",
+      "rule": "Never paste a raw BOM or other invisible characters into Go source code."
+    },
+    {
+      "id": "R222",
+      "file": "shell-gotchas.md",
+      "quote": "write escapes (`\\ufeff`)",
+      "rule": "When Go source needs a BOM or other invisible character, write it as an escape sequence (e.g., `\\ufeff`) instead of the raw character."
+    },
+    {
+      "id": "R223",
+      "file": "steamgriddb.md",
+      "quote": "add it anyway as a full cover",
+      "rule": "Add SteamGridDB as a full cover provider, the same way as the Fanatical provider."
+    },
+    {
+      "id": "R224",
+      "file": "steamgriddb.md",
+      "quote": "the user's own API key",
+      "rule": "Make the SteamGridDB provider use the user's own API key."
+    },
+    {
+      "id": "R225",
+      "file": "steamgriddb.md",
+      "quote": "disabled by default",
+      "rule": "Keep the SteamGridDB cover provider disabled by default."
+    },
+    {
+      "id": "R226",
+      "file": "steamgriddb.md",
+      "quote": "quotes the clause first",
+      "rule": "Make the SteamGridDB consent notice quote the Terms of Use clause first."
+    },
+    {
+      "id": "R227",
+      "file": "steamgriddb.md",
+      "quote": "accepts the risk (key revoked, account suspended), not the authors.",
+      "rule": "Word the SteamGridDB consent notice to say the user accepts the risk, not the authors."
+    },
+    {
+      "id": "R228",
+      "file": "steamgriddb.md",
+      "quote": "warnings in the README's",
+      "rule": "Add SteamGridDB warnings to the README's provider list."
+    },
+    {
+      "id": "R229",
+      "file": "steamgriddb.md",
+      "quote": "provider list and `docs/technical.md`",
+      "rule": "Add SteamGridDB warnings to docs/technical.md."
+    },
+    {
+      "id": "R230",
+      "file": "steamgriddb.md",
+      "quote": "an exception line in CLAUDE.md",
+      "rule": "Add an exception line for SteamGridDB in CLAUDE.md."
+    },
+    {
+      "id": "R231",
+      "file": "steamgriddb.md",
+      "quote": "only, never `LinksOnly`",
+      "rule": "Run the SteamGridDB provider only in the fallback pass, never as LinksOnly."
+    },
+    {
+      "id": "R232",
+      "file": "steamgriddb.md",
+      "quote": "never edition words or years",
+      "rule": "When matching SteamGridDB game titles, never use edition words or years."
+    },
+    {
+      "id": "R233",
+      "file": "telegram.md",
+      "quote": "Probe with a made-up token (bogus credentials only):",
+      "rule": "When probing the Telegram Bot API, use only a made-up (bogus) token, never real bot credentials."
+    },
+    {
+      "id": "R234",
+      "file": "telegram.md",
+      "quote": "Never send to a real chat in tests",
+      "rule": "In tests, never send messages to a real Telegram chat; use the fake server instead."
+    },
+    {
+      "id": "R235",
+      "file": "telegram.md",
+      "quote": "the message goes again as text.",
+      "rule": "If a 400 error about the image (such as \"wrong file identifier\", \"failed to get HTTP URL content\", or \"wrong type of the web page content\") occurs, resend the message as text."
+    },
+    {
+      "id": "R236",
+      "file": "telegram.md",
+      "quote": "so the pace is 3 s per connection",
+      "rule": "Pace message sends to a Telegram chat at 3 seconds per connection."
+    },
+    {
+      "id": "R237",
+      "file": "thegamesdb.md",
+      "quote": "always go through the proxy",
+      "rule": "Route TheGamesDB image requests through the local image proxy; never hotlink TheGamesDB CDN images directly."
+    },
+    {
+      "id": "R238",
+      "file": "thegamesdb.md",
+      "quote": "a 429 must never record a miss",
+      "rule": "When a TheGamesDB response is HTTP 429, never record a miss (no 'no cover' marker) for that lookup."
+    },
+    {
+      "id": "R239",
+      "file": "thegamesdb.md",
+      "quote": "Error texts don't name",
+      "rule": "Do not name TheGamesDB in error texts; sheet warnings already prefix the provider name as \"TheGamesDB: \"."
+    },
+    {
+      "id": "R240",
+      "file": "toolchain.md",
+      "quote": "is unused and can be deleted",
+      "rule": "The host's old `web/node_modules` directory may be deleted, since the container uses its own `node_modules` in a Docker volume."
+    },
+    {
+      "id": "R241",
+      "file": "toolchain.md",
+      "quote": "Never run a bare `golangci-lint run --fix`",
+      "rule": "Never run `golangci-lint run --fix` without limiting it to specific linters."
+    },
+    {
+      "id": "R242",
+      "file": "ubisoft.md",
+      "quote": "use ubisoft.com's `f35adcb5…`",
+      "rule": "Use app id `f35adcb5…` (ubisoft.com's) instead of the blocked `314d4fef…` on the public Ubisoft gateway."
+    },
+    {
+      "id": "R243",
+      "file": "ubisoft.md",
+      "quote": "Copy it from a private window",
+      "rule": "Copy the `PRODrememberMe` remember-me ticket from a private browser window."
+    },
+    {
+      "id": "R244",
+      "file": "ubisoft.md",
+      "quote": "GraphQL `limit` is at most 50.",
+      "rule": "Do not set a GraphQL `limit` above 50 in Ubisoft queries."
+    },
+    {
+      "id": "R245",
+      "file": "ubisoft.md",
+      "quote": "is asked again with the minimal query",
+      "rule": "When an answer's fields have changed shape, re-send the request using the minimal query."
+    },
+    {
+      "id": "R246",
+      "file": "ui-no-product-references.md",
+      "quote": "Text shown in the web UI (and the extension) never refers to other products to explain itself:",
+      "rule": "Never refer to other products in text shown in the web UI or the extension in order to explain it."
+    },
+    {
+      "id": "R247",
+      "file": "ui-no-product-references.md",
+      "quote": "Name only the services Game Vault actually connects to",
+      "rule": "In UI text, name only the services Game Vault actually connects to (such as Steam, Epic, GOG, or SteamGridDB)."
+    },
+    {
+      "id": "R248",
+      "file": "ui-no-product-references.md",
+      "quote": "explain behaviour in its own words.",
+      "rule": "In UI text, explain Game Vault's behaviour in its own words rather than by reference to other products."
+    },
+    {
+      "id": "R249",
+      "file": "ui-no-product-references.md",
+      "quote": "when writing en/es strings, describe what Game Vault does",
+      "rule": "When writing en or es UI strings, describe what Game Vault does."
+    },
+    {
+      "id": "R250",
+      "file": "ui-no-product-references.md",
+      "quote": "comparisons with other apps can stay in code comments, docs for contributors or memory",
+      "rule": "Comparisons with other apps may appear in code comments, contributor documentation, or memory files."
+    },
+    {
+      "id": "R251",
+      "file": "ui-no-product-references.md",
+      "quote": "never in UI copy",
+      "rule": "Never put comparisons with other apps in UI copy."
+    },
+    {
+      "id": "R252",
+      "file": "unattended-requests.md",
+      "quote": "Do not write another jitter or context-aware sleep.",
+      "rule": "Do not write a new jitter or context-aware sleep for an unattended loop; use the existing `internal/application/unattended.Rhythm` helpers instead."
+    },
+    {
+      "id": "R253",
+      "file": "unattended-requests.md",
+      "quote": "Keep it for any new unattended request.",
+      "rule": "Apply the jittered timing from `internal/application/unattended.Rhythm` to any new unattended request."
+    },
+    {
+      "id": "R254",
+      "file": "wikipedia.md",
+      "quote": "always ask for `mul`",
+      "rule": "When fetching Wikidata labels, always request the `mul` language in addition to the other languages."
+    },
+    {
+      "id": "R255",
+      "file": "wikipedia.md",
+      "quote": "only instances of Q7889 whose label/alias equals the title",
+      "rule": "When matching a game to Wikidata, only consider items that are instances of Q7889 whose label or alias equals the game's title."
+    },
+    {
+      "id": "R256",
+      "file": "wikipedia.md",
+      "quote": "game's systems (P400), or the only one when no system is known or it lists no platforms",
+      "rule": "When the game's systems are known, accept only the single matching item on those systems (P400). When no system is known or the item lists no platforms, accept the only matching item."
+    },
+    {
+      "id": "R257",
+      "file": "wikipedia.md",
+      "quote": "P577 ties go to the more precise date",
+      "rule": "When Wikidata P577 (publication date) values tie, prefer the more precise date."
+    },
+    {
+      "id": "R258",
+      "file": "wikipedia.md",
+      "quote": "regional UI languages use the primary subtag",
+      "rule": "For regional UI languages, use the primary language subtag when querying Wikipedia and Wikidata."
+    },
+    {
+      "id": "R259",
+      "file": "wikipedia.md",
+      "quote": "The summary is in the UI language when that Wikipedia has the article, else English",
+      "rule": "Use the summary in the UI language if that language's Wikipedia has the article; otherwise use the English summary."
+    },
+    {
+      "id": "R260",
+      "file": "wikipedia.md",
+      "quote": "labels follow the same fallback",
+      "rule": "Resolve game labels using the same language fallback as the summary."
+    },
+    {
+      "id": "R261",
+      "file": "wikipedia.md",
+      "quote": "genres capitalized",
+      "rule": "Capitalize genre names when displaying them."
+    },
+    {
+      "id": "R262",
+      "file": "wikipedia.md",
+      "quote": "`Applies` is false for Steam-linked games unless `q.Fallback`",
+      "rule": "Return false from Applies for Steam-linked games unless q.Fallback is set."
+    },
+    {
+      "id": "R263",
+      "file": "wikipedia.md",
+      "quote": "the sheet shows \"Source: Wikipedia\" linking to the article",
+      "rule": "Show \"Source: Wikipedia\" on the game sheet, linked to the Wikipedia article."
+    },
+    {
+      "id": "R264",
+      "file": "wikipedia.md",
+      "quote": "descriptive agent with contact info",
+      "rule": "Send a descriptive User-Agent header that includes contact information when calling Wikimedia APIs."
+    },
+    {
+      "id": "R265",
+      "file": "wikipedia.md",
+      "quote": "Requests one at a time",
+      "rule": "Send Wikimedia API requests one at a time, never in parallel."
+    },
+    {
+      "id": "R266",
+      "file": "wikipedia.md",
+      "quote": "200 ms apart",
+      "rule": "Space consecutive Wikimedia API requests at least 200 ms apart."
+    },
+    {
+      "id": "R267",
+      "file": "wikipedia.md",
+      "quote": "a 429/5xx rests it 30 s",
+      "rule": "After a 429 or 5xx response from Wikimedia APIs, pause requests for 30 seconds."
+    },
+    {
+      "id": "R268",
+      "file": "wikipedia.md",
+      "quote": "`maxlag`/`ratelimited` are treated as rate limits",
+      "rule": "Treat Wikimedia API responses with `maxlag` or `ratelimited` errors as rate-limit errors."
+    },
+    {
+      "id": "R269",
+      "file": "xbox.md",
+      "quote": "Store collections `v7.0/collections/query` requires `\"beneficiaries\": []`.",
+      "rule": "When querying Xbox Store collections at `v7.0/collections/query`, include `\"beneficiaries\": []` in the request."
+    },
+    {
+      "id": "R270",
+      "file": "xbox.md",
+      "quote": "Titles and portrait posters come from the public `displaycatalog`.",
+      "rule": "Source Xbox title names and portrait poster images from the public `displaycatalog` API."
+    }
+  ],
+  "dropped": [
+    {
+      "file": "go-style-feedback.md",
+      "quote": "documented members of a grouped declaration (interface methods, struct fields, const/var\n  blocks) are separated by a blank line",
+      "rule": "In a grouped declaration (interface methods, struct fields, or const/var blocks), separate documented members with a blank line."
+    }
+  ]
+}

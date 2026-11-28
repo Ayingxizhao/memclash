@@ -1,0 +1,190 @@
+{
+  "repo": "chewygumxx/dorothy-hermes",
+  "dir": ".claude/memory",
+  "n_files": 6,
+  "n_rules": 30,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "deploy-tuning-on-server.md",
+      "quote": "for limits and sizing, propose the change and a server check in Task 17's data capture",
+      "rule": "For limits and sizing changes, propose the change and a server check in Task 17's data capture."
+    },
+    {
+      "id": "R2",
+      "file": "deploy-tuning-on-server.md",
+      "quote": "rather than a local RED/GREEN",
+      "rule": "For limits and sizing changes, do not verify them with a local RED/GREEN test cycle."
+    },
+    {
+      "id": "R3",
+      "file": "deploy-tuning-on-server.md",
+      "quote": "Logic and security code still goes test-first.",
+      "rule": "Write logic and security code test-first."
+    },
+    {
+      "id": "R4",
+      "file": "deploy-tuning-on-server.md",
+      "quote": "or under a hostile bundle need a deliberate server check, not passive use.",
+      "rule": "For faults that only appear after weeks or under a hostile bundle, run a deliberate server check rather than relying on passive use."
+    },
+    {
+      "id": "R5",
+      "file": "local-hermes-scratch.md",
+      "quote": "The user permits modifying\nit freely; it is for reference, not use.",
+      "rule": "You may freely modify the Hermes reference install at ~/.hermes, since it is for reference rather than use."
+    },
+    {
+      "id": "R6",
+      "file": "local-hermes-scratch.md",
+      "quote": "Run code inside it with `hermes --run-module <module>`",
+      "rule": "To run code inside ~/.hermes, run `hermes --run-module <module>`, where the module file is in ~/.hermes/hermes-agent."
+    },
+    {
+      "id": "R7",
+      "file": "local-hermes-scratch.md",
+      "quote": "use `gtrash put <path>`",
+      "rule": "To delete a path under ~, use `gtrash put <path>` instead of `rm -rf`."
+    },
+    {
+      "id": "R8",
+      "file": "no-python.md",
+      "quote": "Write no Python in this repository",
+      "rule": "Do not write any Python code in this repository."
+    },
+    {
+      "id": "R9",
+      "file": "no-python.md",
+      "quote": "New scripts are TypeScript",
+      "rule": "Write new scripts in TypeScript."
+    },
+    {
+      "id": "R10",
+      "file": "no-python.md",
+      "quote": "`node:*` only",
+      "rule": "In new TypeScript scripts, import only Node.js built-in modules using the `node:` prefix."
+    },
+    {
+      "id": "R11",
+      "file": "no-python.md",
+      "quote": "bash only when TypeScript is impractical",
+      "rule": "Write a script in bash only when TypeScript is impractical."
+    },
+    {
+      "id": "R12",
+      "file": "no-python.md",
+      "quote": "Python runs only as upstream's code inside the image",
+      "rule": "Run Python only as upstream's own code inside the image, never as repository code."
+    },
+    {
+      "id": "R13",
+      "file": "no-python.md",
+      "quote": "reach for TypeScript first, even for probes run inside the image",
+      "rule": "Reach for TypeScript first, even for probes run inside the image."
+    },
+    {
+      "id": "R14",
+      "file": "no-python.md",
+      "quote": "inline the minimum into a shell heredoc",
+      "rule": "When only upstream's Python can answer a question, inline the minimum needed into a shell heredoc."
+    },
+    {
+      "id": "R15",
+      "file": "no-python.md",
+      "quote": "say why in a comment",
+      "rule": "When inlining Python into a shell heredoc, explain why in a comment."
+    },
+    {
+      "id": "R16",
+      "file": "no-python.md",
+      "quote": "Python tooling installed by mise (uv, yamllint) is fine",
+      "rule": "Python tooling installed by mise, such as uv or yamllint, is allowed."
+    },
+    {
+      "id": "R17",
+      "file": "plan-review-status.md",
+      "quote": "trust it and `git log` after compaction",
+      "rule": "After context compaction, trust the progress.md ledger and the git log as the source of execution state."
+    },
+    {
+      "id": "R18",
+      "file": "plan-review-status.md",
+      "quote": "Resume at the first task without a\n`Task N: complete` line",
+      "rule": "When resuming plan execution, start at the first task that has no `Task N: complete` line in the progress ledger."
+    },
+    {
+      "id": "R19",
+      "file": "plan-review-status.md",
+      "quote": "Task 17 is human-in-the-loop",
+      "rule": "Do not carry out Task 17 steps on your own; they require the user to participate."
+    },
+    {
+      "id": "R20",
+      "file": "plan-review-status.md",
+      "quote": "secrets typed by the user with `dotenvx set`",
+      "rule": "Have the user enter secrets themselves using `dotenvx set`, rather than entering them yourself."
+    },
+    {
+      "id": "R21",
+      "file": "plan-review-status.md",
+      "quote": "run docker through `/tmp/dk`",
+      "rule": "Run docker commands through `/tmp/dk` until the shell has a fresh login that includes the docker group."
+    },
+    {
+      "id": "R22",
+      "file": "plan-review-status.md",
+      "quote": "read the ledger before acting",
+      "rule": "Read the progress ledger before taking any action on this plan."
+    },
+    {
+      "id": "R23",
+      "file": "subagent-ledger.md",
+      "quote": "Brief every subagent with the ledger protocol in",
+      "rule": "When briefing any subagent, include the ledger protocol from docs/agents/subagent-ledger.md in the brief."
+    },
+    {
+      "id": "R24",
+      "file": "subagent-ledger.md",
+      "quote": "paste its \"Brief to paste\" block",
+      "rule": "When briefing a subagent with the ledger protocol, paste the \"Brief to paste\" block from docs/agents/subagent-ledger.md."
+    },
+    {
+      "id": "R25",
+      "file": "subagent-ledger.md",
+      "quote": "with a run\ndir under",
+      "rule": "When briefing a subagent with the ledger protocol, give it a run directory under ${XDG_STATE_HOME:-$HOME/.local/state}/agent-ledger/dorothy-hermes/<run>/."
+    },
+    {
+      "id": "R26",
+      "file": "subagent-ledger.md",
+      "quote": "create the run dir before spawning",
+      "rule": "Create the subagent's run directory before spawning the subagent."
+    },
+    {
+      "id": "R27",
+      "file": "subagent-ledger.md",
+      "quote": "on an early stop, reduce\nthe ledger with the doc's `jq` recipe",
+      "rule": "When a subagent stops early, reduce its ledger using the jq recipe in docs/agents/subagent-ledger.md."
+    },
+    {
+      "id": "R28",
+      "file": "subagent-ledger.md",
+      "quote": "relaunch fresh on uncovered items\nrather than resuming the dead agent",
+      "rule": "After an early subagent stop, relaunch a fresh subagent on the uncovered items instead of resuming the dead agent."
+    },
+    {
+      "id": "R29",
+      "file": "threat-model-includes-owner.md",
+      "quote": "when a failure needs the owner to act wrongly, propose a\nmechanical guard (ruleset, CI check, refusal in code) rather than dismissing\nit.",
+      "rule": "When a failure requires the repo owner to act wrongly, propose a mechanical guard (such as a GitHub ruleset, CI check, or refusal in code) rather than dismissing the failure as out of scope."
+    },
+    {
+      "id": "R30",
+      "file": "threat-model-includes-owner.md",
+      "quote": "The user's own mistakes (e.g. committing a .gitignore to dorothy-memory)\nbelong in the threat model",
+      "rule": "Treat the user's own mistakes and negligence as part of the threat model rather than ruling them outside it."
+    }
+  ],
+  "dropped": []
+}

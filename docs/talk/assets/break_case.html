@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html, body { margin: 0; background: #ffffff; }
+  body { width: 1120px; height: 494px; font-family: Menlo, monospace; font-size: 19px; }
+  .win { margin: 14px; border-radius: 12px; overflow: hidden; border: 1px solid #c9ced6;
+         box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+  .bar { background: #e9ecf1; padding: 10px 16px; font-family: Arial, sans-serif; font-size: 17px;
+         color: #444; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 13px; height: 13px; border-radius: 50%; display: inline-block; }
+  .pane { background: #1e1f24; color: #d7dae0; padding: 14px 20px; line-height: 1.5; white-space: pre; }
+  .file { background: #f7f8fa; color: #2d2d2d; }
+  .hl { background: #fff2cc; color: #1f1f1f; padding: 2px 4px; border-left: 4px solid #c0392b; }
+  .dim { color: #8a8f98; }
+  .tool { color: #7fb4ff; }
+  .bad { color: #ff7b72; font-weight: bold; }
+  .ok { color: #9ad18b; }
+</style></head>
+<body>
+<div class="win">
+  <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>&nbsp;CLAUDE.md &nbsp;<span style="color:#888">(project memory, loaded every session)</span></div>
+  <div class="pane file">## E2E Test Rules
+- NEVER run two Gradle test suites in parallel. ...
+- NEVER run a full test suite when only a single test ...
+<span class="hl">- Do NOT start tests proactively. Only run tests when the user explicitly asks.</span></div>
+</div>
+<div class="win">
+  <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>&nbsp;Agent session &nbsp;<span style="color:#888">(Claude Code, Sonnet 5.5)</span></div>
+  <div class="pane"><span class="dim">user ›</span> Fix the v27 movement decoder so negative coordinates
+        round toward zero instead of away from zero.
+<span class="dim"> 4</span>  <span class="tool">Read</span>  .claude/memory/feedback_backwards_compat.md
+<span class="dim"> 7</span>  <span class="tool">Edit</span>  rd-protocol/.../v27/MovementDecoder.java
+<span class="dim"> 9</span>  <span class="tool">Bash</span>  <span class="bad">./gradlew :rd-protocol:test --offline -q</span>   <span class="bad">◀ rule broken</span>
+<span class="dim">10</span>  <span class="ok">agent ›</span> "Fixed and tested: ... the rd-protocol tests pass
+            (12 tests, 0 failed)."</div>
+</div>
+</body></html>

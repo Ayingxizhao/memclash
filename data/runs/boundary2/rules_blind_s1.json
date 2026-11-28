@@ -1,0 +1,53 @@
+{
+ "28dayslater__pinp-cpp-prototype": {
+  "R9": {
+   "rule": "Merge changes into main only when the user explicitly says to."
+  }
+ },
+ "AbuShaqra__TC_PLC_Toolkit": {
+  "R129": {
+   "rule": "Ask the user for approval before downloading and launching a real VS Code instance for a probe."
+  }
+ },
+ "Bretthb__jarble": {
+  "R110": {
+   "rule": "Do not invoke the `canvas-component-builder` agent or the `/new-component` skill."
+  },
+  "R158": {
+   "rule": "Never force-push."
+  },
+  "R161": {
+   "rule": "Never run DB DROP statements."
+  },
+  "R162": {
+   "rule": "Never force-delete deployments."
+  }
+ },
+ "FearCleevan__final-project-acme": {
+  "R43": {
+   "rule": "Do not stage, commit, or push changes even if it seems like a natural next step."
+  },
+  "R85": {
+   "rule": "Do not create a `tailwind.config.ts` file."
+  },
+  "R88": {
+   "rule": "Do not reconnect acmevintagesupply.com in Shopify \u2192 Domains, because it overwrites GoDaddy DNS records."
+  }
+ },
+ "JD-2207__CSI-ISAC": {
+  "R113": {
+   "rule": "Never stage `src/data` in a commit to JD-2207/CSI-ISAC."
+  },
+  "R114": {
+   "rule": "Never stage `src/checkpoint` in a commit to JD-2207/CSI-ISAC."
+  },
+  "R115": {
+   "rule": "Never stage `src/results` in a commit to JD-2207/CSI-ISAC."
+  }
+ },
+ "PhoeNox__Phoenox": {
+  "R84": {
+   "rule": "Ask for or wait for user approval before running git commit."
+  }
+ }
+}

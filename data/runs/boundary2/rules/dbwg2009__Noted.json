@@ -1,0 +1,532 @@
+{
+  "repo": "dbwg2009/Noted",
+  "dir": ".claude/memory",
+  "n_files": 8,
+  "n_rules": 87,
+  "n_dropped": 0,
+  "rules": [
+    {
+      "id": "R1",
+      "file": "feedback_branches.md",
+      "quote": "Every branch is tied to an issue — open the issue first, then create the branch from it.",
+      "rule": "Before creating any branch, open an issue for the work first, then create the branch from that issue."
+    },
+    {
+      "id": "R2",
+      "file": "feedback_branches.md",
+      "quote": "Phase work: `phase-N-short-description` (e.g. `phase-8-group-gifts`)",
+      "rule": "Name phase work branches as `phase-N-short-description`."
+    },
+    {
+      "id": "R3",
+      "file": "feedback_branches.md",
+      "quote": "Bug fixes: decide the name based on the issue (e.g. `fix-share-url` or `fix/share-url`) — no rigid convention, just keep it descriptive",
+      "rule": "Name bug fix branches descriptively based on the issue, with no rigid convention."
+    },
+    {
+      "id": "R4",
+      "file": "feedback_branches.md",
+      "quote": "Always branch from `Development` unless the user explicitly says otherwise.",
+      "rule": "Create branches from `Development` unless the user explicitly instructs otherwise."
+    },
+    {
+      "id": "R5",
+      "file": "feedback_branches.md",
+      "quote": "Never branch from `main`.",
+      "rule": "Never create a branch from `main`."
+    },
+    {
+      "id": "R6",
+      "file": "feedback_branches.md",
+      "quote": "All branches PR into `Development`.",
+      "rule": "Open pull requests for all branches targeting `Development`."
+    },
+    {
+      "id": "R7",
+      "file": "feedback_branches.md",
+      "quote": "Only `Development` ever PRs into `main`.",
+      "rule": "Only `Development` may be used to open a pull request into `main`."
+    },
+    {
+      "id": "R8",
+      "file": "feedback_branches.md",
+      "quote": "No other branch types — no `infra/`, `docs/`, `chore/` etc.",
+      "rule": "Do not create branch types other than phase work and bug fix branches (no `infra/`, `docs/`, `chore/` prefixes)."
+    },
+    {
+      "id": "R9",
+      "file": "feedback_branches.md",
+      "quote": "Flag them and ask the user before deleting.",
+      "rule": "When stale branches are found, flag them and ask the user before deleting any of them."
+    },
+    {
+      "id": "R10",
+      "file": "feedback_branches.md",
+      "quote": "Never delete a branch unilaterally unless it was just merged as part of the release cleanup checklist.",
+      "rule": "Never delete a branch on your own initiative, except branches just merged as part of the release cleanup checklist."
+    },
+    {
+      "id": "R11",
+      "file": "feedback_branches.md",
+      "quote": "After spotting stale branches via `git branch -r`, list them and ask the user which to delete",
+      "rule": "After spotting stale branches via `git branch -r`, list them and ask the user which to delete."
+    },
+    {
+      "id": "R12",
+      "file": "feedback_branches.md",
+      "quote": "`git push origin --delete <branch>` only after user confirms or as part of post-release cleanup",
+      "rule": "Run `git push origin --delete <branch>` only after the user confirms or as part of post-release cleanup."
+    },
+    {
+      "id": "R13",
+      "file": "feedback_commits.md",
+      "quote": "Conventional commits with a type prefix, imperative subject, optional why-body.",
+      "rule": "Format every commit message as a conventional commit: a type prefix, an imperative subject, and an optional body explaining why."
+    },
+    {
+      "id": "R14",
+      "file": "feedback_commits.md",
+      "quote": "`feat:` — new feature or phase work",
+      "rule": "Use the `feat:` prefix for commits that add a new feature or phase work."
+    },
+    {
+      "id": "R15",
+      "file": "feedback_commits.md",
+      "quote": "`fix:` — bug fix",
+      "rule": "Use the `fix:` prefix for commits that fix a bug."
+    },
+    {
+      "id": "R16",
+      "file": "feedback_commits.md",
+      "quote": "`chore:` — version bumps, config, dependencies",
+      "rule": "Use the `chore:` prefix for commits that bump versions, change config, or change dependencies."
+    },
+    {
+      "id": "R17",
+      "file": "feedback_commits.md",
+      "quote": "`docs:` — design docs, README, CHANGELOG only",
+      "rule": "Use the `docs:` prefix only for commits that change design docs, the README, or the CHANGELOG."
+    },
+    {
+      "id": "R18",
+      "file": "feedback_commits.md",
+      "quote": "`refactor:` — code change, no behaviour change",
+      "rule": "Use the `refactor:` prefix for code changes that do not change behaviour."
+    },
+    {
+      "id": "R19",
+      "file": "feedback_commits.md",
+      "quote": "**CHANGELOG:** Update on every commit — no exceptions, including typo fixes and chores.",
+      "rule": "Update CHANGELOG.md on every commit, with no exceptions, including typo fixes and chores."
+    },
+    {
+      "id": "R20",
+      "file": "feedback_commits.md",
+      "quote": "Do **not** bump manually.",
+      "rule": "Do not manually bump the version in package.json."
+    },
+    {
+      "id": "R21",
+      "file": "feedback_commits.md",
+      "quote": "do not preemptively bump `package.json` on feature branches.",
+      "rule": "Do not preemptively bump package.json on feature branches."
+    },
+    {
+      "id": "R22",
+      "file": "feedback_commits.md",
+      "quote": "fix `.github/release-please-manifest.json` to match the latest shipped tag",
+      "rule": "If the Release Please manifest drifts after an out-of-band release, fix .github/release-please-manifest.json to match the latest shipped tag."
+    },
+    {
+      "id": "R23",
+      "file": "feedback_commits.md",
+      "quote": "If one entry is enormous or automation stalls, flag the user — do not delete history silently.",
+      "rule": "If a CHANGELOG entry is enormous or CHANGELOG compaction automation stalls, flag it to the user and do not delete history silently."
+    },
+    {
+      "id": "R24",
+      "file": "feedback_commits.md",
+      "quote": "Every commit: update `CHANGELOG.md` first, then commit with the right prefix",
+      "rule": "For every commit, update CHANGELOG.md first, then commit with the correct prefix."
+    },
+    {
+      "id": "R25",
+      "file": "feedback_commits.md",
+      "quote": "If CHANGELOG is approaching 300 lines, flag it before the next commit",
+      "rule": "If CHANGELOG.md is approaching 300 lines, flag it to the user before the next commit."
+    },
+    {
+      "id": "R26",
+      "file": "feedback_github_issues.md",
+      "quote": "Assign relevant **labels** (e.g. `enhancement`, `bug`, `phase`, `stretch`)",
+      "rule": "When opening a GitHub issue, assign relevant labels to it (e.g. enhancement, bug, phase, stretch)."
+    },
+    {
+      "id": "R27",
+      "file": "feedback_github_issues.md",
+      "quote": "Assign **dbwg2009** as the assignee",
+      "rule": "When opening a GitHub issue, assign dbwg2009 as the assignee."
+    },
+    {
+      "id": "R28",
+      "file": "feedback_github_issues.md",
+      "quote": "Link to the relevant **milestone** if one exists",
+      "rule": "When opening a GitHub issue, link it to the relevant milestone if one exists."
+    },
+    {
+      "id": "R29",
+      "file": "feedback_github_issues.md",
+      "quote": "Link to the relevant **branch** in the body if work is in progress",
+      "rule": "When opening a GitHub issue for work in progress, link the relevant branch in the issue body."
+    },
+    {
+      "id": "R30",
+      "file": "feedback_github_issues.md",
+      "quote": "Assign relevant **labels** (e.g. `enhancement` for new features, `bug` for fixes, `phase` for build-phase work, `done` when merged)",
+      "rule": "When opening a GitHub PR, assign relevant labels to it (e.g. enhancement for new features, bug for fixes, phase for build-phase work, done when merged)."
+    },
+    {
+      "id": "R31",
+      "file": "feedback_github_issues.md",
+      "quote": "Assign **dbwg2009** as the assignee",
+      "rule": "When opening a GitHub PR, assign dbwg2009 as the assignee."
+    },
+    {
+      "id": "R32",
+      "file": "feedback_github_issues.md",
+      "quote": "Always target **Development**, never main",
+      "rule": "Always target the Development branch when opening a GitHub PR, never main."
+    },
+    {
+      "id": "R33",
+      "file": "feedback_github_issues.md",
+      "quote": "Reference the related issue in the body",
+      "rule": "When opening a GitHub PR, reference the related issue in the PR body."
+    },
+    {
+      "id": "R34",
+      "file": "feedback_github_issues.md",
+      "quote": "Post **progress updates as comments** on the issue",
+      "rule": "While work on an issue is in progress, post progress updates as comments on the issue."
+    },
+    {
+      "id": "R35",
+      "file": "feedback_github_issues.md",
+      "quote": "**Never close an issue** until the user explicitly says they are happy with it.",
+      "rule": "Never close an issue until the user explicitly says they are happy with it."
+    },
+    {
+      "id": "R36",
+      "file": "feedback_github_issues.md",
+      "quote": "Only run `gh issue close` after the user confirms",
+      "rule": "Only run gh issue close after the user has confirmed."
+    },
+    {
+      "id": "R37",
+      "file": "feedback_issues.md",
+      "quote": "Every piece of work gets an issue unless the user says otherwise.",
+      "rule": "Open a GitHub issue for every piece of work unless the user says otherwise."
+    },
+    {
+      "id": "R38",
+      "file": "feedback_issues.md",
+      "quote": "Use the GitHub issue templates (Feature for phases/enhancements, Bug for breaks)",
+      "rule": "Use the Feature GitHub issue template for phases/enhancements and the Bug template for breaks when opening issues."
+    },
+    {
+      "id": "R39",
+      "file": "feedback_issues.md",
+      "quote": "apply at discretion based on context (bug, enhancement, phase, stretch, etc.)",
+      "rule": "Apply GitHub issue labels (e.g., bug, enhancement, phase, stretch) at discretion based on context."
+    },
+    {
+      "id": "R40",
+      "file": "feedback_issues.md",
+      "quote": "Always post progress comments to keep the issue up to date",
+      "rule": "Always post progress comments on the GitHub issue to keep it up to date."
+    },
+    {
+      "id": "R41",
+      "file": "feedback_issues.md",
+      "quote": "never go silent mid-task",
+      "rule": "Never go silent mid-task; keep posting progress updates on the issue while work is in progress."
+    },
+    {
+      "id": "R42",
+      "file": "feedback_issues.md",
+      "quote": "Never close an issue without the user's explicit sign-off.",
+      "rule": "Never close a GitHub issue without the user's explicit sign-off."
+    },
+    {
+      "id": "R43",
+      "file": "feedback_issues.md",
+      "quote": "`gh issue comment <n> --body \"...\"` for every meaningful progress step",
+      "rule": "Run `gh issue comment <n> --body \"...\"` for every meaningful progress step on an issue."
+    },
+    {
+      "id": "R44",
+      "file": "feedback_issues.md",
+      "quote": "Only run `gh issue close` after the user confirms satisfaction",
+      "rule": "Run `gh issue close` only after the user confirms satisfaction with the work."
+    },
+    {
+      "id": "R45",
+      "file": "feedback_planning.md",
+      "quote": "Read the relevant design doc (`V2_DESIGN.md` etc.) and summarise the scope in plain English",
+      "rule": "For new phases or significant features, read the relevant design doc and summarise the scope in plain English before building."
+    },
+    {
+      "id": "R46",
+      "file": "feedback_planning.md",
+      "quote": "Ask the user if they want to change anything about the scope",
+      "rule": "For new phases or significant features, ask the user whether they want to change anything about the scope."
+    },
+    {
+      "id": "R47",
+      "file": "feedback_planning.md",
+      "quote": "Ask all clarifying questions upfront in a single numbered list",
+      "rule": "For new phases or significant features, ask all clarifying questions upfront in a single numbered list."
+    },
+    {
+      "id": "R48",
+      "file": "feedback_planning.md",
+      "quote": "Wait for explicit \"go ahead\" (or equivalent) before writing a single line of code",
+      "rule": "For new phases or significant features, wait for the user's explicit go-ahead before writing any code."
+    },
+    {
+      "id": "R49",
+      "file": "feedback_planning.md",
+      "quote": "finishing Q&A is not enough",
+      "rule": "Do not treat finishing the Q&A as permission to start building; wait for the explicit go-ahead."
+    },
+    {
+      "id": "R50",
+      "file": "feedback_planning.md",
+      "quote": "No planning round needed — just get on with it",
+      "rule": "For small changes (bug fixes, minor UI tweaks), do not run a planning round; proceed directly with the work."
+    },
+    {
+      "id": "R51",
+      "file": "feedback_planning.md",
+      "quote": "Never start building after Q&A alone — wait for the explicit go-ahead",
+      "rule": "Never start building after Q&A alone; wait for the explicit go-ahead."
+    },
+    {
+      "id": "R52",
+      "file": "feedback_planning.md",
+      "quote": "Keep the scope summary concise (3-5 bullet points max)",
+      "rule": "Keep the scope summary to 3-5 bullet points maximum."
+    },
+    {
+      "id": "R53",
+      "file": "feedback_planning.md",
+      "quote": "All questions in one message, numbered, no follow-up question rounds",
+      "rule": "Put all clarifying questions in one numbered message, with no follow-up question rounds."
+    },
+    {
+      "id": "R54",
+      "file": "feedback_pr_target.md",
+      "quote": "Always PR to the **Development** branch for testing, never directly to main.",
+      "rule": "When opening a pull request, always target the Development branch for testing, never main."
+    },
+    {
+      "id": "R55",
+      "file": "feedback_pr_target.md",
+      "quote": "On every `gh pr create`, always pass `--base Development`.",
+      "rule": "On every `gh pr create` invocation, always pass `--base Development`."
+    },
+    {
+      "id": "R56",
+      "file": "feedback_pr_target.md",
+      "quote": "Never use `--base main`.",
+      "rule": "Never use `--base main` when creating a pull request."
+    },
+    {
+      "id": "R57",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Do NOT open a PR unless the user explicitly says to. When in doubt, ask first.",
+      "rule": "Do not open a pull request unless the user explicitly says to; when in doubt, ask the user first."
+    },
+    {
+      "id": "R58",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Always `--base Development`, never main",
+      "rule": "When opening a feature branch PR, always target the Development branch as the base, never main."
+    },
+    {
+      "id": "R59",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Always assign dbwg2009, relevant labels, and milestone",
+      "rule": "When opening a PR, always assign dbwg2009, add relevant labels, and set a milestone."
+    },
+    {
+      "id": "R60",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Always reference the related issue in the body (`Closes #N`)",
+      "rule": "Always reference the related issue in the PR body using Closes #N."
+    },
+    {
+      "id": "R61",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Post a progress comment on the issue when the PR is opened",
+      "rule": "Post a progress comment on the related issue when a PR is opened."
+    },
+    {
+      "id": "R62",
+      "file": "feedback_pr_workflow.md",
+      "quote": "After opening, wait for bot comments to appear on the PR (e.g. Release Please, Codecov, Socket Security), then read them all",
+      "rule": "After opening a PR, wait for bot comments to appear and then read all of them."
+    },
+    {
+      "id": "R63",
+      "file": "feedback_pr_workflow.md",
+      "quote": "If any bot flags issues or suggests changes, address them and push fixes",
+      "rule": "If any bot flags issues or suggests changes on a PR, address them and push fixes."
+    },
+    {
+      "id": "R64",
+      "file": "feedback_pr_workflow.md",
+      "quote": "After addressing, re-read the PR comments to confirm no outstanding issues remain",
+      "rule": "After addressing bot feedback, re-read the PR comments to confirm no outstanding issues remain."
+    },
+    {
+      "id": "R65",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Then prompt the user to review the PR",
+      "rule": "After confirming no outstanding PR issues remain, prompt the user to review the PR."
+    },
+    {
+      "id": "R66",
+      "file": "feedback_pr_workflow.md",
+      "quote": "I can merge feature → Development PRs once the user has reviewed and approved",
+      "rule": "Merge feature→Development PRs only after the user has reviewed and approved them."
+    },
+    {
+      "id": "R67",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Only opened when the user says they are happy with a phase and it can go to main",
+      "rule": "Open a Development→main PR only when the user says they are happy with a phase and it can go to main."
+    },
+    {
+      "id": "R68",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Wait for the user to merge it themselves — I do not merge Development → main",
+      "rule": "Never merge a Development→main PR; wait for the user to merge it themselves."
+    },
+    {
+      "id": "R69",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Create a new GitHub release (tag format `vMAJOR.MINOR.PATCH`, `--latest`)",
+      "rule": "After the user confirms a Development→main merge, create a new GitHub release with a vMAJOR.MINOR.PATCH tag marked --latest."
+    },
+    {
+      "id": "R70",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Close the related issue",
+      "rule": "After the user confirms a Development→main merge and the release is created, close the related issue."
+    },
+    {
+      "id": "R71",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Close the corresponding milestone (`gh api repos/dbwg2009/Noted/milestones/<n> -X PATCH -f state=closed`)",
+      "rule": "After the user confirms a Development→main merge, close the corresponding milestone via the GitHub API."
+    },
+    {
+      "id": "R72",
+      "file": "feedback_pr_workflow.md",
+      "quote": "Delete stray feature branches (keep Development and main)",
+      "rule": "After the user confirms a Development→main merge, delete stray feature branches while keeping Development and main."
+    },
+    {
+      "id": "R73",
+      "file": "feedback_releases.md",
+      "quote": "A release MUST be cut for every push or PR that lands on main that changes code.",
+      "rule": "Cut a release for every push or PR that lands on main and changes code."
+    },
+    {
+      "id": "R74",
+      "file": "feedback_releases.md",
+      "quote": "Docs-only changes (CLAUDE.md, GEMINI.md, memory files, design docs, README) do not need a release.",
+      "rule": "Do not cut a release for docs-only changes (CLAUDE.md, GEMINI.md, memory files, design docs, README)."
+    },
+    {
+      "id": "R75",
+      "file": "feedback_releases.md",
+      "quote": "Release Please** owns **`package.json`** and the manifest — agents do **not** bump `\"version\"` on feature branches.",
+      "rule": "Do not bump the \"version\" in package.json on feature branches; Release Please owns package.json and the release manifest."
+    },
+    {
+      "id": "R76",
+      "file": "feedback_releases.md",
+      "quote": "`MAJOR` — ONLY when the user explicitly asks (use a breaking-change conventional commit when doing so).",
+      "rule": "Bump the MAJOR version only when the user explicitly asks, and use a breaking-change conventional commit when doing so."
+    },
+    {
+      "id": "R77",
+      "file": "feedback_releases.md",
+      "quote": "Never bump major on your own initiative under any circumstances.",
+      "rule": "Never bump the major version on your own initiative under any circumstances."
+    },
+    {
+      "id": "R78",
+      "file": "feedback_releases.md",
+      "quote": "`MINOR` — every completed phase (e.g. v1.4.0 for Phase 8), normally via `feat:` commits on `main`",
+      "rule": "Bump the MINOR version for every completed phase, normally via feat: commits on main."
+    },
+    {
+      "id": "R79",
+      "file": "feedback_releases.md",
+      "quote": "`PATCH` — every bug fix or non-phase change that lands on main (e.g. v1.3.1), via `fix:` / non-feature commits",
+      "rule": "Bump the PATCH version for every bug fix or non-phase change that lands on main, via fix: or non-feature commits."
+    },
+    {
+      "id": "R80",
+      "file": "feedback_releases.md",
+      "quote": "A short, plain-English summary paragraph (1-3 sentences, human-readable, no jargon)",
+      "rule": "Begin release notes with a short plain-English summary paragraph of 1-3 sentences, human-readable with no jargon."
+    },
+    {
+      "id": "R81",
+      "file": "feedback_releases.md",
+      "quote": "A bullet list with more detail and technical specifics",
+      "rule": "Follow the release note summary with a bullet list giving more detail and technical specifics."
+    },
+    {
+      "id": "R82",
+      "file": "feedback_releases.md",
+      "quote": "mention the issue number (e.g. \"fixes #42\") but do not link the closed issue for non-bug releases.",
+      "rule": "In bug-fix release notes, mention the issue number (e.g. \"fixes #42\")."
+    },
+    {
+      "id": "R83",
+      "file": "feedback_releases.md",
+      "quote": "do not link the closed issue for non-bug releases.",
+      "rule": "Do not link the closed issue in release notes for non-bug releases."
+    },
+    {
+      "id": "R84",
+      "file": "feedback_releases.md",
+      "quote": "After feature work is on `main`, **merge the Release Please release PR** when it appears",
+      "rule": "After feature work is on main, merge the Release Please release PR when it appears."
+    },
+    {
+      "id": "R85",
+      "file": "feedback_releases.md",
+      "quote": "Keep **conventional commits** on `main` so Release Please computes the right semver.",
+      "rule": "Keep conventional commits on main so Release Please computes the correct semver."
+    },
+    {
+      "id": "R86",
+      "file": "feedback_releases.md",
+      "quote": "**Manual:** `gh release create` or `release.yml` only when not using the Release Please PR for that ship.",
+      "rule": "Use gh release create or release.yml for manual releases only when not using the Release Please PR for that release."
+    },
+    {
+      "id": "R87",
+      "file": "feedback_releases.md",
+      "quote": "If the manifest drifts after an out-of-band release, align **`.github/release-please-manifest.json`** with the latest shipped tag (see `CLAUDE.md`).",
+      "rule": "If the manifest drifts after an out-of-band release, align .github/release-please-manifest.json with the latest shipped tag."
+    }
+  ],
+  "dropped": []
+}

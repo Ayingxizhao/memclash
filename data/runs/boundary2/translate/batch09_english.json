@@ -1,0 +1,254 @@
+{
+ "rules": [
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R123",
+   "rule": "When a run stops at its --stop-after limit, leave the checkpoint on disk."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R124",
+   "rule": "When a run stops at its --stop-after limit, do not write the final output."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R126",
+   "rule": "Do not run `pip install` inside a loader container attached to the noorinalabs_backend network at runtime; deps must be baked into the image at build time."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R128",
+   "rule": "Run the staging loader container attached to the noorinalabs_backend docker network."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R130",
+   "rule": "Never commit Neo4j secrets or passwords to the repository."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R133",
+   "rule": "Use /tmp rather than /home/deploy for writing files on the staging host."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R134",
+   "rule": "Apply loads to production only with explicit owner sign-off."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R139",
+   "rule": "When a node keying change means the loader will not MERGE, delete the existing nodes and then load to avoid stale duplicates."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R145",
+   "rule": "Run a cross-corpus deduplication audit on the Shia content before cutting over to production."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R31",
+   "rule": "When A/B-testing a fix against a base ref, swap the file content (e.g., with git show <ref>:<path>) rather than using git stash."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R38",
+   "rule": "When regenerating the structural ontology index locally, run `python3 scripts/structural_ontology.py emit`, not `uv run python \u2026`."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R45",
+   "rule": "To see real data, use a local Docker Neo4j instance instead of the staging box."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R46",
+   "rule": "Re-verify `docker info` when container work suddenly fails, since Docker WSL integration can silently revert."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R47",
+   "rule": "Do not spend wave time trying to enable Docker-in-WSL2; treat it as an environment/owner action outside scope."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R74",
+   "rule": "Do not use an edge-connectivity query to check whether Chain nodes are populated."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R75",
+   "rule": "Verify Chain node population by checking `c.chain_length` or `size(c.narrator_ids)`."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R76",
+   "rule": "To recover/resume a crashed disambiguate run, use `resolve --from-step disambiguate` so NER is skipped and the existing narrator_mentions_resolved.parquet is reused verbatim."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R77",
+   "rule": "Do not use a bare `resolve` re-run to resume a crashed disambiguate run, since it regenerates NER mention_ids and forces a cold start of the checkpoint."
+  },
+  {
+   "folder": "noorinalabs__noorinalabs-data-acquisition",
+   "id": "R84",
+   "rule": "To determine whether two names merge, run `_can_merge` instead of relying on a lexical heuristic."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R10",
+   "rule": "Before implementing ENGINE_CHANGEs or strategy rewrites, present the design for user review and do not write code until it is reviewed."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R11",
+   "rule": "For any significant code change (new strategy logic, engine modifications, multi-file refactors), use EnterPlanMode or present a structured plan, and wait for approval before launching go-architect or writing code."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R22",
+   "rule": "Verify the filer CIKs in sec/filer_config.go against live EDGAR before using them in production."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R23",
+   "rule": "To backfill 13F filings, run `go run ./cmd/omo-backfill-13f` with `--from-quarter` set to the starting quarter and `--user-agent` set to a company name and contact email."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R25",
+   "rule": "When the IB Gateway login screen is stuck, check that TWS_USERID and TWS_PASSWORD are set in .env."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R27",
+   "rule": "When the multi-account selector dialog blocks auto-login on IB Gateway staging, log in with the paper-specific login staging100 instead."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R4",
+   "rule": "Only rebuild omo-core when Go source code changes."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R8",
+   "rule": "Never run omo-data as a local tmux process."
+  },
+  {
+   "folder": "ridopark__oh-my-opentrade",
+   "id": "R9",
+   "rule": "When manually triggering omo-data, use `docker compose run --rm omo-data --run-once`."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R11",
+   "rule": "Delegate downloads, model pulls, and other human-executable tasks to the user instead of running them via Bash."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R14",
+   "rule": "Before making any change, check whether a GitHub issue already exists for it by running `gh issue list --repo vipulbms/crypto-trader-agent`."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R20",
+   "rule": "Investigate and confirm the root cause before creating a GitHub issue or making a fix."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R21",
+   "rule": "Run the full test suite before committing, and ensure all tests pass."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R45",
+   "rule": "Save all tests, regardless of who writes them, in the `tests/` folder so they can be found, rerun, and extended in future sessions."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R46",
+   "rule": "Never write test logic as inline `python3 -c` scripts when validating a real feature; write it to `tests/test_<feature>.py` instead."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R5",
+   "rule": "Before executing a git commit, prepare the commit message for review, unless the user says \"commit\" directly or invokes /commit."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R50",
+   "rule": "When making any code or config change, consult this project context to understand the full system."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R65",
+   "rule": "The /commit skill must never stage .env, data, or logs files."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R7",
+   "rule": "Only execute a commit when the user asks for it."
+  },
+  {
+   "folder": "vipulbms__crypto-trader-agent",
+   "id": "R9",
+   "rule": "When the user opens agent.log, read it to diagnose the issue."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R38",
+   "rule": "Leave the user's fork branches in place."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R39",
+   "rule": "Delete fork branches only when the user explicitly requests it for that specific case."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R42",
+   "rule": "Reclaim the on-disk build/ and vendor/ duplicates of a retained branch or worktree, while keeping the branch ref and tracked diff."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R63",
+   "rule": "Before implementing any new SNES ROM in the compiler stress-test battery, read docs/snes-demo-cookbook.md."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R66",
+   "rule": "Rebuild the toolchain from the committed patches by running dev/run.sh toolchain."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R71",
+   "rule": "When de-XFAILing a stale XFAIL, make no compiler change."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R77",
+   "rule": "Use dev/regen-patch.sh to verify the worktree against the committed patches."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R80",
+   "rule": "When tearing down a feature or investigation worktree, never delete the core scripts used to determine results."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R82",
+   "rule": "Retain a worktree until its work merges upstream."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R84",
+   "rule": "Reclaim a kept worktree's build/ and vendor/ duplicates without removing the worktree itself."
+  },
+  {
+   "folder": "wbniv__llvm-mos-65816",
+   "id": "R85",
+   "rule": "Treat a worktree's build/ directory as always safe to delete, since it contains only compiled output."
+  }
+ ]
+}
